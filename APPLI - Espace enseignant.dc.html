@@ -1,0 +1,2528 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;600;700&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Great+Vibes&family=Allura&display=swap" />
+<style>
+body{margin:0;background:#f4f6f9}
+@keyframes tremble{0%,100%{transform:translateX(0)}20%{transform:translateX(-5px)}40%{transform:translateX(5px)}60%{transform:translateX(-3px)}80%{transform:translateX(3px)}}
+@keyframes battement{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+a{color:#1682a0}
+a:hover{color:#12233b}
+input,select,button{font-family:inherit}
+@keyframes pulseq{0%,100%{opacity:1}50%{opacity:0.35}}
+.om-print{display:none}
+@media print{
+  html,body{background:#fff}
+  .om-nonprint{display:none !important}
+  .om-print{display:block !important}
+  .om-feuille{break-after:page;page-break-after:always}
+  .om-feuille:last-child{break-after:auto;page-break-after:auto}
+  @page{size:A4;margin:0}
+}
+</style>
+<link rel="stylesheet" href="polices.css" />
+<script src="./fiches-source.js"></script>
+</helmet>
+<div class="om-nonprint" style="height:100vh;min-height:0;overflow:hidden;display:flex;flex-direction:column;font-family:Archivo, Arial, sans-serif;color:#12233b;background:#f4f6f9">
+
+<div style="flex:0 0 auto;background:#12233b;color:#fff;display:flex;align-items:center;gap:16px;padding:13px 24px">
+<button onClick="{{ goHome }}" style="flex:0 0 auto;width:42px;height:42px;border-radius:12px;border:none;background:#fff;background-image:url('clean/ico-accueil.png');background-size:74%;background-repeat:no-repeat;background-position:center;cursor:pointer"></button>
+<sc-if value="{{ montrerRetour }}" hint-placeholder-val="{{ true }}">
+<button onClick="{{ retourUn }}" style="flex:0 0 auto;border:2px solid rgba(255,255,255,0.5);border-radius:12px;background:none;color:#fff;padding:10px 16px;font-family:Archivo Black, Archivo, sans-serif;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;white-space:nowrap">{{ libelleRetour }}</button>
+</sc-if>
+<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:1px">
+<span style="font-size:9.5px;letter-spacing:0.2em;text-transform:uppercase;color:#7fb8cc;font-weight:700">UPE2A NSA &middot; français langue de scolarisation</span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:21px;line-height:1.1;letter-spacing:-0.01em">{{ titre }}</span>
+</div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:9px;background:rgba(255,255,255,0.1);border-radius:11px;padding:7px 12px">
+<span style="font-size:9.5px;letter-spacing:0.16em;text-transform:uppercase;color:#9db6ce;font-weight:700">Groupe</span>
+<select value="{{ groupe }}" onChange="{{ setGroupe }}" style="border:none;border-radius:7px;padding:5px 8px;font-size:13px;font-weight:700;color:#12233b;background:#fff">
+<sc-for list="{{ nomsGroupes }}" as="g" hint-placeholder-count="2">
+<option value="{{ g }}">{{ g }}</option>
+</sc-for>
+</select>
+</div>
+<button onClick="{{ actionAcces }}" style="flex:0 0 auto;border:none;border-radius:11px;background:#f08a24;color:#fff;padding:11px 20px;font-family:Archivo Black, Archivo, sans-serif;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;white-space:nowrap;box-shadow:0 3px 0 #c96f14">{{ libelleAcces }}</button>
+</div>
+
+<sc-if value="{{ montrerFil }}" hint-placeholder-val="{{ false }}">
+<div style="flex:0 0 auto;background:#e8edf3;border-bottom:1px solid #ccd4de;display:flex;align-items:center;gap:16px;padding:11px 24px">
+<span style="flex:0 0 auto;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#6b7a8d;font-weight:700">{{ cheminSerie }}</span>
+<div style="flex:1;min-width:0;display:flex;align-items:center;gap:9px;flex-wrap:nowrap;overflow-x:auto">
+<sc-for list="{{ etapesSerie }}" as="e" hint-placeholder-count="3">
+<span style="flex:0 0 auto;font-size:20px;color:#b0b7c2">{{ e.fleche }}</span>
+<span style="display:flex;align-items:center;gap:9px;border:2.5px solid {{ e.bord }};border-radius:12px;background:{{ e.fond }};color:{{ e.encre }};padding:7px 13px;white-space:nowrap;flex:0 0 auto">
+<span style="width:24px;height:24px;border-radius:50%;background:{{ e.pastille }};color:{{ e.encrePastille }};display:flex;align-items:center;justify-content:center;font-family:Archivo Black, Archivo, sans-serif;font-size:13px">{{ e.numero }}</span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:14px;letter-spacing:0.01em">{{ e.nom }}</span>
+</span>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ montrerBarre }}" hint-placeholder-val="{{ false }}">
+<div style="flex:0 0 auto;background:#e8edf3;border-bottom:1px solid #ccd4de;display:flex;align-items:center;gap:10px;padding:9px 24px">
+<span style="flex:0 0 auto;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#6b7a8d;font-weight:700">{{ titreBarre }}</span>
+<div style="flex:1;display:flex;gap:8px;flex-wrap:wrap">
+<sc-for list="{{ barreActivites }}" as="a" hint-placeholder-count="4">
+<button onClick="{{ a.aller }}" style="border:2px solid {{ a.bord }};border-radius:10px;background:{{ a.fond }};color:{{ a.texte }};padding:8px 16px;font-family:Archivo Black, Archivo, sans-serif;font-size:11.5px;letter-spacing:0.05em;cursor:pointer">{{ a.nom }}</button>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ estVerrou }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;position:relative;display:flex;align-items:center;justify-content:center;padding:40px 26px;background:url('clean/mur-briques.png') repeat;overflow:hidden">
+<img src="clean/fenetre.png" alt="" style="position:absolute;top:14px;left:100px;width:420px;height:auto;display:block;z-index:0;filter:drop-shadow(0 6px 14px rgba(0,0,0,0.2))" />
+<img src="clean/plante.png" alt="" style="position:absolute;bottom:0;left:max(0px, calc(50% - 700px));width:340px;height:auto;display:block;z-index:1" />
+<div style="position:relative;z-index:2;width:100%;max-width:400px;background:#fff;border-radius:18px;box-shadow:0 8px 24px rgba(0,0,0,0.2);padding:30px;display:flex;flex-direction:column;align-items:center;gap:18px">
+<span style="width:74px;height:74px;border-radius:20px;background-color:#1682a0;background-image:url('clean/tuile-mdp.png');background-size:cover;background-position:center;display:block"></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:19px;color:#12233b;text-align:center">Espace enseignant</span>
+<span style="font-size:13px;color:#6b7386;text-align:center;line-height:1.45">Saisis ton mot de passe pour accéder aux réglages et aux bilans.</span>
+<input type="password" value="{{ saisieMdp }}" onChange="{{ setSaisieMdp }}" placeholder="Mot de passe" style="width:100%;box-sizing:border-box;border:2px solid #c9cfd8;border-radius:11px;padding:12px 14px;font-size:16px;text-align:center" />
+<button onClick="{{ validerAcces }}" style="width:100%;border:none;border-radius:11px;background:#2a9d6e;color:#fff;padding:13px;font-family:Archivo Black, Archivo, sans-serif;font-size:12.5px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;box-shadow:0 3px 0 #217d57">Entrer</button>
+<span style="font-size:12.5px;color:#c62828;min-height:18px">{{ erreurMdp }}</span>
+<span style="font-size:12px;color:#8a91a3;text-align:center;line-height:1.4">{{ indiceMdp }}</span>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ estAccueil }}" hint-placeholder-val="{{ true }}">
+<div style="flex:1;min-height:0;position:relative;display:flex;align-items:center;justify-content:center;padding:26px;background:url('clean/mur-briques.png') repeat">
+<img src="clean/fenetre.png" alt="" style="position:absolute;top:14px;left:18px;width:300px;height:auto;display:block;z-index:0;filter:drop-shadow(0 6px 14px rgba(0,0,0,0.2))" />
+<div style="flex:0 0 auto;position:relative;z-index:1;width:210px;align-self:flex-end;display:flex;flex-direction:column;align-items:center;margin-right:8px">
+<img src="clean/plante.png" alt="" style="width:210px;height:auto;display:block" />
+</div>
+<div style="flex:1;min-width:0;max-width:920px;box-sizing:border-box;box-shadow:0 12px 28px rgba(0,0,0,0.3);background-image:url('clean/liege.png');background-size:100% 100%;background-repeat:no-repeat;padding:30px 26px 34px;position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:24px">
+<div style="position:relative;background:#fdf3c4;padding:12px 38px;transform:rotate(-1.2deg);box-shadow:0 4px 10px rgba(0,0,0,0.3)">
+<span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:block"></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:20px;letter-spacing:0.03em;text-transform:uppercase;color:#8a4b1e">Espace enseignant</span>
+</div>
+<div style="width:100%;display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+<sc-for list="{{ tuiles }}" as="t" hint-placeholder-count="6">
+<button onClick="{{ t.ouvrir }}" style="display:flex;flex-direction:column;align-items:center;gap:14px;background:#fff;border:none;border-radius:18px;box-shadow:0 4px 14px rgba(18,35,59,0.12);cursor:pointer;padding:26px 18px" style-hover="transform:translateY(-3px);box-shadow:0 8px 20px rgba(18,35,59,0.18)">
+<span style="width:76px;height:76px;border-radius:20px;background-color:{{ t.couleur }};background-image:{{ t.bg }};background-size:{{ t.taille }};background-repeat:no-repeat;background-position:center;display:flex;align-items:center;justify-content:center;font-family:Archivo Black, Archivo, sans-serif;font-size:36px;color:#fff">{{ t.icone }}</span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:13.5px;line-height:1.3;color:#12233b;text-align:center;letter-spacing:0.01em">{{ t.titre }}</span>
+</button>
+</sc-for>
+</div>
+<button onClick="{{ ouvrirMdp }}" style="align-self:center;display:flex;align-items:center;gap:8px;border:none;background:none;cursor:pointer;padding:2px 6px;margin-top:-6px">
+<span style="width:15px;height:19px;border:2px solid #fdf3c4;border-top:none;border-radius:0 0 3px 3px;position:relative;display:block;box-shadow:0 1px 2px rgba(0,0,0,0.35)"><span style="position:absolute;left:2px;bottom:12px;width:7px;height:7px;border:2px solid #fdf3c4;border-bottom:none;border-radius:5px 5px 0 0;display:block"></span></span>
+<span style="font-size:12.5px;color:#fdf3c4;letter-spacing:0.04em;text-shadow:0 1px 2px rgba(0,0,0,0.45)">Changer mon mot de passe</span>
+</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ estThemeAccueil }}" hint-placeholder-val="{{ true }}">
+<div style="flex:1;min-height:0;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:26px;background:url('clean/mur-briques.png') repeat;overflow:auto">
+<img src="clean/fenetre.png" alt="" style="position:absolute;top:14px;left:100px;width:420px;height:auto;display:block;z-index:0;filter:drop-shadow(0 6px 14px rgba(0,0,0,0.2))" />
+<img src="clean/plante.png" alt="" style="position:absolute;bottom:0;left:max(0px, calc(50% - 700px));width:230px;height:auto;display:block;z-index:1" />
+<div style="position:relative;z-index:2;flex:0 0 auto;width:100%;max-width:min(940px, 100% - 250px);margin-left:auto;margin-right:36px;box-sizing:border-box;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px">
+<button onClick="{{ ouvrirTableauThemes }}" style="box-shadow:0 12px 28px rgba(0,0,0,0.3);background-image:url('clean/liege.png');background-size:100% 100%;background-repeat:no-repeat;border:none;padding:22px 22px 26px;display:flex;flex-direction:column;align-items:center;gap:16px;cursor:pointer" style-hover="transform:translateY(-3px)">
+<span style="position:relative;background:#fdf3c4;padding:10px 22px;transform:rotate(-1.2deg);box-shadow:0 4px 10px rgba(0,0,0,0.3);display:block">
+<span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:block"></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:16px;letter-spacing:0.03em;text-transform:uppercase;color:#8a4b1e;white-space:nowrap">Les thèmes</span>
+</span>
+<span style="width:100%;display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
+<sc-for list="{{ apercuThemes }}" as="a" hint-placeholder-count="4">
+<span style="background:#fff;border:4px solid {{ a.bord }};border-radius:11px;box-shadow:0 3px 10px rgba(0,0,0,0.18);height:88px;background-image:{{ a.bg }};background-size:contain;background-repeat:no-repeat;background-position:center;background-origin:content-box;padding:6px;display:block"></span>
+</sc-for>
+</span>
+<span style="font-size:14px;color:#fdf3c4;text-shadow:0 1px 3px rgba(0,0,0,0.5)">{{ apercuThemesTexte }}</span>
+</button>
+<button onClick="{{ ouvrirTableauCode }}" style="box-shadow:0 12px 28px rgba(0,0,0,0.3);background-image:url('clean/liege.png');background-size:100% 100%;background-repeat:no-repeat;border:none;padding:22px 22px 26px;display:flex;flex-direction:column;align-items:center;gap:16px;cursor:pointer" style-hover="transform:translateY(-3px)">
+<span style="position:relative;background:#fdf3c4;padding:10px 22px;transform:rotate(0.9deg);box-shadow:0 4px 10px rgba(0,0,0,0.3);display:block">
+<span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:block"></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:16px;letter-spacing:0.03em;text-transform:uppercase;color:#8a4b1e;white-space:nowrap">Les lettres et les sons</span>
+</span>
+<span style="width:100%;display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
+<span style="background:#fff;border:4px solid #1d4e89;border-radius:11px;box-shadow:0 3px 10px rgba(0,0,0,0.18);height:88px;display:flex;align-items:center;justify-content:center"><span style="font-family:Archivo Black, Archivo, sans-serif;font-size:38px;color:#1d4e89">A</span></span>
+<span style="background:#fff;border:4px solid #2a9d6e;border-radius:11px;box-shadow:0 3px 10px rgba(0,0,0,0.18);height:88px;display:flex;align-items:center;justify-content:center"><span style="font-family:BA Script, Archivo, sans-serif;font-size:40px;color:#2a9d6e">a</span></span>
+<span style="background:#fff;border:4px solid #6d5bd0;border-radius:11px;box-shadow:0 3px 10px rgba(0,0,0,0.18);height:88px;display:flex;align-items:center;justify-content:center"><span style="font-family:BA Script, Archivo, sans-serif;font-size:26px;color:#6d5bd0">ou</span></span>
+<span style="background:#fff;border:4px solid #e59a2b;border-radius:11px;box-shadow:0 3px 10px rgba(0,0,0,0.18);height:88px;background-image:url('clean/mot-crayon.png');background-size:contain;background-repeat:no-repeat;background-position:center;background-origin:content-box;padding:8px;display:block"></span>
+</span>
+<span style="font-size:14px;color:#fdf3c4;text-shadow:0 1px 3px rgba(0,0,0,0.5)">12 ateliers &middot; les lettres, les sons, j'écris</span>
+</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ estTableauThemes }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:stretch;gap:18px;padding:20px 26px 22px;background:url('clean/mur-briques.png') repeat;overflow:hidden">
+<img src="clean/fenetre.png" alt="" style="position:absolute;top:14px;left:100px;width:300px;height:auto;display:block;z-index:0;filter:drop-shadow(0 6px 14px rgba(0,0,0,0.2))" />
+<img src="clean/plante.png" alt="" style="position:absolute;bottom:0;left:max(0px, calc(50% - 700px));width:210px;height:auto;display:block;z-index:1" />
+<div style="position:relative;z-index:2;flex:1;min-height:0;width:100%;max-width:min(1120px, 100% - 400px);margin-left:auto;margin-right:20px;box-sizing:border-box;box-shadow:0 12px 28px rgba(0,0,0,0.28);background-image:url('clean/liege.png');background-size:100% 100%;background-repeat:no-repeat;padding:16px 20px 18px;display:flex;flex-direction:column;align-items:center;gap:12px">
+<div style="position:relative;background:#fdf3c4;padding:12px 38px;transform:rotate(-1.2deg);box-shadow:0 4px 10px rgba(0,0,0,0.3)">
+<span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:block"></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:19px;letter-spacing:0.03em;text-transform:uppercase;color:#8a4b1e;white-space:nowrap">Choisis ton thème</span>
+</div>
+<div style="flex:1;min-height:0;width:100%;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));grid-auto-rows:minmax(112px,1fr);gap:9px;overflow-y:auto;overflow-x:hidden;padding-right:12px">
+<sc-for list="{{ themesAccueil }}" as="t" hint-placeholder-count="6">
+<button onClick="{{ t.ouvrir }}" style="display:flex;flex-direction:column;align-items:center;gap:3px;background:#fff;border:4px solid {{ t.bord }};border-radius:11px;box-shadow:0 3px 10px rgba(0,0,0,0.18);padding:5px 4px;cursor:pointer;opacity:{{ t.opacite }}">
+<span style="flex:1;min-height:60px;width:100%;background-image:{{ t.bg }};background-size:contain;background-repeat:no-repeat;background-position:center;display:block;filter:{{ t.filtre }}"></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:10.5px;color:{{ t.encre }};text-align:center;line-height:1.12">{{ t.nom }}</span>
+</button>
+</sc-for>
+</div>
+
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ estTableauCode }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:stretch;gap:18px;padding:20px 26px 22px;background:url('clean/mur-briques.png') repeat;overflow:hidden">
+<img src="clean/fenetre.png" alt="" style="position:absolute;top:14px;left:100px;width:300px;height:auto;display:block;z-index:0;filter:drop-shadow(0 6px 14px rgba(0,0,0,0.2))" />
+<img src="clean/plante.png" alt="" style="position:absolute;bottom:0;left:max(0px, calc(50% - 700px));width:210px;height:auto;display:block;z-index:1" />
+<div style="position:relative;z-index:2;flex:1;min-height:0;width:100%;max-width:min(1120px, 100% - 400px);margin-left:auto;margin-right:20px;box-sizing:border-box;box-shadow:0 12px 28px rgba(0,0,0,0.28);background-image:url('clean/liege.png');background-size:100% 100%;background-repeat:no-repeat;padding:16px 20px 18px;display:flex;flex-direction:column;align-items:center;gap:12px">
+<div style="position:relative;background:#fdf3c4;padding:10px 34px;transform:rotate(0.9deg);box-shadow:0 4px 10px rgba(0,0,0,0.3)">
+<span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:block"></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:18px;letter-spacing:0.03em;text-transform:uppercase;color:#8a4b1e;white-space:nowrap">Les lettres et les sons</span>
+</div>
+<div style="flex:1;min-height:0;width:100%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:minmax(128px,1fr);gap:10px;overflow-y:auto;overflow-x:hidden;padding-right:14px">
+<sc-for list="{{ cartesCode }}" as="c" hint-placeholder-count="12">
+<div style="position:relative;background:#fff;border:3px solid {{ c.couleur }};border-radius:11px;box-shadow:0 3px 10px rgba(0,0,0,0.2);padding:6px 6px 15px;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0;min-height:0">
+<span style="position:absolute;bottom:0;right:0;width:19px;height:19px;background:#d9dde2;color:#5b6675;border-radius:0 0 8px 0;display:flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:700">{{ c.rang }}</span>
+<span style="flex:1 1 auto;min-height:30px;width:100%;border:1.5px solid {{ c.couleur }};border-radius:7px;display:flex;align-items:center;justify-content:center;gap:3px;overflow:hidden;background-image:{{ c.bg }};background-size:contain;background-repeat:no-repeat;background-position:center">
+<sc-for list="{{ c.chips }}" as="g" hint-placeholder-count="0">
+<span style="border:1px solid #b9c6d6;border-radius:4px;padding:1px 4px;font-family:BA Script, Archivo, sans-serif;font-size:13px;color:#12233b;display:block">{{ g }}</span>
+</sc-for>
+<span style="font-family:{{ c.police }};font-size:{{ c.taille }};line-height:1;color:{{ c.couleur }}">{{ c.lettre }}</span>
+</span>
+<span style="flex:0 0 auto;font-family:Archivo Black, Archivo, sans-serif;font-size:10.5px;color:#12233b;text-align:center;line-height:1.15;height:25px;overflow:hidden;display:flex;align-items:center;justify-content:center">{{ c.nom }}</span>
+<button onClick="{{ c.explorer }}" style="flex:0 0 auto;width:100%;border:none;border-radius:6px;background:#2a9d6e;color:#fff;padding:4px 0;font-family:Archivo Black, Archivo, sans-serif;font-size:9px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;overflow:hidden;white-space:nowrap">Exploration</button>
+<button onClick="{{ c.evaluer }}" style="flex:0 0 auto;width:100%;border:none;border-radius:6px;background:#f08a24;color:#fff;padding:4px 0;font-family:Archivo Black, Archivo, sans-serif;font-size:9px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;overflow:hidden;white-space:nowrap">Évaluation</button>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ estSousTheme }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:26px;background:url('clean/mur-briques.png') repeat;overflow:hidden">
+<img src="clean/fenetre.png" alt="" style="position:absolute;top:14px;left:100px;width:420px;height:auto;display:block;z-index:0;filter:drop-shadow(0 6px 14px rgba(0,0,0,0.2))" />
+<img src="clean/plante.png" alt="" style="position:absolute;bottom:0;left:max(0px, calc(50% - 700px));width:340px;height:auto;display:block;z-index:1" />
+<div style="position:relative;z-index:2;width:100%;max-width:min(1120px, 100% - 260px);max-height:100%;margin-left:auto;margin-right:60px;box-sizing:border-box;box-shadow:0 12px 28px rgba(0,0,0,0.28);background-image:url('clean/liege.png');background-size:100% 100%;background-repeat:no-repeat;padding:16px 20px 18px;display:flex;flex-direction:column;align-items:center;gap:12px">
+<div style="position:relative;background:#fdf3c4;padding:12px 38px;transform:rotate(-1.2deg);box-shadow:0 4px 10px rgba(0,0,0,0.3)">
+<span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:block"></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:20px;letter-spacing:0.03em;text-transform:uppercase;color:#8a4b1e">{{ themeParent }}</span>
+</div>
+<div style="width:100%;display:grid;grid-template-columns:repeat(3,minmax(0,240px));justify-content:start;gap:18px">
+<sc-for list="{{ sousThemes }}" as="t" hint-placeholder-count="3">
+<button onClick="{{ t.ouvrir }}" style="display:flex;flex-direction:column;align-items:center;gap:10px;background:#fff;border:none;border-radius:16px;box-shadow:0 4px 14px rgba(0,0,0,0.2);padding:16px 14px;cursor:pointer">
+<span style="width:100%;height:86px;background-image:{{ t.bg }};background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:14.5px;color:#12233b;text-align:center;line-height:1.2">{{ t.nom }}</span>
+</button>
+</sc-for>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ estSons }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;gap:14px;padding:22px 24px">
+<div style="flex:0 0 auto;display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap">
+<div style="display:flex;flex-direction:column;gap:5px">
+<span style="font-size:11.5px;letter-spacing:0.1em;text-transform:uppercase;color:#8a91a3">Ajouter un son</span>
+<input value="{{ nouveauSon }}" onChange="{{ setNouveauSon }}" placeholder="ou, ch, oi&hellip;" style="border:1px solid #c9cfd8;border-radius:6px;padding:9px 12px;font-size:15px;width:170px" />
+</div>
+<button onClick="{{ ajouterSon }}" style="border:none;border-radius:8px;background:#1d4e89;color:#fff;padding:11px 20px;font-size:13px;font-weight:700;cursor:pointer">Ajouter</button>
+<span style="flex:1;font-size:13px;color:#6b7386;padding-bottom:10px">{{ infoSon }}</span>
+<span style="font-size:12.5px;color:#8a91a3;padding-bottom:10px">{{ nombreSons }}</span>
+<button onClick="{{ reinitSons }}" style="border:1px solid #c9cfd8;border-radius:8px;background:#fff;color:#12233b;padding:10px 16px;font-size:12.5px;cursor:pointer">Liste de départ</button>
+</div>
+<div style="flex:1;min-height:0;background:#fff;border-radius:10px;box-shadow:0 1px 3px rgba(20,33,61,0.12);padding:12px;overflow:auto">
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:9px">
+<sc-for list="{{ listeSons }}" as="s" hint-placeholder-count="8">
+<div style="display:flex;align-items:center;gap:8px;border:1px solid #dde2e9;border-radius:9px;padding:8px 10px">
+<span style="flex:0 0 auto;width:24px;font-size:11.5px;color:#8a91a3">{{ s.rang }}</span>
+<span style="flex:1;font-family:Archivo Black, Archivo, sans-serif;font-size:20px;color:#12233b">{{ s.son }}</span>
+<button onClick="{{ s.dire }}" title="Écouter" style="flex:0 0 auto;width:30px;height:30px;border-radius:50%;border:none;background:#f08a24;color:#fff;font-size:13px;cursor:pointer">&#9658;</button>
+<button onClick="{{ s.monter }}" title="Monter" style="flex:0 0 auto;width:30px;height:30px;border-radius:7px;border:1px solid #c9cfd8;background:#fff;color:#12233b;font-size:13px;cursor:pointer">&#8593;</button>
+<button onClick="{{ s.descendre }}" title="Descendre" style="flex:0 0 auto;width:30px;height:30px;border-radius:7px;border:1px solid #c9cfd8;background:#fff;color:#12233b;font-size:13px;cursor:pointer">&#8595;</button>
+<button onClick="{{ s.retirer }}" title="Retirer" style="flex:0 0 auto;width:30px;height:30px;border-radius:7px;border:1px solid #e8b3ac;background:#fff;color:#c0392b;font-size:15px;cursor:pointer">&times;</button>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ estAlpha }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;gap:10px;padding:14px 22px 0;background:#fdfbef">
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:16px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#8a4b1e">{{ alphaSerieTexte }}</span>
+<button onClick="{{ direConsigne }}" title="Écouter la consigne" style="flex:0 0 auto;width:38px;height:38px;border-radius:50%;border:none;background:#f08a24;color:#fff;font-size:17px;line-height:1;cursor:pointer;box-shadow:0 2px 0 #c96f14">&#9658;</button>
+<span style="flex:1;font-size:17px;color:#14213d"><b>Clique</b>{{ alphaConsigne1 }}<b>clique</b>{{ alphaConsigne2 }}</span>
+</div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:{{ alphaColLettres }};gap:6px">
+<sc-for list="{{ alphaLettres }}" as="a" hint-placeholder-count="9">
+<button onClick="{{ a.choisir }}" style="border:{{ a.epaisseur }} solid {{ a.bord }};border-radius:10px;background:{{ a.fond }};padding:16px 0 18px;cursor:pointer;display:flex;align-items:center;justify-content:center;overflow:visible">
+<span style="font-family:{{ a.police }};font-size:{{ alphaTailleLettre }};line-height:1.05;color:{{ a.couleur }}">{{ a.aff }}</span>
+</button>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;height:3px;border-radius:2px;background:#14213d"></div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:{{ alphaColImages }};gap:6px;align-content:start;overflow:auto">
+<sc-for list="{{ alphaImages }}" as="g" hint-placeholder-count="9">
+<button onClick="{{ g.choisir }}" style="border:{{ g.epaisseur }} solid {{ g.bord }};border-radius:10px;background:{{ g.fond }};height:{{ alphaTailleImage }};background-image:{{ g.bg }};background-size:{{ g.taille }};background-repeat:no-repeat;background-position:{{ g.position }};background-origin:content-box;padding:5px;opacity:{{ g.visible }};pointer-events:{{ g.clics }};animation:{{ g.anim }};cursor:pointer"></button>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:26px;border-top:1px solid #e4dfc8;padding:10px 0 12px">
+<span style="font-size:15px;font-weight:700;color:#2a9d6e">&#10003; {{ alphaReussites }}</span>
+<span style="font-size:15px;font-weight:700;color:#8a91a3">&#10007; {{ alphaErreurs }}</span>
+<sc-if value="{{ alphaEval }}" hint-placeholder-val="{{ false }}">
+<span style="font-size:15px;color:#8a91a3">{{ alphaChrono }}</span>
+</sc-if>
+<span style="flex:1"></span>
+<sc-if value="{{ alphaFini }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ alphaSuivant }}" style="border:none;border-radius:11px;background:#f08a24;color:#fff;padding:12px 26px;font-family:Archivo Black, Archivo, sans-serif;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;box-shadow:0 3px 0 #c96f14">{{ alphaLibelleSuivant }}</button>
+</sc-if>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ estAlphaEcrire }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;gap:10px;padding:14px 22px 0;background:#fdfbef">
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:16px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#8a4b1e">{{ alphaSerieTexte }}</span>
+<button onClick="{{ direConsigneEcrire }}" title="Écouter la consigne" style="flex:0 0 auto;width:38px;height:38px;border-radius:50%;border:none;background:#f08a24;color:#fff;font-size:17px;line-height:1;cursor:pointer;box-shadow:0 2px 0 #c96f14">&#9658;</button>
+<span style="flex:1;font-size:17px;color:#14213d"><b>Écris</b>{{ alphaEcrireConsigne }}</span>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:{{ alphaColImages }};gap:8px;align-content:start;overflow:auto">
+<sc-for list="{{ alphaEcrireCases }}" as="c" hint-placeholder-count="9">
+<div style="display:flex;flex-direction:column;gap:5px">
+<button onClick="{{ c.ecouter }}" style="border:2px solid {{ c.bord }};border-radius:10px;background:{{ c.fond }};height:{{ alphaTailleImage }};padding:5px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:4px;overflow:hidden">
+<sc-for list="{{ c.images }}" as="src" hint-placeholder-count="1">
+<span style="flex:1;min-width:0;height:100%;background-image:{{ src }};background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+</sc-for>
+</button>
+<input value="{{ c.valeur }}" onChange="{{ c.taper }}" readOnly="{{ c.verrou }}" maxLength="{{ alphaMaxLettres }}" style="width:100%;box-sizing:border-box;border:2px solid {{ c.bord }};border-radius:8px;background:{{ c.fond }};color:{{ c.couleur }};padding:6px 0;text-align:center;font-family:Archivo Black, Archivo, sans-serif;font-size:22px" />
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:26px;border-top:1px solid #e4dfc8;padding:10px 0 12px">
+<span style="font-size:15px;font-weight:700;color:#2a9d6e">&#10003; {{ alphaReussites }}</span>
+<span style="font-size:15px;font-weight:700;color:#8a91a3">&#10007; {{ alphaErreurs }}</span>
+<sc-if value="{{ alphaEval }}" hint-placeholder-val="{{ false }}">
+<span style="font-size:15px;color:#8a91a3">{{ alphaChrono }}</span>
+</sc-if>
+<span style="flex:1"></span>
+<sc-if value="{{ alphaFini }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ alphaSuivant }}" style="border:none;border-radius:11px;background:#f08a24;color:#fff;padding:12px 26px;font-family:Archivo Black, Archivo, sans-serif;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;box-shadow:0 3px 0 #c96f14">{{ alphaLibelleSuivant }}</button>
+</sc-if>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ estResultatAlpha }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:40px;background:#fdfbef">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:34px;color:#12233b">{{ alphaBilan }}</span>
+<span style="font-size:18px;color:#5b6675">{{ alphaBilanErreurs }}</span>
+<sc-if value="{{ alphaADures }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:12px;background:#fff;border:2px solid #e4dfc8;border-radius:12px;padding:12px 20px">
+<span style="font-size:13px;letter-spacing:0.1em;text-transform:uppercase;color:#8a4b1e;font-weight:700">À revoir</span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:22px;letter-spacing:0.1em;color:#12233b">{{ alphaDures }}</span>
+</div>
+</sc-if>
+<div style="display:flex;gap:12px">
+<button onClick="{{ alphaSuite }}" style="border:none;border-radius:11px;background:#f08a24;color:#fff;padding:13px 26px;font-family:Archivo Black, Archivo, sans-serif;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;box-shadow:0 3px 0 #c96f14">{{ alphaSuiteLibelle }}</button>
+<button onClick="{{ alphaRejouer }}" style="border:2px solid #c9cfd8;border-radius:11px;background:#fff;color:#12233b;padding:13px 26px;font-family:Archivo Black, Archivo, sans-serif;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer">Recommencer</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ estEleve }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:26px;background:url('clean/mur-briques.png') repeat;overflow:hidden">
+<img src="clean/fenetre.png" alt="" style="position:absolute;top:14px;left:100px;width:420px;height:auto;display:block;z-index:0;filter:drop-shadow(0 6px 14px rgba(0,0,0,0.2))" />
+<img src="clean/plante.png" alt="" style="position:absolute;bottom:0;left:max(0px, calc(50% - 700px));width:340px;height:auto;display:block;z-index:1" />
+<div style="position:relative;z-index:2;width:100%;max-width:min(1120px, 100% - 260px);max-height:100%;margin-left:auto;margin-right:60px;box-sizing:border-box;box-shadow:0 12px 28px rgba(0,0,0,0.28);background-image:url('clean/liege.png');background-size:100% 100%;background-repeat:no-repeat;padding:16px 20px 18px;display:flex;flex-direction:column;align-items:center;gap:12px">
+<div style="position:relative;background:#fdf3c4;padding:12px 38px;transform:rotate(-1.2deg);box-shadow:0 4px 10px rgba(0,0,0,0.3)">
+<span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:block"></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:20px;letter-spacing:0.03em;text-transform:uppercase;color:#8a4b1e">{{ themeEleve }}</span>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:20px;width:100%;max-width:960px">
+<sc-for list="{{ champsEleve }}" as="c" hint-placeholder-count="4">
+<div style="min-width:0;background:#fff;border-radius:18px;box-shadow:0 5px 16px rgba(0,0,0,0.2);display:flex;flex-direction:column;align-items:center;gap:14px;padding:22px 16px">
+<span style="width:100%;height:112px;border-radius:16px;background:#fff;border:2px solid {{ c.couleur }};background-image:{{ c.bg }};background-size:78%;background-repeat:no-repeat;background-position:center;display:flex;align-items:center;justify-content:center"><span style="font-family:{{ c.police }};font-size:66px;line-height:1;color:{{ c.couleur }}">{{ c.lettre }}</span></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:19px;color:#12233b;text-align:center">{{ c.nom }}</span>
+<button onClick="{{ c.explorer }}" style="width:100%;border:none;border-radius:11px;background:#2a9d6e;color:#fff;padding:12px;font-family:Archivo Black, Archivo, sans-serif;font-size:11.5px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;box-shadow:0 3px 0 #217d57">Exploration</button>
+<button onClick="{{ c.evaluer }}" style="width:100%;border:none;border-radius:11px;background:#f08a24;color:#fff;padding:12px;font-family:Archivo Black, Archivo, sans-serif;font-size:11.5px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;box-shadow:0 3px 0 #c96f14">Évaluation</button>
+</div>
+</sc-for>
+</div>
+<span style="font-size:13px;color:#5d4630;min-height:19px">{{ msgEleve }}</span>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ estNiveau }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:26px;background:url('clean/mur-briques.png') repeat">
+<div style="width:100%;max-width:1000px;box-sizing:border-box;box-shadow:0 12px 28px rgba(0,0,0,0.28);background-image:url('clean/liege.png');background-size:100% 100%;background-repeat:no-repeat;padding:16px 20px 18px;display:flex;flex-direction:column;align-items:center;gap:12px">
+<div style="position:relative;background:#fdf3c4;padding:11px 34px;transform:rotate(-1deg);box-shadow:0 4px 10px rgba(0,0,0,0.3)">
+<span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:block"></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:18px;letter-spacing:0.03em;text-transform:uppercase;color:#8a4b1e;white-space:nowrap">Choisis ton niveau</span>
+</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;width:100%;max-width:900px">
+<sc-for list="{{ niveauxEleve }}" as="n" hint-placeholder-count="3">
+<div style="background:#fff;border-radius:18px;box-shadow:0 5px 16px rgba(0,0,0,0.2);display:flex;flex-direction:column;gap:10px;padding:20px 18px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:26px;letter-spacing:0.02em;text-transform:uppercase;color:#12233b;text-align:center;line-height:1.05">{{ n.rang }}</span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:18px;color:#12233b;text-align:center">{{ n.titre }}</span>
+<button onClick="{{ n.lancerSerie }}" style="border:none;border-radius:11px;background:#f08a24;color:#fff;padding:15px 10px;font-family:Archivo Black, Archivo, sans-serif;font-size:12.5px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;box-shadow:0 3px 0 #c96f14">Commencer</button>
+
+</div>
+</sc-for>
+</div>
+<button onClick="{{ retourEleve }}" style="border:2px solid rgba(255,255,255,0.6);border-radius:11px;background:none;color:#fff;padding:10px 24px;font-family:Archivo Black, Archivo, sans-serif;font-size:11.5px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer">Retour</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ estThemeEleve }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:26px;background:url('clean/mur-briques.png') repeat">
+<div style="width:100%;max-width:1000px;box-sizing:border-box;box-shadow:0 12px 28px rgba(0,0,0,0.28);background-image:url('clean/liege.png');background-size:100% 100%;background-repeat:no-repeat;padding:16px 20px 18px;display:flex;flex-direction:column;align-items:center;gap:12px">
+<div style="position:relative;background:#fdf3c4;padding:11px 34px;transform:rotate(-1deg);box-shadow:0 4px 10px rgba(0,0,0,0.3)">
+<span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:block"></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:18px;letter-spacing:0.03em;text-transform:uppercase;color:#8a4b1e">Choisis un thème</span>
+</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;width:100%;max-width:880px">
+<sc-for list="{{ themesEleve }}" as="t" hint-placeholder-count="6">
+<button onClick="{{ t.ouvrir }}" style="display:grid;grid-template-columns:70px 1fr;align-items:center;gap:14px;background:#fff;border:none;border-radius:16px;box-shadow:0 4px 14px rgba(0,0,0,0.18);padding:14px 16px;cursor:pointer;text-align:left" style-hover="transform:translateY(-2px);box-shadow:0 7px 18px rgba(0,0,0,0.24)">
+<span style="width:70px;height:58px;background-image:{{ t.bg }};background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:14.5px;color:#12233b;line-height:1.2">{{ t.nom }}</span>
+</button>
+</sc-for>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ estExplore }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;gap:16px;padding:22px 24px;background:#f4f6f9">
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:14px">
+<button onClick="{{ direConsigneExplore }}" title="Écouter la consigne" style="flex:0 0 auto;width:38px;height:38px;border-radius:50%;border:none;background:#f08a24;color:#fff;font-size:17px;line-height:1;cursor:pointer;box-shadow:0 2px 0 #c96f14">&#9658;</button>
+<span style="flex:1;font-size:17px;color:#14213d"><b>Clique</b>{{ finConsigneExplore }}</span>
+<sc-if value="{{ dansSerie }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ etapeSuivante }}" style="flex:0 0 auto;border:none;border-radius:11px;background:#f08a24;color:#fff;padding:12px 26px;font-family:Archivo Black, Archivo, sans-serif;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;box-shadow:0 3px 0 #c96f14">Continuer</button>
+</sc-if>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:{{ colonnesExplore }};gap:18px">
+<div style="min-width:0;min-height:0;display:grid;grid-template-columns:{{ colonnesGrilleExplore }};grid-auto-rows:min-content;gap:12px;overflow-y:auto;overflow-x:hidden;padding-right:18px">
+<sc-for list="{{ grille }}" as="g" hint-placeholder-count="12">
+<button onClick="{{ g.cliquer }}" style="border:2.5px solid {{ g.bord }};border-radius:9px;background:{{ g.fond }};padding:10px 8px;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer">
+<span style="width:100%;height:{{ hauteurImageExplore }};background-image:{{ g.bg }};background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+<sc-if value="{{ montrerMots }}" hint-placeholder-val="{{ false }}">
+<span style="font-size:12.5px;font-weight:700;color:#14213d;text-align:center;line-height:1.25">{{ g.mot }}</span>
+</sc-if>
+</button>
+</sc-for>
+</div>
+<div style="min-height:0;display:flex;flex-direction:column;justify-content:flex-start;gap:12px">
+<div style="flex:0 0 auto;height:230px;background:#fff;border:2.5px solid #dde2e9;border-radius:12px;background-image:{{ motActifBg }};background-size:contain;background-repeat:no-repeat;background-position:center;background-origin:content-box;padding:14px;display:block"></div>
+<sc-if value="{{ montrerMots }}" hint-placeholder-val="{{ false }}">
+<div style="flex:0 0 auto;background:#f5ff00;border:2px solid #d6df00;border-radius:6px;padding:12px 16px;text-align:center">
+<span style="font-size:30px;font-weight:700;color:#14213d;line-height:1.15">{{ motActif }}</span>
+</div>
+</sc-if>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ estTrouve }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;align-items:center;gap:18px;padding:26px 24px;background:#f4f6f9">
+<div style="flex:0 0 auto;display:flex;gap:8px">
+<sc-for list="{{ jauge }}" as="j" hint-placeholder-count="8">
+<span style="width:44px;height:20px;border-radius:4px;border:1.5px solid #fff;background:{{ j.fond }};animation:{{ j.anim }};display:block"></span>
+</sc-for>
+</div>
+<span style="flex:0 0 auto;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:#8a91a3">{{ compteur }}</span>
+<span style="flex:0 0 auto;font-size:17px;color:#14213d">{{ consigneQuiz }}</span>
+<button onClick="{{ rejouerSon }}" style="flex:0 0 auto;width:74px;height:74px;border-radius:50%;border:none;background:#1d4e89;color:#fff;font-size:30px;cursor:pointer">&#9654;</button>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:18px;width:100%;max-width:760px">
+<sc-for list="{{ choixQuiz }}" as="c" hint-placeholder-count="4">
+<button onClick="{{ c.cliquer }}" style="border:3px solid {{ c.bord }};border-radius:11px;background:{{ c.fond }};padding:14px 10px;display:flex;align-items:center;justify-content:center;cursor:pointer;min-height:132px">
+<span style="width:100%;height:100px;background-image:{{ c.bg }};background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+</button>
+</sc-for>
+</div>
+<span style="flex:0 0 auto;font-size:16px;font-weight:700;color:#1d4e89;min-height:22px">{{ retourQuiz }}</span>
+<sc-if value="{{ repondu }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ suivante }}" title="Suivant" style="flex:0 0 auto;align-self:center;width:64px;height:64px;border:none;border-radius:50%;background:#1d4e89;color:#fff;font-size:30px;line-height:1;cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,0.22)">&#10142;</button>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ estVF }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;align-items:center;gap:14px;padding:22px 24px;background:#f4f6f9">
+<div style="flex:0 0 auto;display:flex;gap:8px">
+<sc-for list="{{ jauge }}" as="j" hint-placeholder-count="8">
+<span style="width:44px;height:20px;border-radius:4px;border:1.5px solid #fff;background:{{ j.fond }};animation:{{ j.anim }};display:block"></span>
+</sc-for>
+</div>
+<span style="flex:0 0 auto;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:#8a91a3">{{ compteur }}</span>
+<span style="flex:0 0 auto;font-size:16px;color:#14213d">Écoute la proposition, puis clique sur VRAI ou FAUX.</span>
+<div style="flex:1 1 auto;min-height:120px;overflow:hidden;display:flex;align-items:center;justify-content:center;width:100%;max-width:420px;border:2.5px solid #8fb0d2;border-radius:10px;background:#fff;padding:12px;box-sizing:border-box">
+<span style="width:100%;height:100%;background-image:{{ vfBg }};background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+</div>
+<button onClick="{{ direVF }}" style="flex:0 0 auto;display:flex;align-items:center;gap:9px;border:none;border-radius:7px;background:#1d4e89;color:#fff;padding:9px 18px;font-size:13.5px;cursor:pointer"><span style="font-size:15px">&#9654;</span> Réécouter</button>
+<div style="flex:0 0 auto;display:flex;gap:26px">
+<button onClick="{{ repondreVrai }}" style="display:flex;align-items:center;gap:12px;border:4px solid {{ bordVrai }};border-radius:34px;background:#2a9d6e;color:#fff;padding:13px 38px;font-family:Archivo Black, Archivo, sans-serif;font-size:19px;letter-spacing:0.06em;cursor:pointer;box-shadow:0 4px 0 #1c7a52;opacity:{{ opaciteVrai }}"><span style="font-size:25px;line-height:1">&#10004;</span> VRAI</button>
+<button onClick="{{ repondreFaux }}" style="display:flex;align-items:center;gap:12px;border:4px solid {{ bordFaux }};border-radius:34px;background:#d1495b;color:#fff;padding:13px 38px;font-family:Archivo Black, Archivo, sans-serif;font-size:19px;letter-spacing:0.06em;cursor:pointer;box-shadow:0 4px 0 #a63142;opacity:{{ opaciteFaux }}"><span style="font-size:25px;line-height:1">&#10008;</span> FAUX</button>
+</div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:12px;min-height:44px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:34px;line-height:1;color:{{ couleurVerdict }}">{{ verdictVF }}</span>
+<span style="font-size:15.5px;font-weight:700;color:{{ couleurVerdict }}">{{ retourQuiz }}</span>
+</div>
+<sc-if value="{{ repondu }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ suivanteVF }}" title="Suivant" style="flex:0 0 auto;align-self:center;width:64px;height:64px;border:none;border-radius:50%;background:#1d4e89;color:#fff;font-size:30px;line-height:1;cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,0.22)">&#10142;</button>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ estLireDessin }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;gap:14px;padding:20px 24px;background:#eef4fa">
+<div style="flex:0 0 auto;display:flex;justify-content:center;gap:8px">
+<sc-for list="{{ jauge }}" as="j" hint-placeholder-count="8">
+<span style="width:40px;height:18px;border-radius:4px;border:1.5px solid #fff;background:{{ j.fond }};animation:{{ j.anim }};display:block"></span>
+</sc-for>
+</div>
+<span style="flex:0 0 auto;font-size:15px;color:#14213d;text-align:center">{{ consigneLireDessin }}</span>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(2,1fr);gap:14px">
+<sc-for list="{{ grilleLire }}" as="g" hint-placeholder-count="8">
+<button onClick="{{ g.cliquer }}" style="border:2.5px solid {{ g.bord }};border-radius:8px;background:{{ g.fond }};padding:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;min-height:96px">
+<span style="width:100%;height:100%;min-height:82px;background-image:{{ g.bg }};background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+</button>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;background:#ffef2e;border-radius:6px;padding:14px;text-align:center"><span style="font-size:27px;color:#14213d">{{ motAlire }}</span></div>
+<span style="flex:0 0 auto;font-size:15px;font-weight:700;color:#1d4e89;text-align:center;min-height:20px">{{ retourQuiz }}</span>
+<sc-if value="{{ repondu }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ suivanteLire }}" title="Suivant" style="flex:0 0 auto;align-self:center;width:64px;height:64px;border:none;border-radius:50%;background:#1d4e89;color:#fff;font-size:30px;line-height:1;cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,0.22)">&#10142;</button>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ estLireMot }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;align-items:center;gap:14px;padding:20px 24px;background:#eef4fa">
+<div style="flex:0 0 auto;display:flex;gap:8px">
+<sc-for list="{{ jauge }}" as="j" hint-placeholder-count="8">
+<span style="width:40px;height:18px;border-radius:4px;border:1.5px solid #fff;background:{{ j.fond }};animation:{{ j.anim }};display:block"></span>
+</sc-for>
+</div>
+<span style="flex:0 0 auto;font-size:15px;color:#14213d">Regarde le dessin, puis clique sur le bon mot.</span>
+<div style="flex:0 0 auto;width:100%;max-width:280px;border:2.5px solid #8fb0d2;border-radius:9px;background:#fff;padding:12px">
+<span style="width:100%;height:170px;background-image:{{ cibleBg }};background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+</div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:11px;width:100%;max-width:760px">
+<sc-for list="{{ motsLire }}" as="m" hint-placeholder-count="8">
+<button onClick="{{ m.cliquer }}" style="border:2.5px solid {{ m.bord }};border-radius:7px;background:{{ m.fond }};padding:12px 8px;font-size:15px;color:#14213d;cursor:pointer">{{ m.mot }}</button>
+</sc-for>
+</div>
+<span style="flex:0 0 auto;font-size:15px;font-weight:700;color:#1d4e89;min-height:20px">{{ retourQuiz }}</span>
+<sc-if value="{{ repondu }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ suivanteLire }}" title="Suivant" style="flex:0 0 auto;align-self:center;width:64px;height:64px;border:none;border-radius:50%;background:#1d4e89;color:#fff;font-size:30px;line-height:1;cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,0.22)">&#10142;</button>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ estRepete }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;display:grid;grid-template-columns:1fr 1fr;background:linear-gradient(#cfdcec,#f8fafc)">
+<div style="min-width:0;display:flex;align-items:center;justify-content:center;background:#fff;padding:20px">
+<span style="width:100%;height:100%;min-height:240px;background-image:{{ repeteBg }};background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+</div>
+<div style="min-width:0;display:flex;flex-direction:column;padding:20px 26px">
+
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;border-bottom:1.5px solid #a9bdd6">
+<div style="display:flex;align-items:center;gap:10px">
+<span style="width:14px;height:14px;border-radius:50%;background:{{ etape1 }};border:1.5px solid #fff;display:block"></span>
+<span style="font-size:16px;font-weight:700;color:#14213d">Écoute le mot</span>
+</div>
+<button onClick="{{ direRepete }}" style="border:1px solid #b9c6d6;border-radius:22px;background:#eef2f7;color:#14213d;padding:11px 34px;font-size:14.5px;cursor:pointer">Écouter le mot</button>
+<span style="font-size:22px;font-weight:700;color:#1d4e89">{{ motRepete }}</span>
+</div>
+
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;border-bottom:1.5px solid #a9bdd6">
+<div style="display:flex;align-items:center;gap:10px">
+<span style="width:14px;height:14px;border-radius:50%;background:{{ etape2 }};border:1.5px solid #fff;display:block"></span>
+<span style="font-size:16px;font-weight:700;color:#14213d">Enregistre-toi</span>
+</div>
+<button onClick="{{ basculerEnr }}" style="display:flex;align-items:center;gap:10px;border:1px solid #c58d94;border-radius:22px;background:{{ fondEnr }};color:#14213d;padding:11px 30px;font-size:14.5px;cursor:pointer;animation:{{ animEnr }}"><span style="width:12px;height:12px;border-radius:50%;background:#8a2b3a;display:block"></span> {{ texteEnr }}</button>
+<span style="font-size:12.5px;color:#a33;min-height:17px">{{ msgEnr }}</span>
+</div>
+
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px">
+<div style="display:flex;align-items:center;gap:10px">
+<span style="width:14px;height:14px;border-radius:50%;background:{{ etape3 }};border:1.5px solid #fff;display:block"></span>
+<span style="font-size:16px;font-weight:700;color:#14213d">Valide ton enregistrement</span>
+</div>
+<sc-if value="{{ aEnr }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;gap:12px">
+<button onClick="{{ reecouter }}" style="border:1px solid #b9c6d6;border-radius:22px;background:#eef2f7;color:#14213d;padding:10px 22px;font-size:13.5px;cursor:pointer">Me réécouter</button>
+<button onClick="{{ motSuivant }}" style="border:none;border-radius:22px;background:#1d4e89;color:#fff;padding:10px 24px;font-size:13.5px;font-weight:700;cursor:pointer">Valider</button>
+</div>
+</sc-if>
+<span style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:#8a91a3">{{ compteur }}</span>
+</div>
+
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ estEcrire }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;align-items:center;gap:14px;padding:20px 24px;background:#eef4fa">
+<div style="flex:0 0 auto;display:flex;gap:8px">
+<sc-for list="{{ jauge }}" as="j" hint-placeholder-count="8">
+<span style="width:40px;height:18px;border-radius:4px;border:1.5px solid #fff;background:{{ j.fond }};animation:{{ j.anim }};display:block"></span>
+</sc-for>
+</div>
+<span style="flex:0 0 auto;font-size:15px;color:#14213d">{{ consigneEcrire }}</span>
+<div style="flex:0 0 auto;width:100%;max-width:250px;border:2.5px solid #8fb0d2;border-radius:9px;background:#fff;padding:12px">
+<span style="width:100%;height:150px;background-image:{{ ecrireBg }};background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+</div>
+<button onClick="{{ direEcrire }}" style="flex:0 0 auto;border:1px solid #b9c6d6;border-radius:20px;background:#fff;color:#14213d;padding:8px 20px;font-size:13px;cursor:pointer">Écouter le mot</button>
+<div style="flex:0 0 auto;display:flex;align-items:baseline;justify-content:center;gap:0;font-family:Courier New, monospace;font-size:29px;letter-spacing:0.08em;min-height:38px">
+<span style="color:#14213d">{{ amorce }}</span>
+<input value="{{ saisie }}" onChange="{{ setSaisie }}" style="width:{{ largeurSaisie }};border:none;border-bottom:2.5px solid {{ bordSaisie }};background:none;padding:0 2px 2px;font-family:Courier New, monospace;font-size:29px;letter-spacing:0.08em;color:{{ couleurSaisie }};text-align:left;outline:none" />
+</div>
+<span style="flex:0 0 auto;font-size:15px;font-weight:700;color:#1d4e89;min-height:20px">{{ retourQuiz }}</span>
+<sc-if value="{{ repondu }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ suivantEcrit }}" title="Suivant" style="flex:0 0 auto;align-self:center;width:64px;height:64px;border:none;border-radius:50%;background:#1d4e89;color:#fff;font-size:30px;line-height:1;cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,0.22)">&#10142;</button>
+</sc-if>
+<sc-if value="{{ pasRepondu }}" hint-placeholder-val="{{ true }}">
+<button onClick="{{ validerEcrit }}" style="border:none;border-radius:7px;background:#4caf50;color:#fff;padding:11px 26px;font-size:13.5px;font-weight:700;cursor:pointer">Valider</button>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ estSituation }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;align-items:center;gap:16px;padding:22px 24px;background:#eef4fa">
+<div style="flex:0 0 auto;display:flex;gap:8px">
+<sc-for list="{{ jauge }}" as="j" hint-placeholder-count="8">
+<span style="width:40px;height:18px;border-radius:4px;border:1.5px solid #fff;background:{{ j.fond }};animation:{{ j.anim }};display:block"></span>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:12px">
+<svg viewBox="0 0 24 24" style="width:26px;height:26px;display:block" aria-hidden="true"><path d="M11 4C8 4 6.5 6 6.5 9c0 3 1 5 2 7l.5 4" fill="none" stroke="#1682a0" stroke-width="2" stroke-linecap="round"></path><path d="M11 4c3 0 3.5 3 2 4.5S11 11 11.5 13" fill="none" stroke="#1682a0" stroke-width="2" stroke-linecap="round"></path></svg>
+<svg viewBox="0 0 24 24" style="width:30px;height:26px;display:block" aria-hidden="true"><path d="M3 12h16M14 6l6 6-6 6" fill="none" stroke="#1682a0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<svg viewBox="0 0 24 24" style="width:26px;height:26px;display:block" aria-hidden="true"><path d="M8 11V5a1.8 1.8 0 0 1 3.6 0v6" fill="none" stroke="#1682a0" stroke-width="2" stroke-linecap="round"></path><path d="M11.6 11V9.5a1.6 1.6 0 0 1 3.2 0V12" fill="none" stroke="#1682a0" stroke-width="2" stroke-linecap="round"></path><path d="M14.8 12v-1a1.6 1.6 0 0 1 3.2 0v3.5c0 3.5-2.6 5.5-6 5.5-2.8 0-4.4-1.2-6-3.4l-2-2.8c-.7-1.1.9-2.5 2-1.4L8 15" fill="none" stroke="#1682a0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+</div>
+<div style="flex:0 0 auto;width:100%;max-width:640px;background:#fff;border-radius:14px;box-shadow:0 4px 14px rgba(18,35,59,0.14);padding:16px 22px;display:flex;align-items:center;gap:16px">
+<button onClick="{{ direSituation }}" style="flex:0 0 auto;width:52px;height:52px;border-radius:50%;border:none;background:#1682a0;color:#fff;font-size:20px;cursor:pointer">&#9654;</button>
+<span style="flex:0 0 auto;width:76px;height:62px;background-image:{{ sitBg }};background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+<span style="flex:1;min-width:0;font-size:18px;line-height:1.35;color:#12233b">{{ situation }}</span>
+</div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;width:100%;max-width:660px">
+<sc-for list="{{ choixSituation }}" as="c" hint-placeholder-count="3">
+<button onClick="{{ c.cliquer }}" style="border:3px solid {{ c.bord }};border-radius:14px;background:{{ c.fond }};padding:14px 10px;display:flex;flex-direction:column;align-items:center;gap:9px;cursor:pointer">
+<span style="width:100%;height:92px;background-image:{{ c.bg }};background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:14px;color:#12233b;text-align:center">{{ c.rep }}</span>
+</button>
+</sc-for>
+</div>
+<span style="flex:0 0 auto;font-size:15.5px;font-weight:700;color:#1682a0;min-height:21px">{{ retourQuiz }}</span>
+<sc-if value="{{ repondu }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ suivanteSituation }}" title="Suivant" style="flex:0 0 auto;align-self:center;width:64px;height:64px;border:none;border-radius:50%;background:#1682a0;color:#fff;font-size:30px;line-height:1;cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,0.22)">&#10142;</button>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ estResultat }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:34px 24px;background:#f4f6f9">
+<span style="font-size:14px;letter-spacing:0.1em;text-transform:uppercase;color:#8a91a3">{{ themeEleve }}</span>
+<span style="font-size:46px;font-weight:700;color:#1d4e89">{{ scoreFinal }}</span>
+<span style="font-size:17px;color:#14213d">{{ messageFinal }}</span>
+<span style="font-size:12.5px;color:#8a91a3;text-align:center">{{ sousTitreResultat }}</span>
+<div style="display:flex;gap:12px">
+<button onClick="{{ retourThemes }}" style="border:none;border-radius:7px;background:#1d4e89;color:#fff;padding:11px 22px;font-size:13.5px;font-weight:700;cursor:pointer">Un autre thème</button>
+<button onClick="{{ retourEleve }}" style="border:1px solid #c9cfd8;border-radius:7px;background:#fff;color:#14213d;padding:11px 22px;font-size:13.5px;cursor:pointer">Retour</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ estGroupes }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;padding:22px 24px">
+<div style="background:#fff;border-radius:10px;padding:17px;display:flex;flex-direction:column;gap:11px;box-shadow:0 1px 3px rgba(20,33,61,0.12)">
+<span style="font-size:14.5px;font-weight:700;color:#1d4e89">Liste des groupes</span>
+<div style="display:flex;gap:7px">
+<input value="{{ nouveauGroupe }}" onChange="{{ setNouveauGroupe }}" placeholder="Nouveau groupe" style="flex:1;min-width:0;border:1px solid #c9cfd8;border-radius:6px;padding:8px 10px;font-size:13px" />
+<button onClick="{{ ajouterGroupe }}" style="flex:0 0 auto;width:34px;border:none;border-radius:6px;background:#1d4e89;color:#fff;font-size:17px;cursor:pointer">+</button>
+</div>
+<div style="flex:1;min-height:140px;border:1px solid #c9cfd8;border-radius:6px;overflow:auto;background:#fbfcfd">
+<sc-for list="{{ listeGroupes }}" as="g" hint-placeholder-count="3">
+<button onClick="{{ g.choisir }}" style="width:100%;text-align:left;border:none;border-bottom:1px solid #eef1f5;background:{{ g.fond }};padding:9px 12px;font-size:13px;color:#14213d;cursor:pointer">{{ g.libelle }}</button>
+</sc-for>
+</div>
+<button onClick="{{ supprimerGroupe }}" style="border:1px solid #d6b3ae;border-radius:6px;background:#fdf3f1;color:#a33;padding:8px;font-size:12.5px;cursor:pointer">Supprimer le groupe sélectionné</button>
+</div>
+
+<div style="background:#fff;border-radius:10px;padding:17px;display:flex;flex-direction:column;gap:11px;box-shadow:0 1px 3px rgba(20,33,61,0.12)">
+<span style="font-size:14.5px;font-weight:700;color:#1d4e89">Élèves du groupe</span>
+<div style="display:flex;gap:7px">
+<input value="{{ nouvelEleve }}" onChange="{{ setNouvelEleve }}" placeholder="Nom de l'élève" style="flex:1;min-width:0;border:1px solid #c9cfd8;border-radius:6px;padding:8px 10px;font-size:13px" />
+<button onClick="{{ ajouterEleve }}" style="flex:0 0 auto;width:34px;border:none;border-radius:6px;background:#1d4e89;color:#fff;font-size:17px;cursor:pointer">+</button>
+</div>
+<div style="flex:1;min-height:140px;border:1px solid #c9cfd8;border-radius:6px;overflow:auto;background:#fbfcfd">
+<sc-for list="{{ listeEleves }}" as="e" hint-placeholder-count="4">
+<button onClick="{{ e.choisir }}" style="width:100%;text-align:left;border:none;border-bottom:1px solid #eef1f5;background:{{ e.fond }};padding:9px 12px;font-size:13px;color:#14213d;cursor:pointer">{{ e.nom }}</button>
+</sc-for>
+</div>
+<button onClick="{{ supprimerEleve }}" style="border:1px solid #d6b3ae;border-radius:6px;background:#fdf3f1;color:#a33;padding:8px;font-size:12.5px;cursor:pointer">Supprimer l'élève sélectionné</button>
+</div>
+
+<div style="background:#fff;border-radius:10px;padding:17px;display:flex;flex-direction:column;gap:11px;box-shadow:0 1px 3px rgba(20,33,61,0.12)">
+<span style="font-size:14.5px;font-weight:700;color:#1d4e89">Transférer vers un autre groupe</span>
+<span style="font-size:12px;color:#6b7386;line-height:1.4">Élève sélectionné : <strong style="color:#14213d">{{ eleveSel }}</strong></span>
+<select value="{{ dest }}" onChange="{{ setDest }}" style="border:1px solid #c9cfd8;border-radius:6px;padding:8px 10px;font-size:13px;background:#fff">
+<sc-for list="{{ nomsGroupes }}" as="g" hint-placeholder-count="2">
+<option value="{{ g }}">{{ g }}</option>
+</sc-for>
+</select>
+<button onClick="{{ transferer }}" style="border:none;border-radius:6px;background:#1d4e89;color:#fff;padding:10px;font-size:13px;font-weight:700;cursor:pointer">Transférer l'élève</button>
+<div style="flex:1"></div>
+<span style="font-size:12px;color:#6b7386;line-height:1.5">{{ infoTransfert }}</span>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ estReglages }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:285px 240px 1fr;gap:20px;padding:22px 24px">
+
+
+<div style="background:#fff;border-radius:10px;padding:17px;display:flex;flex-direction:column;gap:8px;box-shadow:0 1px 3px rgba(20,33,61,0.12);overflow:auto">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+<span style="font-size:14.5px;font-weight:700;color:#1d4e89">Thèmes accessibles</span>
+<button onClick="{{ basculerTout }}" style="flex:0 0 auto;border:1px solid #1d4e89;border-radius:6px;background:#f2f7fc;color:#1d4e89;padding:5px 10px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap">{{ libelleTout }}</button>
+</div>
+<sc-for list="{{ themes }}" as="t" hint-placeholder-count="8">
+<button onClick="{{ t.basculer }}" style="display:flex;align-items:center;gap:9px;border:none;border-bottom:1px solid #eef1f5;background:none;padding:8px 2px;padding-left:{{ t.indent }};cursor:pointer;text-align:left">
+<span style="flex:0 0 auto;width:17px;height:17px;border:1.5px solid #1d4e89;border-radius:4px;background:{{ t.coche }};display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;font-weight:700">{{ t.marque }}</span>
+<span style="font-size:13px;color:#14213d;font-weight:{{ t.poids }}">{{ t.nom }}</span>
+</button>
+</sc-for>
+<div style="display:flex;align-items:center;gap:8px;margin-top:8px">
+<span style="flex:1;height:1px;background:#dde2e9;display:block"></span>
+<span style="flex:0 0 auto;font-size:9.5px;letter-spacing:0.14em;text-transform:uppercase;color:#f08a24;font-weight:700">accès direct</span>
+<span style="flex:1;height:1px;background:#dde2e9;display:block"></span>
+</div>
+<sc-for list="{{ themesDirectsParam }}" as="t" hint-placeholder-count="1">
+<button onClick="{{ t.basculer }}" style="display:flex;align-items:center;gap:9px;border:2px solid #f08a24;border-radius:7px;background:#fff8f0;padding:8px 10px;cursor:pointer;text-align:left">
+<span style="flex:0 0 auto;width:17px;height:17px;border:1.5px solid #1d4e89;border-radius:4px;background:{{ t.coche }};display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;font-weight:700">{{ t.marque }}</span>
+<span style="font-size:13px;color:#14213d;font-weight:700">{{ t.nom }}</span>
+</button>
+</sc-for>
+</div>
+
+<div style="background:#fff;border-radius:10px;padding:17px;display:flex;flex-direction:column;gap:10px;box-shadow:0 1px 3px rgba(20,33,61,0.12)">
+<span style="font-size:14.5px;font-weight:700;color:#1d4e89;opacity:{{ opaciteChamps }}">Champs pédagogiques</span>
+<span style="font-size:11px;color:#8a91a3;line-height:1.4">Ne s'applique pas à « La politesse », qui a son propre exercice.</span>
+<sc-for list="{{ champs }}" as="c" hint-placeholder-count="4">
+<button onClick="{{ c.basculer }}" style="display:flex;align-items:center;gap:10px;border:1px solid #dde2e9;border-radius:6px;background:{{ c.fond }};padding:10px 12px;cursor:pointer;text-align:left;opacity:{{ opaciteChamps }}">
+<span style="flex:0 0 auto;width:18px;height:18px;border:1.5px solid #1d4e89;border-radius:4px;background:{{ c.coche }};display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;font-weight:700">{{ c.marque }}</span>
+<span style="font-size:13.5px;color:#14213d">{{ c.nom }}</span>
+</button>
+</sc-for>
+</div>
+
+<div style="background:#fff;border-radius:10px;padding:17px;display:flex;flex-direction:column;gap:15px;box-shadow:0 1px 3px rgba(20,33,61,0.12);overflow:auto">
+<span style="font-size:14.5px;font-weight:700;color:#1d4e89;opacity:{{ opaciteChamps }}">Exercices et nombre de questions</span>
+<sc-for list="{{ niveaux }}" as="n" hint-placeholder-count="3">
+<div style="display:flex;flex-direction:column;gap:6px;opacity:{{ opaciteChamps }}">
+<span style="font-size:11.5px;letter-spacing:0.1em;text-transform:uppercase;color:#8a91a3">{{ n.titre }}</span>
+<sc-for list="{{ n.exos }}" as="x" hint-placeholder-count="3">
+<div style="display:grid;grid-template-columns:1fr 125px;align-items:center;gap:10px;border:1px solid #dde2e9;border-radius:6px;padding:8px 12px">
+<button onClick="{{ x.basculer }}" style="display:flex;align-items:center;gap:9px;background:none;border:none;cursor:pointer;padding:0;text-align:left">
+<span style="flex:0 0 auto;width:17px;height:17px;border:1.5px solid #1d4e89;border-radius:4px;background:{{ x.coche }};display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;font-weight:700">{{ x.marque }}</span>
+<span style="font-size:13px;color:#14213d">{{ x.nom }}</span>
+</button>
+<select value="{{ x.n }}" onChange="{{ x.setN }}" style="border:1px solid #c9cfd8;border-radius:5px;padding:5px 7px;font-size:12px;background:#fff">
+<option value="5">5 questions</option>
+<option value="8">8 questions</option>
+<option value="10">10 questions</option>
+<option value="15">15 questions</option>
+</select>
+</div>
+</sc-for>
+</div>
+</sc-for>
+</div>
+
+
+
+</div>
+</sc-if>
+
+<sc-if value="{{ estBilan }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;gap:15px;padding:22px 24px">
+<div style="flex:0 0 auto;display:flex;gap:20px;align-items:flex-end">
+<div style="display:flex;flex-direction:column;gap:5px">
+<span style="font-size:11.5px;letter-spacing:0.1em;text-transform:uppercase;color:#8a91a3">Exercice</span>
+<select value="{{ exoFiltre }}" onChange="{{ setExoFiltre }}" style="border:1px solid #c9cfd8;border-radius:6px;padding:8px 12px;font-size:13px;background:#fff;min-width:225px">
+<option value="Tous">Tous les exercices</option>
+<option value="Explore les mots">Explore les mots</option>
+<option value="Trouve la bonne image">Trouve la bonne image</option>
+<option value="Vrai ou faux">Vrai ou faux</option>
+</select>
+</div>
+<span style="font-size:12.5px;color:#6b7386;padding-bottom:9px">{{ resumeBilan }}</span>
+</div>
+<sc-if value="{{ aJournalAlpha }}" hint-placeholder-val="{{ false }}">
+<div style="flex:0 0 auto;background:#fff;border-radius:10px;box-shadow:0 1px 3px rgba(20,33,61,0.12);padding:14px 16px;display:flex;flex-direction:column;gap:9px">
+<span style="font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#6b7386">Alphabet &mdash; lettres à revoir</span>
+<sc-for list="{{ journalAlphaListe }}" as="j" hint-placeholder-count="2">
+<div style="display:grid;grid-template-columns:1.4fr 90px 110px 1fr;align-items:center;gap:12px;border-top:1px solid #eef1f5;padding-top:8px">
+<span style="font-size:13.5px;color:#12233b;font-weight:700">{{ j.titre }}</span>
+<span style="font-size:13px;color:#2a9d6e">{{ j.score }}</span>
+<span style="font-size:13px;color:#8a91a3">{{ j.erreurs }}</span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:15px;letter-spacing:0.09em;color:#8a4b1e">{{ j.dures }}</span>
+</div>
+</sc-for>
+</div>
+</sc-if>
+<div style="flex:1;min-height:0;background:#fff;border-radius:10px;box-shadow:0 1px 3px rgba(20,33,61,0.12);overflow:auto">
+<div style="display:grid;grid-template-columns:1.3fr 1.6fr 1fr 85px 105px;background:#f4f6f9;border-bottom:1px solid #dde2e9">
+<span style="font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#6b7386;padding:11px 14px">Élève</span>
+<span style="font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#6b7386;padding:11px 14px">Exercice</span>
+<span style="font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#6b7386;padding:11px 14px">Thème</span>
+<span style="font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#6b7386;padding:11px 14px">Score</span>
+<span style="font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#6b7386;padding:11px 14px">Date</span>
+</div>
+<sc-for list="{{ resultats }}" as="r" hint-placeholder-count="6">
+<div style="display:grid;grid-template-columns:1.3fr 1.6fr 1fr 85px 105px;border-bottom:1px solid #eef1f5">
+<span style="font-size:13px;padding:10px 14px;color:#14213d;font-weight:700">{{ r.eleve }}</span>
+<span style="font-size:13px;padding:10px 14px;color:#14213d">{{ r.exo }}</span>
+<span style="font-size:13px;padding:10px 14px;color:#6b7386">{{ r.theme }}</span>
+<span style="font-size:13px;padding:10px 14px;font-weight:700;color:{{ r.couleur }}">{{ r.score }}</span>
+<span style="font-size:12.5px;padding:10px 14px;color:#6b7386">{{ r.date }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ estOral }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:275px 1fr;gap:20px;padding:22px 24px">
+<div style="display:flex;flex-direction:column;gap:15px">
+<div style="background:#fff;border-radius:10px;padding:15px;box-shadow:0 1px 3px rgba(20,33,61,0.12);display:flex;flex-direction:column;gap:7px">
+<span style="font-size:14px;font-weight:700;color:#1d4e89">Élèves</span>
+<sc-for list="{{ listeEleves }}" as="e" hint-placeholder-count="3">
+<button onClick="{{ e.choisir }}" style="border:none;border-radius:5px;background:{{ e.fond }};padding:8px 10px;font-size:13px;color:#14213d;cursor:pointer;text-align:left">{{ e.nom }}</button>
+</sc-for>
+</div>
+<div style="background:#fff;border-radius:10px;padding:15px;box-shadow:0 1px 3px rgba(20,33,61,0.12);display:flex;flex-direction:column;gap:7px">
+<span style="font-size:14px;font-weight:700;color:#1d4e89">Niveau</span>
+<sc-for list="{{ niveauxOral }}" as="n" hint-placeholder-count="4">
+<button onClick="{{ n.choisir }}" style="border:none;border-radius:5px;background:{{ n.fond }};padding:8px 10px;font-size:13px;color:{{ n.couleur }};cursor:pointer;text-align:left">{{ n.nom }}</button>
+</sc-for>
+</div>
+</div>
+<div style="background:#fff;border-radius:10px;padding:17px;box-shadow:0 1px 3px rgba(20,33,61,0.12);display:flex;flex-direction:column;gap:11px;overflow:auto">
+<span style="font-size:14.5px;font-weight:700;color:#1d4e89">Sons enregistrés</span>
+<sc-for list="{{ sons }}" as="s" hint-placeholder-count="4">
+<div style="display:grid;grid-template-columns:40px 1fr auto;align-items:center;gap:13px;border:1px solid #dde2e9;border-radius:8px;padding:10px 14px">
+<button onClick="{{ s.ecouter }}" style="width:34px;height:34px;border-radius:50%;border:none;background:#1d4e89;color:#fff;font-size:13px;cursor:pointer">&#9654;</button>
+<div style="display:flex;flex-direction:column;gap:2px;min-width:0">
+<span style="font-size:13.5px;font-weight:700;color:#14213d">{{ s.mot }}</span>
+<span style="font-size:12px;color:#6b7386">{{ s.detail }}</span>
+</div>
+<span style="font-size:12.5px;color:#8a91a3">{{ s.date }}</span>
+</div>
+</sc-for>
+<span style="font-size:12.5px;color:#8a91a3;line-height:1.5">{{ infoOral }}</span>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ estThemes }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:270px 1fr;gap:20px;padding:22px 24px">
+
+<div style="min-height:0;background:#fff;border-radius:10px;padding:16px;box-shadow:0 1px 3px rgba(20,33,61,0.12);display:flex;flex-direction:column;gap:9px;overflow:hidden">
+<span style="flex:0 0 auto;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#8a91a3;font-weight:700">Thèmes fournis</span>
+<div style="flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column">
+<sc-for list="{{ themesFournis }}" as="t" hint-placeholder-count="10">
+<button onClick="{{ t.choisir }}" style="display:flex;align-items:center;gap:8px;border:none;border-left:4px solid {{ t.trait }};border-bottom:1px solid #eef1f5;background:{{ t.fond }};padding:9px 9px;font-size:13px;color:#14213d;cursor:pointer;text-align:left">
+<span style="flex:1;min-width:0">{{ t.nom }}</span>
+<span style="flex:0 0 auto;font-size:10.5px;color:{{ t.encreEtat }}">{{ t.etat }}</span>
+</button>
+</sc-for>
+</div>
+<span style="flex:0 0 auto;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#8a91a3;font-weight:700;padding-top:4px">Mes thèmes</span>
+<div style="flex:0 0 auto;max-height:150px;overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column">
+<sc-for list="{{ mesThemes }}" as="t" hint-placeholder-count="1">
+<div style="display:flex;align-items:center;gap:4px;border-bottom:1px solid #eef1f5;background:{{ t.fond }}">
+<button onClick="{{ t.choisir }}" style="flex:1;min-width:0;border:none;border-left:4px solid {{ t.trait }};background:none;padding:9px;font-size:13px;color:#14213d;cursor:pointer;text-align:left">{{ t.nom }}</button>
+<button onClick="{{ t.supprimer }}" title="Supprimer ce thème" style="flex:0 0 auto;border:none;background:none;color:#c62828;font-size:15px;cursor:pointer;padding:0 8px">&times;</button>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;display:flex;gap:6px;padding-top:4px">
+<input value="{{ nvTheme }}" onChange="{{ setNvTheme }}" placeholder="Nouveau thème" style="flex:1;min-width:0;border:1px solid #c9cfd8;border-radius:6px;padding:8px 10px;font-size:13px" />
+<button onClick="{{ creerTheme }}" title="Créer le thème" style="flex:0 0 auto;width:38px;border:none;border-radius:6px;background:#2a9d6e;color:#fff;font-size:18px;cursor:pointer">+</button>
+</div>
+</div>
+
+<div style="min-height:0;background:#fff;border-radius:10px;padding:16px 18px;box-shadow:0 1px 3px rgba(20,33,61,0.12);display:flex;flex-direction:column;gap:12px;overflow:hidden">
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+<span style="flex:0 0 auto;font-family:Archivo Black, Archivo, sans-serif;font-size:17px;color:#12233b;white-space:nowrap">{{ themeEdit }}</span>
+<div style="display:flex;gap:0;border:1.5px solid #c9cfd8;border-radius:8px;overflow:hidden">
+<button onClick="{{ ongletMots }}" style="border:none;background:{{ fondMots }};color:{{ encreMots }};padding:8px 20px;font-size:12.5px;font-weight:700;cursor:pointer">{{ libelleMots }}</button>
+<button onClick="{{ ongletPhrases }}" style="border:none;border-left:1.5px solid #c9cfd8;background:{{ fondPhrases }};color:{{ encrePhrases }};padding:8px 20px;font-size:12.5px;font-weight:700;cursor:pointer">{{ libellePhrases }}</button>
+</div>
+<span style="flex:1"></span>
+<sc-if value="{{ themeModifie }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ retablirTheme }}" style="border:1.5px solid #c9cfd8;border-radius:7px;background:#fff;color:#6b7386;padding:7px 14px;font-size:12px;cursor:pointer">Rétablir le contenu d'origine</button>
+</sc-if>
+</div>
+
+<sc-if value="{{ ongletEstMots }}" hint-placeholder-val="{{ true }}">
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:9px;background:#f4f6f9;border-radius:9px;padding:10px 12px">
+<input value="{{ nvMot }}" onChange="{{ setNvMot }}" placeholder="Le mot, avec son article" style="flex:1;min-width:0;border:1px solid #c9cfd8;border-radius:6px;padding:9px 11px;font-size:13px" />
+<label style="flex:0 0 auto;border:none;border-radius:7px;background:#1d4e89;color:#fff;padding:9px 16px;font-size:12.5px;font-weight:700;cursor:pointer">Choisir l'image<input type="file" accept="image/*" onChange="{{ fichierMot }}" style="display:none" /></label>
+<span style="flex:0 0 auto;font-size:12px;color:#6b7386">{{ infoTheme }}</span>
+</div>
+<sc-if value="{{ aLocales }}" hint-placeholder-val="{{ false }}">
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:8px">
+<span style="flex:0 0 auto;width:10px;height:10px;border-radius:50%;background:#c1440e;display:block"></span>
+<span style="font-size:12px;color:#c1440e">{{ texteLocales }}</span>
+</div>
+</sc-if>
+<div style="flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));grid-auto-rows:min-content;gap:11px;padding-right:8px">
+<sc-for list="{{ motsEdit }}" as="m" hint-placeholder-count="10">
+<div style="position:relative;border:1.5px solid #dde2e9;border-radius:9px;background:#fff;padding:9px 7px;display:flex;flex-direction:column;align-items:center;gap:6px">
+<span style="width:100%;height:74px;background-image:{{ m.bg }};background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+<span title="Cette image n'est que sur cet ordinateur" style="position:absolute;top:6px;left:6px;width:10px;height:10px;border-radius:50%;background:{{ m.pastille }};display:block"></span>
+<span style="font-size:12px;font-weight:700;color:#14213d;text-align:center;line-height:1.2">{{ m.mot }}</span>
+<label style="font-size:10.5px;color:#1d4e89;cursor:pointer;text-decoration:underline">changer l'image<input type="file" accept="image/*" onChange="{{ m.remplacer }}" style="display:none" /></label>
+<button onClick="{{ m.retirer }}" title="Retirer" style="position:absolute;top:4px;right:5px;border:none;border-radius:50%;background:#f4f6f9;color:#c62828;width:22px;height:22px;font-size:14px;line-height:1;cursor:pointer">&times;</button>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ ongletEstPhrases }}" hint-placeholder-val="{{ false }}">
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:9px;background:#f4f6f9;border-radius:9px;padding:10px 12px;flex-wrap:wrap">
+<input value="{{ nvPhrase }}" onChange="{{ setNvPhrase }}" placeholder="La phrase entière" style="flex:1;min-width:180px;border:1px solid #c9cfd8;border-radius:6px;padding:9px 11px;font-size:13px" />
+<select value="{{ nvPhraseImg }}" onChange="{{ setNvPhraseImg }}" style="flex:0 0 auto;border:1px solid #c9cfd8;border-radius:6px;padding:9px 10px;font-size:12.5px;background:#fff">
+<option value="">— son image —</option>
+<sc-for list="{{ imagesDispo }}" as="o" hint-placeholder-count="3">
+<option value="{{ o.cle }}">{{ o.mot }}</option>
+</sc-for>
+</select>
+<div style="flex:0 0 auto;display:flex;gap:0;border:1.5px solid #c9cfd8;border-radius:8px;overflow:hidden">
+<button onClick="{{ nvVrai }}" style="border:none;background:{{ fondNvVrai }};color:{{ encreNvVrai }};padding:9px 15px;font-size:12.5px;font-weight:700;cursor:pointer">&#10004; vrai</button>
+<button onClick="{{ nvFaux }}" style="border:none;border-left:1.5px solid #c9cfd8;background:{{ fondNvFaux }};color:{{ encreNvFaux }};padding:9px 15px;font-size:12.5px;font-weight:700;cursor:pointer">&#10008; faux</button>
+</div>
+<button onClick="{{ ajouterPhrase }}" style="flex:0 0 auto;border:none;border-radius:7px;background:#2a9d6e;color:#fff;padding:9px 18px;font-size:12.5px;font-weight:700;cursor:pointer">Ajouter</button>
+<span style="flex:0 0 auto;font-size:12px;color:#6b7386">{{ infoTheme }}</span>
+</div>
+<div style="flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;gap:8px;padding-right:8px">
+<sc-for list="{{ phrasesEdit }}" as="f" hint-placeholder-count="6">
+<div style="display:flex;align-items:center;gap:12px;border:1.5px solid #dde2e9;border-radius:9px;background:#fff;padding:8px 12px">
+<span style="flex:0 0 auto;width:64px;height:52px;background-image:{{ f.bg }};background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+<span style="flex:1;min-width:0;font-size:14px;color:#14213d">{{ f.phrase }}</span>
+<button onClick="{{ f.basculer }}" title="Cette phrase décrit-elle l'image ?" style="flex:0 0 auto;display:flex;align-items:center;gap:7px;border:2px solid {{ f.bord }};border-radius:20px;background:{{ f.fond }};color:{{ f.encre }};padding:6px 14px;font-size:12.5px;font-weight:700;cursor:pointer">{{ f.marque }} {{ f.etiquette }}</button>
+<button onClick="{{ f.retirer }}" title="Retirer" style="flex:0 0 auto;border:none;background:none;color:#c62828;font-size:17px;cursor:pointer;padding:0 4px">&times;</button>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ apercuOuvert }}" hint-placeholder-val="{{ false }}">
+<div onClick="{{ fermerApercu }}" style="position:fixed;inset:0;z-index:60;background:rgba(18,35,59,0.72);display:flex;flex-direction:column;align-items:center;gap:14px;padding:18px;overflow:auto;cursor:pointer">
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:15px;color:#fff">{{ apercuNom }}</span>
+<button onClick="{{ apercuChoisir }}" style="border:none;border-radius:11px;background:{{ apercuFond }};color:#fff;padding:11px 20px;font-family:Archivo Black, Archivo, sans-serif;font-size:11.5px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer">{{ apercuLibelle }}</button>
+<button onClick="{{ fermerApercu }}" style="border:2px solid rgba(255,255,255,0.55);border-radius:11px;background:none;color:#fff;padding:10px 18px;font-family:Archivo Black, Archivo, sans-serif;font-size:11.5px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer">Fermer</button>
+</div>
+<div style="flex:0 0 auto;width:calc(210mm * 0.62);height:calc(297mm * 0.62);background:#fff;box-shadow:0 14px 40px rgba(0,0,0,0.45);overflow:hidden">
+<span style="width:210mm;height:297mm;transform:scale(0.62);transform-origin:top left;display:block">
+<dc-import name="APPLI - Fiche" f="{{ apercuFeuille }}" hint-size="210mm,297mm"></dc-import>
+</span>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ estCompetences }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:230px 1fr;gap:20px;padding:22px 24px">
+<div style="min-height:0;display:flex;flex-direction:column;gap:9px;overflow:auto">
+<span style="flex:0 0 auto;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#6b7a8d;font-weight:700">Mes élèves</span>
+<sc-for list="{{ compEleves }}" as="e" hint-placeholder-count="3">
+<button onClick="{{ e.choisir }}" style="flex:0 0 auto;text-align:left;border:2px solid {{ e.bord }};border-radius:11px;background:{{ e.fond }};padding:11px 13px;display:flex;flex-direction:column;gap:2px;cursor:pointer">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:13px;color:{{ e.encre }}">{{ e.nom }}</span>
+<span style="font-size:11px;font-weight:700;color:#1c7a52;min-height:14px">{{ e.compte }}</span>
+</button>
+</sc-for>
+</div>
+<div style="min-width:0;min-height:0;display:flex;flex-direction:column;gap:12px">
+<div style="flex:0 0 auto;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(20,33,61,0.12);padding:13px 16px;display:flex;align-items:baseline;gap:14px;flex-wrap:wrap">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:16px;color:#12233b">{{ compEleveNom }}</span>
+<span style="flex:1;font-size:12.5px;color:#6b7386">{{ compResume }}</span>
+</div>
+<div style="flex:1;min-height:0;overflow:auto;display:flex;flex-direction:column;gap:14px;padding-right:2px">
+<sc-for list="{{ compDomaines }}" as="d" hint-placeholder-count="4">
+<div style="background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(20,33,61,0.12);overflow:hidden">
+<div style="background:{{ d.couleur }};padding:9px 14px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:#fff">{{ d.nom }}</span>
+</div>
+<sc-for list="{{ d.lignes }}" as="l" hint-placeholder-count="4">
+<div style="display:flex;align-items:center;gap:12px;padding:8px 14px;border-bottom:1px solid #eef1f5">
+<span style="flex:1;min-width:0;font-size:13px;color:#12233b;line-height:1.35">{{ l.texte }}</span>
+<span style="flex:0 0 auto;width:44px;font-size:11px;color:#9aa4b2;text-align:right">{{ l.date }}</span>
+<div style="flex:0 0 auto;display:flex;gap:5px">
+<sc-for list="{{ l.boutons }}" as="b" hint-placeholder-count="3">
+<button onClick="{{ b.definir }}" style="border:1.5px solid {{ b.bord }};border-radius:8px;background:{{ b.fond }};color:{{ b.encre }};padding:6px 11px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap">{{ b.libelle }}</button>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ estOutils }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:250px 1fr;gap:20px;padding:22px 24px">
+<div style="min-height:0;display:flex;flex-direction:column;gap:10px;overflow:auto">
+<span style="flex:0 0 auto;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#6b7a8d;font-weight:700">Mes collections</span>
+<sc-for list="{{ collections }}" as="c" hint-placeholder-count="6">
+<button onClick="{{ c.choisir }}" style="flex:0 0 auto;text-align:left;border:2px solid {{ c.bord }};border-radius:12px;background:{{ c.fond }};padding:12px 14px;display:flex;flex-direction:column;gap:3px;cursor:pointer">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:13px;color:{{ c.couleur }}">{{ c.nom }}</span>
+<span style="font-size:11.5px;color:#6b7386;line-height:1.35">{{ c.desc }}</span>
+<span style="font-size:11px;font-weight:700;color:#2a9d6e;min-height:14px">{{ c.compteur }}</span>
+</button>
+</sc-for>
+</div>
+<div style="min-width:0;min-height:0;display:flex;flex-direction:column;gap:14px">
+<div style="flex:0 0 auto;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(20,33,61,0.12);padding:14px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+<span style="flex:1;min-width:160px;font-size:13.5px;color:#12233b;font-weight:700">{{ resumeOutils }}</span>
+<button onClick="{{ pagePrec }}" style="border:1px solid #c9cfd8;border-radius:9px;background:#fff;color:#12233b;width:32px;height:32px;font-size:15px;font-weight:700;cursor:pointer;padding:0">&#8592;</button>
+<span style="font-size:11.5px;color:#6b7386;white-space:nowrap">{{ pageOutils }}</span>
+<button onClick="{{ pageSuiv }}" style="border:1px solid #c9cfd8;border-radius:9px;background:#fff;color:#12233b;width:32px;height:32px;font-size:15px;font-weight:700;cursor:pointer;padding:0">&#8594;</button>
+<button onClick="{{ effacerOutils }}" style="border:2px solid #c9cfd8;border-radius:10px;background:#fff;color:#6b7386;padding:10px 16px;font-size:12px;font-weight:700;cursor:pointer">Tout effacer</button>
+<button onClick="{{ imprimerOutils }}" style="border:none;border-radius:11px;background:#2a9d6e;color:#fff;padding:12px 24px;font-family:Archivo Black, Archivo, sans-serif;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;box-shadow:0 3px 0 #217d57">Imprimer</button>
+</div>
+<div style="flex:1;min-height:0;overflow:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:18px;align-content:start;padding:2px 2px 10px">
+<sc-for list="{{ vignettes }}" as="v" hint-placeholder-count="8">
+<div style="display:flex;flex-direction:column;gap:7px;min-width:0">
+<button onClick="{{ v.basculer }}" style="position:relative;width:190px;height:269px;padding:0;border:3px solid {{ v.bord }};border-radius:9px;background:#fff;overflow:hidden;cursor:pointer;box-shadow:0 3px 10px rgba(18,35,59,0.14)" style-hover="box-shadow:0 6px 16px rgba(18,35,59,0.24)">
+<span style="position:absolute;top:0;left:0;width:210mm;height:297mm;transform:scale(0.2394);transform-origin:top left;display:block;pointer-events:none">
+<dc-import name="APPLI - Fiche" f="{{ v.feuille }}" hint-size="210mm,297mm"></dc-import>
+</span>
+<span style="position:absolute;top:7px;right:7px;width:26px;height:26px;border-radius:50%;background:{{ v.badgeFond }};color:#fff;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center">{{ v.badge }}</span>
+</button>
+<div style="display:flex;align-items:center;gap:7px;width:190px">
+<span style="flex:1;min-width:0;font-size:11.5px;font-weight:700;color:#12233b;line-height:1.25">{{ v.nom }}</span>
+<button onClick="{{ v.moins }}" style="flex:0 0 auto;width:26px;height:26px;border:1px solid #c9cfd8;border-radius:7px;background:#fff;color:#12233b;font-size:15px;font-weight:700;cursor:pointer;padding:0">&minus;</button>
+<span style="flex:0 0 auto;width:18px;text-align:center;font-size:13px;font-weight:700;color:{{ v.couleurNb }}">{{ v.nb }}</span>
+<button onClick="{{ v.plus }}" style="flex:0 0 auto;width:26px;height:26px;border:1px solid #c9cfd8;border-radius:7px;background:#fff;color:#12233b;font-size:15px;font-weight:700;cursor:pointer;padding:0">+</button>
+</div>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ estMdp }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:40px 24px">
+<div style="width:100%;max-width:460px;background:#fff;border-radius:10px;padding:28px;box-shadow:0 1px 3px rgba(20,33,61,0.12);display:flex;flex-direction:column;gap:18px">
+<span style="font-size:16px;font-weight:700;color:#1d4e89">Mot de passe enseignant</span>
+<div style="display:flex;flex-direction:column;gap:6px">
+<span style="font-size:12.5px;color:#6b7386">Nouveau mot de passe</span>
+<input type="password" value="{{ mdp1 }}" onChange="{{ setMdp1 }}" style="border:1px solid #c9cfd8;border-radius:6px;padding:10px 12px;font-size:14px" />
+</div>
+<div style="display:flex;flex-direction:column;gap:6px">
+<span style="font-size:12.5px;color:#6b7386">Confirmation</span>
+<input type="password" value="{{ mdp2 }}" onChange="{{ setMdp2 }}" style="border:1px solid #c9cfd8;border-radius:6px;padding:10px 12px;font-size:14px" />
+</div>
+<span style="font-size:12px;color:#8a91a3">8 caractères maximum.</span>
+<button onClick="{{ validerMdp }}" style="border:none;border-radius:6px;background:#1d4e89;color:#fff;padding:11px;font-size:13.5px;font-weight:700;cursor:pointer">Valider le nouveau mot de passe</button>
+<span style="font-size:12.5px;color:{{ mdpCouleur }};line-height:1.5">{{ mdpInfo }}</span>
+</div>
+</div>
+</sc-if>
+
+</div>
+<div class="om-print">
+<sc-for list="{{ feuillesPrint }}" as="fp" hint-placeholder-count="1">
+<div class="om-feuille" style="width:210mm;height:297mm;overflow:hidden">
+<dc-import name="APPLI - Fiche" f="{{ fp }}" hint-size="210mm,297mm"></dc-import>
+</div>
+</sc-for>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:840}}">
+const GROUPES_INIT=[{nom:'Débutants',eleves:['Élève A','Élève B','Élève C']},{nom:'Intermédiaires',eleves:[]},{nom:'Avancés',eleves:[]}];
+const THEMES=['Le corps','Les animaux','L\'école','Les repas','Les mathématiques','La maison','La famille, les métiers','L\'heure, le calendrier','Les actions courantes','Les vêtements, les couleurs','La ville, les transports','Se présenter'];
+const PREF=f=>(/^(geste|phrase)-/.test(f)?f:'mot-'+f);
+// phrases illustrées, par thème : [phrase, image]
+const PHRASES={
+ 'Le corps':[
+  ['Il est grand.','phrase-grand'],
+  ['Elle a les cheveux frisés.','phrase-cheveuxfrises'],
+  ['Il a les cheveux courts.','phrase-cheveuxcourts'],
+  ['Elle a les cheveux longs.','phrase-cheveuxlongs'],
+  ['Elle a les yeux bleus.','phrase-yeuxbleus'],
+  ["Elle porte des boucles d'oreilles.",'phrase-bouclesdoreilles'],
+  ['Il a mal à la tête.','phrase-malalatete'],
+  ['Elle a mal au ventre.','phrase-malauventre'],
+  ['Il a mal au dos.','phrase-malaudos'],
+  ['Elle a mal aux dents.','phrase-malauxdents'],
+  ['Il a mal au genou.','phrase-malaugenou'],
+  ['Il a le bras cassé.','phrase-brascasse'],
+  ['Il est malade.','phrase-malade'],
+  ['Elle se lave les mains.','phrase-laverlesmains'],
+  ['Elle lève la main.','phrase-leverlamain'],
+  ['La femme est petite et mince.','phrase-petiteetmince'],
+  ['La grand-mère embrasse sa petite-fille.','phrase-surlajoue'],
+  ['Elle porte un sac sur le dos.','phrase-sacsurledos']
+ ]};
+const BANQUE={
+ 'La politesse':[['bonjour','geste-bonjour'],['bonsoir','geste-bonsoir'],['au revoir','geste-aurevoir'],['merci','geste-merci'],["s'il vous plaît",'geste-silvousplait'],['pardon','geste-pardon'],['oui','geste-oui'],['non','geste-non'],['à demain','geste-ademain']],
+ "L'alphabet":[['a','ananas'],['b','ballon'],['c','carotte'],['d','date'],['e','epee'],['f','fantome'],['g','gateau'],['i','gris'],['j','jupe'],['k','kangourou'],['l','lit'],['m','moto'],['n','nuage'],['o','rose'],['p','pied'],['r','rue'],['s','salade'],['t','table'],['v','velo'],['w','wagon'],['x','xylophone'],['y','pyjama'],['z','zebre']],
+ 'Les repas':[['une pomme','pomme'],['une banane','banane'],['du pain','pain'],['du riz','riz'],['une carotte','carotte'],['une tomate','tomate'],['un café','cafe'],['une salade','salade'],['un yaourt','yaourt'],['une cerise','cerise'],['une orange','orange'],['un citron','citron']],
+ 'Les jours':[['lundi','lundi'],['mardi','mardi'],['mercredi','mercredi'],['jeudi','jeudi'],['vendredi','vendredi'],['samedi','samedi'],['dimanche','dimanche']],
+ 'Les mois':[['janvier','janvier'],['février','fevrier'],['mars','mars'],['avril','avril'],['mai','mai'],['juin','juin'],['juillet','juillet'],['août','aout'],['septembre','septembre'],['octobre','octobre'],['novembre','novembre'],['décembre','decembre']],
+ 'La météo':[['le soleil','soleil'],['un nuage','nuage'],['la pluie','pluie'],['la neige','neige'],['le vent','vent'],["l'orage",'orage'],['le brouillard','brouillard'],['il fait chaud','chaud'],['il fait froid','froid']],
+ 'La maison':[['une maison','maison'],['une porte','porte'],['une table','table'],['une chaise','chaise'],['un lit','lit'],['un livre','livre'],['un mur','mur'],['une lampe','lampe'],['un sac','sac']],
+ 'Le lycée':[['un professeur','professeur'],['une salle','salle'],['un tableau','tableau'],['une cantine','cantine'],['une cour','cour'],['un bureau','bureau'],['une chaise','chaise'],['un cahier','cahier'],['une porte','porte']],
+ 'Le matériel scolaire':[['un stylo','stylo'],['un crayon','crayon'],['une gomme','gomme'],['une règle','regle'],['un taille-crayon','taille-crayon'],['des ciseaux','ciseaux'],['un feutre','feutre'],['la colle','colle'],['une trousse','trousse']],
+ "Le vocabulaire de l'école":[["l'école",'ecole'],['la cour','cour'],['le couloir','couloir'],['la cantine','cantine'],["l'emploi du temps",'emploidutemps'],['un banc','banc'],['une note','note'],['une lettre','lettre'],['le prénom','prenom'],['le nom','nom'],['une question','question'],['une image','image']],
+ 'Le corps':[['la bouche','bouche'],["l'oreille",'oreille'],['les yeux','yeux'],['les cheveux','cheveux'],['le visage','visage'],['la jambe','jambe'],['la main','main'],['le nez','nez'],['le pied','pied']],
+ 'Les vêtements':[['un pantalon','pantalon'],['une chemise','chemise'],['une robe','robe'],['une veste','veste'],['un pull','pull'],['une jupe','jupe'],['un manteau','manteau'],['un tee-shirt','teeshirt'],['une chaussure','chaussure'],['une chaussette','chaussette'],['des lunettes','lunettes']],
+ 'La ville':[['un magasin','magasin'],['la mairie','mairie'],["l'hôpital",'hopital'],['un hôtel','hotel'],['la pharmacie','pharmacie'],['la poste','poste'],['la banque','banque'],['la gare','gare'],['une usine','usine'],['la ville','ville'],['le marché','marche'],['une poubelle','poubelle']],
+ 'Les actions':[['manger','manger'],['boire','boire'],['dormir','dormir'],['courir','courir'],['marcher','marcher'],['lire','lire'],['écrire','ecrire'],['écouter','ecouter'],['parler','parler']],
+ 'Les positions':[['dans','dans'],['sur','sur'],['sous','sous'],['devant','devant'],['derrière','derriere'],['entre','entre'],['à gauche','gauche'],['à droite','droite'],['ici','ici']],
+ 'Les contraires':[['grand','grand'],['petit','petit'],['chaud','chaud'],['froid','froid'],['lourd','lourd'],['léger','leger'],['rapide','rapide'],['lent','lent'],['propre','propre'],['sale','sale']],
+ 'Les saisons':[['le printemps','printemps'],["l'été",'ete'],["l'automne",'automne'],["l'hiver",'hiver']],
+ 'Les fruits':[['une fraise','fraise'],['un kiwi','kiwi'],['un melon','melon'],['une mangue','mangue'],['une figue','figue'],['un ananas','ananas'],['une pastèque','pasteque'],['une prune','prune'],['une pêche','peche'],['un abricot','abricot'],['une framboise','framboise'],['un raisin','raisin']],
+ 'Les légumes':[['un poireau','poireau'],['un radis','radis'],['un oignon','oignon'],['une courgette','courgette'],['un haricot','haricot'],['un navet','navet'],['un poivron','poivron'],['un concombre','concombre'],['un chou','chou'],['une betterave','betterave'],['un avocat','avocat'],['un champignon','champignon']],
+ 'Les aliments':[['du pain','pain'],['du riz','riz'],['un yaourt','yaourt'],['du café','cafe'],['une salade','salade'],['du fromage','fromage'],['du lait','lait'],['un oeuf','oeuf']],
+ 'Les couleurs':[['rouge','rouge'],['jaune','jaune'],['bleu','bleu'],['vert','vert-peinture'],['noir','noir'],['blanc','blanc'],['gris','gris'],['orange','orange-peinture'],['marron','marron']],
+ 'Les transports':[['un vélo','velo'],['une voiture','voiture'],['un bus','bus'],['un train','train'],['un avion','avion'],['un taxi','taxi'],['un wagon','wagon']]
+};
+const VF={
+ 'Les repas':[['pomme',"C'est une pomme.",true],['pomme',"C'est une banane.",false],['pain',"C'est du pain.",true],['riz',"C'est du café.",false],['carotte',"C'est une carotte.",true],['tomate',"C'est une pomme.",false],['cafe',"C'est un café.",true],['yaourt',"C'est un yaourt.",true]],
+ "L'école":[['cahier',"C'est un cahier.",true],['crayon',"C'est une gomme.",false],['gomme',"C'est une gomme.",true],['stylo',"C'est un stylo.",true],['ciseaux',"C'est une règle.",false],['livre',"C'est un livre.",true],['trousse',"C'est un cartable.",false],['table',"C'est une table.",true]],
+ 'Les fruits':[['fraise',"C'est une fraise.",true],['kiwi',"C'est un melon.",false],['melon',"C'est un melon.",true],['ananas',"C'est un ananas.",true],['peche',"C'est une prune.",false],['prune',"C'est une prune.",true],['pasteque',"C'est une pastèque.",true],['figue',"C'est une mangue.",false]],
+ 'Les légumes':[['poireau',"C'est un poireau.",true],['radis',"C'est un oignon.",false],['oignon',"C'est un oignon.",true],['courgette',"C'est une courgette.",true],['chou',"C'est une salade.",false],['navet',"C'est un navet.",true],['poivron',"C'est un concombre.",false],['avocat',"C'est un avocat.",true]],
+ 'Les couleurs':[['rouge',"C'est rouge.",true],['jaune',"C'est bleu.",false],['bleu',"C'est bleu.",true],['vert-peinture',"C'est vert.",true],['noir',"C'est blanc.",false],['blanc',"C'est blanc.",true],['gris',"C'est gris.",true],['marron',"C'est jaune.",false]],
+ 'Les transports':[['velo',"C'est un vélo.",true],['voiture',"C'est un bus.",false],['bus',"C'est un bus.",true],['train',"C'est un train.",true],['avion',"C'est un taxi.",false],['taxi',"C'est un taxi.",true],['wagon',"C'est un wagon.",true],['velo',"C'est une voiture.",false]]
+};
+const MOTS_DEMO={'Les repas':[['une pomme','pomme'],['une banane','banane'],['du pain','pain'],['du riz','riz'],['une carotte','carotte'],['une tomate','tomate'],['un café','cafe'],['une salade','salade'],['un yaourt','yaourt']],'L\'école':[['un cahier','cahier'],['un crayon','crayon'],['une gomme','gomme'],['un stylo','stylo'],['des ciseaux','ciseaux'],['un livre','livre'],['une trousse','trousse'],['un cartable','cartable'],['une table','table']]};
+
+const SONS_INIT=['a','i','o','u','é','m','l','r','s','p','t','f','v','ch','ou','an','on','in'];
+
+const ALPHA_IMG=[['a','ananas','ANANAS'],['b','ballon','BALLON'],['c','carotte','CAROTTE et CERISE','cerise'],['d','date','DATE'],['e','renard','RENARD'],['f','fantome','FANTÔME'],['g','gateau','GÂTEAU'],['h','',''],['i','gris','GRIS'],['j','jupe','JUPE'],['k','kangourou','KANGOUROU'],['l','lit','LIT'],['m','moto','MOTO'],['n','nuage','NUAGE'],['o','pot','POT et POMME','pomme'],['p','pied','PIED'],['q','cinq','CINQ'],['r','robot','ROBOT'],['s','salade','SALADE et ROSE','rose'],['t','table','TABLE'],['u','rue','RUE'],['v','velo','VÉLO'],['w','wagon','WAGON'],['x','xylophone','XYLOPHONE'],['y','pyjama','PYJAMA'],['z','zebre','ZÈBRE']];
+
+const SRC_FICHES=()=>(window.FICHES_SRC||{collections:[],pages:[]});
+const OUTILS_COLL_FALLBACK=[
+ ['lettres','Les lettres','#1d4e89',"cahier d'écriture : tracé et mots"],
+ ['chiffres','Les chiffres','#2a9d6e','tracé des chiffres de 0 à 9'],
+ ['sonsF','Les sons','#8a4b1e','séances de phonologie'],
+ ['nombres','Les nombres','#e59a2b','numération, comparer et ranger'],
+ ['lotos','Les lotos','#c4479e','plateaux et cartes à découper'],
+ ['dico','Mes mots','#6d5bd0','pages de lexique par thème']
+];
+function feuillesOutils(id){ return SRC_FICHES().pages.filter(p=>p.coll===id); }
+function toutesLesFeuilles(){ return SRC_FICHES().pages; }
+const COMPETENCES=[
+ ['Compréhension orale','#6d5bd0',[
+  "Je comprends une consigne de classe",
+  "Je reconnais un mot que j'entends parmi des images",
+  "Je comprends une phrase simple (vrai ou faux)",
+  "Je distingue deux sons proches"]],
+ ['Production orale','#e8654f',[
+  "Je répète un mot après le modèle",
+  "Je nomme les objets d'un thème",
+  "J'utilise les formules de politesse",
+  "Je dis une phrase simple"]],
+ ['Compréhension écrite','#2a9d6e',[
+  "Je reconnais les lettres en capitale, en script, en cursive",
+  "Je lis les graphèmes complexes",
+  "Je lis des syllabes",
+  "Je reconnais un mot connu",
+  "Je déchiffre un mot nouveau",
+  "Je lis une phrase simple"]],
+ ['Production écrite','#e59a2b',[
+  "Je trace les lettres et les chiffres",
+  "Je copie un mot",
+  "Je complète un mot",
+  "J'écris un mot sous dictée",
+  "J'écris une phrase simple"]]
+];
+const ETATS=[['','À travailler','#f4f6f9','#8a91a3'],['cours','En cours','#fff4e0','#c07a12'],['acquis','Acquis','#e8f7ef','#1c7a52']];
+const LOTS={
+ alphabet:{nom:"L'alphabet",items:ALPHA_IMG,series:3},
+ gc1:{nom:'Graphèmes complexes 1',items:[['ou','chou','CHOU'],['é','epee','ÉPÉE'],['è','regle','RÈGLE'],['au','chaud','CHAUD'],['eu','feu','FEU'],['oi','oiseau','OISEAU'],['ai','lait','LAIT'],['eau','bateau','BATEAU'],['ui','pluie','PLUIE']]},
+ gc2:{nom:'Graphèmes complexes 2',items:[['on','bonbon','BONBON'],['an','manteau','MANTEAU'],['in','requin','REQUIN'],['un','un','UN'],['ain','main','MAIN'],['ei','neige','NEIGE'],['ez','nez','NEZ'],['ille','fille','FILLE']]},
+ gc3:{nom:'Graphèmes complexes 3',items:[['ch','chat','CHAT'],['ph','phoque','PHOQUE'],['gn','champignon','CHAMPIGNON'],['qu','quatre','QUATRE'],['x','taxi','TAXI'],['y','pyjama','PYJAMA']]},
+ cd:{nom:'Consonnes doubles',items:[['cr','crayon','CRAYON'],['br','arbre','ARBRE'],['dr','vendredi','VENDREDI'],['tr','train','TRAIN'],['pr','prune','PRUNE'],['fr','fraise','FRAISE'],['gr','grand','GRAND'],['bl','blanc','BLANC'],['cl','classeur','CLASSEUR']]},
+ ag:{nom:'Autres graphèmes',items:[['ge','orange','ORANGE'],['ç','garcon','GARÇON'],['ss','chaussure','CHAUSSURE'],['c','cerise','CERISE'],['s','ciseaux','CISEAUX']]}
+};
+LOTS.gcAll={nom:'Les graphèmes complexes',items:LOTS.gc1.items.concat(LOTS.gc2.items,LOTS.gc3.items)};
+const PARENTS={'Les repas':['Les fruits','Les légumes','Les aliments'],
+  'Le temps':['Les jours','Les mois','Les saisons']};
+// politesse : situation entendue, l'élève choisit la bonne réponse
+const SITUATIONS=[
+ ["C'est le matin. Tu arrives.","Bonjour !",["Bonjour !","Bonne nuit !","Au revoir !"],'soleil'],
+ ["C'est le soir. Tu arrives.","Bonsoir !",["Bonsoir !","Bonjour !","À demain !"],'lune'],
+ ["On te donne un cahier.","Merci !",["Merci !","Pardon !","Bonsoir !"],'cahier'],
+ ["Tu veux un stylo.","S'il vous plaît !",["S'il vous plaît !","Merci !","Au revoir !"],'stylo'],
+ ["Tu pousses un ami.","Pardon !",["Pardon !","Bonjour !","Merci !"],'pardon'],
+ ["C'est fini. Tu pars.","Au revoir !",["Au revoir !","Bonjour !","S'il vous plaît !"],'porte'],
+ ["Tu as compris.","Oui !",["Oui !","Non !","Pardon !"],'oui'],
+ ["Tu n'as pas de crayon.","Non !",["Non !","Oui !","Merci !"],'non']
+];
+const SIT_IMG={soleil:'mot-soleil',lune:'mot-nuit',cahier:'mot-cahier',stylo:'mot-stylo',pardon:'geste-pardon',porte:'mot-porte',oui:'geste-oui',non:'geste-non'};
+const POLITESSE_IMG={'Bonjour !':'geste-bonjour','Bonsoir !':'geste-bonsoir','Merci !':'geste-merci',"S'il vous plaît !":'geste-silvousplait','Pardon !':'geste-pardon','Au revoir !':'geste-aurevoir','Oui !':'geste-oui','Non !':'geste-non','À demain !':'geste-ademain','Bonne nuit !':'geste-bonsoir'};
+const ENFANTS={'Les fruits':'Les repas','Les légumes':'Les repas','Les aliments':'Les repas',
+  'Les jours':'Le temps','Les mois':'Le temps'};
+class Component extends DCLogic {
+  state={
+    ecran:'themeAccueil', themeImpose:'', verrou:true, saisieMdp:'', mdpRef:'ecole', erreurMdp:'', groupes:GROUPES_INIT.map(g=>({...g,eleves:[...g.eleves]})),
+    groupe:'Débutants', groupeSel:'Débutants', eleveSel:'Élève A', dest:'Intermédiaires',
+    nouveauGroupe:'', nouvelEleve:'', infoTransfert:'', 
+    champs:{"J'écoute":true,"Je lis":true,"Je parle":true,"J'écris":true},
+    exos:{}, themesOn:{}, exoFiltre:'Tous', niveauOral:'Tous',
+    themeSel:"Les repas", selection:[], nomTheme:'', infoTheme:'',
+    mdp1:'', mdp2:'', mdpInfo:'', mdpOk:true, msgEleve:'',
+    champEleve:"J'écoute", modeEleve:'Exploration', niveauEleve:'', exoEleve:'', themeEleve:'',
+    motActif:'', quiz:[], qi:0, score:0, retour:'', repondu:false,
+    serie:[], serieIdx:0, serieScore:0, serieTotal:0,
+    outilsColl:'lettres', outilsSel:this.chargerOutils(), feuillesPrint:[],
+    comp:this.chargerComp(), compEleve:'',
+    perso:this.chargerPerso(), themeEdit:'Le corps', ongletTheme:'mots',
+    nvTheme:'', nvMot:'', nvPhrase:'', nvPhraseImg:'', nvPhraseVrai:true
+  };
+  reduireImage(fichier,cb){
+    const fr=new FileReader();
+    fr.onload=()=>{
+      const im=new Image();
+      im.onload=()=>{
+        const max=700, r=Math.min(1,max/Math.max(im.width,im.height));
+        const c=document.createElement('canvas');
+        c.width=Math.round(im.width*r); c.height=Math.round(im.height*r);
+        const x=c.getContext('2d'); x.fillStyle='#fff'; x.fillRect(0,0,c.width,c.height);
+        x.drawImage(im,0,0,c.width,c.height);
+        cb(c.toDataURL('image/jpeg',0.86));
+      };
+      im.onerror=()=>cb(null);
+      im.src=fr.result;
+    };
+    fr.onerror=()=>cb(null);
+    fr.readAsDataURL(fichier);
+  }
+  motsEdit(){ return this.motsDe(this.state.themeEdit); }
+  phrasesEdit(){ return this.phrasesDe(this.state.themeEdit); }
+  ecrireMots(liste){ const t=this.state.themeEdit; this.majPerso(p=>{ p.mots[t]=liste; }); }
+  ecrirePhrases(liste){ const t=this.state.themeEdit; this.majPerso(p=>{ p.phrases[t]=liste; }); }
+  ajouterMotImage(fichier){
+    const t=this.state.themeEdit, mot=(this.state.nvMot||'').trim();
+    if(!mot){ this.setState({infoTheme:'Écris d\u2019abord le mot, puis choisis son image.'}); return; }
+    this.reduireImage(fichier,(url)=>{
+      if(!url){ this.setState({infoTheme:'Image illisible.'}); return; }
+      const cle='perso-'+Date.now();
+      const liste=[...this.motsDe(t),[mot,cle]];
+      this.majPerso(p=>{ p.imgs[cle]=url; p.mots[t]=liste; });
+      this.setState({nvMot:'',infoTheme:'« '+mot+' » ajouté.'});
+    });
+  }
+  remplacerImageMot(i,fichier){
+    const t=this.state.themeEdit;
+    this.reduireImage(fichier,(url)=>{
+      if(!url) return;
+      const cle='perso-'+Date.now();
+      const liste=this.motsDe(t).map((m,j)=>j===i?[m[0],cle]:m);
+      this.majPerso(p=>{ p.imgs[cle]=url; p.mots[t]=liste; });
+      this.setState({infoTheme:'Image remplacée.'});
+    });
+  }
+  creerTheme(){
+    const nom=(this.state.nvTheme||'').trim();
+    if(!nom) return;
+    if(BANQUE[nom]||(this.state.perso.themes||[]).indexOf(nom)>=0){ this.setState({infoTheme:'Ce thème existe déjà.'}); return; }
+    this.majPerso(p=>{ p.themes=[...p.themes,nom]; p.mots[nom]=[]; p.phrases[nom]=[]; });
+    this.setState({nvTheme:'',themeEdit:nom,ongletTheme:'mots',infoTheme:'Thème « '+nom+' » créé. Ajoute ses mots.'});
+  }
+  supprimerTheme(nom){
+    this.majPerso(p=>{ p.themes=p.themes.filter(x=>x!==nom); delete p.mots[nom]; delete p.phrases[nom]; });
+    this.setState({themeEdit:'Le corps',infoTheme:'Thème supprimé.'});
+  }
+  retablirTheme(){
+    const t=this.state.themeEdit;
+    this.majPerso(p=>{ delete p.mots[t]; delete p.phrases[t]; });
+    this.setState({infoTheme:'Contenu d\u2019origine rétabli.'});
+  }
+  nettoyerSel(){
+    const ids={}; toutesLesFeuilles().forEach(f=>{ids[f.id]=1;});
+    const sel=this.state.outilsSel||{};
+    const net={}; Object.keys(sel).forEach(k=>{ if(ids[k]) net[k]=sel[k]; });
+    if(Object.keys(net).length!==Object.keys(sel).length){ this.enregistrerOutils(net); this.setState({outilsSel:net}); }
+  }
+  chargerPerso(){
+    try{ const b=localStorage.getItem('upe2a-themes-perso');
+      if(b){ const o=JSON.parse(b); if(o&&typeof o==='object')
+        return {themes:o.themes||[],mots:o.mots||{},phrases:o.phrases||{},imgs:o.imgs||{}}; } }catch(e){}
+    return {themes:[],mots:{},phrases:{},imgs:{}};
+  }
+  majPerso(fn){
+    const base=this.state.perso||{themes:[],mots:{},phrases:{},imgs:{}};
+    const n={themes:[...base.themes],mots:{...base.mots},phrases:{...base.phrases},imgs:{...base.imgs}};
+    fn(n);
+    try{ localStorage.setItem('upe2a-themes-perso',JSON.stringify(n)); }catch(e){}
+    this.setState({perso:n});
+  }
+  motsDe(t){ const p=this.state.perso||{}; return (p.mots&&p.mots[t])||BANQUE[t]||[]; }
+  phrasesDe(t){ const p=this.state.perso||{}; return (p.phrases&&p.phrases[t])||PHRASES[t]||[]; }
+  tousThemes(){ const p=this.state.perso||{}; return [...Object.keys(BANQUE),...((p.themes)||[]).filter(n=>!BANQUE[n])]; }
+  srcImg(f){
+    const p=this.state.perso||{}, d=p.imgs&&p.imgs[f];
+    if(!d) return 'clean/'+PREF(f)+'.png';
+    this._blobs=this._blobs||{};
+    if(!this._blobs[f]){
+      try{
+        const virg=d.indexOf(','), tete=d.slice(0,virg), bin=atob(d.slice(virg+1));
+        const type=(tete.match(/data:([^;,]+)/)||[,'image/jpeg'])[1];
+        const u=new Uint8Array(bin.length);
+        for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i);
+        this._blobs[f]=URL.createObjectURL(new Blob([u],{type}));
+      }catch(e){ this._blobs[f]=d; }
+    }
+    return this._blobs[f];
+  }
+  urlImg(f){ return "url('"+this.srcImg(f)+"')"; }
+  chargerComp(){
+    try{ const b=localStorage.getItem('upe2a-competences'); if(b){const o=JSON.parse(b); if(o&&typeof o==='object') return o;} }catch(e){}
+    return {};
+  }
+  enregistrerComp(o){ try{ localStorage.setItem('upe2a-competences', JSON.stringify(o)); }catch(e){} }
+  definirComp(eleve,cle,etat){
+    this.setState(p=>{
+      const c={...(p.comp||{})};
+      if(!etat) delete c[eleve+'|'+cle];
+      else c[eleve+'|'+cle]={etat, date:new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'})};
+      this.enregistrerComp(c);
+      return {comp:c};
+    });
+  }
+  chargerOutils(){
+    try{
+      const b=localStorage.getItem('upe2a-outils');
+      if(b){ const o=JSON.parse(b); if(o&&typeof o==='object') return o; }
+    }catch(e){}
+    return {};
+  }
+  enregistrerOutils(o){
+    try{ localStorage.setItem('upe2a-outils', JSON.stringify(o)); }catch(e){}
+  }
+  majOutils(id,delta,bascule){
+    this.setState(p=>{
+      const o={...(p.outilsSel||{})};
+      const n=o[id]||0;
+      let v;
+      if(bascule) v=n>0?0:1; else v=Math.max(0,Math.min(30,n+delta));
+      if(v>0) o[id]=v; else delete o[id];
+      this.enregistrerOutils(o);
+      return {outilsSel:o};
+    });
+  }
+  toutesFeuilles(){ return toutesLesFeuilles(); }
+  lancerImpression(){
+    const sel=this.state.outilsSel||{};
+    const pages=[];
+    this.toutesFeuilles().forEach(f=>{
+      const n=sel[f.id]||0;
+      for(let i=0;i<n;i++) pages.push(f);
+    });
+    if(!pages.length) return;
+    this.setState({feuillesPrint:pages});
+    setTimeout(()=>{ try{ window.print(); }catch(e){} }, 900);
+  }
+  dire(txt){ try{const u=new SpeechSynthesisUtterance(String(txt).replace(/\bdos\b/g,'do'));u.lang='fr-FR';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}catch(e){} }
+  melange(a){ const c=[...a]; for(let i=c.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[c[i],c[j]]=[c[j],c[i]];} return c; }
+  corpus(theme){
+    return this.surPhrases(theme)?this.phrasesDe(theme):this.motsDe(theme);
+  }
+  corpusVide(theme){
+    if(this.corpus(theme).length>=2){ return false; }
+    this.setState({ecran:'eleve',themeEleve:theme,
+      msgEleve:this.surPhrases(theme)?'Ce thème n\u2019a pas encore de phrases.':'Ce thème n\u2019a pas encore de mots.'});
+    return true;
+  }
+  surPhrases(theme){
+    const niv=this._niv||this.state.niveauEleve;
+    return niv==='Les phrases'&&this.phrasesDe(theme).length>0;
+  }
+  lancerQuiz(theme){
+    if(this.corpusVide(theme)) return;
+    const mots=this.melange(this.corpus(theme)).slice(0,8);
+    const quiz=mots.map(cible=>{
+      const autres=this.melange(this.corpus(theme).filter(m=>m[0]!==cible[0])).slice(0,3);
+      return {cible, choix:this.melange([cible,...autres])};
+    });
+    this.setState({ecran:'trouve',themeEleve:theme,quiz,qi:0,score:0,retour:'',repondu:false});
+    setTimeout(()=>this.dire(quiz[0].cible[0]),400);
+  }
+  lancerEcrire(theme,mode){
+    if(this.corpusVide(theme)) return;
+    const mots=this.melange(this.corpus(theme)).slice(0,8);
+    this.setState({ecran:'ecrire',modeEcrire:mode,themeEleve:theme,
+      quiz:mots.map(m=>({cible:m})),qi:0,score:0,saisie:'',retour:'',repondu:false});
+  }
+  validerEcrit(){
+    const s=this.state; if(s.repondu) return;
+    const attendu=s.quiz[s.qi].cible[0];
+    const norm=t=>t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z]/g,'');
+    const debut=s.modeEcrire==='completer'?attendu.slice(0,Math.max(2,Math.ceil(attendu.length*0.6))):'';
+    const bon=norm(debut+s.saisie)===norm(attendu);
+    this.setState({repondu:true,score:s.score+(bon?1:0),
+      retour:bon?'Bravo !':'La bonne réponse était : '+attendu,
+      quiz:s.quiz.map((x,i)=>i===s.qi?{...x,reussi:bon}:x)});
+  }
+  suivantEcrit(){
+    const s=this.state;
+    if(s.qi+1>=s.quiz.length){ this.finExercice(s.score||0,s.quiz.length); return; }
+    this.setState({qi:s.qi+1,repondu:false,retour:'',saisie:''});
+  }
+  lancerSituation(){
+    const items=this.melange(SITUATIONS).slice(0,8).map(([sit,bonne,choix,img])=>({sit,bonne,img,choix:this.melange(choix)}));
+    this.setState({ecran:'situation',themeEleve:'La politesse',quiz:items,qi:0,score:0,retour:'',repondu:false});
+    setTimeout(()=>this.dire(items[0].sit),400);
+  }
+  repondreSituation(rep){
+    const s=this.state; if(s.repondu) return;
+    const it=s.quiz[s.qi], bon=rep===it.bonne;
+    this.setState({repondu:true,score:s.score+(bon?1:0),
+      retour:bon?'Bravo !':'On dit : '+it.bonne,
+      quiz:s.quiz.map((x,i)=>i===s.qi?{...x,reussi:bon}:x)});
+    setTimeout(()=>this.dire(bon?'Bravo. '+it.bonne:'On dit : '+it.bonne),250);
+  }
+  suivanteSituation(){
+    const s=this.state;
+    if(s.qi+1>=s.quiz.length){ this.finExercice(s.score||0,s.quiz.length); return; }
+    this.setState({qi:s.qi+1,repondu:false,retour:''});
+    setTimeout(()=>this.dire(s.quiz[s.qi+1].sit),300);
+  }
+  lancerRepete(theme){
+    if(this.corpusVide(theme)) return;
+    const mots=this.melange(this.corpus(theme)).slice(0,8);
+    this.setState({ecran:'repete',themeEleve:theme,quiz:mots.map(m=>({cible:m})),qi:0,score:0,etape:1,enr:false,aEnr:false});
+  }
+  async enregistrer(){
+    try{
+      const flux=await navigator.mediaDevices.getUserMedia({audio:true});
+      const rec=new MediaRecorder(flux); this._chunks=[];
+      rec.ondataavailable=e=>this._chunks.push(e.data);
+      rec.onstop=()=>{
+        const blob=new Blob(this._chunks,{type:'audio/webm'});
+        this._url=URL.createObjectURL(blob);
+        flux.getTracks().forEach(t=>t.stop());
+        this.setState({enr:false,aEnr:true,etape:3});
+      };
+      this._rec=rec; rec.start();
+      this.setState({enr:true,etape:2});
+    }catch(e){ this.setState({enr:false,aEnr:false,msgEnr:'Micro non autorisé.'}); }
+  }
+  stopper(){ if(this._rec&&this._rec.state==='recording') this._rec.stop(); }
+  reecouter(){ if(this._url){ const a=new Audio(this._url); a.play(); } }
+  motSuivant(){
+    const s=this.state;
+    if(s.qi+1>=s.quiz.length){ this.setState({score:s.quiz.length}); this.finExercice(s.quiz.length,s.quiz.length); return; }
+    this._url=null;
+    this.setState({qi:s.qi+1,etape:1,enr:false,aEnr:false,msgEnr:''});
+  }
+  lancerLire(theme,type){
+    if(this.corpusVide(theme)) return;
+    const banque=this.corpus(theme);
+    const nb=this.surPhrases(theme)?3:7;
+    const mots=this.melange(banque).slice(0,8);
+    const items=mots.map(cible=>({
+      cible, choix:this.melange([cible,...this.melange(banque.filter(m=>m[0]!==cible[0])).slice(0,nb)])
+    }));
+    this.setState({ecran:type==='dessin'?'lireDessin':'lireMot',themeEleve:theme,quiz:items,qi:0,score:0,retour:'',repondu:false});
+  }
+  repondreLire(mot){
+    const s=this.state; if(s.repondu) return;
+    const bon=mot===s.quiz[s.qi].cible[0];
+    this.setState({repondu:true,score:s.score+(bon?1:0),
+      retour:bon?'Bravo !':'La bonne réponse était : '+s.quiz[s.qi].cible[0],
+      quiz:s.quiz.map((x,i)=>i===s.qi?{...x,reussi:bon}:x)});
+  }
+  suivanteLire(){
+    const s=this.state;
+    if(s.qi+1>=s.quiz.length){ this.finExercice(s.score||0,s.quiz.length); return; }
+    this.setState({qi:s.qi+1,repondu:false,retour:''});
+  }
+  consigneExplore(){
+    const u=this.surPhrases(this.state.themeEleve)?'les phrases':'les mots';
+    return this.state.champEleve==='Je lis'
+      ? 'Clique sur les images pour lire '+u+'.'
+      : 'Clique sur les images pour entendre '+u+'.';
+  }
+  lancerSerie(titre,exos){
+    const etapes=exos.map(x=>({nom:x.nom,type:x.type}));
+    if(!etapes.length) return;
+    this._niv=titre;
+    this.setState({niveauEleve:titre,serie:etapes,serieIdx:0,serieScore:0,serieTotal:0});
+    setTimeout(()=>this.lancerEtape(0,etapes),0);
+  }
+  lancerEtape(i,etapes){
+    const liste=etapes||this.state.serie;
+    const et=liste[i];
+    if(!et) return;
+    const n=this.state.themeEleve||Object.keys(BANQUE)[0];
+    this.setState({serieIdx:i,exoEleve:et.type});
+    if(et.type==='trouve') this.lancerQuiz(n);
+    else if(et.type==='vf') this.lancerVF(n);
+    else if(et.type==='dessin'||et.type==='ordre') this.lancerLire(n,'dessin');
+    else if(et.type==='motecrit') this.lancerLire(n,'mot');
+    else if(et.type==='repete') this.lancerRepete(n);
+    else if(et.type==='completer') this.lancerEcrire(n,'completer');
+    else if(et.type==='ecrire') this.lancerEcrire(n,'ecrire');
+    else if(et.type==='situation') this.lancerSituation();
+    else this.lancerExplore(n);
+  }
+  finExercice(score,total){
+    const s=this.state;
+    if(!(s.serie||[]).length){ this.setState({ecran:'resultat'}); return; }
+    const sc=(s.serieScore||0)+(score||0), tot=(s.serieTotal||0)+(total||0);
+    if(s.serieIdx+1<s.serie.length){
+      this.setState({serieScore:sc,serieTotal:tot});
+      this.carillon();
+      setTimeout(()=>this.lancerEtape(s.serieIdx+1),260);
+    } else {
+      this.setState({serieScore:sc,serieTotal:tot,ecran:'resultat'});
+    }
+  }
+  quitterSerie(){ this.setState({serie:[],serieIdx:0,serieScore:0,serieTotal:0}); }
+  lancerExplore(theme){
+    if(this.corpusVide(theme)) return;
+    this.setState({ecran:'explore',themeEleve:theme,motActif:''});
+    setTimeout(()=>this.dire(this.consigneExplore()),400);
+  }
+  lancerVF(theme){
+    if(this.corpusVide(theme)) return;
+    if(this.surPhrases(theme)){
+      const toutes=this.phrasesDe(theme);
+      const src=this.melange(toutes).slice(0,8);
+      const items=src.map(([phrase,f,tag])=>{
+        if(tag===false){
+          const juste=(toutes.find(x=>x[1]===f&&x[2]!==false)||[phrase])[0];
+          return {f,phrase,affirmation:phrase,vrai:false,correct:juste};
+        }
+        const vrai=Math.random()<0.5;
+        if(vrai) return {f,phrase,affirmation:phrase,vrai:true,correct:phrase};
+        const autre=this.melange(toutes.filter(x=>x[1]!==f&&x[2]!==false))[0]||[phrase];
+        return {f,phrase:autre[0],affirmation:autre[0],vrai:false,correct:phrase};
+      });
+      this.setState({ecran:'vf',themeEleve:theme,quiz:items,qi:0,score:0,retour:'',repondu:false});
+      setTimeout(()=>this.dire(items[0].phrase),400);
+      return;
+    }
+    const banque=this.motsDe(theme);
+    if(!(VF[theme]||[]).length&&banque.length>1){
+      const dit=m=>(/^(les |des )/i.test(m)?'Ce sont ':"C'est ")+m+'.';
+      const src=this.melange(banque).slice(0,8);
+      const items=src.map(([mot,f])=>{
+        const vrai=Math.random()<0.5;
+        if(vrai) return {f,phrase:dit(mot),affirmation:dit(mot),vrai:true,correct:dit(mot)};
+        const autre=this.melange(banque.filter(m=>m[1]!==f))[0];
+        return {f,phrase:dit(autre[0]),affirmation:dit(autre[0]),vrai:false,correct:dit(mot)};
+      });
+      this.setState({ecran:'vf',themeEleve:theme,quiz:items,qi:0,score:0,retour:'',repondu:false});
+      setTimeout(()=>this.dire(items[0].phrase),400);
+      return;
+    }
+    const items=this.melange(VF[theme]||[]).slice(0,8).map(([f,phrase,vrai])=>{
+      const vrai_mot=(banque.find(m=>m[1]===f)||['',''])[0];
+      return {f,phrase:phrase.replace(/\.$/,' ?'),affirmation:phrase,vrai,correct:vrai_mot?"C'est "+vrai_mot+'.':phrase};
+    });
+    this.setState({ecran:'vf',themeEleve:theme,quiz:items,qi:0,score:0,retour:'',repondu:false});
+    setTimeout(()=>this.dire(items[0].phrase),400);
+  }
+  repondreVF(rep){
+    const s=this.state; if(s.repondu) return;
+    const it=s.quiz[s.qi], bon=rep===it.vrai;
+    this.setState({repVF:rep,repondu:true,score:s.score+(bon?1:0),retour:bon?'Bravo !':(it.vrai?'Non : c\u2019est vrai.':'Non : c\u2019est faux.'),
+      quiz:s.quiz.map((x,i)=>i===s.qi?{...x,reussi:bon}:x)});
+    const aff=it.affirmation||(it.phrase||'').replace(/\s*\?$/,'.');
+    const nom=aff.replace(/^(C'est|Ce sont)\s+/i,'').replace(/[.?]$/,'');
+    const pas=(/^Ce sont/i.test(aff)||/^(les|des)\s/i.test(nom)?'Ce ne sont pas ':'Ce n\u2019est pas ')+nom+'. ';
+    const dit = bon
+      ? (it.vrai ? 'Oui. '+aff : 'Non. '+pas+it.correct)
+      : (it.vrai ? 'Regarde bien. '+aff : 'Regarde bien. '+pas+it.correct);
+    setTimeout(()=>this.dire(dit),250);
+  }
+  suivanteVF(){
+    const s=this.state;
+    if(s.qi+1>=s.quiz.length){ this.finExercice(s.score||0,s.quiz.length); return; }
+    this.setState({qi:s.qi+1,repondu:false,retour:''});
+    setTimeout(()=>this.dire(s.quiz[s.qi+1].phrase),300);
+  }
+  repondre(mot){
+    const s=this.state; if(s.repondu) return;
+    const bon=mot===s.quiz[s.qi].cible[0];
+    this.setState({repondu:true,score:s.score+(bon?1:0),retour:bon?'Bravo !':'La bonne réponse était : '+s.quiz[s.qi].cible[0],
+      quiz:s.quiz.map((x,i)=>i===s.qi?{...x,reussi:bon}:x)});
+  }
+  suivante(){
+    const s=this.state;
+    if(s.qi+1>=s.quiz.length){ this.finExercice(s.score||0,s.quiz.length); return; }
+    this.setState({qi:s.qi+1,repondu:false,retour:''});
+    setTimeout(()=>this.dire(s.quiz[s.qi+1].cible[0]),300);
+  }
+  componentDidMount(){
+    const s=this.chargerSons();
+    if(s) this.setState({sons:s});
+    const exos={}, themesOn={};
+    ['mots','phrases','textes'].forEach(n=>['Explore','Trouve la bonne image','Vrai ou faux'].forEach(x=>{exos[n+'|'+x]={on:true,n:x==='Explore'?'8':'5'};}));
+    THEMES.forEach(t=>{themesOn[t]=true;});
+    this.setState({exos,themesOn});
+    if(!window.FICHES_SRC){
+      let n=0;
+      const t=setInterval(()=>{ n++; if(window.FICHES_SRC||n>60){ clearInterval(t); this.nettoyerSel(); this.forceUpdate(); } },200);
+    } else this.nettoyerSel();
+  }
+  go=e=>this.setState({ecran:e});
+  enregistrerSons(l){
+    try{ localStorage.setItem('upe2a-sons', JSON.stringify(l)); }catch(e){}
+  }
+  chargerSons(){
+    try{
+      const b=localStorage.getItem('upe2a-sons');
+      if(b){ const l=JSON.parse(b); if(Array.isArray(l)&&l.length) return l; }
+    }catch(e){}
+    return null;
+  }
+  ajouterSon(){
+    const v=(this.state.nouveauSon||'').trim().toLowerCase();
+    if(!v){ this.setState({infoSon:'Écris un son avant d\u2019ajouter.'}); return; }
+    if((this.state.sons||SONS_INIT).includes(v)){ this.setState({infoSon:'« '+v+' » est déjà dans la progression.'}); return; }
+    this.setState(p=>{
+      const l=[...(p.sons||SONS_INIT),v];
+      this.enregistrerSons(l);
+      return {sons:l,nouveauSon:'',infoSon:'« '+v+' » ajouté en fin de progression.'};
+    });
+  }
+  retirerSon(s){
+    this.setState(p=>{
+      const l=(p.sons||SONS_INIT).filter(x=>x!==s);
+      this.enregistrerSons(l);
+      return {sons:l,infoSon:'« '+s+' » retiré.'};
+    });
+  }
+  deplacerSon(s,sens){
+    this.setState(p=>{
+      const l=[...(p.sons||SONS_INIT)], i=l.indexOf(s), j=i+sens;
+      if(i<0||j<0||j>=l.length) return {};
+      [l[i],l[j]]=[l[j],l[i]];
+      this.enregistrerSons(l);
+      return {sons:l,infoSon:''};
+    });
+  }
+  carillon(){
+    try{
+      const A=window.AudioContext||window.webkitAudioContext; if(!A) return;
+      this._audio=this._audio||new A();
+      const ctx=this._audio, t0=ctx.currentTime;
+      [523.25,659.25,783.99].forEach((f,i)=>{
+        const o=ctx.createOscillator(), g=ctx.createGain();
+        o.type='sine'; o.frequency.value=f;
+        const d=t0+i*0.13;
+        g.gain.setValueAtTime(0,d);
+        g.gain.linearRampToValueAtTime(0.16,d+0.02);
+        g.gain.exponentialRampToValueAtTime(0.001,d+0.42);
+        o.connect(g); g.connect(ctx.destination); o.start(d); o.stop(d+0.45);
+      });
+    }catch(e){}
+  }
+  feter(score,total){
+    this.carillon();
+    if(this.state.alphaMode==='Évaluation') return;
+    setTimeout(()=>this.dire(score>=total?'Bravo !':'C\u2019est fini. Bravo !'),520);
+  }
+  jeu(){ return LOTS[this.state.alphaLot||'alphabet']||LOTS.alphabet; }
+  nomPaire(l){
+    const p=this.jeu().items.find(x=>x[0]===l);
+    const aff=this.jeu().series?l.toUpperCase():l;
+    return (p&&p[2])?aff+' de '+p[2]:aff;
+  }
+  lancerAlphaEcrire(mode,lot){
+    this.arreterChrono();
+    this.setState({ecran:'alphaEcrire',alphaMode:mode,alphaCasse:'ecrire',alphaLot:lot||'alphabet',alphaSerie:0,
+      saisies:{},trouves:[],erreurs:0,reussites:0,errParLettre:{},errParLettreTotal:{},secondes:0});
+    if(mode==='Évaluation') this.demarrerChrono();
+  }
+  saisirLettre(l,valeur){
+    const s=this.state;
+    if((s.trouves||[]).includes(l)) return;
+    const v=(valeur||'').replace(/[^A-Za-zÀ-ÿ]/g,'').slice(0,l.length);
+    this.setState(p=>({saisies:{...(p.saisies||{}),[l]:v}}));
+    if(!v||v.length<l.length) return;
+    if(v.toLowerCase()===l){
+      this.setState(p=>({trouves:[...(p.trouves||[]),l],reussites:(p.reussites||0)+1}));
+      if(s.alphaMode!=='Évaluation') this.dire(this.nomPaire(l));
+      return;
+    }
+    this.setState(p=>({erreurs:(p.erreurs||0)+1,
+      errParLettre:{...(p.errParLettre||{}),[l]:((p.errParLettre||{})[l]||0)+1},
+      errParLettreTotal:{...(p.errParLettreTotal||{}),[l]:((p.errParLettreTotal||{})[l]||0)+1}}));
+    if(s.alphaMode!=='Évaluation') this.dire('Essaie encore. Écoute bien : '+this.nomPaire(l)+'.');
+  }
+  lancerAlpha(casse,mode,lot){
+    const serie=0;
+    this.arreterChrono();
+    this._ordreAlpha=null; this._ordreCle='';
+    this.setState({ecran:'alpha',alphaCasse:casse,alphaMode:mode,alphaLot:lot||'alphabet',alphaSerie:serie,
+      lettreSel:'',imageSel:'',trouves:[],erreurs:0,reussites:0,errParLettre:{},errParLettreTotal:{},secondes:0,tremble:''});
+    if(mode==='Évaluation') this.demarrerChrono();
+  }
+  demarrerChrono(){ this.arreterChrono(); this._chrono=setInterval(()=>this.setState(p=>({secondes:(p.secondes||0)+1})),1000); }
+  arreterChrono(){ if(this._chrono){clearInterval(this._chrono);this._chrono=null;} }
+  componentWillUnmount(){ this.arreterChrono(); }
+  lotAlpha(){
+    const s=this.state;
+    const jeu=this.jeu();
+    if(!jeu.series) return jeu.items;
+    if(s.alphaMode==='Évaluation') return jeu.items;
+    const bornes=[[0,9],[9,18],[18,26]][s.alphaSerie||0];
+    return jeu.items.slice(bornes[0],bornes[1]);
+  }
+  choisirLettre(l){
+    const s=this.state;
+    if((s.trouves||[]).includes(l)) return;
+    if(s.imageSel){
+      const cible=s.imageSel, paire=this.jeu().items.find(x=>x[0]===cible);
+      if(l===cible){
+        this.setState(p=>({trouves:[...(p.trouves||[]),cible],reussites:(p.reussites||0)+1,lettreSel:'',imageSel:'',tremble:''}));
+        if(s.alphaMode!=='Évaluation') this.dire(this.nomPaire(cible));
+      } else {
+        this.setState(p=>({erreurs:(p.erreurs||0)+1,tremble:cible,imageSel:'',
+          errParLettre:{...(p.errParLettre||{}),[cible]:((p.errParLettre||{})[cible]||0)+1},
+          errParLettreTotal:{...(p.errParLettreTotal||{}),[cible]:((p.errParLettreTotal||{})[cible]||0)+1}}));
+        setTimeout(()=>this.setState({tremble:''}),450);
+        if(s.alphaMode!=='Évaluation') this.dire('Essaie encore. \u00c7a, c\u2019est '+this.nomPaire(cible)+'.');
+      }
+      return;
+    }
+    this.setState({lettreSel:l});
+    if(s.alphaMode!=='Évaluation') this.dire(l);
+  }
+  choisirImage(l){
+    const s=this.state;
+    if((s.trouves||[]).includes(l)) return;
+    const paire=this.jeu().items.find(x=>x[0]===l);
+    if(!s.lettreSel){
+      this.setState({imageSel:l});
+      if(s.alphaMode!=='Évaluation') this.dire('Maintenant, clique sur la lettre.');
+      return;
+    }
+    if(l===s.lettreSel){
+      this.setState(p=>({trouves:[...(p.trouves||[]),l],reussites:(p.reussites||0)+1,lettreSel:'',imageSel:'',tremble:''}));
+      if(s.alphaMode!=='Évaluation') this.dire(this.nomPaire(l));
+      return;
+    }
+    const cle=s.lettreSel;
+    this.setState(p=>({erreurs:(p.erreurs||0)+1,tremble:l,
+      errParLettre:{...(p.errParLettre||{}),[cle]:((p.errParLettre||{})[cle]||0)+1},
+      errParLettreTotal:{...(p.errParLettreTotal||{}),[cle]:((p.errParLettreTotal||{})[cle]||0)+1}}));
+    setTimeout(()=>this.setState({tremble:''}),450);
+    if(s.alphaMode!=='Évaluation') this.dire('Essaie encore. \u00c7a, c\u2019est '+this.nomPaire(l)+'.');
+  }
+  serieSuivante(){
+    const s=this.state;
+    const jeu=this.jeu(), total=jeu.items.length;
+    if(!jeu.series||s.alphaMode==='Évaluation'||(s.alphaSerie||0)>=2){
+      this.arreterChrono();
+      const dures=Object.keys(s.errParLettreTotal||{}).filter(l=>(s.errParLettreTotal||{})[l]>=3);
+      this.feter(s.reussites||0,total);
+      this.setState(p=>({ecran:'resultatAlpha',
+        lettresDures:dures,
+        journalAlpha:[...(p.journalAlpha||[]),{casse:p.alphaCasse,lot:p.alphaLot||'alphabet',mode:p.alphaMode,reussites:p.reussites||0,erreurs:p.erreurs||0,dures}]}));
+      return;
+    }
+    this.carillon();
+    this.setState({alphaSerie:(s.alphaSerie||0)+1,lettreSel:'',imageSel:'',trouves:[],saisies:{},errParLettre:{},tremble:''});
+  }
+  parentEcran(){
+    const s=this.state;
+    if(s.verrou){
+      if(s.ecran==='alpha'||s.ecran==='alphaEcrire'||s.ecran==='resultatAlpha')
+        return (LOTS[s.alphaLot||'alphabet']||LOTS.alphabet).series?['eleve','Les activités']:['tableauCode','Lettres et sons'];
+      const activites=['explore','trouve','vf','lireDessin','lireMot','repete','situation','ecrire','resultat'];
+      if(activites.includes(s.ecran)) return ['niveau','Les exercices'];
+      if(s.ecran==='niveau') return ['eleve','Les activités'];
+      if(s.ecran==='eleve'){
+        const fratrie=PARENTS[s.themeParent]||[];
+        return (s.themeParent&&fratrie.includes(s.themeEleve))
+          ? ['sousTheme',s.themeParent] : ['tableauThemes','Les thèmes'];
+      }
+      if(s.ecran==='sousTheme') return ['tableauThemes','Les thèmes'];
+      if(s.ecran==='tableauThemes'||s.ecran==='tableauCode') return ['themeAccueil','Le choix'];
+      return null;
+    }
+    if(s.ecran==='accueil') return null;
+    return ['accueil',"L'accueil"];
+  }
+  retourUnCran(){
+    if((this.state.serie||[]).length) this.quitterSerie();
+    const p=this.parentEcran();
+    if(!p){ this.go(this.state.verrou?'themeAccueil':'accueil'); return; }
+    try{ speechSynthesis.cancel(); }catch(e){}
+    this.setState((p[0]==='themeAccueil'||p[0]==='tableauThemes')
+      ? {ecran:p[0],themeParent:'',msgEleve:'',retour:'',repondu:false}
+      : {ecran:p[0],msgEleve:'',retour:'',repondu:false});
+  }
+  grp(){ return this.state.groupes.find(g=>g.nom===this.state.groupeSel)||this.state.groupes[0]; }
+
+  renderVals(){
+    const s=this.state;
+    const TITRES={accueil:'Espace enseignant',eleve:'Espace élève',groupes:'Gestion des groupes et des élèves',reglages:'Réglages et accès aux exercices',bilan:'Bilan des exercices',oral:'Écoute des productions orales',themes:'Création de thèmes',mdp:'Mot de passe sécurisé',
+      sons:'Progression des sons', outils:'Mes outils — imprimer mes fiches', competences:'Grilles de compétences',
+      alpha:"L'alphabet",alphaEcrire:'Écris la lettre',resultatAlpha:'Résultat',
+      themeAccueil:'Choisis ton tableau', tableauThemes:'Choisis ton thème', tableauCode:'Les lettres et les sons',sousTheme:s.themeParent||'Choisis',niveau:'Choisis ton niveau',themeEleve:'Choisis un thème',explore:s.themeEleve||'Exploration',trouve:'Trouve la bonne image',vf:'Vrai ou faux',lireDessin:'Trouve le bon dessin',lireMot:'Trouve le bon mot',repete:'Écoute et répète',situation:'Que dis-tu ?',ecrire:s.modeEcrire==='completer'?'Complète le mot':'Écris le mot',resultat:'Résultat'};
+    const tuiles=[
+      ['Gestion des élèves','#2a9d6e','','groupes','tuile-groupes'],
+      ['Paramétrage des exercices','#e59a2b','','reglages','tuile-reglages'],
+      ['Progression des sons','#1d4e89','3','sons'],
+      ['Création de thèmes','#6d5bd0','4','themes'],
+      ['Productions orales','#c4479e','5','oral'],
+      ['Bilan des exercices','#e8654f','6','bilan'],
+      ['Grilles de compétences','#1682a0','7','competences'],
+      ['Mes outils','#8a4b1e','8','outils']
+    ].map(([titre,couleur,icone,ec,img])=>({titre,couleur,icone,
+      bg:img?"url('clean/"+img+".png')":'none',
+      taille:img==='tuile-reglages'?'52%':'cover', ouvrir:()=>this.go(ec)}));
+
+    const champsStd=[["J'écoute",'#6d5bd0','oreille'],['Je lis','#2a9d6e','livre'],['Je parle','#e8654f','bouche'],["J'écris",'#e59a2b','crayon']]
+      .map(([nom,couleur,f])=>({nom,couleur,bg:"url('clean/mot-"+f+".png')",lettre:'',police:'Archivo',
+        explorer:()=>this.setState({ecran:'niveau',champEleve:nom,modeEleve:'Exploration'}),
+        evaluer:()=>this.setState({ecran:'niveau',champEleve:nom,modeEleve:'Évaluation'})}));
+    const champsAlpha=[
+      ['Alphabet 1','#1d4e89','A','Archivo Black, Archivo, sans-serif','capitale'],
+      ['Alphabet 2','#2a9d6e','a','BA Script, Archivo, sans-serif','script'],
+      ['Alphabet 3','#8a4b1e','a','BA Cursive, cursive','cursive']
+    ].map(([nom,couleur,lettre,police,casse])=>({nom,couleur,bg:'none',lettre,police,
+      explorer:()=>this.lancerAlpha(casse,'Exploration'),
+      evaluer:()=>this.lancerAlpha(casse,'Évaluation')}));
+    const champsEleve=s.themeEleve==="L'alphabet"
+      ? [...champsAlpha, {...champsStd[3], lettre:'', police:'Archivo',
+          explorer:()=>this.lancerAlphaEcrire('Exploration'),
+          evaluer:()=>this.lancerAlphaEcrire('Évaluation')}]
+      : champsStd;
+
+    const actif=n=>s.themesOn[n]!==false;
+    const sousActifs=p=>(PARENTS[p]||[]).filter(actif);
+    const racines=this.tousThemes().filter(n=>!ENFANTS[n]&&!PARENTS[n]).filter(actif);
+    const parents=Object.keys(PARENTS).filter(p=>sousActifs(p).length>0);
+    const ORDRE=["L'alphabet",'Les couleurs','Le matériel scolaire',"Le vocabulaire de l'école",'Le lycée','La maison','La ville','Le corps','Les vêtements','Le temps','La météo','Les repas','Les transports','Les actions','Les positions','Les contraires','La politesse'];
+    const rang=n=>{const i=ORDRE.indexOf(n);return i<0?99:i;};
+    const themesAccueil=[...parents,...racines]
+      .sort((a,b)=>{
+        const va=(s.themeImpose&&s.themeImpose!==a)?1:0, vb=(s.themeImpose&&s.themeImpose!==b)?1:0;
+        return va-vb || rang(a)-rang(b);
+      }).map((n,idx)=>{
+        const sous=sousActifs(n);
+        const src=sous.length?this.motsDe(sous[0]):this.motsDe(n);
+        const brut=((src[0]||['',''])[1])||'';
+        const bloque=(s.themeImpose&&s.themeImpose!==n);
+        const PAL=['#2a9d6e','#1682a0','#e59a2b','#6d5bd0','#c4479e','#e8654f','#0f9d8c','#d1495b','#8a6a45','#3d5a99','#b5651d','#7a9e2f'];
+        return {
+          nom:n, bg:brut?this.urlImg(brut):'none',
+          verrou:bloque,
+          bord:bloque?'#c9cfd8':PAL[idx%PAL.length],
+          opacite:bloque?'0.45':'1',
+          filtre:bloque?'grayscale(1)':'none',
+          encre:bloque?'#9aa3ad':'#12233b',
+          ouvrir:()=>{ if(bloque) return;
+            if(n==='La politesse'){ this.lancerSituation(); return; }
+            if(sous.length>1) this.setState({ecran:'sousTheme',themeParent:n,msgEleve:''});
+            else this.setState({ecran:'eleve',themeEleve:sous.length===1?sous[0]:n,themeParent:'',msgEleve:''}); }
+        };
+      });
+
+    const fic=PREF;
+    const sousThemes=(PARENTS[s.themeParent]||[]).filter(actif).map(n=>({
+      nom:n, bg:this.urlImg(((this.motsDe(n)||[['','']])[0]||['',''])[1]),
+      ouvrir:()=>this.setState({ecran:'eleve',themeEleve:n,msgEleve:''})
+    }));
+
+    const niveauxEleve=[['Les mots','mots'],['Les phrases','phrases'],['Les textes','textes']].map(([titre,k],iNiv)=>({
+      titre, rang:'Niveau '+(iNiv+1),
+      exos:(true===false?[]:s.champEleve==='Je lis'
+        ? (k==='mots'?[['Explore les mots','explore'],['Trouve le bon dessin','dessin'],['Trouve le bon mot','motecrit']]
+          :k==='phrases'?[['Explore les phrases','explore'],['Trouve la bonne phrase','dessin'],["Remets les mots dans l'ordre",'ordre']]
+          :[['Explore le texte','explore'],['Trouve la bonne proposition','dessin'],['Complète avec le bon mot','motecrit']])
+        : (s.themeEleve==='La politesse'&&k==='phrases') ? [['Que dis-tu ?','situation']]
+        : s.champEleve==='Je parle' ? [['Écoute et répète','repete']]
+        : s.champEleve==="J'écris"
+          ? (k==='mots'?[['Explore les mots','explore'],['Complète le mot','completer'],['Écris le mot','ecrire']]
+            :k==='phrases'?[['Explore les phrases','explore'],['Complète la phrase','completer'],['Écris la phrase','ecrire']]
+            :[['Explore le texte','explore'],['Complète le texte','completer'],['Dictée','ecrire']])
+        : [['Explore '+(k==='textes'?'le texte':'les '+k),'explore'],['Trouve la bonne image','trouve'],['Vrai ou faux','vf']])
+        .map(([nom,type])=>({nom, type, fond:type==='explore'?'#d8f7ec':'#00c896',
+          ouvrir:()=>{ const n=s.themeEleve||Object.keys(BANQUE)[0];
+            this._niv=titre;
+            this.setState({niveauEleve:titre,exoEleve:type,serie:[],serieIdx:0,serieScore:0,serieTotal:0});
+            if(type==='trouve') this.lancerQuiz(n);
+            else if(type==='vf') this.lancerVF(n);
+            else if(type==='dessin'||type==='ordre') this.lancerLire(n,'dessin');
+            else if(type==='motecrit') this.lancerLire(n,'mot');
+            else if(type==='repete') this.lancerRepete(n);
+            else if(type==='completer') this.lancerEcrire(n,'completer');
+            else if(type==='ecrire') this.lancerEcrire(n,'ecrire');
+            else if(type==='situation') this.lancerSituation();
+            else this.lancerExplore(n); }}))
+    }));
+    niveauxEleve.forEach(n=>{
+      n.lancerSerie=()=>this.lancerSerie(n.titre,n.exos);
+      n.etapes=n.exos.map((x,i)=>({puis:i?'puis':'', nom:(()=>{
+        const t=x.nom;
+        if(/^Explore/.test(t)) return "J'"+t.charAt(0).toLowerCase()+t.slice(1);
+        if(/^Trouve|^Remets|^Compl/.test(t)) return 'Je '+t.charAt(0).toLowerCase()+t.slice(1);
+        if(/^Écris|^Écoute/.test(t)) return "J'"+t.charAt(0).toLowerCase()+t.slice(1);
+        if(/^Dictée$/.test(t)) return 'La dictée';
+        return t;
+      })()}));
+    });
+
+    const themesEleve=this.tousThemes().map(n=>({
+      nom:n, bg:(()=>{const c=((this.motsDe(n)[0]||['',''])[1])||''; return c?this.urlImg(c):'none';})(),
+      ouvrir:()=>{
+        if(s.exoEleve==='trouve') this.lancerQuiz(n);
+        else if(s.exoEleve==='vf') this.lancerVF(n);
+        else if(s.exoEleve==='dessin'||s.exoEleve==='ordre') this.lancerLire(n,'dessin');
+        else if(s.exoEleve==='motecrit') this.lancerLire(n,'mot');
+        else if(s.exoEleve==='repete') this.lancerRepete(n);
+        else if(s.exoEleve==='completer') this.lancerEcrire(n,'completer');
+        else if(s.exoEleve==='ecrire') this.lancerEcrire(n,'ecrire');
+        else this.lancerExplore(n);
+      }
+    }));
+
+    const grille=this.corpus(s.themeEleve).map(([mot,f])=>({
+      mot, bg:this.urlImg(f),
+      bord:mot===s.motActif?'#1d4e89':'#dde2e9',
+      fond:mot===s.motActif?'#eaf2fb':'#fff',
+      cliquer:()=>{ this.setState({motActif:mot}); this.dire(mot); }
+    }));
+
+    const q=s.quiz[s.qi]||null;
+    const choixQuiz=(q&&q.choix&&Array.isArray(q.choix[0]))?q.choix.map(([mot,f])=>({
+      mot, bg:this.urlImg(f),
+      bord:!s.repondu?'#dde2e9':(mot===q.cible[0]?'#2e7d32':'#dde2e9'),
+      fond:!s.repondu?'#fff':(mot===q.cible[0]?'#e8f5e9':'#fff'),
+      cliquer:()=>this.repondre(mot)
+    })):[];
+
+    const g=this.grp();
+    const listeGroupes=s.groupes.map(x=>({
+      libelle:x.nom+'  ('+x.eleves.length+')', nom:x.nom,
+      fond:x.nom===s.groupeSel?'#d8e6f4':'#fff',
+      choisir:()=>this.setState({groupeSel:x.nom,eleveSel:x.eleves[0]||''})
+    }));
+    const listeEleves=(g?g.eleves:[]).map(n=>({
+      nom:n, fond:n===s.eleveSel?'#d8e6f4':'#fff',
+      choisir:()=>this.setState({eleveSel:n})
+    }));
+
+    const champs=Object.keys(s.champs).map(n=>({
+      nom:n, coche:s.champs[n]?'#1d4e89':'#fff', marque:s.champs[n]?'\u2713':'',
+      fond:s.champs[n]?'#f2f7fc':'#fff',
+      basculer:()=>this.setState(p=>({champs:{...p.champs,[n]:!p.champs[n]}}))
+    }));
+
+    const niveaux=[['mots','Les mots'],['phrases','Les phrases'],['textes','Les textes']].map(([k,titre])=>({
+      titre,
+      exos:['Explore','Trouve la bonne image','Vrai ou faux'].map(x=>{
+        const key=k+'|'+x, v=s.exos[key]||{on:true,n:'5'};
+        return {nom:x==='Explore'?'Explore les '+k:x, n:v.n, coche:v.on?'#1d4e89':'#fff', marque:v.on?'\u2713':'',
+          basculer:()=>this.setState(p=>({exos:{...p.exos,[key]:{...v,on:!v.on}}})),
+          setN:e=>this.setState(p=>({exos:{...p.exos,[key]:{...v,n:e.target.value}}}))};
+      })
+    }));
+
+    const ORDRE_P=["L'alphabet",'Les couleurs','Le matériel scolaire','Le lycée','La maison','Le temps','La météo','Les repas','Les transports',"L'école",'La politesse'];
+    const rangP=n=>{const i=ORDRE_P.indexOf(n);return i<0?99:i;};
+    const LISTE=[];
+    [...Object.keys(PARENTS),...this.tousThemes().filter(n=>!ENFANTS[n]&&!PARENTS[n])]
+      .sort((a,b)=>rangP(a)-rangP(b))
+      .forEach(n=>{ LISTE.push({nom:n,niveau:0}); (PARENTS[n]||[]).forEach(e=>LISTE.push({nom:e,niveau:1})); });
+    const mkTheme=({nom:n,niveau})=>{
+      const on=PARENTS[n] ? PARENTS[n].some(e=>s.themesOn[e]!==false) : s.themesOn[n]!==false;
+      return {
+        nom:n, coche:on?'#1d4e89':'#fff', marque:on?'\u2713':'',
+        indent:niveau?'16px':'0px',
+        poids:niveau?'400':'700',
+        basculer:()=>this.setState(p=>{
+          if(PARENTS[n]){ const cible=!on; const m={...p.themesOn}; PARENTS[n].forEach(e=>{m[e]=cible;}); return {themesOn:m}; }
+          return {themesOn:{...p.themesOn,[n]:!on}};
+        })
+      };
+    };
+    const themes=LISTE.filter(t=>t.nom!=='La politesse').map(mkTheme);
+    const themesDirectsParam=LISTE.filter(t=>t.nom==='La politesse').map(mkTheme);
+
+    const BRUT=[
+      ['Élève A','Trouve la bonne image','Les repas','8/8','12/06'],
+      ['Élève A','Vrai ou faux','L\'école','4/5','12/06'],
+      ['Élève B','Explore les mots','Les repas','—','11/06'],
+      ['Élève B','Trouve la bonne image','Les repas','5/8','11/06'],
+      ['Élève C','Trouve la bonne image','L\'école','7/8','10/06'],
+      ['Élève C','Vrai ou faux','Les repas','2/5','10/06']
+    ];
+    const resultats=BRUT.filter(r=>s.exoFiltre==='Tous'||r[1]===s.exoFiltre).map(([eleve,exo,theme,score,date])=>{
+      const m=score.match(/^(\d+)\/(\d+)$/);
+      const ratio=m?(+m[1])/(+m[2]):null;
+      return {eleve,exo,theme,score,date,couleur:ratio===null?'#8a91a3':ratio>=0.8?'#2e7d32':ratio>=0.5?'#ef8f2b':'#c62828'};
+    });
+
+    const niveauxOral=['Tous','Les mots','Les phrases','Les textes'].map(n=>({
+      nom:n, fond:n===s.niveauOral?'#d8e6f4':'#fff',
+      couleur:n==='Tous'?'#14213d':'#c1440e',
+      choisir:()=>this.setState({niveauOral:n})
+    }));
+    const SONS=[['une pomme','Les repas · les mots','12/06'],['une gomme','L\'école · les mots','11/06'],['Je mange une pomme.','Les repas · les phrases','11/06'],['Bonjour, je m\'appelle...','Se présenter · les textes','10/06']];
+    const sons=SONS.filter(x=>s.niveauOral==='Tous'||x[1].indexOf(s.niveauOral.replace('Les ','les '))>=0)
+      .map(([mot,detail,date])=>({mot,detail,date,ecouter:()=>{
+        try{const u=new SpeechSynthesisUtterance(mot);u.lang='fr-FR';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}catch(err){}
+      }}));
+
+    const themesSource=Object.keys(MOTS_DEMO).map(n=>({
+      nom:n, fond:n===s.themeSel?'#d8e6f4':'#fff',
+      choisir:()=>this.setState({themeSel:n})
+    }));
+    const motsTheme=(MOTS_DEMO[s.themeSel]||[]).map(([mot,f])=>{
+      const on=s.selection.indexOf(mot)>=0;
+      return {mot, bg:"url('clean/mot-"+f+".png')", bord:on?'#1d4e89':'#dde2e9', fond:on?'#eaf2fb':'#fff',
+        basculer:()=>this.setState(p=>({selection:on?p.selection.filter(x=>x!==mot):[...p.selection,mot]}))};
+    });
+    const selection=s.selection.map(mot=>({mot,retirer:()=>this.setState(p=>({selection:p.selection.filter(x=>x!==mot)}))}));
+    const motPerso=s.motPerso||'';
+
+    return {
+      titre:s.verrou&&s.ecran==='verrou'?'Accès enseignant'
+        :(((s.ecran==='alpha'||s.ecran==='alphaEcrire')&&!this.jeu().series)?this.jeu().nom:TITRES[s.ecran]),
+      goHome:()=>this.go(s.verrou?'themeAccueil':'accueil'),
+      retourUn:()=>this.retourUnCran(),
+      montrerBarre:!!s.verrou&&!((s.serie||[]).length&&['explore','trouve','vf','lireDessin','lireMot','repete','ecrire','situation'].includes(s.ecran))&&['niveau','explore','trouve','vf','lireDessin','lireMot','repete','ecrire','resultat'].includes(s.ecran),
+      barreActivites:[["J'écoute",'#6d5bd0'],['Je lis','#2a9d6e'],['Je parle','#e8654f'],["J'écris",'#e59a2b']].map(([nom,couleur])=>({
+        nom, couleur,
+        fond:s.champEleve===nom?couleur:'#fff',
+        texte:s.champEleve===nom?'#fff':'#12233b',
+        bord:s.champEleve===nom?couleur:'#c9cfd8',
+        aller:()=>{ try{speechSynthesis.cancel();}catch(e){}
+          this.setState({ecran:'niveau',champEleve:nom,retour:'',repondu:false,motActif:''}); }
+      })),
+      titreBarre:s.themeEleve||'',
+      dansSerie:(s.serie||[]).length>0,
+      etapeSuivante:()=>this.finExercice(0,0),
+      montrerFil:(s.serie||[]).length>0 && ['explore','trouve','vf','lireDessin','lireMot','repete','ecrire','situation'].includes(s.ecran),
+      cheminSerie:((s.themeEleve||'')+' · '+(s.champEleve||'')),
+      etapesSerie:(s.serie||[]).map((e,i)=>{
+        const idx=s.serieIdx||0, fait=i<idx, encours=i===idx;
+        const t=e.nom;
+        const nom=/^Explore/.test(t)?("J'"+t.charAt(0).toLowerCase()+t.slice(1))
+          :(/^Trouve|^Remets|^Compl/.test(t)?('Je '+t.charAt(0).toLowerCase()+t.slice(1))
+          :(/^Écris|^Écoute/.test(t)?("J'"+t.charAt(0).toLowerCase()+t.slice(1)):t));
+        return {
+          nom, fleche:i?'→':'', numero:fait?'✓':String(i+1),
+          fond:encours?'#1d4e89':(fait?'#e8f7ef':'#fff'),
+          bord:encours?'#1d4e89':(fait?'#2a9d6e':'#ccd4de'),
+          encre:encours?'#fff':(fait?'#1c7a52':'#9aa4b2'),
+          pastille:encours?'#f08a24':(fait?'#2a9d6e':'#e8edf3'),
+          encrePastille:encours||fait?'#fff':'#9aa4b2'
+        };
+      }),
+      estSons:s.ecran==='sons',
+      listeSons:(s.sons||SONS_INIT).map((son,i)=>({
+        son, rang:i+1,
+        monter:()=>this.deplacerSon(son,-1),
+        descendre:()=>this.deplacerSon(son,1),
+        retirer:()=>this.retirerSon(son),
+        dire:()=>this.dire(son)
+      })),
+      nombreSons:(s.sons||SONS_INIT).length+' sons',
+      nouveauSon:s.nouveauSon||'',
+      setNouveauSon:e=>this.setState({nouveauSon:e.target.value}),
+      ajouterSon:()=>this.ajouterSon(),
+      infoSon:s.infoSon||'\u00a0',
+      reinitSons:()=>{ this.enregistrerSons([...SONS_INIT]); this.setState({sons:[...SONS_INIT],infoSon:'Progression remise à la liste de départ.'}); },
+      alphaMaxLettres:this.jeu().items.reduce((m,it)=>Math.max(m,it[0].length),1),
+      estAlpha:s.ecran==='alpha',
+      estAlphaEcrire:s.ecran==='alphaEcrire',
+      alphaEcrireConsigne:this.jeu().series?' la lettre que tu entends dans le mot.':' le son que tu entends dans le mot.',
+      direConsigneEcrire:()=>this.dire(this.jeu().series
+        ? 'Clique sur une image pour entendre le mot. Puis écris la lettre.'
+        : 'Clique sur une image pour entendre le mot. Puis écris le son.'),
+      alphaEcrireCases:(()=>{
+        const lot=this.lotAlpha(), tr=s.trouves||[], sa=s.saisies||{};
+        return lot.map(([l,f,mot,f2])=>({
+          l,
+          images:!f?[]:(f2?["url('clean/mot-"+f+".png')","url('clean/mot-"+f2+".png')"]:["url('clean/mot-"+f+".png')"]),
+          valeur:sa[l]||'',
+          bord:tr.includes(l)?'#2a9d6e':'#c9cfd8',
+          fond:tr.includes(l)?'#e8f7ef':'#fff',
+          couleur:tr.includes(l)?'#1c7a52':'#12233b',
+          verrou:tr.includes(l),
+          ecouter:()=>this.dire(mot?mot.toLowerCase():l),
+          taper:e=>this.saisirLettre(l,e.target.value)
+        }));
+      })(),
+      estResultatAlpha:s.ecran==='resultatAlpha',
+      alphaEval:s.alphaMode==='Évaluation',
+      alphaConsigne1:this.jeu().series?' sur une lettre. Puis ':' sur un son. Puis ',
+      alphaConsigne2:s.alphaMode==='Évaluation'
+        ? ' sur son image.'
+        : (this.jeu().series?' sur l\u2019image o\u00f9 tu entends cette lettre.':' sur l\u2019image o\u00f9 tu entends ce son.'),
+      direConsigne:()=>this.dire(s.alphaMode==='Évaluation'
+        ? 'Clique sur une lettre. Puis clique sur son image.'
+        : 'Clique sur une lettre. Puis clique sur l\u2019image o\u00f9 tu entends cette lettre.'),
+      alphaSerieTexte:this.jeu().series
+        ? (s.alphaMode==='Évaluation'?'Tout l\u2019alphabet':'Série '+((s.alphaSerie||0)+1)+' / 3')
+        : this.jeu().nom,
+      alphaColLettres:this.jeu().series
+        ? (s.alphaMode==='Évaluation'?'repeat(13,1fr)':'repeat(9,1fr)')
+        : 'repeat('+Math.min(9,this.lotAlpha().length)+',1fr)',
+      alphaColImages:this.jeu().series
+        ? (s.alphaMode==='Évaluation'?'repeat(9,1fr)':'repeat(5,1fr)')
+        : 'repeat('+Math.min(5,this.lotAlpha().length)+',1fr)',
+      alphaTailleLettre:this.jeu().series?(s.alphaMode==='Évaluation'?'26px':'38px'):'30px',
+      alphaTailleImage:(this.jeu().series&&s.alphaMode==='Évaluation')?'70px':'112px',
+      alphaLettres:(()=>{
+        const lot=this.lotAlpha(), tr=s.trouves||[], voy='aeiouy';
+        return lot.map(([l])=>({
+          l, aff:(this.jeu().series&&s.alphaCasse==='capitale')?l.toUpperCase():l,
+          police:s.alphaCasse==='cursive'?'BA Cursive, cursive':(s.alphaCasse==='capitale'?'Archivo Black, Archivo, sans-serif':'BA Script, Archivo, sans-serif'),
+          couleur:tr.includes(l)?'#b7c0cc':((s.alphaMode!=='Évaluation'&&l.length===1&&voy.includes(l))?'#d63c2f':'#12233b'),
+          fond:tr.includes(l)?'#eef1f5':(s.lettreSel===l?'#fff6cc':'#fff'),
+          bord:s.lettreSel===l?'#f08a24':'#ccd4de',
+          epaisseur:s.lettreSel===l?'4px':'2px',
+          choisir:()=>this.choisirLettre(l)
+        }));
+      })(),
+      alphaImages:(()=>{
+        const lot=this.lotAlpha(), tr=s.trouves||[];
+        const err=(s.errParLettre||{})[s.lettreSel]||0;
+        const melange=this._ordreAlpha&&this._ordreAlpha.length===lot.length&&this._ordreCle===(s.alphaMode+s.alphaSerie)
+          ? this._ordreAlpha
+          : (this._ordreCle=s.alphaMode+s.alphaSerie, this._ordreAlpha=this.melange(lot));
+        return melange.map(([l,f,mot,f2])=>({
+          l,
+          bg:!f?'none':(f2?"url('clean/mot-"+f+".png'), url('clean/mot-"+f2+".png')":"url('clean/mot-"+f+".png')"),
+          taille:f2?'48% auto, 48% auto':'contain',
+          position:f2?'left center, right center':'center',
+          visible:tr.includes(l)?'0':'1',
+          clics:tr.includes(l)?'none':'auto',
+          bord:s.imageSel===l?'#f08a24':'#ccd4de',
+          epaisseur:s.imageSel===l?'4px':'2px',
+          fond:s.imageSel===l?'#fff6cc':'#fff',
+          anim:s.tremble===l?'tremble 0.45s':((err>=3&&l===s.lettreSel&&s.alphaMode!=='Évaluation')?'battement 1s infinite':'none'),
+          choisir:()=>this.choisirImage(l)
+        }));
+      })(),
+      alphaFini:(s.trouves||[]).length>=this.lotAlpha().length,
+      alphaReussites:s.reussites||0, alphaErreurs:s.erreurs||0,
+      alphaChrono:(()=>{const t=s.secondes||0;return Math.floor(t/60)+':'+String(t%60).padStart(2,'0');})(),
+      alphaSuivant:()=>this.serieSuivante(),
+      alphaLibelleSuivant:(!this.jeu().series||s.alphaMode==='Évaluation'||(s.alphaSerie||0)>=2)?'Voir mon résultat':'Continuer',
+      alphaBilan:Math.min(s.reussites||0,this.jeu().items.length)+' / '+this.jeu().items.length,
+      alphaBilanErreurs:(s.erreurs||0)+(((s.erreurs||0)<=1)?' erreur':' erreurs'),
+      alphaRejouer:()=>{ if(s.alphaCasse==='ecrire') this.lancerAlphaEcrire(s.alphaMode,s.alphaLot); else this.lancerAlpha(s.alphaCasse,s.alphaMode,s.alphaLot); },
+      journalAlphaListe:(s.journalAlpha||[]).slice().reverse().map(j=>({
+        titre:((j.lot&&j.lot!=='alphabet')
+          ? (LOTS[j.lot]?LOTS[j.lot].nom:j.lot)+(j.casse==='ecrire'?' \u00b7 j\u2019écris':'')
+          : (j.casse==='capitale'?'Alphabet 1':(j.casse==='script'?'Alphabet 2':(j.casse==='ecrire'?'J\u2019écris':'Alphabet 3'))))+' \u00b7 '+j.mode,
+        score:j.reussites+' / '+((LOTS[j.lot||'alphabet']||LOTS.alphabet).items.length),
+        erreurs:j.erreurs+(j.erreurs<=1?' erreur':' erreurs'),
+        dures:j.dures.length?j.dures.map(l=>l.toUpperCase()).join(' '):'\u2014'
+      })),
+      aJournalAlpha:(s.journalAlpha||[]).length>0,
+      alphaDures:(s.lettresDures||[]).map(l=>l.toUpperCase()).join(' '),
+      alphaADures:(s.lettresDures||[]).length>0,
+      alphaSuiteLibelle:!this.jeu().series?'Retour au tableau':(s.alphaCasse==='capitale'?'Alphabet 2':(s.alphaCasse==='script'?'Alphabet 3':'Les activités')),
+      alphaSuite:()=>{
+        if(!this.jeu().series){ this.setState({ecran:'tableauCode'}); return; }
+        if(s.alphaCasse==='capitale') this.lancerAlpha('script',s.alphaMode);
+        else if(s.alphaCasse==='script') this.lancerAlpha('cursive',s.alphaMode);
+        else this.setState({ecran:'eleve'});
+      },
+      alphaRejouerLibelle:'Recommencer',
+      alphaRetourActivites:()=>this.setState({ecran:'eleve'}),
+      libelleRetour:(()=>{const p=this.parentEcran();return p?'\u2190 '+p[1]:'\u2190 Accueil';})(),
+      montrerRetour:!!this.parentEcran(),
+      retourThemeAccueil:()=>this.setState({ecran:'themeAccueil'}),
+      estVerrou:s.ecran==='verrou',
+      ouvrirVerrou:()=>this.setState({ecran:'verrou',saisieMdp:'',erreurMdp:''}),
+      saisieMdp:s.saisieMdp||'', setSaisieMdp:e=>this.setState({saisieMdp:e.target.value}),
+      erreurMdp:s.erreurMdp||'',
+      indiceMdp:s.mdpRef==='ecole'?'Premier accès : le mot de passe est ecole':'',
+      validerAcces:()=>this.setState(p=>p.saisieMdp===p.mdpRef
+        ? {verrou:false,ecran:'accueil',saisieMdp:'',erreurMdp:''}
+        : {erreurMdp:'Mot de passe incorrect.'}),
+      verrouille:!!s.verrou,
+      libelleAcces:s.verrou?'Espace enseignant':'Séance élève',
+      actionAcces:()=>s.verrou?this.setState({ecran:'verrou',saisieMdp:'',erreurMdp:''}):this.setState({ecran:'themeAccueil',verrou:true,msgEleve:''}), goEleve:()=>this.go('eleve'),
+      estAccueil:s.ecran==='accueil', estEleve:s.ecran==='eleve', estGroupes:s.ecran==='groupes',
+      estReglages:s.ecran==='reglages', estBilan:s.ecran==='bilan', estOral:s.ecran==='oral',
+      estThemes:s.ecran==='themes', estMdp:s.ecran==='mdp',
+      estOutils:s.ecran==='outils', ouvrirMdp:()=>this.go('mdp'),
+      estCompetences:s.ecran==='competences',
+      compEleves:(()=>{
+        const g=this.grp()||{eleves:[]};
+        const sel=s.compEleve||g.eleves[0]||'';
+        return g.eleves.map(e=>{
+          const on=e===sel;
+          const n=Object.keys(s.comp||{}).filter(k=>k.indexOf(e+'|')===0&&(s.comp[k]||{}).etat==='acquis').length;
+          return {nom:e, bord:on?'#1682a0':'#dde2e9', fond:on?'#eaf4f8':'#fff', encre:on?'#12233b':'#6b7386',
+            compte:n?n+' acquis':'', choisir:()=>this.setState({compEleve:e})};
+        });
+      })(),
+      compEleveNom:(()=>{const g=this.grp()||{eleves:[]};return s.compEleve||g.eleves[0]||'';})(),
+      compVide:!((this.grp()||{eleves:[]}).eleves.length),
+      compResume:(()=>{
+        const g=this.grp()||{eleves:[]};
+        const e=s.compEleve||g.eleves[0]||'';
+        if(!e) return 'Aucun élève dans ce groupe.';
+        const tot=COMPETENCES.reduce((t,d)=>t+d[2].length,0);
+        const vals=Object.keys(s.comp||{}).filter(k=>k.indexOf(e+'|')===0).map(k=>(s.comp[k]||{}).etat);
+        const a=vals.filter(v=>v==='acquis').length, c=vals.filter(v=>v==='cours').length;
+        return a+' acquis · '+c+' en cours · '+(tot-a-c)+' à travailler';
+      })(),
+      compDomaines:(()=>{
+        const g=this.grp()||{eleves:[]};
+        const eleve=s.compEleve||g.eleves[0]||'';
+        return COMPETENCES.map(([nom,couleur,lignes])=>({
+          nom, couleur,
+          lignes:lignes.map(texte=>{
+            const cur=((s.comp||{})[eleve+'|'+texte]||{});
+            return {
+              texte, date:cur.date||'',
+              boutons:ETATS.map(([etat,libelle,fond,encre])=>({
+                libelle,
+                fond:(cur.etat||'')===etat?fond:'#fff',
+                encre:(cur.etat||'')===etat?encre:'#9aa4b2',
+                bord:(cur.etat||'')===etat?encre:'#dde2e9',
+                definir:()=>this.definirComp(eleve,texte,etat)
+              }))
+            };
+          })
+        }));
+      })(),
+      collections:(SRC_FICHES().collections.length?SRC_FICHES().collections:OUTILS_COLL_FALLBACK).map(([id,nom,couleur,desc])=>{
+        const n=feuillesOutils(id).reduce((t,f)=>t+((s.outilsSel||{})[f.id]||0),0);
+        const on=s.outilsColl===id;
+        return {nom,desc,couleur, bord:on?couleur:'#dde2e9', fond:on?'#fff':'#f8fafc',
+          compteur:n?(n+' page'+(n>1?'s':'')+' choisie'+(n>1?'s':'')):'',
+          choisir:()=>this.setState({outilsColl:id,outilsPage:0})};
+      }),
+      vignettes:feuillesOutils(s.outilsColl).slice((s.outilsPage||0)*9,(s.outilsPage||0)*9+9).map(f=>{
+        const n=(s.outilsSel||{})[f.id]||0;
+        return {nom:f.nom, feuille:f, nb:n,
+          bord:n?'#2a9d6e':'#dde2e9',
+          badge:n?'✓':'', badgeFond:n?'#2a9d6e':'rgba(18,35,59,0.12)',
+          couleurNb:n?'#2a9d6e':'#b9c6d6',
+          basculer:()=>this.setState({apercu:f.id}),
+          plus:()=>this.majOutils(f.id,1,false),
+          moins:()=>this.majOutils(f.id,-1,false)};
+      }),
+      resumeOutils:(()=>{
+        const sel=s.outilsSel||{};
+        const fiches=Object.keys(sel).length;
+        const pages=Object.keys(sel).reduce((t,k)=>t+sel[k],0);
+        return fiches?(fiches+' fiche'+(fiches>1?'s':'')+' · '+pages+' page'+(pages>1?'s':'')+' à imprimer')
+          :'Clique sur une fiche pour la choisir.';
+      })(),
+      pageOutils:(()=>{const n=feuillesOutils(s.outilsColl).length; const p=(s.outilsPage||0); return n?('Fiches '+(p*9+1)+' à '+Math.min(n,p*9+9)+' sur '+n):'';})(),
+      pagePrec:()=>this.setState(p=>({outilsPage:Math.max(0,(p.outilsPage||0)-1)})),
+      pageSuiv:()=>this.setState(p=>{const n=feuillesOutils(p.outilsColl).length; return {outilsPage:Math.min(Math.floor((n-1)/9),(p.outilsPage||0)+1)};}),
+      apercuOuvert:!!s.apercu,
+      apercuFeuille:(()=>feuillesOutils(s.outilsColl).find(f=>f.id===s.apercu)||{})(),
+      apercuNom:(()=>{const f=feuillesOutils(s.outilsColl).find(f=>f.id===s.apercu);return f?f.nom:'';})(),
+      apercuLibelle:((s.outilsSel||{})[s.apercu]||0)?'Retirer de ma sélection':'Choisir cette fiche',
+      apercuFond:((s.outilsSel||{})[s.apercu]||0)?'#e8654f':'#2a9d6e',
+      apercuChoisir:()=>{ this.majOutils(s.apercu,0,true); this.setState({apercu:''}); },
+      fermerApercu:()=>this.setState({apercu:''}),
+      effacerOutils:()=>{ this.enregistrerOutils({}); this.setState({outilsSel:{}}); },
+      imprimerOutils:()=>this.lancerImpression(),
+      feuillesPrint:s.feuillesPrint||[],
+      themeEdit:s.themeEdit,
+      themesFournis:Object.keys(BANQUE).map(n=>({
+        nom:n, choisir:()=>this.setState({themeEdit:n,infoTheme:''}),
+        fond:n===s.themeEdit?'#eaf2fb':'#fff',
+        trait:n===s.themeEdit?'#1d4e89':'transparent',
+        etat:(s.perso.mots[n]||s.perso.phrases[n])?'modifié':'',
+        encreEtat:'#c1440e'
+      })),
+      mesThemes:(s.perso.themes||[]).map(n=>({
+        nom:n, choisir:()=>this.setState({themeEdit:n,infoTheme:''}),
+        fond:n===s.themeEdit?'#eaf2fb':'#fff',
+        trait:n===s.themeEdit?'#6d5bd0':'transparent',
+        supprimer:()=>this.supprimerTheme(n)
+      })),
+      nvTheme:s.nvTheme||'', setNvTheme:e=>this.setState({nvTheme:e.target.value}),
+      creerTheme:()=>this.creerTheme(),
+      retablirTheme:()=>this.retablirTheme(),
+      themeModifie:!!(s.perso.mots[s.themeEdit]||s.perso.phrases[s.themeEdit])&&!!BANQUE[s.themeEdit],
+      ongletEstMots:s.ongletTheme!=='phrases', ongletEstPhrases:s.ongletTheme==='phrases',
+      ongletMots:()=>this.setState({ongletTheme:'mots',infoTheme:''}),
+      ongletPhrases:()=>this.setState({ongletTheme:'phrases',infoTheme:''}),
+      libelleMots:'Mots ('+this.motsDe(s.themeEdit).length+')',
+      libellePhrases:'Phrases ('+this.phrasesDe(s.themeEdit).length+')',
+      fondMots:s.ongletTheme!=='phrases'?'#1d4e89':'#fff', encreMots:s.ongletTheme!=='phrases'?'#fff':'#6b7386',
+      fondPhrases:s.ongletTheme==='phrases'?'#1d4e89':'#fff', encrePhrases:s.ongletTheme==='phrases'?'#fff':'#6b7386',
+      infoTheme:s.infoTheme||'',
+      nvMot:s.nvMot||'', setNvMot:e=>this.setState({nvMot:e.target.value}),
+      fichierMot:e=>{ const f=e.target.files&&e.target.files[0]; if(f) this.ajouterMotImage(f); e.target.value=''; },
+      motsEdit:this.motsDe(s.themeEdit).map(([mot,cle],i)=>({
+        mot, bg:this.urlImg(cle), pastille:(s.perso.imgs||{})[cle]?'#c1440e':'transparent',
+        retirer:()=>this.ecrireMots(this.motsDe(s.themeEdit).filter((x,j)=>j!==i)),
+        remplacer:e=>{ const f=e.target.files&&e.target.files[0]; if(f) this.remplacerImageMot(i,f); e.target.value=''; }
+      })),
+      aLocales:this.motsDe(s.themeEdit).some(([m,c])=>!!(s.perso.imgs||{})[c]),
+      texteLocales:(()=>{ const n=this.motsDe(s.themeEdit).filter(([m,c])=>!!(s.perso.imgs||{})[c]).length;
+        return n>1?(n+' images sont seulement sur cet ordinateur.'):'1 image est seulement sur cet ordinateur.'; })(),
+      imagesDispo:this.motsDe(s.themeEdit).map(([mot,cle])=>({mot,cle})),
+      nvPhrase:s.nvPhrase||'', setNvPhrase:e=>this.setState({nvPhrase:e.target.value}),
+      nvPhraseImg:s.nvPhraseImg||'', setNvPhraseImg:e=>this.setState({nvPhraseImg:e.target.value}),
+      nvVrai:()=>this.setState({nvPhraseVrai:true}), nvFaux:()=>this.setState({nvPhraseVrai:false}),
+      fondNvVrai:s.nvPhraseVrai!==false?'#2a9d6e':'#fff', encreNvVrai:s.nvPhraseVrai!==false?'#fff':'#6b7386',
+      fondNvFaux:s.nvPhraseVrai===false?'#d1495b':'#fff', encreNvFaux:s.nvPhraseVrai===false?'#fff':'#6b7386',
+      ajouterPhrase:()=>{
+        const txt=(s.nvPhrase||'').trim(), img=s.nvPhraseImg||'';
+        if(!txt){ this.setState({infoTheme:'Écris la phrase.'}); return; }
+        if(!img){ this.setState({infoTheme:'Choisis son image.'}); return; }
+        this.ecrirePhrases([...this.phrasesDe(s.themeEdit),[txt,img,s.nvPhraseVrai!==false]]);
+        this.setState({nvPhrase:'',infoTheme:'Phrase ajoutée.'});
+      },
+      phrasesEdit:this.phrasesDe(s.themeEdit).map(([txt,cle,vf],i)=>({
+        phrase:txt, bg:this.urlImg(cle),
+        marque:vf===false?'\u2718':'\u2714', etiquette:vf===false?'faux':'vrai',
+        fond:vf===false?'#fdecee':'#e8f7ef', bord:vf===false?'#d1495b':'#2a9d6e',
+        encre:vf===false?'#a63142':'#1c7a52',
+        basculer:()=>this.ecrirePhrases(this.phrasesDe(s.themeEdit).map((x,j)=>j===i?[x[0],x[1],x[2]===false]:x)),
+        retirer:()=>this.ecrirePhrases(this.phrasesDe(s.themeEdit).filter((x,j)=>j!==i))
+      })),
+      tuiles, champsEleve, msgEleve:s.msgEleve,
+      estNiveau:s.ecran==='niveau', estThemeEleve:s.ecran==='themeEleve',
+      estExplore:s.ecran==='explore', direConsigneExplore:()=>this.dire(this.consigneExplore()),
+      finConsigneExplore:this.consigneExplore().replace(/^Clique/,''), estTrouve:s.ecran==='trouve', estResultat:s.ecran==='resultat',
+      niveauxEleve, themesEleve, grille, choixQuiz, sousThemes,
+      themesAccueil:themesAccueil.filter(t=>t.nom!=="L'alphabet"),
+      cartesCode:[
+        ['Alphabet 1','#1d4e89','A','Archivo Black, Archivo, sans-serif','26px',[],'alphabet','capitale'],
+        ['Alphabet 2','#2a9d6e','a','BA Script, Archivo, sans-serif','28px',[],'alphabet','script'],
+        ['Alphabet 3','#8a4b1e','a','BA Cursive, cursive','28px',[],'alphabet','cursive'],
+        ["J'écris l'alphabet",'#e59a2b','','Archivo',' ',[],'alphabet','ecrire'],
+        ['Graphèmes complexes 1','#6d5bd0','','Archivo','13px',['ou','é','au'],'gc1','script'],
+        ['Graphèmes complexes 2','#6d5bd0','','Archivo','13px',['on','an','in'],'gc2','script'],
+        ['Graphèmes complexes 3','#6d5bd0','','Archivo','13px',['ch','ph','gn'],'gc3','script'],
+        ["J'écris les graphèmes",'#e59a2b','','Archivo',' ',[],'gcAll','ecrire'],
+        ['Consonnes doubles','#c4479e','','Archivo','13px',['cr','br','dr'],'cd','script'],
+        ["J'écris les consonnes",'#e59a2b','','Archivo',' ',[],'cd','ecrire'],
+        ['Autres graphèmes','#1682a0','','Archivo','13px',['ge','ç','ss'],'ag','script'],
+        ["J'écris les graphies",'#e59a2b','','Archivo',' ',[],'ag','ecrire']
+      ].map(([nom,couleur,lettre,police,taille,chips,lot,casse],i)=>({
+        nom,couleur,lettre,police,taille,chips,rang:i+1,
+        bg:casse==='ecrire'?"url('clean/mot-crayon.png')":'none',
+        explorer:()=>{ if(casse==='ecrire') this.lancerAlphaEcrire('Exploration',lot); else this.lancerAlpha(casse,'Exploration',lot); },
+        evaluer:()=>{ if(casse==='ecrire') this.lancerAlphaEcrire('Évaluation',lot); else this.lancerAlpha(casse,'Évaluation',lot); }
+      })),
+      estThemeAccueil:s.ecran==='themeAccueil',
+      estTableauThemes:s.ecran==='tableauThemes',
+      estTableauCode:s.ecran==='tableauCode',
+      ouvrirTableauThemes:()=>this.setState({ecran:'tableauThemes',themeParent:''}),
+      ouvrirTableauCode:()=>this.go('tableauCode'),
+      apercuThemes:themesAccueil.filter(t=>t.nom!=="L'alphabet").slice(0,4),
+      apercuThemesTexte:themesAccueil.filter(t=>t.nom!=="L'alphabet").length+' thèmes de vocabulaire',
+      estSousTheme:s.ecran==='sousTheme', themeParent:s.themeParent||'',
+      toutSelectionne:LISTE.every(t=>PARENTS[t.nom]||s.themesOn[t.nom]!==false),
+      libelleTout:LISTE.every(t=>PARENTS[t.nom]||s.themesOn[t.nom]!==false)?'Tout décocher':'Tout cocher',
+      basculerTout:()=>this.setState(p=>{
+        const tous=LISTE.every(t=>PARENTS[t.nom]||p.themesOn[t.nom]!==false);
+        const m={...p.themesOn};
+        LISTE.filter(t=>!PARENTS[t.nom]).forEach(t=>{m[t.nom]=!tous;});
+        return {themesOn:m};
+      }),
+      themeImpose:s.themeImpose||'', 
+      setThemeImpose:e=>this.setState({themeImpose:e.target.value}),
+      infoImpose:s.themeImpose?'Les élèves ne peuvent travailler que « '+s.themeImpose+' ».':'Les élèves choisissent librement leur thème.',
+      estVF:s.ecran==='vf',
+      estLireDessin:s.ecran==='lireDessin', estLireMot:s.ecran==='lireMot',
+      estRepete:s.ecran==='repete', estEcrire:s.ecran==='ecrire',
+      estSituation:s.ecran==='situation',
+      situation:q&&q.sit?q.sit:'',
+      sitBg:(q&&q.img&&SIT_IMG[q.img])?"url('clean/"+SIT_IMG[q.img]+".png')":'none',
+      direSituation:()=>{ if(q&&q.sit) this.dire(q.sit); },
+      choixSituation:(q&&q.choix)?q.choix.map(r=>({
+        rep:r, bg:"url('clean/"+(POLITESSE_IMG[r]||'geste-bonjour')+".png')",
+        bord:!s.repondu?'#c9d6e4':(r===q.bonne?'#2a9d6e':'#c9d6e4'),
+        fond:!s.repondu?'#fff':(r===q.bonne?'#e8f5ee':'#fff'),
+        cliquer:()=>this.repondreSituation(r)
+      })):[],
+      suivanteSituation:()=>this.suivanteSituation(),
+      consigneEcrire:s.modeEcrire==='completer'?'Écris la ou les lettres manquantes pour compléter le mot.':'Regarde le dessin, écoute, puis écris le mot.',
+      ecrireBg:q&&q.cible?this.urlImg(q.cible[1]):'none',
+      direEcrire:()=>{ if(q&&q.cible) this.dire(q.cible[0]); },
+      amorce:(()=>{ if(!q||!q.cible||s.modeEcrire!=='completer') return '';
+        const m=q.cible[0]; return m.slice(0,Math.max(2,Math.ceil(m.length*0.6))); })(),
+      largeurSaisie:(()=>{ if(!q||!q.cible) return '150px';
+        const m=q.cible[0];
+        const n=s.modeEcrire==='completer'?Math.max(2,m.length-Math.max(2,Math.ceil(m.length*0.6))):m.length;
+        return (n*19+14)+'px'; })(),
+      saisie:s.saisie||'', setSaisie:e=>this.setState({saisie:e.target.value}),
+      validerEcrit:()=>this.validerEcrit(), suivantEcrit:()=>this.suivantEcrit(),
+      bordSaisie:!s.repondu?'#1d4e89':(q&&q.reussi?'#2e7d32':'#c62828'),
+      couleurSaisie:!s.repondu?'#1d4e89':(q&&q.reussi?'#2e7d32':'#c62828'),
+      motRepete:q&&q.cible?q.cible[0]:'',
+      repeteBg:q&&q.cible?this.urlImg(q.cible[1]):'none',
+      direRepete:()=>{ if(q&&q.cible) this.dire(q.cible[0]); },
+      enregistrer:()=>this.enregistrer(), stopper:()=>this.stopper(),
+      reecouter:()=>this.reecouter(), motSuivant:()=>this.motSuivant(),
+      aEnr:!!s.aEnr,
+      basculerEnr:()=>{ if(s.enr) this.stopper(); else this.enregistrer(); },
+      texteEnr:s.enr?'Arrêter':'Enregistre-toi',
+      fondEnr:s.enr?'#e8b0b6':'#e5c3c8',
+      animEnr:s.enr?'pulseq 1.1s ease-in-out infinite':'none',
+      etape1:(s.etape||1)>=1?'#4caf50':'#c9cfd8',
+      etape2:(s.etape||1)>=2?'#4caf50':'#c9cfd8',
+      etape3:(s.etape||1)>=3?'#4caf50':'#c9cfd8',
+      msgEnr:s.msgEnr||'',
+      motAlire:q&&q.cible?q.cible[0]:'',
+      cibleBg:q&&q.cible?this.urlImg(q.cible[1]):'none',
+      grilleLire:(q&&q.choix&&Array.isArray(q.choix[0]))?q.choix.map(([mot,f])=>({
+        mot, bg:this.urlImg(f),
+        bord:!s.repondu?'#c9d6e4':(mot===q.cible[0]?'#2e7d32':'#c9d6e4'),
+        fond:!s.repondu?'#fff':(mot===q.cible[0]?'#e8f5e9':'#fff'),
+        cliquer:()=>this.repondreLire(mot)
+      })):[],
+      motsLire:(q&&q.choix&&Array.isArray(q.choix[0]))?q.choix.map(([mot])=>({
+        mot,
+        bord:!s.repondu?'#c9d6e4':(mot===q.cible[0]?'#2e7d32':'#c9d6e4'),
+        fond:!s.repondu?'#fff':(mot===q.cible[0]?'#e8f5e9':'#fff'),
+        cliquer:()=>this.repondreLire(mot)
+      })):[],
+      suivanteLire:()=>this.suivanteLire(),
+      jauge:s.quiz.map((it,i)=>({
+        fond: i<s.qi ? (it.reussi?'#4caf50':'#e8534a') : (i===s.qi ? (s.repondu?(it.reussi?'#4caf50':'#e8534a'):'#aab4e8') : '#c9cfd8'),
+        anim: (i===s.qi && !s.repondu) ? 'pulseq 1.1s ease-in-out infinite' : 'none'
+      })),
+      vfBg:q&&q.f?this.urlImg(q.f):'none',
+      vfPhrase:q&&q.phrase?q.phrase:'',
+      direVF:()=>{ if(q&&q.phrase) this.dire(q.phrase); },
+      repondreVrai:()=>this.repondreVF(true),
+      repondreFaux:()=>this.repondreVF(false),
+      suivanteVF:()=>this.suivanteVF(),
+      bordVrai:s.repondu&&s.repVF===true?'#14213d':'transparent',
+      bordFaux:s.repondu&&s.repVF===false?'#14213d':'transparent',
+      opaciteVrai:!s.repondu||s.repVF===true?'1':'0.45',
+      opaciteFaux:!s.repondu||s.repVF===false?'1':'0.45',
+      verdictVF:!s.repondu?'':(q&&q.reussi?'\u2714':'\u2718'),
+      couleurVerdict:!s.repondu?'#1d4e89':(q&&q.reussi?'#1c7a52':'#c62828'),
+      champEleve:s.champEleve, modeEleve:s.modeEleve, themeEleve:s.themeEleve,
+      motActif:s.motActif||'\u00a0',
+      motActifBg:(()=>{
+        const it=this.corpus(s.themeEleve).find(m=>m[0]===s.motActif);
+        return it?this.urlImg(it[1]):'none';
+      })(),
+      aMotActif:!!s.motActif,
+      montrerMots:s.champEleve==='Je lis',
+      colonnesExplore:'1fr 320px',
+      colonnesGrilleExplore:'repeat(4,minmax(0,1fr))',
+      hauteurImageExplore:s.champEleve==='Je lis'?'74px':'88px',
+      consigneQuiz:"L'alphabet"===s.themeEleve?'Écoute la lettre. Clique sur le dessin o\u00f9 tu entends cette lettre.':(this.surPhrases(s.themeEleve)?'Écoute la phrase. Clique sur la bonne image.':'Écoute le mot. Clique sur la bonne image.'),
+      consigneLireDessin:"L'alphabet"===s.themeEleve?'Lis la lettre. Clique sur le dessin o\u00f9 tu entends cette lettre.':(this.surPhrases(s.themeEleve)?'Lis la phrase. Clique sur la bonne image.':'Lis le mot. Clique sur le bon dessin.'),
+      compteur:q?('Question '+(s.qi+1)+' / '+s.quiz.length):'',
+      rejouerSon:()=>{ if(q) this.dire(q.cible[0]); },
+      retourQuiz:s.retour||'\u00a0', repondu:s.repondu, pasRepondu:!s.repondu,
+      suivante:()=>this.suivante(),
+      scoreFinal:(s.serie||[]).length?((s.serieScore||0)+' / '+(s.serieTotal||0)):(s.score+' / '+(s.quiz.length||8)),
+      messageFinal:(()=>{
+        const enSerie=(s.serie||[]).length>0;
+        const sc=enSerie?(s.serieScore||0):s.score, tot=enSerie?(s.serieTotal||0):(s.quiz.length||0);
+        const bien=tot&&sc/tot>=0.75;
+        return (enSerie?'Série terminée. ':'')+(bien?'Très bien !':'Continue à t\'entraîner.');
+      })(),
+      sousTitreResultat:(s.serie||[]).length?((s.niveauEleve||'')+' · '+(s.serie||[]).map(e=>e.nom).join(' · ')):'',
+      retourEleve:()=>this.setState({ecran:'eleve',msgEleve:'',serie:[],serieIdx:0,serieScore:0,serieTotal:0}),
+      retourThemes:()=>this.setState({ecran:'themeEleve',serie:[],serieIdx:0,serieScore:0,serieTotal:0}),
+      nomsGroupes:s.groupes.map(x=>x.nom), groupe:s.groupe,
+      setGroupe:e=>this.setState({groupe:e.target.value,groupeSel:e.target.value}),
+      listeGroupes, listeEleves, eleveSel:s.eleveSel||'aucun',
+      nouveauGroupe:s.nouveauGroupe, setNouveauGroupe:e=>this.setState({nouveauGroupe:e.target.value}),
+      ajouterGroupe:()=>{const n=s.nouveauGroupe.trim(); if(!n) return;
+        this.setState(p=>({groupes:[...p.groupes,{nom:n,eleves:[]}],nouveauGroupe:'',groupeSel:n}));},
+      supprimerGroupe:()=>this.setState(p=>{
+        if(p.groupes.length<2) return {infoTransfert:'Il faut garder au moins un groupe.'};
+        const rest=p.groupes.filter(x=>x.nom!==p.groupeSel);
+        return {groupes:rest,groupeSel:rest[0].nom,groupe:rest[0].nom,infoTransfert:''};
+      }),
+      nouvelEleve:s.nouvelEleve, setNouvelEleve:e=>this.setState({nouvelEleve:e.target.value}),
+      ajouterEleve:()=>{const n=s.nouvelEleve.trim(); if(!n) return;
+        this.setState(p=>({groupes:p.groupes.map(x=>x.nom===p.groupeSel?{...x,eleves:[...x.eleves,n]}:x),nouvelEleve:'',eleveSel:n}));},
+      supprimerEleve:()=>this.setState(p=>({groupes:p.groupes.map(x=>x.nom===p.groupeSel?{...x,eleves:x.eleves.filter(e=>e!==p.eleveSel)}:x),eleveSel:''})),
+      dest:s.dest, setDest:e=>this.setState({dest:e.target.value}),
+      transferer:()=>this.setState(p=>{
+        if(!p.eleveSel) return {infoTransfert:'Sélectionnez d\'abord un élève.'};
+        if(p.dest===p.groupeSel) return {infoTransfert:'Choisissez un groupe différent.'};
+        return {groupes:p.groupes.map(x=>x.nom===p.groupeSel?{...x,eleves:x.eleves.filter(e=>e!==p.eleveSel)}:x.nom===p.dest?{...x,eleves:[...x.eleves,p.eleveSel]}:x),
+          infoTransfert:p.eleveSel+' a été transféré vers « '+p.dest+' ».', eleveSel:''};
+      }),
+      infoTransfert:s.infoTransfert,
+      champs, niveaux, themes, themesDirectsParam,
+      champsInactifs:(()=>{
+        const politesseOn=s.themesOn['La politesse']!==false;
+        const autresOn=LISTE.filter(t=>t.nom!=='La politesse').some(t=>
+          PARENTS[t.nom]?PARENTS[t.nom].some(e=>s.themesOn[e]!==false):s.themesOn[t.nom]!==false);
+        return politesseOn && !autresOn;
+      })(),
+      opaciteChamps:(()=>{
+        const politesseOn=s.themesOn['La politesse']!==false;
+        const autresOn=LISTE.filter(t=>t.nom!=='La politesse').some(t=>
+          PARENTS[t.nom]?PARENTS[t.nom].some(e=>s.themesOn[e]!==false):s.themesOn[t.nom]!==false);
+        return (politesseOn && !autresOn) ? '0.4' : '1';
+      })(),
+      exoFiltre:s.exoFiltre, setExoFiltre:e=>this.setState({exoFiltre:e.target.value}),
+      resultats, resumeBilan:resultats.length+' résultat'+(resultats.length>1?'s':'')+' pour « '+s.groupe+' »',
+      niveauxOral, sons, infoOral:sons.length?'Cliquez sur ▶ pour écouter.':'Aucun enregistrement pour ce filtre.',
+      themesSource, themeSel:s.themeSel, motsTheme, selection,
+      compteSel:s.selection.length+' mot'+(s.selection.length>1?'s':'')+' sélectionné'+(s.selection.length>1?'s':''),
+      nomTheme:s.nomTheme, setNomTheme:e=>this.setState({nomTheme:e.target.value}),
+      motPerso, setMotPerso:e=>this.setState({motPerso:e.target.value}),
+      ajouterMotPerso:()=>{ const m=(s.motPerso||'').trim(); if(!m) return;
+        this.setState(p=>({selection:p.selection.indexOf(m)>=0?p.selection:[...p.selection,m],motPerso:'',
+          infoTheme:'« '+m+' » ajouté. Pense à fournir son image.'})); },
+      enregistrerTheme:()=>this.setState(p=>({infoTheme:p.nomTheme.trim()
+        ? 'Thème « '+p.nomTheme.trim()+' » enregistré avec '+p.selection.length+' mot(s).'
+        : 'Donnez un nom à votre thème.'})),
+      infoTheme:s.infoTheme,
+      mdp1:s.mdp1, mdp2:s.mdp2,
+      setMdp1:e=>this.setState({mdp1:e.target.value.slice(0,8)}),
+      setMdp2:e=>this.setState({mdp2:e.target.value.slice(0,8)}),
+      mdpInfo:s.mdpInfo, mdpCouleur:s.mdpOk?'#2e7d32':'#c62828',
+      validerMdp:()=>this.setState(p=>
+        !p.mdp1 ? {mdpInfo:'Saisissez un mot de passe.',mdpOk:false}
+        : p.mdp1!==p.mdp2 ? {mdpInfo:'Les deux mots de passe sont différents.',mdpOk:false}
+        : {mdpInfo:'Mot de passe enregistré.',mdpOk:true,mdpRef:p.mdp1,mdp1:'',mdp2:''})
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;600;700&display=swap" />
+<style>
+body{margin:0;background:#e8edf3}
+</style>
+<link rel="stylesheet" href="polices.css" />
+<style>
+.om-src section.page{width:210mm;height:297mm;box-sizing:border-box;display:flex;flex-direction:column;overflow:hidden;background:#fff}
+</style>
+</helmet>
+<sc-if value="{{ estSource }}" hint-placeholder-val="{{ false }}">
+<div class="om-src" style="width:210mm;height:297mm;overflow:hidden;background:#fff">{{ contenu }}</div>
+</sc-if>
+<sc-if value="{{ estGenere }}" hint-placeholder-val="{{ true }}">
+<div style="width:210mm;height:297mm;box-sizing:border-box;background:#fff;padding:13mm 15mm 10mm;display:flex;flex-direction:column;gap:5mm;font-family:Arial, Helvetica, sans-serif;color:#14213d;overflow:hidden">
+
+<div style="flex:0 0 auto;display:flex;align-items:flex-end;gap:6mm;padding-bottom:3mm;border-bottom:2.5px solid #1d4e89">
+<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:1.5mm">
+<span style="font-size:8.5pt;letter-spacing:0.18em;text-transform:uppercase;color:#8a91a3">{{ surtitre }}</span>
+<span style="font-size:22pt;font-weight:700;line-height:1.05;color:#14213d">{{ titre }}</span>
+</div>
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:2.5mm;font-size:10pt;color:#6b7386">
+<span style="display:block;border-bottom:1px solid #b9c6d6;width:58mm;padding-bottom:1.5mm">Nom :</span>
+<span style="display:block;border-bottom:1px solid #b9c6d6;width:58mm;padding-bottom:1.5mm">Date :</span>
+</div>
+</div>
+
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm;background:#d8e6f4;border:1.5px solid #1d4e89;border-radius:2.5mm;padding:2mm 4mm">
+<span style="flex:0 0 auto;width:7mm;height:7mm;background:#1d4e89;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11pt;font-weight:700">1</span>
+<span style="font-size:12.5pt;font-weight:700;color:#14213d">{{ consigne }}</span>
+</div>
+
+<sc-if value="{{ estLettre }}" hint-placeholder-val="{{ false }}">
+<div style="flex:0 0 auto;display:grid;grid-template-columns:{{ colonnes }};gap:4mm;align-items:stretch">
+<div style="border:1.5px solid #dde2e9;border-radius:2.5mm;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1mm;padding:3mm 0">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:30mm;line-height:0.95;color:#14213d">{{ capitale }}</span>
+<span style="font-size:8pt;letter-spacing:0.12em;text-transform:uppercase;color:#8a91a3">capitale</span>
+</div>
+<div style="border:1.5px solid #dde2e9;border-radius:2.5mm;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1mm;padding:3mm 0">
+<span style="font-family:BA Script, Arial, sans-serif;font-size:30mm;line-height:0.95;color:#14213d">{{ minuscule }}</span>
+<span style="font-size:8pt;letter-spacing:0.12em;text-transform:uppercase;color:#8a91a3">script</span>
+</div>
+<div style="border:1.5px solid #dde2e9;border-radius:2.5mm;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1mm;padding:3mm 0">
+<span style="font-family:BA Cursive, cursive;font-size:30mm;line-height:0.95;color:#14213d">{{ minuscule }}</span>
+<span style="font-size:8pt;letter-spacing:0.12em;text-transform:uppercase;color:#8a91a3">cursive</span>
+</div>
+<sc-if value="{{ aImage }}" hint-placeholder-val="{{ false }}">
+<div style="border:1.5px solid #dde2e9;border-radius:2.5mm;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2mm;padding:3mm">
+<img src="{{ imgSrc }}" alt="" style="max-width:100%;max-height:32mm;object-fit:contain;display:block" />
+<span style="font-size:12pt;font-weight:700;letter-spacing:0.04em;color:#14213d;text-align:center">{{ motRepere }}</span>
+</div>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ estChiffre }}" hint-placeholder-val="{{ false }}">
+<div style="flex:0 0 auto;display:grid;grid-template-columns:60mm 1fr;gap:5mm;align-items:stretch">
+<div style="border:1.5px solid #dde2e9;border-radius:2.5mm;display:flex;align-items:center;justify-content:center;padding:4mm">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:44mm;line-height:0.95;color:#14213d">{{ capitale }}</span>
+</div>
+<div style="border:1.5px solid #dde2e9;border-radius:2.5mm;display:flex;flex-direction:column;gap:3mm;justify-content:center;padding:4mm">
+<span style="font-size:9pt;letter-spacing:0.12em;text-transform:uppercase;color:#8a91a3">La quantité</span>
+<div style="display:flex;flex-wrap:wrap;gap:3mm;max-width:100%">
+<sc-for list="{{ points }}" as="p" hint-placeholder-count="3">
+<span style="width:9mm;height:9mm;border-radius:50%;background:#1d4e89;display:block"></span>
+</sc-for>
+</div>
+<div style="display:flex;gap:3mm;flex-wrap:wrap">
+<sc-for list="{{ cases }}" as="c" hint-placeholder-count="3">
+<span style="width:9mm;height:9mm;border:1.5px solid #b9c6d6;border-radius:1mm;display:block"></span>
+</sc-for>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ estSon }}" hint-placeholder-val="{{ false }}">
+<div style="flex:0 0 auto;display:grid;grid-template-columns:52mm 1fr;gap:5mm;align-items:stretch">
+<div style="border:2px solid #1d4e89;border-radius:2.5mm;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2mm;padding:4mm;background:#f4f8fc">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:26mm;line-height:0.95;color:#14213d">{{ capitale }}</span>
+<span style="font-family:BA Cursive, cursive;font-size:20mm;line-height:0.95;color:#1d4e89">{{ minuscule }}</span>
+</div>
+<div style="display:flex;flex-direction:column;gap:2.5mm">
+<span style="font-size:9pt;letter-spacing:0.12em;text-transform:uppercase;color:#8a91a3">Je lis les syllabes</span>
+<div style="display:grid;grid-template-columns:repeat(6,1fr);gap:2.5mm">
+<sc-for list="{{ syllabes }}" as="sy" hint-placeholder-count="12">
+<span style="border:1.5px solid #dde2e9;border-radius:1.5mm;padding:2.5mm 0;text-align:center;font-size:16pt;font-weight:700;color:#14213d;display:block">{{ sy }}</span>
+</sc-for>
+</div>
+<span style="font-size:9pt;letter-spacing:0.12em;text-transform:uppercase;color:#8a91a3;padding-top:1mm">J'écris les syllabes</span>
+<div style="display:grid;grid-template-columns:repeat(6,1fr);gap:2.5mm">
+<sc-for list="{{ syllabesVides }}" as="sv" hint-placeholder-count="6">
+<span style="border:1.5px dashed #b9c6d6;border-radius:1.5mm;height:11mm;display:block"></span>
+</sc-for>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ estGrille }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr 1fr;grid-auto-rows:1fr;gap:4mm">
+<sc-for list="{{ cases2 }}" as="c" hint-placeholder-count="9">
+<div style="border:1.5px solid #14213d;border-radius:2mm;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:2mm;padding:3mm;min-height:0;overflow:hidden">
+<img src="{{ c.img }}" alt="" style="flex:1;min-height:0;max-width:100%;object-fit:contain;display:block" />
+<span style="flex:0 0 auto;width:100%;border-bottom:1.5px solid #b9c6d6;height:8mm;display:block"></span>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;border:1.5px solid #dde2e9;border-radius:2mm;padding:3mm 4mm;display:flex;flex-wrap:wrap;gap:3mm 6mm">
+<sc-for list="{{ etiquettes }}" as="e" hint-placeholder-count="9">
+<span style="font-size:12pt;font-weight:700;color:#14213d;display:block">{{ e }}</span>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ estCompter }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;gap:3mm">
+<sc-for list="{{ rangees }}" as="r" hint-placeholder-count="6">
+<div style="flex:1;min-height:0;display:flex;align-items:center;gap:5mm;border:1.5px solid #dde2e9;border-radius:2mm;padding:2mm 4mm">
+<div style="flex:1;min-width:0;display:flex;flex-wrap:wrap;gap:2.5mm;align-items:center">
+<sc-for list="{{ r.points }}" as="p" hint-placeholder-count="4">
+<span style="width:8mm;height:8mm;border-radius:50%;background:#1d4e89;display:block"></span>
+</sc-for>
+</div>
+<span style="flex:0 0 auto;width:22mm;height:16mm;border:2px solid #14213d;border-radius:1.5mm;display:block"></span>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ estComparer }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;gap:3mm">
+<sc-for list="{{ paires }}" as="p" hint-placeholder-count="6">
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:8mm;border:1.5px solid #dde2e9;border-radius:2mm;padding:2mm 4mm">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:16mm;color:#14213d;width:30mm;text-align:right">{{ p.a }}</span>
+<span style="width:20mm;height:16mm;border:2px solid #14213d;border-radius:1.5mm;display:block"></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:16mm;color:#14213d;width:30mm">{{ p.b }}</span>
+</div>
+</sc-for>
+<div style="flex:0 0 auto;display:flex;gap:8mm;justify-content:center;border-top:1px solid #e2e5ea;padding-top:3mm">
+<span style="font-size:13pt;color:#6b7386">plus petit que &lt;</span>
+<span style="font-size:13pt;color:#6b7386">plus grand que &gt;</span>
+<span style="font-size:13pt;color:#6b7386">égal =</span>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ aLignes }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:flex-start;gap:5mm">
+<sc-for list="{{ lignes }}" as="l" hint-placeholder-count="3">
+<div style="flex:1 1 auto;min-height:16mm;max-height:32mm;position:relative;display:flex;align-items:flex-end;border-top:1px solid #dde2e9;border-bottom:2.2px solid #1d4e89;overflow:hidden;padding-left:2mm">
+<span style="position:absolute;left:0;right:0;top:52%;border-top:1px dashed #cfd8e3;display:block"></span>
+<span style="position:absolute;left:2mm;top:1.5mm;font-size:8pt;letter-spacing:0.12em;text-transform:uppercase;color:#b9c6d6">{{ l.etiquette }}</span>
+<span style="position:relative;font-family:{{ l.police }};font-size:{{ l.taille }};line-height:1.05;color:#c3cfdd;letter-spacing:0.28em;white-space:nowrap">{{ l.modele }}</span>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+<div style="flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;border-top:1px solid #e2e5ea;padding-top:2.5mm">
+<span style="font-size:8.5pt;letter-spacing:0.14em;text-transform:uppercase;color:#b9c6d6">UPE2A NSA &middot; français langue de scolarisation</span>
+<span style="font-size:8.5pt;color:#b9c6d6">{{ pied }}</span>
+</div>
+
+</div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:794,&quot;height&quot;:1123},&quot;f&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;object&quot;}}">
+class Component extends DCLogic {
+  renderVals(){
+    const f=this.props.f||{};
+    const t=f.type||'L';
+    return {
+      estSource:!!f.html, estGenere:!f.html,
+      contenu:f.html?React.createElement('div',{dangerouslySetInnerHTML:{__html:f.html}}):null,
+      surtitre:f.surtitre||'Fiche à imprimer',
+      titre:f.titre||'',
+      consigne:f.consigne||'',
+      pied:f.pied||'',
+      capitale:f.capitale||'',
+      minuscule:f.minuscule||'',
+      motRepere:f.motRepere||'',
+      imgSrc:f.img||'',
+      aImage:!!f.img,
+      colonnes:f.img?'1fr 1fr 1fr 52mm':'1fr 1fr 1fr',
+      points:f.points||[],
+      cases:f.cases||[],
+      cases2:f.grille||[],
+      etiquettes:f.etiquettes||[],
+      syllabes:f.syllabes||[],
+      syllabesVides:f.syllabesVides||[],
+      rangees:f.rangees||[],
+      paires:f.paires||[],
+      lignes:f.lignes||[],
+      aLignes:!!(f.lignes&&f.lignes.length),
+      estLettre:t==='L', estChiffre:t==='C', estSon:t==='S',
+      estGrille:t==='G', estCompter:t==='Q', estComparer:t==='K'
+    };
+  }
+}
+</script>
+</body>
+</html>

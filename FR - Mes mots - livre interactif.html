@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mon imagier pour apprendre le français</title>
+<style>
+:root{--spk:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 9h3l5-4v14l-5-4H4z' fill='black'/%3E%3Cpath d='M17 8.5a5 5 0 0 1 0 7' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E")}
+*{box-sizing:border-box}
+body{margin:0;background:#e8ecf2;font-family:Arial, Helvetica, sans-serif;color:#14213d;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px;gap:14px}
+.book{position:relative;width:min(94vw,1000px);aspect-ratio:1.32;background:#fff;border-radius:14px;box-shadow:0 18px 46px rgba(20,33,61,.28);overflow:hidden}
+.pg{position:absolute;inset:0;padding:26px 30px 20px;display:none;flex-direction:column;background:#fff}
+.pg.on{display:flex}
+.ph2{flex:0 0 auto;display:flex;align-items:center;gap:12px;padding-bottom:12px;border-bottom:3px solid #1d4e89}
+.num{flex:0 0 auto;min-width:26px;padding:0 5px;height:30px;border-radius:13px;background:#1d4e89;color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700}
+.ph2 h2{margin:0;font-size:23px;font-weight:700}
+.grid{flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);gap:11px;padding:14px 0}
+.w{appearance:none;cursor:pointer;text-align:left;background:#fff;border:4px solid #14213d;border-radius:11px;padding:0;overflow:hidden;display:flex;flex-direction:column;min-height:0;transition:border-color .12s,box-shadow .12s,transform .12s}
+.w:hover{border-color:#1d4e89;box-shadow:0 4px 14px rgba(29,78,137,.16)}
+.w.pl{border-color:#c1440e;box-shadow:0 0 0 3px rgba(193,68,14,.2);transform:translateY(-2px)}
+.im{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;background:#fff;overflow:hidden}
+.im img{max-width:100%;max-height:100%;object-fit:contain;display:block}
+.ph{width:26px;height:26px;border:2px dashed #c3cad4;border-radius:6px}
+.lb{flex:0 0 auto;display:flex;align-items:center;gap:8px;padding:8px 10px;border-top:3px solid #14213d}
+.tx{display:flex;flex-direction:column;gap:1px;min-width:0}
+.tx b{font-size:12px;letter-spacing:.05em}
+.tx i{font-style:normal;font-size:13px;color:#3c4356}
+.pf{flex:0 0 auto;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#8a91a3;border-top:1px solid #e2e5ea;padding-top:9px}
+.home{width:26px;height:26px;border-radius:50%;border:none;background:none;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center}
+.home:hover{opacity:0.7}
+.home img{width:100%;height:100%;object-fit:contain;display:block}
+.pn{width:26px;height:26px;border-radius:50%;background:#eef2f7;color:#14213d;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:11px}
+.cover{background:#fff;padding:0}
+.cvin{flex:1;display:flex;flex-direction:column;justify-content:center;gap:16px;background:#14213d;color:#fff;padding:44px 46px}
+.cvtop{display:flex;align-items:center;gap:14px}
+.rule{width:44px;height:3px;background:#c1440e}
+.kick{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#b9c2d4}
+.cvin h1{margin:0;font-size:44px;line-height:1.05;font-weight:700;letter-spacing:-.02em}
+.sub{margin:0;font-size:17px;color:#c9d3e4}
+.abc{display:flex;gap:9px;margin-top:6px}
+.abc span{width:44px;height:44px;border:2px solid #fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700}
+.hint{margin:14px 0 0;font-size:13px;color:#8f9bb3}
+.bar{display:flex;align-items:center;gap:14px}
+.nav{appearance:none;cursor:pointer;border:none;width:52px;height:52px;border-radius:50%;background:#14213d;color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(20,33,61,.24)}
+.nav:disabled{opacity:.3;cursor:default}
+.sel{appearance:none;border:2px solid #14213d;border-radius:9px;padding:9px 13px;font-family:Arial, Helvetica, sans-serif;font-size:14px;font-weight:700;color:#14213d;background:#fff;cursor:pointer}
+.say{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(140%);background:#14213d;color:#fff;padding:14px 30px;border-radius:40px;font-size:30px;font-weight:700;letter-spacing:.03em;box-shadow:0 10px 30px rgba(20,33,61,.34);transition:transform .22s;pointer-events:none}
+.say.on{transform:translateX(-50%) translateY(0)}
+.som-wrap{flex:1;display:flex;flex-direction:column;gap:10px;padding:14px 32px;min-height:0;overflow:hidden}
+.som-grid{flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:min-content;column-gap:26px;row-gap:0;align-content:start}
+.som{display:flex;align-items:center;gap:10px;border:none;border-bottom:1px solid #e2e5ea;background:none;padding:4px 4px;cursor:pointer;text-align:left;font:inherit}
+.som:hover .somt{font-size:13.5px;color:#14213d}
+.somn{flex:0 0 auto;min-width:28px;height:22px;border-radius:11px;padding:0 5px;background:#eef2f7;color:#14213d;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700}
+.somt{font-size:15px;color:#14213d}
+
+.agrid{flex:1;min-height:0;display:grid;grid-template-columns:repeat(7,1fr);grid-template-rows:repeat(4,1fr);gap:8px;padding:12px 0}
+.al{display:flex;flex-direction:column;align-items:stretch;border-width:3px;border-radius:9px}
+.alt{flex:0 0 auto;display:flex;align-items:baseline;justify-content:center;gap:6px;padding:4px 0 2px;background:#1d4e89;color:#fff}
+.alt b{font-size:22px;line-height:1}
+.alt em{font-size:17px;font-style:italic;line-height:1}
+.aim{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:3px}
+.aim img{max-width:100%;max-height:100%;object-fit:contain;display:block}
+.alb{flex:0 0 auto;display:flex;align-items:center;justify-content:center;gap:5px;border-top:2px solid #14213d;padding:3px 4px}
+.alb i{font-size:10px;font-style:normal;color:#14213d;line-height:1.15;display:block}
+.grid7{flex:1;min-height:0;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(2,1fr);gap:11px;padding:14px 0}
+.grid12{flex:1;min-height:0;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(3,1fr);gap:9px;padding:12px 0}
+.grid4{flex:1;min-height:0;display:grid;grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(2,1fr);gap:14px;padding:14px 0}
+
+.lb::before{content:"";flex:0 0 auto;width:18px;height:18px;background-color:#c1440e;-webkit-mask:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 9h3l5-4v14l-5-4H4z' fill='black'/%3E%3Cpath d='M17 8.5a5 5 0 0 1 0 7' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center/contain;mask:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 9h3l5-4v14l-5-4H4z' fill='black'/%3E%3Cpath d='M17 8.5a5 5 0 0 1 0 7' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center/contain}
+.grid12 .lb::before{width:14px;height:14px}
+.grid4 .lb::before{width:22px;height:22px}
+.w.pl .lb::before{animation:spk .5s ease-in-out infinite alternate}
+.alb::before{content:"";flex:0 0 auto;width:13px;height:13px;background-color:#c1440e;-webkit-mask:var(--spk) no-repeat center/contain;mask:var(--spk) no-repeat center/contain}
+.w.pl .alb::before{animation:spk .5s ease-in-out infinite alternate}
+@keyframes spk{from{transform:scale(1)}to{transform:scale(1.22)}}
+</style>
+</head>
+<body>
+<div class="book" id="book"><section class="pg cover">
+<div class="cvin">
+<div class="cvtop"><span class="rule"></span><span class="kick">Français · UPE2A NSA</span></div>
+<h1>Mon imagier<br />pour apprendre le français</h1>
+<p class="sub">Cliquez sur un mot pour l'entendre.</p>
+<div class="abc"><span>A</span><span>B</span><span>C</span></div>
+<p class="hint">Tournez les pages avec les flèches ← →</p>
+</div>
+</section><section class="pg">
+<div class="som-wrap">
+<h2>Sommaire</h2>
+<div class="som-grid">
+<button class="som" type="button" data-go="2"><span class="somn">1</span><span class="somt">L'alphabet</span></button>
+<button class="som" type="button" data-go="3"><span class="somn">2</span><span class="somt">La politesse</span></button>
+<button class="som" type="button" data-go="4"><span class="somn">3</span><span class="somt">Les couleurs</span></button>
+<button class="som" type="button" data-go="5"><span class="somn">4</span><span class="somt">Le matériel scolaire</span></button>
+<button class="som" type="button" data-go="6"><span class="somn">5</span><span class="somt">Le lycée</span></button>
+<button class="som" type="button" data-go="7"><span class="somn">6</span><span class="somt">La météo</span></button>
+<button class="som" type="button" data-go="8"><span class="somn">7</span><span class="somt">Les fruits</span></button>
+<button class="som" type="button" data-go="9"><span class="somn">8</span><span class="somt">Les légumes</span></button>
+<button class="som" type="button" data-go="10"><span class="somn">9</span><span class="somt">Les aliments</span></button>
+<button class="som" type="button" data-go="11"><span class="somn">10</span><span class="somt">Le corps</span></button>
+<button class="som" type="button" data-go="12"><span class="somn">11</span><span class="somt">Les vêtements</span></button>
+<button class="som" type="button" data-go="13"><span class="somn">12</span><span class="somt">Les transports</span></button>
+<button class="som" type="button" data-go="14"><span class="somn">13</span><span class="somt">La maison</span></button>
+<button class="som" type="button" data-go="15"><span class="somn">14</span><span class="somt">La ville</span></button>
+<button class="som" type="button" data-go="16"><span class="somn">15</span><span class="somt">Les actions</span></button>
+<button class="som" type="button" data-go="17"><span class="somn">16</span><span class="somt">Les positions</span></button>
+<button class="som" type="button" data-go="18"><span class="somn">17</span><span class="somt">Les contraires</span></button>
+<button class="som" type="button" data-go="19"><span class="somn">18</span><span class="somt">Les jours</span></button>
+<button class="som" type="button" data-go="20"><span class="somn">19</span><span class="somt">Les mois</span></button>
+<button class="som" type="button" data-go="21"><span class="somn">20</span><span class="somt">Les saisons</span></button>
+</div>
+</div>
+<footer class="pf"><span>Sommaire</span><span></span></footer>
+</section><section class="pg">
+<header class="ph2"><span class="num">1</span><h2>L'alphabet</h2></header>
+<div class="agrid">
+<button type="button" class="w al" data-word="A comme ananas">
+<span class="alt"><b>A</b><em>a</em></span>
+<span class="aim"><img src="clean/mot-ananas.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="alb"><i>A comme ananas</i></span>
+</button>
+<button type="button" class="w al" data-word="B comme ballon">
+<span class="alt"><b>B</b><em>b</em></span>
+<span class="aim"><img src="clean/mot-ballon.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="alb"><i>B comme ballon</i></span>
+</button>
+<button type="button" class="w al" data-word="C comme carotte">
+<span class="alt"><b>C</b><em>c</em></span>
+<span class="aim"><img src="clean/mot-carotte.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="alb"><i>C comme carotte</i></span>
+</button>
+<button type="button" class="w al" data-word="D comme deux">
+<span class="alt"><b>D</b><em>d</em></span>
+<span class="aim"><img src="clean/mot-deux.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="alb"><i>D comme deux</i></span>
+</button>
+<button type="button" class="w al" data-word="E comme renard">
+<span class="alt"><b>E</b><em>e</em></span>
+<span class="aim"><img src="clean/mot-renard.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="alb"><i>E comme renard</i></span>
+</button>
+<button type="button" class="w al" data-word="F comme fantôme">
+<span class="alt"><b>F</b><em>f</em></span>
+<span class="aim"><img src="clean/mot-fantome.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="alb"><i>F comme fantôme</i></span>
+</button>
+<button type="button" class="w al" data-word="G comme gâteau">
+<span class="alt"><b>G</b><em>g</em></span>
+<span class="aim"><img src="clean/mot-gateau.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="alb"><i>G comme gâteau</i></span>
+</button>
+<button type="button" class="w al" data-word="H">
+<span class="alt"><b>H</b><em>h</em></span>
+<span class="aim"></span>
+<span class="alb"><i>H</i></span>
+</button>
+<button type="button" class="w al" data-word="I comme gris">
+<span class="alt"><b>I</b><em>i</em></span>
+<span class="aim"><img src="clean/mot-gris.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="alb"><i>I comme gris</i></span>
+</button>
+<button type="button" class="w al" data-word="J comme jupe">
+<span class="alt"><b>J</b><em>j</em></span>
+<span class="aim"><img src="clean/mot-jupe.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="alb"><i>J comme jupe</i></span>
+</button>
+<button type="button" class="w al" data-word="K comme kangourou">
+<span class="alt"><b>K</b><em>k</em></span>
+<span class="aim"><img src="clean/mot-kangourou.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="alb"><i>K comme kangourou</i></span>
+</button>
+<button type="button" class="w al" data-word="L comme lit">
+<span class="alt"><b>L</b><em>l</em></span>
+<span class="aim"><img src="clean/mot-lit.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="alb"><i>L comme lit</i></span>
+</button>
+<button type="button" class="w al" data-word="M comme moto">
+<span class="alt"><b>M</b><em>m</em></span>
+<span class="aim"><img src="clean/mot-moto.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="alb"><i>M comme moto</i></span>
+</button>
+<button type="button" class="w al" data-word="N comme nuage">
+<span class="alt"><b>N</b><em>n</em></span>
+<span class="aim"><img src="clean/mot-nuage.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="alb"><i>N comme nuage</i></span>
+</button>
+<button type="button" class="w al" data-word="O comme orange">
+<span class="alt"><b>O</b><em>o</em></span>
+<span class="aim"><img src="clean/mot-orange.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="alb"><i>O comme orange</i></span>
+</button>
+<button type="button" class="w al" data-word="P comme pied">
+<span class="alt"><b>P</b><em>p</em></span>
+<span class="aim"><img src="clean/mot-pied.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="alb"><i>P comme pied</i></span>
+</button>
+<button type="button" class="w al" data-word="Q comme cinq">
+<span class="alt"><b>Q</b><em>q</em></span>
+<span class="aim"><img src="clean/mot-cinq.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="alb"><i>Q comme cinq</i></span>
+</button>
+<button type="button" class="w al" data-word="R comme rue">
+<span class="alt"><b>R</b><em>r</em></span>
+<span class="aim"><img src="clean/mot-rue.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="alb"><i>R comme rue</i></span>
+</button>
+<button type="button" class="w al" data-word="S comme salade">
+<span class="alt"><b>S</b><em>s</em></span>
+<span class="aim"><img src="clean/mot-salade.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="alb"><i>S comme salade</i></span>
+</button>
+<button type="button" class="w al" data-word="T comme table">
+<span class="alt"><b>T</b><em>t</em></span>
+<span class="aim"><img src="clean/mot-table.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="alb"><i>T comme table</i></span>
+</button>
+<button type="button" class="w al" data-word="U comme rue">
+<span class="alt"><b>U</b><em>u</em></span>
+<span class="aim"><img src="clean/mot-rue.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="alb"><i>U comme rue</i></span>
+</button>
+<button type="button" class="w al" data-word="V comme vélo">
+<span class="alt"><b>V</b><em>v</em></span>
+<span class="aim"><img src="clean/mot-velo.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="alb"><i>V comme vélo</i></span>
+</button>
+<button type="button" class="w al" data-word="W comme wagon">
+<span class="alt"><b>W</b><em>w</em></span>
+<span class="aim"><img src="clean/mot-wagon.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="alb"><i>W comme wagon</i></span>
+</button>
+<button type="button" class="w al" data-word="X comme xylophone">
+<span class="alt"><b>X</b><em>x</em></span>
+<span class="aim"><img src="clean/mot-xylophone.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="alb"><i>X comme xylophone</i></span>
+</button>
+<button type="button" class="w al" data-word="Y comme pyjama">
+<span class="alt"><b>Y</b><em>y</em></span>
+<span class="aim"><img src="clean/mot-pyjama.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="alb"><i>Y comme pyjama</i></span>
+</button>
+<button type="button" class="w al" data-word="Z comme zèbre">
+<span class="alt"><b>Z</b><em>z</em></span>
+<span class="aim"><img src="clean/mot-zebre.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="alb"><i>Z comme zèbre</i></span>
+</button>
+</div>
+<footer class="pf"><button type="button" class="home" title="Sommaire"><img src="clean/icone-accueil.png" alt="" loading="lazy" decoding="async" /></button><span></span><span class="pn">1 / 20</span></footer>
+</section><section class="pg">
+<header class="ph2"><span class="num">2</span><h2>La politesse</h2></header>
+<div class="grid">
+<button type="button" class="w" data-word="bonjour">
+<span class="im"><img src="clean/geste-bonjour.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>BONJOUR</b><i>bonjour</i></span></span>
+</button>
+<button type="button" class="w" data-word="bonsoir">
+<span class="im"><img src="clean/geste-bonsoir.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>BONSOIR</b><i>bonsoir</i></span></span>
+</button>
+<button type="button" class="w" data-word="au revoir">
+<span class="im"><img src="clean/geste-aurevoir.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>AU REVOIR</b><i>au revoir</i></span></span>
+</button>
+<button type="button" class="w" data-word="à demain">
+<span class="im"><img src="clean/geste-ademain.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>À DEMAIN</b><i>à demain</i></span></span>
+</button>
+<button type="button" class="w" data-word="merci">
+<span class="im"><img src="clean/geste-merci.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>MERCI</b><i>merci</i></span></span>
+</button>
+<button type="button" class="w" data-word="s'il vous plaît">
+<span class="im"><img src="clean/geste-silvousplait.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>S'IL VOUS PLAÎT</b><i>s'il vous plaît</i></span></span>
+</button>
+<button type="button" class="w" data-word="pardon">
+<span class="im"><img src="clean/geste-pardon.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>PARDON</b><i>pardon</i></span></span>
+</button>
+<button type="button" class="w" data-word="oui">
+<span class="im"><img src="clean/geste-oui.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>OUI</b><i>oui</i></span></span>
+</button>
+<button type="button" class="w" data-word="non">
+<span class="im"><img src="clean/geste-non.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>NON</b><i>non</i></span></span>
+</button>
+</div>
+<footer class="pf"><button type="button" class="home" title="Sommaire"><img src="clean/icone-accueil.png" alt="" loading="lazy" decoding="async" /></button><span></span><span class="pn">2 / 20</span></footer>
+</section><section class="pg">
+<header class="ph2"><span class="num">3</span><h2>Les couleurs</h2></header>
+<div class="grid"><button type="button" class="w" data-word="noir">
+<span class="im"><img src="clean/mot-noir.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>NOIR</b><i>noir</i></span></span>
+</button><button type="button" class="w" data-word="blanc">
+<span class="im"><img src="clean/mot-blanc.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>BLANC</b><i>blanc</i></span></span>
+</button><button type="button" class="w" data-word="gris">
+<span class="im"><img src="clean/mot-gris.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>GRIS</b><i>gris</i></span></span>
+</button><button type="button" class="w" data-word="bleu">
+<span class="im"><img src="clean/mot-bleu.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>BLEU</b><i>bleu</i></span></span>
+</button><button type="button" class="w" data-word="vert">
+<span class="im"><img src="clean/mot-vert-peinture.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>VERT</b><i>vert</i></span></span>
+</button><button type="button" class="w" data-word="rouge">
+<span class="im"><img src="clean/mot-rouge-peinture.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>ROUGE</b><i>rouge</i></span></span>
+</button><button type="button" class="w" data-word="orange">
+<span class="im"><img src="clean/mot-orange-peinture.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>ORANGE</b><i>orange</i></span></span>
+</button><button type="button" class="w" data-word="jaune">
+<span class="im"><img src="clean/mot-jaune-peinture.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>JAUNE</b><i>jaune</i></span></span>
+</button><button type="button" class="w" data-word="marron">
+<span class="im"><img src="clean/mot-marron.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>MARRON</b><i>marron</i></span></span>
+</button></div>
+<footer class="pf"><button type="button" class="home" title="Sommaire"><img src="clean/icone-accueil.png" alt="" style="width:20px;height:20px;display:block" /></button><span></span><span class="pn">3 / 20</span></footer>
+</section><section class="pg">
+<header class="ph2"><span class="num">4</span><h2>Le matériel scolaire</h2></header>
+<div class="grid"><button type="button" class="w" data-word="cahier">
+<span class="im"><img src="clean/mot-cahier.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UN CAHIER</b><i>un cahier</i></span></span>
+</button><button type="button" class="w" data-word="cartable">
+<span class="im"><img src="clean/mot-cartable.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UN CARTABLE</b><i>un cartable</i></span></span>
+</button><button type="button" class="w" data-word="livre">
+<span class="im"><img src="clean/mot-livre.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UN LIVRE</b><i>un livre</i></span></span>
+</button><button type="button" class="w" data-word="crayon">
+<span class="im"><img src="clean/mot-crayon.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UN CRAYON</b><i>un crayon</i></span></span>
+</button><button type="button" class="w" data-word="stylo">
+<span class="im"><img src="clean/mot-stylo.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UN STYLO</b><i>un stylo</i></span></span>
+</button><button type="button" class="w" data-word="feutre">
+<span class="im"><img src="clean/mot-feutre.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UN FEUTRE</b><i>un feutre</i></span></span>
+</button><button type="button" class="w" data-word="ciseaux">
+<span class="im"><img src="clean/mot-ciseaux.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>DES CISEAUX</b><i>des ciseaux</i></span></span>
+</button><button type="button" class="w" data-word="gomme">
+<span class="im"><img src="clean/mot-gomme.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UNE GOMME</b><i>une gomme</i></span></span>
+</button><button type="button" class="w" data-word="colle">
+<span class="im"><img src="clean/mot-colle.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>LA COLLE</b><i>la colle</i></span></span>
+</button></div>
+<footer class="pf"><button type="button" class="home" title="Sommaire"><img src="clean/icone-accueil.png" alt="" style="width:20px;height:20px;display:block" /></button><span></span><span class="pn">4 / 20</span></footer>
+</section><section class="pg">
+<header class="ph2"><span class="num">5</span><h2>Le lycée</h2></header>
+<div class="grid"><button type="button" class="w" data-word="professeur">
+<span class="im"><img src="clean/mot-professeur.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UN PROFESSEUR</b><i>un professeur</i></span></span>
+</button><button type="button" class="w" data-word="salle">
+<span class="im"><img src="clean/mot-salle.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UNE SALLE</b><i>une salle</i></span></span>
+</button><button type="button" class="w" data-word="tableau">
+<span class="im"><img src="clean/mot-tableau.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UN TABLEAU</b><i>un tableau</i></span></span>
+</button><button type="button" class="w" data-word="cantine">
+<span class="im"><img src="clean/mot-cantine.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UNE CANTINE</b><i>une cantine</i></span></span>
+</button><button type="button" class="w" data-word="cour">
+<span class="im"><img src="clean/mot-cour.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UNE COUR</b><i>une cour</i></span></span>
+</button><button type="button" class="w" data-word="bureau">
+<span class="im"><img src="clean/mot-bureau.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UN BUREAU</b><i>un bureau</i></span></span>
+</button><button type="button" class="w" data-word="emploi du temps">
+<span class="im"><img src="clean/mot-emploidutemps.png" alt="emploi du temps" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>UN EMPLOI DU TEMPS</b><i>un emploi du temps</i></span></span>
+</button><button type="button" class="w" data-word="note">
+<span class="im"><img src="clean/mot-note.png" alt="note" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>UNE NOTE</b><i>une note</i></span></span>
+</button><button type="button" class="w" data-word="couloir">
+<span class="im"><img src="clean/mot-couloir.png" alt="couloir" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>UN COULOIR</b><i>un couloir</i></span></span>
+</button></div>
+<footer class="pf"><button type="button" class="home" title="Sommaire"><img src="clean/icone-accueil.png" alt="" style="width:20px;height:20px;display:block" /></button><span></span><span class="pn">5 / 20</span></footer>
+</section><section class="pg">
+<header class="ph2"><span class="num">6</span><h2>La météo</h2></header>
+<div class="grid"><button type="button" class="w" data-word="soleil">
+<span class="im"><img src="clean/mot-soleil.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>LE SOLEIL</b><i>le soleil</i></span></span>
+</button><button type="button" class="w" data-word="pluie">
+<span class="im"><img src="clean/mot-pluie.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>LA PLUIE</b><i>la pluie</i></span></span>
+</button><button type="button" class="w" data-word="vent">
+<span class="im"><img src="clean/mot-vent.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>LE VENT</b><i>le vent</i></span></span>
+</button><button type="button" class="w" data-word="nuage">
+<span class="im"><img src="clean/mot-nuage.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UN NUAGE</b><i>un nuage</i></span></span>
+</button><button type="button" class="w" data-word="orage">
+<span class="im"><img src="clean/mot-orage.png" alt="orage" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>UN ORAGE</b><i>un orage</i></span></span>
+</button><button type="button" class="w" data-word="neige">
+<span class="im"><img src="clean/mot-neige.png" alt="neige" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>LA NEIGE</b><i>la neige</i></span></span>
+</button><button type="button" class="w" data-word="chaud">
+<span class="im"><img src="clean/mot-chaud.png" alt="chaud" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>CHAUD</b><i>chaud</i></span></span>
+</button><button type="button" class="w" data-word="froid">
+<span class="im"><img src="clean/mot-froid.png" alt="froid" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>FROID</b><i>froid</i></span></span>
+</button><button type="button" class="w" data-word="brouillard">
+<span class="im"><img src="clean/mot-brouillard.png" alt="brouillard" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>LE BROUILLARD</b><i>le brouillard</i></span></span>
+</button></div>
+<footer class="pf"><button type="button" class="home" title="Sommaire"><img src="clean/icone-accueil.png" alt="" style="width:20px;height:20px;display:block" /></button><span></span><span class="pn">6 / 20</span></footer>
+</section><section class="pg">
+<header class="ph2"><span class="num">7</span><h2>Les fruits</h2></header>
+<div class="grid"><button type="button" class="w" data-word="pomme">
+<span class="im"><img src="clean/mot-pomme.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UNE POMME</b><i>une pomme</i></span></span>
+</button><button type="button" class="w" data-word="poire">
+<span class="im"><img src="clean/mot-poire.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UNE POIRE</b><i>une poire</i></span></span>
+</button><button type="button" class="w" data-word="fraise">
+<span class="im"><img src="clean/mot-fraise.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UNE FRAISE</b><i>une fraise</i></span></span>
+</button><button type="button" class="w" data-word="banane">
+<span class="im"><img src="clean/mot-banane.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UNE BANANE</b><i>une banane</i></span></span>
+</button><button type="button" class="w" data-word="cerise">
+<span class="im"><img src="clean/mot-cerise.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UNE CERISE</b><i>une cerise</i></span></span>
+</button><button type="button" class="w" data-word="citron">
+<span class="im"><img src="clean/mot-citron.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UN CITRON</b><i>un citron</i></span></span>
+</button><button type="button" class="w" data-word="ananas">
+<span class="im"><img src="clean/mot-ananas.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UN ANANAS</b><i>un ananas</i></span></span>
+</button><button type="button" class="w" data-word="orange">
+<span class="im"><img src="clean/mot-orange.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UNE ORANGE</b><i>une orange</i></span></span>
+</button><button type="button" class="w" data-word="raisin">
+<span class="im"><img src="clean/mot-raisin.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>DU RAISIN</b><i>du raisin</i></span></span>
+</button></div>
+<footer class="pf"><button type="button" class="home" title="Sommaire"><img src="clean/icone-accueil.png" alt="" style="width:20px;height:20px;display:block" /></button><span></span><span class="pn">7 / 20</span></footer>
+</section><section class="pg">
+<header class="ph2"><span class="num">8</span><h2>Les légumes</h2></header>
+<div class="grid"><button type="button" class="w" data-word="carotte">
+<span class="im"><img src="clean/mot-carotte.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UNE CAROTTE</b><i>une carotte</i></span></span>
+</button><button type="button" class="w" data-word="salade">
+<span class="im"><img src="clean/mot-salade.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UNE SALADE</b><i>une salade</i></span></span>
+</button><button type="button" class="w" data-word="tomate">
+<span class="im"><img src="clean/mot-tomate.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UNE TOMATE</b><i>une tomate</i></span></span>
+</button><button type="button" class="w" data-word="poireau">
+<span class="im"><img src="clean/mot-poireau.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UN POIREAU</b><i>un poireau</i></span></span>
+</button><button type="button" class="w" data-word="radis">
+<span class="im"><img src="clean/mot-radis.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UN RADIS</b><i>un radis</i></span></span>
+</button><button type="button" class="w" data-word="oignon">
+<span class="im"><img src="clean/mot-oignon.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UN OIGNON</b><i>un oignon</i></span></span>
+</button><button type="button" class="w" data-word="courgette">
+<span class="im"><img src="clean/mot-courgette.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UNE COURGETTE</b><i>une courgette</i></span></span>
+</button><button type="button" class="w" data-word="haricot">
+<span class="im"><img src="clean/mot-haricot.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UN HARICOT</b><i>un haricot</i></span></span>
+</button><button type="button" class="w" data-word="pomme de terre">
+<span class="im"><img src="clean/mot-pommedeterre.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UNE POMME DE TERRE</b><i>une pomme de terre</i></span></span>
+</button></div>
+<footer class="pf"><button type="button" class="home" title="Sommaire"><img src="clean/icone-accueil.png" alt="" style="width:20px;height:20px;display:block" /></button><span></span><span class="pn">8 / 20</span></footer>
+</section><section class="pg">
+<header class="ph2"><span class="num">9</span><h2>Les aliments</h2></header>
+<div class="grid"><button type="button" class="w" data-word="pain">
+<span class="im"><img src="clean/mot-pain.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>DU PAIN</b><i>du pain</i></span></span>
+</button><button type="button" class="w" data-word="eau">
+<span class="im"><img src="clean/mot-eau.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>DE L'EAU</b><i>de l'eau</i></span></span>
+</button><button type="button" class="w" data-word="lait">
+<span class="im"><img src="clean/mot-lait.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>DU LAIT</b><i>du lait</i></span></span>
+</button><button type="button" class="w" data-word="yaourt">
+<span class="im"><img src="clean/mot-yaourt.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UN YAOURT</b><i>un yaourt</i></span></span>
+</button><button type="button" class="w" data-word="riz">
+<span class="im"><img src="clean/mot-riz.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>DU RIZ</b><i>du riz</i></span></span>
+</button><button type="button" class="w" data-word="fromage">
+<span class="im"><img src="clean/mot-fromage.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>DU FROMAGE</b><i>du fromage</i></span></span>
+</button><button type="button" class="w" data-word="viande">
+<span class="im"><img src="clean/mot-viande.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>DE LA VIANDE</b><i>de la viande</i></span></span>
+</button><button type="button" class="w" data-word="poisson">
+<span class="im"><img src="clean/mot-poisson.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>DU POISSON</b><i>du poisson</i></span></span>
+</button><button type="button" class="w" data-word="œuf">
+<span class="im"><img src="clean/mot-oeuf.png" alt="œuf" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>UN ŒUF</b><i>un œuf</i></span></span>
+</button></div>
+<footer class="pf"><button type="button" class="home" title="Sommaire"><img src="clean/icone-accueil.png" alt="" style="width:20px;height:20px;display:block" /></button><span></span><span class="pn">9 / 20</span></footer>
+</section><section class="pg">
+<header class="ph2"><span class="num">10</span><h2>Le corps</h2></header>
+<div class="grid"><button type="button" class="w" data-word="visage">
+<span class="im"><img src="clean/mot-visage.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UN VISAGE</b><i>un visage</i></span></span>
+</button><button type="button" class="w" data-word="cheveux">
+<span class="im"><img src="clean/mot-cheveux.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>LES CHEVEUX</b><i>les cheveux</i></span></span>
+</button><button type="button" class="w" data-word="yeux">
+<span class="im"><img src="clean/mot-yeux.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>LES YEUX</b><i>les yeux</i></span></span>
+</button><button type="button" class="w" data-word="oreille">
+<span class="im"><img src="clean/mot-oreille.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UNE OREILLE</b><i>une oreille</i></span></span>
+</button><button type="button" class="w" data-word="nez">
+<span class="im"><img src="clean/mot-nez.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UN NEZ</b><i>un nez</i></span></span>
+</button><button type="button" class="w" data-word="main">
+<span class="im"><img src="clean/mot-main.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UNE MAIN</b><i>une main</i></span></span>
+</button><button type="button" class="w" data-word="bouche">
+<span class="im"><img src="clean/mot-bouche.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UNE BOUCHE</b><i>une bouche</i></span></span>
+</button><button type="button" class="w" data-word="pied">
+<span class="im"><img src="clean/mot-pied.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UN PIED</b><i>un pied</i></span></span>
+</button><button type="button" class="w" data-word="jambe">
+<span class="im"><img src="clean/mot-jambe.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UNE JAMBE</b><i>une jambe</i></span></span>
+</button></div>
+<footer class="pf"><button type="button" class="home" title="Sommaire"><img src="clean/icone-accueil.png" alt="" style="width:20px;height:20px;display:block" /></button><span></span><span class="pn">10 / 20</span></footer>
+</section><section class="pg">
+<header class="ph2"><span class="num">11</span><h2>Les vêtements</h2></header>
+<div class="grid"><button type="button" class="w" data-word="pantalon">
+<span class="im"><img src="clean/mot-pantalon.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UN PANTALON</b><i>un pantalon</i></span></span>
+</button><button type="button" class="w" data-word="jupe">
+<span class="im"><img src="clean/mot-jupe.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UNE JUPE</b><i>une jupe</i></span></span>
+</button><button type="button" class="w" data-word="robe">
+<span class="im"><img src="clean/mot-robe.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UNE ROBE</b><i>une robe</i></span></span>
+</button><button type="button" class="w" data-word="tee-shirt">
+<span class="im"><img src="clean/mot-teeshirt.png" alt="tee-shirt" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>UN TEE-SHIRT</b><i>un tee-shirt</i></span></span>
+</button><button type="button" class="w" data-word="pull">
+<span class="im"><img src="clean/mot-pull.png" alt="pull" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>UN PULL</b><i>un pull</i></span></span>
+</button><button type="button" class="w" data-word="chemise">
+<span class="im"><img src="clean/mot-chemise.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UNE CHEMISE</b><i>une chemise</i></span></span>
+</button><button type="button" class="w" data-word="manteau">
+<span class="im"><img src="clean/mot-manteau.png" alt="manteau" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>UN MANTEAU</b><i>un manteau</i></span></span>
+</button><button type="button" class="w" data-word="chaussure">
+<span class="im"><img src="clean/mot-chaussure.png" alt="chaussure" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>UNE CHAUSSURE</b><i>une chaussure</i></span></span>
+</button><button type="button" class="w" data-word="chaussette">
+<span class="im"><img src="clean/mot-chaussette.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UNE CHAUSSETTE</b><i>une chaussette</i></span></span>
+</button></div>
+<footer class="pf"><button type="button" class="home" title="Sommaire"><img src="clean/icone-accueil.png" alt="" style="width:20px;height:20px;display:block" /></button><span></span><span class="pn">11 / 20</span></footer>
+</section><section class="pg">
+<header class="ph2"><span class="num">12</span><h2>Les transports</h2></header>
+<div class="grid"><button type="button" class="w" data-word="voiture">
+<span class="im"><img src="clean/mot-voiture.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UNE VOITURE</b><i>une voiture</i></span></span>
+</button><button type="button" class="w" data-word="moto">
+<span class="im"><img src="clean/mot-moto.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UNE MOTO</b><i>une moto</i></span></span>
+</button><button type="button" class="w" data-word="vélo">
+<span class="im"><img src="clean/mot-velo.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UN VÉLO</b><i>un vélo</i></span></span>
+</button><button type="button" class="w" data-word="camion">
+<span class="im"><img src="clean/mot-camion.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UN CAMION</b><i>un camion</i></span></span>
+</button><button type="button" class="w" data-word="bateau">
+<span class="im"><img src="clean/mot-bateau.png" alt="bateau" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>UN BATEAU</b><i>un bateau</i></span></span>
+</button><button type="button" class="w" data-word="train">
+<span class="im"><img src="clean/mot-train.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UN TRAIN</b><i>un train</i></span></span>
+</button><button type="button" class="w" data-word="bus">
+<span class="im"><img src="clean/mot-bus.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UN BUS</b><i>un bus</i></span></span>
+</button><button type="button" class="w" data-word="avion">
+<span class="im"><img src="clean/mot-avion.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UN AVION</b><i>un avion</i></span></span>
+</button><button type="button" class="w" data-word="métro">
+<span class="im"><img src="clean/mot-metro.png" alt="métro" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>LE MÉTRO</b><i>le métro</i></span></span>
+</button></div>
+<footer class="pf"><button type="button" class="home" title="Sommaire"><img src="clean/icone-accueil.png" alt="" style="width:20px;height:20px;display:block" /></button><span></span><span class="pn">12 / 20</span></footer>
+</section><section class="pg">
+<header class="ph2"><span class="num">13</span><h2>La maison</h2></header>
+<div class="grid"><button type="button" class="w" data-word="table">
+<span class="im"><img src="clean/mot-table.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UNE TABLE</b><i>une table</i></span></span>
+</button><button type="button" class="w" data-word="chaise">
+<span class="im"><img src="clean/mot-chaise.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UNE CHAISE</b><i>une chaise</i></span></span>
+</button><button type="button" class="w" data-word="lit">
+<span class="im"><img src="clean/mot-lit.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UN LIT</b><i>un lit</i></span></span>
+</button><button type="button" class="w" data-word="porte">
+<span class="im"><img src="clean/mot-porte.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UNE PORTE</b><i>une porte</i></span></span>
+</button><button type="button" class="w" data-word="fenêtre">
+<span class="im"><img src="clean/mot-fenetre.png" alt="fenêtre" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>UNE FENÊTRE</b><i>une fenêtre</i></span></span>
+</button><button type="button" class="w" data-word="lampe">
+<span class="im"><img src="clean/mot-lampe.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UNE LAMPE</b><i>une lampe</i></span></span>
+</button><button type="button" class="w" data-word="douche">
+<span class="im"><img src="clean/mot-douche.png" alt="douche" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>UNE DOUCHE</b><i>une douche</i></span></span>
+</button><button type="button" class="w" data-word="assiette">
+<span class="im"><img src="clean/mot-assiette.png" alt="assiette" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>UNE ASSIETTE</b><i>une assiette</i></span></span>
+</button><button type="button" class="w" data-word="verre">
+<span class="im"><img src="clean/mot-verre.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UN VERRE</b><i>un verre</i></span></span>
+</button></div>
+<footer class="pf"><button type="button" class="home" title="Sommaire"><img src="clean/icone-accueil.png" alt="" style="width:20px;height:20px;display:block" /></button><span></span><span class="pn">13 / 20</span></footer>
+</section><section class="pg">
+<header class="ph2"><span class="num">14</span><h2>La ville</h2></header>
+<div class="grid"><button type="button" class="w" data-word="mairie">
+<span class="im"><img src="clean/mot-mairie.png" alt="mairie" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>LA MAIRIE</b><i>la mairie</i></span></span>
+</button><button type="button" class="w" data-word="pharmacie">
+<span class="im"><img src="clean/mot-pharmacie.png" alt="pharmacie" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>UNE PHARMACIE</b><i>une pharmacie</i></span></span>
+</button><button type="button" class="w" data-word="gare">
+<span class="im"><img src="clean/mot-gare.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UNE GARE</b><i>une gare</i></span></span>
+</button><button type="button" class="w" data-word="marché">
+<span class="im"><img src="clean/mot-marche.png" alt="marché" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>UN MARCHÉ</b><i>un marché</i></span></span>
+</button><button type="button" class="w" data-word="poste">
+<span class="im"><img src="clean/mot-poste.png" alt="poste" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>LA POSTE</b><i>la poste</i></span></span>
+</button><button type="button" class="w" data-word="banque">
+<span class="im"><img src="clean/mot-banque.png" alt="banque" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>UNE BANQUE</b><i>une banque</i></span></span>
+</button><button type="button" class="w" data-word="hôpital">
+<span class="im"><img src="clean/mot-hopital.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UN HÔPITAL</b><i>un hôpital</i></span></span>
+</button><button type="button" class="w" data-word="magasin">
+<span class="im"><img src="clean/mot-magasin.png" alt="magasin" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>UN MAGASIN</b><i>un magasin</i></span></span>
+</button><button type="button" class="w" data-word="rue">
+<span class="im"><img src="clean/mot-rue.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>UNE RUE</b><i>une rue</i></span></span>
+</button></div>
+<footer class="pf"><button type="button" class="home" title="Sommaire"><img src="clean/icone-accueil.png" alt="" style="width:20px;height:20px;display:block" /></button><span></span><span class="pn">14 / 20</span></footer>
+</section><section class="pg">
+<header class="ph2"><span class="num">15</span><h2>Les actions</h2></header>
+<div class="grid"><button type="button" class="w" data-word="il marche">
+<span class="im"><img src="clean/mot-marcher.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>IL MARCHE</b><i>il marche</i></span></span>
+</button><button type="button" class="w" data-word="il court">
+<span class="im"><img src="clean/mot-courir.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>IL COURT</b><i>il court</i></span></span>
+</button><button type="button" class="w" data-word="il mange">
+<span class="im"><img src="clean/mot-manger.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>IL MANGE</b><i>il mange</i></span></span>
+</button><button type="button" class="w" data-word="il boit">
+<span class="im"><img src="clean/mot-boire.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>IL BOIT</b><i>il boit</i></span></span>
+</button><button type="button" class="w" data-word="il dort">
+<span class="im"><img src="clean/mot-dormir.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>IL DORT</b><i>il dort</i></span></span>
+</button><button type="button" class="w" data-word="il écrit">
+<span class="im"><img src="clean/mot-ecrire.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>IL ÉCRIT</b><i>il écrit</i></span></span>
+</button><button type="button" class="w" data-word="il lit">
+<span class="im"><img src="clean/mot-lire.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>IL LIT</b><i>il lit</i></span></span>
+</button><button type="button" class="w" data-word="il parle">
+<span class="im"><img src="clean/mot-parler.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>IL PARLE</b><i>il parle</i></span></span>
+</button><button type="button" class="w" data-word="il écoute">
+<span class="im"><img src="clean/mot-ecouter.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>IL ÉCOUTE</b><i>il écoute</i></span></span>
+</button></div>
+<footer class="pf"><button type="button" class="home" title="Sommaire"><img src="clean/icone-accueil.png" alt="" style="width:20px;height:20px;display:block" /></button><span></span><span class="pn">15 / 20</span></footer>
+</section><section class="pg">
+<header class="ph2"><span class="num">16</span><h2>Les positions</h2></header>
+<div class="grid"><button type="button" class="w" data-word="sur">
+<span class="im"><img src="clean/mot-sur.png" alt="sur" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>SUR</b><i>sur</i></span></span>
+</button><button type="button" class="w" data-word="sous">
+<span class="im"><img src="clean/mot-sous.png" alt="sous" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>SOUS</b><i>sous</i></span></span>
+</button><button type="button" class="w" data-word="dans">
+<span class="im"><img src="clean/mot-dans.png" alt="dans" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>DANS</b><i>dans</i></span></span>
+</button><button type="button" class="w" data-word="devant">
+<span class="im"><img src="clean/mot-devant.png" alt="devant" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>DEVANT</b><i>devant</i></span></span>
+</button><button type="button" class="w" data-word="derrière">
+<span class="im"><img src="clean/mot-derriere.png" alt="derrière" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>DERRIÈRE</b><i>derrière</i></span></span>
+</button><button type="button" class="w" data-word="à côté de">
+<span class="im"><img src="clean/mot-cote.png" alt="à côté de" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>À CÔTÉ DE</b><i>à côté de</i></span></span>
+</button><button type="button" class="w" data-word="à gauche">
+<span class="im"><img src="clean/mot-gauche.png" alt="à gauche" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>À GAUCHE</b><i>à gauche</i></span></span>
+</button><button type="button" class="w" data-word="à droite">
+<span class="im"><img src="clean/mot-droite.png" alt="à droite" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>À DROITE</b><i>à droite</i></span></span>
+</button><button type="button" class="w" data-word="entre">
+<span class="im"><img src="clean/mot-entre.png" alt="entre" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>ENTRE</b><i>entre</i></span></span>
+</button></div>
+<footer class="pf"><button type="button" class="home" title="Sommaire"><img src="clean/icone-accueil.png" alt="" style="width:20px;height:20px;display:block" /></button><span></span><span class="pn">16 / 20</span></footer>
+</section><section class="pg">
+<header class="ph2"><span class="num">17</span><h2>Les contraires</h2></header>
+<div class="grid"><button type="button" class="w" data-word="petit">
+<span class="im"><img src="clean/mot-petit.png" alt="petit" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>PETIT</b><i>petit</i></span></span>
+</button><button type="button" class="w" data-word="grand">
+<span class="im"><img src="clean/mot-grand.png" alt="grand" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>GRAND</b><i>grand</i></span></span>
+</button><button type="button" class="w" data-word="léger">
+<span class="im"><img src="clean/mot-leger.png" alt="léger" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>LÉGER</b><i>léger</i></span></span>
+</button><button type="button" class="w" data-word="lourd">
+<span class="im"><img src="clean/mot-lourd.png" alt="lourd" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>LOURD</b><i>lourd</i></span></span>
+</button><button type="button" class="w" data-word="propre">
+<span class="im"><img src="clean/mot-propre.png" alt="propre" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>PROPRE</b><i>propre</i></span></span>
+</button><button type="button" class="w" data-word="sale">
+<span class="im"><img src="clean/mot-sale.png" alt="sale" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>SALE</b><i>sale</i></span></span>
+</button><button type="button" class="w" data-word="lent">
+<span class="im"><img src="clean/mot-lent.png" alt="lent" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>LENT</b><i>lent</i></span></span>
+</button><button type="button" class="w" data-word="rapide">
+<span class="im"><img src="clean/mot-rapide.png" alt="rapide" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>RAPIDE</b><i>rapide</i></span></span>
+</button><button type="button" class="w" data-word="chaud">
+<span class="im"><img src="clean/mot-chaud.png" alt="chaud" /></span>
+<span class="lb"><svg viewBox="0 0 24 24" style="flex:0 0 auto;width:20px;height:20px" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z" fill="#c1440e"></path><path d="M17 8.5a5 5 0 0 1 0 7" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path><path d="M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#c1440e" stroke-width="2" stroke-linecap="round"></path></svg><span class="tx"><b>CHAUD</b><i>chaud</i></span></span>
+</button></div>
+<footer class="pf"><button type="button" class="home" title="Sommaire"><img src="clean/icone-accueil.png" alt="" style="width:20px;height:20px;display:block" /></button><span></span><span class="pn">17 / 20</span></footer>
+</section><section class="pg">
+<header class="ph2"><span class="num">18</span><h2>Les jours</h2></header>
+<div class="grid7">
+<button type="button" class="w" data-word="lundi">
+<span class="im"><img src="clean/mot-lundi.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>LUNDI</b><i>lundi</i></span></span>
+</button>
+<button type="button" class="w" data-word="mardi">
+<span class="im"><img src="clean/mot-mardi.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>MARDI</b><i>mardi</i></span></span>
+</button>
+<button type="button" class="w" data-word="mercredi">
+<span class="im"><img src="clean/mot-mercredi.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>MERCREDI</b><i>mercredi</i></span></span>
+</button>
+<button type="button" class="w" data-word="jeudi">
+<span class="im"><img src="clean/mot-jeudi.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>JEUDI</b><i>jeudi</i></span></span>
+</button>
+<button type="button" class="w" data-word="vendredi">
+<span class="im"><img src="clean/mot-vendredi.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>VENDREDI</b><i>vendredi</i></span></span>
+</button>
+<button type="button" class="w" data-word="samedi">
+<span class="im"><img src="clean/mot-samedi.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>SAMEDI</b><i>samedi</i></span></span>
+</button>
+<button type="button" class="w" data-word="dimanche">
+<span class="im"><img src="clean/mot-dimanche.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>DIMANCHE</b><i>dimanche</i></span></span>
+</button>
+</div>
+<footer class="pf"><button type="button" class="home" title="Sommaire"><img src="clean/icone-accueil.png" alt="" loading="lazy" decoding="async" /></button><span></span><span class="pn">18 / 20</span></footer>
+</section>
+<section class="pg">
+<header class="ph2"><span class="num">19</span><h2>Les mois</h2></header>
+<div class="grid12">
+<button type="button" class="w" data-word="janvier">
+<span class="im"><img src="clean/mot-janvier.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>JANVIER</b><i>janvier</i></span></span>
+</button>
+<button type="button" class="w" data-word="février">
+<span class="im"><img src="clean/mot-fevrier.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>FÉVRIER</b><i>février</i></span></span>
+</button>
+<button type="button" class="w" data-word="mars">
+<span class="im"><img src="clean/mot-mars.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>MARS</b><i>mars</i></span></span>
+</button>
+<button type="button" class="w" data-word="avril">
+<span class="im"><img src="clean/mot-avril.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>AVRIL</b><i>avril</i></span></span>
+</button>
+<button type="button" class="w" data-word="mai">
+<span class="im"><img src="clean/mot-mai.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>MAI</b><i>mai</i></span></span>
+</button>
+<button type="button" class="w" data-word="juin">
+<span class="im"><img src="clean/mot-juin.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>JUIN</b><i>juin</i></span></span>
+</button>
+<button type="button" class="w" data-word="juillet">
+<span class="im"><img src="clean/mot-juillet.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>JUILLET</b><i>juillet</i></span></span>
+</button>
+<button type="button" class="w" data-word="août">
+<span class="im"><img src="clean/mot-aout.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>AOÛT</b><i>août</i></span></span>
+</button>
+<button type="button" class="w" data-word="septembre">
+<span class="im"><img src="clean/mot-septembre.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>SEPTEMBRE</b><i>septembre</i></span></span>
+</button>
+<button type="button" class="w" data-word="octobre">
+<span class="im"><img src="clean/mot-octobre.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>OCTOBRE</b><i>octobre</i></span></span>
+</button>
+<button type="button" class="w" data-word="novembre">
+<span class="im"><img src="clean/mot-novembre.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>NOVEMBRE</b><i>novembre</i></span></span>
+</button>
+<button type="button" class="w" data-word="décembre">
+<span class="im"><img src="clean/mot-decembre.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>DÉCEMBRE</b><i>décembre</i></span></span>
+</button>
+</div>
+<footer class="pf"><button type="button" class="home" title="Sommaire"><img src="clean/icone-accueil.png" alt="" loading="lazy" decoding="async" /></button><span></span><span class="pn">19 / 20</span></footer>
+</section>
+<section class="pg">
+<header class="ph2"><span class="num">20</span><h2>Les saisons</h2></header>
+<div class="grid4">
+<button type="button" class="w" data-word="le printemps">
+<span class="im"><img src="clean/mot-printemps.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>LE PRINTEMPS</b><i>le printemps</i></span></span>
+</button>
+<button type="button" class="w" data-word="l'été">
+<span class="im"><img src="clean/mot-ete.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>L'ÉTÉ</b><i>l'été</i></span></span>
+</button>
+<button type="button" class="w" data-word="l'automne">
+<span class="im"><img src="clean/mot-automne.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>L'AUTOMNE</b><i>l'automne</i></span></span>
+</button>
+<button type="button" class="w" data-word="l'hiver">
+<span class="im"><img src="clean/mot-hiver.png" alt="" loading="lazy" decoding="async" /></span>
+<span class="lb"><span class="tx"><b>L'HIVER</b><i>l'hiver</i></span></span>
+</button>
+</div>
+<footer class="pf"><button type="button" class="home" title="Sommaire"><img src="clean/icone-accueil.png" alt="" loading="lazy" decoding="async" /></button><span></span><span class="pn">20 / 20</span></footer>
+</section></div>
+<div class="bar">
+<button class="nav" id="prev" type="button" aria-label="Page précédente">&#8592;</button>
+<select class="sel" id="jump"></select>
+<button class="nav" id="next" type="button" aria-label="Page suivante">&#8594;</button>
+</div>
+<div class="say" id="say"></div>
+<script>
+const pgs=[...document.querySelectorAll('.pg')];
+const jump=document.getElementById('jump'), say=document.getElementById('say');
+const prev=document.getElementById('prev'), next=document.getElementById('next');
+const titles=pgs.map((p,i)=> i===0 ? 'Couverture' : (i===1 ? 'Sommaire' : ((i-1)+'. '+p.querySelector('h2').textContent)));
+titles.forEach((t,i)=>{const o=document.createElement('option');o.value=i;o.textContent=t;jump.appendChild(o);});
+const KEY='mesmots-livre-page';
+let cur=Math.min(pgs.length-1, Math.max(0, parseInt(localStorage.getItem(KEY)||'0',10)||0));
+function show(i){
+  cur=Math.min(pgs.length-1,Math.max(0,i));
+  pgs.forEach((p,k)=>p.classList.toggle('on',k===cur));
+  jump.value=cur; prev.disabled=cur===0; next.disabled=cur===pgs.length-1;
+  localStorage.setItem(KEY,String(cur));
+}
+document.querySelectorAll('.home').forEach(b=>b.addEventListener('click',()=>show(0)));
+document.querySelectorAll('.som').forEach(b=>b.addEventListener('click',()=>show(+b.dataset.go)));
+prev.onclick=()=>show(cur-1);
+next.onclick=()=>show(cur+1);
+jump.onchange=()=>show(+jump.value);
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key==='PageDown'){e.preventDefault();show(cur+1);}
+  if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();show(cur-1);}
+});
+let voice=null, timer=null;
+function pickVoice(){
+  const vs=speechSynthesis.getVoices();
+  voice=vs.find(v=>/^fr/i.test(v.lang)&&/female|femme|amelie|audrey|virginie/i.test(v.name))||vs.find(v=>/^fr/i.test(v.lang))||null;
+}
+pickVoice(); speechSynthesis.onvoiceschanged=pickVoice;
+document.getElementById('book').addEventListener('click',e=>{
+  const b=e.target.closest('.w'); if(!b) return;
+  const it=b.querySelector('i');
+  const w=(it&&it.textContent.trim())||b.dataset.word;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(w);
+  u.lang='fr-FR'; u.rate=.8; if(voice) u.voice=voice;
+  speechSynthesis.speak(u);
+  document.querySelectorAll('.w.pl').forEach(x=>x.classList.remove('pl'));
+  b.classList.add('pl');
+  say.textContent=w; say.classList.add('on');
+  clearTimeout(timer);
+  timer=setTimeout(()=>{ say.classList.remove('on'); b.classList.remove('pl'); },1900);
+});
+show(cur);
+</script>
+</body>
+</html>
