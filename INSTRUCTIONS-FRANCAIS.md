@@ -18,6 +18,19 @@ Tous les fichiers de français sont préfixés `FR - ` (maths : `MATHS - `, appl
 d'une ou deux pages est extrait du cahier d'écriture pour photocopie. Le cahier complet
 (59 pages) reste la source unique, il n'est pas découpé.
 
+## Fiches d'exercices — règles constantes
+
+- **Police** : lettres bâton détachées (Verdana / Tahoma), jamais de cursive.
+  Belle Allure est réservée au tracé des lettres du cahier d'écriture.
+- **Consignes** : toujours en **gras**, toujours en FALC — une action par ligne,
+  phrases courtes, verbe à l'impératif (« Découpe les étiquettes. / Colle la phrase sous l'image. »).
+- **Pictos** : chaque consigne porte son picto (ciseaux, colle, œil, crayon, oreille).
+- **Relier** : toujours des points de part et d'autre, à mi-hauteur de chaque case.
+- **Découpage** : toute feuille d'étiquettes sort avec sa feuille support (images + cases vides).
+- **Atelier autonome** : premier item déjà fait, encadré et marqué « modèle » ;
+  feuille de correction en dernière page, bord vert, à laisser sur la table.
+- **Étiquettes** : hauteur 22 mm environ, manipulables. Phrases au choix : entières ou mot par mot.
+
 ## Livret 2 — Mes mots pour dire et écrire seul
 
 Sommaire : alphabet, politesse, couleurs, matériel scolaire (2 pages), lycée, météo,
