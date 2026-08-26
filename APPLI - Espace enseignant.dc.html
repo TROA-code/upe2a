@@ -62,6 +62,14 @@ input,select,button{font-family:inherit}
 </sc-if>
 </div>
 
+<sc-if value="{{ estDevoir }}" hint-placeholder-val="{{ false }}">
+<div style="flex:0 0 auto;background:#6d5bd0;color:#fff;display:flex;align-items:center;justify-content:center;gap:10px;padding:8px 16px">
+<span style="font-size:16px;line-height:1">&#127911;</span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:12.5px;letter-spacing:0.06em;text-transform:uppercase">J'écoute chez moi</span>
+<span style="font-size:12.5px;opacity:0.85">{{ titreDevoir }}</span>
+</div>
+</sc-if>
+
 <sc-if value="{{ montrerFil }}" hint-placeholder-val="{{ false }}">
 <div style="flex:0 0 auto;background:#e8edf3;border-bottom:1px solid #ccd4de;display:flex;align-items:center;gap:16px;padding:11px 24px">
 <span style="flex:0 0 auto;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#6b7a8d;font-weight:700">{{ cheminSerie }}</span>
@@ -159,7 +167,7 @@ input,select,button{font-family:inherit}
 <span style="background:#fff;border:4px solid #1d4e89;border-radius:11px;box-shadow:0 3px 10px rgba(0,0,0,0.18);height:88px;display:flex;align-items:center;justify-content:center"><span style="font-family:Archivo Black, Archivo, sans-serif;font-size:38px;color:#1d4e89">A</span></span>
 <span style="background:#fff;border:4px solid #2a9d6e;border-radius:11px;box-shadow:0 3px 10px rgba(0,0,0,0.18);height:88px;display:flex;align-items:center;justify-content:center"><span style="font-family:BA Script, Archivo, sans-serif;font-size:40px;color:#2a9d6e">a</span></span>
 <span style="background:#fff;border:4px solid #6d5bd0;border-radius:11px;box-shadow:0 3px 10px rgba(0,0,0,0.18);height:88px;display:flex;align-items:center;justify-content:center"><span style="font-family:BA Script, Archivo, sans-serif;font-size:26px;color:#6d5bd0">ou</span></span>
-<span style="background:#fff;border:4px solid #e59a2b;border-radius:11px;box-shadow:0 3px 10px rgba(0,0,0,0.18);height:88px;background-image:url('clean/mot-crayon.png');background-size:contain;background-repeat:no-repeat;background-position:center;background-origin:content-box;padding:8px;display:block"></span>
+<span style="background:#fff;border:4px solid #e59a2b;border-radius:11px;box-shadow:0 3px 10px rgba(0,0,0,0.18);height:88px;background-image:url('clean/mot-crayon.png');background-size:104%;background-repeat:no-repeat;background-position:center;padding:0;display:block"></span>
 </span>
 <span style="font-size:14px;color:#fdf3c4;text-shadow:0 1px 3px rgba(0,0,0,0.5)">12 ateliers &middot; les lettres, les sons, j'écris</span>
 </button>
@@ -653,9 +661,17 @@ input,select,button{font-family:inherit}
 <span style="font-size:46px;font-weight:700;color:#1d4e89">{{ scoreFinal }}</span>
 <span style="font-size:17px;color:#14213d">{{ messageFinal }}</span>
 <span style="font-size:12.5px;color:#8a91a3;text-align:center">{{ sousTitreResultat }}</span>
-<div style="display:flex;gap:12px">
+<div style="display:flex;flex-direction:column;align-items:center;gap:5px;background:#fff;border:2px solid #dde2e9;border-radius:12px;padding:13px 22px">
+<span style="font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a91a3;font-weight:700">Montre à ton professeur</span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:15px;color:#12233b;text-align:center">{{ ligneResultat }}</span>
+<span style="font-size:13px;color:#6b7386">{{ dateResultat }}</span>
+</div>
+<div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
+<button onClick="{{ encore }}" style="border:none;border-radius:11px;background:#2a9d6e;color:#fff;padding:13px 26px;font-family:Archivo Black, Archivo, sans-serif;font-size:12.5px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;box-shadow:0 3px 0 #217d57">Encore</button>
+<sc-if value="{{ pasDevoir }}" hint-placeholder-val="{{ true }}">
 <button onClick="{{ retourThemes }}" style="border:none;border-radius:7px;background:#1d4e89;color:#fff;padding:11px 22px;font-size:13.5px;font-weight:700;cursor:pointer">Un autre thème</button>
 <button onClick="{{ retourEleve }}" style="border:1px solid #c9cfd8;border-radius:7px;background:#fff;color:#14213d;padding:11px 22px;font-size:13.5px;cursor:pointer">Retour</button>
+</sc-if>
 </div>
 </div>
 </sc-if>
@@ -765,6 +781,49 @@ input,select,button{font-family:inherit}
 </sc-for>
 </div>
 </sc-for>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:8px;margin-top:6px">
+<span style="flex:1;height:1px;background:#dde2e9;display:block"></span>
+<span style="flex:0 0 auto;font-size:9.5px;letter-spacing:0.14em;text-transform:uppercase;color:#6d5bd0;font-weight:700">la voix</span>
+<span style="flex:1;height:1px;background:#dde2e9;display:block"></span>
+</div>
+<span style="font-size:11.5px;color:#8a91a3;line-height:1.45">Les voix disponibles dépendent de l'appareil. Choisis la plus naturelle, puis écoute pour vérifier.</span>
+<select value="{{ voixNom }}" onChange="{{ setVoix }}" style="border:1px solid #c9cfd8;border-radius:6px;padding:8px 10px;font-size:12.5px;background:#fff">
+<sc-for list="{{ voixDispo }}" as="v" hint-placeholder-count="2">
+<option value="{{ v.nom }}">{{ v.libelle }}</option>
+</sc-for>
+</select>
+<button onClick="{{ essayerVoix }}" style="border:none;border-radius:7px;background:#6d5bd0;color:#fff;padding:9px 14px;font-size:12.5px;font-weight:700;cursor:pointer">Écouter un exemple</button>
+<span style="font-size:11.5px;color:#6b7386">{{ infoVoix }}</span>
+
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:8px;margin-top:6px">
+<span style="flex:1;height:1px;background:#dde2e9;display:block"></span>
+<span style="flex:0 0 auto;font-size:9.5px;letter-spacing:0.14em;text-transform:uppercase;color:#2a9d6e;font-weight:700">j'écoute chez moi</span>
+<span style="flex:1;height:1px;background:#dde2e9;display:block"></span>
+</div>
+<span style="font-size:11.5px;color:#8a91a3;line-height:1.45">Choisis le thème et le niveau, copie le lien, colle-le dans Pronote. L'élève arrive directement sur l'exercice.</span>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+<select value="{{ devThemeSel }}" onChange="{{ setDevTheme }}" style="border:1px solid #c9cfd8;border-radius:6px;padding:8px 10px;font-size:12.5px;background:#fff">
+<sc-for list="{{ devThemes }}" as="t" hint-placeholder-count="4">
+<option value="{{ t }}">{{ t }}</option>
+</sc-for>
+</select>
+<select value="{{ devNiveauSel }}" onChange="{{ setDevNiveau }}" style="border:1px solid #c9cfd8;border-radius:6px;padding:8px 10px;font-size:12.5px;background:#fff">
+<option value="1">Les mots</option>
+<option value="2">Les phrases</option>
+<option value="3">Les textes</option>
+</select>
+</div>
+<select value="{{ devChampSel }}" onChange="{{ setDevChamp }}" style="border:1px solid #c9cfd8;border-radius:6px;padding:8px 10px;font-size:12.5px;background:#fff">
+<option value="ecoute">J'écoute</option>
+<option value="lis">Je lis</option>
+<option value="parle">Je parle</option>
+<option value="ecris">J'écris</option>
+</select>
+<div style="display:flex;align-items:center;gap:8px;background:#f4f6f9;border:1px solid #dde2e9;border-radius:6px;padding:9px 11px">
+<span style="flex:1;min-width:0;font-size:11.5px;color:#14213d;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ lienDevoir }}</span>
+<button onClick="{{ copierLien }}" style="flex:0 0 auto;border:none;border-radius:6px;background:#2a9d6e;color:#fff;padding:7px 13px;font-size:11.5px;font-weight:700;cursor:pointer">Copier</button>
+</div>
+<span style="font-size:11.5px;color:#2a9d6e">{{ infoLien }}</span>
 </div>
 
 
@@ -1218,7 +1277,7 @@ class Component extends DCLogic {
     serie:[], serieIdx:0, serieScore:0, serieTotal:0,
     outilsColl:'lettres', outilsSel:this.chargerOutils(), feuillesPrint:[],
     comp:this.chargerComp(), compEleve:'',
-    perso:this.chargerPerso(), themeEdit:'Le corps', ongletTheme:'mots',
+    perso:this.chargerPerso(), themeEdit:'Le corps', ongletTheme:'mots', voixNom:this.chargerVoix(),
     nvTheme:'', nvMot:'', nvPhrase:'', nvPhraseImg:'', nvPhraseVrai:true
   };
   reduireImage(fichier,cb){
@@ -1286,6 +1345,54 @@ class Component extends DCLogic {
     const net={}; Object.keys(sel).forEach(k=>{ if(ids[k]) net[k]=sel[k]; });
     if(Object.keys(net).length!==Object.keys(sel).length){ this.enregistrerOutils(net); this.setState({outilsSel:net}); }
   }
+  lienDevoir(){
+    const s=this.state;
+    const sansAccent=x=>String(x||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');
+    const cle=sansAccent(s.devTheme||'Le corps');
+    const base=(location.origin+location.pathname).replace(/[^/]*$/,'');
+    return base+'?devoir='+cle+'-'+(s.devNiveau||'1')+'-'+(s.devChamp||'ecoute');
+  }
+  litDevoir(){
+    try{
+      const q=new URLSearchParams(location.search);
+      const d=q.get('devoir');
+      if(!d) return null;
+      const bouts=d.split('-');
+      const cle=bouts[0], niv=bouts[1]||'1', champ=bouts[2]||'ecoute';
+      const themes=this.tousThemes();
+      const sansAccent=x=>x.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');
+      const theme=themes.find(t=>sansAccent(t)===cle.toLowerCase())||themes.find(t=>sansAccent(t).indexOf(cle.toLowerCase())>=0);
+      if(!theme) return null;
+      const niveaux={'1':'Les mots','2':'Les phrases','3':'Les textes'};
+      const champs={ecoute:"J'écoute",lis:'Je lis',parle:'Je parle',ecris:"J'écris"};
+      return {theme, niveau:niveaux[niv]||'Les mots', champ:champs[champ]||"J'écoute"};
+    }catch(e){ return null; }
+  }
+  lancerDevoir(){
+    const d=this.litDevoir();
+    if(!d) return;
+    this._devoir=d;
+    this.setState({devoir:d, verrou:true, themeEleve:d.theme, champEleve:d.champ, modeEleve:'Exploration'});
+    setTimeout(()=>{
+      const exos=this.exosDe(d.niveau);
+      if(exos&&exos.length) this.lancerSerie(d.niveau,exos);
+    },250);
+  }
+  exosDe(titre){
+    const s=this.state;
+    const k=titre==='Les phrases'?'phrases':(titre==='Les textes'?'textes':'mots');
+    const liste=s.champEleve==='Je lis'
+      ? (k==='mots'?[['Explore les mots','explore'],['Trouve le bon dessin','dessin'],['Trouve le bon mot','motecrit']]
+        :k==='phrases'?[['Explore les phrases','explore'],['Trouve la bonne phrase','dessin'],["Remets les mots dans l'ordre",'ordre']]
+        :[['Explore le texte','explore'],['Trouve la bonne proposition','dessin'],['Complète avec le bon mot','motecrit']])
+      : s.champEleve==='Je parle' ? [['Écoute et répète','repete']]
+      : s.champEleve==="J'écris"
+        ? (k==='mots'?[['Explore les mots','explore'],['Complète le mot','completer'],['Écris le mot','ecrire']]
+          :k==='phrases'?[['Explore les phrases','explore'],['Complète la phrase','completer'],['Écris la phrase','ecrire']]
+          :[['Explore le texte','explore'],['Complète le texte','completer'],['Dictée','ecrire']])
+        : [['Explore '+(k==='textes'?'le texte':'les '+k),'explore'],['Trouve la bonne image','trouve'],['Vrai ou faux','vf']];
+    return liste.map(([nom,type])=>({nom,type}));
+  }
   componentDidMount(){
     this._maj=()=>{
       const l=Math.min(document.body.clientWidth||9999, window.innerWidth||9999);
@@ -1294,10 +1401,17 @@ class Component extends DCLogic {
     window.addEventListener('resize',this._maj);
     try{ this._ro=new ResizeObserver(this._maj); this._ro.observe(document.body); }catch(e){}
     this._maj();
+    try{
+      const prete=()=>{ if(this.voixFr().length) this.forceUpdate(); };
+      speechSynthesis.addEventListener('voiceschanged',prete);
+      this._voix=prete; setTimeout(prete,400); setTimeout(prete,1500);
+    }catch(e){}
     if(this.suiteMontage) this.suiteMontage();
+    setTimeout(()=>this.lancerDevoir(),300);
   }
   componentWillUnmount(){
     if(this._maj) window.removeEventListener('resize',this._maj);
+    if(this._voix){ try{ speechSynthesis.removeEventListener('voiceschanged',this._voix); }catch(e){} }
     if(this._ro) this._ro.disconnect();
   }
   tel(){
@@ -1391,7 +1505,42 @@ class Component extends DCLogic {
     this.setState({feuillesPrint:pages});
     setTimeout(()=>{ try{ window.print(); }catch(e){} }, 900);
   }
-  dire(txt){ try{const u=new SpeechSynthesisUtterance(String(txt).replace(/\bdos\b/g,'do'));u.lang='fr-FR';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}catch(e){} }
+  chargerVoix(){
+    try{ const v=localStorage.getItem('upe2a-voix'); if(v) return v; }catch(e){}
+    return '';
+  }
+  voixFr(){
+    try{
+      const t=(speechSynthesis.getVoices()||[]).filter(v=>/^fr/i.test(v.lang||''));
+      // les meilleures d'abord : voix neuronales, puis locales, puis le reste
+      const note=v=>{
+        const n=(v.name||'');
+        let p=0;
+        if(/natural|premium|enhanced|siri|neural/i.test(n)) p+=100;
+        if(/thomas|henri|denise|audrey|marie|amelie|am\u00e9lie/i.test(n)) p+=20;
+        if(v.localService) p+=10;
+        if(/compact|espeak|festival|robot/i.test(n)) p-=50;
+        return p;
+      };
+      return t.sort((a,b)=>note(b)-note(a));
+    }catch(e){ return []; }
+  }
+  laVoix(){
+    const l=this.voixFr();
+    if(!l.length) return null;
+    const choisie=this.state.voixNom||this.chargerVoix();
+    return l.find(v=>v.name===choisie)||l[0];
+  }
+  dire(txt){
+    try{
+      const t=String(txt).replace(/\bdos\b/g,'do');
+      const u=new SpeechSynthesisUtterance(t);
+      u.lang='fr-FR'; u.rate=0.85;
+      const v=this.laVoix();
+      if(v){ u.voice=v; u.lang=v.lang||'fr-FR'; }
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    }catch(e){}
+  }
   melange(a){ const c=[...a]; for(let i=c.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[c[i],c[j]]=[c[j],c[i]];} return c; }
   corpus(theme){
     return this.surPhrases(theme)?this.phrasesDe(theme):this.motsDe(theme);
@@ -2384,6 +2533,34 @@ class Component extends DCLogic {
         explorer:()=>{ if(casse==='ecrire') this.lancerAlphaEcrire('Exploration',lot); else this.lancerAlpha(casse,'Exploration',lot); },
         evaluer:()=>{ if(casse==='ecrire') this.lancerAlphaEcrire('Évaluation',lot); else this.lancerAlpha(casse,'Évaluation',lot); }
       })),
+      voixDispo:(()=>{
+        const l=this.voixFr();
+        if(!l.length) return [{nom:'',libelle:'Voix du système'}];
+        return l.map(v=>({nom:v.name,libelle:v.name+(/natural|premium|enhanced|siri|neural/i.test(v.name)?'  ★':'')}));
+      })(),
+      voixNom:(()=>{ const v=this.laVoix(); return v?v.name:''; })(),
+      setVoix:e=>{ const n=e.target.value; try{ localStorage.setItem('upe2a-voix',n); }catch(err){} this.setState({voixNom:n}); setTimeout(()=>this.dire('Bonjour. Écoute bien.'),120); },
+      essayerVoix:()=>this.dire('Bonjour. Regarde l\u2019image et écoute le mot.'),
+      infoVoix:(()=>{
+        const l=this.voixFr();
+        if(!l.length) return 'Aucune voix française trouvée sur cet appareil.';
+        const bonnes=l.filter(v=>/natural|premium|enhanced|siri|neural/i.test(v.name)).length;
+        return l.length+' voix française'+(l.length>1?'s':'')+' · '+(bonnes?bonnes+' de haute qualité (★)':'aucune voix haute qualité installée');
+      })(),
+      devThemes:this.tousThemes(),
+      devThemeSel:s.devTheme||'Le corps',
+      devNiveauSel:s.devNiveau||'1',
+      devChampSel:s.devChamp||'ecoute',
+      setDevTheme:e=>this.setState({devTheme:e.target.value,infoLien:''}),
+      setDevNiveau:e=>this.setState({devNiveau:e.target.value,infoLien:''}),
+      setDevChamp:e=>this.setState({devChamp:e.target.value,infoLien:''}),
+      lienDevoir:this.lienDevoir(),
+      copierLien:()=>{
+        const l=this.lienDevoir();
+        try{ navigator.clipboard.writeText(l); this.setState({infoLien:'Lien copié. Colle-le dans Pronote.'}); }
+        catch(e){ this.setState({infoLien:l}); }
+      },
+      infoLien:s.infoLien||'',
       estThemeAccueil:s.ecran==='themeAccueil',
       estTableauThemes:s.ecran==='tableauThemes',
       estTableauCode:s.ecran==='tableauCode',
@@ -2532,6 +2709,16 @@ class Component extends DCLogic {
       rejouerSon:()=>{ if(q) this.dire(q.cible[0]); },
       retourQuiz:s.retour||'\u00a0', repondu:s.repondu, pasRepondu:!s.repondu,
       suivante:()=>this.suivante(),
+      estDevoir:!!s.devoir, pasDevoir:!s.devoir,
+      titreDevoir:s.devoir?(s.devoir.theme+' · '+s.devoir.champ):'',
+      ligneResultat:((s.themeEleve||'')+' · '+(s.champEleve||'')+' · '+((s.serie||[]).length?((s.serieScore||0)+' / '+(s.serieTotal||0)):(s.score+' / '+(s.quiz.length||8)))),
+      dateResultat:(()=>{ try{ return new Date().toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'})+', '+new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}); }catch(e){ return ''; } })(),
+      encore:()=>{
+        const t=s.themeEleve, niv=s.niveauEleve||'Les mots';
+        const exos=this.exosDe(niv);
+        if(exos&&exos.length){ this.setState({themeEleve:t}); this.lancerSerie(niv,exos); }
+        else this.setState({ecran:'eleve'});
+      },
       scoreFinal:(s.serie||[]).length?((s.serieScore||0)+' / '+(s.serieTotal||0)):(s.score+' / '+(s.quiz.length||8)),
       messageFinal:(()=>{
         const enSerie=(s.serie||[]).length>0;
