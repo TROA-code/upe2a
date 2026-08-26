@@ -89,7 +89,7 @@ input,select,button{font-family:inherit}
 </sc-if>
 
 <sc-if value="{{ estVerrou }}" hint-placeholder-val="{{ false }}">
-<div style="flex:1;min-height:0;position:relative;display:flex;align-items:center;justify-content:center;padding:40px 26px;background:url('clean/mur-briques.png') repeat;overflow:hidden">
+<div style="flex:1;min-height:0;position:relative;display:flex;align-items:center;justify-content:center;padding:40px 26px;background:url('clean/mur-briques.png') repeat;overflow-y:{{ debord }};overflow-x:hidden">
 <img src="clean/fenetre.png" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;top:14px;left:100px;width:420px;height:auto;z-index:0;filter:drop-shadow(0 6px 14px rgba(0,0,0,0.2))" />
 <img src="clean/plante.png" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;bottom:0;left:max(0px, calc(50% - 700px));width:340px;height:auto;z-index:1" />
 <div style="position:relative;z-index:2;width:100%;max-width:400px;background:#fff;border-radius:18px;box-shadow:0 8px 24px rgba(0,0,0,0.2);padding:30px;display:flex;flex-direction:column;align-items:center;gap:18px">
@@ -105,7 +105,7 @@ input,select,button{font-family:inherit}
 </sc-if>
 
 <sc-if value="{{ estAccueil }}" hint-placeholder-val="{{ true }}">
-<div style="flex:1;min-height:0;position:relative;display:flex;align-items:center;justify-content:center;padding:26px;background:url('clean/mur-briques.png') repeat">
+<div style="flex:1;min-height:0;position:relative;display:flex;align-items:center;justify-content:{{ alignVert }};padding:{{ padDecor }};background:url('clean/mur-briques.png') repeat;overflow-y:{{ debord }};overflow-x:hidden">
 <img src="clean/fenetre.png" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;top:14px;left:18px;width:300px;height:auto;z-index:0;filter:drop-shadow(0 6px 14px rgba(0,0,0,0.2))" />
 <div style="flex:0 0 auto;position:relative;z-index:1;width:210px;align-self:flex-end;display:flex;flex-direction:column;align-items:center;margin-right:8px">
 <img src="clean/plante.png" alt="" style="width:210px;height:auto" />
@@ -132,7 +132,7 @@ input,select,button{font-family:inherit}
 </sc-if>
 
 <sc-if value="{{ estThemeAccueil }}" hint-placeholder-val="{{ true }}">
-<div style="flex:1;min-height:0;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:26px;background:url('clean/mur-briques.png') repeat;overflow:auto">
+<div style="flex:1;min-height:0;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:{{ alignVert }};gap:18px;padding:{{ padDecor }};background:url('clean/mur-briques.png') repeat;overflow:auto">
 <sc-if value="{{ pasTel }}" hint-placeholder-val="{{ true }}">
 <img src="clean/fenetre.png" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;top:14px;left:100px;width:420px;height:auto;z-index:0;filter:drop-shadow(0 6px 14px rgba(0,0,0,0.2))" />
 <img src="clean/plante.png" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;bottom:0;left:max(0px, calc(50% - 700px));width:230px;height:auto;z-index:1" />
@@ -168,7 +168,7 @@ input,select,button{font-family:inherit}
 </sc-if>
 
 <sc-if value="{{ estTableauThemes }}" hint-placeholder-val="{{ false }}">
-<div style="flex:1;min-height:0;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:stretch;gap:18px;padding:20px 26px 22px;background:url('clean/mur-briques.png') repeat;overflow:hidden">
+<div style="flex:1;min-height:0;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:stretch;gap:18px;padding:20px 26px 22px;background:url('clean/mur-briques.png') repeat;overflow-y:{{ debord }};overflow-x:hidden">
 <img src="clean/fenetre.png" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;top:14px;left:100px;width:300px;height:auto;z-index:0;filter:drop-shadow(0 6px 14px rgba(0,0,0,0.2))" />
 <img src="clean/plante.png" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;bottom:0;left:max(0px, calc(50% - 700px));width:210px;height:auto;z-index:1" />
 <div style="position:relative;z-index:2;flex:1;min-height:0;width:100%;max-width:{{ largeurPanneau }};margin-left:auto;margin-right:{{ margePanneau }};box-sizing:border-box;box-shadow:0 12px 28px rgba(0,0,0,0.28);background-image:url('clean/liege.png');background-size:100% 100%;background-repeat:no-repeat;padding:16px 20px 18px;display:flex;flex-direction:column;align-items:center;gap:12px">
@@ -190,7 +190,7 @@ input,select,button{font-family:inherit}
 </sc-if>
 
 <sc-if value="{{ estTableauCode }}" hint-placeholder-val="{{ false }}">
-<div style="flex:1;min-height:0;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:stretch;gap:18px;padding:20px 26px 22px;background:url('clean/mur-briques.png') repeat;overflow:hidden">
+<div style="flex:1;min-height:0;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:stretch;gap:18px;padding:20px 26px 22px;background:url('clean/mur-briques.png') repeat;overflow-y:{{ debord }};overflow-x:hidden">
 <img src="clean/fenetre.png" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;top:14px;left:100px;width:300px;height:auto;z-index:0;filter:drop-shadow(0 6px 14px rgba(0,0,0,0.2))" />
 <img src="clean/plante.png" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;bottom:0;left:max(0px, calc(50% - 700px));width:210px;height:auto;z-index:1" />
 <div style="position:relative;z-index:2;flex:1;min-height:0;width:100%;max-width:{{ largeurPanneau }};margin-left:auto;margin-right:{{ margePanneau }};box-sizing:border-box;box-shadow:0 12px 28px rgba(0,0,0,0.28);background-image:url('clean/liege.png');background-size:100% 100%;background-repeat:no-repeat;padding:16px 20px 18px;display:flex;flex-direction:column;align-items:center;gap:12px">
@@ -219,10 +219,10 @@ input,select,button{font-family:inherit}
 </sc-if>
 
 <sc-if value="{{ estSousTheme }}" hint-placeholder-val="{{ false }}">
-<div style="flex:1;min-height:0;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:26px;background:url('clean/mur-briques.png') repeat;overflow:hidden">
+<div style="flex:1;min-height:0;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:{{ alignVert }};padding:{{ padDecor }};background:url('clean/mur-briques.png') repeat;overflow-y:{{ debord }};overflow-x:hidden">
 <img src="clean/fenetre.png" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;top:14px;left:100px;width:420px;height:auto;z-index:0;filter:drop-shadow(0 6px 14px rgba(0,0,0,0.2))" />
 <img src="clean/plante.png" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;bottom:0;left:max(0px, calc(50% - 700px));width:340px;height:auto;z-index:1" />
-<div style="position:relative;z-index:2;width:100%;max-width:{{ largeurPanneau }};max-height:100%;margin-left:auto;margin-right:{{ margePanneau }};box-sizing:border-box;box-shadow:0 12px 28px rgba(0,0,0,0.28);background-image:url('clean/liege.png');background-size:100% 100%;background-repeat:no-repeat;padding:16px 20px 18px;display:flex;flex-direction:column;align-items:center;gap:12px">
+<div style="position:relative;z-index:2;width:100%;max-width:{{ largeurPanneau }};max-height:{{ hMaxPanneau }};margin-left:auto;margin-right:{{ margePanneau }};box-sizing:border-box;box-shadow:0 12px 28px rgba(0,0,0,0.28);background-image:url('clean/liege.png');background-size:100% 100%;background-repeat:no-repeat;padding:16px 20px 18px;display:flex;flex-direction:column;align-items:center;gap:12px">
 <div style="position:relative;background:#fdf3c4;padding:12px 38px;transform:rotate(-1.2deg);box-shadow:0 4px 10px rgba(0,0,0,0.3)">
 <span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4)"></span>
 <span style="font-family:Archivo Black, Archivo, sans-serif;font-size:20px;letter-spacing:0.03em;text-transform:uppercase;color:#8a4b1e">{{ themeParent }}</span>
@@ -353,21 +353,21 @@ input,select,button{font-family:inherit}
 </sc-if>
 
 <sc-if value="{{ estEleve }}" hint-placeholder-val="{{ false }}">
-<div style="flex:1;min-height:0;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:26px;background:url('clean/mur-briques.png') repeat;overflow:hidden">
+<div style="flex:1;min-height:0;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:{{ alignVert }};padding:{{ padDecor }};background:url('clean/mur-briques.png') repeat;overflow-y:{{ debord }};overflow-x:hidden">
 <img src="clean/fenetre.png" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;top:14px;left:100px;width:420px;height:auto;z-index:0;filter:drop-shadow(0 6px 14px rgba(0,0,0,0.2))" />
 <img src="clean/plante.png" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;bottom:0;left:max(0px, calc(50% - 700px));width:340px;height:auto;z-index:1" />
-<div style="position:relative;z-index:2;width:100%;max-width:{{ largeurPanneau }};max-height:100%;margin-left:auto;margin-right:{{ margePanneau }};box-sizing:border-box;box-shadow:0 12px 28px rgba(0,0,0,0.28);background-image:url('clean/liege.png');background-size:100% 100%;background-repeat:no-repeat;padding:16px 20px 18px;display:flex;flex-direction:column;align-items:center;gap:12px">
+<div style="position:relative;z-index:2;width:100%;max-width:{{ largeurPanneau }};max-height:{{ hMaxPanneau }};margin-left:auto;margin-right:{{ margePanneau }};box-sizing:border-box;box-shadow:0 12px 28px rgba(0,0,0,0.28);background-image:url('clean/liege.png');background-size:100% 100%;background-repeat:no-repeat;padding:16px 20px 18px;display:flex;flex-direction:column;align-items:center;gap:12px">
 <div style="position:relative;background:#fdf3c4;padding:12px 38px;transform:rotate(-1.2deg);box-shadow:0 4px 10px rgba(0,0,0,0.3)">
 <span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4)"></span>
-<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:20px;letter-spacing:0.03em;text-transform:uppercase;color:#8a4b1e">{{ themeEleve }}</span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:{{ tEtiquette }};letter-spacing:0.03em;text-transform:uppercase;color:#8a4b1e">{{ themeEleve }}</span>
 </div>
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:20px;width:100%;max-width:960px">
+<div style="display:grid;grid-template-columns:{{ colChamps }};gap:{{ gapChamps }};width:100%;max-width:960px">
 <sc-for list="{{ champsEleve }}" as="c" hint-placeholder-count="4">
-<div style="min-width:0;background:#fff;border-radius:18px;box-shadow:0 5px 16px rgba(0,0,0,0.2);display:flex;flex-direction:column;align-items:center;gap:14px;padding:22px 16px">
-<span style="width:100%;height:112px;border-radius:16px;background:#fff;border:2px solid {{ c.couleur }};background-image:{{ c.bg }};background-size:78%;background-repeat:no-repeat;background-position:center;display:flex;align-items:center;justify-content:center"><span style="font-family:{{ c.police }};font-size:66px;line-height:1;color:{{ c.couleur }}">{{ c.lettre }}</span></span>
-<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:19px;color:#12233b;text-align:center">{{ c.nom }}</span>
-<button onClick="{{ c.explorer }}" style="width:100%;border:none;border-radius:11px;background:#2a9d6e;color:#fff;padding:12px;font-family:Archivo Black, Archivo, sans-serif;font-size:11.5px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;box-shadow:0 3px 0 #217d57">Exploration</button>
-<button onClick="{{ c.evaluer }}" style="width:100%;border:none;border-radius:11px;background:#f08a24;color:#fff;padding:12px;font-family:Archivo Black, Archivo, sans-serif;font-size:11.5px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;box-shadow:0 3px 0 #c96f14">Évaluation</button>
+<div style="min-width:0;background:#fff;border-radius:18px;box-shadow:0 5px 16px rgba(0,0,0,0.2);display:flex;flex-direction:column;align-items:center;gap:{{ gapCarte }};padding:{{ padCarte }}">
+<span style="width:100%;height:{{ hImgChamp }};border-radius:16px;background:#fff;border:2px solid {{ c.couleur }};background-image:{{ c.bg }};background-size:78%;background-repeat:no-repeat;background-position:center;display:flex;align-items:center;justify-content:center"><span style="font-family:{{ c.police }};font-size:66px;line-height:1;color:{{ c.couleur }}">{{ c.lettre }}</span></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:{{ tNomChamp }};color:#12233b;text-align:center">{{ c.nom }}</span>
+<button onClick="{{ c.explorer }}" style="width:100%;border:none;border-radius:11px;background:#2a9d6e;color:#fff;padding:{{ padBtnChamp }};font-family:Archivo Black, Archivo, sans-serif;font-size:{{ tBtnChamp }};letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;box-shadow:0 3px 0 #217d57">Exploration</button>
+<button onClick="{{ c.evaluer }}" style="width:100%;border:none;border-radius:11px;background:#f08a24;color:#fff;padding:{{ padBtnChamp }};font-family:Archivo Black, Archivo, sans-serif;font-size:{{ tBtnChamp }};letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;box-shadow:0 3px 0 #c96f14">Évaluation</button>
 </div>
 </sc-for>
 </div>
@@ -377,7 +377,7 @@ input,select,button{font-family:inherit}
 </sc-if>
 
 <sc-if value="{{ estNiveau }}" hint-placeholder-val="{{ false }}">
-<div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:26px;background:url('clean/mur-briques.png') repeat">
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:{{ alignVert }};padding:{{ padDecor }};background:url('clean/mur-briques.png') repeat;overflow-y:{{ debord }};overflow-x:hidden">
 <div style="width:100%;max-width:1000px;box-sizing:border-box;box-shadow:0 12px 28px rgba(0,0,0,0.28);background-image:url('clean/liege.png');background-size:100% 100%;background-repeat:no-repeat;padding:16px 20px 18px;display:flex;flex-direction:column;align-items:center;gap:12px">
 <div style="position:relative;background:#fdf3c4;padding:11px 34px;transform:rotate(-1deg);box-shadow:0 4px 10px rgba(0,0,0,0.3)">
 <span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:block"></span>
@@ -399,7 +399,7 @@ input,select,button{font-family:inherit}
 </sc-if>
 
 <sc-if value="{{ estThemeEleve }}" hint-placeholder-val="{{ false }}">
-<div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:26px;background:url('clean/mur-briques.png') repeat">
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:{{ alignVert }};padding:{{ padDecor }};background:url('clean/mur-briques.png') repeat;overflow-y:{{ debord }};overflow-x:hidden">
 <div style="width:100%;max-width:1000px;box-sizing:border-box;box-shadow:0 12px 28px rgba(0,0,0,0.28);background-image:url('clean/liege.png');background-size:100% 100%;background-repeat:no-repeat;padding:16px 20px 18px;display:flex;flex-direction:column;align-items:center;gap:12px">
 <div style="position:relative;background:#fdf3c4;padding:11px 34px;transform:rotate(-1deg);box-shadow:0 4px 10px rgba(0,0,0,0.3)">
 <span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:block"></span>
@@ -1300,7 +1300,18 @@ class Component extends DCLogic {
     if(this._maj) window.removeEventListener('resize',this._maj);
     if(this._ro) this._ro.disconnect();
   }
-  tel(){ return (this.state.largeur||window.innerWidth||1200)<760; }
+  tel(){
+    const l=this.state.largeur||window.innerWidth||1200;
+    if(l<760) return true;
+    try{
+      // téléphone en mode « site pour ordinateur » : écran physique étroit ou écran tactile
+      const ecran=Math.min(window.screen.width||9999, window.screen.height||9999);
+      if(ecran<520) return true;
+      const tactile=window.matchMedia&&window.matchMedia('(pointer:coarse)').matches;
+      if(tactile&&l<1100) return true;
+    }catch(e){}
+    return false;
+  }
   chargerPerso(){
     try{ const b=localStorage.getItem('upe2a-themes-perso');
       if(b){ const o=JSON.parse(b); if(o&&typeof o==='object')
@@ -2478,6 +2489,19 @@ class Component extends DCLogic {
       estTel:this.tel(), pasTel:!this.tel(),
       affDecor:this.tel()?'none':'block',
       largJauge:this.tel()?'26px':'44px',
+      debord:'auto',
+      hMaxPanneau:'none',
+      alignVert:'flex-start',
+      padDecor:this.tel()?'12px 10px 20px':'26px 26px 30px',
+      colChamps:this.tel()?'repeat(2,minmax(0,1fr))':'repeat(auto-fit,minmax(190px,1fr))',
+      gapChamps:this.tel()?'10px':'20px',
+      gapCarte:this.tel()?'8px':'14px',
+      padCarte:this.tel()?'12px 10px':'22px 16px',
+      hImgChamp:this.tel()?'62px':'112px',
+      tNomChamp:this.tel()?'14px':'19px',
+      tBtnChamp:this.tel()?'9.5px':'11.5px',
+      padBtnChamp:this.tel()?'11px 6px':'12px',
+      tEtiquette:this.tel()?'15px':'20px',
       padRetour:this.tel()?'11px 13px':'10px 16px',
       tailleRetour:this.tel()?'16px':'11px',
       largeurPanneau:this.tel()?'100%':'min(1120px, 100% - 300px)',
