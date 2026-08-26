@@ -65,7 +65,7 @@ input,select,button{font-family:inherit}
 <sc-if value="{{ estDevoir }}" hint-placeholder-val="{{ false }}">
 <div style="flex:0 0 auto;background:#6d5bd0;color:#fff;display:flex;align-items:center;justify-content:center;gap:10px;padding:8px 16px">
 <span style="font-size:16px;line-height:1">&#127911;</span>
-<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:12.5px;letter-spacing:0.06em;text-transform:uppercase">J'écoute chez moi</span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:12.5px;letter-spacing:0.06em;text-transform:uppercase">Je continue chez moi</span>
 <span style="font-size:12.5px;opacity:0.85">{{ titreDevoir }}</span>
 </div>
 </sc-if>
@@ -164,12 +164,11 @@ input,select,button{font-family:inherit}
 <span style="font-family:Archivo Black, Archivo, sans-serif;font-size:16px;letter-spacing:0.03em;text-transform:uppercase;color:#8a4b1e;white-space:nowrap">Les lettres et les sons</span>
 </span>
 <span style="width:100%;display:grid;grid-template-columns:{{ colApercu }};gap:10px">
-<span style="background:#fff;border:4px solid #1d4e89;border-radius:11px;box-shadow:0 3px 10px rgba(0,0,0,0.18);height:88px;display:flex;align-items:center;justify-content:center"><span style="font-family:Archivo Black, Archivo, sans-serif;font-size:38px;color:#1d4e89">A</span></span>
-<span style="background:#fff;border:4px solid #2a9d6e;border-radius:11px;box-shadow:0 3px 10px rgba(0,0,0,0.18);height:88px;display:flex;align-items:center;justify-content:center"><span style="font-family:BA Script, Archivo, sans-serif;font-size:40px;color:#2a9d6e">a</span></span>
-<span style="background:#fff;border:4px solid #6d5bd0;border-radius:11px;box-shadow:0 3px 10px rgba(0,0,0,0.18);height:88px;display:flex;align-items:center;justify-content:center"><span style="font-family:BA Script, Archivo, sans-serif;font-size:26px;color:#6d5bd0">ou</span></span>
-<span style="background:#fff;border:4px solid #e59a2b;border-radius:11px;box-shadow:0 3px 10px rgba(0,0,0,0.18);height:88px;background-image:url('clean/mot-crayon.png');background-size:104%;background-repeat:no-repeat;background-position:center;padding:0;display:block"></span>
+<sc-for list="{{ apercuCode }}" as="a" hint-placeholder-count="4">
+<span style="background:#fff;border:4px solid {{ a.couleur }};border-radius:11px;box-shadow:0 3px 10px rgba(0,0,0,0.18);height:88px;background-image:{{ a.bg }};background-size:contain;background-repeat:no-repeat;background-position:center;background-origin:content-box;padding:7px;display:flex;align-items:center;justify-content:center"><span style="font-family:{{ a.police }};font-size:{{ a.taille }};color:{{ a.couleur }}">{{ a.lettre }}</span></span>
+</sc-for>
 </span>
-<span style="font-size:14px;color:#fdf3c4;text-shadow:0 1px 3px rgba(0,0,0,0.5)">12 ateliers &middot; les lettres, les sons, j'écris</span>
+<span style="font-size:14px;color:#fdf3c4;text-shadow:0 1px 3px rgba(0,0,0,0.5)">{{ apercuCodeTexte }}</span>
 </button>
 </div>
 </div>
@@ -727,13 +726,25 @@ input,select,button{font-family:inherit}
 
 <div style="background:#fff;border-radius:10px;padding:17px;display:flex;flex-direction:column;gap:8px;box-shadow:0 1px 3px rgba(20,33,61,0.12);overflow:auto">
 <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
-<span style="font-size:14.5px;font-weight:700;color:#1d4e89">Thèmes accessibles</span>
+<span style="font-size:14.5px;font-weight:700;color:#1d4e89">Réglages des thèmes</span>
 <button onClick="{{ basculerTout }}" style="flex:0 0 auto;border:1px solid #1d4e89;border-radius:6px;background:#f2f7fc;color:#1d4e89;padding:5px 10px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap">{{ libelleTout }}</button>
 </div>
 <sc-for list="{{ themes }}" as="t" hint-placeholder-count="8">
 <button onClick="{{ t.basculer }}" style="display:flex;align-items:center;gap:9px;border:none;border-bottom:1px solid #eef1f5;background:none;padding:8px 2px;padding-left:{{ t.indent }};cursor:pointer;text-align:left">
 <span style="flex:0 0 auto;width:17px;height:17px;border:1.5px solid #1d4e89;border-radius:4px;background:{{ t.coche }};display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;font-weight:700">{{ t.marque }}</span>
 <span style="font-size:13px;color:#14213d;font-weight:{{ t.poids }}">{{ t.nom }}</span>
+</button>
+</sc-for>
+<div style="display:flex;align-items:center;gap:8px;margin-top:12px">
+<span style="flex:1;height:1px;background:#dde2e9;display:block"></span>
+<span style="flex:0 0 auto;font-size:9.5px;letter-spacing:0.14em;text-transform:uppercase;color:#1d4e89;font-weight:700">lettres et sons</span>
+<span style="flex:1;height:1px;background:#dde2e9;display:block"></span>
+</div>
+<sc-for list="{{ ateliersCode }}" as="c" hint-placeholder-count="12">
+<button onClick="{{ c.basculer }}" style="display:flex;align-items:center;gap:9px;border:none;border-bottom:1px solid #eef1f5;background:none;padding:8px 2px;cursor:pointer;text-align:left">
+<span style="flex:0 0 auto;width:17px;height:17px;border:1.5px solid #1d4e89;border-radius:4px;background:{{ c.coche }};display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;font-weight:700">{{ c.marque }}</span>
+<span style="flex:0 0 auto;width:9px;height:9px;border-radius:50%;background:{{ c.couleur }};display:block"></span>
+<span style="font-size:13px;color:#14213d">{{ c.nom }}</span>
 </button>
 </sc-for>
 <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
@@ -795,38 +806,72 @@ input,select,button{font-family:inherit}
 <button onClick="{{ essayerVoix }}" style="border:none;border-radius:7px;background:#6d5bd0;color:#fff;padding:9px 14px;font-size:12.5px;font-weight:700;cursor:pointer">Écouter un exemple</button>
 <span style="font-size:11.5px;color:#6b7386">{{ infoVoix }}</span>
 
-<div style="flex:0 0 auto;display:flex;align-items:center;gap:8px;margin-top:6px">
-<span style="flex:1;height:1px;background:#dde2e9;display:block"></span>
-<span style="flex:0 0 auto;font-size:9.5px;letter-spacing:0.14em;text-transform:uppercase;color:#2a9d6e;font-weight:700">j'écoute chez moi</span>
-<span style="flex:1;height:1px;background:#dde2e9;display:block"></span>
+
 </div>
-<span style="font-size:11.5px;color:#8a91a3;line-height:1.45">Choisis le thème et le niveau, copie le lien, colle-le dans Pronote. L'élève arrive directement sur l'exercice.</span>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-<select value="{{ devThemeSel }}" onChange="{{ setDevTheme }}" style="border:1px solid #c9cfd8;border-radius:6px;padding:8px 10px;font-size:12.5px;background:#fff">
-<sc-for list="{{ devThemes }}" as="t" hint-placeholder-count="4">
-<option value="{{ t }}">{{ t }}</option>
+
+
+
+</div>
+</sc-if>
+
+<sc-if value="{{ estDevoirs }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:270px 1fr;gap:20px;padding:22px 24px">
+
+<div style="min-height:0;background:#fff;border-radius:10px;padding:16px;box-shadow:0 1px 3px rgba(20,33,61,0.12);display:flex;flex-direction:column;gap:9px;overflow:hidden">
+<span style="flex:0 0 auto;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#8a91a3;font-weight:700">Le thème</span>
+<div style="flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column">
+<sc-for list="{{ devThemes }}" as="t" hint-placeholder-count="10">
+<button onClick="{{ t.choisir }}" style="border:none;border-left:4px solid {{ t.trait }};border-bottom:1px solid #eef1f5;background:{{ t.fond }};padding:9px;font-size:13px;color:#14213d;cursor:pointer;text-align:left">{{ t.nom }}</button>
 </sc-for>
-</select>
-<select value="{{ devNiveauSel }}" onChange="{{ setDevNiveau }}" style="border:1px solid #c9cfd8;border-radius:6px;padding:8px 10px;font-size:12.5px;background:#fff">
-<option value="1">Les mots</option>
-<option value="2">Les phrases</option>
-<option value="3">Les textes</option>
-</select>
 </div>
-<select value="{{ devChampSel }}" onChange="{{ setDevChamp }}" style="border:1px solid #c9cfd8;border-radius:6px;padding:8px 10px;font-size:12.5px;background:#fff">
-<option value="ecoute">J'écoute</option>
-<option value="lis">Je lis</option>
-<option value="parle">Je parle</option>
-<option value="ecris">J'écris</option>
-</select>
-<div style="display:flex;align-items:center;gap:8px;background:#f4f6f9;border:1px solid #dde2e9;border-radius:6px;padding:9px 11px">
-<span style="flex:1;min-width:0;font-size:11.5px;color:#14213d;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ lienDevoir }}</span>
-<button onClick="{{ copierLien }}" style="flex:0 0 auto;border:none;border-radius:6px;background:#2a9d6e;color:#fff;padding:7px 13px;font-size:11.5px;font-weight:700;cursor:pointer">Copier</button>
-</div>
-<span style="font-size:11.5px;color:#2a9d6e">{{ infoLien }}</span>
 </div>
 
+<div style="min-height:0;background:#fff;border-radius:10px;padding:18px 20px;box-shadow:0 1px 3px rgba(20,33,61,0.12);display:flex;flex-direction:column;gap:14px;overflow-y:auto;overflow-x:hidden">
+<span style="flex:0 0 auto;font-family:Archivo Black, Archivo, sans-serif;font-size:17px;color:#12233b">{{ devThemeSel }}</span>
 
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:7px">
+<span style="font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#8a91a3;font-weight:700">Le niveau</span>
+<div style="display:flex;gap:0;border:1.5px solid #c9cfd8;border-radius:8px;overflow:hidden;align-self:flex-start">
+<sc-for list="{{ devNiveaux }}" as="n" hint-placeholder-count="3">
+<button onClick="{{ n.choisir }}" style="border:none;border-left:{{ n.trait }};background:{{ n.fond }};color:{{ n.encre }};padding:9px 20px;font-size:12.5px;font-weight:700;cursor:pointer">{{ n.nom }}</button>
+</sc-for>
+</div>
+</div>
+
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:7px">
+<span style="font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#8a91a3;font-weight:700">Le type d'exercice — coche ce que tu veux donner</span>
+<div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px">
+<sc-for list="{{ devChamps }}" as="c" hint-placeholder-count="4">
+<button onClick="{{ c.basculer }}" style="display:flex;flex-direction:column;align-items:center;gap:7px;border:2.5px solid {{ c.bord }};border-radius:12px;background:{{ c.fond }};padding:12px 8px;cursor:pointer">
+<span style="width:100%;height:52px;background-image:{{ c.bg }};background-size:contain;background-repeat:no-repeat;background-position:center;display:block;opacity:{{ c.opacite }}"></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:12.5px;color:{{ c.encre }}">{{ c.nom }}</span>
+</button>
+</sc-for>
+</div>
+</div>
+
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:8px">
+<span style="font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#8a91a3;font-weight:700">Les liens à coller dans Pronote</span>
+<sc-for list="{{ devLiens }}" as="l" hint-placeholder-count="1">
+<div style="display:flex;align-items:center;gap:10px;border:1px solid #dde2e9;border-radius:8px;background:#f8fafc;padding:9px 12px">
+<span style="flex:0 0 130px;font-size:12.5px;font-weight:700;color:#12233b">{{ l.titre }}</span>
+<span style="flex:1;min-width:0;font-size:11.5px;color:#6b7386;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ l.url }}</span>
+<button onClick="{{ l.copier }}" style="flex:0 0 auto;border:none;border-radius:6px;background:#2a9d6e;color:#fff;padding:7px 14px;font-size:11.5px;font-weight:700;cursor:pointer">Copier</button>
+</div>
+</sc-for>
+<sc-if value="{{ devAucun }}" hint-placeholder-val="{{ false }}">
+<span style="font-size:12.5px;color:#c1440e">Coche au moins un type d'exercice.</span>
+</sc-if>
+</div>
+
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+<button onClick="{{ copierTout }}" style="border:none;border-radius:8px;background:#1d4e89;color:#fff;padding:11px 20px;font-size:12.5px;font-weight:700;cursor:pointer">Copier tout le bloc</button>
+<button onClick="{{ essaiDevoir }}" style="border:1.5px solid #c9cfd8;border-radius:8px;background:#fff;color:#14213d;padding:11px 18px;font-size:12.5px;cursor:pointer">Essayer comme un élève</button>
+<span style="font-size:12px;color:#2a9d6e">{{ infoLien }}</span>
+</div>
+
+<span style="flex:0 0 auto;font-size:12px;color:#8a91a3;line-height:1.55">Pour différencier : dans Pronote, un même travail peut être donné à un seul élève ou à un groupe. Tu peux donc envoyer « J'écoute » à l'un et « Je lis » à l'autre, avec le même thème ou pas. Rien n'est enregistré côté application : l'élève te montre son écran de fin.</span>
+</div>
 
 </div>
 </sc-if>
@@ -1345,12 +1390,35 @@ class Component extends DCLogic {
     const net={}; Object.keys(sel).forEach(k=>{ if(ids[k]) net[k]=sel[k]; });
     if(Object.keys(net).length!==Object.keys(sel).length){ this.enregistrerOutils(net); this.setState({outilsSel:net}); }
   }
-  lienDevoir(){
+  cartesCodeActives(){
+    const s=this.state;
+    return [
+        ['Alphabet 1','#1d4e89','A','Archivo Black, Archivo, sans-serif','26px',[],'alphabet','capitale'],
+        ['Alphabet 2','#2a9d6e','a','BA Script, Archivo, sans-serif','28px',[],'alphabet','script'],
+        ['Alphabet 3','#8a4b1e','a','BA Cursive, cursive','28px',[],'alphabet','cursive'],
+        ["J'écris l'alphabet",'#e59a2b','','Archivo',' ',[],'alphabet','ecrire'],
+        ['Graphèmes complexes 1','#6d5bd0','','Archivo','13px',['ou','é','au'],'gc1','script'],
+        ['Graphèmes complexes 2','#6d5bd0','','Archivo','13px',['on','an','in'],'gc2','script'],
+        ['Graphèmes complexes 3','#6d5bd0','','Archivo','13px',['ch','ph','gn'],'gc3','script'],
+        ["J'écris les graphèmes",'#e59a2b','','Archivo',' ',[],'gcAll','ecrire'],
+        ['Consonnes doubles','#c4479e','','Archivo','13px',['cr','br','dr'],'cd','script'],
+        ["J'écris les consonnes",'#e59a2b','','Archivo',' ',[],'cd','ecrire'],
+        ['Autres graphèmes','#1682a0','','Archivo','13px',['ge','ç','ss'],'ag','script'],
+        ["J'écris les graphies",'#e59a2b','','Archivo',' ',[],'ag','ecrire']
+      ].filter(([nom])=>(s.codeOn||{})[nom]!==false)
+       .map(([nom,couleur,lettre,police,taille,chips,lot,casse],i)=>({
+        nom,couleur,lettre,police,taille,chips,rang:i+1,
+        bg:casse==='ecrire'?"url('clean/mot-crayon.png')":'none',
+        explorer:()=>{ if(casse==='ecrire') this.lancerAlphaEcrire('Exploration',lot); else this.lancerAlpha(casse,'Exploration',lot); },
+        evaluer:()=>{ if(casse==='ecrire') this.lancerAlphaEcrire('Évaluation',lot); else this.lancerAlpha(casse,'Évaluation',lot); }
+    }));
+  }
+  lienDevoir(champ){
     const s=this.state;
     const sansAccent=x=>String(x||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');
     const cle=sansAccent(s.devTheme||'Le corps');
     const base=(location.origin+location.pathname).replace(/[^/]*$/,'');
-    return base+'?devoir='+cle+'-'+(s.devNiveau||'1')+'-'+(s.devChamp||'ecoute');
+    return base+'?devoir='+cle+'-'+(s.devNiveau||'1')+'-'+(champ||s.devChamp||'ecoute');
   }
   litDevoir(){
     try{
@@ -1980,7 +2048,7 @@ class Component extends DCLogic {
   renderVals(){
     const s=this.state;
     const TITRES={accueil:'Espace enseignant',eleve:'Espace élève',groupes:'Gestion des groupes et des élèves',reglages:'Réglages et accès aux exercices',bilan:'Bilan des exercices',oral:'Écoute des productions orales',themes:'Création de thèmes',mdp:'Mot de passe sécurisé',
-      sons:'Progression des sons', outils:'Mes outils — imprimer mes fiches', competences:'Grilles de compétences',
+      sons:'Progression des sons', outils:'Mes outils — imprimer mes fiches', competences:'Grilles de compétences', devoirs:'Je continue chez moi — préparer le travail du soir',
       alpha:"L'alphabet",alphaEcrire:'Écris la lettre',resultatAlpha:'Résultat',
       themeAccueil:'Choisis ton tableau', tableauThemes:'Choisis ton thème', tableauCode:'Les lettres et les sons',sousTheme:s.themeParent||'Choisis',niveau:'Choisis ton niveau',themeEleve:'Choisis un thème',explore:s.themeEleve||'Exploration',trouve:'Trouve la bonne image',vf:'Vrai ou faux',lireDessin:'Trouve le bon dessin',lireMot:'Trouve le bon mot',repete:'Écoute et répète',situation:'Que dis-tu ?',ecrire:s.modeEcrire==='completer'?'Complète le mot':'Écris le mot',resultat:'Résultat'};
     const tuiles=[
@@ -1991,7 +2059,8 @@ class Component extends DCLogic {
       ['Productions orales','#c4479e','5','oral'],
       ['Bilan des exercices','#e8654f','6','bilan'],
       ['Grilles de compétences','#1682a0','7','competences'],
-      ['Mes outils','#8a4b1e','8','outils']
+      ['Mes outils','#8a4b1e','8','outils'],
+      ['Je continue chez moi','#6d5bd0','9','devoirs']
     ].map(([titre,couleur,icone,ec,img])=>({titre,couleur,icone,
       bg:img?"url('clean/"+img+".png')":'none',
       taille:img==='tuile-reglages'?'52%':'cover', ouvrir:()=>this.go(ec)}));
@@ -2162,7 +2231,7 @@ class Component extends DCLogic {
         })
       };
     };
-    const themes=LISTE.filter(t=>t.nom!=='La politesse').map(mkTheme);
+    const themes=LISTE.filter(t=>t.nom!=='La politesse'&&t.nom!=="L'alphabet").map(mkTheme);
     const themesDirectsParam=LISTE.filter(t=>t.nom==='La politesse').map(mkTheme);
 
     const BRUT=[
@@ -2514,25 +2583,17 @@ class Component extends DCLogic {
       finConsigneExplore:this.consigneExplore().replace(/^Clique/,''), estTrouve:s.ecran==='trouve', estResultat:s.ecran==='resultat',
       niveauxEleve, themesEleve, grille, choixQuiz, sousThemes,
       themesAccueil:themesAccueil.filter(t=>t.nom!=="L'alphabet"),
-      cartesCode:[
-        ['Alphabet 1','#1d4e89','A','Archivo Black, Archivo, sans-serif','26px',[],'alphabet','capitale'],
-        ['Alphabet 2','#2a9d6e','a','BA Script, Archivo, sans-serif','28px',[],'alphabet','script'],
-        ['Alphabet 3','#8a4b1e','a','BA Cursive, cursive','28px',[],'alphabet','cursive'],
-        ["J'écris l'alphabet",'#e59a2b','','Archivo',' ',[],'alphabet','ecrire'],
-        ['Graphèmes complexes 1','#6d5bd0','','Archivo','13px',['ou','é','au'],'gc1','script'],
-        ['Graphèmes complexes 2','#6d5bd0','','Archivo','13px',['on','an','in'],'gc2','script'],
-        ['Graphèmes complexes 3','#6d5bd0','','Archivo','13px',['ch','ph','gn'],'gc3','script'],
-        ["J'écris les graphèmes",'#e59a2b','','Archivo',' ',[],'gcAll','ecrire'],
-        ['Consonnes doubles','#c4479e','','Archivo','13px',['cr','br','dr'],'cd','script'],
-        ["J'écris les consonnes",'#e59a2b','','Archivo',' ',[],'cd','ecrire'],
-        ['Autres graphèmes','#1682a0','','Archivo','13px',['ge','ç','ss'],'ag','script'],
-        ["J'écris les graphies",'#e59a2b','','Archivo',' ',[],'ag','ecrire']
-      ].map(([nom,couleur,lettre,police,taille,chips,lot,casse],i)=>({
-        nom,couleur,lettre,police,taille,chips,rang:i+1,
-        bg:casse==='ecrire'?"url('clean/mot-crayon.png')":'none',
-        explorer:()=>{ if(casse==='ecrire') this.lancerAlphaEcrire('Exploration',lot); else this.lancerAlpha(casse,'Exploration',lot); },
-        evaluer:()=>{ if(casse==='ecrire') this.lancerAlphaEcrire('Évaluation',lot); else this.lancerAlpha(casse,'Évaluation',lot); }
-      })),
+      ateliersCode:[
+        ['Alphabet 1','#1d4e89'],['Alphabet 2','#2a9d6e'],['Alphabet 3','#8a4b1e'],["J'écris l'alphabet",'#e59a2b'],
+        ['Graphèmes complexes 1','#6d5bd0'],['Graphèmes complexes 2','#6d5bd0'],['Graphèmes complexes 3','#6d5bd0'],["J'écris les graphèmes",'#e59a2b'],
+        ['Consonnes doubles','#c4479e'],["J'écris les consonnes",'#e59a2b'],
+        ['Autres graphèmes','#1682a0'],["J'écris les graphies",'#e59a2b']
+      ].map(([nom,couleur])=>{
+        const on=(s.codeOn||{})[nom]!==false;
+        return {nom, couleur, coche:on?'#1d4e89':'#fff', marque:on?'✓':'',
+          basculer:()=>this.setState(p=>({codeOn:{...(p.codeOn||{}),[nom]:((p.codeOn||{})[nom]===false)}}))};
+      }),
+      cartesCode:this.cartesCodeActives(),
       voixDispo:(()=>{
         const l=this.voixFr();
         if(!l.length) return [{nom:'',libelle:'Voix du système'}];
@@ -2547,20 +2608,72 @@ class Component extends DCLogic {
         const bonnes=l.filter(v=>/natural|premium|enhanced|siri|neural/i.test(v.name)).length;
         return l.length+' voix française'+(l.length>1?'s':'')+' · '+(bonnes?bonnes+' de haute qualité (★)':'aucune voix haute qualité installée');
       })(),
-      devThemes:this.tousThemes(),
+      estDevoirs:s.ecran==='devoirs',
       devThemeSel:s.devTheme||'Le corps',
-      devNiveauSel:s.devNiveau||'1',
-      devChampSel:s.devChamp||'ecoute',
-      setDevTheme:e=>this.setState({devTheme:e.target.value,infoLien:''}),
-      setDevNiveau:e=>this.setState({devNiveau:e.target.value,infoLien:''}),
-      setDevChamp:e=>this.setState({devChamp:e.target.value,infoLien:''}),
-      lienDevoir:this.lienDevoir(),
-      copierLien:()=>{
-        const l=this.lienDevoir();
-        try{ navigator.clipboard.writeText(l); this.setState({infoLien:'Lien copié. Colle-le dans Pronote.'}); }
-        catch(e){ this.setState({infoLien:l}); }
+      devThemes:this.tousThemes().map(n=>({
+        nom:n, fond:n===(s.devTheme||'Le corps')?'#eaf2fb':'#fff',
+        trait:n===(s.devTheme||'Le corps')?'#6d5bd0':'transparent',
+        choisir:()=>this.setState({devTheme:n,infoLien:''})
+      })),
+      devNiveaux:[['1','Les mots'],['2','Les phrases'],['3','Les textes']].map(([k,nom],i)=>{
+        const on=(s.devNiveau||'1')===k;
+        return {nom, fond:on?'#1d4e89':'#fff', encre:on?'#fff':'#6b7386',
+          trait:i?'1.5px solid #c9cfd8':'none',
+          choisir:()=>this.setState({devNiveau:k,infoLien:''})};
+      }),
+      devChamps:[['ecoute',"J'écoute",'oreille'],['lis','Je lis','livre'],['parle','Je parle','bouche'],['ecris',"J'écris",'crayon']].map(([k,nom,img])=>{
+        const coches=s.devCoches||{ecoute:true};
+        const on=!!coches[k];
+        return {nom, bg:this.urlImg(img), opacite:on?'1':'0.35',
+          fond:on?'#f2effc':'#fff', bord:on?'#6d5bd0':'#dde2e9', encre:on?'#4a3ba8':'#8a91a3',
+          basculer:()=>this.setState(pr=>{ const c={...(pr.devCoches||{ecoute:true})}; c[k]=!c[k]; return {devCoches:c,infoLien:''}; })};
+      }),
+      devLiens:(()=>{
+        const coches=s.devCoches||{ecoute:true};
+        const noms={ecoute:"J'écoute",lis:'Je lis',parle:'Je parle',ecris:"J'écris"};
+        return ['ecoute','lis','parle','ecris'].filter(k=>coches[k]).map(k=>{
+          const url=this.lienDevoir(k);
+          return {titre:noms[k], url,
+            copier:()=>{ try{ navigator.clipboard.writeText(url); this.setState({infoLien:'Lien « '+noms[k]+' » copié.'}); }catch(e){ this.setState({infoLien:url}); } }};
+        });
+      })(),
+      devAucun:!['ecoute','lis','parle','ecris'].some(k=>(s.devCoches||{ecoute:true})[k]),
+      copierTout:()=>{
+        const coches=s.devCoches||{ecoute:true};
+        const noms={ecoute:"J'écoute",lis:'Je lis',parle:'Je parle',ecris:"J'écris"};
+        const niv={'1':'les mots','2':'les phrases','3':'les textes'}[s.devNiveau||'1'];
+        const lignes=['ecoute','lis','parle','ecris'].filter(k=>coches[k])
+          .map(k=>noms[k]+' — '+(s.devTheme||'Le corps')+', '+niv+' : '+this.lienDevoir(k));
+        const bloc=lignes.join('\n');
+        try{ navigator.clipboard.writeText(bloc); this.setState({infoLien:lignes.length+' lien(s) copié(s).'}); }
+        catch(e){ this.setState({infoLien:bloc}); }
+      },
+      essaiDevoir:()=>{
+        const k=['ecoute','lis','parle','ecris'].find(x=>(s.devCoches||{ecoute:true})[x])||'ecoute';
+        const champs={ecoute:"J'écoute",lis:'Je lis',parle:'Je parle',ecris:"J'écris"};
+        const niveaux={'1':'Les mots','2':'Les phrases','3':'Les textes'};
+        const d={theme:s.devTheme||'Le corps', niveau:niveaux[s.devNiveau||'1'], champ:champs[k]};
+        this.setState({devoir:d, verrou:true, themeEleve:d.theme, champEleve:d.champ, modeEleve:'Exploration'});
+        setTimeout(()=>{ const ex=this.exosDe(d.niveau); if(ex&&ex.length) this.lancerSerie(d.niveau,ex); },200);
       },
       infoLien:s.infoLien||'',
+      apercuCode:(()=>{
+        const c=this.cartesCodeActives();
+        return c.slice(0,4).map(x=>{
+          const chips=(x.chips||[]);
+          const texte=x.lettre||chips.slice(0,2).join(' ');
+          return {
+            couleur:x.couleur, lettre:texte,
+            police:chips.length?'BA Script, Archivo, sans-serif':x.police,
+            taille:chips.length?'21px':'38px',
+            bg:x.bg
+          };
+        });
+      })(),
+      apercuCodeTexte:(()=>{
+        const n=this.cartesCodeActives().length;
+        return n+' atelier'+(n>1?'s':'')+' · les lettres, les sons, j\u2019écris';
+      })(),
       estThemeAccueil:s.ecran==='themeAccueil',
       estTableauThemes:s.ecran==='tableauThemes',
       estTableauCode:s.ecran==='tableauCode',

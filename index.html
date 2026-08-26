@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>UPE2A NSA — supports</title>
 <link rel="stylesheet" href="polices.css" />
+<script>
+// un lien « J'écoute chez moi » va droit à l'application
+(function(){
+  var q = location.search || '';
+  if (/[?&]devoir=/.test(q)) {
+    location.replace('APPLI%20-%20Espace%20enseignant.dc.html' + q);
+  }
+})();
+</script>
 <style>
   *{box-sizing:border-box}
   body{margin:0;background:#eef2f7;font-family:Archivo,system-ui,sans-serif;color:#14213d}
