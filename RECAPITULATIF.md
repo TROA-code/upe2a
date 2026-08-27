@@ -29,7 +29,9 @@ Pour imprimer : ouvre dans Chrome, Fichier → Imprimer → Enregistrer au forma
 
 ## Reste à faire
 1. Séances de phonologie : 15 sons sur 18 à construire
-2. Images du dictionnaire : lycée, ville, papiers, positions, contraires, mois, saisons
+2. Images du dictionnaire : lycée, et les contraires manquants
+   (ouvert/fermé, plein/vide, jeune/vieux). Déjà faits : mois, saisons,
+   positions, ville, chaud/froid, grand/petit, propre/sale, lourd/léger.
 3. Application : mémoire des données (groupes, réglages, scores)
 4. Application : onglet « Mes outils » — imprimer les fiches choisies en un clic
 5. Livret 3 : pages de lexique et d'exercices
