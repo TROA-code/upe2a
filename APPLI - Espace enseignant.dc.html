@@ -36,6 +36,8 @@ input,select,button{font-family:inherit}
 <script src="./fiches-source.js"></script>
 <script src="./fiches-themes.js"></script>
 <script src="./lecture-code.js"></script>
+<script src="./lecture-sons.js"></script>
+<script src="./sons-fiches.js"></script>
 </helmet>
 <div class="om-nonprint" style="height:100vh;min-height:0;overflow:hidden;display:flex;flex-direction:column;font-family:Archivo, Arial, sans-serif;color:#12233b;background:#f4f6f9">
 
@@ -278,20 +280,278 @@ input,select,button{font-family:inherit}
 <span style="font-size:12.5px;color:#8a91a3;padding-bottom:10px">{{ nombreSons }}</span>
 <button onClick="{{ reinitSons }}" style="border:1px solid #c9cfd8;border-radius:8px;background:#fff;color:#12233b;padding:10px 16px;font-size:12.5px;cursor:pointer">Liste de départ</button>
 </div>
+<span style="flex:0 0 auto;font-size:12.5px;color:#6b7386;line-height:1.45">Clique sur un son pour ouvrir sa page. Pour changer l'ordre, <b>attrape une case et dépose-la</b> à sa place.</span>
 <div style="flex:1;min-height:0;background:#fff;border-radius:10px;box-shadow:0 1px 3px rgba(20,33,61,0.12);padding:12px;overflow:auto">
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:9px">
 <sc-for list="{{ listeSons }}" as="s" hint-placeholder-count="8">
-<div style="display:flex;align-items:center;gap:8px;border:1px solid #dde2e9;border-radius:9px;padding:8px 10px">
-<span style="flex:0 0 auto;width:24px;font-size:11.5px;color:#8a91a3">{{ s.rang }}</span>
-<span style="flex:1;font-family:Archivo Black, Archivo, sans-serif;font-size:20px;color:#12233b">{{ s.son }}</span>
-<button onClick="{{ s.dire }}" title="Écouter" style="flex:0 0 auto;width:30px;height:30px;border-radius:50%;border:none;background:#f08a24;color:#fff;font-size:13px;cursor:pointer">&#9658;</button>
-<button onClick="{{ s.monter }}" title="Monter" style="flex:0 0 auto;width:30px;height:30px;border-radius:7px;border:1px solid #c9cfd8;background:#fff;color:#12233b;font-size:13px;cursor:pointer">&#8593;</button>
-<button onClick="{{ s.descendre }}" title="Descendre" style="flex:0 0 auto;width:30px;height:30px;border-radius:7px;border:1px solid #c9cfd8;background:#fff;color:#12233b;font-size:13px;cursor:pointer">&#8595;</button>
-<button onClick="{{ s.retirer }}" title="Retirer" style="flex:0 0 auto;width:30px;height:30px;border-radius:7px;border:1px solid #e8b3ac;background:#fff;color:#c0392b;font-size:15px;cursor:pointer">&times;</button>
+<div draggable="{{ vrai }}" onDragStart="{{ s.glisserDebut }}" onDragOver="{{ s.glisserSur }}" onDragLeave="{{ s.glisserSort }}" onDrop="{{ s.deposer }}" onDragEnd="{{ s.glisserFin }}" style="display:grid;grid-template-columns:20px 14px 1fr 30px 30px;align-items:center;gap:7px;border:1.5px solid {{ s.bord }};border-radius:9px;padding:8px 10px;background:{{ s.fond }};opacity:{{ s.opacite }};cursor:grab">
+<span style="font-size:11.5px;color:#8a91a3">{{ s.rang }}</span>
+<span title="Glisse la case pour changer l'ordre" style="font-size:13px;color:#b9c6d6;line-height:1;letter-spacing:-1px">&#8942;&#8942;</span>
+<button onClick="{{ s.ouvrir }}" title="Ouvrir la page de ce son" style="min-width:0;display:flex;align-items:baseline;gap:7px;border:none;background:none;padding:0;cursor:pointer;text-align:left">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:19px;color:#12233b">{{ s.son }}</span>
+<span style="flex:1;min-width:0;font-size:11px;color:#8a91a3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ s.api }}</span>
+<span style="font-size:12px;color:#1d4e89;font-weight:700">&#8250;</span>
+</button>
+<button onClick="{{ s.dire }}" title="Écouter" style="width:30px;height:30px;border-radius:50%;border:none;background:#f08a24;color:#fff;font-size:12px;cursor:pointer;padding:0">&#9658;</button>
+<button onClick="{{ s.retirer }}" title="Retirer" style="width:30px;height:30px;border-radius:7px;border:1px solid #e8b3ac;background:#fff;color:#c0392b;font-size:15px;cursor:pointer;padding:0">&times;</button>
 </div>
 </sc-for>
 </div>
 </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ estSonFiche }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;gap:14px;padding:20px 24px 28px">
+
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:14px;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(20,33,61,0.12);padding:16px 18px">
+<button onClick="{{ sonRetour }}" style="flex:0 0 auto;border:1px solid #c9cfd8;border-radius:9px;background:#fff;color:#12233b;padding:9px 14px;font-size:12.5px;cursor:pointer">&#8592; Les sons</button>
+<span style="flex:0 0 auto;display:flex;align-items:baseline;gap:10px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:40px;line-height:1;color:#12233b">{{ sonCle }}</span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:20px;color:#4fc3d9">{{ sonApi }}</span>
+</span>
+<button onClick="{{ sonDire }}" title="Écouter le son" style="flex:0 0 auto;width:40px;height:40px;border-radius:50%;border:none;background:#f08a24;color:#fff;font-size:16px;cursor:pointer;box-shadow:0 2px 0 #c96f14">&#9658;</button>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:9px">
+<sc-for list="{{ sonReperes }}" as="r" hint-placeholder-count="0">
+<span style="display:flex;align-items:center;gap:5px;background:#f7f2e6;border-radius:7px;padding:4px 7px">
+<sc-if value="{{ r.aPhoto }}" hint-placeholder-val="{{ false }}">
+<span title="{{ r.mot }}" style="width:26px;height:26px;background-image:url({{ r.img }});background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+</sc-if>
+<sc-if value="{{ r.sansPhoto }}" hint-placeholder-val="{{ false }}">
+<span style="width:26px;height:26px;display:flex;align-items:center;justify-content:center;border:1px dashed #c9b98f;border-radius:5px;font-size:7.5px;color:#8a7c55;text-align:center;line-height:1.1">photo</span>
+</sc-if>
+<span style="font-family:Verdana, Tahoma, sans-serif;font-size:11px;color:#6b5a2e">{{ r.mot }}</span>
+</span>
+</sc-for>
+<sc-if value="{{ aSonGeste }}" hint-placeholder-val="{{ false }}">
+<span title="Geste Borel-Maisonny" style="width:30px;height:30px;background-image:url({{ sonGeste }});background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+</sc-if>
+</div>
+<span style="flex:1;display:flex;flex-direction:column;gap:2px">
+<span style="font-size:12.5px;color:#6b7386">{{ sonRang }}</span>
+<span style="font-size:11.5px;letter-spacing:0.09em;text-transform:uppercase;color:#8a91a3">{{ sonFamille }}</span>
+</span>
+<button onClick="{{ sonPrec }}" style="flex:0 0 auto;border:1px solid #c9cfd8;border-radius:9px;background:#fff;color:#12233b;padding:9px 13px;font-size:12.5px;cursor:pointer">&#8592; {{ sonPrecNom }}</button>
+<button onClick="{{ sonSuiv }}" style="flex:0 0 auto;border:1px solid #c9cfd8;border-radius:9px;background:#fff;color:#12233b;padding:9px 13px;font-size:12.5px;cursor:pointer">{{ sonSuivNom }} &#8594;</button>
+</div>
+
+<div style="flex:0 0 auto;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(20,33,61,0.12);padding:15px 17px;display:flex;flex-direction:column;gap:13px">
+
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+<span style="flex:0 0 auto;font-size:14.5px;font-weight:700;color:#1d4e89">Fiches et jeux du son</span>
+<span style="flex:1"></span>
+<sc-for list="{{ sonFamilles }}" as="fa" hint-placeholder-count="3">
+<button onClick="{{ fa.choisir }}" style="border:1.5px solid {{ fa.bord }};border-radius:9px;background:{{ fa.fond }};color:{{ fa.encre }};padding:9px 15px;font-size:12.5px;font-weight:700;cursor:pointer">{{ fa.nom }}</button>
+</sc-for>
+</div>
+
+<sc-if value="{{ sonPasLien }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start">
+<div style="flex:0 0 250px;display:flex;flex-direction:column;gap:8px">
+<span style="font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a91a3;font-weight:700">Les fiches</span>
+<sc-for list="{{ sonTypesListe }}" as="ty" hint-placeholder-count="4">
+<button onClick="{{ ty.basculer }}" style="display:flex;align-items:center;gap:9px;border:1px solid #dde2e9;border-radius:7px;background:{{ ty.fond }};padding:8px 10px;cursor:pointer;text-align:left">
+<span style="flex:0 0 auto;width:17px;height:17px;border:1.5px solid #1d4e89;border-radius:4px;background:{{ ty.coche }};display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;font-weight:700">{{ ty.marque }}</span>
+<span style="flex:1;font-size:12px;color:#12233b">{{ ty.nom }}</span>
+</button>
+</sc-for>
+<sc-if value="{{ sonEstEleve }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;flex-direction:column;gap:7px;border-top:1px solid #eef1f5;padding-top:9px">
+<div style="display:flex;align-items:baseline;gap:8px">
+<span style="flex:1;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a91a3;font-weight:700">Les six mots</span>
+<button onClick="{{ sonAutreTirage }}" style="border:1px solid #c9cfd8;border-radius:7px;background:#fff;color:#12233b;padding:6px 10px;font-size:11px;cursor:pointer">Autre tirage</button>
+</div>
+<span style="font-size:11px;color:#8a91a3;line-height:1.4">Tirés au hasard parmi les mots illustrés qui portent ce son. La croix remplace un mot.</span>
+<div style="display:flex;gap:6px;flex-wrap:wrap">
+<sc-for list="{{ sonMots6 }}" as="m6" hint-placeholder-count="0">
+<span style="display:flex;align-items:center;gap:6px;border:1px solid #dde2e9;border-radius:7px;padding:4px 6px 4px 4px">
+<span style="width:22px;height:22px;background-image:url({{ m6.img }});background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+<span style="font-family:Verdana, Tahoma, sans-serif;font-size:11.5px;color:#12233b">{{ m6.txt }}</span>
+<button onClick="{{ m6.retirer }}" title="Remplacer ce mot" style="border:none;background:none;color:#c0392b;font-size:13px;line-height:1;cursor:pointer;padding:0 2px">&times;</button>
+</span>
+</sc-for>
+</div>
+<span style="font-size:11px;color:#8a91a3">{{ sonMots6Info }}</span>
+</div>
+</sc-if>
+
+</div>
+
+<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+<span style="flex:1;font-size:12px;color:#6b7386">{{ sonFabResume }}</span>
+<span style="font-size:11.5px;color:#8a91a3">{{ sonPanier }}</span>
+<button onClick="{{ imprimerOutils }}" style="border:none;border-radius:10px;background:#2a9d6e;color:#fff;padding:10px 18px;font-family:Archivo Black, Archivo, sans-serif;font-size:11.5px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer">Imprimer</button>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px">
+<sc-for list="{{ sonVignettes }}" as="v" hint-placeholder-count="3">
+<div style="display:flex;flex-direction:column;gap:6px">
+<button onClick="{{ v.basculer }}" style="position:relative;width:100%;padding:0;border:3px solid {{ v.bord }};border-radius:9px;background:#fff;overflow:hidden;cursor:pointer;aspect-ratio:210/297">
+<span style="position:absolute;top:0;left:0;width:794px;height:1123px;transform:scale(0.2143);transform-origin:top left;display:block;pointer-events:none">
+<dc-import name="APPLI - Fiche" f="{{ v.feuille }}" hint-size="210mm,297mm"></dc-import>
+</span>
+<span style="position:absolute;top:7px;right:7px;width:24px;height:24px;border-radius:50%;background:{{ v.badgeFond }};color:#fff;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center">{{ v.badge }}</span>
+</button>
+<div style="display:flex;align-items:center;gap:7px">
+<span style="flex:1;min-width:0;font-size:11.5px;color:#12233b;line-height:1.3">{{ v.titre }}</span>
+<button onClick="{{ v.moins }}" style="width:24px;height:24px;border:1px solid #c9cfd8;border-radius:6px;background:#fff;color:#12233b;font-size:13px;cursor:pointer;padding:0">&minus;</button>
+<span style="min-width:16px;text-align:center;font-size:12.5px;font-weight:700;color:{{ v.couleurNb }}">{{ v.nb }}</span>
+<button onClick="{{ v.plus }}" style="width:24px;height:24px;border:1px solid #c9cfd8;border-radius:6px;background:#fff;color:#12233b;font-size:13px;cursor:pointer;padding:0">+</button>
+</div>
+<span style="font-size:10.5px;color:#8a91a3">{{ v.pages }}</span>
+</div>
+</sc-for>
+</div>
+<sc-if value="{{ sonAucuneFiche }}" hint-placeholder-val="{{ false }}">
+<span style="font-size:12.5px;color:#6b7386;line-height:1.5">{{ sonAucuneRaison }}</span>
+</sc-if>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ sonEstLien }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start">
+<div style="flex:0 0 280px;display:flex;flex-direction:column;gap:8px">
+<span style="font-size:11.5px;color:#6b7386;line-height:1.5">Colle ici le lien d'un exercice que tu as créé sur LearningApps ou Wordwall. Il se range dans ce son. À terme, le jeu sera refait dans l'application et le lien disparaîtra.</span>
+<input value="{{ sonNvLien }}" onChange="{{ setSonNvLien }}" placeholder="Le titre du jeu" style="width:100%;box-sizing:border-box;border:1px solid #c9cfd8;border-radius:6px;padding:9px 11px;font-size:12.5px" />
+<input value="{{ sonNvLienUrl }}" onChange="{{ setSonNvLienUrl }}" placeholder="https://..." style="width:100%;box-sizing:border-box;border:1px solid #c9cfd8;border-radius:6px;padding:9px 11px;font-size:12.5px" />
+<button onClick="{{ sonAjouterLien }}" style="align-self:flex-start;border:none;border-radius:8px;background:#1d4e89;color:#fff;padding:10px 18px;font-size:12.5px;font-weight:700;cursor:pointer">Ajouter</button>
+<span style="font-size:11.5px;color:#c0392b">{{ sonInfoLien }}</span>
+</div>
+<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:10px">
+<sc-if value="{{ sonAtelierPret }}" hint-placeholder-val="{{ true }}">
+<button onClick="{{ sonOuvrirJeu }}" style="align-self:flex-start;display:flex;align-items:center;gap:13px;border:2px solid #2a9d6e;border-radius:12px;padding:12px 18px 12px 14px;background:#f4fbf7;cursor:pointer;text-align:left;box-shadow:0 1px 3px rgba(20,33,61,0.1)" style-hover="background:#e9f7f0;box-shadow:0 4px 12px rgba(20,33,61,0.16)">
+<span style="flex:0 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;width:40px;height:36px">
+<span style="width:0;height:0;border-left:20px solid transparent;border-right:20px solid transparent;border-bottom:14px solid #1d4e89"></span>
+<span style="width:34px;height:20px;background:#e9f0f8;border:1.5px solid #1d4e89;border-top:none;display:flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:700;color:#1d4e89">{{ sonEtiquette }}</span>
+</span>
+<span style="display:flex;flex-direction:column;gap:2px">
+<span style="font-size:13.5px;font-weight:700;color:#1d7a54">La maison du {{ sonEtiquette }}</span>
+<span style="font-size:11.5px;color:#4a7a66">Refaite dans l'application — clique pour jouer</span>
+</span>
+</button>
+</sc-if>
+
+<sc-if value="{{ sonJeuOuvert }}" hint-placeholder-val="{{ false }}">
+<div style="position:fixed;inset:0;z-index:70;background:rgba(18,35,59,0.55);display:flex;flex-direction:column;padding:14px;gap:10px">
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:12px">
+<span style="flex:1;font-family:Archivo Black, Archivo, sans-serif;font-size:14px;color:#fff">La maison du {{ sonEtiquette }}</span>
+<button onClick="{{ sonFermerJeu }}" style="border:none;border-radius:9px;background:#fff;color:#12233b;padding:10px 18px;font-size:12.5px;font-weight:700;cursor:pointer">Fermer</button>
+</div>
+<iframe src="{{ sonAtelierUrl }}" title="La maison des sons" style="flex:1;min-height:0;width:100%;border:none;border-radius:12px;background:#f4f6f9"></iframe>
+</div>
+</sc-if>
+<sc-for list="{{ sonJeux }}" as="j" hint-placeholder-count="1">
+<div style="display:flex;flex-direction:column;gap:7px;border:1px solid #dde2e9;border-radius:9px;padding:11px 13px">
+<div style="display:flex;align-items:center;gap:10px">
+<span style="flex:1;font-size:13px;font-weight:700;color:#12233b">{{ j.titre }}</span>
+<button onClick="{{ j.retirer }}" style="border:1px solid #e8b3ac;border-radius:7px;background:#fff;color:#c0392b;padding:6px 11px;font-size:11.5px;cursor:pointer">Retirer</button>
+</div>
+<iframe src="{{ j.url }}" title="{{ j.titre }}" style="width:100%;height:320px;border:1px solid #eef1f5;border-radius:7px"></iframe>
+</div>
+</sc-for>
+<sc-if value="{{ sonAucunJeu }}" hint-placeholder-val="{{ true }}">
+<span style="font-size:12.5px;color:#8a91a3">Aucun lien LearningApps ou Wordwall pour ce son.</span>
+</sc-if>
+</div>
+</div>
+</sc-if>
+
+</div>
+
+<div style="flex:0 0 auto;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(20,33,61,0.12);padding:15px 17px;display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
+<span style="flex:1;font-size:14.5px;font-weight:700;color:#1d4e89">Les mots des thèmes où on entend ce son</span>
+<span style="font-size:12px;color:#8a91a3">{{ sonMotsResume }}</span>
+</div>
+<sc-for list="{{ sonMotsThemes }}" as="t" hint-placeholder-count="3">
+<div style="display:flex;flex-direction:column;gap:7px">
+<span style="font-size:11.5px;letter-spacing:0.09em;text-transform:uppercase;color:#c4479e">{{ t.theme }}</span>
+<div style="display:flex;gap:7px;flex-wrap:wrap">
+<sc-for list="{{ t.mots }}" as="m" hint-placeholder-count="4">
+<button onClick="{{ m.dire }}" title="Écouter" style="display:flex;align-items:center;gap:7px;border:1px solid #dde2e9;border-radius:8px;background:#fff;padding:5px 9px;cursor:pointer">
+<span style="font-family:Verdana, Tahoma, sans-serif;font-size:13px;color:#12233b">{{ m.txt }}</span>
+<span style="font-size:9px;color:#f08a24">&#9658;</span>
+</button>
+</sc-for>
+</div>
+</div>
+</sc-for>
+<sc-if value="{{ sonSansMots }}" hint-placeholder-val="{{ false }}">
+<span style="font-size:12.5px;color:#8a91a3">Aucun mot des thèmes ne porte ce son pour le moment.</span>
+</sc-if>
+</div>
+
+</div>
+</sc-if>
+
+<sc-if value="{{ estTexte }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;display:flex;gap:16px;padding:20px 24px 24px;overflow:hidden">
+
+<div style="flex:0 1 380px;min-width:280px;display:flex;flex-direction:column;gap:12px;overflow-y:auto">
+<div style="flex:0 0 auto;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(20,33,61,0.12);padding:15px 17px;display:flex;flex-direction:column;gap:10px">
+<span style="font-size:11.5px;letter-spacing:0.1em;text-transform:uppercase;color:#8a91a3">Le texte à lire</span>
+<textarea value="{{ txtTexte }}" onChange="{{ setTxtTexte }}" placeholder="Colle ici le texte de la séance." style="border:1px solid #c9cfd8;border-radius:8px;padding:10px 12px;font-family:Verdana, Tahoma, sans-serif;font-size:13.5px;line-height:1.5;min-height:150px;resize:vertical"></textarea>
+<div style="display:flex;flex-direction:column;gap:5px">
+<span style="font-size:11.5px;letter-spacing:0.1em;text-transform:uppercase;color:#8a91a3">La consigne</span>
+<input value="{{ txtConsigne }}" onChange="{{ setTxtConsigne }}" style="border:1px solid #c9cfd8;border-radius:8px;padding:9px 12px;font-size:13px" />
+</div>
+</div>
+
+<div style="flex:0 0 auto;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(20,33,61,0.12);padding:15px 17px;display:flex;flex-direction:column;gap:11px">
+<span style="font-size:11.5px;letter-spacing:0.1em;text-transform:uppercase;color:#8a91a3">Les aides</span>
+<div style="display:grid;grid-template-columns:1fr;gap:8px">
+<sc-for list="{{ aidesLecture }}" as="a" hint-placeholder-count="5">
+<button onClick="{{ a.basculer }}" style="display:flex;align-items:flex-start;gap:9px;border:1.5px solid {{ a.bord }};border-radius:8px;background:{{ a.fond }};padding:9px 11px;cursor:pointer;text-align:left">
+<span style="flex:0 0 auto;width:17px;height:17px;border:1.5px solid #1d4e89;border-radius:4px;background:{{ a.coche }};display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;font-weight:700">{{ a.marque }}</span>
+<span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px">
+<span style="font-size:12px;font-weight:700;color:#12233b">{{ a.nom }}</span>
+<span style="font-size:12px">{{ a.demo }}</span>
+</span>
+</button>
+</sc-for>
+</div>
+</div>
+
+<div style="flex:0 0 auto;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(20,33,61,0.12);padding:15px 17px;display:flex;flex-direction:column;gap:10px">
+<span style="font-size:11.5px;letter-spacing:0.1em;text-transform:uppercase;color:#8a91a3">L'interligne</span>
+<span style="font-size:11.5px;color:#8a91a3;line-height:1.45">Ici le réglage est à toi : c'est un texte à lire, pas un lignage à écrire.</span>
+<div style="display:flex;gap:7px;flex-wrap:wrap">
+<sc-for list="{{ txtInterlignes }}" as="i" hint-placeholder-count="4">
+<button onClick="{{ i.choisir }}" style="border:1.5px solid {{ i.bord }};border-radius:8px;background:{{ i.fond }};color:{{ i.couleur }};padding:8px 14px;font-size:12.5px;font-weight:700;cursor:pointer">{{ i.nom }}</button>
+</sc-for>
+</div>
+<div style="display:flex;gap:7px;flex-wrap:wrap">
+<sc-for list="{{ txtTailles }}" as="t" hint-placeholder-count="3">
+<button onClick="{{ t.choisir }}" style="border:1.5px solid {{ t.bord }};border-radius:8px;background:{{ t.fond }};color:{{ t.couleur }};padding:8px 14px;font-size:12.5px;font-weight:700;cursor:pointer">{{ t.nom }}</button>
+</sc-for>
+</div>
+</div>
+
+<sc-if value="{{ aTxtDoutes }}" hint-placeholder-val="{{ false }}">
+<div style="flex:0 0 auto;background:#fdf4e2;border:1.5px solid #e3c380;border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:7px">
+<span style="font-size:12.5px;font-weight:700;color:#8a6a1e">À vérifier avant d'imprimer</span>
+<sc-for list="{{ txtDoutes }}" as="d" hint-placeholder-count="2">
+<span style="font-size:12px;color:#6b5a2e;line-height:1.45">{{ d }}</span>
+</sc-for>
+</div>
+</sc-if>
+</div>
+
+<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:12px;overflow:hidden">
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:12px">
+<span style="flex:1;font-size:12.5px;color:#6b7386">{{ txtResume }}</span>
+<button onClick="{{ txtImprimer }}" style="border:none;border-radius:11px;background:#2a9d6e;color:#fff;padding:12px 24px;font-family:Archivo Black, Archivo, sans-serif;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer">Imprimer</button>
+</div>
+<div ref="{{ txtRef }}" style="flex:1;min-height:0;min-width:0;overflow:auto;display:flex;justify-content:center;padding-bottom:10px">
+<div style="position:relative;width:{{ txtCadreW }};height:{{ txtCadreH }};flex:0 0 auto;border:1px solid #dde2e9;background:#fff;box-shadow:0 6px 24px rgba(18,35,59,0.2);overflow:hidden">
+<span style="position:absolute;top:0;left:0;width:794px;height:1123px;transform:scale({{ txtEchelle }});transform-origin:top left;display:block;pointer-events:none">
+<dc-import name="APPLI - Fiche" f="{{ txtFeuille }}" hint-size="210mm,297mm"></dc-import>
+</span>
+</div>
+</div>
+</div>
+
 </div>
 </sc-if>
 
@@ -1872,6 +2132,10 @@ class Component extends DCLogic {
     this._maj=()=>{
       const l=Math.min(document.body.clientWidth||9999, window.innerWidth||9999);
       if(l&&l!==this.state.largeur) this.setState({largeur:l});
+      // l'aperçu A4 d'« Aider un texte » suit la place réellement disponible
+      const z=this._txtZone;
+      if(z){ const w=z.clientWidth;
+        if(w && Math.abs(w-(this.state.txtLargeur||0))>4) this.setState({txtLargeur:w}); }
     };
     window.addEventListener('resize',this._maj);
     try{ this._ro=new ResizeObserver(this._maj); this._ro.observe(document.body); }catch(e){}
@@ -2188,7 +2452,8 @@ class Component extends DCLogic {
     return lots;
   }
   toutesFeuilles(){
-    const base=toutesLesFeuilles().filter(f=>f.coll!=='lotos');
+    const base=toutesLesFeuilles().filter(f=>f.coll!=='lotos')
+      .concat(Object.keys(this._sonCache||{}).map(k=>this._sonCache[k]));
     const gen=this.fichesFabriquees();
     const vus={}; gen.forEach(f=>{ vus[f.id]=1; });
     const sel=this.state.outilsSel||{};
@@ -2525,6 +2790,17 @@ class Component extends DCLogic {
       return {sons:l,infoSon:'« '+s+' » retiré.'};
     });
   }
+  reordonnerSons(cle,cible){
+    this.setState(p=>{
+      const l=[...(p.sons||SONS_INIT)];
+      const i=l.indexOf(cle), j=l.indexOf(cible);
+      if(i<0||j<0||i===j) return {sonGlisse:'',sonSurvole:''};
+      l.splice(i,1); l.splice(j,0,cle);
+      this.enregistrerSons(l);
+      return {sons:l, sonGlisse:'', sonSurvole:'',
+        infoSon:'« '+cle+' » placé en position '+(l.indexOf(cle)+1)+'.'};
+    });
+  }
   deplacerSon(s,sens){
     this.setState(p=>{
       const l=[...(p.sons||SONS_INIT)], i=l.indexOf(s), j=i+sens;
@@ -2688,16 +2964,235 @@ class Component extends DCLogic {
   }
   grp(){ return this.state.groupes.find(g=>g.nom===this.state.groupeSel)||this.state.groupes[0]; }
 
+  /* Lecture — la page d'un son (étape 2) et l'écran « Aider un texte ».
+     La progression des sons devient la colonne vertébrale : chaque son ouvre sa page. */
+  valsLecture(s){
+    // travail lourd (banque de mots, fabrication des pages) : seulement sur ces deux écrans
+    if(s.ecran!=='son' && s.ecran!=='texte') return {estSonFiche:false, estTexte:false};
+    const LS=window.LECTURE_SONS, LC=window.LECTURE_CODE;
+    const prog=s.sons||SONS_INIT;
+    const cle=s.sonCle||prog[0]||'a';
+    const f=LS?LS.sonDe(cle):null;
+    const i=prog.indexOf(cle);
+    const prec=i>0?prog[i-1]:prog[prog.length-1];
+    const suiv=(i>=0&&i<prog.length-1)?prog[i+1]:prog[0];
+    const reperes=(f?f.reperes:[]).map(r=>({mot:r[0], img:'clean/mot-'+r[1]+'.png',
+      aPhoto:LS?LS.aPhoto(r[1]):false, sansPhoto:LS?!LS.aPhoto(r[1]):true}));
+    const pagesS=LS?LS.pagesSeance(cle):[];
+    /* Fiches et jeux du son : même geste que dans Lexique — trois familles.
+       Les séances A, I et O recopiées à la main ne sont pas regénérées. */
+    const G=window.FICHES_THEMES, SF=window.SONS_FICHES;
+    const fam=(s.sonFamille==='lien')?'lien':'eleve';
+    const coche=k=>(s.sonTypes||{})[k]!==false;
+    const idxSon=LS?LS.SONS.findIndex(x=>x.cle===cle):-1;
+    const slugSon='s'+(idxSon<0?0:idxSon);
+    const banque=[], vusB={};
+    this.tousThemes().forEach(t=>(this.motsDe(t)||[]).forEach(m=>{
+      if(!m||!m[1]) return;
+      const k=String(m[0]).toLowerCase();
+      if(vusB[k]) return; vusB[k]=1;
+      banque.push([m[0], this.srcImg(m[1])]);
+    }));
+    const seed=(s.sonSeed||{})[cle]||0;
+    const retires=(s.sonRetires||{})[cle]||[];
+    const tir=SF?SF.tirer(cle, banque, seed, 6+retires.length+4, 4)
+      :{mots:[],intrus:[],totalDispo:0};
+    const mots6=tir.mots.filter(m=>retires.indexOf(m[0])<0).slice(0,6);
+    const motsSon=banque.filter(m=>LS&&LS.contient(cle, SF?SF.sansArticle(m[0]):m[0]))
+      .filter(m=>!(LS.ecarte&&LS.ecarte(m[0])));
+    const typesSonActifs={};
+    (SF?SF.TYPES:[]).forEach(t=>{ if(t[2]===fam && coche(t[0])) typesSonActifs[t[0]]=true; });
+    let pagesFam=[];
+    if(SF && fam==='eleve'){
+      if(pagesS.length && coche('seance')) pagesFam=pagesS.slice();
+      const t2=Object.assign({}, typesSonActifs);
+      if(pagesS.length) t2.seance=false;
+      pagesFam=pagesFam.concat(SF.build({son:cle, fiche:f, seed:seed,
+        tirage:{mots:mots6, intrus:tir.intrus}, types:t2}));
+    }
+    const typesLex={};
+    (G?G.types:[]).forEach(t=>{ if(t[2]===fam && coche(t[0])) typesLex[t[0]]=true; });
+    const pagesLex=(G && fam!=='lien' && motsSon.length>=2 && Object.keys(typesLex).length)
+      ? G.build({theme:'Le son '+(f?f.api:cle), items:motsSon, types:typesLex,
+          planches:s.fabPlanches||4, interligne:s.fabInterligne||'moyen',
+          modele:s.fabModele!==false})
+        .map(p=>Object.assign({}, p, {coll:'sonfab',
+          id:'sonlex-'+slugSon+'-'+String(p.id).replace(/^gen-[^-]*-/,'')}))
+      : [];
+    const fichesSon=pagesFam.concat(pagesLex);
+    this._sonCache=this._sonCache||{};
+    // les pages recopiées vivent déjà dans fiches-source.js : on ne les met pas en cache
+    fichesSon.forEach(p=>{ if(!/^sonsF-/.test(p.id)) this._sonCache[p.id]=p; });
+    const lotsSon=[], parSon={};
+    fichesSon.forEach(p=>{
+      const b=String(p.id||'').split('-');
+      const k=(b[0]==='son'||b[0]==='sonlex')?(b[0]+'-'+b[2]):(p.coll+'-'+(b[1]||p.id));
+      if(!parSon[k]){ parSon[k]={cle:k, premier:p, pages:[]}; lotsSon.push(parSon[k]); }
+      parSon[k].pages.push(p);
+    });
+    const jeuxSon=(((s.perso||{}).jeuxSons||{})[cle]||[]);
+    const groupes=[];
+    if(LS && f){
+      this.tousThemes().forEach(t=>{
+        const mots=(this.motsDe(t)||[]).map(m=>m[0]).filter(m=>LS.contient(cle,m));
+        if(mots.length) groupes.push({theme:t, mots:mots.map(m=>({txt:m, dire:()=>this.dire(m)}))});
+      });
+    }
+    const nbMots=groupes.reduce((n,g)=>n+g.mots.length,0);
+    const inter=s.txtInter||2, taille=s.txtTaille||18;
+    const feuilleTexte=LS?LS.pageTexte({titre:'Je lis', texte:s.txtTexte||'',
+      consigne:s.txtConsigne===undefined?'Je lis le texte.':s.txtConsigne,
+      aides:s.aides||{}, interligne:inter, taille:taille}):null;
+    const btn=on=>({fond:on?'#1d4e89':'#fff', bord:on?'#1d4e89':'#c9cfd8', couleur:on?'#fff':'#12233b'});
+    // 794 px = 210 mm : l'aperçu se met à l'échelle de la colonne, il ne déborde jamais
+    const ech=Math.max(0.2, Math.min(0.62, ((s.txtLargeur||380)-8)/794));
+    const FAM={voyelle:'Voyelle', nasale:'Voyelle nasale', consonne:'Consonne'};
+    return {
+      estSonFiche:s.ecran==='son',
+      sonCle:cle, sonApi:f?f.api:'',
+      sonFamille:f?(FAM[f.famille]||''):'Son à décrire',
+      sonRang:i>=0?('Son '+(i+1)+' sur '+prog.length+' dans la progression')
+        :'Ce son n’est pas dans la progression de la classe',
+      sonDire:()=>this.dire(cle),
+      sonRetour:()=>this.setState({ecran:'sons'}),
+      sonPrec:()=>this.setState({sonCle:prec}), sonSuiv:()=>this.setState({sonCle:suiv}),
+      sonPrecNom:prec||'', sonSuivNom:suiv||'',
+      sonGraphies:(f?f.graphies:[]).map(g=>({cap:g.toLocaleUpperCase('fr-FR'), script:g})),
+      sonReperes:reperes, sonSansRepere:reperes.length===0,
+      sonGeste:(f&&f.geste)||'', aSonGeste:!!(f&&f.geste), sansSonGeste:!(f&&f.geste),
+      /* Les ateliers à manipuler du lexique n'ont pas de sens pour un son :
+         onglet retiré en attendant un fichier d'ateliers propre aux sons. */
+      sonFamilles:((G||{familles:[]}).familles||[]).filter(fa=>fa[0]!=='atelier').map(fa=>{
+        const on=fam===fa[0];
+        return {nom:fa[1], fond:on?'#1d4e89':'#fff', bord:on?'#1d4e89':'#c9cfd8',
+          encre:on?'#fff':'#6b7386', choisir:()=>this.setState({sonFamille:fa[0]})};
+      }),
+      sonEstEleve:fam==='eleve', sonEstAtelier:fam==='atelier',
+      sonEstLien:fam==='lien', sonPasLien:fam!=='lien',
+      sonTypesListe:((SF?SF.TYPES:[]).concat((G?G.types:[]).map(t=>[t[0],t[1],t[2]])))
+        .filter(t=>t[2]===fam)
+        .filter(t=>t[0]!=='combinatoire' || (f&&f.famille==='consonne'))
+        .map(t=>{
+          const on=coche(t[0]);
+          return {nom:(t[0]==='seance'&&pagesS.length)?'Séance de phonologie — la tienne, recopiée':t[1],
+            marque:on?'✓':'', coche:on?'#1d4e89':'#fff', fond:on?'#f2f7fc':'#fff',
+            basculer:()=>this.setState(pr=>{
+              const n=Object.assign({},pr.sonTypes||{});
+              n[t[0]]=(n[t[0]]===false);
+              return {sonTypes:n};
+            })};
+        }),
+      sonMots6:mots6.map(m=>({txt:SF?SF.sansArticle(m[0]):m[0], img:m[1],
+        retirer:()=>this.setState(pr=>{
+          const r=Object.assign({},pr.sonRetires||{});
+          r[cle]=[...(r[cle]||[]), m[0]];
+          return {sonRetires:r};
+        })})),
+      sonMots6Info:(()=>{
+        const n=tir.totalDispo||0;
+        if(!n) return 'Aucun mot illustré ne porte ce son : il faut d’abord des photos.';
+        if(mots6.length<6) return 'Seulement '+mots6.length+' mot'+(mots6.length>1?'s':'')+' disponible'+(mots6.length>1?'s':'')+' sur 6.';
+        return n+' mots illustrés portent ce son.';
+      })(),
+      sonAutreTirage:()=>this.setState(pr=>{
+        const sd=Object.assign({},pr.sonSeed||{}), r=Object.assign({},pr.sonRetires||{});
+        sd[cle]=((sd[cle]||0)+1)%97; r[cle]=[];
+        return {sonSeed:sd, sonRetires:r};
+      }),
+      sonVignettes:lotsSon.map(l=>{
+        const ids=l.pages.map(p=>p.id);
+        const n=(s.outilsSel||{})[ids[0]]||0;
+        const titre=String(l.premier.nom||'').replace(/^[^—]*—\s*/,'')
+          .replace(/\s*\d+\s*\/\s*\d+\s*$/,'').replace(/\s+\d+$/,'').trim();
+        return {titre:titre||l.premier.nom, pages:l.pages.length+' page'+(l.pages.length>1?'s':''),
+          feuille:l.premier, nb:n,
+          bord:n?'#2a9d6e':'#dde2e9', badge:n?'✓':'',
+          badgeFond:n?'#2a9d6e':'rgba(18,35,59,0.12)',
+          couleurNb:n?'#2a9d6e':'#b9c6d6',
+          basculer:()=>this.setState({apercu:l.premier.id}),
+          plus:()=>ids.forEach(id=>this.majOutils(id,1,false)),
+          moins:()=>ids.forEach(id=>this.majOutils(id,-1,false))};
+      }),
+      sonAucuneFiche:fam!=='lien' && lotsSon.length===0,
+      sonAucuneRaison:motsSon.length<2
+        ? 'Il faut au moins deux mots illustrés portant ce son pour fabriquer une fiche.'
+        : 'Coche au moins un type de fiche.',
+      sonFabResume:(()=>{
+        if(!fichesSon.length) return '';
+        const n=fichesSon.reduce((t,p)=>t+((s.outilsSel||{})[p.id]||0),0);
+        return 'Le son '+(f?f.api:cle)+' · '+lotsSon.length+' fiche'+(lotsSon.length>1?'s':'')
+          +(n?(' · '+n+' page'+(n>1?'s':'')+' à imprimer'):' · aucune page choisie');
+      })(),
+      sonPanier:(()=>{ const n=this.panierTotal();
+        return n?('panier : '+n+' page'+(n>1?'s':'')+' en tout'):'panier vide'; })(),
+      sonNvLien:s.sonNvLien||'', setSonNvLien:e=>this.setState({sonNvLien:e.target.value}),
+      sonNvLienUrl:s.sonNvLienUrl||'', setSonNvLienUrl:e=>this.setState({sonNvLienUrl:e.target.value}),
+      sonInfoLien:s.sonInfoLien||'',
+      sonAjouterLien:()=>{
+        const titre=(s.sonNvLien||'').trim(), url=(s.sonNvLienUrl||'').trim();
+        if(!titre){ this.setState({sonInfoLien:'Donne un titre au jeu.'}); return; }
+        if(!/^https:\/\//.test(url)){ this.setState({sonInfoLien:'Le lien doit commencer par https://'}); return; }
+        this.majPerso(pr=>{ pr.jeuxSons=pr.jeuxSons||{};
+          pr.jeuxSons[cle]=[...(pr.jeuxSons[cle]||[]),[titre,url]]; });
+        this.setState({sonNvLien:'',sonNvLienUrl:'',sonInfoLien:''});
+      },
+      sonJeux:jeuxSon.map((j,i)=>({titre:j[0], url:j[1],
+        retirer:()=>this.majPerso(pr=>{ pr.jeuxSons=pr.jeuxSons||{};
+          pr.jeuxSons[cle]=(pr.jeuxSons[cle]||[]).filter((x,k)=>k!==i); })})),
+      sonAucunJeu:jeuxSon.length===0,
+      /* La maison des sons, refaite dans l'application : elle prend les mots du son
+         et des intrus, et s'ouvre pour n'importe quel phonème. */
+      sonAtelierUrl:(()=>{
+        const p=l=>l.map(m=>encodeURIComponent(m[0])+'|'+encodeURIComponent(m[1])).join(',');
+        const avec=(motsSon.length>=4?motsSon:tir.mots).slice(0,9);
+        if(avec.length<3) return '';
+        return 'FR%20-%20Maison%20des%20sons.dc.html?son='+encodeURIComponent(cle)
+          +'&mots='+p(avec)+'&intrus='+p(tir.intrus.slice(0,4));
+      })(),
+      sonEtiquette:'['+cle+']',
+      // le jeu s'ouvre dans l'application : un nouvel onglet perd l'accès à l'aperçu
+      sonJeuOuvert:!!s.sonJeuOuvert,
+      sonOuvrirJeu:()=>this.setState({sonJeuOuvert:true}),
+      sonFermerJeu:()=>this.setState({sonJeuOuvert:false}),
+      sonAtelierPret:(()=>{
+        const avec=(motsSon.length>=4?motsSon:tir.mots);
+        return avec.length>=3 && tir.intrus.length>=2;
+      })(),
+      sonMotsThemes:groupes, sonSansMots:groupes.length===0,
+      sonMotsResume:nbMots?(nbMots+' mot'+(nbMots>1?'s':'')+' · '+groupes.length+' thème'+(groupes.length>1?'s':'')):'',
+      estTexte:s.ecran==='texte',
+      txtTexte:s.txtTexte||'', setTxtTexte:e=>this.setState({txtTexte:e.target.value}),
+      txtConsigne:s.txtConsigne===undefined?'Je lis le texte.':s.txtConsigne,
+      setTxtConsigne:e=>this.setState({txtConsigne:e.target.value}),
+      txtInterlignes:[['Serré',1.5],['Normal',2],['Aéré',2.5],['Très aéré',3]]
+        .map(o=>Object.assign({nom:o[0], choisir:()=>this.setState({txtInter:o[1]})}, btn(inter===o[1]))),
+      txtTailles:[['Grand',18],['Très grand',24],['Énorme',30]]
+        .map(o=>Object.assign({nom:o[0], choisir:()=>this.setState({txtTaille:o[1]})}, btn(taille===o[1]))),
+      txtFeuille:feuilleTexte,
+      txtRef:el=>{ this._txtZone=el||null;
+        if(el){ const w=el.clientWidth;
+          if(w && Math.abs(w-(s.txtLargeur||0))>4) setTimeout(()=>this.setState({txtLargeur:w}),0); } },
+      txtEchelle:ech, txtCadreW:Math.round(794*ech)+'px', txtCadreH:Math.round(1123*ech)+'px',
+      txtImprimer:()=>{ if(!feuilleTexte) return;
+        this.setState({feuillesPrint:[feuilleTexte]});
+        setTimeout(()=>{ try{ window.print(); }catch(e){} }, 700); },
+      txtDoutes:((LC&&LC.doutesTexte)?LC.doutesTexte(s.txtTexte||''):[])
+        .map(d=>d[0]+' → '+d[1]+' · '+d[2]),
+      aTxtDoutes:!!(LC&&LC.doutesTexte&&LC.doutesTexte(s.txtTexte||'').length),
+      txtResume:(()=>{ const n=(s.txtTexte||'').trim().split(/\s+/).filter(Boolean).length;
+        return n?(n+' mot'+(n>1?'s':'')+' · aperçu A4'):'Colle un texte à gauche.'; })()
+    };
+  }
   renderVals(){
     const s=this.state;
     const TITRES_DOM={lexique:'Lexique — fiches à imprimer', jeux:'Lexique — jeux et ateliers',
       lecture:'Lecture — séances de phonologie', ecriture:'Écriture — apprentissage',
       maths:'Mathématiques — fiches à imprimer'};
     const TITRES={accueil:'Espace enseignant',eleve:'Espace élève',groupes:'Gestion des groupes et des élèves',reglages:'Réglages des thèmes',reglagesCode:'Réglages lettres et sons',fabrique:'Fiches et jeux — à fabriquer et à imprimer',bilan:'Bilan des exercices',oral:'Productions orales des thèmes',themes:'Création de thèmes',mdp:'Mot de passe sécurisé',
-      sons:'Progression des sons', creer:'Créer une fiche', outils:TITRES_DOM[s.outilsDomaine]||'Fiches à imprimer', competences:'Bilan des compétences', devoirs:'Je continue chez moi — préparer le travail du soir',
+      sons:'Les sons — la progression de la classe', son:'Le son « '+(s.sonCle||'')+' »', texte:'Aider un texte', creer:'Créer une fiche', outils:TITRES_DOM[s.outilsDomaine]||'Fiches à imprimer', competences:'Bilan des compétences', devoirs:'Je continue chez moi — préparer le travail du soir',
       alpha:"L'alphabet",alphaEcrire:'Écris la lettre',resultatAlpha:'Résultat',
       themeAccueil:'Choisis ton tableau', tableauThemes:'Choisis ton thème', tableauCode:'Les lettres et les sons',sousTheme:s.themeParent||'Choisis',niveau:'Choisis ton niveau',themeEleve:'Choisis un thème',explore:s.themeEleve||'Exploration',trouve:'Trouve la bonne image',vf:'Vrai ou faux',lireDessin:'Trouve le bon dessin',lireMot:'Trouve le bon mot',repete:'Écoute et répète',situation:'Que dis-tu ?',ecrire:s.modeEcrire==='completer'?'Complète le mot':'Écris le mot',resultat:'Résultat'};
-    const ECRANS_PROF=['groupes','reglages','reglagesCode','fabrique','bilan','oral','themes','sons','outils','creer','competences','devoirs','mdp'];
+    const ECRANS_PROF=['groupes','reglages','reglagesCode','fabrique','bilan','oral','themes','sons','son','texte','outils','creer','competences','devoirs','mdp'];
     const RUBRIQUES=[
       ['Ma classe','#2a9d6e',[
         ['Gestion des élèves','groupes'],
@@ -2707,10 +3202,10 @@ class Component extends DCLogic {
       ['Lexique','#c4479e',[
         ['Création de thèmes','themes'],
         ['👁 Réglages des thèmes','reglages'],
-        ['Fiches et jeux','fabrique'],
-        ['Fiches à imprimer','outils','lexique']]],
+        ['Fiches et jeux','fabrique']]],
       ['Lecture','#4fc3d9',[
-        ['Progression des sons','sons'],
+        ['Les sons','sons'],
+        ['Aider un texte','texte'],
         ['👁 Réglages lettres et sons','reglagesCode'],
         ['Séances de phonologie','outils','lecture']]],
       ['Écriture','#8a4b1e',[
@@ -2735,10 +3230,12 @@ class Component extends DCLogic {
       this.go(ec);
     };
     const VIF={'#2a9d6e':'#3fbf85','#c4479e':'#e070b0','#4fc3d9':'#5cc6dd','#8a4b1e':'#d98652','#e59a2b':'#eab04f','#6d5bd0':'#9184e0'};
+    // la page d'un son appartient à l'entrée « Les sons »
+    const ecMenu=s.ecran==='son'?'sons':s.ecran;
     const rubCourante=(()=>{
       for(const [rub,,items] of RUBRIQUES)
         for(const [,ec,dom] of items)
-          if(s.ecran===ec && (!dom || s.outilsDomaine===dom)) return rub;
+          if(ecMenu===ec && (!dom || s.outilsDomaine===dom)) return rub;
       return RUBRIQUES[0][0];
     })();
     const ouvertes=s.rubOuvertes||{[rubCourante]:true};
@@ -2762,7 +3259,7 @@ class Component extends DCLogic {
         }),
         items:items.map(([titre,ec,dom])=>{
           const avenir=!ec;
-          const actif=!avenir && s.ecran===ec && (!dom || s.outilsDomaine===dom);
+          const actif=!avenir && ecMenu===ec && (!dom || s.outilsDomaine===dom);
           return {titre:avenir?titre+' — à venir':titre, couleur:avenir?'#3d5470':couleur,
             point:avenir?'#3d5470':(VIF[couleur]||couleur),
             aff:dep?'flex':'none',
@@ -3020,6 +3517,23 @@ class Component extends DCLogic {
       estSons:s.ecran==='sons',
       listeSons:(s.sons||SONS_INIT).map((son,i)=>({
         son, rang:i+1,
+        api:(()=>{const LS=window.LECTURE_SONS, f=LS&&LS.sonDe(son); return f?f.api:'';})(),
+        ouvrir:()=>this.setState({ecran:'son',sonCle:son}),
+        // ordre au cliquer-déposer : plus de flèches
+        glisserDebut:e=>{ try{ e.dataTransfer.effectAllowed='move';
+            e.dataTransfer.setData('text/plain',son); }catch(x){}
+          this.setState({sonGlisse:son}); },
+        glisserSur:e=>{ e.preventDefault();
+          if(s.sonSurvole!==son) this.setState({sonSurvole:son}); },
+        glisserSort:()=>{ if(s.sonSurvole===son) this.setState({sonSurvole:''}); },
+        deposer:e=>{ e.preventDefault();
+          let src=s.sonGlisse;
+          try{ src=e.dataTransfer.getData('text/plain')||src; }catch(x){}
+          this.reordonnerSons(src, son); },
+        glisserFin:()=>this.setState({sonGlisse:'',sonSurvole:''}),
+        bord:s.sonSurvole===son&&s.sonGlisse!==son?'#f08a24':'#dde2e9',
+        fond:s.sonSurvole===son&&s.sonGlisse!==son?'#fdf1e2':'#fff',
+        opacite:s.sonGlisse===son?0.45:1,
         monter:()=>this.deplacerSon(son,-1),
         descendre:()=>this.deplacerSon(son,1),
         retirer:()=>this.retirerSon(son),
@@ -3031,6 +3545,7 @@ class Component extends DCLogic {
       ajouterSon:()=>this.ajouterSon(),
       infoSon:s.infoSon||'\u00a0',
       reinitSons:()=>{ this.enregistrerSons([...SONS_INIT]); this.setState({sons:[...SONS_INIT],infoSon:'Progression remise à la liste de départ.'}); },
+      ...this.valsLecture(s),
       alphaMaxLettres:this.jeu().items.reduce((m,it)=>Math.max(m,it[0].length),1),
       estAlpha:s.ecran==='alpha',
       estAlphaEcrire:s.ecran==='alphaEcrire',

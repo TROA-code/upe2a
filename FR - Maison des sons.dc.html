@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;600;700&display=swap" />
+<link rel="stylesheet" href="polices.css" />
+<script src="./lecture-sons.js"></script>
+<style>
+  html,body{margin:0;padding:0}
+  a{color:#1d4e89}
+  a:hover{color:#f08a24}
+  @keyframes entre{from{transform:scale(0.6);opacity:0}to{transform:scale(1);opacity:1}}
+  @keyframes pop{0%{transform:scale(0.7);opacity:0}55%{transform:scale(1.04);opacity:1}100%{transform:scale(1);opacity:1}}
+  @keyframes glisseHaut{from{transform:translateY(-14px);opacity:0}to{transform:translateY(0);opacity:1}}
+</style>
+</helmet>
+<div style="min-height:100vh;box-sizing:border-box;display:flex;flex-direction:column;gap:14px;padding:16px 18px 22px;font-family:Archivo, Arial, sans-serif;color:#12233b;background:#f4f6f9">
+
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:14px;background:#14213d;color:#fff;border-radius:12px;padding:13px 18px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:19px">La maison des sons {{ api }}</span>
+<span style="flex:1;min-width:0;font-size:13px;opacity:0.85">J'écoute. Je glisse dans la maison les images où j'<b>entends</b> {{ etiquette }}.</span>
+<span style="flex:0 0 auto;display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.14);border-radius:20px;padding:6px 14px">
+<span style="font-size:15px">&#9733;</span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:15px">{{ score }}</span>
+</span>
+<button onClick="{{ recommencer }}" style="flex:0 0 auto;border:1px solid rgba(255,255,255,0.4);border-radius:9px;background:transparent;color:#fff;padding:9px 14px;font-size:12.5px;cursor:pointer">Recommencer</button>
+</div>
+
+<div style="flex:1;min-height:0;display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start">
+
+<div style="flex:0 0 330px;display:flex;flex-direction:column;gap:12px">
+<div onDragOver="{{ surMaison }}" onDragLeave="{{ quitteMaison }}" onDrop="{{ deposeMaison }}" onClick="{{ deposeMaison }}" style="display:flex;flex-direction:column;align-items:center;background:{{ fondMaison }};border:3px solid {{ bordMaison }};border-radius:14px;padding:0 0 14px;overflow:hidden;cursor:pointer">
+<div style="width:0;height:0;margin:0 auto;border-left:158px solid transparent;border-right:158px solid transparent;border-bottom:72px solid #1d4e89"></div>
+<div style="width:100%;display:flex;flex-direction:column;align-items:center;gap:2px;background:#1d4e89;color:#fff;padding:2px 0 12px">
+<span style="display:flex;align-items:center;gap:11px">
+<span title="On entend ce son" style="width:34px;height:34px;background-color:#fff;border-radius:50%;background-image:url(clean/icone-oreille.svg);background-size:66%;background-repeat:no-repeat;background-position:center;display:block"></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:30px;letter-spacing:0.06em">{{ etiquette }}</span>
+</span>
+<span style="font-family:Verdana, Tahoma, sans-serif;font-size:12.5px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#cfe0f2">On entend</span>
+<span style="display:flex;gap:14px">
+<sc-for list="{{ graphies }}" as="g" hint-placeholder-count="2">
+<span style="font-family:Verdana, Tahoma, sans-serif;font-size:17px;font-weight:700;color:#cfe0f2">{{ g }}</span>
+</sc-for>
+</span>
+</div>
+<div style="width:100%;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;gap:10px;padding:14px 14px 0">
+<div style="display:flex;align-items:center;justify-content:center;gap:16px">
+<sc-if value="{{ aRepere }}" hint-placeholder-val="{{ false }}">
+<span title="Image repère" style="width:64px;height:64px;background-image:url({{ repereImg }});background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+</sc-if>
+<sc-if value="{{ aGeste }}" hint-placeholder-val="{{ false }}">
+<span title="Geste Borel-Maisonny" style="width:72px;height:72px;background-image:url({{ gesteImg }});background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+</sc-if>
+<sc-if value="{{ sansGeste }}" hint-placeholder-val="{{ true }}">
+<span style="width:72px;height:72px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border:1.5px dashed #c9cfd8;border-radius:9px;font-size:10px;color:#8a91a3;text-align:center;line-height:1.25;padding:6px">
+<span>geste</span>
+<span>{{ etiquette }}</span>
+<span>à venir</span>
+</span>
+</sc-if>
+</div>
+<div style="width:100%;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;align-content:start;border-top:1px dashed #a9c0d8;padding-top:12px">
+<sc-for list="{{ cases }}" as="d" hint-placeholder-count="9">
+<span style="width:100%;height:54px;background-color:{{ d.fond }};border:{{ d.bord }};border-radius:7px;box-shadow:{{ d.ombre }};background-image:url({{ d.img }});background-size:78%;background-repeat:no-repeat;background-position:center;display:block;box-sizing:border-box"></span>
+</sc-for>
+</div>
+<sc-if value="{{ maisonVide }}" hint-placeholder-val="{{ true }}">
+<span style="text-align:center;font-size:12px;color:#6b8199;line-height:1.5;padding:4px 6px 0">Dépose ici les images où tu entends {{ api }}.</span>
+</sc-if>
+</div>
+</div>
+<span style="font-size:11.5px;color:#8a91a3;line-height:1.45">La maison sera remplacée par ta photo dès que tu me l'envoies.</span>
+</div>
+
+<div style="flex:1;min-width:300px;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;align-items:baseline;gap:10px">
+<span style="flex:1;font-size:11.5px;letter-spacing:0.1em;text-transform:uppercase;color:#8a91a3">Banque d'images</span>
+<span style="font-size:12px;color:#6b7386">{{ restantes }}</span>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:10px">
+<sc-for list="{{ banque }}" as="b" hint-placeholder-count="8">
+<div draggable="{{ vrai }}" onDragStart="{{ b.prendre }}" onDragEnd="{{ b.lacher }}" onClick="{{ b.choisir }}" title="Glisse l'image dans la maison" style="position:relative;display:flex;align-items:center;justify-content:center;background:#fff;border:2.5px solid {{ b.bord }};border-radius:11px;padding:10px;cursor:grab;box-shadow:0 1px 3px rgba(20,33,61,0.1)">
+<span style="width:100%;height:72px;background-image:url({{ b.img }});background-size:contain;background-repeat:no-repeat;background-position:center;display:block;pointer-events:none"></span>
+<button onClick="{{ b.ecouter }}" title="Écouter le mot" style="position:absolute;top:5px;right:5px;width:30px;height:30px;border-radius:50%;border:none;background:#dbe9fb;color:#2f6fed;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;opacity:0.45;transition:opacity 120ms" style-hover="opacity:1;background:#c9dffa">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+<path d="M4 9.5h3.2L12 5.4v13.2L7.2 14.5H4z"></path>
+<path d="M15.1 8.4a1 1 0 0 1 1.4.1 5.4 5.4 0 0 1 0 7 1 1 0 0 1-1.5-1.3 3.4 3.4 0 0 0 0-4.4 1 1 0 0 1 .1-1.4z"></path>
+<path d="M17.9 5.4a1 1 0 0 1 1.4 0 9.3 9.3 0 0 1 0 13.2 1 1 0 0 1-1.4-1.4 7.3 7.3 0 0 0 0-10.4 1 1 0 0 1 0-1.4z"></path>
+</svg>
+</button>
+</div>
+</sc-for>
+</div>
+<sc-if value="{{ banqueVide }}" hint-placeholder-val="{{ false }}">
+<span style="font-size:13px;color:#6b7386">La banque est vide.</span>
+</sc-if>
+
+<sc-if value="{{ flashOk }}" hint-placeholder-val="{{ false }}">
+<div style="position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;pointer-events:none">
+<div style="display:flex;flex-direction:column;align-items:center;gap:14px;background:#fff;border:7px solid #3fc36b;border-radius:26px;padding:26px 40px;box-shadow:0 18px 50px rgba(18,35,59,0.28);animation:pop 240ms ease-out">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:44px;letter-spacing:0.04em;color:#1d9e51">BRAVO !</span>
+<span style="display:flex;flex-direction:column;align-items:center;gap:8px;background:#eefaf1;border-radius:14px;padding:12px 16px">
+<span style="width:120px;height:120px;background-image:url({{ flashImg }});background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+<span style="font-family:Verdana, Tahoma, sans-serif;font-size:19px;font-weight:700;color:#14213d">{{ flashMot }}</span>
+</span>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ flashNon }}" hint-placeholder-val="{{ false }}">
+<div style="position:fixed;top:22px;left:0;right:0;z-index:50;display:flex;justify-content:center;pointer-events:none">
+<div style="display:flex;align-items:center;gap:12px;background:#e8443f;border-radius:30px;padding:12px 24px 12px 14px;box-shadow:0 10px 26px rgba(18,35,59,0.25);animation:glisseHaut 200ms ease-out">
+<span style="flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:#fff;color:#e8443f;font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center">&times;</span>
+<span style="font-size:16px;font-weight:700;color:#fff">{{ refus }}</span>
+<span style="font-size:15px;color:#ffe0de">Essaie encore.</span>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ fini }}" hint-placeholder-val="{{ false }}">
+<div style="position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;background:rgba(18,35,59,0.35);padding:20px">
+<div style="display:flex;flex-direction:column;align-items:center;gap:16px;background:#fff;border:6px solid #f5c518;border-radius:26px;padding:28px 44px;box-shadow:0 20px 54px rgba(18,35,59,0.35);animation:pop 260ms ease-out">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:44px;letter-spacing:0.04em;color:#e8951b">VICTOIRE !</span>
+<span style="font-size:78px;line-height:1">&#127942;</span>
+<span style="font-family:Verdana, Tahoma, sans-serif;font-size:17px;color:#4a586b">Tu as trouvé tous les mots !</span>
+<button onClick="{{ recommencer }}" style="border:none;border-radius:30px;background:#22b36b;color:#fff;padding:15px 38px;font-family:Verdana, Tahoma, sans-serif;font-size:19px;font-weight:700;cursor:pointer;box-shadow:0 4px 0 #179154">&#8635; Rejouer</button>
+</div>
+</div>
+</sc-if>
+</div>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1000,&quot;height&quot;:700}}">
+/* La maison des sons — atelier refait dans l'application (modèle du [ON]),
+   déclinable à tous les phonèmes : le son et les mots arrivent par l'adresse.
+   ?son=on&mots=un%20bonbon|bonbon,un%20ballon|ballon&intrus=une%20pomme|pomme
+   Sans paramètres : le [ON] avec les images de clean/. */
+class Component extends DCLogic {
+  constructor(p){
+    super(p);
+    const q=this.params();
+    this.state={dedans:[], sortis:[], refus:'', son:q.son, api:q.api,
+      graphies:q.graphies, mots:q.mots, intrus:q.intrus, pris:'', choisi:'', survol:false};
+  }
+  params(){
+    let u={};
+    try{ u=Object.fromEntries(new URLSearchParams(window.location.search)); }catch(e){}
+    const son=(u.son||'on').toLowerCase();
+    const LS=window.LECTURE_SONS, f=LS?LS.sonDe(son):null;
+    const lire=t=>String(t||'').split(',').map(x=>x.split('|')).filter(x=>x[0]&&x[1])
+      .map(x=>[x[0], x[1].indexOf('/')>=0?x[1]:('clean/mot-'+x[1]+'.png')]);
+    const mots=lire(u.mots), intrus=lire(u.intrus);
+    return {son, api:f?f.api:'['+son+']',
+      graphies:f?f.graphies:[son],
+      mots:mots.length?mots:DEFAUT_ON,
+      intrus:intrus.length?intrus:DEFAUT_INTRUS};
+  }
+  sansArticle(t){ return String(t).replace(/^(une|un|des|les|le|la|du|de la|de l'|d'|l')\s+/i,'')
+    .replace(/^(l'|d')/i,'').trim(); }
+  dire(txt){
+    try{
+      const u=new SpeechSynthesisUtterance(String(txt));
+      u.lang='fr-FR'; u.rate=0.9;
+      const v=speechSynthesis.getVoices().filter(x=>/^fr/i.test(x.lang));
+      const bonne=v.find(x=>/natural|premium|enhanced|google/i.test(x.name))||v[0];
+      if(bonne) u.voice=bonne;
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    }catch(e){}
+  }
+  // le mot repère est affiché sur la maison : il n'a rien à faire dans la banque
+  estRepere(it){
+    const LS=window.LECTURE_SONS, f=LS&&LS.sonDe(this.state.son);
+    const reps=(f&&f.reperes)||[];
+    return reps.some(r=>String(it[1]).indexOf('mot-'+r[1]+'.png')>=0
+      || this.sansArticle(it[0]).toLowerCase()===this.sansArticle(r[0]).toLowerCase());
+  }
+  /* Banque vraiment mêlée : tirage au sort une seule fois, à l'ouverture et à chaque
+     « Recommencer » — sinon les mots du son se suivaient avant les intrus. */
+  liste(){
+    const s=this.state;
+    const tout=s.mots.map(m=>[m[0],m[1],true]).concat(s.intrus.map(m=>[m[0],m[1],false]))
+      .filter(it=>!this.estRepere(it));
+    const ordre=s.ordre||[];
+    const rang=m=>{ const i=ordre.indexOf(m); return i<0?999:i; };
+    return tout.slice().sort((a,b)=>rang(a[0])-rang(b[0]));
+  }
+  brasser(){
+    const s=this.state;
+    const noms=s.mots.map(m=>m[0]).concat(s.intrus.map(m=>m[0]));
+    for(let i=noms.length-1;i>0;i--){
+      const j=Math.floor(Math.random()*(i+1));
+      const t=noms[i]; noms[i]=noms[j]; noms[j]=t;
+    }
+    return noms;
+  }
+  componentDidMount(){ this.setState({ordre:this.brasser()}); }
+  // deux notes qui montent si c'est juste, deux notes basses sinon
+  bruit(ok){
+    try{
+      const A=window.AudioContext||window.webkitAudioContext;
+      this._ac=this._ac||new A();
+      const ac=this._ac, t=ac.currentTime;
+      (ok?[660,988]:[240,180]).forEach((f,i)=>{
+        const o=ac.createOscillator(), g=ac.createGain();
+        o.type=ok?'sine':'triangle'; o.frequency.value=f;
+        const d=t+i*0.13;
+        g.gain.setValueAtTime(0.0001,d);
+        g.gain.exponentialRampToValueAtTime(0.22,d+0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001,d+0.2);
+        o.connect(g); g.connect(ac.destination);
+        o.start(d); o.stop(d+0.22);
+      });
+    }catch(e){}
+  }
+  // son de victoire : un petit arpège majeur
+  fanfare(){
+    try{
+      const A=window.AudioContext||window.webkitAudioContext;
+      this._ac=this._ac||new A();
+      const ac=this._ac, t=ac.currentTime;
+      [[523,0],[659,0.14],[784,0.28],[1047,0.42],[784,0.62],[1047,0.72]].forEach(([f,d])=>{
+        const o=ac.createOscillator(), g=ac.createGain();
+        o.type='triangle'; o.frequency.value=f;
+        g.gain.setValueAtTime(0.0001,t+d);
+        g.gain.exponentialRampToValueAtTime(0.24,t+d+0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001,t+d+0.34);
+        o.connect(g); g.connect(ac.destination);
+        o.start(t+d); o.stop(t+d+0.36);
+      });
+    }catch(e){}
+  }
+  flash(type, img, duree, mot){
+    clearTimeout(this._flash);
+    this.setState({flashType:type, flashImg:img||'', flashMot:mot||''});
+    this._flash=setTimeout(()=>this.setState({flashType:'', flashImg:'', flashMot:''}), duree);
+  }
+  placer(mot){
+    const it=this.liste().find(x=>x[0]===mot);
+    if(!it) return;
+    const nom=it[0];   // avec son déterminant : « un ballon », jamais « ballon »
+    if(!it[2]){
+      this.bruit(false);
+      setTimeout(()=>this.dire(nom), 420);
+      this.setState({refus:'Ce mot n’a pas le son '+this.etiquette()+' !',
+        pris:'', choisi:'', survol:false});
+      this.flash('non','',2200);
+      return;
+    }
+    const reste=this.liste().filter(x=>x[2]).length-(this.state.dedans.length+1);
+    this.bruit(true);
+    setTimeout(()=>this.dire(nom), 420);
+    this.setState(p=>({dedans:[...p.dedans, it[0]], refus:'', pris:'', choisi:'', survol:false}));
+    this.flash('ok', it[1], 1400, it[0]);
+    // dernier mot placé : fanfare
+    if(reste<=0) setTimeout(()=>this.fanfare(), 1250);
+  }
+  componentWillUnmount(){ clearTimeout(this._flash); }
+  // elle veut lire [on], pas la notation phonétique
+  etiquette(){ return '['+this.state.son+']'; }
+  renderVals(){
+    const s=this.state;
+    const tout=this.liste();
+    const dansMaison=tout.filter(x=>s.dedans.indexOf(x[0])>=0);
+    const banque=tout.filter(x=>s.dedans.indexOf(x[0])<0);
+    const aTrouver=tout.filter(x=>x[2]).length;
+    const fini=aTrouver>0 && dansMaison.length===aTrouver;
+    return {
+      api:this.etiquette(), etiquette:this.etiquette(),
+      graphies:(s.graphies||[]).slice(0,2),
+      score:dansMaison.length+' / '+aTrouver,
+      repereImg:(()=>{ const LS=window.LECTURE_SONS, f=LS&&LS.sonDe(s.son);
+        const r=f&&(f.reperes||[])[0];
+        return (r&&LS.aPhoto(r[1]))?('clean/mot-'+r[1]+'.png'):''; })(),
+      repereMot:(()=>{ const LS=window.LECTURE_SONS, f=LS&&LS.sonDe(s.son);
+        const r=f&&(f.reperes||[])[0]; return r?r[0]:''; })(),
+      aRepere:(()=>{ const LS=window.LECTURE_SONS, f=LS&&LS.sonDe(s.son);
+        const r=f&&(f.reperes||[])[0]; return !!(r&&LS.aPhoto(r[1])); })(),
+      gesteImg:(()=>{ const LS=window.LECTURE_SONS, f=LS&&LS.sonDe(s.son); return f&&f.geste?f.geste:''; })(),
+      aGeste:(()=>{ const LS=window.LECTURE_SONS, f=LS&&LS.sonDe(s.son); return !!(f&&f.geste); })(),
+      sansGeste:(()=>{ const LS=window.LECTURE_SONS, f=LS&&LS.sonDe(s.son); return !(f&&f.geste); })(),
+      cases:(()=>{
+        const n=Math.max(aTrouver,1), out=[];
+        for(let i=0;i<n;i++){
+          const x=dansMaison[i];
+          out.push(x
+            ? {img:x[1], fond:'#fff', bord:'0', ombre:'0 1px 3px rgba(20,35,60,0.18)'}
+            : {img:'', fond:'transparent', bord:'1.5px dashed #a9c0d8', ombre:'none'});
+        }
+        return out;
+      })(),
+      maisonVide:dansMaison.length===0,
+      banque:banque.map(x=>({mot:this.sansArticle(x[0]), img:x[1],
+        bord:(s.choisi===x[0]||s.pris===x[0])?'#f08a24':'#eef1f5',
+        prendre:e=>{ try{ e.dataTransfer.effectAllowed='move';
+            e.dataTransfer.setData('text/plain',x[0]); }catch(err){}
+          this.setState({pris:x[0], refus:''}); },
+        lacher:()=>this.setState({pris:'', survol:false}),
+        choisir:()=>{ this.dire(x[0]);
+          this.setState({choisi:x[0], refus:''}); },
+        ecouter:e=>{ if(e&&e.stopPropagation) e.stopPropagation();
+          this.dire(x[0]); }})),
+      banqueVide:banque.length===0,
+      restantes:banque.length+' image'+(banque.length>1?'s':'')+' restante'+(banque.length>1?'s':''),
+      surMaison:e=>{ e.preventDefault(); if(!s.survol) this.setState({survol:true}); },
+      quitteMaison:()=>{ if(s.survol) this.setState({survol:false}); },
+      deposeMaison:e=>{
+        if(e&&e.preventDefault) e.preventDefault();
+        let mot=this.state.pris||this.state.choisi;
+        try{ if(e&&e.dataTransfer) mot=e.dataTransfer.getData('text/plain')||mot; }catch(err){}
+        if(mot) this.placer(mot); else this.setState({survol:false});
+      },
+      fondMaison:s.survol?'#d9e6f5':'#e9f0f8',
+      bordMaison:s.survol?'#f08a24':'#c3d4e6',
+      refus:s.refus, aRefus:!!s.refus,
+      flashOk:s.flashType==='ok', flashNon:s.flashType==='non', flashImg:s.flashImg||'',
+      flashMot:s.flashMot||'',
+      fini, vrai:true,
+      recommencer:()=>this.setState({dedans:[], refus:'', pris:'', choisi:'',
+        flashType:'', flashImg:'', flashMot:'', ordre:this.brasser()})
+    };
+  }
+}
+// [ON] par défaut : uniquement des mots dont la photo existe dans clean/
+// neuf mots : la maison a neuf emplacements
+const DEFAUT_ON=[['un violon','clean/mot-violon.png'],['un ballon','clean/mot-ballon.png'],
+ ['un pantalon','clean/mot-pantalon.png'],['un melon','clean/mot-melon.png'],
+ ['un citron','clean/mot-citron.png'],['un poisson','clean/mot-poisson.png'],
+ ['une maison','clean/mot-maison.png'],['un garçon','clean/mot-garcon.png'],
+ ['un camion','clean/mot-camion.png']];
+const DEFAUT_INTRUS=[['une pomme','clean/mot-pomme.png'],['un lit','clean/mot-lit.png'],
+ ['une table','clean/mot-table.png'],['un chat','clean/mot-chat.png']];
+</script>
+</body>
+</html>

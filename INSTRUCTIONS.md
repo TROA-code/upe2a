@@ -2,8 +2,8 @@
 
 Phrase pour démarrer : « Lis INSTRUCTIONS.md, on reprend. »
 
-Ce fichier remplace `INSTRUCTIONS-APPLICATION.md`, `INSTRUCTIONS-FRANCAIS.md` et
-`INSTRUCTIONS-MATHS.md`. Raison : **le français et les maths sont en cours d'intégration
+Ce fichier est **la seule source à jour**. Il remplace `INSTRUCTIONS-APPLICATION.md`,
+`INSTRUCTIONS-FRANCAIS.md` et `INSTRUCTIONS-MATHS.md`. Raison : **le français et les maths sont en cours d'intégration
 dans l'application** — les livrets papier deviennent des sources de contenu que
 l'application met en page et imprime à la demande. Trois conversations séparées n'ont
 plus de sens.
@@ -76,7 +76,7 @@ Gestion des élèves. Bouton orange **ÉLÈVE** en haut à droite du bandeau.
 |---|---|---|
 | Ma classe | vert `#2a9d6e` | Gestion des élèves · Bilan des exercices · Productions orales des thèmes · Bilan des compétences |
 | Lexique | rose `#c4479e` | Création de thèmes · 👁 Réglages des thèmes · Fiches et jeux |
-| Lecture | turquoise `#4fc3d9` | Progression des sons · 👁 Réglages lettres et sons · Séances de phonologie |
+| Lecture | turquoise `#4fc3d9` | Les sons · Aider un texte · 👁 Réglages lettres et sons · Séances de phonologie |
 | Écriture | brun `#8a4b1e` | Les lettres · Les chiffres |
 | Mathématiques | orange `#e59a2b` | Fiches à imprimer |
 | Ressources enseignantes | violet `#6d5bd0` | Je continue chez moi · 5 entrées « à venir » |
@@ -99,6 +99,9 @@ de couleurs pleines (effet « Noël »).
 
 Les fiches à imprimer sont **un seul écran** (`outils`) filtré par domaine via `DOMAINES`.
 Ajouter un domaine = une ligne dans `DOMAINES` + une entrée dans `RUBRIQUES`.
+⚠ L'entrée **Lexique → Fiches à imprimer a été supprimée** : le générateur de Fiches et jeux
+la remplace. Les pages figées `dico` restent dans `fiches-source.js` — Créer une fiche →
+Livret s'en sert encore — mais elles n'ont plus d'entrée de menu.
 
 **Regroupement des vignettes** : les pages d'une même série forment **une seule vignette**
 (« Lettre A · 2 pages »), via `cleLot()` / `lotsDe()`. Le +/− agit sur tout le lot.
@@ -352,9 +355,11 @@ Lotos fruits et légumes : 4 planches de 6 cases, une couleur de banderole par j
 24 cartes à découper. Reste à ajouter : pages de lexique et d'exercices.
 
 ## Images encore dessinées, à remplacer par des photos
-`chat`, `table`, `lit`, `chaise`, `sac`, `cartable`, `gateau`, `gris` (pot de peinture),
-`litchi`, `olive`, `cafe`, `taxi`, `date`, `madame`, `magasin`, `glace`, `carte`, `mars`,
-`abricot`, `karate`.
+`lit`, `chaise`, `sac`, `cartable`, `litchi`, `olive`, `cafe`, `taxi`, `date`, `madame`,
+`magasin`, `glace`, `carte`, `mars`, `abricot`, `karate`.
+`gris` est une tache de peinture grise, comme les autres couleurs : rien à remplacer.
+Déjà remplacés par des photos : `chat`, `table`, `ballon`, `garcon`, `violon` (nouveau).
+`gateau` était déjà une photo.
 
 **Prompt qui donne de bons résultats** :
 « Photorealistic photograph of a single <objet>, centered, plain pure white seamless
@@ -385,46 +390,223 @@ Lié aux vidéos métier de l'emploi du temps (lundi et jeudi).
 
 1. ✅ **La barre et le rangement** — six rubriques, arborescence, style validé
 2. ✅ **Fiches et jeux** — générateur, trois familles, loto, flashcards, regroupement
-3. ⏳ **Écriture** — barre réorganisée et « Créer une fiche » en place ; reste les courbes/boucles/ponts, la cursive et le livret
+3. ✅ **Écriture** — réorganisée en deux entrées, aides au décodage en place
+   (restent les gestes préparatoires et la cursive, tous deux « à construire »)
 4. **Mathématiques** — les livrets à l'écran, les fiches qui en sortent
-5. **Lecture** — la progression des sons commande l'ordre des ateliers, puis les 15 séances
+5. ⏳ **Lecture** — étape 2 faite (une page par phonème + « Aider un texte ») ; restent la Maison des sons et les séances manquantes
 6. **La mémoire** — groupes, élèves, scores
 7. **Ressources enseignantes** — ses étagères, « Donner en devoir » dans chaque rubrique
 
-## Étape 3 — Écriture : ce qui est décidé et ce qui attend
+## Étape 3 — Écriture : FAIT
 
-**Structure validée — la rubrique Écriture a trois entrées** :
+**La rubrique Écriture a deux entrées** : *Apprentissage* et *Créer une fiche*.
+(L'ancien découpage en trois — Apprentissage / Mon cahier d'écriture / Créer une fiche —
+était artificiel : les fiches de lettres sont aussi de l'apprentissage.)
 
-- **Apprentissage** → collections *Les courbes · Les boucles · Les ponts*, les trois
-  **grisées** (« à construire »).
-- **Mon cahier d'écriture** → collections *Lettres script* (le cahier de 59 pages, renommé) ·
-  *Lettres cursive* **grisée**, à construire · *Les chiffres* (0 à 9).
-  Au-dessus des vignettes, une **bande de cases à cocher** (A→Z, puis 0→9) : cocher une
-  lettre affiche sa fiche, sélectionnée, prête à imprimer. Rien coché = toutes les fiches.
-- **Créer une fiche** → deux collections :
-  - *Livret* : la liste des livrets enregistrés ; choisir un livret remplit le champ avec le
-    1er mot et son image, les flèches ← → parcourent les mots.
-  - *Écrire un mot, une phrase ou un texte* : saisie libre.
-  L'écran donne le champ de saisie, l'image (**aucune** par défaut · **importer** ·
-  **générer avec l'IA**, grisée), l'aperçu A4 en temps réel, puis **Imprimer** ·
-  **Sauvegarder** (grisée, à discuter) · **Favori** (les favoris reviennent en pastilles).
-  La fiche imprimée reprend la mise en page des livrets : bandeau bleu nuit, consigne FALC
-  en aplat `#d8e6f4`, le mot **en capitales** dans un cadre bleu (avec l'image à gauche),
-  puis les **bandes d'écriture en couleur** (bleu ciel · gris capitales · vert minuscules ·
-  marron ligne d'écriture · noir jambages), avec le **choix de l'interlignage** —
-  petit · moyen (validé) · grand. **Étayage dégressif du cahier** : 1re ligne modèle plein
-  bleu, 2e ligne modèle pâle, 3e ligne amorce, lignes suivantes vides. Les bandes remplissent
-  la page (3 à 10). Un texte plus large que la ligne laisse toutes les bandes vides.
+Dans **Apprentissage**, une seule progression graphique de haut en bas :
+en-tête gris dépliable **Les gestes préparatoires** (« 4 étapes ») contenant
+*Les ronds · Les courbes · Les boucles · Les ponts*, toutes « à construire » ;
+puis **Lettres script** (le cahier de 59 pages), **Lettres cursive** (à construire),
+**Les chiffres**. La bande de cases A→Z / 0→9 ne s'affiche que sur les lettres
+et les chiffres, jamais sur les gestes préparatoires.
 
-**Décidé** : l'**interligne se règle par livret**, pas page par page.
+Dans **Créer une fiche**, deux cartes, dans cet ordre :
+- **Écrire un mot, une phrase ou un texte** — saisie libre ;
+- **Livret** — porte une flèche et déplie la liste des thèmes sous elle (les thèmes
+  parents se déplient à leur tour). Cliquer un thème affiche à droite ses pages
+  **« Mes mots »** (image à gauche, mot en script à droite) en aperçu A4 imprimable.
 
-**Restent à trancher** :
-- Les majuscules : minuscules seulement, ou aussi la version avec majuscule ?
-- L'ordre des mots : celui du thème, ou du plus court au plus long (plus progressif) ?
-- Le lien avec les thèmes (« copier le mot POMME avec son image ») : une collection
-  *Les mots d'un thème* dans Mon cahier d'écriture ?
-- Les quatre types de pages évoqués (copier · repasser · sans modèle · compléter) et le
-  **livret complet** agrafé avec couverture au prénom.
+L'écran donne la saisie, l'image (**aucune** par défaut · **importer** · **générer avec
+l'IA**, grisée) et l'**interlignage** (petit · moyen validé · grand) sur une seule ligne,
+puis le bouton **Aider à lire le mot**, l'aperçu A4, et trois icônes de 38 px :
+imprimante verte · disquette grisée (Sauvegarder, à venir) · étoile orange (Favori).
+
+La fiche imprimée reprend la mise en page des livrets : bandeau bleu nuit, consigne FALC
+en aplat `#d8e6f4`, le mot en capitales dans un cadre bleu (image à gauche), puis les
+bandes d'écriture en couleur, avec étayage dégressif (1re ligne modèle plein bleu,
+2e pâle, 3e amorce, suivantes vides). Un texte plus large que la ligne laisse les bandes vides.
+
+**Colonnes repliables** (gain de place, décidé après avoir écarté le menu horizontal —
+21 entrées sur deux niveaux imposeraient des déroulants qui cachent la structure) :
+la barre latérale se replie à **46 px** en gardant les six pastilles de couleur, celle de
+la rubrique en cours cerclée d'orange, un clic rouvre le menu sur cette rubrique ;
+la colonne « Mes collections » se replie de même (nom à la verticale) et se replie
+**automatiquement** dès qu'une collection est choisie.
+
+---
+
+## Les aides au décodage — FAIT (étape 1 du chantier lecture)
+
+Moteur dans **`lecture-code.js`**, écrit pour le projet. **Aucun code externe** :
+LireCouleur est sous GPL, on n'en reprend que les principes pédagogiques — recopier
+leur code forcerait l'appli entière sous GPL, ce qui est irréversible.
+Attention aussi : les 52 mots repères viennent d'un ouvrage **© Retz** — la liste des
+associations ne pose pas de problème, leurs **dessins** oui. D'où les photos maison.
+
+### Table des mots repères
+Les **52 graphies de son affichage classe** (Retz, *Boîte à outils pour l'apprentissage
+du code en lecture-écriture*), **dans l'ordre du mur**, pas alphabétique.
+Sa table remplace celle qui existait dans l'appli, faite avec d'autres mots.
+
+**24 photos présentes** dans `clean/`. **28 manquantes** — la graphie reste colorée,
+sans vignette et sans réserver de place, jusqu'à réception de la photo :
+in→lapin · eau→chapeau · ion→lion · en→cent · oin→point · ê→tête · or→tortue ·
+ein→ceinture · ui→huit · et→bonnet · elle→pelle · ei→reine · ien→chien · gu→guitare ·
+gn→peigne · erre→terre · es→escargot · aille→médaille · ouille→citrouille ·
+eille→abeille · em→embrasser · ss→tasse · t→addition · œu→nœud · esse→princesse ·
+ge→pigeon · om→pompier · im→timbre
+
+« er » a deux repères : *cahier* en fin de mot, *vert* devant une consonne.
+« œu » aussi (nœud / œuf) : le premier de l'affichage par défaut.
+**N'utiliser que ce qu'elle a envoyé** — ne rien ajouter, ne rien remplacer.
+
+### Les cinq aides
+Toutes **décochées** par défaut, dans une **boîte de dialogue** ouverte par le bouton
+« Aider à lire le mot » (qui affiche l'état courant en résumé). Chaque case porte son
+**propre exemple**, rendu avec l'aide appliquée — on voit ce qu'on coche :
+
+| Aide | Exemple de la case | Rendu |
+|---|---|---|
+| Étiquettes de mots | le cahier rouge | chaque mot dans un cadre |
+| Couleur des syllabes | ordinateur | alternance bleu `#1d4e89` / rouge brique `#c1440e` |
+| Lettres muettes en gris | le canard | `#9aa4b2` |
+| Arcs sous les syllabes | ordinateur | arc porté par la syllabe, à sa largeur exacte |
+| Mots repères | rouge | photo 7 mm au-dessus de la graphie |
+
+Les cases cochées sont **mémorisées** (`upe2a-aides`) : c'est un réglage.
+Le panier de pages à imprimer, lui, **repart de zéro** à chaque session : c'est un panier.
+
+### Règles tranchées avec elle — ne pas y revenir
+- Le **e final reste noir**. Le griser laisserait croire qu'on peut l'oublier en écrivant.
+- On marque les **autres** muettes : canar**d**, peti**t**, les chien**s**, ils mang**ent**.
+- Les **muettes internes** sont grisées : ca**h**ier, **h**iver, t**h**éâtre, lon**g**.
+  Le *h* de **ch**at et **ph**oque reste noir : c'est une graphie, pas une lettre muette.
+- ⚠ *beaucoup* : seul le **p** est muet, le *c* se prononce (beau-coup). Erreur commise, corrigée.
+- **Pas de liaisons.** LireCouleur écrit « il stravaillent », « prè sn est » : dangereux
+  pour des élèves qui construisent l'orthographe.
+- L'**interligne est calculé** selon les aides cochées (1,5 · 1,9 avec arcs · 2,5 avec
+  mots repères) : pas de réglage manuel. Leur réglage 1,5/2/2,5/3 existe parce qu'ils
+  travaillent dans Word et ne savent pas quelles aides sont posées ; l'appli le sait.
+- Ne pas confondre leur « interligne » (espace entre lignes d'un texte **à lire**) et son
+  « interlignage » Petit/Moyen/Grand (hauteur du lignage Seyès **à écrire**).
+- Un **mode noir et blanc** doit rester lisible : les muettes en gris et les arcs
+  fonctionnent sans couleur.
+
+### Corrections à la main
+- `gom-me` — les tirets **forcent** la coupe.
+- `canar(d)` — les parenthèses **forcent** une lettre muette.
+
+### Signalement des cas douteux
+Encadré ocre sous l'aperçu, listant les mots que les règles ne tranchent pas, avec le
+découpage proposé et la question : « ent » final (ciment / mangent) · « ill » (fille /
+ville) · consonne finale (bus / puits) · « gu » (guitare / aiguille) · mots de plus de
+12 lettres. **Promesse faite** : dire quand un cas dépasse les règles, plutôt
+qu'imprimer une bêtise.
+
+### Découpages vérifiés
+ca-nard · cra-yon · ca-hier · chaus-su-re · clas-seur · tor-tue · es-car-got ·
+or-di-na-teur · ta-bleau · mai-tresse · man-gent · beau-coup.
+Concordent avec LireCouleur sur les pièges testés.
+
+---
+
+## Le chantier lecture — étapes 2 à 4, décidées, non commencées
+
+### Étape 2 — FAIT
+
+`lecture-sons.js` → `window.LECTURE_SONS` : table des **34 phonèmes** (clé telle qu'elle la
+tape dans la progression, notation, graphies, mots repères Retz + photo, geste, lot de
+pages de la séance, famille), découpage d'un mot en graphies et `contient(son, mot)`.
+Règles assumées : *s* entre deux voyelles = [z], *c* et *g* devant e/i/y adoucis, *t* de
+« -tion » = [s]. Le reste est une approximation déclarée, pas une vérité.
+
+La rubrique Lecture a maintenant : **Les sons** · **Aider un texte** ·
+👁 Réglages lettres et sons · Séances de phonologie.
+
+« Les sons » garde l'ajout, l'ordre et le retrait, mais **chaque son ouvre sa page**
+(écran `son`, clé `sonCle`) qui rassemble : la graphie en gros + la notation + écoute ·
+le mot repère avec sa photo (ou « photo à venir ») · le geste Borel-Maisonny (a, i, o
+seulement) · toutes les graphies du son en capitale, script, Belle Allure script et
+cursive · la séance de phonologie (vignettes A4 + Imprimer si les pages existent, sinon
+« à construire ») · la Maison des sons (en attente de l'image) · **les mots des thèmes où
+on entend ce son**, cliquables pour les écouter. Flèches ← → pour passer au son suivant
+dans l'ordre de la progression.
+
+**Fiches et jeux du son** (décidé avec elle) : la page du son reprend **le même menu que
+Fiches et jeux du lexique** — deux onglets pour l'instant, *Pour l'élève* et *Jeux en
+ligne*, mêmes cases à cocher, mêmes vignettes, même panier global (les flèches ← → entre
+sons remplacent la liste de gauche : on coche, on passe au son suivant, on imprime tout).
+Choix tranché : les onglets vivent **sur la page du son**, pas dans un écran séparé.
+
+⚠ L'onglet **Ateliers à manipuler a été retiré de la page du son** : les ateliers du lexique
+(loto, étiquettes, imagier) n'ont pas de sens pour un phonème. Décision prise avec elle :
+**deux fichiers d'ateliers séparés** — `fiches-themes.js` garde ceux du lexique, et les
+ateliers propres aux sons iront dans un fichier à part (maison des sons, assemblage
+syllabique, découpage phonémique…), le jour où on les construit.
+
+Dans « Jeux en ligne », une **étiquette « La maison du [x] »** (petite maison au toit bleu)
+ouvre le jeu refait dans l'application, au-dessus des liens LearningApps / Wordwall.
+
+Les fiches génériques (relier, écrire, étiquettes, loto, imagier, cartes) sont fabriquées par
+`fiches-themes.js` sur **les mots des thèmes qui portent ce son**. `sons-fiches.js` ajoute la
+**séance de phonologie** (2 pages : en-tête mot repère / oreille + son / geste, puis les
+graphies ; J'écoute je répète · J'entends ? je coche, 8 images sans le mot, moitié d'intrus ·
+Je lis j'entoure, grille de 27 · les syllabes) et la **combinatoire** (consonnes seulement).
+Les six mots sont **tirés au hasard** parmi les mots illustrés portant le son, avec « autre
+tirage » et une croix par mot pour le remplacer ; un mot déjà utilisé ailleurs peut resservir.
+⚠ Les séances **A, I et O recopiées à la main ne sont pas regénérées** : elles s'affichent
+telles quelles, le moteur ne sert qu'aux sons suivants.
+
+« Aider un texte » : texte collé + consigne, les **cinq aides** (mêmes cases mémorisées
+`upe2a-aides` que Créer une fiche), interligne **manuel** (serré 1,5 · normal 2 · aéré 2,5 ·
+très aéré 3) et taille (18 · 24 · 30 pt), aperçu A4 sans lignage d'écriture, encadré ocre
+des cas douteux, impression.
+
+**Étape 2 — architecture Lecture, une entrée par phonème.**
+« Progression des sons » ne sert à rien aujourd'hui : c'est une liste ordonnée que
+**rien ne consomme** (l'écran l'avoue lui-même). Ne pas la supprimer — la **retourner** :
+elle devient la colonne vertébrale de la partie Lecture. Chaque son ouvre sa page,
+qui rassemble ce qui est aujourd'hui éparpillé : la graphie et ses variantes (on, om) ·
+le mot repère et sa photo · le geste · la Maison des sons · la séance de phonologie ·
+les mots des thèmes contenant ce son.
+
+Conséquence : la grille des 52 mots repères n'ira **pas** dans Réglages lettres et sons
+(proposition abandonnée) — le mot repère vit dans la page de son phonème, là où on le
+cherche. « Réglages lettres et sons » se réduit alors aux ateliers visibles.
+
+Y ajouter un écran **« Aider un texte »** : on colle un texte, on coche, on imprime —
+sans lignage d'écriture, juste le texte en grand. C'est là que le réglage **manuel** de
+l'interligne devient pertinent (l'idée de LireCouleur).
+
+Renommer le bloc selon l'écran : « Aider à lire le mot » en Écriture, « Les aides » en Lecture.
+
+**Étape 3 — la Maison des sons**, reconstruite comme atelier de l'appli (score remontant
+dans Bilan des exercices), sur le modèle du [ON], **déclinable aux autres phonèmes** —
+elle sert de maquette. Source : `troa-code.github.io/TROA-code` (LE SONS ON /
+1-maison des sons). **En attente : son image de maison.**
+
+**Étape 4 — génération automatique des pages « Mes mots ».**
+Aujourd'hui les pages affichées au clic sur un thème sont **figées** (`fiches-source.js`) :
+un mot ajouté à un thème n'y apparaît pas, et un thème sans page prête (Les contraires)
+retombe sur l'éditeur mot par mot. À remplacer par une génération à la volée depuis les
+mots vivants des thèmes.
+
+Ce que les pages figées contiennent déjà, à reproduire : bandeau coloré au titre en Caveat
+(couleur propre au thème), consigne « Recopiez le mot à la suite », grille de 9 lignes
+(image + mot en capitales à gauche, lignage Seyès avec mot en pointillé à droite),
+découpage en « Les fruits » / « Les fruits 2 », et quelques ajouts ponctuels (La politesse
+porte un semainier).
+
+⚠ **Déterminant obligatoire — jamais « POMME » seul.** L'ajouter s'il manque
+(« UNE POMME », « DU PAIN », « LES CISEAUX »). Il fait partie du texte du mot dans
+Création de thèmes, donc corrigeable au cas par cas. Ne pas deviner un genre incertain :
+lui donner la liste à trancher.
+
+⚠ **L'alternance de couleur syllabique du Matériel scolaire doit être conservée** : c'est
+l'un des premiers thèmes et elle prépare le découpage syllabique. Prévoir un réglage
+par thème (question posée, non tranchée : sur tous les thèmes ou seulement les premiers ?).
+
+Sans image pour un mot, laisser la case **vide exprès** — l'élève dessine.
 
 ## À rappeler à l'utilisatrice (elle a demandé qu'on le lui rappelle)
 
@@ -447,3 +629,10 @@ utiliser les liens de devoirs.
 - **Documentation** : deux documents prévus, un mode d'emploi pour elle et une
   documentation technique — écrits **au fil des étapes**, pas à la fin.
 - **Sortir les données** de l'application dans un fichier séparé, au moment où on y touche.
+
+## En attente d’elle
+
+- Les **28 photos** de mots repères manquantes (liste ci-dessus).
+- L’**image de maison** pour la Maison des sons.
+- Le **retour de classe** sur la qualité des découpages syllabiques.
+- L’ordre des thèmes du tableau élève.
