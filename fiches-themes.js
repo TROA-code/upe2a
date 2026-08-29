@@ -25,7 +25,7 @@
   }
   function bande(interligne) {
     var pas = PAS[interligne] || PAS.moyen, m = pas / 2, h = pas * 4 + m * 2;
-    var traits = [['#2f5fd0', 1.8], ['#b9bfc8', 1.3], ['#3aa03a', 2.2], ['#8a5a2b', 2.2], ['#d94a3d', 1.8]];
+    var traits = [['#2f5fd0', 1.8], ['#b9bfc8', 1.3], ['#3aa03a', 2.2], ['#8a5a2b', 2.2], ['#1a1a1a', 1.8]];
     var lignes = traits.map(function (t, i) {
       var y = m + pas * i;
       return '<line x1="0" y1="' + y + '" x2="1000" y2="' + y + '" stroke="' + t[0] + '" stroke-width="' + t[1] + '"></line>';
@@ -78,10 +78,16 @@
 
   // ---- étiquettes à découper
   function ficheEtiquettes(t, items) {
+    return [
+      { s: 'la feuille support', html: ficheSupport(t, items) },
+      { s: 'les étiquettes', html: ficheEtiquettesSeules(t, items) }
+    ];
+  }
+  function ficheEtiquettesSeules(t, items) {
     var etq = t.melange(items.slice()).map(function (it) {
       return '<div style="border:2px dashed #8a91a3;border-radius:2mm;display:flex;align-items:center;justify-content:center;padding:3mm;font-size:13pt;color:#14213d;text-align:center;line-height:1.3">' + esc(it[0]) + '</div>';
     }).join('');
-    return page('Étiquettes', t.titre, 'à découper', consigne(['Découpe les étiquettes.'], ['ciseaux']) +
+    return page('Étiquettes', t.titre, 'à découper', consigne(['Découpe les étiquettes.'], ['ciseaux'], 'Colle-les sur la feuille support, sous la bonne image.') +
       '<div style="flex:0 0 auto;display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:22mm;align-content:start;gap:5mm">' + etq + '</div>', '#8a4b1e');
   }
 
@@ -231,7 +237,7 @@
 
   var PARPAGE = {
     relier: function () { return 6; },
-    etiquettes: function () { return 8; },
+    etiquettes: function () { return 6; },
     support: function () { return 6; },
     ecrire: function (i) { return i === 'grand' ? 3 : (i === 'petit' ? 5 : 4); },
     correction: function () { return 8; },
@@ -247,7 +253,7 @@
     ['correction', 'Feuille de correction', ficheCorrection, 'eleve'],
     ['lotoPlanche', 'Loto — la planche', ficheLotoPlanche, 'atelier'],
     ['lotoCartes', 'Loto — les cartes', ficheLotoCartes, 'atelier'],
-    ['etiquettes', 'Étiquettes à découper', ficheEtiquettes, 'atelier'],
+    ['etiquettes', 'Étiquettes et feuille support', ficheEtiquettes, 'atelier'],
     ['cartes', 'Cartes de révision recto-verso', ficheCartes, 'atelier'],
     ['imagier', 'Imagier de référence', ficheImagier, 'atelier']
   ];

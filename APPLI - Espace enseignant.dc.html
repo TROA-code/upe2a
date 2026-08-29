@@ -44,8 +44,8 @@ input,select,button{font-family:inherit}
 <button onClick="{{ retourUn }}" title="{{ libelleRetour }}" style="flex:0 0 auto;border:2px solid rgba(255,255,255,0.5);border-radius:12px;background:none;color:#fff;padding:{{ padRetour }};font-family:Archivo Black, Archivo, sans-serif;font-size:{{ tailleRetour }};letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;white-space:nowrap">{{ texteRetour }}</button>
 </sc-if>
 <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:1px">
-<sc-if value="{{ pasTel }}" hint-placeholder-val="{{ true }}">
-<span style="font-size:9.5px;letter-spacing:0.2em;text-transform:uppercase;color:#7fb8cc;font-weight:700">UPE2A NSA &middot; français langue de scolarisation</span>
+<sc-if value="{{ assezLarge }}" hint-placeholder-val="{{ true }}">
+<span style="font-size:9.5px;letter-spacing:0.2em;text-transform:uppercase;color:#7fb8cc;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">UPE2A NSA &middot; français langue de scolarisation</span>
 </sc-if>
 <span style="font-family:Archivo Black, Archivo, sans-serif;font-size:{{ tailleTitre }};line-height:1.15;letter-spacing:-0.01em;overflow:hidden">{{ titre }}</span>
 </div>
@@ -150,33 +150,33 @@ input,select,button{font-family:inherit}
 <sc-if value="{{ estThemeAccueil }}" hint-placeholder-val="{{ true }}">
 <div style="flex:1;min-height:0;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:{{ alignVert }};gap:18px;padding:{{ padDecor }};background:url('clean/mur-briques.png') repeat;overflow:auto">
 <sc-if value="{{ pasTel }}" hint-placeholder-val="{{ true }}">
-<img src="clean/fenetre.png" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;top:14px;left:100px;width:420px;height:auto;z-index:0;filter:drop-shadow(0 6px 14px rgba(0,0,0,0.2))" />
-<img src="clean/plante.png" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;bottom:0;left:max(0px, calc(50% - 700px));width:230px;height:auto;z-index:1" />
+<img src="clean/fenetre.png" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;top:18px;left:24px;width:250px;height:auto;z-index:0;filter:drop-shadow(0 6px 14px rgba(0,0,0,0.2))" />
+<img src="clean/plante.png" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;bottom:0;left:8px;width:190px;height:auto;z-index:1" />
 </sc-if>
-<div style="position:relative;z-index:2;flex:0 0 auto;width:100%;max-width:{{ largeurAccueil }};margin-left:auto;margin-right:{{ margeAccueil }};box-sizing:border-box;display:grid;grid-template-columns:{{ colAccueil }};gap:22px">
-<button onClick="{{ ouvrirTableauThemes }}" style="box-shadow:0 12px 28px rgba(0,0,0,0.3);background-image:url('clean/liege.png');background-size:100% 100%;background-repeat:no-repeat;border:none;padding:22px 22px 26px;display:flex;flex-direction:column;align-items:center;gap:16px;cursor:pointer" style-hover="transform:translateY(-3px)">
-<span style="position:relative;background:#fdf3c4;padding:10px 22px;transform:rotate(-1.2deg);box-shadow:0 4px 10px rgba(0,0,0,0.3)">
+<div style="position:relative;z-index:2;flex:0 0 auto;width:100%;max-width:{{ largeurAccueil }};margin:auto {{ margeAccueil }} auto auto;box-sizing:border-box;display:grid;grid-template-columns:{{ colAccueil }};gap:18px">
+<button onClick="{{ ouvrirTableauThemes }}" style="box-shadow:0 12px 28px rgba(0,0,0,0.3);background-image:url('clean/liege.png');background-size:100% 100%;background-repeat:no-repeat;border:none;padding:15px 15px 18px;display:flex;flex-direction:column;align-items:center;gap:11px;cursor:pointer" style-hover="transform:translateY(-3px)">
+<span style="position:relative;background:#fdf3c4;padding:8px 16px;transform:rotate(-1.2deg);box-shadow:0 4px 10px rgba(0,0,0,0.3)">
 <span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:block"></span>
-<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:16px;letter-spacing:0.03em;text-transform:uppercase;color:#8a4b1e;white-space:nowrap">Les thèmes</span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:17px;letter-spacing:0.02em;text-transform:uppercase;color:#8a4b1e;text-align:center;line-height:1.2;display:block;font-size:13px">Les thèmes</span>
 </span>
-<span style="width:100%;display:grid;grid-template-columns:{{ colApercu }};gap:10px">
+<span style="width:100%;display:grid;grid-template-columns:{{ colApercu }};gap:7px">
 <sc-for list="{{ apercuThemes }}" as="a" hint-placeholder-count="4">
-<span style="background:#fff;border:4px solid {{ a.bord }};border-radius:11px;box-shadow:0 3px 10px rgba(0,0,0,0.18);height:88px;background-image:{{ a.bg }};background-size:contain;background-repeat:no-repeat;background-position:center;background-origin:content-box;padding:6px;display:block"></span>
+<span style="background:#fff;border:3px solid {{ a.bord }};border-radius:8px;box-shadow:0 3px 10px rgba(0,0,0,0.18);aspect-ratio:1;align-self:start;overflow:hidden;background-image:{{ a.bg }};background-size:contain;background-repeat:no-repeat;background-position:center;background-origin:content-box;padding:6px;display:block"></span>
 </sc-for>
 </span>
-<span style="font-size:14px;color:#fdf3c4;text-shadow:0 1px 3px rgba(0,0,0,0.5)">{{ apercuThemesTexte }}</span>
+<span style="font-size:11.5px;color:#fdf3c4;text-shadow:0 1px 3px rgba(0,0,0,0.5)">{{ apercuThemesTexte }}</span>
 </button>
-<button onClick="{{ ouvrirTableauCode }}" style="box-shadow:0 12px 28px rgba(0,0,0,0.3);background-image:url('clean/liege.png');background-size:100% 100%;background-repeat:no-repeat;border:none;padding:22px 22px 26px;display:flex;flex-direction:column;align-items:center;gap:16px;cursor:pointer" style-hover="transform:translateY(-3px)">
-<span style="position:relative;background:#fdf3c4;padding:10px 22px;transform:rotate(0.9deg);box-shadow:0 4px 10px rgba(0,0,0,0.3);display:block">
+<button onClick="{{ ouvrirTableauCode }}" style="box-shadow:0 12px 28px rgba(0,0,0,0.3);background-image:url('clean/liege.png');background-size:100% 100%;background-repeat:no-repeat;border:none;padding:15px 15px 18px;display:flex;flex-direction:column;align-items:center;gap:11px;cursor:pointer" style-hover="transform:translateY(-3px)">
+<span style="position:relative;background:#fdf3c4;padding:8px 16px;transform:rotate(0.9deg);box-shadow:0 4px 10px rgba(0,0,0,0.3);display:block">
 <span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:block"></span>
-<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:16px;letter-spacing:0.03em;text-transform:uppercase;color:#8a4b1e;white-space:nowrap">Les lettres et les sons</span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:17px;letter-spacing:0.02em;text-transform:uppercase;color:#8a4b1e;text-align:center;line-height:1.2;display:block;font-size:13px">Les lettres<br />et les sons</span>
 </span>
-<span style="width:100%;display:grid;grid-template-columns:{{ colApercu }};gap:10px">
+<span style="width:100%;display:grid;grid-template-columns:{{ colApercu }};gap:7px">
 <sc-for list="{{ apercuCode }}" as="a" hint-placeholder-count="4">
-<span style="background:#fff;border:4px solid {{ a.couleur }};border-radius:11px;box-shadow:0 3px 10px rgba(0,0,0,0.18);height:88px;background-image:{{ a.bg }};background-size:contain;background-repeat:no-repeat;background-position:center;background-origin:content-box;padding:7px;display:flex;align-items:center;justify-content:center"><span style="font-family:{{ a.police }};font-size:{{ a.taille }};color:{{ a.couleur }}">{{ a.lettre }}</span></span>
+<span style="background:#fff;border:3px solid {{ a.couleur }};border-radius:8px;box-shadow:0 3px 10px rgba(0,0,0,0.18);aspect-ratio:1;align-self:start;overflow:hidden;background-image:{{ a.bg }};background-size:contain;background-repeat:no-repeat;background-position:center;background-origin:content-box;padding:5px;display:flex;align-items:center;justify-content:center"><span style="font-family:{{ a.police }};font-size:{{ a.taille }};line-height:1;text-align:center;color:{{ a.couleur }}">{{ a.lettre }}</span></span>
 </sc-for>
 </span>
-<span style="font-size:14px;color:#fdf3c4;text-shadow:0 1px 3px rgba(0,0,0,0.5)">{{ apercuCodeTexte }}</span>
+<span style="font-size:11.5px;color:#fdf3c4;text-shadow:0 1px 3px rgba(0,0,0,0.5)">{{ apercuCodeTexte }}</span>
 </button>
 </div>
 </div>
@@ -191,7 +191,7 @@ input,select,button{font-family:inherit}
 <span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4)"></span>
 <span style="font-family:Archivo Black, Archivo, sans-serif;font-size:19px;letter-spacing:0.03em;text-transform:uppercase;color:#8a4b1e;white-space:nowrap">Choisis ton thème</span>
 </div>
-<div style="flex:1;min-height:0;width:100%;display:grid;grid-template-columns:{{ colThemes }};grid-auto-rows:{{ hauteurThemes }};gap:9px;overflow-y:auto;overflow-x:hidden;padding-right:12px">
+<div style="flex:1;min-height:0;width:100%;display:grid;grid-template-columns:{{ colThemes }};grid-auto-rows:{{ hauteurThemes }};align-content:start;gap:9px;overflow-y:auto;overflow-x:hidden;padding-right:12px">
 <sc-for list="{{ themesAccueil }}" as="t" hint-placeholder-count="6">
 <button onClick="{{ t.ouvrir }}" style="display:flex;flex-direction:column;align-items:center;gap:3px;background:#fff;border:4px solid {{ t.bord }};border-radius:11px;box-shadow:0 3px 10px rgba(0,0,0,0.18);padding:5px 4px;cursor:pointer;opacity:{{ t.opacite }}">
 <span style="flex:1;min-height:60px;width:100%;background-image:{{ t.bg }};background-size:contain;background-repeat:no-repeat;background-position:center;display:block;filter:{{ t.filtre }}"></span>
@@ -1280,14 +1280,14 @@ input,select,button{font-family:inherit}
 <div style="min-height:0;display:flex;flex-direction:column;gap:10px;overflow:auto">
 <span style="flex:0 0 auto;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#6b7a8d;font-weight:700">Mes collections</span>
 <sc-for list="{{ collections }}" as="c" hint-placeholder-count="6">
-<button onClick="{{ c.choisir }}" style="flex:0 0 auto;text-align:left;border:2px solid {{ c.bord }};border-radius:12px;background:{{ c.fond }};padding:12px 14px;display:flex;flex-direction:column;gap:3px;cursor:pointer">
+<button onClick="{{ c.choisir }}" style="flex:0 0 auto;text-align:left;border:2px solid {{ c.bord }};border-radius:12px;background:{{ c.fond }};padding:12px 14px;display:flex;flex-direction:column;gap:3px;cursor:{{ c.curseur }}">
 <span style="font-family:Archivo Black, Archivo, sans-serif;font-size:13px;color:{{ c.couleur }}">{{ c.nom }}</span>
 <span style="font-size:11.5px;color:#6b7386;line-height:1.35">{{ c.desc }}</span>
 <span style="font-size:11px;font-weight:700;color:#2a9d6e;min-height:14px">{{ c.compteur }}</span>
 </button>
 </sc-for>
 </div>
-<div style="min-width:0;min-height:0;display:flex;flex-direction:column;gap:14px">
+<div style="min-width:0;min-height:0;display:flex;flex-direction:column;gap:14px;overflow:auto">
 <div style="flex:0 0 auto;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(20,33,61,0.12);padding:14px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
 <span style="flex:1;min-width:160px;font-size:13.5px;color:#12233b;font-weight:700">{{ resumeOutils }}</span>
 <button onClick="{{ pagePrec }}" style="border:1px solid #c9cfd8;border-radius:9px;background:#fff;color:#12233b;width:32px;height:32px;font-size:15px;font-weight:700;cursor:pointer;padding:0">&#8592;</button>
@@ -1296,7 +1296,17 @@ input,select,button{font-family:inherit}
 <button onClick="{{ effacerOutils }}" style="border:2px solid #c9cfd8;border-radius:10px;background:#fff;color:#6b7386;padding:10px 16px;font-size:12px;font-weight:700;cursor:pointer">Tout effacer</button>
 <button onClick="{{ imprimerOutils }}" style="border:none;border-radius:11px;background:#2a9d6e;color:#fff;padding:12px 24px;font-family:Archivo Black, Archivo, sans-serif;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;box-shadow:0 3px 0 #217d57">Imprimer</button>
 </div>
-<div style="flex:1;min-height:0;overflow:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:18px;align-content:start;padding:2px 2px 10px">
+<sc-if value="{{ aCasesOutils }}" hint-placeholder-val="{{ false }}">
+<div style="flex:0 0 auto;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(20,33,61,0.12);padding:12px 14px;display:flex;flex-direction:column;gap:9px">
+<span style="font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#6b7a8d;font-weight:700">{{ libelleCasesOutils }}</span>
+<div style="display:flex;flex-wrap:wrap;gap:7px;max-height:132px;overflow:auto">
+<sc-for list="{{ casesOutils }}" as="k" hint-placeholder-count="26">
+<button onClick="{{ k.basculer }}" style="border:1.5px solid {{ k.bord }};border-radius:8px;background:{{ k.fond }};color:{{ k.encre }};min-width:34px;height:34px;padding:0 9px;font-family:Archivo Black, Archivo, sans-serif;font-size:13px;cursor:pointer">{{ k.label }}</button>
+</sc-for>
+</div>
+</div>
+</sc-if>
+<div style="flex:1 0 auto;min-height:300px;display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:18px;align-content:start;padding:2px 2px 10px">
 <sc-for list="{{ vignettes }}" as="v" hint-placeholder-count="8">
 <div style="display:flex;flex-direction:column;gap:7px;min-width:0">
 <button onClick="{{ v.basculer }}" style="position:relative;width:190px;height:269px;padding:0;border:3px solid {{ v.bord }};border-radius:9px;background:#fff;overflow:hidden;cursor:pointer;box-shadow:0 3px 10px rgba(18,35,59,0.14)" style-hover="box-shadow:0 6px 16px rgba(18,35,59,0.24)">
@@ -1313,6 +1323,88 @@ input,select,button{font-family:inherit}
 </div>
 </div>
 </sc-for>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ estCreer }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:minmax(200px,250px) minmax(320px,1fr);gap:16px;padding:18px 20px">
+<div style="min-height:0;display:flex;flex-direction:column;gap:10px;overflow:auto">
+<span style="flex:0 0 auto;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#6b7a8d;font-weight:700">Mes collections</span>
+<sc-for list="{{ creerColls }}" as="c" hint-placeholder-count="2">
+<button onClick="{{ c.choisir }}" style="flex:0 0 auto;text-align:left;border:2px solid {{ c.bord }};border-radius:12px;background:{{ c.fond }};padding:12px 14px;display:flex;flex-direction:column;gap:3px;cursor:pointer">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:13px;color:#8a4b1e;line-height:1.25">{{ c.nom }}</span>
+<span style="font-size:11.5px;color:#6b7386;line-height:1.35">{{ c.desc }}</span>
+</button>
+</sc-for>
+<sc-if value="{{ creerSurLivret }}" hint-placeholder-val="{{ false }}">
+<span style="flex:0 0 auto;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#6b7a8d;font-weight:700;padding-top:6px">Les livrets</span>
+<sc-for list="{{ creerLivrets }}" as="l" hint-placeholder-count="8">
+<button onClick="{{ l.choisir }}" style="flex:0 0 auto;text-align:left;border:1.5px solid {{ l.bord }};border-radius:9px;background:{{ l.fond }};padding:8px 11px;display:flex;align-items:center;gap:8px;cursor:pointer">
+<span style="flex:1;min-width:0;font-size:12.5px;font-weight:700;color:{{ l.encre }}">{{ l.nom }}</span>
+<span style="flex:0 0 auto;font-size:11px;color:#8a91a3">{{ l.compte }}</span>
+</button>
+</sc-for>
+</sc-if>
+</div>
+<div style="min-width:0;min-height:0;overflow:auto;display:flex;flex-direction:column;gap:14px;padding-right:2px">
+<div style="flex:0 0 auto;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(20,33,61,0.12);padding:16px 18px;display:flex;flex-direction:column;gap:11px">
+<sc-if value="{{ creerSurLivret }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:12px;border-bottom:1px solid #e8ecf1;padding-bottom:12px;flex-wrap:wrap">
+<span style="flex:1;min-width:120px;font-size:12.5px;font-weight:700;color:#12233b">{{ creerLivretNom }}</span>
+<button onClick="{{ creerMotPrec }}" style="border:1px solid #c9cfd8;border-radius:9px;background:#fff;color:#12233b;width:34px;height:34px;font-size:16px;font-weight:700;cursor:pointer;padding:0">&#8592;</button>
+<span style="font-size:12px;color:#6b7386;white-space:nowrap;min-width:70px;text-align:center">{{ creerMotRang }}</span>
+<button onClick="{{ creerMotSuiv }}" style="border:1px solid #c9cfd8;border-radius:9px;background:#fff;color:#12233b;width:34px;height:34px;font-size:16px;font-weight:700;cursor:pointer;padding:0">&#8594;</button>
+</div>
+</sc-if>
+<span style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#8a91a3;font-weight:700">Le mot, la phrase ou le texte</span>
+<textarea value="{{ creerTexte }}" onChange="{{ setCreerTexte }}" rows="3" placeholder="un mot, une phrase ou un texte court" style="border:1.5px solid #c9cfd8;border-radius:8px;padding:11px 13px;font-size:16px;font-family:Arial, Helvetica, sans-serif;color:#12233b;resize:vertical"></textarea>
+<span style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#8a91a3;font-weight:700;padding-top:3px">L'image</span>
+<div style="display:flex;flex-direction:column;gap:8px">
+<sc-for list="{{ creerImageChoix }}" as="o" hint-placeholder-count="3">
+<label style="display:flex;align-items:center;gap:9px;font-size:13px;color:{{ o.encre }};cursor:{{ o.curseur }}">
+<input type="radio" name="creer-image" checked="{{ o.actif }}" disabled="{{ o.bloque }}" onChange="{{ o.choisir }}" style="width:16px;height:16px;margin:0" />
+<span>{{ o.libelle }}</span>
+</label>
+</sc-for>
+</div>
+<sc-if value="{{ creerImport }}" hint-placeholder-val="{{ false }}">
+<label style="align-self:flex-start;display:inline-flex;align-items:center;gap:9px;border:1.5px dashed #c9cfd8;border-radius:9px;padding:10px 13px;font-size:12.5px;color:#1d4e89;font-weight:700;cursor:pointer">
+<span>Choisir une image (JPG, PNG)</span>
+<input type="file" accept="image/*" onChange="{{ creerFichier }}" style="display:none" />
+</label>
+</sc-if>
+<span style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#8a91a3;font-weight:700;padding-top:3px">L'interlignage</span>
+<div style="display:flex;flex-wrap:wrap;gap:8px">
+<sc-for list="{{ creerInterlignes }}" as="il" hint-placeholder-count="3">
+<button onClick="{{ il.choisir }}" style="border:2px solid {{ il.bord }};border-radius:9px;background:{{ il.fond }};color:{{ il.encre }};padding:8px 14px;display:flex;flex-direction:column;align-items:flex-start;gap:1px;cursor:pointer">
+<span style="font-size:12.5px;font-weight:700">{{ il.libelle }}</span>
+<span style="font-size:10.5px;opacity:0.75">{{ il.mesure }}</span>
+</button>
+</sc-for>
+</div>
+<span style="font-size:12px;color:#2a9d6e;font-weight:700;min-height:15px">{{ creerInfo }}</span>
+<div style="display:flex;flex-wrap:wrap;gap:10px;border-top:1px solid #e8ecf1;padding-top:12px">
+<button onClick="{{ creerImprimer }}" style="border:none;border-radius:11px;background:#2a9d6e;color:#fff;padding:12px 22px;font-family:Archivo Black, Archivo, sans-serif;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;box-shadow:0 3px 0 #217d57">Imprimer</button>
+<button disabled="{{ vrai }}" style="border:2px solid #e2e6ec;border-radius:11px;background:#f1f4f8;color:#a6adb9;padding:11px 20px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;cursor:default">Sauvegarder</button>
+<button onClick="{{ creerFavori }}" style="border:2px solid #e59a2b;border-radius:11px;background:#fff;color:#b4761c;padding:11px 20px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;cursor:pointer">Favori</button>
+</div>
+<sc-if value="{{ creerAFav }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-wrap:wrap;gap:7px;border-top:1px solid #e8ecf1;padding-top:11px">
+<sc-for list="{{ creerFavs }}" as="fv" hint-placeholder-count="3">
+<button onClick="{{ fv.reprendre }}" style="border:1px solid #f0dcc0;border-radius:20px;background:#fdf6ec;color:#8a4b1e;padding:6px 12px;font-size:12px;cursor:pointer">{{ fv.texte }}</button>
+</sc-for>
+</div>
+</sc-if>
+</div>
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:9px;padding-bottom:14px">
+<span style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#8a91a3;font-weight:700">Aperçu</span>
+<div style="position:relative;width:360px;max-width:100%;height:509px;border:1px solid #dde2e9;border-radius:6px;background:#fff;overflow:hidden;box-shadow:0 3px 10px rgba(18,35,59,0.14)">
+<span style="position:absolute;top:0;left:0;width:210mm;height:297mm;transform:scale(0.4534);transform-origin:top left;display:block;pointer-events:none">
+<dc-import name="APPLI - Fiche" f="{{ creerFiche }}" hint-size="210mm,297mm"></dc-import>
+</span>
+</div>
 </div>
 </div>
 </div>
@@ -1377,7 +1469,7 @@ const PHRASES={
  ]};
 const BANQUE={
  'La politesse':[['bonjour','geste-bonjour'],['bonsoir','geste-bonsoir'],['au revoir','geste-aurevoir'],['merci','geste-merci'],["s'il vous plaît",'geste-silvousplait'],['pardon','geste-pardon'],['oui','geste-oui'],['non','geste-non'],['à demain','geste-ademain']],
- "L'alphabet":[['a','ananas'],['b','ballon'],['c','carotte'],['d','date'],['e','epee'],['f','fantome'],['g','gateau'],['i','gris'],['j','jupe'],['k','kangourou'],['l','lit'],['m','moto'],['n','nuage'],['o','rose'],['p','pied'],['r','rue'],['s','salade'],['t','table'],['v','velo'],['w','wagon'],['x','xylophone'],['y','pyjama'],['z','zebre']],
+ "L'alphabet":[['a','ananas'],['b','ballon'],['c','carotte'],['d','deux'],['e','renard'],['f','fantome'],['g','gateau'],['i','gris'],['j','jupe'],['k','kangourou'],['l','lit'],['m','moto'],['n','nuage'],['o','orange'],['p','pied'],['q','cinq'],['r','robot'],['s','salade'],['t','table'],['u','rue'],['v','velo'],['w','wagon'],['x','xylophone'],['y','pyjama'],['z','zebre']],
  'Les jours':[['lundi','lundi'],['mardi','mardi'],['mercredi','mercredi'],['jeudi','jeudi'],['vendredi','vendredi'],['samedi','samedi'],['dimanche','dimanche']],
  'Les mois':[['janvier','janvier'],['février','fevrier'],['mars','mars'],['avril','avril'],['mai','mai'],['juin','juin'],['juillet','juillet'],['août','aout'],['septembre','septembre'],['octobre','octobre'],['novembre','novembre'],['décembre','decembre']],
  'La météo':[['le soleil','soleil'],['un nuage','nuage'],['la pluie','pluie'],['la neige','neige'],['le vent','vent'],["l'orage",'orage'],['le brouillard','brouillard'],['il fait chaud','chaud'],['il fait froid','froid']],
@@ -1422,7 +1514,7 @@ const ALPHA_IMG=[['a','ananas','ANANAS'],['b','ballon','BALLON'],['c','carotte',
 
 const SRC_FICHES=()=>(window.FICHES_SRC||{collections:[],pages:[]});
 const OUTILS_COLL_FALLBACK=[
- ['lettres','Les lettres','#1d4e89',"cahier d'écriture : tracé et mots"],
+ ['lettres','Lettres script','#1d4e89','tracé et mots repères, de A à Z'],
  ['chiffres','Les chiffres','#2a9d6e','tracé des chiffres de 0 à 9'],
  ['sonsF','Les sons','#8a4b1e','séances de phonologie'],
  ['nombres','Les nombres','#e59a2b','numération, comparer et ranger'],
@@ -1430,9 +1522,23 @@ const OUTILS_COLL_FALLBACK=[
  ['dico','Mes mots','#6d5bd0','pages de lexique par thème']
 ];
 function feuillesOutils(id){ return SRC_FICHES().pages.filter(p=>p.coll===id); }
+const COLL_RENOM={lettres:['Lettres script','tracé et mots repères, de A à Z']};
+const COLL_VIDES=[
+ ['courbes','Les courbes','#8a4b1e','à construire',true],
+ ['boucles','Les boucles','#8a4b1e','à construire',true],
+ ['ponts','Les ponts','#8a4b1e','à construire',true],
+ ['cursive','Lettres cursive','#8a4b1e','à construire',true]
+];
+function toutesCollections(){
+  const base=(SRC_FICHES().collections.length?SRC_FICHES().collections:OUTILS_COLL_FALLBACK)
+    .map(c=>{ const r=COLL_RENOM[c[0]]; return r?[c[0],r[0],c[2],r[1]]:c; });
+  return base.concat(COLL_VIDES);
+}
 const DOMAINES={
   lexique:['dico'], lecture:['sonsF'],
-  ecrLettres:['lettres'], ecrChiffres:['chiffres'], maths:['nombres']
+  ecrApprend:['courbes','boucles','ponts'],
+  ecrCahier:['lettres','cursive','chiffres'],
+  maths:['nombres']
 };
 function toutesLesFeuilles(){ return SRC_FICHES().pages; }
 const COMPETENCES=[
@@ -1505,6 +1611,8 @@ class Component extends DCLogic {
     motActif:'', quiz:[], qi:0, score:0, retour:'', repondu:false,
     serie:[], serieIdx:0, serieScore:0, serieTotal:0,
     outilsColl:'lettres', outilsSel:this.chargerOutils(), feuillesPrint:[],
+    creerColl:'libre', creerTexte:'', creerImage:'aucune', creerImg:'',
+    creerLivret:'', creerMotIdx:0, creerInterligne:'moyen', creerFav:this.chargerFavFiches(), creerInfo:'',
     comp:this.chargerComp(), compEleve:'',
     perso:this.chargerPerso(), themeEdit:'Le corps', ongletTheme:'mots', voixNom:this.chargerVoix(),
     jeuxEleve:(()=>{ try{ return localStorage.getItem('upe2a-jeux-eleve')==='1'; }catch(e){ return false; } })(),
@@ -1657,7 +1765,8 @@ class Component extends DCLogic {
     try{
       const prete=()=>{ if(this.voixFr().length) this.forceUpdate(); };
       speechSynthesis.addEventListener('voiceschanged',prete);
-      this._voix=prete; setTimeout(prete,400); setTimeout(prete,1500);
+      this._voix=prete;
+      [300,900,2000,4000].forEach(d=>setTimeout(prete,d));
     }catch(e){}
     if(this.suiteMontage) this.suiteMontage();
     setTimeout(()=>this.lancerDevoir(),300);
@@ -1755,6 +1864,92 @@ class Component extends DCLogic {
       return {outilsSel:o};
     });
   }
+  lotsCourants(){ return this.lotsDe(feuillesOutils(this.state.outilsColl)); }
+  lotCoche(l){ return !!(this.state.outilsSel||{})[l.pages[0].id]; }
+  lotsVus(){
+    const l=this.lotsCourants();
+    if(!['lettres','chiffres'].includes(this.state.outilsColl)) return l;
+    const c=l.filter(x=>this.lotCoche(x));
+    return c.length?c:l;
+  }
+  motsLivret(){ return this.motsDe(this.state.creerLivret)||[]; }
+  allerMotLivret(d){
+    const l=this.motsLivret();
+    if(!l.length) return;
+    const n=((this.state.creerMotIdx||0)+d+l.length)%l.length;
+    const [mot,cle]=l[n];
+    this.setState({creerMotIdx:n, creerTexte:mot, creerImage:cle?'import':'aucune', creerImg:cle?this.srcImg(cle):'', creerInfo:''});
+  }
+  bandeEcriture(interligne){
+    // reglure des livrets : bleu ciel · gris capitales · vert minuscules · marron ligne · noir jambages
+    const PAS={petit:10,moyen:13.5,grand:19};
+    const pas=PAS[interligne]||PAS.moyen, m=pas/2, h=pas*4+m*2, k=0.42;
+    const traits=[['#2f5fd0',1.6],['#b9bfc8',1.1],['#3aa03a',2],['#8a5a2b',2.2],['#1a1a1a',1.5]];
+    const lignes=traits.map((t,i)=>{
+      const y=m+pas*i;
+      return '<line x1="0" y1="'+y+'" x2="1000" y2="'+y+'" stroke="'+t[0]+'" stroke-width="'+t[1]+'" vector-effect="non-scaling-stroke"></line>';
+    }).join('');
+    return {
+      svg:'<svg viewBox="0 0 1000 '+h+'" preserveAspectRatio="none" style="width:100%;height:'+(h*k).toFixed(2)+'mm;display:block">'+lignes+'</svg>',
+      haut:h*k, base:(m+pas*3)*k, xh:pas*k
+    };
+  }
+  ficheCreee(){
+    const s=this.state;
+    const txt=(s.creerTexte||'').replace(/\s+/g,' ').trim();
+    const il=s.creerInterligne||'moyen';
+    const b=this.bandeEcriture(il);
+    const fs=b.xh/0.545;              // la hauteur du x est imposée par l'interlignage
+    const esc=t=>String(t==null?'':t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    const aImg=!!(s.creerImage==='import'&&s.creerImg);
+    const PX=96/25.4, dispo=178*PX, fpx=fs*PX;
+    this._mes=this._mes||document.createElement('canvas').getContext('2d');
+    this._mes.font=fpx.toFixed(2)+'px Verdana, Tahoma, sans-serif';
+    const tient=txt&&this._mes.measureText(txt).width<=dispo;
+    const mots=txt.split(' ').filter(Boolean);
+    const pleins=mots.filter(x=>!/^(le|la|les|un|une|des|du|de|au|aux|l'|d')$/i.test(x));
+    const quoi=pleins.length<=1?'le mot':(pleins.length<=6?'la phrase':'le texte');
+    const hBloc=aImg?40:(txt?16:8);
+    const nb=Math.max(3,Math.min(10,Math.floor((297-30-24-18-hBloc-6)/(b.haut+3))));
+    const oeil='<span style="flex:0 0 auto;width:8mm;height:8mm;background-image:url(\'clean/icone-oeil.svg\');background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>';
+    const cons=(aImg?["Regarde l'image."]:[]).concat(txt?['Lis '+quoi+'.','Repasse sur '+quoi+'.','Écris '+quoi+' seul.']:['Écris sur les lignes.']);
+    const bas=(b.haut-b.base-0.155*fs).toFixed(2);
+    // étayage dégressif du cahier : modèle plein → modèle pâle → amorce → ligne vide
+    const modeleDe=i=>{
+      if(!tient) return '';
+      if(i===0) return {t:txt, c:'#1d4e89'};
+      if(i===1) return {t:txt, c:'#a9bdd8'};
+      if(i===2) return {t:txt.slice(0,Math.max(1,Math.ceil(txt.length/3))), c:'#c8d5e6'};
+      return '';
+    };
+    const bande=i=>{
+      const mo=modeleDe(i);
+      return '<div style="flex:0 0 auto;position:relative;width:100%;height:'+b.haut.toFixed(2)+'mm">'+b.svg+
+        (mo?'<span style="position:absolute;left:3mm;right:0;bottom:'+bas+'mm;font-family:Verdana, Tahoma, sans-serif;font-size:'+fs.toFixed(2)+'mm;line-height:1;color:'+mo.c+';white-space:nowrap;overflow:hidden;display:block">'+esc(mo.t)+'</span>':'')+'</div>';
+    };
+    const bandes=[];
+    for(let i=0;i<nb;i++) bandes.push(bande(i));
+    const capitales=txt.toLocaleUpperCase('fr-FR');
+    const tp=capitales.length<=12?24:(capitales.length<=30?17:13);
+    const html='<section class="page" data-screen-label="Ma fiche" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:14mm 15mm 14mm;box-sizing:border-box;font-family:Verdana, Tahoma, sans-serif">'+
+      '<div style="flex:0 0 auto;display:flex;align-items:flex-end;gap:6mm;padding-bottom:3.5mm;border-bottom:2.5px solid #1d4e89">'+
+      '<span style="flex:1;font-size:17pt;font-weight:700;color:#14213d;line-height:1.1">J\'écris</span>'+
+      '<span style="flex:0 0 auto;font-size:8pt;letter-spacing:0.14em;text-transform:uppercase;color:#1d4e89">écriture</span></div>'+
+      '<div style="flex:0 0 auto;display:flex;gap:8mm;padding:3mm 0 4mm;font-size:9.5pt;color:#6b7386">'+
+      '<span style="flex:1;border-bottom:1px solid #b9c6d6;padding-bottom:1.5mm">Nom :</span>'+
+      '<span style="flex:0 0 46mm;border-bottom:1px solid #b9c6d6;padding-bottom:1.5mm">Date :</span></div>'+
+      '<div style="flex:0 0 auto;display:flex;align-items:center;gap:4mm;background:#d8e6f4;border:1.5px solid #1d4e89;border-radius:2.5mm;padding:2.5mm 4mm">'+
+      (aImg?oeil:'')+'<span style="flex:1;min-width:0;font-size:12pt;font-weight:700;color:#14213d;line-height:1.45">'+cons.map(esc).join('<br />')+'</span></div>'+
+      (txt||aImg
+        ? '<div style="flex:0 0 auto;display:flex;align-items:center;gap:5mm;border:1.5px solid #1d4e89;border-radius:2.5mm;padding:3mm 4mm;margin:4mm 0 3mm">'+
+          (aImg?'<span style="flex:0 0 30mm;height:30mm;border-right:1.2px solid #c9cfd8;padding-right:3mm;background-image:url(\''+esc(s.creerImg)+'\');background-size:contain;background-repeat:no-repeat;background-position:center;background-origin:content-box;display:block"></span>':'')+
+          '<span style="flex:1;min-width:0;font-size:'+tp+'pt;font-weight:700;letter-spacing:0.06em;color:#14213d;line-height:1.25;overflow-wrap:break-word">'+esc(capitales)+'</span></div>'
+        : '<div style="flex:0 0 auto;height:4mm"></div>')+
+      '<div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:space-evenly">'+bandes.join('')+'</div>'+
+      '</section>';
+    return {id:'creer', coll:'fabrique', nom:'Ma fiche', texte:txt, img:aImg?s.creerImg:'', html};
+  }
+  chargerFavFiches(){ try{ return JSON.parse(localStorage.getItem('upe2a-fiches-favoris')||'[]'); }catch(e){ return []; } }
   fabCoche(cle){ return (this.state.fabTypes||{})[cle]!==false; }
   fabTypesActifs(){
     const s=this.state, T=(window.FICHES_THEMES||{types:[]}).types;
@@ -1837,6 +2032,25 @@ class Component extends DCLogic {
       types:this.fabTypesActifs(),
       interligne:s.fabInterligne||'moyen', modele:s.fabModele!==false});
   }
+  cleLot(f){
+    const m=(f.id||'').match(/^gen-([^-]*)-([^-]*)/);
+    if(m) return 'gen-'+m[1]+'-'+m[2];
+    let b=String(f.nom||'').trim();
+    b=b.replace(/\s*—\s*(tracé|mots)$/i,'');
+    b=b.replace(/\s+(planches|cartes|étiquettes)\s+\d+$/i,' $1');
+    if(!/^(chiffre|nombres|comparer|jeu|référentiel)\b/i.test(b)) b=b.replace(/\s+\d+$/,'');
+    return (f.coll||'')+'|'+b;
+  }
+  nomLot(f){ return this.cleLot(f).split('|').slice(1).join('|')||f.nom; }
+  lotsDe(liste){
+    const lots=[], par={};
+    (liste||[]).forEach(f=>{
+      const c=this.cleLot(f);
+      if(!par[c]){ par[c]={cle:c, premier:f, pages:[]}; lots.push(par[c]); }
+      par[c].pages.push(f);
+    });
+    return lots;
+  }
   toutesFeuilles(){
     const base=toutesLesFeuilles().filter(f=>f.coll!=='lotos');
     const gen=this.fichesFabriquees();
@@ -1877,6 +2091,8 @@ class Component extends DCLogic {
         const n=(v.name||'');
         let p=0;
         if(/natural|premium|enhanced|siri|neural/i.test(n)) p+=100;
+        if(/google/i.test(n)) p+=60;
+        if(/hortense|caroline|virginie|julie/i.test(n)) p-=25;
         if(/thomas|henri|denise|audrey|marie|amelie|am\u00e9lie/i.test(n)) p+=20;
         if(v.localService) p+=10;
         if(/compact|espeak|festival|robot/i.test(n)) p-=50;
@@ -2339,13 +2555,13 @@ class Component extends DCLogic {
   renderVals(){
     const s=this.state;
     const TITRES_DOM={lexique:'Lexique — fiches à imprimer', jeux:'Lexique — jeux et ateliers',
-      lecture:'Lecture — séances de phonologie', ecrLettres:'Écriture — les lettres',
-      ecrChiffres:'Écriture — les chiffres', maths:'Mathématiques — fiches à imprimer'};
+      lecture:'Lecture — séances de phonologie', ecrApprend:'Écriture — apprentissage',
+      ecrCahier:"Écriture — mon cahier d'écriture", maths:'Mathématiques — fiches à imprimer'};
     const TITRES={accueil:'Espace enseignant',eleve:'Espace élève',groupes:'Gestion des groupes et des élèves',reglages:'Réglages des thèmes',reglagesCode:'Réglages lettres et sons',fabrique:'Fiches et jeux — à fabriquer et à imprimer',bilan:'Bilan des exercices',oral:'Productions orales des thèmes',themes:'Création de thèmes',mdp:'Mot de passe sécurisé',
-      sons:'Progression des sons', outils:TITRES_DOM[s.outilsDomaine]||'Fiches à imprimer', competences:'Bilan des compétences', devoirs:'Je continue chez moi — préparer le travail du soir',
+      sons:'Progression des sons', creer:'Créer une fiche', outils:TITRES_DOM[s.outilsDomaine]||'Fiches à imprimer', competences:'Bilan des compétences', devoirs:'Je continue chez moi — préparer le travail du soir',
       alpha:"L'alphabet",alphaEcrire:'Écris la lettre',resultatAlpha:'Résultat',
       themeAccueil:'Choisis ton tableau', tableauThemes:'Choisis ton thème', tableauCode:'Les lettres et les sons',sousTheme:s.themeParent||'Choisis',niveau:'Choisis ton niveau',themeEleve:'Choisis un thème',explore:s.themeEleve||'Exploration',trouve:'Trouve la bonne image',vf:'Vrai ou faux',lireDessin:'Trouve le bon dessin',lireMot:'Trouve le bon mot',repete:'Écoute et répète',situation:'Que dis-tu ?',ecrire:s.modeEcrire==='completer'?'Complète le mot':'Écris le mot',resultat:'Résultat'};
-    const ECRANS_PROF=['groupes','reglages','reglagesCode','fabrique','bilan','oral','themes','sons','outils','competences','devoirs','mdp'];
+    const ECRANS_PROF=['groupes','reglages','reglagesCode','fabrique','bilan','oral','themes','sons','outils','creer','competences','devoirs','mdp'];
     const RUBRIQUES=[
       ['Ma classe','#2a9d6e',[
         ['Gestion des élèves','groupes'],
@@ -2354,16 +2570,17 @@ class Component extends DCLogic {
         ['Bilan des compétences','competences']]],
       ['Lexique','#c4479e',[
         ['Création de thèmes','themes'],
-        ['Réglages des thèmes','reglages'],
+        ['👁 Réglages des thèmes','reglages'],
         ['Fiches et jeux','fabrique'],
         ['Fiches à imprimer','outils','lexique']]],
       ['Lecture','#4fc3d9',[
         ['Progression des sons','sons'],
-        ['Réglages lettres et sons','reglagesCode'],
+        ['👁 Réglages lettres et sons','reglagesCode'],
         ['Séances de phonologie','outils','lecture']]],
       ['Écriture','#8a4b1e',[
-        ['Les lettres','outils','ecrLettres'],
-        ['Les chiffres','outils','ecrChiffres']]],
+        ['Apprentissage','outils','ecrApprend'],
+        ["Mon cahier d'écriture",'outils','ecrCahier'],
+        ['Créer une fiche','creer']]],
       ['Mathématiques','#e59a2b',[
         ['Fiches à imprimer','outils','maths']]],
       ['Ressources enseignantes','#6d5bd0',[
@@ -2954,24 +3171,45 @@ class Component extends DCLogic {
           })
         }));
       })(),
-      collections:(SRC_FICHES().collections.length?SRC_FICHES().collections:OUTILS_COLL_FALLBACK)
-        .filter(([id])=>{ const d=DOMAINES[s.outilsDomaine]; return !d||d.includes(id); })
-        .map(([id,nom,couleur,desc])=>{
-        const n=feuillesOutils(id).reduce((t,f)=>t+((s.outilsSel||{})[f.id]||0),0);
-        const on=s.outilsColl===id;
-        return {nom,desc,couleur, bord:on?couleur:'#dde2e9', fond:on?'#fff':'#f8fafc',
-          compteur:n?(n+' page'+(n>1?'s':'')+' choisie'+(n>1?'s':'')):'',
-          choisir:()=>this.setState({outilsColl:id,outilsPage:0})};
-      }),
-      vignettes:feuillesOutils(s.outilsColl).slice((s.outilsPage||0)*9,(s.outilsPage||0)*9+9).map(f=>{
-        const n=(s.outilsSel||{})[f.id]||0;
-        return {nom:f.nom, feuille:f, nb:n,
+      collections:(()=>{
+        const d=DOMAINES[s.outilsDomaine];
+        let liste=toutesCollections().filter(([id])=>!d||d.includes(id));
+        if(d) liste=liste.slice().sort((a,b)=>d.indexOf(a[0])-d.indexOf(b[0]));
+        return liste.map(([id,nom,couleur,desc,bloque])=>{
+          const n=feuillesOutils(id).reduce((t,f)=>t+((s.outilsSel||{})[f.id]||0),0);
+          const on=s.outilsColl===id;
+          if(bloque) return {nom, desc:desc||'à construire', couleur:'#8a91a3',
+            bord:'#e2e6ec', fond:'#f1f4f8', compteur:'',
+            curseur:'default', choisir:()=>{}};
+          return {nom,desc,couleur, bord:on?couleur:'#dde2e9', fond:on?'#fff':'#f8fafc',
+            compteur:n?(n+' page'+(n>1?'s':'')+' choisie'+(n>1?'s':'')):'',
+            curseur:'pointer',
+            choisir:()=>this.setState({outilsColl:id,outilsPage:0})};
+        });
+      })(),
+      aCasesOutils:['lettres','chiffres'].includes(s.outilsColl),
+      libelleCasesOutils:s.outilsColl==='chiffres'?'Coche un chiffre — sa fiche apparaît, prête à imprimer':'Coche une lettre — sa fiche apparaît, prête à imprimer',
+      casesOutils:(()=>{
+        if(!['lettres','chiffres'].includes(s.outilsColl)) return [];
+        return this.lotsCourants().map(l=>{
+          const on=this.lotCoche(l), nl=this.nomLot(l.premier);
+          const m=nl.match(/^(?:Lettre|Chiffre)\s+(.+)$/);
+          return {label:m?m[1]:nl,
+            fond:on?'#2a9d6e':'#fff', encre:on?'#fff':'#12233b', bord:on?'#2a9d6e':'#c9cfd8',
+            basculer:()=>{ l.pages.forEach(p=>this.majOutils(p.id,on?-30:1,false)); this.setState({outilsPage:0}); }};
+        });
+      })(),
+      vignettes:this.lotsVus().slice((s.outilsPage||0)*9,(s.outilsPage||0)*9+9).map(l=>{
+        const f=l.premier, ids=l.pages.map(x=>x.id);
+        const n=(s.outilsSel||{})[ids[0]]||0;
+        return {nom:this.nomLot(f)+(l.pages.length>1?('  ·  '+l.pages.length+' pages'):''),
+          feuille:f, nb:n, ids,
           bord:n?'#2a9d6e':'#dde2e9',
           badge:n?'✓':'', badgeFond:n?'#2a9d6e':'rgba(18,35,59,0.12)',
           couleurNb:n?'#2a9d6e':'#b9c6d6',
           basculer:()=>this.setState({apercu:f.id}),
-          plus:()=>this.majOutils(f.id,1,false),
-          moins:()=>this.majOutils(f.id,-1,false)};
+          plus:()=>ids.forEach(id=>this.majOutils(id,1,false)),
+          moins:()=>ids.forEach(id=>this.majOutils(id,-1,false))};
       }),
       resumeOutils:(()=>{
         const sel=s.outilsSel||{};
@@ -2980,9 +3218,76 @@ class Component extends DCLogic {
         return fiches?(fiches+' fiche'+(fiches>1?'s':'')+' · '+pages+' page'+(pages>1?'s':'')+' à imprimer')
           :'Clique sur une fiche pour la choisir.';
       })(),
-      pageOutils:(()=>{const n=feuillesOutils(s.outilsColl).length; const p=(s.outilsPage||0); return n?('Fiches '+(p*9+1)+' à '+Math.min(n,p*9+9)+' sur '+n):'';})(),
+      pageOutils:(()=>{const n=this.lotsVus().length; const p=(s.outilsPage||0); return n?('Fiches '+(p*9+1)+' à '+Math.min(n,p*9+9)+' sur '+n):'';})(),
       pagePrec:()=>this.setState(p=>({outilsPage:Math.max(0,(p.outilsPage||0)-1)})),
-      pageSuiv:()=>this.setState(p=>{const n=feuillesOutils(p.outilsColl).length; return {outilsPage:Math.min(Math.floor((n-1)/9),(p.outilsPage||0)+1)};}),
+      pageSuiv:()=>{const n=this.lotsVus().length; this.setState(p=>({outilsPage:Math.min(Math.max(0,Math.floor((n-1)/9)),(p.outilsPage||0)+1)}));},
+      vrai:true,
+      estCreer:s.ecran==='creer',
+      creerColls:[['livret','Livret','les mots des livrets enregistrés'],
+        ['libre','Écrire un mot, une phrase ou un texte','saisie libre']]
+        .map(([id,nom,desc])=>{
+          const on=(s.creerColl||'libre')===id;
+          return {nom,desc, bord:on?'#8a4b1e':'#dde2e9', fond:on?'#fff':'#f8fafc',
+            choisir:()=>this.setState({creerColl:id, creerInfo:'',
+              ...(id==='libre'?{creerTexte:'', creerImage:'aucune', creerImg:''}:{})})};
+        }),
+      creerSurLivret:(s.creerColl||'libre')==='livret',
+      creerLivrets:this.tousThemes().filter(n=>this.motsDe(n).length).map(n=>{
+        const on=s.creerLivret===n, nb=this.motsDe(n).length;
+        return {nom:n, compte:nb+' mots', bord:on?'#8a4b1e':'#e2e6ec', fond:on?'#fdf6ec':'#fff',
+          encre:on?'#8a4b1e':'#12233b',
+          choisir:()=>{
+            const l=this.motsDe(n);
+            const [mot,cle]=l[0]||['',''];
+            this.setState({creerLivret:n, creerMotIdx:0, creerTexte:mot,
+              creerImage:cle?'import':'aucune', creerImg:cle?this.srcImg(cle):'', creerInfo:''});
+          }};
+      }),
+      creerLivretNom:s.creerLivret||'Choisis un livret',
+      creerMotRang:(()=>{const l=this.motsLivret(); return l.length?((s.creerMotIdx||0)+1)+' / '+l.length:'—';})(),
+      creerMotPrec:()=>this.allerMotLivret(-1),
+      creerMotSuiv:()=>this.allerMotLivret(1),
+      creerTexte:s.creerTexte||'',
+      setCreerTexte:e=>this.setState({creerTexte:e.target.value, creerInfo:''}),
+      creerImageChoix:[['aucune','Aucune image',false],['import','Importer une image',false],
+        ['ia','Générer avec l\u2019IA — à venir',true]]
+        .map(([id,libelle,bloque])=>({libelle, bloque,
+          actif:(s.creerImage||'aucune')===id,
+          encre:bloque?'#a6adb9':'#12233b', curseur:bloque?'default':'pointer',
+          choisir:()=>{ if(!bloque) this.setState({creerImage:id, creerInfo:''}); }})),
+      creerImport:(s.creerImage||'aucune')==='import',
+      creerInterlignes:[['petit','Petit','serré'],['moyen','Moyen','valeur validée'],['grand','Grand','débutants']]
+        .map(([id,libelle,mesure])=>{
+          const on=(s.creerInterligne||'moyen')===id;
+          return {libelle, mesure, bord:on?'#8a4b1e':'#dde2e9', fond:on?'#fdf6ec':'#fff',
+            encre:on?'#8a4b1e':'#6b7386',
+            choisir:()=>this.setState({creerInterligne:id, creerInfo:''})};
+        }),
+      creerFichier:e=>{
+        const fi=e.target.files&&e.target.files[0];
+        e.target.value='';
+        if(!fi) return;
+        const fr=new FileReader();
+        fr.onload=()=>this.setState({creerImg:String(fr.result||''), creerInfo:'Image importée.'});
+        fr.readAsDataURL(fi);
+      },
+      creerFiche:this.ficheCreee(),
+      creerInfo:s.creerInfo||'',
+      creerImprimer:()=>{
+        this.setState({feuillesPrint:[this.ficheCreee()]});
+        setTimeout(()=>{ try{ window.print(); }catch(e){} }, 700);
+      },
+      creerFavori:()=>{
+        const fi=this.ficheCreee();
+        if(!fi.texte){ this.setState({creerInfo:'Écris d\u2019abord un mot.'}); return; }
+        const l=[...(s.creerFav||[]).filter(x=>x.texte!==fi.texte),{texte:fi.texte,img:fi.img}].slice(-24);
+        try{ localStorage.setItem('upe2a-fiches-favoris',JSON.stringify(l)); }catch(e){}
+        this.setState({creerFav:l, creerInfo:'Ajouté aux favoris.'});
+      },
+      creerAFav:!!(s.creerFav||[]).length,
+      creerFavs:(s.creerFav||[]).map(x=>({texte:x.texte,
+        reprendre:()=>this.setState({creerTexte:x.texte, creerImg:x.img||'',
+          creerImage:x.img?'import':'aucune', creerInfo:''})})),
       apercuOuvert:!!s.apercu,
       apercuFeuille:(()=>this.toutesFeuilles().find(f=>f.id===s.apercu)||{})(),
       apercuNom:(()=>{const f=this.toutesFeuilles().find(f=>f.id===s.apercu);return f?f.nom:'';})(),
@@ -2990,10 +3295,7 @@ class Component extends DCLogic {
       apercuFond:((s.outilsSel||{})[s.apercu]||0)?'#e8654f':'#2a9d6e',
       apercuChoisir:()=>{
         const toutes=this.toutesFeuilles();
-        const cle=f=>{
-          const m=(f.id||'').match(/^gen-([^-]*)-([^-]*)/);
-          return m?('gen-'+m[1]+'-'+m[2]):(f.coll+'|'+f.id);
-        };
+        const cle=f=>this.cleLot(f);
         const courant=toutes.find(f=>f.id===s.apercu);
         const lot=courant?toutes.filter(f=>cle(f)===cle(courant)):[];
         const deja=((s.outilsSel||{})[s.apercu]||0)>0;
@@ -3006,10 +3308,7 @@ class Component extends DCLogic {
       apercuPages:(()=>{
         if(!s.apercu) return [];
         const toutes=this.toutesFeuilles();
-        const cle=f=>{
-          const m=(f.id||'').match(/^gen-([^-]*)-([^-]*)/);
-          return m?('gen-'+m[1]+'-'+m[2]):(f.coll+'|'+f.id);
-        };
+        const cle=f=>this.cleLot(f);
         const courant=toutes.find(f=>f.id===s.apercu);
         if(!courant) return [];
         const lot=toutes.filter(f=>cle(f)===cle(courant));
@@ -3095,7 +3394,13 @@ class Component extends DCLogic {
         if(!l.length) return [{nom:'',libelle:'Voix du système'}];
         return l.map(v=>({nom:v.name,libelle:v.name+(/natural|premium|enhanced|siri|neural/i.test(v.name)?'  ★':'')}));
       })(),
-      voixNom:(()=>{ const v=this.laVoix(); return v?v.name:''; })(),
+      voixNom:(()=>{
+        const choisie=s.voixNom||this.chargerVoix();
+        const l=this.voixFr();
+        if(choisie&&l.some(v=>v.name===choisie)) return choisie;
+        if(choisie) return choisie;
+        const v=this.laVoix(); return v?v.name:'';
+      })(),
       setVoix:e=>{ const n=e.target.value; try{ localStorage.setItem('upe2a-voix',n); }catch(err){} this.setState({voixNom:n}); setTimeout(()=>this.dire('Bonjour. Écoute bien.'),120); },
       essayerVoix:()=>this.dire('Bonjour. Regarde l\u2019image et écoute le mot.'),
       infoVoix:(()=>{
@@ -3155,13 +3460,13 @@ class Component extends DCLogic {
       infoLien:s.infoLien||'',
       apercuCode:(()=>{
         const c=this.cartesCodeActives();
-        return c.slice(0,4).map(x=>{
+        return c.slice(0,3).map(x=>{
           const chips=(x.chips||[]);
           const texte=x.lettre||chips.slice(0,2).join(' ');
           return {
             couleur:x.couleur, lettre:texte,
             police:chips.length?'BA Script, Archivo, sans-serif':x.police,
-            taille:chips.length?'21px':'38px',
+            taille:chips.length?'13px':'26px',
             bg:x.bg
           };
         });
@@ -3179,7 +3484,7 @@ class Component extends DCLogic {
       estTableauCode:s.ecran==='tableauCode',
       ouvrirTableauThemes:()=>this.setState({ecran:'tableauThemes',themeParent:''}),
       ouvrirTableauCode:()=>this.go('tableauCode'),
-      apercuThemes:themesAccueil.filter(t=>t.nom!=="L'alphabet").slice(0,4),
+      apercuThemes:themesAccueil.filter(t=>t.nom!=="L'alphabet").slice(0,3),
       apercuThemesTexte:themesAccueil.filter(t=>t.nom!=="L'alphabet").length+' thèmes de vocabulaire',
       estSousTheme:s.ecran==='sousTheme', themeParent:s.themeParent||'',
       toutSelectionne:LISTE.every(t=>PARENTS[t.nom]||s.themesOn[t.nom]!==false),
@@ -3276,7 +3581,7 @@ class Component extends DCLogic {
       colonnesExplore:this.tel()?'1fr':'1fr 320px',
       colonnesGrilleExplore:this.tel()?'repeat(2,minmax(0,1fr))':'repeat(4,minmax(0,1fr))',
       hauteurImageExplore:this.tel()?'96px':(s.champEleve==='Je lis'?'74px':'88px'),
-      estTel:this.tel(), pasTel:!this.tel(),
+      estTel:this.tel(), pasTel:!this.tel(), assezLarge:!this.tel()&&(s.largeur||1200)>=940,
       affDecor:this.tel()?'none':'block',
       largJauge:this.tel()?'26px':'44px',
       debord:'auto',
@@ -3302,11 +3607,11 @@ class Component extends DCLogic {
       padAcces:this.tel()?'9px 12px':'11px 20px',
       tailleAcces:this.tel()?'10px':'12px',
       colAccueil:this.tel()?'minmax(0,1fr)':'repeat(2,minmax(0,1fr))',
-      largeurAccueil:this.tel()?'100%':'min(940px, 100% - 250px)',
-      margeAccueil:this.tel()?'0':'36px',
-      colApercu:this.tel()?'repeat(2,1fr)':'repeat(4,1fr)',
+      largeurAccueil:this.tel()?'100%':'min(560px, 100% - 300px)',
+      margeAccueil:this.tel()?'0':'40px',
+      colApercu:'repeat(3,minmax(0,1fr))',
       colThemes:this.tel()?'repeat(2,minmax(0,1fr))':'repeat(5,minmax(0,1fr))',
-      hauteurThemes:this.tel()?'minmax(132px,auto)':'minmax(112px,1fr)',
+      hauteurThemes:this.tel()?'minmax(132px,auto)':'minmax(150px,190px)',
       colCode:this.tel()?'repeat(2,minmax(0,1fr))':'repeat(4,minmax(0,1fr))',
       colSous:this.tel()?'minmax(0,1fr)':'repeat(3,minmax(0,240px))',
       colNiveaux:this.tel()?'minmax(0,1fr)':'repeat(3,1fr)',
