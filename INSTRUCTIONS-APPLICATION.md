@@ -25,7 +25,7 @@ La barre disparaît sur téléphone et côté élève.
 | Ma classe | vert `#2a9d6e` | Gestion des élèves · Bilan des exercices · Productions orales des thèmes · Bilan des compétences |
 | Lexique | rose `#c4479e` | Création de thèmes · Réglages des thèmes · Fiches à imprimer · Jeux et ateliers |
 | Lecture | bleu `#1d4e89` | Progression des sons · Réglages lettres et sons · Séances de phonologie |
-| Écriture | brun `#8a4b1e` | Les lettres · Les chiffres |
+| Écriture | brun `#8a4b1e` | Apprentissage · Créer une fiche |
 | Mathématiques | orange `#e59a2b` | Fiches à imprimer |
 | Ressources enseignantes | violet `#6d5bd0` | Je continue chez moi · 5 entrées « à venir » |
 
@@ -46,7 +46,7 @@ ne pas la reproposer. Une version à étiquettes de six couleurs pleines aussi
 (effet « Noël »).
 
 Les fiches à imprimer sont **un seul écran** (`outils`) filtré par domaine via `DOMAINES` :
-`lexique→dico`, `jeux→lotos`, `lecture→sonsF`, `ecrLettres→lettres`, `ecrChiffres→chiffres`,
+`lexique→dico`, `jeux→lotos`, `lecture→sonsF`, `ecriture→ronds/courbes/boucles/ponts/lettres/cursive/chiffres`,
 `maths→nombres`. Ajouter un domaine = une ligne dans `DOMAINES` + une entrée dans `RUBRIQUES`.
 
 Les réglages sont coupés en deux : `reglages` (thèmes, champs, nombre de questions, voix)
@@ -263,3 +263,93 @@ de s'afficher (le navigateur montre le code source). Symptôme déjà rencontré
 
 Le dossier `clean/` contient environ 290 images utilisées par **tous** les documents.
 Une image corrigée profite à tous. Ne jamais dupliquer une image d'un document à l'autre.
+
+## Écriture — réorganisation (étape 3, validée)
+
+Deux entrées seulement : **Apprentissage** et **Créer une fiche**.
+
+Dans Apprentissage, les collections suivent une seule progression graphique :
+en-tête gris dépliable **Les gestes préparatoires** (« 4 étapes ») contenant
+*Les ronds · Les courbes · Les boucles · Les ponts* (toutes « à construire »),
+puis **Lettres script**, **Lettres cursive** (à construire), **Les chiffres**.
+La bande de cases A→Z / 0→9 ne s’affiche que sur les lettres et les chiffres.
+
+**Colonnes repliables.** La barre latérale se replie à 46 px : les six pastilles de
+couleur restent, la pastille de la rubrique en cours est cerclée d’orange, un clic
+rouvre le menu sur cette rubrique. La colonne « Mes collections » se replie de même
+(nom à la verticale) et se replie automatiquement au choix d’une collection.
+Menu horizontal : **écarté** — 21 entrées sur deux niveaux imposeraient des déroulants.
+
+Le panier de pages à imprimer **repart de zéro** à chaque session (ce n’est pas un
+réglage) ; les aides à la lecture, elles, **sont mémorisées** (cle upe2a-aides).
+
+## Créer une fiche — les aides au décodage (étape 1, faite)
+
+Moteur dans **lecture-code.js**, écrit pour le projet (aucun code externe ;
+LireCouleur est sous GPL, on ne reprend que les principes pédagogiques).
+
+**Table des mots repères** : les 52 graphies de l’affichage classe de l’utilisatrice
+(Retz, *Boîte à outils pour l’apprentissage du code*), dans l’ordre du mur.
+24 photos présentes dans clean/ ; **28 manquantes** — la graphie reste colorée,
+sans vignette, jusqu’à réception de la photo :
+in→lapin · eau→chapeau · ion→lion · en→cent · oin→point · ê→tête · or→tortue ·
+ein→ceinture · ui→huit · et→bonnet · elle→pelle · ei→reine · ien→chien ·
+gu→guitare · gn→peigne · erre→terre · es→escargot · aille→médaille ·
+ouille→citrouille · eille→abeille · em→embrasser · ss→tasse · t→addition ·
+œu→nœud · esse→princesse · ge→pigeon · om→pompier · im→timbre
+
+« er » a deux repères : *cahier* en fin de mot, *vert* devant une consonne.
+
+**Cinq aides**, toutes **décochées** par défaut, dans une boîte de dialogue ouverte
+par le bouton « Aider à lire le mot » (chaque case porte son propre exemple, rendu
+avec l’aide appliquée) : étiquettes de mots · couleur des syllabes (alternance bleu
+`#1d4e89` / rouge brique `#c1440e`) · lettres muettes en gris `#9aa4b2` ·
+arcs sous les syllabes · mots repères (photo au-dessus de la graphie).
+
+**Règles tranchées avec l’utilisatrice :**
+- le **e final reste noir** — le griser laisserait croire qu’on peut l’oublier ;
+- on marque les autres muettes : canar**d**, peti**t**, les chien**s**, ils mang**ent** ;
+- les **muettes internes** sont grisées : ca**h**ier, **h**iver, t**h**éâtre, lon**g**
+  (le *h* de **ch**at et **ph**oque reste noir : c’est une graphie) ;
+- pas de **liaisons** — LireCouleur écrit « il stravaillent », dangereux en écriture ;
+- l’interligne est **calculé** selon les aides cochées (1,5 · 1,9 avec arcs ·
+  2,5 avec mots repères) : pas de réglage manuel comme chez LireCouleur.
+
+**Corrections à la main** : gom-me force la coupe, canar(d) force une muette.
+**Signalement des cas douteux** : encadré ocre listant les mots que les règles ne
+tranchent pas (« ent » final, « ill », consonne finale, « gu », mots longs).
+
+Découpages vérifiés : ca-nard · cra-yon · ca-hier · chaus-su-re · clas-seur ·
+tor-tue · es-car-got · or-di-na-teur · ta-bleau · beau-**coup** (seul le *p* muet).
+
+## Livret dans Créer une fiche
+
+Deux cartes : **Écrire un mot, une phrase ou un texte** (en premier) et **Livret**,
+qui porte une flèche et déplie la liste des thèmes sous elle (thèmes parents
+dépliables à leur tour). Cliquer un thème affiche à droite ses pages
+**« Mes mots »** (image à gauche, mot en script à droite) en aperçu A4 imprimable.
+
+Ces pages sont **figées** (fiches-source.js) : un mot ajouté à un thème
+n’y apparaît pas, et un thème sans page prête retombe sur l’éditeur mot par mot.
+
+## Ce qui reste à faire
+
+**Étape 2 — architecture Lecture.** Une entrée par phonème ; « Progression des sons »
+(aujourd’hui inutilisée : rien ne la consomme) devient la colonne vertébrale.
+Chaque son ouvre une page rassemblant graphie et variantes, mot repère et photo,
+geste, Maison des sons, séance de phonologie, mots des thèmes contenant le son.
+La grille des 52 mots repères n’ira donc **pas** dans Réglages lettres et sons.
+Y ajouter un écran **« Aider un texte »** : texte long, sans lignage, avec réglage
+manuel de l’interligne (là, l’idée de LireCouleur devient pertinente).
+
+**Étape 3 — Maison des sons**, reconstruite comme atelier de l’appli (score dans
+Bilan des exercices), sur le modèle du [ON], déclinable aux autres phonèmes.
+Source : troa-code.github.io/TROA-code (LE SONS ON / 1-maison des sons).
+En attente : **l’image de maison** de l’utilisatrice.
+
+**Étape 4 — génération automatique des pages « Mes mots »** depuis les mots vivants
+des thèmes, avec déterminant obligatoire (jamais « POMME » seul — l’ajouter s’il
+manque), syllabes colorées et pagination. Rendra fiches-source.js inutile.
+
+**En attente de l’utilisatrice** : les 28 photos de mots repères, l’image de maison,
+et le retour de classe sur la qualité des découpages.
