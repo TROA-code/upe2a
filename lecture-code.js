@@ -22,14 +22,16 @@ const REPERES=[
  ['ge','pigeon','pigeon'],['om','pompier','pompier'],['œu','œuf','oeuf'],['im','timbre','timbre']
 ];
 
-const COUL_A='#1d4e89', COUL_B='#c1440e', COUL_MUET='#9aa4b2';
+const COUL_A='#1d4e89', COUL_B='#cc2222', COUL_MUET='#9aa4b2';
 // photos présentes dans clean/ : les autres graphies restent colorées, sans vignette
 const PHOTOS=new Set(['rouge','epee','jaune','lait','bonbon','banc','oiseau','chat','cahier','regle',
  'main','phoque','nez','lunettes','bleu','quatre','fleur','feuille','fille','vert','jambe','yaourt',
  'garcon','oeuf']);
 
 // graphies triées du plus long au plus court : « eille » doit gagner sur « ei »
-const GRAPHIES=[...new Set(REPERES.map(r=>r[0]))].sort((a,b)=>b.length-a.length);
+// graphies qui ne sont pas des mots repères mais qui doivent rester d'un bloc
+const EXTRA=['th','aî','oî','aill','eill','ouill','euill'];
+const GRAPHIES=[...new Set(REPERES.map(r=>r[0]).concat(EXTRA))].sort((a,b)=>b.length-a.length);
 const repereDe=g=>REPERES.filter(r=>r[0]===g);
 const DISPO=new Set(REPERES.filter(r=>PHOTOS.has(r[2])).map(r=>r[0]));
 
@@ -77,17 +79,30 @@ function choixRepere(g, mot, pos){
   return l[0];
 }
 
+// ── Mots dont la consonne finale se prononce : elle ne doit pas être grisée
+const FINALE_SONNE=new Set(['bus','mars','os','ours','tous','plus','sens','fils','lis','vis',
+ 'sud','gaz','golf','cerf','chef','clef','coq','sac','lac','sec','choc','parc','bac','roc','duc',
+ 'flic','zinc','donc','avec','public','stop','cap','slip','top','cool','net','internet','brut',
+ 'but','kit','scout','test','ouest','est','toast','direct','correct','exact','contact','six','dix',
+ 'huit','août','bref','neuf','sept','tarif','actif','sportif','maïs','mépris','tennis','virus',
+ 'campus','couscous','autobus','index','sms','fax']);
+
 // ── Lettres muettes : finales, -ent verbal, et muettes internes. Le e final reste normal.
 function muettes(mot){
   const m=mot.toLowerCase(), n=m.length, out=new Set();
   if(n<3) return out;
   const der=m[n-1];
-  if(/[dtsxzpg]/.test(der)) out.add(n-1);              // consonne finale : canard, petit, les chiens
+  if(m==='sept'){ out.add(2); return out; }            // sep(t) : le p est muet, le t se dit
+  if(/[dtsxzpg]/.test(der) && !FINALE_SONNE.has(m) && !/ed$/.test(m)) out.add(n-1);   // canard, petit, les chiens
+  if(der==='c' && m[n-2]==='n' && !FINALE_SONNE.has(m)) out.add(n-1);  // blanc, franc, banc, tronc
+  // le « ed » final se lit [e] : pied, trépied — le d reste noir
+  // le e final n'est grisé que s'il suit une voyelle : phar-ma-ci(e), la vi(e) — pas pomme, table
+  if(der==='e' && n>=3 && estVoy(m[n-2])) out.add(n-1);
   if(/ent$/.test(m) && n>=5){ out.add(n-3); out.add(n-2); }  // ils mangent
-  // h toujours muet, sauf dans ch et ph qui sont des graphies
+  // h toujours muet, sauf dans ch, ph, th, sh qui sont des graphies
   for(let i=0;i<n;i++){
     if(m[i]!=='h') continue;
-    if(i>0 && (m[i-1]==='c'||m[i-1]==='p'||m[i-1]==='s')) continue;   // chat, phoque, schéma
+    if(i>0 && 'cpst'.indexOf(m[i-1])>=0) continue;   // chat, phoque, mathématiques, schéma
     out.add(i);
   }
   if(/ou[pt]$/.test(m)) out.add(n-1);                  // beaucoup, loup
@@ -97,19 +112,45 @@ function muettes(mot){
 
 // ── Syllabes : coupe après la voyelle, sauf groupe insécable ou voyelle isolée
 function syllabes(grIn){
-  // les consonnes doubles se coupent : chaus-sure, clas-seur
-  const gr=[];
+  // règle validée : la consonne double ne se coupe jamais, elle attaque la syllabe
+  // suivante — chau-ssu-re, cla-sseur, go-mme, pou-be-lle, pro-fe-sseur, fi-lle
+  // les graphies-repères qui contiennent une double consonne se rouvrent ici :
+  // pou-be-lle, te-rre, chau-sse-tte, pro-fe-sseur, fi-lle
+  const ROUVRE={elle:['e','ll','e'],erre:['e','rr','e'],ette:['e','tt','e'],esse:['e','ss','e'],
+                ill:['i','ll'],ge:['g','e'],
+                aill:['a','ill'],eill:['e','ill'],ouill:['ou','ill'],euill:['eu','ill'],
+                aille:['a','ille'],ouille:['ou','ille'],eille:['e','ille'],euille:['eu','ille'],
+                ion:['i','on'],ien:['i','en']};
+  const plat=[];
   grIn.forEach(g=>{
-    if(g.t.length===2 && g.t[0]===g.t[1] && !estVoy(g.t[0]))
-      { gr.push({t:g.t[0],i:g.i}); gr.push({t:g.t[1],i:g.i+1}); }
-    else gr.push(g);
+    const d=ROUVRE[g.t.toLowerCase()];
+    if(d){ let dec=0; d.forEach((p,n)=>{ plat.push({t:p,i:g.i+dec,ouvert:n===d.length-1}); dec+=p.length; }); }
+    else plat.push(g);
   });
+  // puis les consonnes doublées redeviennent un seul bloc : go-mme, ba-llon
+  const gr=[];
+  for(let k=0;k<plat.length;k++){
+    const a=plat[k], b=plat[k+1];
+    if(b && a.t.toLowerCase()==='ill' && estVoy(b.t[0])){
+      gr.push({t:a.t+b.t,i:a.i}); k++;              // tra-va-illons, fa-mi-lle reste \u00e0 part
+    } else if(b && a.t.length===1 && b.t.length===1 && a.t===b.t && !estVoy(a.t)){
+      gr.push({t:a.t+b.t,i:a.i}); k++;
+    } else if(b && a.ouvert && estVoy(a.t) && estVoy(b.t[0])){
+      gr.push({t:a.t+b.t,i:a.i}); k++;              // pro-fe-sseur : le « e » de esse + « u »
+    } else gr.push(a);
+  }
   const noy=[];                                // indices des graphèmes-voyelles
   gr.forEach((g,k)=>{
     const t=g.t.toLowerCase();
     if(!estVoy(t[0])) return;
     if(t==='y' && k>0 && estVoy(gr[k-1].t.slice(-1))) return;      // cra-yon : y fait consonne
-    if((t==='i'||t==='u'||t==='ou') && gr[k+1] && estVoy(gr[k+1].t[0])) return;  // ca-hier, l-ui
+    if(t==='i' && gr[k+1] && estVoy(gr[k+1].t[0])){
+      // le « i » prend sa syllabe devant une voyelle : li-on, pi-ed, chi-en, me-nui-si-er,
+      // ca-hi-er — sauf devant le « e » final : phar-ma-cie
+      const suivant=gr[k+1];
+      if(suivant.t.toLowerCase()==='e' && k+2>=gr.length) return;
+    }
+    if((t==='u'||t==='ou') && gr[k+1] && estVoy(gr[k+1].t[0]) && gr[k+1].t.toLowerCase()!=='ille') return;  // l-ui, n-oui
     noy.push(k);
   });
   if(noy.length<=1) return [gr.map(g=>g.t).join('')];
@@ -122,14 +163,19 @@ function syllabes(grIn){
     if(!cons.length) coupes.push(gap.length?gap[0]:b);            // V-V, semi-voyelle avec la suite
     else if(cons.length===1) coupes.push(cons[0]);                // ca-hier, ba-teau
     else {
-      const pair=(gr[cons[0]].t+gr[cons[1]].t).toLowerCase();
+      // la consonne double compte pour sa dernière lettre : le-ttre, a-ppren-dre
+      const pair=(gr[cons[0]].t.slice(-1)+gr[cons[1]].t[0]).toLowerCase();
       coupes.push(INSEP.indexOf(pair)>=0 ? cons[0] : cons[0]+1);  // ta-bleau / tor-tue
     }
   }
   const parts=[]; let deb=0;
   coupes.forEach(c=>{ if(c>deb){ parts.push(gr.slice(deb,c)); deb=c; } });
   parts.push(gr.slice(deb));
-  return parts.filter(p=>p.length).map(p=>p.map(g=>g.t).join(''));
+  const sorties=parts.filter(p=>p.length).map(p=>p.map(g=>g.t).join(''));
+  // un « e » final seul ne fait pas syllabe : jour-née, i-dée
+  if(sorties.length>1 && /^e[sz]?$/i.test(sorties[sorties.length-1]))
+    sorties.splice(sorties.length-2,2,sorties[sorties.length-2]+sorties[sorties.length-1]);
+  return sorties;
 }
 
 // ── Cas où la règle ne suffit pas : on préfère avertir plutôt qu'imprimer une erreur
@@ -176,17 +222,21 @@ function motHTML(brut, opt){
   const o=opt||{}, a=analyser(brut);
   const esc=t=>String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   const mu=new Set(a.muettes);
+  // alternance continue d'un mot au suivant (comme LireCouleur) : o._par porte la parité
+  const base = o._par ? o._par.n : 0;
   // reconstitue les graphèmes syllabe par syllabe pour connaître la parité
   let pos=0, syl=0, reste=a.syllabes[0]?a.syllabes[0].length:0;
   const pieces=[];
   a.graphemes.forEach(g=>{
     if(reste<=0 && syl<a.syllabes.length-1){ syl++; reste=a.syllabes[syl].length; }
-    const couleur = (o.muettes && mu.has(g.i)) ? COUL_MUET
-      : (o.couleurSyllabes ? (syl%2 ? COUL_B : COUL_A) : (o.muettes||o.repere ? '#14213d' : null));
+    // la couleur des syllabes grise toujours les muettes, comme LireCouleur
+    const couleur = ((o.muettes||o.couleurSyllabes) && mu.has(g.i)) ? COUL_MUET
+      : (o.couleurSyllabes ? ((base+syl)%2 ? COUL_B : COUL_A) : (o.muettes||o.repere ? '#14213d' : null));
     const rep = (o.repere && g.complexe && g.t.length>1 && g.i+g.t.length<=a.mot.length && DISPO.has(g.t) ) ? choixRepere(g.t, a.mot.toLowerCase(), g.i) : null;
     pieces.push({t:a.mot.substr(g.i,g.t.length), couleur, rep, syl});   // casse d'origine
     reste-=g.t.length; pos+=g.t.length;
   });
+  if(o._par) o._par.n = base + a.syllabes.length;
   const lettres=pieces.map(p=>{
     const st=p.couleur?'color:'+p.couleur:'';
     const txt='<span style="'+st+'">'+esc(p.t)+'</span>';
@@ -218,7 +268,9 @@ function motHTML(brut, opt){
 
 // ── Rendu d'un texte entier (mots + ponctuation conservée)
 function texteHTML(texte, opt){
-  const o=opt||{};
+  const o=Object.assign({}, opt||{});
+  o._par=(opt&&opt._par)||{n:1};   // comme LireCouleur : la toute première syllabe est rouge
+  // _par transmis : l'alternance continue d'un appel au suivant (fiche de fluence, ligne à ligne)
   return String(texte||'').split(/\n/).map(ligne=>{
     const bouts=ligne.split(/(\s+)/);
     return '<span style="display:inline-flex;flex-wrap:wrap;align-items:flex-end;gap:'+

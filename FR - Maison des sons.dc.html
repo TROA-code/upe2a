@@ -67,7 +67,7 @@
 </div>
 <div style="width:100%;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;align-content:start;border-top:1px dashed #a9c0d8;padding-top:12px">
 <sc-for list="{{ cases }}" as="d" hint-placeholder-count="9">
-<span style="width:100%;height:54px;background-color:{{ d.fond }};border:{{ d.bord }};border-radius:7px;box-shadow:{{ d.ombre }};background-image:url({{ d.img }});background-size:78%;background-repeat:no-repeat;background-position:center;display:block;box-sizing:border-box"></span>
+<span style="width:100%;height:62px;background-color:{{ d.fond }};border:{{ d.bord }};border-radius:7px;box-shadow:{{ d.ombre }};background-image:url({{ d.img }});background-size:contain;background-repeat:no-repeat;background-position:center;display:block;box-sizing:border-box"></span>
 </sc-for>
 </div>
 <sc-if value="{{ maisonVide }}" hint-placeholder-val="{{ true }}">

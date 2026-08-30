@@ -168,7 +168,7 @@ function exSyllabes(mots){
       +'<span style="flex:0 0 42mm;font-size:12pt;font-weight:700;letter-spacing:0.05em">'+esc(CAP(m[0]))+'</span>'
       +'<span style="display:flex;gap:2.5mm">'+cases+'</span></div>';
   }).join('');
-  return CONSIGNE('Je tape les syllabes. Je colle une étiquette par syllabe.', CRAYON)
+  return CONSIGNE('Je tape les syllabes dans mes mains. Je coche une case par syllabe.', CRAYON)
     +'<div style="flex:0 0 auto;display:flex;flex-direction:column">'+lignes+'</div>';
 }
 

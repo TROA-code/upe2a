@@ -279,6 +279,7 @@ input,select,button{font-family:inherit}
 <span style="flex:1;font-size:13px;color:#6b7386;padding-bottom:10px">{{ infoSon }}</span>
 <span style="font-size:12.5px;color:#8a91a3;padding-bottom:10px">{{ nombreSons }}</span>
 <button onClick="{{ reinitSons }}" style="border:1px solid #c9cfd8;border-radius:8px;background:#fff;color:#12233b;padding:10px 16px;font-size:12.5px;cursor:pointer">Liste de départ</button>
+<button onClick="{{ allerReglagesCode }}" title="Ce que voient les élèves dans « Les lettres et les sons »" style="border:1px solid #c9cfd8;border-radius:8px;background:#fff;color:#12233b;padding:10px 16px;font-size:12.5px;cursor:pointer">&#128065; Ce que voient les élèves</button>
 </div>
 <span style="flex:0 0 auto;font-size:12.5px;color:#6b7386;line-height:1.45">Clique sur un son pour ouvrir sa page. Pour changer l'ordre, <b>attrape une case et dépose-la</b> à sa place.</span>
 <div style="flex:1;min-height:0;background:#fff;border-radius:10px;box-shadow:0 1px 3px rgba(20,33,61,0.12);padding:12px;overflow:auto">
@@ -293,7 +294,9 @@ input,select,button{font-family:inherit}
 <span style="font-size:12px;color:#1d4e89;font-weight:700">&#8250;</span>
 </button>
 <button onClick="{{ s.dire }}" title="Écouter" style="width:30px;height:30px;border-radius:50%;border:none;background:#f08a24;color:#fff;font-size:12px;cursor:pointer;padding:0">&#9658;</button>
-<button onClick="{{ s.retirer }}" title="Retirer" style="width:30px;height:30px;border-radius:7px;border:1px solid #e8b3ac;background:#fff;color:#c0392b;font-size:15px;cursor:pointer;padding:0">&times;</button>
+<sc-if value="{{ s.retirable }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ s.retirer }}" title="Retirer ce son que tu as ajouté" style="width:30px;height:30px;border-radius:7px;border:1px solid #e8b3ac;background:#fff;color:#c0392b;font-size:15px;cursor:pointer;padding:0">&times;</button>
+</sc-if>
 </div>
 </sc-for>
 </div>
@@ -331,8 +334,6 @@ input,select,button{font-family:inherit}
 <span style="font-size:12.5px;color:#6b7386">{{ sonRang }}</span>
 <span style="font-size:11.5px;letter-spacing:0.09em;text-transform:uppercase;color:#8a91a3">{{ sonFamille }}</span>
 </span>
-<button onClick="{{ sonPrec }}" style="flex:0 0 auto;border:1px solid #c9cfd8;border-radius:9px;background:#fff;color:#12233b;padding:9px 13px;font-size:12.5px;cursor:pointer">&#8592; {{ sonPrecNom }}</button>
-<button onClick="{{ sonSuiv }}" style="flex:0 0 auto;border:1px solid #c9cfd8;border-radius:9px;background:#fff;color:#12233b;padding:9px 13px;font-size:12.5px;cursor:pointer">{{ sonSuivNom }} &#8594;</button>
 </div>
 
 <div style="flex:0 0 auto;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(20,33,61,0.12);padding:15px 17px;display:flex;flex-direction:column;gap:13px">
@@ -489,14 +490,79 @@ input,select,button{font-family:inherit}
 <div style="flex:1;min-height:0;display:flex;gap:16px;padding:20px 24px 24px;overflow:hidden">
 
 <div style="flex:0 1 380px;min-width:280px;display:flex;flex-direction:column;gap:12px;overflow-y:auto">
+<div style="flex:0 0 auto;display:flex;gap:8px">
+<sc-for list="{{ txtOnglets }}" as="o" hint-placeholder-count="2">
+<button onClick="{{ o.choisir }}" style="flex:1;border:1.5px solid {{ o.bord }};border-radius:9px;background:{{ o.fond }};color:{{ o.couleur }};padding:10px 8px;font-size:12.5px;font-weight:700;cursor:pointer">{{ o.nom }}</button>
+</sc-for>
+</div>
 <div style="flex:0 0 auto;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(20,33,61,0.12);padding:15px 17px;display:flex;flex-direction:column;gap:10px">
+<sc-if value="{{ estOngletFluence }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:5px">
+<span style="font-size:11.5px;letter-spacing:0.1em;text-transform:uppercase;color:#8a91a3">Le titre du texte</span>
+<input value="{{ fluTitre }}" onChange="{{ setFluTitre }}" placeholder="La poule et le pommier" style="border:1px solid #c9cfd8;border-radius:8px;padding:9px 12px;font-size:13px" />
+</div>
+</sc-if>
 <span style="font-size:11.5px;letter-spacing:0.1em;text-transform:uppercase;color:#8a91a3">Le texte à lire</span>
 <textarea value="{{ txtTexte }}" onChange="{{ setTxtTexte }}" placeholder="Colle ici le texte de la séance." style="border:1px solid #c9cfd8;border-radius:8px;padding:10px 12px;font-family:Verdana, Tahoma, sans-serif;font-size:13.5px;line-height:1.5;min-height:150px;resize:vertical"></textarea>
+<sc-if value="{{ estOngletAide }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;flex-direction:column;gap:5px">
+<span style="font-size:11.5px;letter-spacing:0.1em;text-transform:uppercase;color:#8a91a3">Le titre du texte</span>
+<input value="{{ txtTitre }}" onChange="{{ setTxtTitre }}" placeholder="Je lis" style="border:1px solid #c9cfd8;border-radius:8px;padding:9px 12px;font-size:13px" />
+</div>
 <div style="display:flex;flex-direction:column;gap:5px">
 <span style="font-size:11.5px;letter-spacing:0.1em;text-transform:uppercase;color:#8a91a3">La consigne</span>
 <input value="{{ txtConsigne }}" onChange="{{ setTxtConsigne }}" style="border:1px solid #c9cfd8;border-radius:8px;padding:9px 12px;font-size:13px" />
 </div>
+</sc-if>
+<sc-if value="{{ estOngletFluence }}" hint-placeholder-val="{{ false }}">
+</sc-if>
 </div>
+
+<sc-if value="{{ estOngletFluence }}" hint-placeholder-val="{{ false }}">
+<div style="flex:0 0 auto;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(20,33,61,0.12);padding:15px 17px;display:flex;flex-direction:column;gap:10px">
+<span style="font-size:11.5px;letter-spacing:0.1em;text-transform:uppercase;color:#8a91a3">Pour qui</span>
+<div style="display:flex;gap:8px">
+<sc-for list="{{ fluModes }}" as="m" hint-placeholder-count="2">
+<button onClick="{{ m.choisir }}" style="flex:1;border:1.5px solid {{ m.bord }};border-radius:9px;background:{{ m.fond }};color:{{ m.couleur }};padding:9px 8px;font-size:12.5px;font-weight:700;cursor:pointer">{{ m.nom }}</button>
+</sc-for>
+</div>
+<span style="font-size:11.5px;color:#8a91a3;line-height:1.45">{{ fluNoteMode }}</span>
+<div style="display:flex;flex-direction:column;gap:7px;border-top:1px solid #eef1f5;padding-top:10px">
+<span style="font-size:11.5px;letter-spacing:0.1em;text-transform:uppercase;color:#8a91a3">Comptage des mots</span>
+<label style="display:flex;align-items:center;gap:9px;font-size:13px;color:#14213d;cursor:pointer">
+<input type="checkbox" checked="{{ fluApos }}" onChange="{{ basculeApos }}" style="width:16px;height:16px;accent-color:#1d4e89;cursor:pointer" />
+L'apostrophe sépare les mots</label>
+<label style="display:flex;align-items:center;gap:9px;font-size:13px;color:#14213d;cursor:pointer">
+<input type="checkbox" checked="{{ fluTrait }}" onChange="{{ basculeTrait }}" style="width:16px;height:16px;accent-color:#1d4e89;cursor:pointer" />
+Le trait d'union sépare les mots</label>
+<span style="font-size:11.5px;color:#8a91a3;line-height:1.45">Par défaut, « l'ami » et « arc-en-ciel » comptent pour 1 mot.</span>
+</div>
+<div style="display:flex;gap:8px">
+<label style="flex:1;display:flex;flex-direction:column;gap:4px;font-size:11.5px;color:#8a91a3">Police
+<select value="{{ fluPolice }}" onChange="{{ setFluPolice }}" style="border:1px solid #c9cfd8;border-radius:8px;padding:9px 10px;font-size:13px">
+<sc-for list="{{ fluPolices }}" as="p" hint-placeholder-count="5">
+<option value="{{ p.val }}">{{ p.nom }}</option>
+</sc-for>
+</select></label>
+<label style="flex:0 0 108px;display:flex;flex-direction:column;gap:4px;font-size:11.5px;color:#8a91a3">Taille
+<select value="{{ fluTaille }}" onChange="{{ setFluTaille }}" style="border:1px solid #c9cfd8;border-radius:8px;padding:9px 10px;font-size:13px">
+<sc-for list="{{ fluTailles }}" as="t" hint-placeholder-count="7">
+<option value="{{ t.val }}">{{ t.nom }}</option>
+</sc-for>
+</select></label>
+</div>
+<div style="display:flex;gap:8px">
+<select value="{{ fluEleve }}" onChange="{{ setFluEleve }}" style="flex:1;min-width:0;border:1px solid #c9cfd8;border-radius:8px;padding:9px 10px;font-size:13px">
+<sc-for list="{{ fluListeEleves }}" as="e" hint-placeholder-count="4">
+<option value="{{ e }}">{{ e }}</option>
+</sc-for>
+</select>
+<input type="date" value="{{ fluDate }}" onChange="{{ setFluDate }}" style="flex:0 0 140px;border:1px solid #c9cfd8;border-radius:8px;padding:9px 10px;font-size:13px" />
+</div>
+<span style="font-size:11.5px;color:#8a91a3;line-height:1.45">Deux feuilles à l'impression : une avec les aides cochées, une sans. À l'élève de lire une minute, à toi de noter où il s'arrête.</span>
+</div>
+
+</sc-if>
 
 <div style="flex:0 0 auto;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(20,33,61,0.12);padding:15px 17px;display:flex;flex-direction:column;gap:11px">
 <span style="font-size:11.5px;letter-spacing:0.1em;text-transform:uppercase;color:#8a91a3">Les aides</span>
@@ -515,7 +581,7 @@ input,select,button{font-family:inherit}
 
 <div style="flex:0 0 auto;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(20,33,61,0.12);padding:15px 17px;display:flex;flex-direction:column;gap:10px">
 <span style="font-size:11.5px;letter-spacing:0.1em;text-transform:uppercase;color:#8a91a3">L'interligne</span>
-<span style="font-size:11.5px;color:#8a91a3;line-height:1.45">Ici le réglage est à toi : c'est un texte à lire, pas un lignage à écrire.</span>
+<span style="font-size:11.5px;color:#8a91a3;line-height:1.45">{{ txtNoteReglage }}</span>
 <div style="display:flex;gap:7px;flex-wrap:wrap">
 <sc-for list="{{ txtInterlignes }}" as="i" hint-placeholder-count="4">
 <button onClick="{{ i.choisir }}" style="border:1.5px solid {{ i.bord }};border-radius:8px;background:{{ i.fond }};color:{{ i.couleur }};padding:8px 14px;font-size:12.5px;font-weight:700;cursor:pointer">{{ i.nom }}</button>
@@ -539,16 +605,28 @@ input,select,button{font-family:inherit}
 </div>
 
 <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:12px;overflow:hidden">
-<div style="flex:0 0 auto;display:flex;align-items:center;gap:12px">
-<span style="flex:1;font-size:12.5px;color:#6b7386">{{ txtResume }}</span>
-<button onClick="{{ txtImprimer }}" style="border:none;border-radius:11px;background:#2a9d6e;color:#fff;padding:12px 24px;font-family:Archivo Black, Archivo, sans-serif;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer">Imprimer</button>
+<div style="flex:0 0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:10px">
+<span style="flex:1 1 120px;min-width:0;font-size:12.5px;color:#6b7386">{{ txtResume }}</span>
+<sc-if value="{{ fluPlusieursPages }}" hint-placeholder-val="{{ false }}">
+<span style="font-size:12px;color:#6b7386">{{ fluPageInfo }}</span>
+</sc-if>
+<sc-if value="{{ estOngletFluence }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;gap:6px">
+<sc-for list="{{ fluApercus }}" as="a" hint-placeholder-count="2">
+<button onClick="{{ a.choisir }}" style="border:1.5px solid {{ a.bord }};border-radius:8px;background:{{ a.fond }};color:{{ a.couleur }};padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer">{{ a.nom }}</button>
+</sc-for>
 </div>
-<div ref="{{ txtRef }}" style="flex:1;min-height:0;min-width:0;overflow:auto;display:flex;justify-content:center;padding-bottom:10px">
+</sc-if>
+<button onClick="{{ txtImprimer }}" style="flex:0 0 auto;border:none;border-radius:11px;background:#2a9d6e;color:#fff;padding:12px 24px;font-family:Archivo Black, Archivo, sans-serif;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer">{{ txtLibelleImprimer }}</button>
+</div>
+<div ref="{{ txtRef }}" style="flex:1;min-height:0;min-width:0;overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;align-items:center;gap:18px;padding-bottom:16px">
+<sc-for list="{{ txtFeuilles }}" as="p" hint-placeholder-count="1">
 <div style="position:relative;width:{{ txtCadreW }};height:{{ txtCadreH }};flex:0 0 auto;border:1px solid #dde2e9;background:#fff;box-shadow:0 6px 24px rgba(18,35,59,0.2);overflow:hidden">
 <span style="position:absolute;top:0;left:0;width:794px;height:1123px;transform:scale({{ txtEchelle }});transform-origin:top left;display:block;pointer-events:none">
-<dc-import name="APPLI - Fiche" f="{{ txtFeuille }}" hint-size="210mm,297mm"></dc-import>
+<dc-import name="APPLI - Fiche" f="{{ p.f }}" hint-size="210mm,297mm"></dc-import>
 </span>
 </div>
+</sc-for>
 </div>
 </div>
 
@@ -1146,7 +1224,10 @@ input,select,button{font-family:inherit}
 <sc-if value="{{ estReglagesCode }}" hint-placeholder-val="{{ false }}">
 <div style="flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;gap:14px;padding:18px 20px">
 <div style="flex:0 0 auto;background:#fff;border-radius:10px;padding:17px 19px;box-shadow:0 1px 3px rgba(20,33,61,0.12);display:flex;flex-direction:column;gap:12px">
-<span style="font-size:14.5px;font-weight:700;color:#1d4e89">Les ateliers visibles par les élèves</span>
+<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+<span style="flex:1;font-size:14.5px;font-weight:700;color:#1d4e89">Les ateliers visibles par les élèves</span>
+<button onClick="{{ retourSons }}" style="border:1px solid #c9cfd8;border-radius:8px;background:#fff;color:#12233b;padding:8px 14px;font-size:12px;cursor:pointer">&#8592; L'apprentissage du code</button>
+</div>
 <span style="font-size:11.5px;color:#8a91a3;line-height:1.45">Décoche un atelier pour le retirer du tableau « Les lettres et les sons » de l'espace élève. L'ordre du tableau ne suit pas encore ta progression des sons.</span>
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px">
 <sc-for list="{{ ateliersCode }}" as="c" hint-placeholder-count="12">
@@ -1488,12 +1569,14 @@ input,select,button{font-family:inherit}
 </sc-if>
 
 <sc-if value="{{ apercuOuvert }}" hint-placeholder-val="{{ false }}">
-<div onClick="{{ fermerApercu }}" style="position:fixed;inset:0;z-index:60;background:rgba(18,35,59,0.72);display:flex;flex-direction:column;align-items:center;gap:14px;padding:18px;overflow:auto;cursor:pointer">
+<div style="position:fixed;inset:0;z-index:60;background:rgba(18,35,59,0.72);display:flex;flex-direction:column;align-items:stretch;gap:12px;padding:16px">
 <div style="flex:0 0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center">
 <span style="font-family:Archivo Black, Archivo, sans-serif;font-size:15px;color:#fff">{{ apercuNom }}</span>
+<span style="font-size:11.5px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.8);font-weight:700">{{ apercuNbPages }}</span>
 <button onClick="{{ apercuChoisir }}" style="border:none;border-radius:11px;background:{{ apercuFond }};color:#fff;padding:11px 20px;font-family:Archivo Black, Archivo, sans-serif;font-size:11.5px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer">{{ apercuLibelle }}</button>
 <button onClick="{{ fermerApercu }}" style="border:2px solid rgba(255,255,255,0.55);border-radius:11px;background:none;color:#fff;padding:10px 18px;font-family:Archivo Black, Archivo, sans-serif;font-size:11.5px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer">Fermer</button>
 </div>
+<div style="flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;align-items:center;gap:18px;padding:4px 0 18px">
 <sc-for list="{{ apercuPages }}" as="pg" hint-placeholder-count="1">
 <div style="flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:7px">
 <span style="font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.75);font-weight:700">{{ pg.rang }}</span>
@@ -1504,6 +1587,7 @@ input,select,button{font-family:inherit}
 </div>
 </div>
 </sc-for>
+</div>
 </div>
 </sc-if>
 
@@ -1879,7 +1963,9 @@ const VF={
 };
 const MOTS_DEMO={'Les repas':[['une pomme','pomme'],['une banane','banane'],['du pain','pain'],['du riz','riz'],['une carotte','carotte'],['une tomate','tomate'],['un café','cafe'],['une salade','salade'],['un yaourt','yaourt']],'L\'école':[['un cahier','cahier'],['un crayon','crayon'],['une gomme','gomme'],['un stylo','stylo'],['des ciseaux','ciseaux'],['un livre','livre'],['une trousse','trousse'],['un cartable','cartable'],['une table','table']]};
 
-const SONS_INIT=['a','i','o','u','é','m','l','r','s','p','t','f','v','ch','ou','an','on','in'];
+/* Ordre de départ : voyelles, puis consonnes qui se prolongent (la fusion s'entend),
+   puis occlusives, puis digrammes, puis nasales — les plus dures à discriminer. */
+const SONS_INIT=['a','i','o','u','é','l','m','r','s','f','v','p','t','ch','ou','on','an','in'];
 
 const ALPHA_IMG=[['a','ananas','ANANAS'],['b','ballon','BALLON'],['c','carotte','CAROTTE et CERISE','cerise'],['d','date','DATE'],['e','renard','RENARD'],['f','fantome','FANTÔME'],['g','gateau','GÂTEAU'],['h','',''],['i','gris','GRIS'],['j','jupe','JUPE'],['k','kangourou','KANGOUROU'],['l','lit','LIT'],['m','moto','MOTO'],['n','nuage','NUAGE'],['o','pot','POT et POMME','pomme'],['p','pied','PIED'],['q','cinq','CINQ'],['r','robot','ROBOT'],['s','salade','SALADE et ROSE','rose'],['t','table','TABLE'],['u','rue','RUE'],['v','velo','VÉLO'],['w','wagon','WAGON'],['x','xylophone','XYLOPHONE'],['y','pyjama','PYJAMA'],['z','zebre','ZÈBRE']];
 
@@ -1988,6 +2074,8 @@ class Component extends DCLogic {
     creerLivret:'', creerMotIdx:0, creerInterligne:'moyen', creerFav:this.chargerFavFiches(), creerInfo:'',
     aides:this.chargerAides(),
     comp:this.chargerComp(), compEleve:'',
+    fluence:this.chargerFluence(), txtOnglet:'aide', fluApercu:'aidee',
+    fluTitre:'', fluEleve:'', fluDate:'', fluLus:'', fluErr:'',
     perso:this.chargerPerso(), themeEdit:'Le corps', ongletTheme:'mots', voixNom:this.chargerVoix(),
     jeuxEleve:(()=>{ try{ return localStorage.getItem('upe2a-jeux-eleve')==='1'; }catch(e){ return false; } })(),
     nvTheme:'', nvMot:'', nvPhrase:'', nvPhraseImg:'', nvPhraseVrai:true
@@ -2479,6 +2567,48 @@ class Component extends DCLogic {
     if(!pages.length) return;
     this.setState({feuillesPrint:pages});
     setTimeout(()=>{ try{ window.print(); }catch(e){} }, 900);
+  }
+  // ── Fluence : scores par élève, gardés dans le navigateur
+  aujourdhui(){ const d=new Date();
+    return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+  dateFr(iso){ const v=iso||this.aujourdhui(); const p=String(v).split('-');
+    return p.length===3?(p[2]+'/'+p[1]+'/'+p[0]):v; }
+  tousLesEleves(){ const l=[]; (this.state.groupes||[]).forEach(g=>(g.eleves||[]).forEach(e=>{ if(l.indexOf(e)<0) l.push(e); })); return l; }
+  chargerFluence(){
+    try{ const b=localStorage.getItem('upe2a-fluence');
+      if(b){ const o=JSON.parse(b); if(o&&typeof o==='object') return o; } }catch(e){}
+    return {};
+  }
+  calculMclm(s){
+    const lus=parseInt(s.fluLus,10), err=parseInt(s.fluErr,10)||0;
+    if(!lus || lus<0) return null;
+    return Math.max(0, lus-err);
+  }
+  enregistrerFluence(){
+    const s=this.state, m=this.calculMclm(s);
+    const eleve=s.fluEleve||this.tousLesEleves()[0]||'';
+    if(m===null || !eleve) return;
+    const date=s.fluDate||this.aujourdhui();
+    const entree={date:date, lus:parseInt(s.fluLus,10), err:parseInt(s.fluErr,10)||0,
+      mclm:m, titre:s.fluTitre||''};
+    const base=Object.assign({}, s.fluence||{});
+    base[eleve]=[...(base[eleve]||[]).filter(x=>!(x.date===date&&x.titre===entree.titre)), entree]
+      .sort((a,b)=>a.date<b.date?1:-1).slice(0,20);
+    try{ localStorage.setItem('upe2a-fluence', JSON.stringify(base)); }catch(e){}
+    this.setState({fluence:base, fluLus:'', fluErr:''});
+  }
+  historiqueFluence(){
+    const s=this.state, eleve=s.fluEleve||this.tousLesEleves()[0]||'';
+    return ((s.fluence||{})[eleve]||[]).map(x=>({
+      date:this.dateFr(x.date), mclm:x.mclm,
+      detail:x.lus+' lus · '+x.err+' err.',
+      retirer:()=>{
+        const base=Object.assign({}, this.state.fluence||{});
+        base[eleve]=(base[eleve]||[]).filter(y=>!(y.date===x.date&&y.titre===x.titre&&y.mclm===x.mclm));
+        try{ localStorage.setItem('upe2a-fluence', JSON.stringify(base)); }catch(e){}
+        this.setState({fluence:base});
+      }
+    }));
   }
   chargerVoix(){
     try{ const v=localStorage.getItem('upe2a-voix'); if(v) return v; }catch(e){}
@@ -3010,16 +3140,9 @@ class Component extends DCLogic {
       pagesFam=pagesFam.concat(SF.build({son:cle, fiche:f, seed:seed,
         tirage:{mots:mots6, intrus:tir.intrus}, types:t2}));
     }
-    const typesLex={};
-    (G?G.types:[]).forEach(t=>{ if(t[2]===fam && coche(t[0])) typesLex[t[0]]=true; });
-    const pagesLex=(G && fam!=='lien' && motsSon.length>=2 && Object.keys(typesLex).length)
-      ? G.build({theme:'Le son '+(f?f.api:cle), items:motsSon, types:typesLex,
-          planches:s.fabPlanches||4, interligne:s.fabInterligne||'moyen',
-          modele:s.fabModele!==false})
-        .map(p=>Object.assign({}, p, {coll:'sonfab',
-          id:'sonlex-'+slugSon+'-'+String(p.id).replace(/^gen-[^-]*-/,'')}))
-      : [];
-    const fichesSon=pagesFam.concat(pagesLex);
+    /* Rien des fiches du lexique ici : relier, feuille support, étiquettes n'ont pas de
+       sens pour un son. Seules les fiches de son (séance, combinatoire) sont proposées. */
+    const fichesSon=pagesFam;
     this._sonCache=this._sonCache||{};
     // les pages recopiées vivent déjà dans fiches-source.js : on ne les met pas en cache
     fichesSon.forEach(p=>{ if(!/^sonsF-/.test(p.id)) this._sonCache[p.id]=p; });
@@ -3034,15 +3157,39 @@ class Component extends DCLogic {
     const groupes=[];
     if(LS && f){
       this.tousThemes().forEach(t=>{
-        const mots=(this.motsDe(t)||[]).map(m=>m[0]).filter(m=>LS.contient(cle,m));
+        // même règle que le tirage : on écoute le mot, pas son déterminant
+        const mots=(this.motsDe(t)||[]).map(m=>m[0])
+          .filter(m=>LS.contient(cle, SF?SF.sansArticle(m):m))
+          .filter(m=>!(LS.ecarte&&LS.ecarte(m)));
         if(mots.length) groupes.push({theme:t, mots:mots.map(m=>({txt:m, dire:()=>this.dire(m)}))});
       });
     }
     const nbMots=groupes.reduce((n,g)=>n+g.mots.length,0);
     const inter=s.txtInter||2, taille=s.txtTaille||18;
-    const feuilleTexte=LS?LS.pageTexte({titre:'Je lis', texte:s.txtTexte||'',
+    const feuilleTexte=LS?LS.pageTexte({titre:(s.txtTitre&&s.txtTitre.trim())||'Je lis', texte:s.txtTexte||'',
       consigne:s.txtConsigne===undefined?'Je lis le texte.':s.txtConsigne,
       aides:s.aides||{}, interligne:inter, taille:taille}):null;
+    /* Fluence : deux feuilles du même texte, une aidée et une nue, avec le nombre
+       de mots cumulé en marge de chaque ligne (principe MiCetF). */
+    const fluMode=s.fluMode||'test';
+    const POLICES=[['Verdana','Verdana, Tahoma, sans-serif'],['Tahoma','Tahoma, Verdana, sans-serif'],
+      ['Arial','Arial, Helvetica, sans-serif'],['Times','Georgia, Times New Roman, serif'],
+      ['Cursive','BA Cursive, Comic Sans MS, cursive']];
+    const fluPolice=s.fluPolice||POLICES[0][1];
+    const fluTaille=s.fluTaille||'auto';
+    const fluOpts={titre:(s.fluTitre&&s.fluTitre.trim())||(s.txtTitre&&s.txtTitre.trim())||'', texte:s.txtTexte||'',
+      eleve:s.fluEleve||'', date:this.dateFr(s.fluDate), mode:fluMode,
+      police:fluPolice, taille:(fluTaille==='auto'?null:fluTaille),
+      apostrophe:!!s.fluApos, trait:!!s.fluTrait,
+      aides:s.aides||{}, interligne:inter};
+    const fluAidee=LS?LS.pageFluence(Object.assign({},fluOpts,{avecAides:true})):null;
+    const fluNue=LS?LS.pageFluence(Object.assign({},fluOpts,{avecAides:false})):null;
+    const fluence=s.txtOnglet==='fluence';
+    const fluApercuNue=s.fluApercu==='nue';
+    const fluPages=fluence?(((fluApercuNue?fluNue:fluAidee)||{}).pages||[])
+                          :((feuilleTexte||{}).pages||[]);
+    const fluIp=0;
+    const feuilleVue=fluPages[0]||feuilleTexte;
     const btn=on=>({fond:on?'#1d4e89':'#fff', bord:on?'#1d4e89':'#c9cfd8', couleur:on?'#fff':'#12233b'});
     // 794 px = 210 mm : l'aperçu se met à l'échelle de la colonne, il ne déborde jamais
     const ech=Math.max(0.2, Math.min(0.62, ((s.txtLargeur||380)-8)/794));
@@ -3069,7 +3216,7 @@ class Component extends DCLogic {
       }),
       sonEstEleve:fam==='eleve', sonEstAtelier:fam==='atelier',
       sonEstLien:fam==='lien', sonPasLien:fam!=='lien',
-      sonTypesListe:((SF?SF.TYPES:[]).concat((G?G.types:[]).map(t=>[t[0],t[1],t[2]])))
+      sonTypesListe:(SF?SF.TYPES:[])
         .filter(t=>t[2]===fam)
         .filter(t=>t[0]!=='combinatoire' || (f&&f.famille==='consonne'))
         .map(t=>{
@@ -3168,19 +3315,67 @@ class Component extends DCLogic {
         .map(o=>Object.assign({nom:o[0], choisir:()=>this.setState({txtInter:o[1]})}, btn(inter===o[1]))),
       txtTailles:[['Grand',18],['Très grand',24],['Énorme',30]]
         .map(o=>Object.assign({nom:o[0], choisir:()=>this.setState({txtTaille:o[1]})}, btn(taille===o[1]))),
-      txtFeuille:feuilleTexte,
+      txtTitre:s.txtTitre||'', setTxtTitre:e=>this.setState({txtTitre:e.target.value}),
+      txtFeuille:feuilleVue,
+      txtFeuilles:(fluPages.length?fluPages:[feuilleVue].filter(Boolean)).map((p,i)=>({f:p, cle:'p'+i})),
       txtRef:el=>{ this._txtZone=el||null;
         if(el){ const w=el.clientWidth;
           if(w && Math.abs(w-(s.txtLargeur||0))>4) setTimeout(()=>this.setState({txtLargeur:w}),0); } },
       txtEchelle:ech, txtCadreW:Math.round(794*ech)+'px', txtCadreH:Math.round(1123*ech)+'px',
-      txtImprimer:()=>{ if(!feuilleTexte) return;
-        this.setState({feuillesPrint:[feuilleTexte]});
+      txtImprimer:()=>{ const l=fluence
+          ?[].concat((fluAidee&&fluAidee.pages)||[], (fluNue&&fluNue.pages)||[])
+          :((feuilleTexte&&feuilleTexte.pages)||[feuilleTexte].filter(Boolean));
+        if(!l.length) return;
+        this.setState({feuillesPrint:l});
         setTimeout(()=>{ try{ window.print(); }catch(e){} }, 700); },
+      txtLibelleImprimer:fluence?'Imprimer les deux':((fluPages.length>1)?('Imprimer les '+fluPages.length+' pages'):'Imprimer'),
+      txtNoteReglage:fluence
+        ?"8 à 10 mots par ligne : c'est la taille du texte qui s'ajuste, pas le compteur."
+        :"Ici le réglage est à toi : c'est un texte à lire, pas un lignage à écrire.",
       txtDoutes:((LC&&LC.doutesTexte)?LC.doutesTexte(s.txtTexte||''):[])
         .map(d=>d[0]+' → '+d[1]+' · '+d[2]),
       aTxtDoutes:!!(LC&&LC.doutesTexte&&LC.doutesTexte(s.txtTexte||'').length),
       txtResume:(()=>{ const n=(s.txtTexte||'').trim().split(/\s+/).filter(Boolean).length;
-        return n?(n+' mot'+(n>1?'s':'')+' · aperçu A4'):'Colle un texte à gauche.'; })()
+        if(!n) return 'Colle un texte à gauche.';
+        if(!fluence){ const np=fluPages.length||1;
+          return n+' mot'+(n>1?'s':'')+(np>1?' · '+np+' pages':' · aperçu A4'); }
+        const np=fluPages.length||1;
+        return n+' mots · '+np+' page'+(np>1?'s':'')+' · '+(np*2)+' feuilles à l’impression'; })(),
+      estOngletAide:!fluence, estOngletFluence:fluence,
+      txtOnglets:[['Texte aidé','aide'],['Fluence','fluence']].map(o=>Object.assign(
+        {nom:o[0], choisir:()=>this.setState({txtOnglet:o[1]})}, btn(s.txtOnglet===o[1]||(!s.txtOnglet&&o[1]==='aide')))),
+      fluApercus:[['Aperçu aidé','aidee'],['Aperçu nu','nue']].map(o=>Object.assign(
+        {nom:o[0], choisir:()=>this.setState({fluApercu:o[1]})}, btn((s.fluApercu||'aidee')===o[1]))),
+      fluPlusieursPages:fluPages.length>1,
+      fluPageInfo:fluPages.length+' pages',
+      fluApos:!!s.fluApos, fluTrait:!!s.fluTrait,
+      basculeApos:()=>this.setState({fluApos:!s.fluApos}),
+      basculeTrait:()=>this.setState({fluTrait:!s.fluTrait}),
+      fluPolices:POLICES.map(p=>({nom:p[0], val:p[1]})),
+      fluPolice:fluPolice,
+      setFluPolice:e=>this.setState({fluPolice:e.target.value}),
+      fluTailles:[['Auto','auto'],['13 pt',13],['14 pt',14],['16 pt',16],['18 pt',18],['20 pt',20],['24 pt',24]]
+        .map(t=>({nom:t[0], val:String(t[1])})),
+      fluTaille:String(fluTaille),
+      setFluTaille:e=>this.setState({fluTaille:e.target.value==='auto'?'auto':parseInt(e.target.value,10)}),
+      fluModes:[['Test','test'],['Entraînement','entrainement']].map(o=>Object.assign(
+        {nom:o[0], choisir:()=>this.setState({fluMode:o[1]})}, btn(fluMode===o[1]))),
+      fluNoteMode:fluMode==='test'
+        ?"Une passation d'une minute : tu notes où l'élève s'arrête."
+        :"L'élève relit le même texte trois fois et remplit lui-même le tableau : il voit sa progression.",
+      fluTitre:s.fluTitre||'', setFluTitre:e=>this.setState({fluTitre:e.target.value}),
+      fluListeEleves:this.tousLesEleves(),
+      fluEleve:s.fluEleve||this.tousLesEleves()[0]||'',
+      setFluEleve:e=>this.setState({fluEleve:e.target.value}),
+      fluDate:s.fluDate||this.aujourdhui(),
+      setFluDate:e=>this.setState({fluDate:e.target.value}),
+      fluLus:s.fluLus||'', setFluLus:e=>this.setState({fluLus:e.target.value}),
+      fluErr:s.fluErr||'', setFluErr:e=>this.setState({fluErr:e.target.value}),
+      fluMclm:(()=>{const m=this.calculMclm(s); return m===null?'—':(m+' MCLM');})(),
+      fluEnregistrer:()=>this.enregistrerFluence(),
+      fluHistorique:this.historiqueFluence(),
+      fluAHistorique:this.historiqueFluence().length>0,
+      fluSansHistorique:this.historiqueFluence().length===0
     };
   }
   renderVals(){
@@ -3189,7 +3384,7 @@ class Component extends DCLogic {
       lecture:'Lecture — séances de phonologie', ecriture:'Écriture — apprentissage',
       maths:'Mathématiques — fiches à imprimer'};
     const TITRES={accueil:'Espace enseignant',eleve:'Espace élève',groupes:'Gestion des groupes et des élèves',reglages:'Réglages des thèmes',reglagesCode:'Réglages lettres et sons',fabrique:'Fiches et jeux — à fabriquer et à imprimer',bilan:'Bilan des exercices',oral:'Productions orales des thèmes',themes:'Création de thèmes',mdp:'Mot de passe sécurisé',
-      sons:'Les sons — la progression de la classe', son:'Le son « '+(s.sonCle||'')+' »', texte:'Aider un texte', creer:'Créer une fiche', outils:TITRES_DOM[s.outilsDomaine]||'Fiches à imprimer', competences:'Bilan des compétences', devoirs:'Je continue chez moi — préparer le travail du soir',
+      sons:'Les sons — la progression de la classe', son:'Le son « '+(s.sonCle||'')+' »', texte:'Lire des textes — les aides à la lecture', creer:'Créer une fiche', outils:TITRES_DOM[s.outilsDomaine]||'Fiches à imprimer', competences:'Bilan des compétences', devoirs:'Je continue chez moi — préparer le travail du soir',
       alpha:"L'alphabet",alphaEcrire:'Écris la lettre',resultatAlpha:'Résultat',
       themeAccueil:'Choisis ton tableau', tableauThemes:'Choisis ton thème', tableauCode:'Les lettres et les sons',sousTheme:s.themeParent||'Choisis',niveau:'Choisis ton niveau',themeEleve:'Choisis un thème',explore:s.themeEleve||'Exploration',trouve:'Trouve la bonne image',vf:'Vrai ou faux',lireDessin:'Trouve le bon dessin',lireMot:'Trouve le bon mot',repete:'Écoute et répète',situation:'Que dis-tu ?',ecrire:s.modeEcrire==='completer'?'Complète le mot':'Écris le mot',resultat:'Résultat'};
     const ECRANS_PROF=['groupes','reglages','reglagesCode','fabrique','bilan','oral','themes','sons','son','texte','outils','creer','competences','devoirs','mdp'];
@@ -3204,10 +3399,8 @@ class Component extends DCLogic {
         ['👁 Réglages des thèmes','reglages'],
         ['Fiches et jeux','fabrique']]],
       ['Lecture','#4fc3d9',[
-        ['Les sons','sons'],
-        ['Aider un texte','texte'],
-        ['👁 Réglages lettres et sons','reglagesCode'],
-        ['Séances de phonologie','outils','lecture']]],
+        ["L'apprentissage du code",'sons'],
+        ['Lire des textes','texte']]],
       ['Écriture','#8a4b1e',[
         ['Apprentissage','outils','ecriture'],
         ['Créer une fiche','creer']]],
@@ -3230,8 +3423,10 @@ class Component extends DCLogic {
       this.go(ec);
     };
     const VIF={'#2a9d6e':'#3fbf85','#c4479e':'#e070b0','#4fc3d9':'#5cc6dd','#8a4b1e':'#d98652','#e59a2b':'#eab04f','#6d5bd0':'#9184e0'};
-    // la page d'un son appartient à l'entrée « Les sons »
-    const ecMenu=s.ecran==='son'?'sons':s.ecran;
+    /* La page d'un son et les réglages des ateliers appartiennent à l'entrée
+       « L'apprentissage du code » ; les séances de phonologie vivent dans la page du son. */
+    const ecMenu=(s.ecran==='son'||s.ecran==='reglagesCode')?'sons'
+      :((s.ecran==='outils'&&s.outilsDomaine==='lecture')?'sons':s.ecran);
     const rubCourante=(()=>{
       for(const [rub,,items] of RUBRIQUES)
         for(const [,ec,dom] of items)
@@ -3519,6 +3714,8 @@ class Component extends DCLogic {
         son, rang:i+1,
         api:(()=>{const LS=window.LECTURE_SONS, f=LS&&LS.sonDe(son); return f?f.api:'';})(),
         ouvrir:()=>this.setState({ecran:'son',sonCle:son}),
+        // un son de la progression de départ ne se retire pas : il se déplace
+        retirable:!SONS_INIT.includes(son),
         // ordre au cliquer-déposer : plus de flèches
         glisserDebut:e=>{ try{ e.dataTransfer.effectAllowed='move';
             e.dataTransfer.setData('text/plain',son); }catch(x){}
@@ -3544,6 +3741,8 @@ class Component extends DCLogic {
       setNouveauSon:e=>this.setState({nouveauSon:e.target.value}),
       ajouterSon:()=>this.ajouterSon(),
       infoSon:s.infoSon||'\u00a0',
+      allerReglagesCode:()=>this.go('reglagesCode'),
+      retourSons:()=>this.go('sons'),
       reinitSons:()=>{ this.enregistrerSons([...SONS_INIT]); this.setState({sons:[...SONS_INIT],infoSon:'Progression remise à la liste de départ.'}); },
       ...this.valsLecture(s),
       alphaMaxLettres:this.jeu().items.reduce((m,it)=>Math.max(m,it[0].length),1),
@@ -4085,6 +4284,14 @@ class Component extends DCLogic {
         if(!courant) return [];
         const lot=toutes.filter(f=>cle(f)===cle(courant));
         return lot.map((f,i)=>({feuille:f, rang:'page '+(i+1)+' / '+lot.length}));
+      })(),
+      apercuNbPages:(()=>{
+        if(!s.apercu) return '';
+        const toutes=this.toutesFeuilles();
+        const c=toutes.find(f=>f.id===s.apercu);
+        if(!c) return '';
+        const n=toutes.filter(f=>this.cleLot(f)===this.cleLot(c)).length;
+        return n>1?(n+' pages — fais défiler'):'1 page';
       })(),
       effacerOutils:()=>{ this.enregistrerOutils({}); this.setState({outilsSel:{}}); },
       imprimerOutils:()=>this.lancerImpression(),

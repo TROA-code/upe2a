@@ -14,4 +14,5 @@
 
 ## Méthode de travail
 - Ne rien modifier sans accord explicite quand une discussion est en cours.
-- Trois conversations distinctes dans ce projet : français, mathématiques, application. Voir `INSTRUCTIONS-FRANCAIS.md`, `INSTRUCTIONS-MATHS.md`, `INSTRUCTIONS-APPLICATION.md`.
+- **Un seul fichier d'instructions : `INSTRUCTIONS-APPLICATION.md`.** Le lire au démarrage. Français, maths et application sont désormais une seule conversation, tout est intégré dans l'application.
+- Le tenir à jour à chaque décision prise avec l'utilisatrice.
