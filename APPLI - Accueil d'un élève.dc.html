@@ -1,0 +1,1820 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" />
+<script src="positionnement-eana.js"></script>
+<!-- Les tests passés DANS l'appli (Lyon +16) vivent ici : sans ce fichier, cet écran
+     ouvert seul perdait l'échelle Lyon, ses exercices et les cases maths de la fiche. -->
+<script src="positionnement.js"></script>
+<script src="positionnement-tests.js"></script>
+<script src="positionnement-dossiers.js"></script>
+<script src="positionnement-corriges.js"></script>
+<script src="positionnement-redaction.js"></script>
+<script src="positionnement-relecture.js"></script>
+<script src="positionnement-orthographe.js"></script>
+<script src="positionnement-pdfs.js"></script>
+<style>
+  a { color: #1d4e89; }
+  a:hover { color: #163a68; }
+</style>
+</helmet>
+
+<div ref="{{ racine }}" style="min-height:100vh;background:#eef1f5;font-family:Verdana,Tahoma,sans-serif;color:#1c2430">
+  <sc-if value="{{ avecEntete }}" hint-placeholder-val="{{ true }}">
+    <div style="background:#1d4e89;color:#fff;padding:18px 28px;display:flex;align-items:baseline;gap:16px">
+      <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:22px;letter-spacing:.3px">ACCUEIL D'UN ÉLÈVE</div>
+      <div style="font-size:13px;opacity:.85">la fiche · le test · les résultats · la préconisation</div>
+    </div>
+  </sc-if>
+
+  <div style="max-width:1180px;margin:0 auto;padding:20px 20px 60px;display:flex;flex-direction:column;gap:18px">
+
+    <div style="background:#fff;border:2px solid #c3d2e2;border-radius:14px;padding:14px 18px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between">
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <span style="font-size:12px;color:#6b7a8d;letter-spacing:.06em;text-transform:uppercase">Dossier</span>
+        <select value="{{ dossierId }}" onChange="{{ auDossier }}" style="font-family:Verdana,sans-serif;font-size:13.5px;padding:9px 11px;border:1.5px solid #c3d2e2;border-radius:9px;background:#fbfcfe;min-width:220px">
+          <option value="">— nouveau dossier —</option>
+          <sc-for list="{{ dossiers }}" as="d" hint-placeholder-count="2">
+            <option value="{{ d.id }}">{{ d.libelle }}</option>
+          </sc-for>
+        </select>
+        <button onClick="{{ nouveauDossier }}" style="border:1.5px solid #c3d2e2;background:#fff;color:#1d4e89;border-radius:9px;padding:9px 14px;font-size:12.5px;font-weight:bold;cursor:pointer">Nouveau</button>
+        <sc-if value="{{ aDossier }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ supprimerDossier }}" style="border:1.5px solid #e3c6ca;background:#fff;color:#a3283c;border-radius:9px;padding:9px 14px;font-size:12.5px;cursor:pointer">Supprimer</button>
+        </sc-if>
+        <button onClick="{{ ouvrirGuide }}" title="Le mode d'emploi des quatre étapes" style="display:flex;gap:7px;align-items:center;border:1.5px solid #c3d2e2;background:#f5f8fc;color:#1d4e89;border-radius:9px;padding:9px 13px;font-size:12.5px;font-weight:bold;cursor:pointer">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1d4e89" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5a2 2 0 0 1 2-2h13v18H6a2 2 0 0 1-2-2Z"></path><path d="M8 7h7"></path><path d="M8 11h7"></path></svg>
+          <span>Guide d'utilisation</span>
+        </button>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <sc-for list="{{ etapes }}" as="e" hint-placeholder-count="4">
+          <button onClick="{{ e.onClick }}" style="border:2px solid {{ e.bord }};background:{{ e.fond }};color:{{ e.encre }};border-radius:10px;padding:9px 13px;font-size:12.5px;font-family:'Archivo Black',Verdana,sans-serif;cursor:pointer;display:flex;align-items:center;gap:7px">
+            <span style="font-size:14px">{{ e.num }}</span><span>{{ e.nom }}</span>
+          </button>
+        </sc-for>
+      </div>
+    </div>
+
+    <sc-if value="{{ estE1 }}" hint-placeholder-val="{{ true }}">
+      <div style="display:grid;grid-template-columns:{{ colonnes2 }};gap:18px;align-items:start">
+        <div style="background:#fff;border:2px solid #c3d2e2;border-radius:14px;padding:20px 22px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;align-items:center;gap:10px">
+            <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:15px;color:#1d4e89">1 · LA FICHE D'ACCUEIL EANA</div>
+            <div style="position:relative;display:flex" data-comment-anchor="depot-explication">
+              <div tabIndex="0" onMouseEnter="{{ aideOn }}" onMouseLeave="{{ aideOff }}" onFocus="{{ aideOn }}" onBlur="{{ aideOff }}" style="width:22px;height:22px;border-radius:999px;border:1.5px solid #1d4e89;color:#1d4e89;font-family:'Archivo Black',Verdana,sans-serif;font-size:12px;display:flex;align-items:center;justify-content:center;cursor:help;flex:none" style-hover="background:#1d4e89;color:#fff">i</div>
+              <sc-if value="{{ aideDepot }}" hint-placeholder-val="{{ false }}">
+                <div style="position:absolute;top:28px;left:-6px;width:270px;background:#12365f;color:#fff;border-radius:10px;padding:11px 13px;font-size:12.5px;line-height:1.6;box-shadow:0 6px 18px rgba(0,0,0,.22);z-index:20">Dépose le PDF reçu du CIO : je lis les champs saisis, je calcule la classe d'âge sur l'année de naissance, et j'ouvre un dossier.</div>
+              </sc-if>
+            </div>
+          </div>
+          <label style="background:#1d4e89;color:#fff;font-family:'Archivo Black',Verdana,sans-serif;font-size:14px;padding:14px 22px;border-radius:10px;cursor:pointer;box-shadow:0 2px 0 #143a67;align-self:flex-start">
+            CHOISIR LE PDF
+            <input type="file" accept="application/pdf" onChange="{{ auDepot }}" style="display:none" />
+          </label>
+          <sc-if value="{{ enLecture }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size:13px;color:#556">Lecture du document…</div>
+          </sc-if>
+          <sc-if value="{{ erreur }}" hint-placeholder-val="{{ false }}">
+            <div style="background:#fdf1e3;border:1.5px solid #d8a24a;border-radius:10px;padding:12px 14px;font-size:13px;line-height:1.6">{{ erreur }}</div>
+          </sc-if>
+        </div>
+
+        <sc-if value="{{ aDossier }}" hint-placeholder-val="{{ false }}">
+          <div style="background:#fff;border:2px solid #c3d2e2;border-radius:14px;padding:20px 22px;display:flex;flex-direction:column;gap:14px">
+            <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:26px;line-height:1.15">{{ titreEleve }}</div>
+            <div style="display:flex;flex-wrap:wrap;gap:10px">
+              <sc-for list="{{ pastilles }}" as="p" hint-placeholder-count="4">
+                <div style="background:#eef3f9;border:1px solid #c3d2e2;border-radius:999px;padding:7px 14px;font-size:13px">
+                  <span style="color:#6b7a8d">{{ p.cle }} </span><b>{{ p.valeur }}</b>
+                </div>
+              </sc-for>
+            </div>
+            <sc-for list="{{ lignes }}" as="l" hint-placeholder-count="5">
+              <div style="display:grid;grid-template-columns:170px 1fr;gap:12px;font-size:13.5px;line-height:1.5;border-top:1px solid #e6ecf3;padding-top:9px">
+                <div style="color:#6b7a8d">{{ l.cle }}</div>
+                <div style="white-space:pre-line">{{ l.valeur }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ estE2 }}" hint-placeholder-val="{{ false }}">
+      <div style="display:grid;grid-template-columns:{{ colonnes2 }};gap:18px;align-items:start">
+        <div style="background:#fff;border:2px solid #c3d2e2;border-radius:14px;padding:20px 22px;display:flex;flex-direction:column;gap:13px">
+          <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:15px;color:#1d4e89">2 · LE TEST À DONNER</div>
+
+          <sc-for list="{{ groupes }}" as="g" hint-placeholder-count="2">
+            <div style="border:4px solid {{ g.encre }};border-radius:15px;overflow:hidden;display:flex;flex-direction:column">
+              <div style="background:{{ g.couleur }};color:{{ g.encreTexte }};padding:11px 16px;display:flex;flex-direction:column;gap:2px">
+                <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:13px;letter-spacing:.04em">{{ g.titre }}</div>
+                <sc-if value="{{ g.sous }}" hint-placeholder-val="{{ true }}">
+                  <div style="font-size:11.5px;opacity:.85">{{ g.sous }}</div>
+                </sc-if>
+              </div>
+              <div style="padding:15px 16px 17px;display:flex;flex-direction:column;gap:12px;background:#fff">
+                <sc-if value="{{ g.plusieurs }}" hint-placeholder-val="{{ true }}">
+                  <label style="display:flex;flex-direction:column;gap:5px;font-size:12px;color:#6b7a8d">
+                    <span>{{ g.motChoix }}</span>
+                    <select value="{{ g.choisi }}" onChange="{{ g.onChoisir }}" style="font-family:Verdana,sans-serif;font-size:13.5px;padding:10px 11px;border:1.5px solid #c3d2e2;border-radius:9px;background:#fbfcfe">
+                      <sc-for list="{{ g.options }}" as="o" hint-placeholder-count="2">
+                        <option value="{{ o.id }}">{{ o.libelle }}</option>
+                      </sc-for>
+                    </select>
+                  </label>
+                </sc-if>
+                <sc-if value="{{ g.motDonnes }}" hint-placeholder-val="{{ false }}">
+                  <div style="font-size:12px;color:#2a7d5a;font-weight:bold">{{ g.motDonnes }}</div>
+                </sc-if>
+                <sc-if value="{{ g.alpha }}" hint-placeholder-val="{{ false }}">
+                  <button onClick="{{ g.onAlpha }}" style="align-self:flex-start;border:1.5px solid {{ g.alphaBord }};background:{{ g.alphaFond }};color:{{ g.alphaEncre }};border-radius:9px;padding:8px 12px;font-size:12px;font-weight:bold;cursor:pointer">{{ g.alphaTexte }}</button>
+                </sc-if>
+                <div style="border:3px solid {{ g.carte.bord }};background:{{ g.carte.fond }};border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:8px">
+                  <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:15px;line-height:1.25">{{ g.carte.titre }}</div>
+                  <div style="font-size:13px;color:#48586b">{{ g.carte.pourquoi }}</div>
+                  <div style="font-size:12.5px;color:#6b7a8d">{{ g.carte.detail }}</div>
+                  <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+                    <button onClick="{{ g.carte.onDonne }}" style="border:2px solid {{ g.carte.boutonBord }};border-radius:9px;background:{{ g.carte.boutonFond }};color:{{ g.carte.boutonEncre }};padding:9px 14px;font-size:12.5px;font-family:'Archivo Black',Verdana,sans-serif;cursor:pointer">{{ g.carte.boutonTexte }}</button>
+                    <sc-if value="{{ g.carte.estDonne }}" hint-placeholder-val="{{ false }}">
+                      <button onClick="{{ g.carte.onRetirer }}" title="Ce test n'a pas été donné, finalement" style="border:1.5px solid #e3c6ca;background:#fff;color:#a3283c;border-radius:9px;padding:8px 12px;font-size:12px;cursor:pointer">Retirer</button>
+                    </sc-if>
+                    <sc-if value="{{ g.carte.pdf }}" hint-placeholder-val="{{ false }}">
+                      <button onClick="{{ g.carte.onPdf }}" title="Télécharger le test à imprimer" style="display:flex;gap:7px;align-items:center;border:1.5px solid #c3d2e2;background:#fff;color:#1d4e89;border-radius:9px;padding:8px 12px;font-size:12px;font-weight:bold;cursor:pointer">
+                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#1d4e89" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"></path><path d="m7 12 5 5 5-5"></path><path d="M4 21h16"></path></svg>
+                        <span>{{ g.carte.pdfNom }}</span>
+                      </button>
+                    </sc-if>
+                    <sc-if value="{{ g.carte.pdfCorrige }}" hint-placeholder-val="{{ false }}">
+                      <button onClick="{{ g.carte.onPdfCorrige }}" style="border:0;background:none;font-size:12px;font-weight:bold;color:#1d4e89;text-decoration:underline;cursor:pointer;padding:0">Le corrigé</button>
+                    </sc-if>
+                    <sc-if value="{{ g.carte.lien }}" hint-placeholder-val="{{ false }}">
+                      <a href="{{ g.carte.lien }}" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:bold">Sur le site du CASNAV de Lille</a>
+                    </sc-if>
+                  </div>
+                  <sc-if value="{{ g.carte.pdfMot }}" hint-placeholder-val="{{ false }}">
+                    <div style="font-size:11px;color:#8b98a8">{{ g.carte.pdfMot }}</div>
+                  </sc-if>
+                </div>
+              </div>
+            </div>
+          </sc-for>
+          <div style="font-size:12.5px;color:#6b7a8d;border-top:1px solid #e6ecf3;padding-top:10px;line-height:1.6">{{ motLangues }}</div>
+          <sc-if value="{{ aTraduire }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ ouvrirTraduction }}" style="background:#6d5bd0;color:#fff;font-family:'Archivo Black',Verdana,sans-serif;font-size:13px;border:0;border-radius:10px;padding:13px 16px;cursor:pointer;box-shadow:0 2px 0 #52439f;text-align:left;line-height:1.35">{{ motTraduire }}</button>
+          </sc-if>
+          <sc-if value="{{ panneau }}" hint-placeholder-val="{{ false }}">
+            <div style="border:2px solid #6d5bd0;background:#f4f2fd;border-radius:12px;padding:15px 16px;display:flex;flex-direction:column;gap:11px">
+              <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:13.5px;color:#4a3d94">TRADUIRE UN TEST</div>
+              <label style="display:flex;flex-direction:column;gap:5px;font-size:12.5px;color:#48586b">
+                <span>Le test</span>
+                <select value="{{ tradTest }}" onChange="{{ auTestTrad }}" style="font-family:Verdana,sans-serif;font-size:13px;padding:9px 10px;border:1.5px solid #c9c1ee;border-radius:8px;background:#fff">
+                  <sc-for list="{{ testsTraduisibles }}" as="t" hint-placeholder-count="3">
+                    <option value="{{ t.id }}">{{ t.titre }}</option>
+                  </sc-for>
+                </select>
+              </label>
+              <label style="display:flex;flex-direction:column;gap:5px;font-size:12.5px;color:#48586b">
+                <span>La langue</span>
+                <input value="{{ tradLangue }}" onChange="{{ auLangueTrad }}" placeholder="finnois" style="font-family:Verdana,sans-serif;font-size:13px;padding:9px 10px;border:1.5px solid #c9c1ee;border-radius:8px;background:#fff" />
+              </label>
+              <sc-if value="{{ dejaLa }}" hint-placeholder-val="{{ false }}">
+                <div style="background:#fff;border:1.5px solid #c9c1ee;border-radius:9px;padding:11px 13px;display:flex;flex-direction:column;gap:7px">
+                  <div style="font-size:12.5px;color:#3f3570"><b>{{ motDeja }}</b></div>
+                  <div style="display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px">
+                    <a href="{{ lienTrad }}" target="_blank" rel="noopener">Le test à imprimer</a>
+                    <a href="{{ lienControle }}" target="_blank" rel="noopener">La feuille de contrôle bilingue</a>
+                  </div>
+                </div>
+              </sc-if>
+              <div style="font-size:12.5px;line-height:1.6;color:#3f3570">{{ motDemande }}</div>
+              <div style="display:flex;gap:9px;flex-wrap:wrap">
+                <button onClick="{{ copierDemande }}" style="background:#6d5bd0;color:#fff;font-family:'Archivo Black',Verdana,sans-serif;font-size:12.5px;border:0;border-radius:9px;padding:12px 15px;cursor:pointer;box-shadow:0 2px 0 #52439f">{{ motCopier }}</button>
+                <button onClick="{{ fermerTraduction }}" style="background:#fff;color:#4a3d94;font-family:'Archivo Black',Verdana,sans-serif;font-size:12.5px;border:1.5px solid #c9c1ee;border-radius:9px;padding:12px 15px;cursor:pointer">FERMER</button>
+              </div>
+              <sc-if value="{{ aRecopier }}" hint-placeholder-val="{{ false }}">
+                <label style="display:flex;flex-direction:column;gap:5px;font-size:12px;color:#48586b">
+                  <span>La copie n'a pas fonctionné. Sélectionne ce texte et copie-le à la main :</span>
+                  <textarea value="{{ aRecopier }}" rows="3" style="font-family:Verdana,sans-serif;font-size:12.5px;padding:9px 10px;border:1.5px solid #c9c1ee;border-radius:8px;background:#fff;resize:vertical"></textarea>
+                </label>
+              </sc-if>
+              <div style="font-size:11.5px;color:#6b7a8d;line-height:1.6">Traduction automatique en direct : possible seulement avec un service de traduction relié au site publié, et jamais sans relecture par un locuteur — une question mal traduite invalide le test.</div>
+            </div>
+          </sc-if>
+        </div>
+
+        <div style="background:#eef1f5;border:2px dashed #c9d1da;border-radius:14px;padding:20px 22px;display:flex;flex-direction:column;gap:15px;opacity:.72">
+          <div style="display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap">
+            <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:15px;color:#6b7a8d">LA BASE DES TESTS</div>
+            <a href="https://drive.google.com/drive/folders/1Q_n5XZZ6oS9QaYbw5l3MBsWZFlnvBXF-?usp=drive_link" target="_blank" rel="noopener" style="border:2px solid #c9d1da;background:#fff;color:#1d4e89;border-radius:9px;padding:8px 13px;font-size:12.5px;font-weight:bold;text-decoration:none" style-hover="border-color:#1d4e89">Mon dossier Drive — les PDF des tests</a>
+          </div>
+          <sc-for list="{{ colonnes }}" as="c" hint-placeholder-count="3">
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div style="background:{{ c.couleur }};color:{{ c.encre }};border-radius:10px;padding:10px 13px;display:flex;flex-direction:column;gap:2px">
+                <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:13px;letter-spacing:.3px">{{ c.titre }}</div>
+                <div style="font-size:12px">{{ c.sous }}</div>
+              </div>
+              <sc-for list="{{ c.tests }}" as="t" hint-placeholder-count="2">
+                <div style="border:1.5px solid #e0e7f0;border-radius:11px;padding:11px 13px;display:flex;flex-direction:column;gap:5px;background:#fbfcfe">
+                  <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:12.5px;line-height:1.3">{{ t.titre }}</div>
+                  <div style="font-size:11.5px;color:#6b7a8d;line-height:1.5">{{ t.info }}</div>
+                  <div style="font-size:11.5px;color:#48586b">{{ t.langues }}</div>
+                  <sc-if value="{{ t.pdf }}" hint-placeholder-val="{{ false }}">
+                    <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:3px">
+                      <button onClick="{{ t.onPdf }}" title="Télécharger le test à imprimer" style="display:flex;gap:7px;align-items:center;border:1.5px solid #c3d2e2;background:#fff;color:#1d4e89;border-radius:9px;padding:7px 12px;font-size:12px;font-weight:bold;cursor:pointer" style-hover="border-color:#1d4e89">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1d4e89" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"></path><path d="M7 12l5 5 5-5"></path><path d="M4 21h16"></path></svg>
+                        <span>{{ t.pdfNom }}</span>
+                      </button>
+                      <sc-if value="{{ t.pdfCorrige }}" hint-placeholder-val="{{ false }}">
+                        <button onClick="{{ t.onPdfCorrige }}" style="border:0;background:none;font-size:12px;font-weight:bold;color:#1d4e89;text-decoration:underline;cursor:pointer;padding:0">Le corrigé</button>
+                      </sc-if>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ t.pdfMot }}" hint-placeholder-val="{{ false }}">
+                    <div style="font-size:11px;color:#6b7a8d;font-style:italic">{{ t.pdfMot }}</div>
+                  </sc-if>
+                </div>
+              </sc-for>
+            </div>
+          </sc-for>
+          <div style="background:#fdf6ec;border:1.5px solid #d8a24a;border-radius:11px;padding:12px 14px;font-size:12px;line-height:1.6">{{ trou }}</div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ estE3 }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <sc-if value="{{ aucunTest }}" hint-placeholder-val="{{ false }}">
+          <div style="background:#fff;border:2px solid #c3d2e2;border-radius:14px;padding:20px 22px;font-size:13.5px;line-height:1.6">Aucun test marqué comme donné. Reviens à l'étape 2 et clique « Je l'ai donné » sur le test que l'élève a passé.</div>
+        </sc-if>
+        <sc-for list="{{ blocsResultats }}" as="bl" hint-placeholder-count="1">
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div style="background:{{ bl.couleur }};color:{{ bl.encreTexte }};border-radius:10px;padding:11px 16px;display:flex;flex-direction:column;gap:2px">
+            <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:13px;letter-spacing:.04em">{{ bl.titre }}</div>
+            <sc-if value="{{ bl.sous }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:11.5px;opacity:.85">{{ bl.sous }}</div>
+            </sc-if>
+          </div>
+        <sc-for list="{{ bl.tests }}" as="p" hint-placeholder-count="1">
+          <div style="background:#fff;border:2px solid {{ bl.encre }};border-radius:14px;padding:20px 22px;display:flex;flex-direction:column;gap:15px">
+            <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:baseline;justify-content:space-between">
+              <div style="display:flex;flex-direction:column;gap:4px">
+                <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:16px">{{ p.titre }}</div>
+                <div style="font-size:12.5px;color:#6b7a8d">{{ p.sous }}</div>
+              </div>
+              <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+                <sc-if value="{{ p.pct }}" hint-placeholder-val="{{ false }}">
+                  <div style="background:#1d4e89;color:#fff;border-radius:999px;padding:8px 16px;font-family:'Archivo Black',Verdana,sans-serif;font-size:15px">{{ p.pct }} %</div>
+                </sc-if>
+                <button onClick="{{ p.onRetirer }}" style="border:1.5px solid #e3c6ca;background:#fff;color:#a3283c;border-radius:9px;padding:8px 12px;font-size:12px;cursor:pointer">Retirer</button>
+              </div>
+            </div>
+            <sc-if value="{{ p.livretMot }}" hint-placeholder-val="{{ false }}">
+              <div style="border:1.5px solid #9db9d8;background:#eef4fb;border-radius:10px;padding:11px 14px;font-size:12.5px;color:#12365f;line-height:1.55">{{ p.livretMot }}</div>
+            </sc-if>
+            <sc-if value="{{ p.aCorrige }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+                <button onClick="{{ p.onModeNotes }}" style="border:2px solid {{ p.bordNotes }};background:{{ p.fondNotes }};color:{{ p.encreNotes }};border-radius:9px;padding:9px 14px;font-size:12.5px;font-weight:bold;cursor:pointer">Je note moi-même</button>
+                <button onClick="{{ p.onModeReponses }}" style="border:2px solid {{ p.bordRep }};background:{{ p.fondRep }};color:{{ p.encreRep }};border-radius:9px;padding:9px 14px;font-size:12.5px;font-weight:bold;cursor:pointer">Je saisis ses réponses</button>
+                <span style="font-size:11.5px;color:#6b7a8d">{{ p.motMode }}</span>
+              </div>
+            </sc-if>
+            <sc-for list="{{ p.questions }}" as="q" hint-placeholder-count="5">
+              <div style="border-top:1px solid #e6ecf3;padding-top:11px;display:flex;flex-direction:column;gap:9px">
+                <div style="display:flex;gap:12px;align-items:baseline;justify-content:space-between;flex-wrap:wrap">
+                  <div style="display:flex;gap:11px;align-items:baseline">
+                    <span style="font-family:'Archivo Black',Verdana,sans-serif;font-size:14px;color:#6b7a8d">{{ q.num }}</span>
+                    <div style="display:flex;flex-direction:column;gap:3px">
+                      <span style="font-size:13px;line-height:1.4">{{ q.question }}</span>
+                      <sc-if value="{{ q.vo }}" hint-placeholder-val="{{ false }}">
+                        <span style="font-size:11.5px;line-height:1.35;color:#8b98a8;font-style:italic">{{ q.vo }}</span>
+                      </sc-if>
+                    </div>
+                  </div>
+                  <div style="background:{{ q.noteFond }};border:1.5px solid {{ q.noteBord }};color:{{ q.noteEncre }};border-radius:999px;padding:5px 13px;font-size:12px;font-weight:bold">{{ q.note }}</div>
+                </div>
+                <sc-if value="{{ q.attendu }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;gap:8px;align-items:baseline;background:#eef7f1;border:1.5px solid #b6d9c4;border-radius:9px;padding:8px 12px">
+                    <span style="font-size:11px;color:#2a7d5a;font-weight:bold;letter-spacing:.04em;flex:none">RÉPONSE ATTENDUE</span>
+                    <span style="font-size:13px;color:#1c4a34;line-height:1.65;white-space:pre-line">{{ q.attendu }}</span>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ q.aide }}" hint-placeholder-val="{{ false }}">
+                  <div style="font-size:11.5px;color:#6b7a8d;line-height:1.55">{{ q.aide }}</div>
+                </sc-if>
+                <sc-for list="{{ q.lignes }}" as="l" hint-placeholder-count="1">
+                  <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+                    <sc-if value="{{ l.libelle }}" hint-placeholder-val="{{ false }}">
+                      <div style="min-width:230px;flex:0 0 auto;display:flex;flex-direction:column;gap:2px">
+                        <div style="font-size:12.5px">{{ l.libelle }}</div>
+                        <sc-if value="{{ l.libelleVo }}" hint-placeholder-val="{{ false }}">
+                          <div style="font-size:11px;color:#8b98a8;font-style:italic">{{ l.libelleVo }}</div>
+                        </sc-if>
+                      </div>
+                    </sc-if>
+                    <div style="display:flex;gap:6px;flex-wrap:wrap">
+                      <sc-for list="{{ l.boutons }}" as="b" hint-placeholder-count="3">
+                        <button onClick="{{ b.onClick }}" style="border:2px solid {{ b.bord }};background:{{ b.fond }};color:{{ b.texte }};border-radius:8px;padding:7px 11px;font-size:12px;font-weight:bold;cursor:pointer;display:flex;flex-direction:column;gap:2px;align-items:flex-start;text-align:left">
+                          <span>{{ b.nom }}</span>
+                          <sc-if value="{{ b.vo }}" hint-placeholder-val="{{ false }}">
+                            <span style="font-size:10.5px;font-weight:normal;font-style:italic;opacity:.75">{{ b.vo }}</span>
+                          </sc-if>
+                        </button>
+                      </sc-for>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-for>
+            <sc-if value="{{ p.bilanLignes }}" hint-placeholder-val="{{ false }}">
+              <div style="border:2px solid #c9d9ea;background:#f2f7fc;border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:8px">
+                <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:13px;color:#1d4e89">LE BILAN DE CE TEST</div>
+                <sc-if value="{{ p.bilanTitre }}" hint-placeholder-val="{{ false }}">
+                  <div style="font-size:13px;color:#1c2430;line-height:1.5">{{ p.bilanTitre }}</div>
+                </sc-if>
+                <sc-for list="{{ p.bilanLignes }}" as="b" hint-placeholder-count="3">
+                  <div style="font-size:12.5px;color:#48586b;line-height:1.5">— {{ b }}</div>
+                </sc-for>
+                <div style="font-size:11px;color:#8b98a8">Ce texte part tel quel dans la fiche, à l'étape 4.</div>
+              </div>
+            </sc-if>
+            <div style="border-top:1px solid #e6ecf3;padding-top:12px;display:flex;flex-direction:column;gap:7px">
+              <div style="font-size:12.5px;font-weight:bold;color:#48586b">Ce que tu as observé pendant la passation</div>
+              <textarea value="{{ p.observations }}" onChange="{{ p.onObserver }}" rows="3" placeholder="Ex. : elle connaît moyennement ses tables de multiplication, difficulté avec la table de 5." style="border:1.5px solid #dde4ec;border-radius:9px;padding:10px 12px;font-size:12.5px;font-family:inherit;line-height:1.5;resize:vertical"></textarea>
+              <div style="font-size:11px;color:#8b98a8">Ces lignes rejoignent la fiche, à l'étape 4, sous les constats des exercices.</div>
+            </div>
+            <sc-if value="{{ p.sansCorrige }}" hint-placeholder-val="{{ false }}">
+              <div style="border:1.5px solid #c9973f;background:#fdf4e6;border-radius:10px;padding:11px 14px;font-size:12.5px;color:#4a3208;line-height:1.55">{{ p.sansCorrige }}</div>
+            </sc-if>
+            <sc-for list="{{ p.items }}" as="it" hint-placeholder-count="5">
+              <div style="display:flex;flex-direction:column;gap:9px;border-top:1px solid #e6ecf3;padding-top:9px">
+                <sc-if value="{{ it.enColonne }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;flex-direction:column;gap:9px">
+                    <div style="display:flex;gap:12px;align-items:baseline">
+                      <span style="font-family:'Archivo Black',Verdana,sans-serif;font-size:14px;color:#6b7a8d">{{ it.num }}</span>
+                      <span style="font-size:13px;line-height:1.4">{{ it.titre }}</span>
+                    </div>
+                    <div style="margin-left:46px;display:flex;gap:8px;flex-wrap:wrap">
+                      <sc-for list="{{ it.choix }}" as="ch" hint-placeholder-count="5">
+                        <button onClick="{{ ch.onClick }}" title="{{ ch.aide }}" style="border:2px solid {{ ch.bord }};background:{{ ch.fond }};color:{{ ch.texte }};border-radius:9px;padding:8px 13px;font-size:12.5px;font-weight:bold;cursor:pointer;text-align:left;line-height:1.35">{{ ch.nom }}</button>
+                      </sc-for>
+                    </div>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ it.enLigne }}" hint-placeholder-val="{{ true }}">
+                  <div style="display:grid;grid-template-columns:34px 1fr auto;gap:12px;align-items:center">
+                    <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:14px;color:#6b7a8d">{{ it.num }}</div>
+                    <div style="font-size:13px;line-height:1.4">{{ it.titre }}</div>
+                    <div style="display:flex;gap:5px;flex-wrap:wrap">
+                      <sc-for list="{{ it.choix }}" as="ch" hint-placeholder-count="5">
+                        <button onClick="{{ ch.onClick }}" title="{{ ch.aide }}" style="border:2px solid {{ ch.bord }};background:{{ ch.fond }};color:{{ ch.texte }};border-radius:8px;padding:7px 10px;font-size:12px;font-weight:bold;cursor:pointer;min-width:38px">{{ ch.nom }}</button>
+                      </sc-for>
+                    </div>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ it.attendu }}" hint-placeholder-val="{{ false }}">
+                  <div style="margin-left:46px;display:flex;flex-direction:column;gap:5px;background:#eef7f1;border:1.5px solid #b6d9c4;border-radius:9px;padding:8px 12px">
+                    <div style="display:flex;gap:8px;align-items:baseline;flex-wrap:wrap">
+                      <span style="font-size:11px;color:#2a7d5a;font-weight:bold;letter-spacing:.04em;flex:none">RÉPONSE ATTENDUE</span>
+                      <span style="font-size:13px;color:#1c4a34;line-height:1.65;white-space:pre-line">{{ it.attendu }}</span>
+                    </div>
+                    <sc-if value="{{ it.grille }}" hint-placeholder-val="{{ false }}">
+                      <div style="font-size:11.5px;color:#4d7a63;line-height:1.5">{{ it.grille }}</div>
+                    </sc-if>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-for>
+            <div style="border-top:1px solid #e6ecf3;padding-top:12px;display:flex;flex-direction:column;gap:10px">
+              <sc-if value="{{ p.conclusion }}" hint-placeholder-val="{{ false }}">
+                <div style="background:{{ p.conclusionFond }};border:2px solid {{ p.conclusionBord }};border-radius:11px;padding:12px 15px;font-family:'Archivo Black',Verdana,sans-serif;font-size:14px;line-height:1.35">{{ p.conclusion }}</div>
+              </sc-if>
+              <div style="font-size:13px;line-height:1.6">{{ p.mot }}</div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <sc-for list="{{ p.domaines }}" as="d" hint-placeholder-count="3">
+                  <div style="background:{{ d.fond }};border:1.5px solid {{ d.bord }};border-radius:999px;padding:6px 13px;font-size:12.5px">{{ d.nom }} <b>{{ d.pct }} %</b></div>
+                </sc-for>
+              </div>
+              <div style="font-size:11.5px;color:#6b7a8d">{{ p.echelle }}</div>
+            </div>
+          </div>
+        </sc-for>
+        </div>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ estE4 }}" hint-placeholder-val="{{ false }}">
+      <div style="display:grid;grid-template-columns:{{ colonnes2 }};gap:18px;align-items:start">
+        <div style="background:#fff;border:2px solid #c3d2e2;border-radius:14px;padding:20px 22px;display:flex;flex-direction:column;gap:14px">
+          <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:15px;color:#1d4e89">4 · LA FICHE REMPLIE</div>
+          <div style="font-size:13px;color:#556;line-height:1.6">Ce que tu écris ici part dans les cases du PDF officiel, sans le reformater. Les lignes marquées d'un point bleu ont été proposées d'après les résultats saisis.</div>
+          <sc-for list="{{ saisies }}" as="s" hint-placeholder-count="6">
+            <label style="display:flex;flex-direction:column;gap:5px;font-size:13px">
+              <span style="color:#48586b">{{ s.libelle }}</span>
+              <sc-if value="{{ s.estChoix }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;gap:7px;flex-wrap:wrap">
+                  <sc-for list="{{ s.choix }}" as="c" hint-placeholder-count="4">
+                    <button onClick="{{ c.onClick }}" style="border:2px solid {{ c.bord }};background:{{ c.fond }};color:{{ c.encre }};border-radius:8px;padding:7px 11px;font-size:12px;font-weight:bold;cursor:pointer">{{ c.nom }}</button>
+                  </sc-for>
+                </div>
+              </sc-if>
+              <sc-if value="{{ s.estListe }}" hint-placeholder-val="{{ false }}">
+                <select value="{{ s.valeur }}" onChange="{{ s.onChange }}" style="font-family:Verdana,sans-serif;font-size:13.5px;padding:9px 10px;border:1.5px solid #c3d2e2;border-radius:8px;background:#fbfcfe">
+                  <option value="">—</option>
+                  <sc-for list="{{ s.options }}" as="o" hint-placeholder-count="3">
+                    <option value="{{ o }}">{{ o }}</option>
+                  </sc-for>
+                </select>
+              </sc-if>
+              <sc-if value="{{ s.estTexte }}" hint-placeholder-val="{{ false }}">
+                <textarea value="{{ s.valeur }}" onChange="{{ s.onChange }}" ref="{{ s.ref }}" data-auto="1" rows="{{ s.lignes }}" style="font-family:Verdana,sans-serif;font-size:13.5px;padding:9px 10px;border:1.5px solid #c3d2e2;border-radius:8px;background:#fbfcfe;resize:vertical;line-height:1.5"></textarea>
+              </sc-if>
+              <sc-if value="{{ s.fautes }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;flex-direction:column;gap:6px;background:#fdf2f4;border:1.5px solid #eecdd3;border-radius:9px;padding:9px 11px">
+                  <sc-for list="{{ s.fautes }}" as="f" hint-placeholder-count="1">
+                    <div style="display:flex;gap:9px;align-items:center;flex-wrap:wrap">
+                      <span style="font-size:12px;color:#a3283c;font-weight:bold">{{ f.mot }}</span>
+                      <span style="font-size:11.5px;color:#6b7a8d">{{ f.message }}</span>
+                      <sc-for list="{{ f.propositions }}" as="c" hint-placeholder-count="1">
+                        <button onClick="{{ c.onClick }}" style="border:1.5px solid #c3d2e2;background:#fff;color:#1d4e89;border-radius:7px;padding:5px 10px;font-size:12px;font-weight:bold;cursor:pointer">{{ c.nom }}</button>
+                      </sc-for>
+                    </div>
+                  </sc-for>
+                </div>
+              </sc-if>
+            </label>
+          </sc-for>
+          <div style="border-top:1px solid #e6ecf3;padding-top:13px;display:flex;flex-direction:column;gap:8px">
+            <button onClick="{{ onOrthographe }}" disabled="{{ orthoEnCours }}" style="align-self:flex-start;border:2px solid #1d4e89;background:#fff;color:#1d4e89;border-radius:9px;padding:10px 14px;font-family:'Archivo Black',Verdana,sans-serif;font-size:12.5px;cursor:pointer">{{ orthoBouton }}</button>
+            <div style="font-size:11.5px;color:#6b7a8d;line-height:1.55">{{ orthoMot }}</div>
+            <div style="font-size:11px;color:#8b98a8;line-height:1.55">Cette vérification demande une connexion : le texte est envoyé à LanguageTool, un correcteur français gratuit. Rien n'est corrigé sans ton clic.</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <div style="background:#fff;border:2px solid #c3d2e2;border-radius:14px;padding:20px 22px;display:flex;flex-direction:column;gap:13px">
+            <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:15px;color:#1d4e89">CE QUE DISENT LES TESTS</div>
+            <sc-for list="{{ resume }}" as="r" hint-placeholder-count="2">
+              <div style="border-top:1px solid #e6ecf3;padding-top:10px;display:flex;flex-direction:column;gap:4px">
+                <div style="font-size:13.5px;font-weight:bold">{{ r.titre }}</div>
+                <div style="font-size:12.5px;color:#48586b;line-height:1.5">{{ r.mot }}</div>
+              </div>
+            </sc-for>
+            <sc-if value="{{ aucunTest }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:13px;color:#6b7a8d">Aucun résultat saisi pour l'instant.</div>
+            </sc-if>
+          </div>
+          <div style="background:#fff;border:2px solid #c3d2e2;border-radius:14px;padding:20px 22px;display:flex;flex-direction:column;gap:12px">
+            <button onClick="{{ auRemplissage }}" style="background:{{ fondRemplir }};color:#fff;font-family:'Archivo Black',Verdana,sans-serif;font-size:14px;border:0;border-radius:10px;padding:15px 20px;cursor:pointer;box-shadow:0 2px 0 #1d7452">{{ motRemplir }}</button>
+            <sc-if value="{{ sansPdf }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:12.5px;color:#a35a12;line-height:1.6">Aucun PDF en mémoire pour ce dossier : soit il a été ouvert à la main, soit la page a été rechargée depuis le dépôt. Retourne à l'étape 1 et dépose la fiche EANA — tes saisies sont conservées.</div>
+            </sc-if>
+            <sc-if value="{{ refus }}" hint-placeholder-val="{{ false }}">
+              <div style="background:#fdf1e3;border:1.5px solid #d8a24a;border-radius:10px;padding:12px 14px;font-size:12.5px;white-space:pre-line">{{ refus }}</div>
+            </sc-if>
+            <sc-if value="{{ aPdf }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:6px;border-top:1px solid #e6ecf3;padding-top:11px">
+                <div style="font-size:11.5px;color:#6b7a8d;line-height:1.55">Le PDF déposé est gardé avec le dossier : tu peux corriger une case et retélécharger autant de fois que nécessaire.</div>
+                <button onClick="{{ onOublierPdf }}" style="align-self:flex-start;border:1.5px solid #e3c6ca;background:#fff;color:#a3283c;border-radius:9px;padding:8px 12px;font-size:12px;cursor:pointer">Oublier le PDF de cet élève</button>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1240,&quot;height&quot;:900},&quot;sansEntete&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Montage&quot;}}">
+class Component extends DCLogic {
+  state = { base: null, dossierId: '', etape: 1, enLecture: false, erreur: '', refus: '',
+    rapide: {}, panneau: false, tradTest: '', tradLangue: '', copie: false, aRecopier: '', etroit: false,
+    modeRep: {}, ortho: '', orthoMot: '', fautes: {}, choixTest: {}, alpha: {},
+    pdfUrl: '', pdfTitre: '', pdfErreur: '' };
+
+  cadrePdf = React.createRef();
+
+  componentDidMount() {
+    this.sources = {};
+    this.mesurer = () => {
+      const l = (this.racine && this.racine.clientWidth) || window.innerWidth;
+      const etroit = l < 860;
+      if (etroit !== this.state.etroit) this.setState({ etroit });
+    };
+    this.mesurer();
+    window.addEventListener('resize', this.mesurer);
+    const pret = () => window.TESTS && window.EANA && window.DOSSIERS;
+    const poser = () => {
+      const base = window.DOSSIERS.charger();
+      this.setState({ base, dossierId: base.dossiers.length ? base.dossiers[0].id : '' });
+      /* Les PDF rangés au dépôt précédent : on note lesquels sont là. */
+      if (window.PDFS) {
+        window.PDFS.cles().then(k => this.setState({ pdfsEnBase: k || [] }), () => {});
+      }
+    };
+    if (pret()) return poser();
+    this.attente = setInterval(() => { if (pret()) { clearInterval(this.attente); this.attente = null; poser(); } }, 200);
+    setTimeout(() => { if (this.attente) { clearInterval(this.attente); this.attente = null; } }, 15000);
+  }
+  componentWillUnmount() {
+    if (this.attente) clearInterval(this.attente);
+    if (this.mesurer) window.removeEventListener('resize', this.mesurer);
+  }
+
+  base() { return this.state.base || { dossiers: [] }; }
+  dossier() { return this.base().dossiers.find(d => d.id === this.state.dossierId) || null; }
+
+  majDossier(modif) {
+    const base = this.base();
+    const dossiers = base.dossiers.map(d => d.id === this.state.dossierId
+      ? Object.assign({}, d, modif, { maj: Date.now() }) : d);
+    const neuf = Object.assign({}, base, { dossiers });
+    window.DOSSIERS.enregistrer(neuf);
+    this.setState({ base: neuf });
+  }
+
+  ajouterDossier(d) {
+    const base = this.base();
+    /* Redéposer la fiche du même élève ne crée pas un second dossier : on reprend
+       celui qui existe, avec ses tests et ses saisies. */
+    const meme = base.dossiers.find(x =>
+      (x.nom || '').toUpperCase() === (d.nom || '').toUpperCase()
+      && (x.fiche && x.fiche.naissance) === (d.fiche && d.fiche.naissance));
+    if (meme) {
+      this.sources[meme.id] = this.sources[d.id];
+      if (window.PDFS && this.sources[meme.id]) {
+        window.PDFS.ranger(meme.id, this.sources[meme.id]).catch(() => {});
+        window.PDFS.effacer(d.id).catch(() => {});
+      }
+      this.setState({ dossierId: meme.id, etape: 2 });
+      return;
+    }
+    const neuf = Object.assign({}, base, { dossiers: [d].concat(base.dossiers) });
+    window.DOSSIERS.enregistrer(neuf);
+    this.setState({ base: neuf, dossierId: d.id, etape: 2 });
+  }
+
+  supprimerDossier() {
+    const base = this.base();
+    this.oublierPdf(this.state.dossierId);   /* le PDF part avec le dossier */
+    const dossiers = base.dossiers.filter(d => d.id !== this.state.dossierId);
+    const neuf = Object.assign({}, base, { dossiers });
+    window.DOSSIERS.enregistrer(neuf);
+    this.setState({ base: neuf, dossierId: dossiers.length ? dossiers[0].id : '', etape: 1 });
+  }
+
+  async auDepot(ev) {
+    const f = ev.target.files && ev.target.files[0];
+    if (!f) return;
+    this.setState({ enLecture: true, erreur: '', refus: '' });
+    try {
+      const buf = new Uint8Array(await f.arrayBuffer());
+      const fiche = await window.EANA.lire(buf);
+      const d = window.DOSSIERS.depuisFiche(fiche);
+      d.nomFichier = f.name;
+      this.sources[d.id] = buf;
+      /* Le PDF est rangé avec le dossier : il survit aux rechargements, pour pouvoir
+         corriger une case et retélécharger la fiche plus tard. */
+      if (window.PDFS) { try { await window.PDFS.ranger(d.id, buf); } catch (e) {} }
+      this.setState({ enLecture: false, pdfsEnBase: (this.state.pdfsEnBase || []).concat([d.id]) });
+      this.ajouterDossier(d);
+    } catch (e) {
+      this.setState({ enLecture: false, erreur: "Je n'ai pas pu lire ce PDF : " + e.message + ". S'il s'agit d'un scan, il n'a pas de champs de formulaire : ouvre le dossier à la main juste en dessous." });
+    }
+  }
+
+  ouvrirALaMain() {
+    const r = this.state.rapide;
+    if (!r.nom && !r.prenom) { this.setState({ erreur: 'Il me faut au moins un nom ou un prénom.' }); return; }
+    const classe = window.EANA.classeDage(r.naissance || '');
+    const d = window.DOSSIERS.depuisFiche({
+      nom: (r.nom || '').toUpperCase(), prenom: r.prenom || '', naissance: r.naissance || '',
+      age: window.EANA.age(r.naissance || ''), tranche: window.EANA.tranche(window.EANA.age(r.naissance || '')),
+      classeDage: classe ? classe.nom : '', classeCle: classe ? classe.cle : '', classeCycle: classe ? classe.cycle : null,
+      langueScolarisation: r.langue || '', langueMaternelle: r.langue || ''
+    });
+    this.setState({ erreur: '', rapide: {} });
+    this.ajouterDossier(d);
+  }
+
+  /* « Je l'ai donné » / « Retirer » : le retrait ne SUPPRIME rien. L'entrée reste dans le
+     dossier avec ses notes, ses réponses et ses observations, seulement marquée non
+     donnée — changer d'avis deux fois ne doit pas coûter une soirée de saisie. */
+  marquerDonne(test, veut) {
+    const d = this.dossier(); if (!d) return;
+    const deja = (d.tests || []).find(t => t.testId === test.id);
+    /* ⚠ `veut` est EXPLICITE. Le bouton vert « ✓ DONNÉ » ne doit pas retirer le test
+       quand on le reclique : elle avait marqué « fin de cycle 3 » puis, en recliquant,
+       l'avait retiré sans le voir (03/09). Seul « Retirer » retire. */
+    const veutDonne = veut != null ? veut : deja && deja.donne === false;
+    const tests = deja
+      /* En le redonnant, la date repart d'aujourd'hui : c'est la passation qui compte. */
+      ? (d.tests || []).map(t => t.testId === test.id
+        ? Object.assign({}, t, veutDonne
+          ? { donne: true, date: t.date || this.aujourdhui(), langue: t.langue || this.langueRetenue() }
+          : { donne: false })
+        : t)
+      : (d.tests || []).concat([{ testId: test.id, donne: true, date: this.aujourdhui(), langue: this.langueRetenue(), scores: {} }]);
+    this.majDossier({ tests });
+  }
+
+  /* Un test compte comme donné tant qu'on ne l'a pas retiré (les dossiers d'avant
+     cette règle n'ont pas de champ `donne` : ils étaient tous donnés). */
+  estDonneDans(t) { return t.donne !== false; }
+
+  aujourdhui() {
+    const d = new Date(), p = n => String(n).padStart(2, '0');
+    return p(d.getDate()) + '/' + p(d.getMonth() + 1) + '/' + d.getFullYear();
+  }
+
+  /* La langue de PASSATION. Un test qui n'existe qu'en français a été passé en français,
+     quelle que soit la langue de scolarisation de l'élève : la fiche écrivait « passé en
+     bengali » pour le test Lyon +16, qui n'existe pas en bengali (03/09). */
+  languePassation(test, pass) {
+    if (test && test.multilingue === false) return 'français';
+    return (pass && pass.langue) || '';
+  }
+
+  langueRetenue() {
+    const d = this.dossier(); if (!d) return '';
+    const l = window.TESTS.languesPossibles(d.fiche || d);
+    return l.disponibles.length ? l.disponibles[0].nom : (l.absentes[0] || '');
+  }
+
+  /* `libelle` : le palier rédigé choisi (grille Lyon). Sans lui, deux paliers de même
+     note — « Démarche fausse » et « Rien écrit » valent tous deux -- — s'allumaient
+     ensemble et on ne savait plus lequel avait été cliqué (03/09). La note reste dans
+     `scores` (c'est elle qui compte pour le bilan), le libellé dans `reponses`. */
+  noter(testId, itemId, valeur, libelle) {
+    const d = this.dossier(); if (!d) return;
+    const tests = (d.tests || []).map(t => {
+      if (t.testId !== testId) return t;
+      const scores = Object.assign({}, t.scores);
+      const reponses = Object.assign({}, t.reponses);
+      const memeLigne = libelle ? reponses[itemId] === libelle : scores[itemId] === valeur;
+      if (memeLigne || valeur === 'NE') { delete scores[itemId]; delete reponses[itemId]; }
+      else {
+        scores[itemId] = valeur;
+        if (libelle) reponses[itemId] = libelle; else delete reponses[itemId];
+      }
+      return Object.assign({}, t, { scores, reponses });
+    });
+    this.majDossier({ tests });
+  }
+
+  /* Saisie des RÉPONSES de l'élève : on garde la réponse, et la note se déduit du
+     corrigé. Les deux vivent côte à côte — la note reste modifiable à la main
+     ensuite, puisqu'elle est écrite dans le même scores que l'autre méthode. */
+  repondre(testId, exoId, exo, rep) {
+    const d = this.dossier(); if (!d) return;
+    const CO = window.CORRIGES;
+    const note = CO ? CO.note(exo, rep) : null;
+    const tests = (d.tests || []).map(t => {
+      if (t.testId !== testId) return t;
+      const reponses = Object.assign({}, t.reponses, { [exoId]: rep });
+      const scores = Object.assign({}, t.scores);
+      if (note) scores[exoId] = note; else delete scores[exoId];
+      return Object.assign({}, t, { reponses, scores });
+    });
+    this.majDossier({ tests });
+  }
+
+  /* Ouvrir le PDF. Un lien direct échoue en mode aperçu (« preview token required ») :
+     la page a le droit de lire ses propres fichiers, un nouvel onglet ne l'a pas. On
+     récupère donc le fichier ici, et on ouvre l'objet obtenu. */
+  /* Le PDF s'affiche DANS l'appli, dans un cadre, avec un bouton Imprimer. Les nouveaux
+     onglets sont bloqués par Chrome (ERR_BLOCKED_BY_CLIENT sur une URL blob:), et un
+     lien direct ne marche pas en mode aperçu : rester dans la page évite les deux. */
+  /* Le PDF se TÉLÉCHARGE, et c'est tout : l'aperçu dans un cadre ne s'imprimait pas et
+     Chrome bloque les nouveaux onglets (ERR_BLOCKED_BY_CLIENT). Elle imprime depuis son
+     dossier de téléchargements — décidé le 02/09, « on va pas s'embêter ». */
+  async ouvrirPdf(chemin, titre) {
+    if (!chemin) return;
+    if (!/\.pdf$/i.test(chemin)) { window.open(chemin, '_blank'); return; }
+    try {
+      const r = await fetch(chemin);
+      if (!r.ok) throw new Error(r.status);
+      const url = URL.createObjectURL(await r.blob());
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = (titre || 'test').replace(/[^\w\s-]/g, '').trim() + '.pdf';
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(url), 30000);
+    } catch (e) {
+      this.setState({ refus: "Le fichier n'a pas pu être téléchargé : " + (e.message || e) });
+    }
+  }
+
+  /* Le PDF imprimable de ce test, pour CET élève. Le bouton n'apparaît que si la langue
+     du document est celle de sa scolarisation ; sinon on le dit et on renvoie au site de
+     Lille, qui a les 26 langues. */
+  pdfDe(test, d) {
+    const T = window.TESTS, p = (T.PDFS || {})[test.id];
+    if (!p || !p.sujet) return { sujet: '', nom: '', mot: '' };
+    const langue = p.langue || '';
+    if (!test.multilingue || !langue) {
+      return { sujet: p.sujet, nom: 'Télécharger le test', mot: p.note || '' };
+    }
+    const fiche = (d && d.fiche) || {};
+    const voulue = (fiche.langueScolarisation || fiche.langueMaternelle || d && d.langueScolarisation || '');
+    /* canonique() renvoie un objet { cle, nom } : on compare les clés, pas les objets. */
+    const cle = (x) => { const c = T.canonique && T.canonique(x); return c ? c.cle : ''; };
+    /* La fiche peut porter plusieurs langues (« Wolof, Français ») : on les essaie toutes. */
+    /* Les langues sans tradition écrite scolaire (wolof, bambara…) ne servent pas à
+       choisir un livret : on ne les compare pas. */
+    const ecarte = (x) => (T.SANS_ECRIT_SCOLAIRE || [])
+      .some(y => y.toLowerCase() === x.toLowerCase());
+    const meme = String(voulue).split(/[,;/]+/).map(x => x.trim()).filter(Boolean)
+      .filter(x => !ecarte(x))
+      .some(x => cle(x) === cle(langue) || x.toLowerCase() === langue.toLowerCase());
+    if (meme) {
+      return { sujet: p.sujet, nom: 'Télécharger le test (' + langue + ')', mot: p.note || '' };
+    }
+    /* Le message se construit sur ce que l'appli SAIT des langues : ne jamais nommer
+       comme manquante une langue que Canopé traduit, ni une langue à tradition orale. */
+    const lg = T.languesPossibles ? T.languesPossibles(fiche) : { disponibles: [], absentes: [] };
+    const dispo = (lg.disponibles || []).map(x => x.nom).filter(n => n.toLowerCase() !== langue.toLowerCase());
+    const manque = lg.absentes || [];
+    const suite = dispo.length
+      ? ' La version en ' + dispo.join(', ') + ' est sur le site du CASNAV de Lille.'
+      : (manque.length
+        ? ' Canopé ne traduit pas ' + manque.join(', ') + ' : il faudra une langue de repli.'
+        : ' Les autres langues sont sur le site du CASNAV de Lille.');
+    return { sujet: '', nom: '',
+      mot: "Le site n'a que la version " + langue + ' de ce test.' + suite };
+  }
+
+  /* Les phrases que la saisie permet d'écrire, pour ce test — le même texte que
+     celui qui rejoindra la fiche à l'étape 4. */
+  constatsDe(test, pass) {
+    const CO = window.CORRIGES; if (!CO) return [];
+    const corrige = CO.pour(test.id); if (!corrige) return [];
+    const out = [];
+    for (const exo of corrige) {
+      const cle = test.id + '-' + exo.num;
+      const phrase = CO.constat(exo, (pass.reponses || {})[cle], (pass.scores || {})[cle]);
+      if (phrase) out.push(phrase);
+    }
+    (pass.observations || '').split('\n').map(x => x.trim()).filter(Boolean).forEach(x => out.push(x));
+    /* Deux exercices peuvent aboutir au même constat — « ne sait pas poser » vaut pour
+       l'addition comme pour la soustraction : la phrase ne s'écrit qu'une fois. */
+    return out.filter((x, i) => out.indexOf(x) === i);
+  }
+
+  /* Ce que la saisie ne dit pas : ce qu'elle a vu pendant la passation. */
+  observer(testId, texte) {
+    const d = this.dossier(); if (!d) return;
+    this.majDossier({ tests: (d.tests || []).map(t =>
+      t.testId === testId ? Object.assign({}, t, { observations: texte }) : t) });
+  }
+
+  modeReponses(testId, oui) {
+    this.setState({ modeRep: Object.assign({}, this.state.modeRep, { [testId]: oui }) });
+  }
+
+  /* Une question à l'écran. Tous les types se rendent de la même façon : des lignes,
+     chacune avec ses boutons — c'est ce qui garde le gabarit lisible. */
+  question(test, pass, exo) {
+    const CO = window.CORRIGES, D = window.DOSSIERS;
+    const exoId = test.id + '-' + exo.num;
+    const rep = (pass.reponses || {})[exoId];
+    const cur = rep == null ? CO.vide(exo) : rep;
+    const note = (pass.scores || {})[exoId] || null;
+    const bt = (nom, actif, onClick, vo) => ({
+      nom, onClick, vo: vo || '',
+      fond: actif ? '#1d4e89' : '#fff',
+      texte: actif ? '#fff' : '#48586b',
+      bord: actif ? '#1d4e89' : '#dde4ec'
+    });
+    const lignes = [];
+    if (exo.type === 'ouvert') {
+      exo.sous.forEach((q, i) => {
+        lignes.push({ libelle: q.libelle, boutons: ['juste', 'faux', 'rien'].map(v =>
+          bt(v, cur[i] === v, () => {
+            const suite = cur.slice();
+            suite[i] = cur[i] === v ? '' : v;
+            this.repondre(test.id, exoId, exo, suite);
+          })) });
+      });
+    } else if (exo.type === 'sous') {
+      exo.sous.forEach((q, i) => {
+        lignes.push({ libelle: q.libelle, boutons: q.options.map(o =>
+          bt(o, cur[i] === o, () => {
+            const suite = cur.slice();
+            suite[i] = cur[i] === o ? '' : o;
+            this.repondre(test.id, exoId, exo, suite);
+          })) });
+      });
+    } else if (exo.type === 'bareme') {
+      /* les propositions portent leur note : elles se lisent mieux en colonne */
+      exo.options.forEach((o, i) => {
+        lignes.push({ libelle: '', boutons: [
+          bt(o[0], cur === o[0], () => this.repondre(test.id, exoId, exo, cur === o[0] ? '' : o[0]),
+            exo.voOptions && exo.voOptions[i])
+        ] });
+      });
+    } else if (exo.type === 'unique') {
+      lignes.push({ libelle: '', boutons: exo.options.map((o, i) =>
+        bt(o, cur === o, () => this.repondre(test.id, exoId, exo, cur === o ? '' : o),
+          exo.voOptions && exo.voOptions[i])) });
+    } else if (exo.type === 'multi') {
+      lignes.push({ libelle: '', boutons: exo.options.map((o, i) =>
+        bt(o, cur.indexOf(o) >= 0, () => {
+          const suite = cur.indexOf(o) >= 0 ? cur.filter(x => x !== o) : cur.concat([o]);
+          this.repondre(test.id, exoId, exo, suite);
+        }, exo.voOptions && exo.voOptions[i])) });
+    } else if (exo.type === 'ordre') {
+      exo.phrases.forEach((ph, i) => {
+        lignes.push({ libelle: ph, libelleVo: (exo.voPhrases && exo.voPhrases[i]) || '',
+          boutons: exo.phrases.map((x, j) => {
+          const n = j + 1;
+          return bt(String(n), Number(cur[i]) === n, () => {
+            const suite = cur.slice();
+            suite[i] = Number(cur[i]) === n ? '' : n;
+            this.repondre(test.id, exoId, exo, suite);
+          });
+        }) });
+      });
+    } else if (exo.type === 'paires') {
+      exo.elements.forEach((el, i) => {
+        lignes.push({ libelle: el[0], libelleVo: (exo.voElements && exo.voElements[i]) || '',
+          boutons: exo.colonnes.map((col, j) =>
+            bt(col, cur[i] === col, () => {
+              const suite = cur.slice();
+              suite[i] = cur[i] === col ? '' : col;
+              this.repondre(test.id, exoId, exo, suite);
+            }, exo.voColonnes && exo.voColonnes[j])) });
+      });
+    } else if (exo.type === 'juge' && exo.cases) {
+      exo.cases.forEach((c, i) => {
+        lignes.push({ libelle: c, boutons: [
+          bt('oui', cur[i] === true, () => {
+            const suite = cur.slice(); suite[i] = cur[i] === true ? null : true;
+            this.repondre(test.id, exoId, exo, suite);
+          }),
+          bt('non', cur[i] === false, () => {
+            const suite = cur.slice(); suite[i] = cur[i] === false ? null : false;
+            this.repondre(test.id, exoId, exo, suite);
+          })
+        ] });
+      });
+    } else {
+      lignes.push({ libelle: 'À toi de noter', boutons: D.valeurs(D.echelleDe(test)).map(v =>
+        bt(v.nom, note === v.v, () => this.noter(test.id, exoId, v.v))) });
+    }
+    const vert = note === 'MS' || note === 'TBM';
+    return {
+      num: exo.num, question: exo.question, vo: exo.vo || '', aide: [exo.aide, exo.note].filter(Boolean).join(' '),
+      /* La réponse attendue sous les yeux : elle corrigeait en comparant avec la
+         feuille du corrigé papier posée à côté (03/09). */
+      attendu: exo.attendu || '',
+      note: note || '—', lignes,
+      noteFond: note ? (vert ? '#e6f2e9' : '#fbe3e6') : '#eef1f5',
+      noteBord: note ? (vert ? '#9dc9af' : '#e8bcc3') : '#dde4ec',
+      noteEncre: note ? (vert ? '#1d6b42' : '#a3283c') : '#6b7a8d'
+    };
+  }
+
+  /* Le cadre prend la hauteur de son texte, retours à la ligne automatiques compris :
+     compter les « \n » ne suffit pas, un tiret tient souvent sur deux lignes. */
+  /* --- La correction orthographique, sur demande et seulement sur demande --- */
+  async verifierOrthographe() {
+    const d = this.dossier(); if (!d || !window.ORTHOGRAPHE) return;
+    this.setState({ ortho: 'en cours', fautes: {}, orthoMot: '' });
+    const champs = {};
+    for (const s of (this.dernieresSaisies || [])) {
+      if (s.estTexte && s.cle && s.valeur) champs[s.cle] = s.valeur;
+    }
+    try {
+      const fautes = await window.ORTHOGRAPHE.verifierPlusieurs(champs);
+      const n = Object.keys(fautes).reduce((t, k) => t + fautes[k].length, 0);
+      this.setState({ ortho: 'fait', fautes,
+        orthoMot: n ? (n === 1 ? 'Une faute trouvée.' : n + ' fautes trouvées.')
+          : 'Aucune faute trouvée.' });
+    } catch (e) {
+      this.setState({ ortho: 'raté', fautes: {},
+        orthoMot: 'La vérification demande une connexion : elle n\'a pas abouti. La fiche reste imprimable.' });
+    }
+  }
+
+  corriger(cle, faute, remplacement) {
+    const d = this.dossier(); if (!d) return;
+    const actuel = (d.synthese || {})[cle] != null ? (d.synthese || {})[cle]
+      : (this.propositionsFiche(d)[cle] || '');
+    this.champSynthese(cle, window.ORTHOGRAPHE.appliquer(actuel, faute, remplacement));
+    /* la faute corrigée disparaît de la liste ; les autres décalent d'autant */
+    const ecart = remplacement.length - faute.longueur;
+    const reste = ((this.state.fautes || {})[cle] || [])
+      .filter(f => f !== faute)
+      .map(f => f.debut > faute.debut ? Object.assign({}, f, { debut: f.debut + ecart }) : f);
+    this.setState({ fautes: Object.assign({}, this.state.fautes, { [cle]: reste }) });
+  }
+
+  /* La fiche déposée s'oublie sur demande, et avec le dossier qu'on supprime. */
+  async oublierPdf(id) {
+    delete this.sources[id];
+    if (window.PDFS) { try { await window.PDFS.effacer(id); } catch (e) {} }
+    this.setState({ pdfsEnBase: (this.state.pdfsEnBase || []).filter(x => x !== id), refus: '' });
+  }
+
+  componentDidUpdate() { this.ajusterCadres(); }
+  ajusterCadres() {
+    const n = this.racine && this.racine.current;
+    const doc = (n && n.ownerDocument) || document;
+    doc.querySelectorAll('textarea[data-auto]').forEach(el => this.hauteurAuto(el));
+  }
+
+  hauteurAuto = (el) => {
+    if (!el) return;
+    el.style.overflowY = 'hidden';
+    el.style.height = 'auto';
+    el.style.height = (el.scrollHeight + 2) + 'px';
+  };
+
+  champSynthese(cle, val) {
+    const d = this.dossier(); if (!d) return;
+    if (cle === 'datePositionnement') val = String(val).replace(/[\r\n]+/g, '');
+    this.majDossier({ synthese: Object.assign({}, d.synthese || {}, { [cle]: val }) });
+  }
+
+  /* Ce que les tests permettent d'écrire sur la fiche, à sa relecture. */
+  propositionsFiche(d) {
+    const T = window.TESTS, D = window.DOSSIERS;
+    const out = {}, maths = [], fr = [];
+    /* Un test retiré ne compte plus dans la fiche, même si ses notes sont conservées. */
+    const passes = (d.tests || []).filter(t => this.estDonneDans(t));
+    /* Lecture en langue d'origine : le niveau atteint, pas une liste de pourcentages. */
+    const n = D.niveauAtteint(passes, T.TESTS);
+    if (n && n.phrase) out.lectureLangueOrigine = n.phrase;
+    /* Les quatre cases « Mathématiques » de la fiche EANA, une par domaine. */
+    const cases = { nombres: 'mathsNombres', donnees: 'mathsDonnees', grandeurs: 'mathsGrandeurs', geometrie: 'mathsGeometrie' };
+    for (const p of passes) {
+      const test = T.TESTS.find(x => x.id === p.testId); if (!test) continue;
+      const b = D.bilan(test, p.scores);
+      if (b.pct == null) continue;
+      if (test.matiere === 'maths') {
+        /* L'appréciation générale de maths est la case la plus lue du PDF : une
+           synthèse, pas une liste de pourcentages par domaine (sa demande du 03/09).
+           Le test passé et son taux, puis les points d'appui et les fragilités
+           nommés par domaine — le détail reste dans les quatre cases du dessous. */
+        /* Un test d'orientation ne se lit pas en « domaines » mais en NIVEAUX : dire
+           « Fragilités : Intermédiaire (BAC PRO, 2de GT) » n'apprend rien à qui lit la
+           fiche. On écrit donc ce qu'il réussit et ce qu'il ne réussit pas, en clair
+           (03/09). Pour les tests Canopé, les domaines sont de vrais domaines. */
+        const P2 = window.POSITIONNEMENT;
+        const phrases = (test.dansAppli && P2 && P2.TESTS
+          && P2.TESTS[test.matiere === 'maths' ? 'maths' : 'fr'].phrases) || null;
+        const nomDom = (x) => phrases ? (phrases[x.id] || x.nom)
+          : (/\(/.test(x.nom) ? x.nom : x.nom.toLowerCase());
+        /* Test d'orientation : on ne cite que les niveaux réussis EN PARTANT DU BAS et
+           tant qu'ils se suivent. Annoncer « réussit le socle ; les exercices de première
+           et terminale » alors que le niveau intermédiaire n'est pas atteint n'a aucun
+           sens sur une fiche (elle l'a fait retirer le 03/09) — l'îlot de réussite tout
+           en haut, sur trois exercices, ne dit rien de son niveau. */
+        const ordre = ['base', 'inter', 'avance'];
+        const suite = [];
+        if (phrases) {
+          for (const g of ordre) {
+            const x = b.domaines.find(y => y.id === g);
+            if (!x) continue;
+            if (!x.atteint) break;
+            suite.push(x);
+          }
+        }
+        const appuis = (phrases ? suite : b.domaines.filter(x => x.atteint)).map(nomDom);
+        const fragiles = b.domaines.filter(x => !x.atteint).map(nomDom);
+        const et = (l) => l.length > 1
+          ? (l.some(x => / et /.test(x)) ? l.join(', ')
+            : l.slice(0, -1).join(', ') + ' et ' + l[l.length - 1]) : l[0];
+        /* `b.mot` et `b.conclusion` sont des PHRASES, pas des qualificatifs : on les
+           met à la suite, jamais entre parenthèses. Et tant que la saisie n'est pas
+           finie, le pourcentage ne s'annonce pas comme un résultat ferme. */
+        const langue = this.languePassation(test, p).toLowerCase();
+        maths.push(test.titre.replace(/^Mathématiques — /, 'Test de mathématiques ')
+          + (langue ? ', passé en ' + langue : '')
+          + (b.conclusion ? ' : ' + b.pct + ' % de réussite. ' + b.conclusion
+            : ' : ' + b.pct + ' % de réussite sur les exercices notés à ce jour, '
+              + 'la saisie n\'est pas terminée.'));
+        if (phrases) {
+          /* On ne dit QUE ce qu'il réussit : la liste des niveaux non atteints n'apprend
+             rien (le palier conseillé le dit déjà) et se lit comme un jugement — elle a
+             demandé de la retirer le 03/09. */
+          /* Deux groupes réussis se séparent par un point-virgule, jamais par une simple
+             virgule : « le socle, de niveau CAP, les exercices de première » ne se lisait
+             plus (03/09). */
+          if (appuis.length) maths.push('Réussit ' + appuis.join(' ; ') + '.');
+        } else if (appuis.length && fragiles.length) {
+          maths.push('Points d\'appui : ' + et(appuis) + '. Fragilités : ' + et(fragiles) + '.');
+        } else if (appuis.length) {
+          maths.push('Les quatre domaines sont acquis : ' + et(appuis) + '.');
+        } else if (fragiles.length) {
+          maths.push('Aucun domaine n\'est acquis : ' + et(fragiles) + '.');
+        }
+        /* Le pourcentage par domaine n'est qu'un point de départ : dès qu'un exercice
+           du domaine est noté, les constats rédigés le remplacent plus bas. On l'écrit
+           donc en phrase, pour qu'une case non détaillée ne détonne pas sur le PDF. */
+        for (const dom of b.domaines) {
+          const cle = cases[dom.id]; if (!cle) continue;
+          out[cle] = dom.atteint
+            ? 'Domaine acquis : ' + dom.pct + ' % de réussite.'
+            : 'Domaine non acquis : ' + dom.pct + ' % de réussite.';
+        }
+      } else if (test.matiere === 'francais') {
+        fr.push((b.conclusion ? b.conclusion + ' ' : '') + (b.mot || ''));
+      }
+    }
+    /* Les tirets de la fiche : un constat rédigé par exercice saisi, puis ce qu'elle a
+       observé de son côté. C'est sa forme à elle — une compétence par ligne.
+       ⚠ Un test de vingt exercices donne onze phrases dans la seule case « Nombres et
+       calcul » : illisible sur le PDF. Quand tous les exercices d'une case portent un
+       libellé court, la case se CONDENSE en deux lignes — ce qui est acquis, ce qui ne
+       l'est pas (sa demande du 02/09). Sinon on garde une phrase par ligne. */
+    const CO = window.CORRIGES;
+    if (CO) {
+      const tirets = {}, notes = {};
+      for (const p of passes) {
+        const corrige = CO.pour(p.testId); if (!corrige) continue;
+        for (const exo of corrige) {
+          if (!exo.rubrique) continue;
+          const cle = p.testId + '-' + exo.num;
+          const note = (p.scores || {})[cle];
+          const phrase = CO.constat(exo, (p.reponses || {})[cle], note);
+          if (!phrase) continue;
+          (tirets[exo.rubrique] = tirets[exo.rubrique] || []).push(phrase);
+          (notes[exo.rubrique] = notes[exo.rubrique] || []).push({
+            court: (exo.constat && exo.constat.court) || '', note: note || '' });
+        }
+        const obs = (p.observations || '').trim();
+        if (obs) {
+          const test = T.TESTS.find(x => x.id === p.testId);
+          const ou = (test && test.matiere === 'maths') ? 'mathsNombres' : 'lectureLangueOrigine';
+          obs.split('\n').filter(Boolean).forEach(l => {
+            (tirets[ou] = tirets[ou] || []).push(l.trim());
+            (notes[ou] = notes[ou] || []).push({ court: '', note: '', obs: l.trim() });
+          });
+        }
+      }
+      /* Les tests notés à la grille d'orientation (Lyon +16) n'ont pas de corrigé saisi
+         exercice par exercice : leurs exercices portent directement leur case de fiche
+         et leur libellé court. Sans ce passage, les quatre cases maths du PDF restaient
+         VIDES alors que le test était noté (03/09). */
+      const CASE = { nombres: 'mathsNombres', donnees: 'mathsDonnees',
+        grandeurs: 'mathsGrandeurs', geometrie: 'mathsGeometrie' };
+      for (const p of passes) {
+        const test = T.TESTS.find(x => x.id === p.testId);
+        if (!test || CO.pour(test.id)) continue;
+        for (const it of D.exercices(test)) {
+          const cle = CASE[it.fiche]; if (!cle || !it.court) continue;
+          const note = (p.scores || {})[it.id]; if (!note) continue;
+          const bon = ['MS', 'TBM', '+', '++'].indexOf(note) >= 0;
+          (tirets[cle] = tirets[cle] || []).push((bon ? 'Maîtrise ' : 'Ne maîtrise pas ') + it.court + '.');
+          (notes[cle] = notes[cle] || []).push({ court: it.court, note });
+        }
+      }
+      const uniq = (l) => l.filter((x, i) => l.indexOf(x) === i);
+      for (const cle in tirets) {
+        const marques = notes[cle] || [];
+        const exos = marques.filter(x => !x.obs);
+        const obs = uniq(marques.filter(x => x.obs).map(x => x.obs));
+        /* Dès qu'une case a des libellés courts, elle se condense : « grandeurs et
+           mesures » n'a que deux exercices dans le test et resterait sinon la seule
+           case en phrases pleines, au milieu des autres. */
+        const condensable = exos.length >= 1 && exos.every(x => x.court);
+        let lignes;
+        if (condensable) {
+          const de = (vals) => uniq(exos.filter(x => vals.indexOf(x.note) >= 0).map(x => x.court));
+          /* Les deux échelles : Canopé (MI/MF/MS/TBM) ET Lyon (--/-/+/++). Sans les
+             codes Lyon, les quatre cases maths d'un élève de plus de 16 ans sortaient
+             VIDES sur le PDF, alors que le test était entièrement noté (03/09). */
+          const oui = de(['TBM', 'MS', '++', '+']), non = de(['MF', 'MI', '-', '--']);
+          /* ⚠ Ne JAMAIS écrire « et 6 autres points » : la fiche est lue par le CASNAV
+             et par la famille, une compétence passée sous silence n'a aucun sens
+             (03/09). Toutes sont nommées, séparées par des virgules et un « et »
+             final — les libellés courts sont là pour que ça reste lisible. */
+          /* Un « et » final percute les libellés qui en contiennent déjà un
+             (« les images et antécédents… et les vecteurs ») : dans ce cas, virgules
+             seules jusqu'au bout — la phrase reste lisible sur la fiche (03/09). */
+          const enumere = (l) => {
+            if (l.length < 2) return l[0];
+            if (l.some(x => / et /.test(x))) return l.join(', ');
+            return l.slice(0, -1).join(', ') + ' et ' + l[l.length - 1];
+          };
+          lignes = [
+            oui.length ? 'Maîtrise ' + enumere(oui) + '.' : '',
+            non.length ? 'Ne maîtrise pas ' + enumere(non) + '.' : ''
+          ].filter(Boolean);
+        } else {
+          lignes = uniq(tirets[cle].filter(x => obs.indexOf(x) < 0));
+        }
+        out[cle] = lignes.concat(obs).map(x => '- ' + x).join('\n');
+      }
+    }
+    if (maths.length) out.mathsGeneral = maths.join('\n');
+    if (fr.length) out.lectureFrancais = fr.join('\n');
+    /* Par-dessus les chiffres, le brouillon rédigé dans ses tournures à elle : il ne
+       remplace que les cases qu'il sait écrire, et jamais ce qu'elle a déjà saisi. */
+    if (window.REDACTION) {
+      /* La synthèse d'abord : « Niveau scolaire global » et « Niveau de français » sont
+         choisis à l'étape 4, pas dans la fiche — sans eux le brouillon reste muet. */
+      const f = Object.assign({}, d.fiche || {}, d.synthese || {}, {
+        prenom: d.prenom || (d.fiche || {}).prenom,
+        langueScolarisation: d.langueScolarisation, langueMaternelle: d.langueMaternelle
+      });
+      /* La compréhension fine, lue sur les résultats et non sur la langue parlée :
+         les domaines « inférence » et « compréhension » du test de lecture. Sans ce
+         signal, le brouillon écrivait « très bonne maîtrise, sans dispositif » à une
+         élève qui rate justement l'implicite (Khadissatou, 02/09). */
+      let finesse = null;
+      for (const p of passes) {
+        const test = T.TESTS.find(x => x.id === p.testId);
+        if (!test || test.matiere === 'maths') continue;
+        const bl = D.bilan(test, p.scores);
+        for (const dom of (bl.domaines || [])) {
+          if (['inference', 'comprehension'].indexOf(dom.id) < 0) continue;
+          if (!dom.atteint) finesse = 'fragile';
+          else if (finesse !== 'fragile') finesse = 'acquise';
+        }
+      }
+      /* Filet : un test dont les exercices ne sont pas rangés par domaine passerait
+         entre les mailles. On regarde alors les notes des exercices du corrigé dont
+         la rubrique est « compréhension écrite ». */
+      if (!finesse && CO) {
+        for (const p of passes) {
+          const corrige = CO.pour(p.testId); if (!corrige) continue;
+          for (const exo of corrige) {
+            if (exo.rubrique !== 'comprehensionEcrite') continue;
+            const note = (p.scores || {})[p.testId + '-' + exo.num];
+            if (!note) continue;
+            if (note === 'MI' || note === 'MF') finesse = 'fragile';
+            else if (finesse !== 'fragile') finesse = 'acquise';
+          }
+        }
+      }
+      const b = window.REDACTION.brouillon(f, {
+        niveau: n, finesse,
+        classe: (d.synthese || {}).precoClasse || (d.fiche || {}).classeEnvisagee
+      });
+      /* Le profil scolaire l'emporte sur la phrase chiffrée : pour un élève peu ou non
+         scolarisé, « Le déchiffrage est laborieux » dit plus que le niveau atteint. */
+      const p = window.REDACTION.profil(f);
+      const prioritaire = (p === 'nsa' || p === 'peu') ? { lectureLangueOrigine: 1 } : {};
+      for (const k in b) if (!out[k] || prioritaire[k]) out[k] = b[k];
+    }
+    return out;
+  }
+
+  ouvrirTraduction() {
+    const p = this.proposition();
+    const abs = p && p.langues && p.langues.absentes.length ? p.langues.absentes[0] : '';
+    const premier = (p && p.etapes.length) ? (p.etapes.find(e => e.test && e.test.matiere === 'lecture') || p.etapes[0]).test.id : '';
+    this.setState({ panneau: true, tradLangue: this.state.tradLangue || abs, tradTest: this.state.tradTest || premier, copie: false, aRecopier: '' });
+  }
+  fermerTraduction() { this.setState({ panneau: false, copie: false, aRecopier: '' }); }
+
+  copierDemande() {
+    const t = window.TESTS.TESTS.find(x => x.id === this.state.tradTest);
+    const texte = 'Traduis le test « ' + (t ? t.titre : '?') + ' » en ' + (this.state.tradLangue || '?')
+      + ' à partir de la version française de Canopé, et range-le dans la base.';
+    const rate = () => this.setState({ copie: false, aRecopier: texte });
+    try {
+      const p = navigator.clipboard && navigator.clipboard.writeText(texte);
+      if (p && p.then) p.then(() => this.setState({ copie: true, aRecopier: '' }), rate);
+      else rate();
+    } catch (e) { rate(); }
+  }
+
+  proposition() {
+    const d = this.dossier();
+    if (!d || !window.TESTS) return null;
+    return window.TESTS.proposer(d.fiche || d);
+  }
+
+  async auRemplissage() {
+    const d = this.dossier(); if (!d) return;
+    let src = this.sources[d.id];
+    if (!src && window.PDFS) {
+      try { src = await window.PDFS.lire(d.id); if (src) this.sources[d.id] = src; } catch (e) {}
+    }
+    if (!src) {
+      /* Le PDF déposé ne vit qu'en mémoire : après un rechargement de la page, il faut
+         le redéposer. Le dire, plutôt que de laisser le bouton sans effet. */
+      this.setState({ refus: "Le PDF de la fiche n'est plus en mémoire — il repart à chaque rechargement de la page.\nRetourne à l'étape 1 et redépose la fiche EANA de cet élève : tout ce que tu as saisi est conservé." });
+      return;
+    }
+    this.setState({ refus: '', remplissage: true });
+    const valeurs = Object.assign({}, this.propositionsFiche(d), d.synthese || {});
+    /* « sexe » sert aux accords du brouillon, pas au PDF : la fiche a deux cases. */
+    /* Relecture avant impression : ponctuation, majuscules, espaces. Le sens ne bouge pas. */
+    const valeursRelues = window.RELECTURE ? window.RELECTURE.tout(valeurs) : valeurs;
+    for (const k in valeursRelues) valeurs[k] = valeursRelues[k];
+    if (valeurs.sexe) {
+      valeurs.sexeF = valeurs.sexe === 'Fille';
+      valeurs.sexeM = valeurs.sexe === 'Garçon';
+      delete valeurs.sexe;
+    }
+    let r;
+    try {
+      r = await window.EANA.remplir(src, valeurs);
+    } catch (e) {
+      this.setState({ remplissage: false,
+        refus: "Le remplissage a échoué : " + (e && e.message ? e.message : 'erreur inconnue')
+          + "\nRedépose la fiche à l'étape 1, puis réessaie." });
+      return;
+    }
+    const blob = new Blob([r.octets], { type: 'application/pdf' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = (d.nomFichier || 'fiche-eana').replace(/\.pdf$/i, '') + ' - rempli.pdf';
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+    this.setState({ remplissage: false,
+      refus: r.refus.length ? 'Non écrit :\n' + r.refus.join('\n') : '' });
+  }
+
+  renderVals() {
+    const T = window.TESTS, D = window.DOSSIERS, E = window.EANA;
+    const O = (E && E.OPTIONS) || {};
+    const d = this.dossier();
+    const et = this.state.etape;
+
+    const etroit = this.state.etroit;
+    const vals = {
+      avecEntete: !this.props.sansEntete,
+      racine: (el) => { if (el && !this.racine) { this.racine = el; setTimeout(this.mesurer, 0); } },
+      colonnes2: etroit ? 'minmax(0,1fr)' : 'repeat(2,minmax(0,1fr))',
+      aideDepot: !!this.state.aideDepot,
+      aideOn: () => this.setState({ aideDepot: true }),
+      aideOff: () => this.setState({ aideDepot: false }),
+      colonnes3: etroit ? 'minmax(0,1fr)' : 'repeat(3,minmax(0,1fr))',
+      dossierId: this.state.dossierId,
+      aDossier: !!d,
+      enLecture: this.state.enLecture,
+      erreur: this.state.erreur,
+      refus: this.state.refus,
+      estE1: et === 1, estE2: et === 2, estE3: et === 3, estE4: et === 4,
+      dossiers: this.base().dossiers.map(x => ({
+        id: x.id,
+        /* On ne compte que les tests réellement donnés : un test retiré garde ses notes
+           dans le dossier, mais il ne doit pas gonfler le compteur. */
+        libelle: (() => {
+          const n = (x.tests || []).filter(t => this.estDonneDans(t)).length;
+          return (D ? D.nomComplet(x) : x.nom) + (x.classe ? ' · ' + x.classe : '')
+            + (n ? ' · ' + n + ' test' + (n > 1 ? 's' : '') : '');
+        })()
+      })),
+      auDossier: (e) => this.setState({ dossierId: e.target.value, etape: e.target.value ? 2 : 1, panneau: false }),
+      nouveauDossier: () => this.setState({ dossierId: '', etape: 1, erreur: '' }),
+      /* Le mode d'emploi, dans un onglet : c'est un document, pas un écran de l'appli. */
+      ouvrirGuide: () => window.open("GUIDE - Accueil d'un élève.dc.html", '_blank'),
+      supprimerDossier: () => this.supprimerDossier(),
+      auDepot: (e) => this.auDepot(e),
+      ouvrirALaMain: () => this.ouvrirALaMain(),
+      auRemplissage: () => this.auRemplissage()
+    };
+
+    const noms = [[1, 'La fiche'], [2, 'Le test'], [3, 'Les résultats'], [4, 'La préconisation']];
+    vals.etapes = noms.map(([n, nom]) => ({
+      num: n, nom,
+      bord: et === n ? '#1d4e89' : '#c3d2e2',
+      fond: et === n ? '#1d4e89' : '#fff',
+      encre: et === n ? '#fff' : '#1d4e89',
+      onClick: () => this.setState({ etape: n })
+    }));
+
+    const r = this.state.rapide;
+    const rapide = (cle, libelle, exemple) => ({
+      libelle, exemple, valeur: r[cle] || '',
+      onChange: (e) => this.setState(s => ({ rapide: Object.assign({}, s.rapide, { [cle]: e.target.value }) }))
+    });
+    vals.champsRapides = [
+      rapide('nom', 'Nom', 'DONNETTE'), rapide('prenom', 'Prénom', 'Leila'),
+      rapide('naissance', 'Né(e) le', '07/12/2015'), rapide('langue', 'Langue de scolarisation', 'finnois')
+    ];
+
+    if (d) {
+      const f = d.fiche || d;
+      vals.titreEleve = D.nomComplet(d);
+      vals.pastilles = [
+        { cle: 'classe d\'âge', valeur: d.classe || '?' },
+        { cle: 'né(e) en', valeur: (d.naissance || '').slice(-4) || '?' },
+        { cle: 'âge', valeur: d.age != null ? d.age + ' ans' : '?' },
+        { cle: 'pays', valeur: f.pays || '?' }
+      ];
+      vals.lignes = [
+        { cle: 'Né(e) le', valeur: d.naissance || '—' },
+        { cle: 'Arrivée en France', valeur: f.arriveeFrance || '—' },
+        { cle: 'Langue maternelle', valeur: d.langueMaternelle || '—' },
+        { cle: 'Langue de scolarisation', valeur: d.langueScolarisation || '—' },
+        { cle: 'Scolarisé avant', valeur: f.scolariseOui ? 'oui' : (f.scolariseNon ? 'non' : '—') },
+        { cle: 'Niveau scolaire', valeur: f.niveauScolaire || 'pas encore renseigné' },
+        { cle: 'Niveau de français', valeur: f.niveauFrancais || 'pas encore renseigné' },
+        { cle: 'Parcours', valeur: f.parcours || '—' }
+      ];
+    }
+
+    /* ---- Étape 2 ---- */
+    const p = this.proposition();
+    const donnes = d ? (d.tests || []).filter(t => this.estDonneDans(t)) : [];
+    vals.motProposition = d
+      ? 'Clique « Je l\'ai donné » sur ce que l\'élève a réellement passé : les résultats se saisissent ensuite à l\'étape 3, à l\'échelle du test.'
+      : 'Ouvre d\'abord un dossier à l\'étape 1.';
+    vals.propositions = (p ? p.etapes : []).map(e => {
+      const t = e.test || {}, repli = !!e.repli || !!e.agrafe, aC = !!t.aConstruire;
+      const estDonne = donnes.some(x => x.testId === t.id);
+      return {
+        id: t.id || '',
+        /* `bloc` l'emporte sur la matière : un test français passé par un élève
+           scolarisé en français relève de la compréhension de l'écrit. */
+        bloc: e.bloc || t.matiere || '',
+        rang: repli ? '+' : String(e.rang),
+        estDonne,
+        matiere: t.matiere || '',
+        titre: t.titre || '?', pourquoi: e.pourquoi,
+        detail: [t.niveaux ? t.niveaux.join(' · ') : '', t.echelle, t.materiel ? 'matériel : ' + t.materiel : '']
+          .filter(Boolean).join(' — '),
+        lien: t.dansAppli ? '' : (t.lien || ''),
+        /* Le PDF rangé dans le site : l'imprimante l'ouvre directement — mais seulement
+           si sa langue est bien celle de l'élève. Un livret anglais imprimé pour un
+           élève arabophone serait pire que pas de bouton du tout. */
+        pdf: this.pdfDe(t, d).sujet,
+        pdfNom: this.pdfDe(t, d).nom,
+        onPdf: () => this.ouvrirPdf(this.pdfDe(t, d).sujet, t.titre),
+        pdfCorrige: (T.PDFS[t.id] && T.PDFS[t.id].corrige) || '',
+        onPdfCorrige: () => this.ouvrirPdf((T.PDFS[t.id] || {}).corrige || '', 'Corrigé — ' + t.titre),
+        pdfMot: this.pdfDe(t, d).mot,
+        /* Les mathématiques portent l'orange clair de la base des tests : d'un coup
+           d'œil, on voit ce qui relève du français et ce qui relève des maths. */
+        bord: aC ? '#d8a24a' : (estDonne ? '#2a9d6e' : (t.matiere === 'maths' ? '#e6c58e' : (repli ? '#e0e7f0' : '#c3d2e2'))),
+        fond: aC ? '#fdf6ec' : (estDonne ? '#f1f8f4' : (t.matiere === 'maths' ? '#fdf1dd' : (repli ? '#fbfcfe' : '#f5f8fc'))),
+        boutonFond: estDonne ? '#2a9d6e' : '#fff',
+        boutonEncre: estDonne ? '#fff' : '#1d4e89',
+        boutonTexte: estDonne ? '✓ DONNÉ' : "JE L'AI DONNÉ",
+        onDonne: () => this.marquerDonne(t, true),
+        onRetirer: () => this.marquerDonne(t, false)
+      };
+    });
+
+    /* Les propositions se rangent en deux familles, comme dans la base des tests :
+       le français en bleu, les mathématiques en orange clair, chacune sous sa bande. */
+    /* Trois familles, le même vocabulaire que la base des tests : la langue de
+       scolarisation, les mathématiques, le français. La feuille de décodage et le test
+       Lyon sont en français — les ranger sous « langue de scolarisation » serait faux. */
+    const de = (m) => vals.propositions.filter(c => c.bloc === m);
+    /* Si l'élève bute sur la lecture, aucun niveau du cycle 3 ne dira rien d'utile :
+       ce qu'il faut, c'est savoir s'il déchiffre. Le bouton descend d'un cran encore,
+       vers l'alphabétisation — sa feuille de décodage, et le test NSA à construire. */
+    const carteDe = (id, pourquoi) => {
+      const t = T.TESTS.find(x => x.id === id); if (!t) return null;
+      const estDonne = donnes.some(x => x.testId === t.id);
+      const p = T.PDFS[t.id] || {};
+      return { id: t.id, bloc: 'lecture', rang: '+', estDonne, matiere: t.matiere || '',
+        titre: t.titre, pourquoi, alpha: true,
+        detail: [t.niveaux ? t.niveaux.join(' · ') : '', t.echelle].filter(Boolean).join(' — '),
+        lien: t.dansAppli ? '' : (t.lien || ''),
+        pdf: this.pdfDe(t, d).sujet, pdfNom: this.pdfDe(t, d).nom,
+        onPdf: () => this.ouvrirPdf(this.pdfDe(t, d).sujet, t.titre),
+        pdfCorrige: p.corrige || '',
+        onPdfCorrige: () => this.ouvrirPdf(p.corrige || '', 'Corrigé — ' + t.titre),
+        pdfMot: this.pdfDe(t, d).mot,
+        bord: estDonne ? '#2a9d6e' : '#c9b8e4', fond: estDonne ? '#f1f8f4' : '#f7f4fd',
+        boutonFond: estDonne ? '#2a9d6e' : '#fff', boutonEncre: estDonne ? '#fff' : '#1d4e89',
+        boutonTexte: estDonne ? '✓ DONNÉ' : "JE L'AI DONNÉ",
+        onDonne: () => this.marquerDonne(t, true),
+        onRetirer: () => this.marquerDonne(t, false) };
+    };
+    /* Attaché au dossier : le bouton d'un élève ne doit pas rester allumé sur le suivant. */
+    const alpha = !!(d && this.state.alpha[d.id]);
+    const cartesAlpha = !alpha ? [] : [
+      carteDe('decodage-latin', "Difficultés de lecture : on vérifie le déchiffrage — lettres, syllabes, chiffres, trois mots. Il n'existe pas de test d'alphabétisation : c'est l'observation qui tranche.")
+    ].filter(Boolean);
+    /* Jamais deux fois le même test à l'écran : quand le bouton est allumé, la carte de
+       déchiffrage DÉMÉNAGE ici — on la retire du bloc où elle vivait (le bloc Français
+       la propose dès que l'élève lit un peu le français) au lieu de renoncer. */
+    const idsAlpha = cartesAlpha.map(c => c.id);
+    if (idsAlpha.length) {
+      vals.propositions = vals.propositions.filter(p => idsAlpha.indexOf(p.id) < 0);
+    }
+    vals.groupes = [
+      { titre: 'ÉVALUATION EN LANGUE DE SCOLARISATION', sous: '', couleur: '#e3edf8', encre: '#1d4e89',
+        cartes: de('lecture').concat(cartesAlpha),
+        /* Toujours offert : un élève qui lit un peu le français peut buter sur la lecture
+           tout autant qu'un autre. */
+        alpha: true, alphaActif: alpha,
+        alphaTexte: alpha ? 'Masquer les tests de déchiffrage' : 'Difficultés de lecture ? Voir les tests de déchiffrage',
+
+        onAlpha: () => d && this.setState({
+          alpha: Object.assign({}, this.state.alpha, { [d.id]: !alpha })
+        }) },
+      { titre: 'MATHÉMATIQUES', sous: "en langue d'origine, ou en français après 16 ans", couleur: '#f4d5a0', encre: '#4a3208',
+        cartes: de('maths') },
+      /* `encre` fait la bordure (le vert qu'elle a choisi), `encreTexte` fait le texte :
+         le même vert clair sur fond vert clair tombait à 2,6:1, illisible. */
+      { titre: 'FRANÇAIS', sous: "si l'élève lit un peu le français", couleur: '#d9ecdf',
+        encre: '#4f9d7d', encreTexte: '#1d6b42',
+        cartes: de('francais') },
+      /* Le public principal de l'appli : son test est « mixte », il ne relève ni de la
+         langue de scolarisation, ni des maths, ni du français. Il a son bloc et son nom. */
+      { titre: 'NON OU PEU SCOLARISÉ ANTÉRIEUREMENT', sous: "l'âge ne décide pas",
+        couleur: '#e8e0f4', encre: '#4a3d94',
+        cartes: vals.propositions.filter(c => ['lecture', 'maths', 'francais'].indexOf(c.bloc) < 0) }
+    ].filter(g => g.cartes.length)
+      /* Chaque bande se renumérote à partir de 1, et seules les cartes numérotées
+         comptent : les replis portent « + » et ne consomment pas de rang. */
+      .map(g => {
+        let n = 0;
+        /* Le libellé de la liste : le niveau, pas la matière — « Compréhension de l'écrit — »
+       revient sur chaque ligne et fait déborder le texte hors de la liste. */
+    const court = (titre) => titre
+      .replace(/^Compréhension de l'écrit( et production écrite)? — /, '')
+      .replace(/^Mathématiques — /, '')
+      .replace(/^Lecture en alphabet latin.*/, 'Lecture en alphabet latin')
+      .replace(/^Français — compréhension écrite /, '');
+
+    /* Chaque bloc habille son contenu de sa propre couleur : le bleu de la langue de
+           scolarisation, l'orange des maths, le vert du français. Le test déjà donné se
+           reconnaît au bouton plein et au trait épais, plus au vert. */
+        const lisible = g.encreTexte || g.encre;
+        const cartes = g.cartes.map(c => Object.assign({}, c, {
+          rang: c.rang === '+' ? '+' : String(++n),
+          /* Fond BLANC dans tous les cas : teinter la carte du test donné écrasait le
+             contraste de ses deux lignes grises (3,1:1 sur l'orange). Le trait épais et
+             le bouton plein suffisent à dire « donné ». */
+          bord: c.estDonne ? lisible : g.couleur,
+          fond: '#fff',
+          /* Sur carte blanche, un bouton blanc sans bordure se lit comme du texte : on
+             lui donne le pastel du bloc et un trait. */
+          boutonFond: c.estDonne ? lisible : g.couleur,
+          boutonEncre: c.estDonne ? '#fff' : lisible,
+          boutonBord: c.estDonne ? lisible : g.encre
+        }));
+        /* Le bouton de déchiffrage prend aussi la couleur du bloc. */
+        const habits = { encreTexte: lisible,
+          alphaFond: g.alphaActif ? g.couleur : '#fff',
+          alphaBord: g.encre, alphaEncre: lisible };
+        /* Un bloc, une liste déroulante, une seule fiche de test à l'écran : empiler
+           six cartes rendait l'étape illisible (sa remarque du 02/09). Le test proposé
+           en premier est choisi d'office ; les replis sont dans la liste, annotés. */
+        const choisi = this.state.choixTest[g.titre]
+          || (cartes.find(c => c.estDonne) || cartes[0]).id;
+        const carte = cartes.find(c => c.id === choisi) || cartes[0];
+        return Object.assign({}, g, habits, {
+          cartes,
+          plusieurs: cartes.length > 1,
+          options: cartes.map(c => ({
+            id: c.id,
+            libelle: (c.rang === '+' ? '+ ' : c.rang + ' · ') + court(c.titre)
+              + (c.estDonne ? '  ✓ donné' : '')
+          })),
+          choisi,
+          onChoisir: (e) => this.setState({
+            choixTest: Object.assign({}, this.state.choixTest, { [g.titre]: e.target.value })
+          }),
+          carte,
+          /* Un test donné ne doit jamais rester caché derrière un déroulant fermé :
+             on les nomme sous la liste (03/09). */
+          motDonnes: (() => {
+            const l = cartes.filter(c => c.estDonne).map(c => court(c.titre));
+            if (!l.length) return '';
+            return (l.length > 1 ? 'Déjà donnés dans ce bloc : ' : 'Déjà donné dans ce bloc : ') + l.join(' · ');
+          })(),
+          motChoix: cartes.length > 1
+            ? cartes.length + ' tests possibles dans ce bloc'
+            : 'un seul test proposé'
+        });
+      });
+
+    const lg = p ? p.langues : { disponibles: [], absentes: [] };
+    const dispo = lg.disponibles.map(l => l.nom);
+    vals.motLangues = !d ? '' : (dispo.length
+      ? 'Test disponible en : ' + dispo.join(', ') + (lg.absentes.length ? ' — pas de version en ' + lg.absentes.join(', ') + '.' : '.')
+      : 'Aucune des langues de la fiche n\'est traduite par Canopé' + (lg.absentes.length ? ' (' + lg.absentes.join(', ') + ')' : '') + ' : il faudra choisir une langue de repli avec l\'élève.');
+
+    const absentes = lg.absentes || [];
+    vals.aTraduire = !!d;
+    vals.motTraduire = absentes.length ? 'TRADUIRE CE TEST EN ' + absentes[0].toUpperCase() : 'TRADUIRE CE TEST DANS UNE AUTRE LANGUE';
+    vals.panneau = this.state.panneau;
+    vals.aRecopier = this.state.aRecopier;
+    vals.tradTest = this.state.tradTest;
+    vals.tradLangue = this.state.tradLangue;
+    vals.testsTraduisibles = (p ? p.etapes : []).map(e => e.test).filter(Boolean)
+      .filter(t => t.multilingue && !t.aConstruire).map(t => ({ id: t.id, titre: t.titre }));
+    const dejaLa = (T && T.traduction) ? T.traduction(this.state.tradTest, this.state.tradLangue) : null;
+    vals.dejaLa = !!dejaLa;
+    vals.motDeja = dejaLa ? 'Cette traduction existe déjà (' + (dejaLa.statut === 'brouillon' ? 'brouillon, pas encore relue' : 'relue par ' + dejaLa.reluPar) + ').' : '';
+    vals.lienTrad = dejaLa ? dejaLa.fichier : '';
+    vals.lienControle = dejaLa ? dejaLa.controle : '';
+    vals.motDemande = dejaLa
+      ? "Imprime-la, fais relire la feuille de contrôle, et redonne-moi les corrections : la version passera de « brouillon » à « relue »."
+      : "Je traduis à partir de la version française de Canopé et je te rends une feuille prête à imprimer, dans la mise en page de l'appli. Elle se range ensuite dans la base : le prochain élève de cette langue l'aura déjà.";
+    vals.motCopier = this.state.copie ? 'DEMANDE COPIÉE ✓' : 'COPIER LA DEMANDE POUR LE CHAT';
+    vals.ouvrirTraduction = () => this.ouvrirTraduction();
+    vals.fermerTraduction = () => this.fermerTraduction();
+    vals.copierDemande = () => this.copierDemande();
+    vals.auTestTrad = (e) => this.setState({ tradTest: e.target.value, copie: false, aRecopier: '' });
+    vals.auLangueTrad = (e) => this.setState({ tradLangue: e.target.value, copie: false, aRecopier: '' });
+
+    /* la base des tests, en trois colonnes */
+    const tous = T ? T.TESTS : [];
+    const niveaux = (T && T.NIVEAUX ? T.NIVEAUX : []).map(n => n.nom.replace('fin de ', '')).join(' · ');
+    const recus = (T && T.RECUS) ? T.RECUS : [];
+    const compte = (n) => n === 0 ? 'aucun test' : n === 1 ? '1 test rangé' : n + ' tests rangés';
+    /* Les mêmes boutons que dans les propositions : ici on ne regarde pas la langue de
+       l'élève — la base est la base, on télécharge ce qui y est rangé. */
+    const dl = (id, titre, nom) => {
+      const p = ((T && T.PDFS) || {})[id] || {};
+      return {
+        pdf: p.sujet || '', pdfNom: nom || 'Télécharger le test',
+        pdfCorrige: p.corrige || '', pdfMot: p.note || '',
+        onPdf: () => this.ouvrirPdf(p.sujet || '', titre || id),
+        onPdfCorrige: () => this.ouvrirPdf(p.corrige || '', 'Corrigé — ' + (titre || id))
+      };
+    };
+    const carte = (t) => Object.assign({ titre: t.titre, info: (t.items ? t.items + ' exercices · ' : '') + t.echelle + ' · ' + t.source, langues: t.multilingue ? '26 langues' : 'en français' }, dl(t.id, t.titre));
+    vals.colonnes = [
+      { titre: 'ÉVALUATION EN LANGUE DE SCOLARISATION', sous: 'lire dans la langue où il a appris', couleur: '#1d4e89', encre: '#fff',
+        tests: [
+          Object.assign({ titre: "Compréhension de l'écrit — Canopé", info: 'un test par niveau : ' + niveaux + " — on commence au niveau de la classe d'âge, on descend si c'est trop dur", langues: '26 langues · MI-MF-MS-TBM' },
+            dl('canope-lecture-cm2', "Compréhension de l'écrit — cycle 3", 'Télécharger le livret cycle 3 (anglais)')),
+          { titre: 'Tes exemplaires', info: compte(recus.filter(x => x.testId.indexOf('lecture') > 0).length) + ' dans la base', langues: 'Leila D. (6e), en anglais : fin de CM2 trop dur, puis fin de CM1' }
+        ] },
+      { titre: 'MATHÉMATIQUES', sous: "en langue d'origine, ou en français après 16 ans", couleur: '#f4d5a0', encre: '#4a3208',
+        tests: [
+          { titre: 'Mathématiques — Canopé', info: 'un test par cycle : fin de cycle 2 · 3 · 4 — les PDF sont sur la page du CASNAV de Corse', langues: '26 langues · MI-MF-MS-TBM' },
+          { titre: 'Tes exemplaires', info: compte(recus.filter(x => x.testId.indexOf('maths') > 0).length) + ' dans la base', langues: 'Leila D., fin de cycle 2, passé en français' },
+          { titre: 'Le protocole de passation en maths', info: 'comment faire passer le test — CASNAV de Corse', langues: 'en français',
+            pdf: (T && T.PROTOCOLE_MATHS) || '', pdfNom: 'Télécharger le protocole', pdfCorrige: '', pdfMot: '',
+            onPdf: () => this.ouvrirPdf((T && T.PROTOCOLE_MATHS) || '', 'Protocole de passation en maths'), onPdfCorrige: () => {} },
+          { titre: 'Évaluation non verbale en maths', info: "pour les élèves en grande difficulté : rien à lire, rien à écrire — utile pour un NSA", langues: 'sans langue',
+            pdf: (T && T.NON_VERBAL_MATHS) || '', pdfNom: "Télécharger l'évaluation", pdfCorrige: '', pdfMot: '',
+            onPdf: () => this.ouvrirPdf((T && T.NON_VERBAL_MATHS) || '', 'Evaluation non verbale en maths'), onPdfCorrige: () => {} }
+        ].concat(tous.filter(t => t.cycleCle && t.matiere === 'maths').map(carte))
+         .concat(tous.filter(t => !t.niveauCle && !t.cycleCle && t.matiere === 'maths').map(carte)) },
+      { titre: 'FRANÇAIS', sous: "seulement si l'élève lit un peu le français", couleur: '#1e7a53', encre: '#fff',
+        tests: tous.filter(t => !t.niveauCle && !t.cycleCle && t.matiere === 'francais').map(carte) }
+    ];
+    /* Plus de trou : il n'existe pas de test pour les NSA, et il n'en faut pas — le test
+       de la classe d'âge, donné et observé, dit déjà l'essentiel (sa méthode, 02/09). */
+    vals.trou = "Pour un élève non scolarisé antérieurement, il n'y a pas de test à part : tu donnes celui de sa classe d'âge et tu observes — s'il ne lit pas, ou ne comprend rien de ce qu'il lit, cela se voit tout de suite.";
+
+    /* ---- Étape 3 ---- */
+    vals.aucunTest = !donnes.length;
+    /* Le cycle 3 complet : un seul livret, trois paliers. Le bandeau ne s'affiche que
+       sur la première carte du livret, avec le niveau atteint sur l'ensemble — sinon
+       elle lit trois cartes séparées sans voir où le niveau s'arrête (03/09). */
+    const livrets = {};
+    donnes.forEach(pass => {
+      const t2 = T.TESTS.find(x => x.id === pass.testId);
+      if (!t2 || !t2.livret) return;
+      (livrets[t2.livret] = livrets[t2.livret] || []).push(t2);
+    });
+    const CYCLE_NOM = { c2: 'cycle 2', c3: 'cycle 3', c4: 'cycle 4' };
+    const dejaVu = {};
+    vals.passations = donnes.map(pass => {
+      const test = T.TESTS.find(x => x.id === pass.testId) || { titre: pass.testId, matiere: 'lecture' };
+      const ech = D.echelleDe(test), choixEch = D.valeurs(ech);
+      const b = D.bilan(test, pass.scores);
+      const CO = window.CORRIGES;
+      const corrige = CO ? CO.pour(test.id) : null;
+      /* Quand le corrigé existe, la saisie des réponses est le mode par défaut :
+         c'est celui qui fait gagner du temps. Un clic ramène la notation à la main. */
+      const choix = this.state.modeRep[test.id];
+      const modeR = choix === undefined ? !!corrige : !!choix;
+      return {
+        aCorrige: !!corrige,
+        questions: (corrige && modeR) ? corrige.map(exo => this.question(test, pass, exo)) : [],
+        bilanTitre: b.conclusion || '',
+        bilanLignes: (() => { const l = this.constatsDe(test, pass); return l.length ? l : ''; })(),
+        observations: pass.observations || '',
+        onObserver: (e) => this.observer(test.id, e.target.value),
+        onModeNotes: () => this.modeReponses(test.id, false),
+        onModeReponses: () => this.modeReponses(test.id, true),
+        fondNotes: modeR ? '#fff' : '#1d4e89', encreNotes: modeR ? '#48586b' : '#fff',
+        bordNotes: modeR ? '#dde4ec' : '#1d4e89',
+        fondRep: modeR ? '#1d4e89' : '#fff', encreRep: modeR ? '#fff' : '#48586b',
+        bordRep: modeR ? '#1d4e89' : '#dde4ec',
+        motMode: modeR
+          ? "Tu saisis ce qu'a écrit l'élève ; la note se déduit du corrigé."
+          : 'Tu poses toi-même la note de chaque exercice.',
+        titre: test.titre,
+        /* La même famille qu'à l'étape 2 : c'est ce qui permet de coiffer les résultats
+           des mêmes bandes, sans rien à cliquer (sa demande du 02/09 : elle voulait
+           trois boutons, les bandes disent la même chose sans filtre ni écran vide). */
+        bloc: pass.bloc || test.matiere || 'lecture',
+        sous: [this.languePassation(test, pass) ? 'en ' + this.languePassation(test, pass) : '', 'donné le ' + pass.date,
+          b.evalues + ' exercice' + (b.evalues > 1 ? 's' : '') + ' noté' + (b.evalues > 1 ? 's' : '') + ' sur ' + b.total].filter(Boolean).join(' · '),
+        pct: b.pct != null ? String(b.pct) : '',
+        conclusion: b.conclusion || '',
+        conclusionFond: b.conclusion ? (b.palier ? '#f4d5a0' : (b.atteint ? '#e6f2e9' : '#fbe3e6')) : '#eef1f5',
+        conclusionBord: b.conclusion ? (b.palier ? '#c9973f' : (b.atteint ? '#2a6b45' : '#b3283c')) : '#dde4ec',
+        mot: b.mot || 'Note les exercices pour obtenir le bilan.',
+        domaines: b.domaines.map(x => ({ nom: x.nom, pct: x.pct,
+          fond: x.atteint ? '#e6f2e9' : '#fbe3e6', bord: x.atteint ? '#9dc9af' : '#e8bcc3' })),
+        echelle: 'Échelle ' + ech.nom + ' (' + ech.source + ') — ' + ech.seuil,
+        livretMot: (() => {
+          const groupe = test.livret ? livrets[test.livret] || [] : [];
+          if (groupe.length < 2 || dejaVu[test.livret]) return '';
+          dejaVu[test.livret] = true;
+          const paliers = groupe.map(x => (x.niveaux && x.niveaux[0]) || x.titre);
+          const n2 = D.niveauAtteint(donnes, T.TESTS);
+          return 'Livret ' + (CYCLE_NOM[test.livret] || test.livret)
+            + ' — un seul document, les paliers à la suite : ' + paliers.join(' · ')
+            + '. ' + (n2 && n2.phrase ? n2.phrase
+              : 'Note les paliers dans l\'ordre : le niveau retenu sera le plus haut atteint.');
+        })(),
+        onRetirer: () => this.marquerDonne(test, false),
+        sansCorrige: D.exercices(test).every(it => it.suppose)
+          ? "Le corrigé de ce test n'est pas encore dans l'application : les exercices sont numérotés, sans intitulé ni barème. Envoie-le-moi et je range ses questions, comme pour les maths de cycle 3 et de fin de 4e."
+          : '',
+        /* En mode réponses, les exercices que le corrigé ne connaît pas encore
+           gardent leur ligne de notation : rien ne disparaît de l'écran. */
+        items: D.exercices(test).filter(it => !(corrige && modeR)
+          || !corrige.some(exo => test.id + '-' + exo.num === it.id)).map(it => ({
+          /* Un test dont le corrigé n'est pas dans l'appli : on numérote les exercices
+             sans inventer d'intitulé (elle a la feuille sous les yeux), et un mot au-
+             dessus de la liste explique pourquoi — « Exercice 1 (intitulé à préciser) »
+             se lisait comme un bug (02/09). */
+          num: it.num, titre: it.suppose ? 'Exercice ' + it.num : it.titre,
+          /* Le corrigé sous les yeux dans LES DEUX modes de saisie : « Je note moi-même »
+             est justement celui qu'elle utilise feuille en main. La réponse vient soit du
+             test lui-même (Lyon +16, via POSITIONNEMENT), soit du corrigé rangé (03/09). */
+          attendu: it.attendu
+            || (() => {
+              const e = corrige && corrige.find(x => test.id + '-' + x.num === it.id);
+              return (e && e.attendu) || '';
+            })(),
+          /* Elle préfère les paliers rédigés des corrigés Canopé aux boutons NE/--/-/+/++
+             et à la grille en une ligne : « 6 résultats corrects », « entre 4 et 5 »…
+             (03/09). Quand l'exercice porte ses paliers, ce sont eux qu'on affiche ;
+             la grille brute n'est plus répétée en dessous. */
+          grille: (it.paliers && it.paliers.length) ? '' : (it.grille || ''),
+          /* Le dernier palier remet l'exercice à « non évalué » : sans lui, un clic par
+             erreur ne se défaisait plus (les boutons NE/--/-/+/++ ont disparu pour ce
+             test). Et c'est le LIBELLÉ qui dit quel palier est allumé. */
+          choix: ((it.paliers && it.paliers.length)
+            ? it.paliers.concat([{ nom: 'Non évalué', v: 'NE' }])
+            : choixEch).map(v => {
+            const rep = (pass.reponses || {})[it.id];
+            const note = (pass.scores || {})[it.id];
+            const paliers = it.paliers && it.paliers.length;
+            const actif = paliers
+              ? (v.v === 'NE' ? !note : (rep ? rep === v.nom : note === v.v))
+              : note === v.v;
+            const dec = choixEch.find(x => x.v === v.v) || {};
+            return {
+              nom: v.nom, aide: v.aide || dec.aide || '',
+              fond: actif ? (dec.fond || '#eef3f9') : '#fff',
+              texte: actif ? (dec.texte || '#1c2430') : '#6b7a8d',
+              bord: actif ? (dec.texte || '#1d4e89') : '#dde4ec',
+              onClick: () => this.noter(test.id, it.id, v.v, paliers ? v.nom : '')
+            };
+          }),
+          /* des paliers rédigés se lisent en colonne, les codes courts en ligne */
+          enColonne: !!(it.paliers && it.paliers.length),
+          enLigne: !(it.paliers && it.paliers.length)
+        }))
+      };
+    });
+
+    /* Les résultats sous les mêmes bandes que le test à donner : même ordre, mêmes
+       couleurs, même vocabulaire. Une bande sans test ne s'affiche pas. */
+    vals.blocsResultats = [
+      { cle: 'lecture', titre: 'ÉVALUATION EN LANGUE DE SCOLARISATION', sous: '',
+        couleur: '#e3edf8', encre: '#1d4e89' },
+      { cle: 'maths', titre: 'MATHÉMATIQUES', sous: "en langue d'origine, ou en français après 16 ans",
+        couleur: '#f4d5a0', encre: '#4a3208' },
+      { cle: 'francais', titre: 'FRANÇAIS', sous: '', couleur: '#d9ecdf',
+        encre: '#4f9d7d', encreTexte: '#1d6b42' },
+      { cle: 'autre', titre: 'AUTRES TESTS', sous: '', couleur: '#e8e0f4', encre: '#4a3d94' }
+    ].map(b => Object.assign({}, b, {
+      encreTexte: b.encreTexte || b.encre,
+      tests: vals.passations.filter(p => b.cle === 'autre'
+        ? ['lecture', 'maths', 'francais'].indexOf(p.bloc) < 0
+        : p.bloc === b.cle)
+    })).filter(b => b.tests.length);
+
+    /* ---- Étape 4 ---- */
+    const props = d ? this.propositionsFiche(d) : {};
+    const syn = (d && d.synthese) || {};
+    /* Ne jamais rogner ce qu'elle est en train de taper : un « trim » à l'affichage
+       mange l'espace en fin de mot et empêche d'écrire. Seules les valeurs qu'elle n'a
+       pas saisies (brouillon, fiche importée) sont nettoyées. */
+    const propre = (v) => typeof v === 'string' ? v.trim() : v;
+    /* ⚠ Ordre de priorité : ce qu'ELLE a saisi, puis ce qui était DÉJÀ DANS LA FICHE
+       déposée (le CIO écrit « B1 », « A2 »…), et seulement ensuite mon brouillon.
+       Avant le 03/09 le brouillon passait devant et effaçait sans le dire ce que le CIO
+       avait écrit — c'est exactement ce qu'elle a vu sur « Compréhension orale ». */
+    const ficheVal = (cle) => {
+      const v = propre((d && d.fiche && d.fiche[cle]) || '');
+      return v === '' ? null : v;
+    };
+    const def = (cle) => syn[cle] != null ? syn[cle]
+      : (ficheVal(cle) != null ? ficheVal(cle) : propre(props[cle] != null ? props[cle] : ''));
+    /* « • » = mon brouillon ; « ⟵ fiche » = ce qui venait du PDF déposé. */
+    const puce = (cle) => syn[cle] != null ? ''
+      : (ficheVal(cle) != null ? ' ⟵ déjà dans la fiche déposée'
+        : (props[cle] != null ? ' •' : ''));
+    /* Un menu déroulant de phrases toutes faites qui ÉCRIT dans la case du dessous :
+       la liste ne retient rien, la valeur vit dans la case (et reste corrigeable). */
+    const propose = (cle, libelle, phrases) => ({
+      libelle, estListe: true, estTexte: false, options: phrases,
+      valeur: phrases.indexOf(def(cle)) >= 0 ? def(cle) : '',
+      onChange: (e) => { if (e.target.value) this.champSynthese(cle, e.target.value); }
+    });
+    const liste = (cle, libelle, options) => ({ libelle: libelle + puce(cle), estListe: true, estTexte: false, options: options || [], valeur: def(cle), onChange: (e) => this.champSynthese(cle, e.target.value) });
+    /* Le cadre grandit avec son contenu : ces brouillons font cinq à sept lignes, et
+       ils doivent être lus en entier avant de partir dans le PDF. */
+    const texte = (cle, libelle) => {
+      const v = String(def(cle) || '');
+      const fautes = ((this.state.fautes || {})[cle] || []).map(f => ({
+        mot: f.mot, message: f.message,
+        propositions: f.propositions.map(p => ({ nom: p, onClick: () => this.corriger(cle, f, p) }))
+      }));
+      return { libelle: libelle + puce(cle), estListe: false, estTexte: true, options: [],
+        cle, valeur: v, lignes: 2, ref: this.hauteurAuto, fautes: fautes.length ? fautes : '',
+        onChange: (e) => { this.hauteurAuto(e.target); this.champSynthese(cle, e.target.value); } };
+    };
+    vals.saisies = [
+      texte('datePositionnement', 'Date du positionnement'),
+      /* Le sexe commande les accords du brouillon (« Il est entré » / « Elle est entrée »). */
+      liste('sexe', 'Fille ou garçon', ['', 'Fille', 'Garçon']),
+      liste('niveauScolaire', 'Niveau scolaire global', O.niveauScolaire),
+      texte('lectureLangueOrigine', "Lecture en langue d'origine"),
+      /* Un clic écrit la phrase : c'est le seul constat qu'aucun test ne mesure. */
+      { libelle: 'Geste graphique — ce que tu as vu', estListe: false, estTexte: false, estChoix: true,
+        options: [], choix: [
+          ['Cursive maîtrisée', 'Le geste graphique est maîtrisé. L\'écriture est cursive.'],
+          ['Cursive parfaite', 'Le geste graphique est parfaitement maîtrisé. L\'écriture est cursive.'],
+          ['Script', 'L\'écriture en script est maîtrisée.'],
+          ['Script + signature cursive', 'Le geste graphique est maîtrisé. L\'écriture est en script, la signature en cursive.'],
+          ['Prénom et nom seulement', (d && d.prenom ? d.prenom : 'L\'élève') + ' sait écrire son prénom et son nom en écriture cursive.'],
+          ['Pas installé', 'Le geste graphique n\'est pas installé.']
+        ].map(([nom, phrase]) => {
+          const actif = def('gesteGraphique') === phrase;
+          return { nom,
+            fond: actif ? '#1d4e89' : '#fff', encre: actif ? '#fff' : '#48586b',
+            bord: actif ? '#1d4e89' : '#dde4ec',
+            onClick: () => this.champSynthese('gesteGraphique', actif ? '' : phrase) };
+        }) },
+      texte('gesteGraphique', 'Geste graphique'),
+      texte('langues', 'Langues (autres que le français)'),
+      texte('mathsGeneral', 'Mathématiques — appréciation générale'),
+      texte('mathsNombres', 'Maths · nombres et calcul'),
+      texte('mathsDonnees', 'Maths · organisation de données'),
+      texte('mathsGrandeurs', 'Maths · grandeurs et mesures'),
+      texte('mathsGeometrie', 'Maths · espace et géométrie'),
+      liste('niveauFrancais', 'Niveau de français', O.niveauFrancais),
+      texte('lectureFrancais', 'Décodage-encodage'),
+      texte('productionOrale', 'Production orale / communication'),
+      /* Aucun test ne mesure la compréhension orale : c'est elle qui l'observe pendant
+         l'entretien. Une liste de phrases graduées, du plus débutant au plus autonome,
+         évite de la réécrire à chaque élève (sa demande du 02/09). La case reste
+         librement modifiable juste en dessous. */
+      propose('comprehensionOrale', 'Compréhension orale — une phrase à reprendre', [
+        "Ne comprend pas encore le français oral : les échanges passent par une langue tierce, par le geste ou par l'image.",
+        "Comprend une consigne très simple de la classe lorsqu'elle est accompagnée d'un geste ou d'un support visuel.",
+        "Comprend les consignes courantes de la classe et les questions sur son identité, à condition de parler lentement.",
+        "Comprend une consigne en plusieurs étapes et le sens général d'un échange sur un sujet familier.",
+        "Comprend un récit court lu à voix haute et en restitue l'essentiel.",
+        "Comprend le français oral de la classe sans aide particulière, y compris les consignes de travail."
+      ]),
+      texte('comprehensionOrale', 'Compréhension orale'),
+      texte('comprehensionEcrite', 'Compréhension écrite'),
+      texte('expressionEcrite', 'Expression écrite'),
+      liste('precoClasse', 'Classe préconisée', O.precoClasse),
+      liste('accompagnement', 'Accompagnement linguistique', O.accompagnement),
+      texte('remarquesCasnav', 'Remarques')
+    ];
+    this.dernieresSaisies = vals.saisies;
+    vals.onOrthographe = () => this.verifierOrthographe();
+    vals.orthoEnCours = this.state.ortho === 'en cours';
+    vals.orthoMot = this.state.orthoMot || '';
+    vals.orthoBouton = this.state.ortho === 'en cours' ? 'VÉRIFICATION EN COURS…' : "VÉRIFIER L'ORTHOGRAPHE";
+    const nivLu = d ? D.niveauAtteint(donnes, T.TESTS) : null;
+    vals.resume = (nivLu && nivLu.phrase ? [{ titre: "Lecture en langue d'origine", mot: nivLu.phrase }] : [])
+      .concat(donnes.map(pass => {
+        const test = T.TESTS.find(x => x.id === pass.testId) || { titre: pass.testId };
+        const b = D.bilan(test, pass.scores);
+        return { titre: test.titre + (b.pct != null ? ' — ' + b.pct + ' %' : ''), mot: b.conclusion || b.mot || 'pas encore noté' };
+      }));
+    const pdfLa = !!d && (!!this.sources[d.id] || (this.state.pdfsEnBase || []).indexOf(d.id) >= 0);
+    vals.sansPdf = !!d && !pdfLa;
+    vals.aPdf = pdfLa;
+    vals.onOublierPdf = () => d && this.oublierPdf(d.id);
+    vals.motRemplir = this.state.remplissage ? 'REMPLISSAGE EN COURS…' : 'TÉLÉCHARGER LA FICHE REMPLIE';
+    vals.fondRemplir = this.state.remplissage ? '#7a8b9c' : '#2a9d6e';
+    return vals;
+  }
+}
+</script>
+</body>
+</html>

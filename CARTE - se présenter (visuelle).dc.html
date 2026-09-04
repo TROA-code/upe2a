@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" />
+<style>
+  doc-page:not(:defined) { visibility: hidden; }
+  @media print { .ecran-seul { display: none !important; } }
+</style>
+<script src="doc-page.js"></script>
+</helmet>
+
+<div class="ecran-seul" style="font-family:Verdana,Tahoma,sans-serif;background:#eef1f5;padding:20px 22px;display:flex;flex-direction:column;gap:12px;border-bottom:2px solid #c3d2e2">
+  <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:baseline;justify-content:space-between">
+    <div style="display:flex;flex-direction:column;gap:4px">
+      <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:16px;color:#1d4e89">LE JEU DES CARTES — SE PRÉSENTER</div>
+      <div style="font-size:12.5px;color:#556;line-height:1.55">Le format de la carte du CASNAV : la photo, le prénom et l'âge, l'étoile de la couleur préférée, puis quatre cadres — la famille, l'animal, ce qu'il aime, ce qu'il n'aime pas. Rien que des images.</div>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button onClick="{{ basculerLegendes }}" style="border:2px solid {{ legBord }};background:{{ legFond }};color:{{ legEncre }};border-radius:9px;padding:9px 14px;font-size:12.5px;font-weight:bold;cursor:pointer">{{ legTexte }}</button>
+      <button onClick="{{ basculerDeviner }}" style="border:2px solid {{ devBord }};background:{{ devFond }};color:{{ devEncre }};border-radius:9px;padding:9px 14px;font-size:12.5px;font-weight:bold;cursor:pointer">{{ devTexte }}</button>
+      <button onClick="{{ basculerCacher }}" style="border:2px solid {{ cacheBord }};background:{{ cacheFond }};color:{{ cacheEncre }};border-radius:9px;padding:9px 14px;font-size:12.5px;font-weight:bold;cursor:pointer">{{ cacheTexte }}</button>
+      <sc-for list="{{ ecrans }}" as="e" hint-placeholder-count="3">
+        <button onClick="{{ e.onClick }}" style="border:2px solid {{ e.bord }};background:{{ e.fond }};color:{{ e.encre }};border-radius:9px;padding:9px 14px;font-size:12.5px;font-weight:bold;cursor:pointer">{{ e.nom }}</button>
+      </sc-for>
+      <button onClick="{{ imprimer }}" style="border:none;background:#2a9d6e;color:#fff;border-radius:9px;padding:10px 18px;font-family:'Archivo Black',Verdana,sans-serif;font-size:12px;letter-spacing:.04em;cursor:pointer">IMPRIMER</button>
+    </div>
+  </div>
+  <div style="font-size:12px;color:#6b7a8d;line-height:1.55">{{ aide }}</div>
+</div>
+
+<doc-page margin="0.5in">
+  <div style="font-family:Verdana,Tahoma,sans-serif;color:#1c2430;display:flex;flex-direction:column;gap:6mm">
+
+    <sc-if value="{{ estFictives }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:4mm">
+        <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:15pt">NEUF CARTES À PRÉSENTER</div>
+        <div style="font-size:10pt;color:#444;line-height:1.45">Chaque élève tire une carte et présente cette personne à la classe, en s'appuyant sur les images : « Il s'appelle… il a … ans… il aime… ». Personne ne parle de lui-même : c'est plus facile pour commencer.</div>
+        <div style="display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:5mm">
+          <sc-for list="{{ fictives }}" as="f" hint-placeholder-count="0">
+            <div style="border:2px solid #e0a92c;padding:2mm;break-inside:avoid;background:#fff">
+              <div style="border:1px solid #1c2430;padding:3mm;display:flex;flex-direction:column;gap:3mm">
+                <div style="display:flex;gap:3mm;align-items:stretch">
+                  <div style="flex:0 0 22mm;height:22mm;background-image:url({{ f.photo }});background-size:cover;background-position:center top"></div>
+                  <div style="flex:1;min-width:0;border:1px solid #1c2430;border-radius:2.5mm;display:flex;align-items:center;justify-content:center;padding:0 2mm">
+                    <span style="font-family:'Archivo Black',Verdana,sans-serif;font-size:12pt;line-height:1.1;text-align:center">{{ f.entete }}</span>
+                  </div>
+                  <div style="flex:0 0 14mm;display:flex;align-items:center;justify-content:center;font-size:24pt;line-height:1;color:{{ f.couleur }}">★</div>
+                </div>
+                <div style="display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:3mm">
+                  <sc-for list="{{ f.cases }}" as="c" hint-placeholder-count="4">
+                    <div style="position:relative;border:1.2px dashed #8a8a8a;border-radius:3mm;min-height:24mm;display:flex;flex-wrap:wrap;gap:1.5mm;align-items:center;justify-content:center;padding:3mm 2mm 2mm">
+                      <div style="position:absolute;top:-3mm;left:-2mm;width:8mm;height:8mm;background-color:#fff;background-image:url({{ c.badge }});background-size:contain;background-repeat:no-repeat;background-position:center"></div>
+                      <sc-for list="{{ c.images }}" as="im" hint-placeholder-count="2">
+                        <div style="width:11mm;height:11mm;background-image:url({{ im.src }});background-size:contain;background-repeat:no-repeat;background-position:center"></div>
+                      </sc-for>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ estDecouper }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:4mm">
+        <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:15pt">À DÉCOUPER ET À COLLER</div>
+        <div style="font-size:10pt;color:#444;line-height:1.45">Découpe les images et colle-les dans les cadres de la carte. Les cases vides sont pour tes propres images.</div>
+        <sc-for list="{{ groupes }}" as="g" hint-placeholder-count="4">
+          <div style="display:flex;flex-direction:column;gap:2mm">
+            <div style="display:flex;gap:2.5mm;align-items:center">
+              <div style="width:8mm;height:8mm;flex:none;background-image:url({{ g.badge }});background-size:contain;background-repeat:no-repeat;background-position:center"></div>
+              <sc-if value="{{ g.titre }}" hint-placeholder-val="{{ false }}">
+                <span style="font-size:9.5pt;color:#333;font-weight:bold;letter-spacing:.02em">{{ g.titre }}</span>
+              </sc-if>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(6, minmax(0, 1fr));gap:2.5mm">
+              <sc-for list="{{ g.items }}" as="i" hint-placeholder-count="0">
+                <div style="border:1px dashed #8a8a8a;padding:1.5mm;display:flex;flex-direction:column;gap:1mm;align-items:center;background:#fff;break-inside:avoid">
+                  <sc-if value="{{ i.image }}" hint-placeholder-val="{{ false }}">
+                    <div style="width:100%;height:16mm;background-image:url({{ i.image }});background-size:contain;background-repeat:no-repeat;background-position:center"></div>
+                  </sc-if>
+                  <sc-if value="{{ i.mot }}" hint-placeholder-val="{{ false }}">
+                    <div style="font-size:8pt;text-align:center;line-height:1.2">{{ i.mot }}</div>
+                  </sc-if>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ estVierge }}" hint-placeholder-val="{{ true }}">
+    <sc-if value="{{ consigne }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:2mm">
+        <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:15pt">{{ consigne }}</div>
+        <div style="font-size:10.5pt;color:#444;line-height:1.45">{{ consigneSous }}</div>
+      </div>
+    </sc-if>
+
+    <div style="border:3px solid #e0a92c;padding:3mm;break-inside:avoid">
+      <div style="border:1.5px solid #1c2430;padding:5mm;display:flex;flex-direction:column;gap:5mm">
+        <div style="display:flex;gap:4mm;align-items:stretch">
+          <div style="flex:0 0 40mm;height:38mm;border:1px dashed #8a8a8a;display:flex;align-items:center;justify-content:center;text-align:center;font-size:8.5pt;color:#8a8a8a;padding:2mm;line-height:1.35">{{ zonePhoto }}</div>
+          <div style="flex:1;min-width:0;border:1.5px solid #1c2430;border-radius:3mm;display:flex;align-items:center;justify-content:center;padding:0 5mm">
+            <span style="font-family:'Archivo Black',Verdana,sans-serif;font-size:26pt;line-height:1.1;color:#1c2430">{{ valNom }}</span>
+          </div>
+          <div style="flex:0 0 30mm;display:flex;align-items:center;justify-content:center;font-size:52pt;line-height:1;color:#e6c98a">★</div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:6mm">
+          <sc-for list="{{ cadres }}" as="c" hint-placeholder-count="4">
+            <div style="position:relative;border:1.5px dashed #8a8a8a;border-radius:4mm;height:{{ c.hauteur }};background:#fff">
+              <div style="position:absolute;top:-5mm;left:-3mm;width:12mm;height:12mm;background-color:#fff;background-image:url({{ c.badge }});background-size:contain;background-repeat:no-repeat;background-position:center"></div>
+              <sc-if value="{{ c.etiquette }}" hint-placeholder-val="{{ false }}">
+                <div style="position:absolute;top:2mm;left:14mm;font-size:9.5pt;color:#555;line-height:1.3">{{ c.etiquette }}</div>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+
+    <sc-if value="{{ avecPhrases }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:1.5mm">
+        <div style="font-size:9.5pt;color:#333;font-weight:bold">{{ etiqPhrases }}</div>
+        <sc-for list="{{ phrases }}" as="p" hint-placeholder-count="3">
+          <div style="font-size:12pt;line-height:1.9;border-bottom:1px dotted #8a8a8a">{{ p.texte }}</div>
+        </sc-for>
+      </div>
+    </sc-if>
+    </sc-if>
+  </div>
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:900,&quot;height&quot;:1180}}">
+/* LE JEU DES CARTES — le format de la carte du CASNAV qu'elle a montrée (03/09, puis
+   04/09 avec le modèle sous les yeux) :
+   – en haut : la photo à gauche, le prénom et l'âge dans un cadre arrondi, l'étoile de la
+     couleur préférée à droite ; un liseré doré autour de toute la carte ;
+   – quatre cadres arrondis en pointillés, chacun marqué d'une VIGNETTE en coin :
+     la famille · l'animal · ce qu'il aime (cœur) · ce qu'il n'aime pas (cœur barré).
+   ⚠ RIEN QUE DES IMAGES (sa demande du 04/09) : aucun mot sur la carte, ni sur les neuf
+   cartes fictives, ni sous les images à découper. Le bouton « Avec les mots » les remet
+   pour un élève déjà lecteur — le défaut, lui, est muet.
+   Public 16-18 ans : aucune image enfantine, l'élève apporte ses propres photos. */
+/* Neuf personnes fictives : chacun tire une carte et présente CETTE personne — parler de
+   soi devant la classe le premier jour est trop coûteux. Depuis le 04/09 elles se lisent
+   comme le modèle : un portrait, un prénom, un âge, une étoile de couleur et quatre
+   cases d'images. Le récit (pays, langues, projet) n'est plus écrit : c'est l'élève qui
+   le fabrique à l'oral en regardant les images. */
+/* Les neuf personnes viennent des neuf pays dont elle a fabriqué les drapeaux (04/09),
+   et les LANGUES sont dites par des drapeaux aussi : le drapeau du pays d'origine, plus
+   celui d'une autre langue parlée quand il y en a une. */
+const FICTIVES = [
+  { prenom: 'João', age: '17 ans', portrait: 'portrait-1', couleur: '#1d4e89',
+    pays: ['portugal'], langues: ['portugal', 'espagne'],
+    aime: ['ballon', 'riz'], aimePas: ['neige'] },
+  { prenom: 'Lucía', age: '16 ans', portrait: 'portrait-2', couleur: '#2a9d6e',
+    pays: ['espagne'], langues: ['espagne'],
+    aime: ['the', 'dessiner'], aimePas: ['chien'] },
+  { prenom: 'Marco', age: '17 ans', portrait: 'portrait-3', couleur: '#c9973f',
+    pays: ['italie'], langues: ['italie', 'espagne'],
+    aime: ['musique', 'pain'], aimePas: ['pluie'] },
+  { prenom: 'Youssef', age: '18 ans', portrait: 'portrait-4', couleur: '#a3283c',
+    pays: ['maroc'], langues: ['maroc'],
+    aime: ['course', 'cafe'], aimePas: ['froid'] },
+  { prenom: 'Nadia', age: '16 ans', portrait: 'portrait-5', couleur: '#4a3d94',
+    pays: ['algerie'], langues: ['algerie'],
+    aime: ['pates', 'telephone'], aimePas: ['fromage'] },
+  { prenom: 'Emre', age: '17 ans', portrait: 'portrait-6', couleur: '#2a7d5a',
+    pays: ['turquie'], langues: ['turquie'],
+    aime: ['velo', 'oeuf'], aimePas: ['frites'] },
+  { prenom: 'Kasia', age: '18 ans', portrait: 'portrait-7', couleur: '#c9973f',
+    pays: ['pologne'], langues: ['pologne'],
+    aime: ['danse', 'orange'], aimePas: ['lait'] },
+  { prenom: 'Paulo', age: '16 ans', portrait: 'portrait-8', couleur: '#1d4e89',
+    pays: ['bresil'], langues: ['bresil', 'espagne'],
+    aime: ['livre', 'chocolat'], aimePas: ['poisson'] },
+  { prenom: 'Mai', age: '17 ans', portrait: 'portrait-9', couleur: '#48586b',
+    pays: ['vietnam'], langues: ['vietnam'],
+    aime: ['mecanique', 'the'], aimePas: ['salade'] }
+];
+/* La planche à découper : uniquement des images déjà rangées dans clean/, groupées comme
+   les quatre cases de la carte, et chaque rangée porte la même vignette que sa case.
+   [mot écrit, nom du fichier] — le mot ne s'imprime qu'avec le bouton « Avec les mots » ;
+   il garde alors son article et ses accents (les clés de fichiers, « the », « pates »,
+   sont du français fautif sur un document de classe). */
+const GROUPES = [
+  ['MON PAYS, MES LANGUES', 'mot-portugal',
+    [['le Portugal', 'portugal'], ["l'Espagne", 'espagne'], ["l'Italie", 'italie'],
+      ['le Maroc', 'maroc'], ["l'Algérie", 'algerie'], ['la Turquie', 'turquie'],
+      ['la Pologne', 'pologne'], ['le Brésil', 'bresil'], ['le Vietnam', 'vietnam'],
+      ['les langues', 'langues']]],
+  ['À MANGER, À BOIRE', 'coeur-aime',
+    [['le riz', 'riz'], ['le pain', 'pain'], ['les pâtes', 'pates'],
+      ['les frites', 'frites'], ['le fromage', 'fromage'], ['un œuf', 'oeuf'],
+      ['le thé', 'the'], ['le café', 'cafe'], ['le lait', 'lait'],
+      ['le chocolat', 'chocolat'], ['le gâteau', 'gateau'], ['une banane', 'banane'],
+      ['une pomme', 'pomme'], ['une orange', 'orange'], ['la salade', 'salade'],
+      ['une tomate', 'tomate']]],
+  ['À FAIRE, LE TEMPS', 'coeur-aime-pas',
+    [['le football', 'ballon'], ['le vélo', 'velo'], ['courir', 'course'], ['danser', 'danse'],
+      ['la musique', 'musique'], ['le téléphone', 'telephone'], ['lire', 'livre'],
+      ['dessiner', 'dessiner'], ["l'ordinateur", 'ordinateur'], ['la mécanique', 'mecanique'],
+      ['la coiffure', 'coiffure'], ['le soleil', 'soleil'], ['la pluie', 'pluie'],
+      ['la neige', 'neige']]]
+];
+
+class Component extends DCLogic {
+  /* `legendes` : les mots. FAUX par défaut depuis le 04/09 — la carte du modèle n'en a
+     aucun. `troisieme` : la personne (3e par défaut, c'est un jeu pour présenter
+     quelqu'un). `cacher` : le prénom retiré, pour la devinette. Les trois sont
+     indépendants — les confondre imprimait « QUI EST-CE ? » sur la carte vierge où
+     l'élève doit justement écrire son prénom. */
+  state = { legendes: false, troisieme: true, cacher: false, ecran: 'vierge' };
+
+  renderVals() {
+    const leg = this.state.legendes, dev = this.state.troisieme, cache = this.state.cacher;
+    const q = (avec, sans) => leg ? avec : sans;
+    const vign = (n) => 'clean/' + n + '.png';
+    /* Les quatre cases, marquées par une vignette en coin : c'est elle qui dit de quoi
+       parle la case, puisqu'il n'y a pas de mot. */
+    /* Plus de famille ni d'animal (sujets délicats, 04/09) : le pays d'origine et les
+       langues parlées. La vignette du pays est un drapeau — faute d'image neutre, c'est
+       celui du Portugal qui sert de repère, à remplacer par `mot-drapeau`. */
+    const cadres = [
+      { badge: vign('mot-portugal'), etiquette: q('De quel pays viens-tu ?', ''), hauteur: '38mm' },
+      { badge: vign('mot-langues'), etiquette: q('Quelles langues parles-tu ?', ''), hauteur: '38mm' },
+      { badge: vign('coeur-aime'), etiquette: q(dev ? 'Il / elle aime…' : "J'aime…", ''), hauteur: '44mm' },
+      { badge: vign('coeur-aime-pas'), etiquette: q(dev ? "Il / elle n'aime pas…" : "Je n'aime pas…", ''), hauteur: '44mm' }
+    ];
+    const phrases = dev
+      ? [{ texte: "Il / elle s'appelle ……………………… et il / elle a ……… ans." },
+         { texte: "Sa couleur préférée, c'est ………………………" },
+         { texte: "Il / elle aime ……………………… et il / elle n'aime pas ………………………" }]
+      : [{ texte: "Je m'appelle ……………………… et j'ai ……… ans." },
+         { texte: "Ma couleur préférée, c'est ………………………" },
+         { texte: "J'aime ……………………… et je n'aime pas ………………………" }];
+    const bt = (actif) => ({
+      fond: actif ? '#1d4e89' : '#fff',
+      encre: actif ? '#fff' : '#48586b',
+      bord: actif ? '#1d4e89' : '#c3d2e2'
+    });
+    const l = bt(leg), d = bt(dev), c2 = bt(cache);
+    const ec = this.state.ecran;
+    const img = (l2) => (l2 || []).map(n => ({ src: vign('mot-' + n) }));
+    return {
+      ecrans: [['vierge', 'Carte vierge'], ['fictives', '9 cartes fictives'], ['decouper', 'À découper']]
+        .map(([cle, nom]) => Object.assign({
+          nom, onClick: () => this.setState({ ecran: cle })
+        }, bt(ec === cle))),
+      estVierge: ec === 'vierge', estFictives: ec === 'fictives', estDecouper: ec === 'decouper',
+      fictives: FICTIVES.map(f => ({
+        photo: vign(f.portrait), couleur: f.couleur,
+        entete: f.prenom.toUpperCase() + ', ' + f.age,
+        cases: [
+          { badge: vign('mot-portugal'), images: img(f.pays) },
+          { badge: vign('mot-langues'), images: img(f.langues) },
+          { badge: vign('coeur-aime'), images: img(f.aime) },
+          { badge: vign('coeur-aime-pas'), images: img(f.aimePas) }
+        ]
+      })),
+      groupes: GROUPES.map(([titre, badge, mots]) => ({
+        titre: leg ? titre : '', badge: vign(badge),
+        /* on complète la dernière ligne de 6 avec des cases vides, pour ses propres
+           images — sans jamais laisser une case orpheline sur une ligne à elle seule */
+        items: (() => {
+          const li = mots.map(m => ({ mot: leg ? m[0] : '', image: vign('mot-' + m[1]) }));
+          const reste = li.length % 6;
+          const vides = reste === 0 ? 6 : 6 - reste;
+          for (let i = 0; i < vides; i++) li.push({ mot: '', image: '' });
+          return li;
+        })()
+      })),
+      cadres, phrases, avecPhrases: leg,
+      /* Sans les mots, la carte n'a pas de titre : le modèle n'en a pas. */
+      consigne: leg ? (cache ? 'QUI EST-CE ?' : (dev ? 'LA CARTE DE MON CAMARADE' : 'MA CARTE')) : '',
+      consigneSous: cache
+        ? "La carte est affichée sans le prénom : la classe devine de qui il s'agit, puis un camarade le présente."
+        : (dev
+          ? "Colle ou dessine les images dans les cadres, écris son prénom et son âge, colorie l'étoile de sa couleur préférée."
+          : "Colle ou dessine tes images dans les cadres, écris ton prénom et ton âge, colorie l'étoile de ta couleur préférée."),
+      zonePhoto: cache ? '' : q(dev ? 'Sa photo ou son dessin' : 'Ma photo ou mon dessin', ''),
+      valNom: cache ? '? ? ?' : '',
+      etiqPhrases: dev ? 'CE QUE JE DIS POUR LE PRÉSENTER' : 'CE QUE JE DIS POUR ME PRÉSENTER',
+      legTexte: leg ? 'Avec les mots' : 'Images seules',
+      legFond: l.fond, legEncre: l.encre, legBord: l.bord,
+      devTexte: dev ? 'Je présente un camarade' : 'Je me présente',
+      devFond: d.fond, devEncre: d.encre, devBord: d.bord,
+      cacheTexte: cache ? 'Jeu : prénom caché' : 'Prénom écrit',
+      cacheFond: c2.fond, cacheEncre: c2.encre, cacheBord: c2.bord,
+      aide: cache
+        ? "Imprime les cartes remplies par les élèves, cache le prénom : la classe devine, puis présente à la troisième personne."
+        : "Une carte par élève, à remplir avec des images collées ou dessinées. Les vignettes en coin disent de quoi parle chaque cadre.",
+      basculerLegendes: () => this.setState({ legendes: !leg }),
+      basculerDeviner: () => this.setState({ troisieme: !dev }),
+      basculerCacher: () => this.setState({ cacher: !cache }),
+      imprimer: () => window.print()
+    };
+  }
+}
+</script>
+</body>
+</html>

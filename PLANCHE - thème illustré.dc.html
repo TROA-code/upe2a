@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" />
+<style>
+  doc-page:not(:defined) { visibility: hidden; }
+  @media print { .ecran-seul { display: none !important; } }
+</style>
+<script src="banque-mots.js"></script>
+<script src="doc-page.js"></script>
+</helmet>
+
+<div class="ecran-seul" style="font-family:Verdana,Tahoma,sans-serif;background:#eef1f5;padding:20px 22px;display:flex;flex-direction:column;gap:14px;border-bottom:2px solid #c3d2e2">
+  <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:baseline;justify-content:space-between">
+    <div style="display:flex;flex-direction:column;gap:4px">
+      <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:16px;color:#1d4e89">LA PLANCHE DES THÈMES</div>
+      <div style="font-size:12.5px;color:#556;line-height:1.55">Une image par thème, son nom en dessous. Coche les thèmes à faire figurer.</div>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button onClick="{{ toutCocher }}" style="border:1.5px solid #c3d2e2;background:#fff;color:#1d4e89;border-radius:9px;padding:9px 14px;font-size:12.5px;font-weight:bold;cursor:pointer">Tout cocher</button>
+      <button onClick="{{ toutDecocher }}" style="border:1.5px solid #c3d2e2;background:#fff;color:#1d4e89;border-radius:9px;padding:9px 14px;font-size:12.5px;font-weight:bold;cursor:pointer">Tout décocher</button>
+      <button onClick="{{ imprimer }}" style="border:none;background:#2a9d6e;color:#fff;border-radius:9px;padding:10px 18px;font-family:'Archivo Black',Verdana,sans-serif;font-size:12px;letter-spacing:.04em;cursor:pointer">IMPRIMER</button>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-wrap:wrap;gap:8px">
+    <sc-for list="{{ themes }}" as="t" hint-placeholder-count="8">
+      <button onClick="{{ t.onClick }}" title="{{ t.aide }}" style="border:2px solid {{ t.bord }};background:{{ t.fond }};color:{{ t.encre }};border-radius:999px;padding:8px 14px;font-size:12.5px;cursor:pointer">{{ t.nom }}</button>
+    </sc-for>
+  </div>
+
+  <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;background:#fff;border:1.5px solid #dde4ec;border-radius:11px;padding:12px 14px">
+    <label style="display:flex;flex-direction:column;gap:4px;font-size:11.5px;color:#6b7a8d;flex:1 1 200px">
+      <span>Titre de la planche</span>
+      <input value="{{ titreSaisi }}" onChange="{{ onTitre }}" placeholder="Mes thèmes" style="border:1.5px solid #dde4ec;border-radius:8px;padding:9px 11px;font-size:13px;font-family:inherit" />
+    </label>
+    <div style="display:flex;gap:8px;align-items:center;font-size:12px;color:#6b7a8d">
+      <span>Images par ligne</span>
+      <sc-for list="{{ colonnes }}" as="c" hint-placeholder-count="3">
+        <button onClick="{{ c.onClick }}" style="border:2px solid {{ c.bord }};background:{{ c.fond }};color:{{ c.encre }};border-radius:8px;padding:7px 12px;font-size:12.5px;font-weight:bold;cursor:pointer;min-width:34px">{{ c.nom }}</button>
+      </sc-for>
+    </div>
+    <div style="font-size:12px;color:#6b7a8d">{{ compte }}</div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <div style="font-size:11.5px;color:#6b7a8d;font-weight:bold;letter-spacing:.04em">L'IMAGE DE CHAQUE THÈME</div>
+    <div style="font-size:12px;color:#6b7a8d;line-height:1.5">Par défaut, c'est l'image du premier mot du thème — souvent à corriger. Clique sur une vignette pour choisir celle qui représente le thème.</div>
+    <sc-for list="{{ vignettes }}" as="v" hint-placeholder-count="2">
+      <div style="display:flex;flex-direction:column;gap:6px;background:#fff;border:1.5px solid #dde4ec;border-radius:11px;padding:11px 13px">
+        <div style="font-size:12.5px;font-weight:bold;color:#1c2430">{{ v.nom }}</div>
+        <div style="display:flex;gap:9px;flex-wrap:wrap">
+          <sc-for list="{{ v.choix }}" as="i" hint-placeholder-count="0">
+            <button onClick="{{ i.onClick }}" title="{{ i.mot }}" style="border:3px solid {{ i.bord }};background:#fff;border-radius:9px;padding:4px;cursor:pointer;display:flex;flex-direction:column;gap:3px;align-items:center;width:78px">
+              <sc-if value="{{ i.image }}" hint-placeholder-val="{{ false }}">
+                <img src="{{ i.image }}" alt="{{ i.mot }}" style="width:100%;height:52px;object-fit:contain" />
+              </sc-if>
+              <span style="font-size:10.5px;color:#48586b;line-height:1.2;text-align:center">{{ i.mot }}</span>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+</div>
+
+<doc-page margin="0.5in">
+  <div style="font-family:Verdana,Tahoma,sans-serif;color:#1c2430;display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:20px;border-bottom:2.5px solid #1c2430;padding-bottom:7px">
+      <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:20pt">{{ titre }}</div>
+      <div style="font-size:12pt">Prénom : <span style="display:inline-block;width:52mm;border-bottom:1px solid #1c2430">&nbsp;</span></div>
+    </div>
+    <div style="display:grid;grid-template-columns:{{ grille }};gap:6mm">
+      <!-- hint 0 : un enfant fantôme streamé enverrait une requête sur « {{ c.image }} » -->
+      <sc-for list="{{ cartes }}" as="c" hint-placeholder-count="0">
+        <div style="border:1.5px solid #1c2430;border-radius:3mm;padding:3mm;display:flex;flex-direction:column;gap:2.5mm;align-items:center;break-inside:avoid">
+          <sc-if value="{{ c.image }}" hint-placeholder-val="{{ false }}">
+            <img src="{{ c.image }}" alt="{{ c.nom }}" style="width:100%;height:{{ hauteur }};object-fit:contain;background:#fff" />
+          </sc-if>
+          <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:{{ taille }};text-align:center;line-height:1.2">{{ c.nom }}</div>
+        </div>
+      </sc-for>
+    </div>
+    <sc-if value="{{ vide }}" hint-placeholder-val="{{ false }}">
+      <div style="font-size:11pt;color:#666;padding:14px 0">Aucun thème coché : choisis-les au-dessus de la planche.</div>
+    </sc-if>
+  </div>
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:900,&quot;height&quot;:1180}}">
+/* La planche des THÈMES, sur le modèle des « Planches thématiques FLSCO » du CASNAV
+   (Padlet de Pouppez, repéré le 03/09) : une image — ou un pictogramme — par thème, et
+   le nom du thème écrit dessous. Ce n'est pas l'imagier d'un thème : c'est la planche
+   qui présente les thèmes eux-mêmes, celle qu'on affiche ou qu'on donne à l'élève.
+   L'image d'un thème est celle de son premier mot dans la banque, ou celle qu'elle
+   choisit dans la liste. Public : 16-18 ans, donc photographies, cadres sobres. */
+const CLE = 'upe2a-planche-themes';
+
+class Component extends DCLogic {
+  state = { choix: null, colonnes: 3, titre: '', pret: false, images: {} };
+
+  componentDidMount() {
+    let s = null;
+    try { s = JSON.parse(localStorage.getItem(CLE) || 'null'); } catch (e) {}
+    const dispo = this.dispo();
+    this.setState({
+      choix: (s && s.choix) || dispo.slice(0, 6),
+      colonnes: (s && s.colonnes) || 3,
+      titre: (s && s.titre) || '',
+      images: (s && s.images) || {},
+      pret: true
+    });
+  }
+
+  /* Seuls les thèmes qui ont au moins une image : une planche sans visuel n'a pas de sens. */
+  dispo() {
+    const B = window.BANQUE_MOTS;
+    if (!B) return [];
+    return B.themes().filter(n => (B.mots(n) || []).length);
+  }
+
+  garder(champs) {
+    const s = Object.assign({}, this.state, champs);
+    this.setState(champs);
+    try {
+      localStorage.setItem(CLE, JSON.stringify({
+        choix: s.choix, colonnes: s.colonnes, titre: s.titre, images: s.images
+      }));
+    } catch (e) {}
+  }
+
+  basculer(nom) {
+    const c = this.state.choix || [];
+    this.garder({ choix: c.indexOf(nom) >= 0 ? c.filter(x => x !== nom) : c.concat([nom]) });
+  }
+
+  renderVals() {
+    const B = window.BANQUE_MOTS;
+    const dispo = this.dispo();
+    const choix = this.state.choix || [];
+    const coche = (n) => choix.indexOf(n) >= 0;
+    const col = this.state.colonnes || 3;
+    const hauteurs = { 2: '58mm', 3: '40mm', 4: '30mm', 5: '24mm' };
+    const tailles = { 2: '16pt', 3: '13pt', 4: '11pt', 5: '9.5pt' };
+    const bt = (actif) => ({
+      fond: actif ? '#1d4e89' : '#fff',
+      encre: actif ? '#fff' : '#48586b',
+      bord: actif ? '#1d4e89' : '#c3d2e2'
+    });
+    /* L'ordre de la planche suit l'ordre des clics : c'est sa progression. */
+    const cartes = choix.filter(n => dispo.indexOf(n) >= 0).map(n => {
+      const mots = (B && B.mots(n)) || [];
+      const choisie = (this.state.images || {})[n];
+      return { nom: n, image: choisie || (mots[0] ? mots[0].image : '') };
+    });
+    /* Le choix de la vignette, thème par thème : l'image du premier mot donnait
+       « L'alphabet » illustré par un ananas et « Les mois » par une galette des rois
+       (03/09). Seuls les thèmes cochés sont proposés — sinon la liste est illisible. */
+    const vignettes = cartes.map(c => {
+      const mots = (B && B.mots(c.nom)) || [];
+      return {
+        nom: c.nom,
+        choix: mots.map(m => ({
+          mot: m.mot, image: m.image,
+          bord: m.image === c.image ? '#1d4e89' : '#eef1f5',
+          onClick: () => this.garder({
+            images: Object.assign({}, this.state.images, { [c.nom]: m.image })
+          })
+        }))
+      };
+    });
+    return {
+      vignettes,
+      themes: dispo.map(n => Object.assign({
+        nom: n, aide: ((B && B.mots(n)) || []).length + ' images disponibles',
+        onClick: () => this.basculer(n)
+      }, bt(coche(n)))),
+      colonnes: [2, 3, 4, 5].map(n => Object.assign({
+        nom: String(n), onClick: () => this.garder({ colonnes: n })
+      }, bt(n === col))),
+      cartes, vide: this.state.pret && !cartes.length,
+      titre: this.state.titre || 'Mes thèmes',
+      titreSaisi: this.state.titre || '',
+      onTitre: (e) => this.garder({ titre: e.target.value }),
+      grille: 'repeat(' + col + ', minmax(0, 1fr))',
+      hauteur: hauteurs[col] || '40mm', taille: tailles[col] || '13pt',
+      compte: cartes.length + (cartes.length > 1 ? ' thèmes sur la planche' : ' thème sur la planche'),
+      toutCocher: () => this.garder({ choix: dispo.slice() }),
+      toutDecocher: () => this.garder({ choix: [] }),
+      imprimer: () => window.print()
+    };
+  }
+}
+</script>
+</body>
+</html>

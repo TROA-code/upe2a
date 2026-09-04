@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="polices.css" />
+<style>doc-page:not(:defined){visibility:hidden}</style>
+<script src="./doc-page.js"></script>
+</helmet>
+<doc-page margin="0.75in">
+  <div slot="header" style="display:flex;justify-content:space-between;align-items:baseline;border-bottom:1.5px solid #1d4e89;padding-bottom:6px;font-family:Verdana,sans-serif;font-size:9.5pt;color:#1d4e89">
+    <span>UPE2A — Guide d'utilisation</span>
+    <span>Accueil d'un élève</span>
+  </div>
+
+  <h1 style="font-family:Verdana,sans-serif;font-size:20pt;color:#1c2430;margin:0 0 4px;line-height:1.2">Accueil d'un élève — mode d'emploi</h1>
+  <p style="font-family:Verdana,sans-serif;font-size:10.5pt;color:#48586b;line-height:1.6;margin:0 0 20px">
+    Un seul écran, quatre étapes : <strong>la fiche</strong> · <strong>le test</strong> ·
+    <strong>les résultats</strong> · <strong>la préconisation</strong>. On avance de gauche
+    à droite, mais on peut revenir à tout moment : rien n'est verrouillé.
+  </p>
+
+  <h2 style="font-family:Verdana,sans-serif;font-size:14pt;color:#1d4e89;margin:0 0 6px">① La fiche</h2>
+  <p style="font-family:Verdana,sans-serif;font-size:10.5pt;color:#1c2430;line-height:1.6;margin:0 0 8px">
+    Dépose le PDF de la fiche EANA reçue du CIO. L'application y lit le nom, la naissance,
+    les langues, le parcours, et calcule la classe d'âge sur l'année de naissance.
+  </p>
+  <ul style="font-family:Verdana,sans-serif;font-size:10.5pt;color:#48586b;line-height:1.6;margin:0 0 18px;padding-left:20px">
+    <li>Le PDF est <strong>gardé avec le dossier</strong> : tu peux corriger une case et retélécharger la fiche autant de fois que nécessaire.</li>
+    <li>Redéposer la fiche du même élève ne crée pas de doublon — l'application retrouve son dossier.</li>
+    <li>« Oublier le PDF de cet élève », à l'étape ④, le retire du navigateur. Supprimer le dossier le retire aussi.</li>
+    <li>Un scan n'a pas de champs de formulaire : il ne peut pas être lu. Il faut le PDF d'origine.</li>
+  </ul>
+
+  <h2 style="font-family:Verdana,sans-serif;font-size:14pt;color:#1d4e89;margin:0 0 6px">② Le test</h2>
+  <p style="font-family:Verdana,sans-serif;font-size:10.5pt;color:#1c2430;line-height:1.6;margin:0 0 8px">
+    <strong>Un bloc par matière</strong> : évaluation en langue de scolarisation (bleu),
+    mathématiques (orange), français (vert) quand l'élève lit un peu le français. Dans
+    chaque bloc, une liste déroulante propose les tests. Les lignes en « <strong>+</strong> »
+    sont les <strong>niveaux de repli</strong> — à donner si celui du dessus est trop dur.
+    Clique <strong>« Je l'ai donné »</strong> sur ce que l'élève a réellement passé.
+  </p>
+  <ul style="font-family:Verdana,sans-serif;font-size:10.5pt;color:#48586b;line-height:1.6;margin:0 0 8px;padding-left:20px">
+    <li><strong>« Retirer »</strong> si tu changes d'avis : le test n'est plus compté, mais ses notes et tes observations sont conservées. Le redonner les restitue.</li>
+    <li><strong>« Télécharger le test »</strong> pour l'imprimer sans repasser par Canopé — quand la version dans la langue de l'élève est rangée dans le site. Sinon un lien mène au site du CASNAV de Lille, qui a les 26 langues.</li>
+    <li><strong>« Difficultés de lecture ? »</strong> ajoute les tests de déchiffrage à la liste : lettres, syllabes, chiffres, trois mots.</li>
+    <li>Le bouton violet <strong>« Traduire ce test »</strong> prépare la demande de traduction dans une langue que Canopé ne couvre pas.</li>
+  </ul>
+  <p style="font-family:Verdana,sans-serif;font-size:10.5pt;color:#48586b;line-height:1.6;margin:0 0 18px;background:#f2f7fc;border-left:3px solid #1d4e89;padding:9px 12px">
+    <strong>Deux règles de choix.</strong> On commence au niveau de la <strong>classe d'âge</strong>,
+    et on descend si c'est trop dur — jamais l'inverse : un palier au-dessus porte sur une
+    année que l'élève n'a pas faite. En mathématiques, les tests sont des tests de <strong>fin
+    de cycle</strong> : pour une élève de 5e, c'est le cycle 3 qui est achevé, pas le cycle 4.
+  </p>
+
+  <h2 style="font-family:Verdana,sans-serif;font-size:14pt;color:#1d4e89;margin:0 0 6px">③ Les résultats</h2>
+  <p style="font-family:Verdana,sans-serif;font-size:10.5pt;color:#1c2430;line-height:1.6;margin:0 0 8px">
+    Deux façons de renseigner un test, au choix, test par test :
+  </p>
+  <ul style="font-family:Verdana,sans-serif;font-size:10.5pt;color:#48586b;line-height:1.6;margin:0 0 8px;padding-left:20px">
+    <li><strong>« Je saisis ses réponses »</strong> (par défaut quand le corrigé est connu) : les questions s'affichent avec leurs propositions, tu cliques ce que l'élève a entouré, et la note se déduit du barème officiel. Les questions apparaissent en français, avec la version anglaise du livret en petit dessous.</li>
+    <li><strong>« Je note moi-même »</strong> : tu poses MI / MF / MS / TBM sur chaque exercice, comme sur le papier.</li>
+  </ul>
+  <ul style="font-family:Verdana,sans-serif;font-size:10.5pt;color:#48586b;line-height:1.6;margin:0 0 18px;padding-left:20px">
+    <li>Sur les réponses écrites, trois boutons : <strong>juste · faux · rien</strong>. « Rien » veut dire « je ne l'ai pas fait lire » : la ligne sort du calcul. Sauf sur les opérations posées d'un test, où une case laissée vide reste un échec.</li>
+    <li><strong>« Ce que tu as observé pendant la passation »</strong> recueille ce que la saisie ne dit pas — les tables de multiplication mal sues, la fatigue, une remarque de l'élève.</li>
+    <li><strong>Le bilan de ce test</strong>, en bas, montre les phrases qui rejoindront la fiche. C'est le moment de vérifier.</li>
+  </ul>
+
+  <h2 style="font-family:Verdana,sans-serif;font-size:14pt;color:#1d4e89;margin:0 0 6px">④ La préconisation</h2>
+  <p style="font-family:Verdana,sans-serif;font-size:10.5pt;color:#1c2430;line-height:1.6;margin:0 0 8px">
+    Les cases de la fiche EANA, dans l'ordre du document officiel. Celles marquées d'un
+    <strong>point bleu</strong> sont des brouillons proposés d'après les résultats : à relire
+    et à réécrire. Ce que tu écris l'emporte toujours.
+  </p>
+  <ul style="font-family:Verdana,sans-serif;font-size:10.5pt;color:#48586b;line-height:1.6;margin:0 0 8px;padding-left:20px">
+    <li>Renseigne d'abord <strong>Niveau scolaire global</strong>, <strong>Niveau de français</strong> et <strong>Fille / Garçon</strong> : c'est de là que le brouillon tire son registre et ses accords.</li>
+    <li><strong>Geste graphique</strong> : six boutons écrivent la phrase (cursive, script, prénom seulement, pas installé). Aucun test ne mesure ce point.</li>
+    <li><strong>« Vérifier l'orthographe »</strong> envoie les textes à un correcteur en ligne et propose les corrections sous chaque champ. Rien n'est corrigé sans ton clic — et il faut du réseau, c'est le seul moment où l'application en a besoin.</li>
+    <li><strong>« Télécharger la fiche remplie »</strong> écrit dans les cases du PDF officiel. Avant l'envoi, l'application ajuste seulement la ponctuation, les majuscules et les espaces : jamais le sens.</li>
+  </ul>
+
+  <h2 style="font-family:Verdana,sans-serif;font-size:14pt;color:#1d4e89;margin:22px 0 6px">Ce que l'application ne sait pas faire</h2>
+  <p style="font-family:Verdana,sans-serif;font-size:10.5pt;color:#48586b;line-height:1.6;margin:0 0 8px">
+    Autant le savoir avant d'en avoir besoin :
+  </p>
+  <ul style="font-family:Verdana,sans-serif;font-size:10.5pt;color:#48586b;line-height:1.6;margin:0;padding-left:20px">
+    <li><strong>Lire une copie photographiée.</strong> Reconnaître des ronds tracés au stylo est un autre métier. En attendant, la photo se lit dans la conversation.</li>
+    <li><strong>Lire un scan de fiche EANA.</strong> Sans champs de formulaire, il n'y a rien à lire.</li>
+    <li><strong>Aller chercher un fichier sur le Drive.</strong> L'application tourne dans le navigateur, sans accès au compte : le bouton ouvre le dossier, c'est tout.</li>
+    <li><strong>Corriger l'orthographe hors connexion.</strong> Le correcteur est un service en ligne ; sans réseau, il se signale et la fiche reste imprimable.</li>
+    <li><strong>Dire l'orientation à ta place.</strong> Pour le test de maths de plus de 16 ans, le sujet du CASNAV de Lyon étiquette chaque exercice par niveau — exercices 1 à 5 : CAP ; 6 à 17 : 2de Bac pro et 2de GT ; 18 à 20 : 1re et Terminale. La phrase « palier conseillé » que l'application affiche en dessous s'appuie là-dessus, mais ses seuils (60 % par groupe, volontairement prudents) sont un calcul de l'application, pas une règle du CASNAV. C'est un point de départ de discussion, jamais une décision.</li>
+    <li><strong>Décider de la note « très bonne maîtrise ».</strong> Sur ce même test, le barème d'origine accordait « ++ » à quatre ou cinq calculs justes sur six ; ici, « ++ » demande que tout soit juste. L'écart est assumé, la grille d'origine reste consignée dans le code si tu dois la justifier.</li>
+  </ul>
+</doc-page>
+</x-dc>
+</body>
+</html>
