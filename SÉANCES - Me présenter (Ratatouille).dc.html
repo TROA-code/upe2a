@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" />
+<style>
+  doc-page:not(:defined) { visibility: hidden; }
+  @media print { .ecran-seul { display: none !important; } }
+  a { color: #1d4e89; }
+  a:hover { color: #123a6b; }
+</style>
+<script src="doc-page.js"></script>
+</helmet>
+
+<div class="ecran-seul" style="font-family:Verdana,Tahoma,sans-serif;padding:16px 18px 4px;display:flex;flex-direction:column;gap:12px">
+  <div style="display:flex;flex-direction:column;gap:4px">
+    <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:16px;letter-spacing:.02em">ME PRÉSENTER — SÉANCES 1 ET 2</div>
+    <div style="font-size:11.5px;color:#6b7386;line-height:1.45">{{ aide }}</div>
+  </div>
+  <div style="display:flex;gap:18px;flex-wrap:wrap;align-items:flex-end">
+    <div style="display:flex;flex-direction:column;gap:5px">
+      <div style="font-size:10.5px;color:#8595a8;letter-spacing:.06em;font-weight:bold">PAGES À IMPRIMER</div>
+      <div style="display:flex;border:2px solid #1d4e89;border-radius:9px;overflow:hidden">
+        <sc-for list="{{ ecrans }}" as="e" hint-placeholder-count="4">
+          <button onClick="{{ e.onClick }}" style="border:none;border-left:2px solid {{ e.sep }};background:{{ e.fond }};color:{{ e.encre }};padding:9px 14px;font-size:12.5px;font-weight:bold;cursor:pointer">{{ e.nom }}</button>
+        </sc-for>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:5px">
+      <div style="font-size:10.5px;color:#8595a8;letter-spacing:.06em;font-weight:bold">À PROJETER</div>
+      <div style="display:flex;border:2px solid #6d5bd0;border-radius:9px;overflow:hidden">
+        <sc-for list="{{ ecransDiapo }}" as="e" hint-placeholder-count="2">
+          <button onClick="{{ e.onClick }}" style="border:none;border-left:2px solid {{ e.sep }};background:{{ e.fond }};color:{{ e.encre }};padding:9px 14px;font-size:12.5px;font-weight:bold;cursor:pointer">{{ e.nom }}</button>
+        </sc-for>
+      </div>
+    </div>
+    <sc-if value="{{ estDoc }}" hint-placeholder-val="{{ true }}">
+      <button onClick="{{ imprimer }}" style="border:none;background:#2a9d6e;color:#fff;border-radius:9px;padding:10px 18px;font-family:'Archivo Black',Verdana,sans-serif;font-size:12px;letter-spacing:.04em;cursor:pointer">IMPRIMER</button>
+    </sc-if>
+  </div>
+</div>
+
+<sc-if value="{{ estDiapo }}" hint-placeholder-val="{{ false }}">
+<div class="ecran-seul" style="font-family:Verdana,Tahoma,sans-serif;padding:6px 18px 22px;display:flex;flex-direction:column;gap:12px;align-items:center">
+  <div id="diapo-scene" style="width:100%;max-width:1080px;aspect-ratio:16 / 9;border:2px solid #1c2430;border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center;padding:3.2cqw 4cqw;box-sizing:border-box;overflow:hidden;color:#1c2430;container-type:size">
+
+    <sc-if value="{{ dEstBonjour }}" hint-placeholder-val="{{ true }}">
+      <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:9cqw;letter-spacing:.01em">Bonjour !</div>
+    </sc-if>
+
+    <sc-if value="{{ dEstSons }}" hint-placeholder-val="{{ false }}">
+      <div style="width:100%;display:grid;grid-template-columns:1fr 1fr;border:3px solid #1c2430">
+        <div style="border-right:3px solid #1c2430">
+          <div style="background:#1c2430;color:#fff;text-align:center;font-family:'Archivo Black',Verdana,sans-serif;font-size:4.2cqw;padding:.6cqw">OU</div>
+          <sc-for list="{{ motsOu }}" as="m" hint-placeholder-count="4">
+            <div style="font-size:3.6cqw;text-align:center;padding:.7cqw;border-top:1px solid #c3d2e2">{{ m }}</div>
+          </sc-for>
+        </div>
+        <div>
+          <div style="background:#1c2430;color:#fff;text-align:center;font-family:'Archivo Black',Verdana,sans-serif;font-size:4.2cqw;padding:.6cqw">U</div>
+          <sc-for list="{{ motsU }}" as="m" hint-placeholder-count="4">
+            <div style="font-size:3.6cqw;text-align:center;padding:.7cqw;border-top:1px solid #c3d2e2">{{ m }}</div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ dEstNombres }}" hint-placeholder-val="{{ false }}">
+      <div style="width:100%;display:grid;grid-template-columns:repeat(6, 1fr);border:3px solid #1c2430">
+        <sc-for list="{{ nombres }}" as="n" hint-placeholder-count="6">
+          <div style="min-width:0;border-left:1px solid #c3d2e2;text-align:center;font-family:'Archivo Black',Verdana,sans-serif;font-size:8.4cqw;padding:1.2cqw 0">{{ n }}</div>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ dEstBulle }}" hint-placeholder-val="{{ false }}">
+      <div style="width:100%;display:flex;align-items:center;gap:3.4cqw">
+        <img data-src="{{ dImg }}" alt="" style="flex:0 0 auto;max-height:78cqh;max-width:46%;width:auto;height:auto;border-radius:8px" />
+        <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:1.2cqw;font-size:5.2cqw;line-height:1.25">
+          <sc-for list="{{ dLignes }}" as="l" hint-placeholder-count="2">
+            <div>{{ l }}</div>
+          </sc-for>
+          <sc-if value="{{ dEtToi }}" hint-placeholder-val="{{ false }}">
+            <div style="align-self:flex-start;background:#ffe9a8;padding:.2cqw 1.3cqw">Et toi ?</div>
+          </sc-if>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ dEstStructure }}" hint-placeholder-val="{{ false }}">
+      <div style="width:100%;display:flex;flex-direction:column;align-items:center;gap:2.6cqw">
+        <div style="border:4px dashed #1d4e89;border-radius:14px;padding:1.8cqw 3.6cqw;font-family:'Archivo Black',Verdana,sans-serif;font-size:5.4cqw;color:#1d4e89;text-align:center;line-height:1.2">{{ dStructure }}</div>
+        <div style="display:flex;gap:2.4cqw;flex-wrap:wrap;justify-content:center">
+          <sc-for list="{{ dExemples }}" as="x" hint-placeholder-count="3">
+            <div style="border:2px solid #1c2430;border-radius:10px;background:#f7fafd;padding:1.1cqw 2.4cqw;font-size:3.7cqw">{{ x }}</div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ dEstRecap }}" hint-placeholder-val="{{ false }}">
+      <div style="width:100%;display:flex;flex-direction:column;gap:1.5cqw;align-items:center">
+        <sc-for list="{{ dRecap }}" as="r" hint-placeholder-count="3">
+          <div style="width:100%;border:3px solid #1d4e89;border-radius:12px;padding:1.1cqw 2.6cqw;font-family:'Archivo Black',Verdana,sans-serif;font-size:3.4cqw;color:#1d4e89;text-align:center">{{ r }}</div>
+        </sc-for>
+      </div>
+    </sc-if>
+
+  </div>
+
+  <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center">
+    <button onClick="{{ diapoPrec }}" style="border:2px solid #1c2430;background:#fff;border-radius:9px;padding:9px 18px;font-size:15px;font-weight:bold;cursor:pointer">←</button>
+    <div style="font-size:13px;color:#6b7386;min-width:110px;text-align:center">{{ dRang }} · {{ dNom }}</div>
+    <button onClick="{{ diapoSuiv }}" style="border:2px solid #1c2430;background:#fff;border-radius:9px;padding:9px 18px;font-size:15px;font-weight:bold;cursor:pointer">→</button>
+    <button onClick="{{ pleinEcran }}" style="border:none;background:#6d5bd0;color:#fff;border-radius:9px;padding:10px 18px;font-family:'Archivo Black',Verdana,sans-serif;font-size:12px;letter-spacing:.04em;cursor:pointer">{{ libelPlein }}</button>
+  </div>
+  <div style="font-size:11.5px;color:#8595a8">Les flèches du clavier changent de diapositive.</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ estDoc }}" hint-placeholder-val="{{ true }}">
+<doc-page margin="0.55in">
+  <div style="font-family:Verdana,Tahoma,sans-serif;color:#1c2430">
+
+    <sc-if value="{{ estPrep }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-direction:column;gap:5mm">
+        <div style="display:flex;flex-direction:column;gap:1.5mm;border-bottom:2.5px solid #1c2430;padding-bottom:3mm">
+          <div style="font-size:9.5pt;letter-spacing:.1em;color:#6b7386;font-weight:bold">FICHE DE PRÉPARATION</div>
+          <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:17pt;line-height:1.15">{{ prepTitre }}</div>
+          <div style="font-size:10pt;color:#444">{{ prepSous }}</div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:34mm 1fr;gap:2mm 5mm;font-size:9.5pt;line-height:1.45">
+          <sc-for list="{{ prepCadre }}" as="l" hint-placeholder-count="6">
+            <div style="font-weight:bold;color:#1d4e89">{{ l.cle }}</div>
+            <div>{{ l.val }}</div>
+          </sc-for>
+        </div>
+
+        <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:12pt;padding-top:1mm">DÉROULEMENT</div>
+        <div style="display:flex;flex-direction:column;gap:3mm">
+          <sc-for list="{{ prepPhases }}" as="p" hint-placeholder-count="8">
+            <div style="border:1px solid #c3d2e2;border-radius:2.5mm;break-inside:avoid;display:flex;flex-direction:column">
+              <div style="display:flex;align-items:baseline;gap:3mm;background:#eef3f8;padding:2mm 3mm;border-bottom:1px solid #c3d2e2">
+                <span style="font-family:'Archivo Black',Verdana,sans-serif;font-size:11pt;color:#1d4e89">{{ p.num }}</span>
+                <span style="flex:1;font-size:11pt;font-weight:bold">{{ p.titre }}</span>
+                <span style="font-size:9.5pt;color:#6b7386">{{ p.duree }} · {{ p.modalite }}</span>
+              </div>
+              <div style="padding:2.5mm 3mm;font-size:9.5pt;line-height:1.5">{{ p.quoi }}</div>
+              <div style="padding:0 3mm 2.5mm;font-size:9pt;line-height:1.45;color:#5a4a1e;background:#fdf7e6;border-top:1px dashed #e3c380;padding-top:2mm">
+                <span style="font-weight:bold">Pourquoi / vigilance — </span>{{ p.pourquoi }}
+              </div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:5mm;break-inside:avoid;padding-top:1mm">
+          <div style="display:flex;flex-direction:column;gap:1.5mm">
+            <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:11pt">MATÉRIEL À PRÉPARER</div>
+            <sc-for list="{{ prepMateriel }}" as="m" hint-placeholder-count="4">
+              <div style="font-size:9.5pt;line-height:1.45">• {{ m }}</div>
+            </sc-for>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:1.5mm">
+            <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:11pt">DIAPORAMA</div>
+            <sc-for list="{{ prepDiapo }}" as="d" hint-placeholder-count="6">
+              <div style="font-size:9.5pt;line-height:1.45">{{ d }}</div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ estFiche1 }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:4mm">
+        <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:2.5px solid #1c2430;padding-bottom:2mm;gap:5mm">
+          <div style="flex:1;min-width:0">
+            <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:18pt">ME PRÉSENTER — 1</div>
+            <div style="font-size:11pt;color:#6b7386;padding-top:1mm">Prénom : ______________________</div>
+          </div>
+          <img data-src="clean/seances/me-presenter/cuisine.png" alt="Dans la cuisine" style="flex:0 0 auto;width:38mm;height:16mm;object-fit:contain;border-radius:2mm" />
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:2mm">
+          <div style="display:flex;align-items:center;gap:2.5mm">
+            <img data-src="clean/pictos/ecoute.png" alt="Écoute" style="flex:0 0 auto;height:9mm;width:auto" />
+            <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:12.5pt">1. Écoutez. Répétez.</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;border:2px solid #1c2430">
+            <div style="border-right:2px solid #1c2430">
+              <div style="background:#1c2430;color:#fff;text-align:center;font-family:'Archivo Black',Verdana,sans-serif;font-size:15pt;padding:1.2mm">OU</div>
+              <sc-for list="{{ motsOu }}" as="m" hint-placeholder-count="4">
+                <div style="font-size:16pt;text-align:center;padding:1.2mm;border-top:1px solid #c3d2e2">{{ m }}</div>
+              </sc-for>
+            </div>
+            <div>
+              <div style="background:#1c2430;color:#fff;text-align:center;font-family:'Archivo Black',Verdana,sans-serif;font-size:15pt;padding:1.2mm">U</div>
+              <sc-for list="{{ motsU }}" as="m" hint-placeholder-count="4">
+                <div style="font-size:16pt;text-align:center;padding:1.2mm;border-top:1px solid #c3d2e2">{{ m }}</div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:2.5mm">
+            <img data-src="clean/pictos/entoure.png" alt="Entoure" style="flex:0 0 auto;height:8mm;width:auto" />
+            <div style="font-size:11pt;color:#444">Entourez le mot que vous entendez.</div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:2mm">
+          <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:12.5pt">2. Mon prénom</div>
+          <div style="display:flex;align-items:center;gap:3mm;border:2px solid #1c2430;border-radius:4mm;padding:3mm 4mm;background:#f7fafd">
+            <img data-src="clean/seances/me-presenter/remi-salut.png" alt="Rémi" style="flex:0 0 auto;height:17mm;width:auto" />
+            <div style="flex:1;min-width:0;font-size:15pt;line-height:1.5">
+              Bonjour !<br />Je m'appelle Rémi.<br /><span style="background:#ffe9a8;padding:0 2mm">Et toi ?</span>
+            </div>
+          </div>
+          <div style="align-self:flex-start;display:flex;align-items:center;gap:2mm;border:2px dashed #1d4e89;border-radius:3mm;padding:1.5mm 3mm">
+            <img data-src="clean/pictos/structure.png" alt="" style="flex:0 0 auto;height:7mm;width:auto" />
+            <span style="font-family:'Archivo Black',Verdana,sans-serif;font-size:11pt;color:#1d4e89">JE M'APPELLE + prénom</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:2.5mm">
+            <img data-src="clean/pictos/ecris.png" alt="Écris" style="flex:0 0 auto;height:8mm;width:auto" />
+            <div style="flex:1;min-width:0;font-size:15pt">Je m'appelle <span style="border-bottom:2px solid #1c2430;display:inline-block;width:88mm"></span></div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:2mm">
+          <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:12.5pt">3. Mon métier</div>
+          <div style="display:flex;align-items:center;gap:3mm;border:2px solid #1c2430;border-radius:4mm;padding:3mm 4mm;background:#f7fafd">
+            <img data-src="clean/seances/me-presenter/remi-cuillere.png" alt="Rémi cuisinier" style="flex:0 0 auto;height:20mm;width:auto" />
+            <div style="flex:1;min-width:0;font-size:15pt;line-height:1.5">
+              Je suis cuisinier.<br /><span style="background:#ffe9a8;padding:0 2mm">Et toi ?</span>
+            </div>
+          </div>
+          <div style="align-self:flex-start;display:flex;align-items:center;gap:2mm;border:2px dashed #1d4e89;border-radius:3mm;padding:1.5mm 3mm">
+            <img data-src="clean/pictos/structure.png" alt="" style="flex:0 0 auto;height:7mm;width:auto" />
+            <span style="font-family:'Archivo Black',Verdana,sans-serif;font-size:11pt;color:#1d4e89">JE SUIS + métier</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:2.5mm">
+            <img data-src="clean/pictos/ecris.png" alt="Écris" style="flex:0 0 auto;height:8mm;width:auto" />
+            <div style="flex:1;min-width:0;font-size:15pt">Je suis <span style="border-bottom:2px solid #1c2430;display:inline-block;width:103mm"></span></div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:2mm;border-top:1.5px dashed #8a8a8a;padding-top:3mm">
+          <div style="display:flex;align-items:center;gap:2.5mm">
+            <img data-src="clean/pictos/camarade.png" alt="Un camarade" style="flex:0 0 auto;height:9mm;width:auto" />
+            <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:12.5pt">4. Demandez à un camarade.</div>
+          </div>
+          <div style="font-size:15pt">Il / Elle s'appelle <span style="border-bottom:2px solid #1c2430;display:inline-block;width:92mm"></span></div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ estFiche2 }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:4mm">
+        <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:2.5px solid #1c2430;padding-bottom:2mm;gap:5mm">
+          <div style="flex:1;min-width:0">
+            <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:18pt">ME PRÉSENTER — 2</div>
+            <div style="font-size:11pt;color:#6b7386;padding-top:1mm">Prénom : ______________________</div>
+          </div>
+          <img data-src="clean/seances/me-presenter/cuisine.png" alt="Dans la cuisine" style="flex:0 0 auto;width:38mm;height:16mm;object-fit:contain;border-radius:2mm" />
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:2mm">
+          <div style="display:flex;align-items:center;gap:2.5mm">
+            <img data-src="clean/pictos/ecris.png" alt="Écris" style="flex:0 0 auto;height:9mm;width:auto" />
+            <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:12.5pt">1. Je me souviens.</div>
+          </div>
+          <div style="font-size:15pt;line-height:1.9">
+            Je m'appelle <span style="border-bottom:2px solid #1c2430;display:inline-block;width:105mm"></span><br />
+            Je suis <span style="border-bottom:2px solid #1c2430;display:inline-block;width:120mm"></span>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:2mm">
+          <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:12.5pt">2. Ma ville</div>
+          <div style="display:flex;align-items:center;gap:3mm;border:2px solid #1c2430;border-radius:4mm;padding:3mm 4mm;background:#f7fafd">
+            <img data-src="clean/seances/me-presenter/remi-fenetre.png" alt="Rémi dans la cuisine" style="flex:0 0 auto;width:44mm;height:18mm;object-fit:contain;border-radius:2mm" />
+            <div style="flex:1;min-width:0;font-size:15pt;line-height:1.5">
+              J'habite à Paris.<br /><span style="background:#ffe9a8;padding:0 2mm">Et toi ?</span>
+            </div>
+          </div>
+          <div style="align-self:flex-start;display:flex;align-items:center;gap:2mm;border:2px dashed #1d4e89;border-radius:3mm;padding:1.5mm 3mm">
+            <img data-src="clean/pictos/structure.png" alt="" style="flex:0 0 auto;height:7mm;width:auto" />
+            <span style="font-family:'Archivo Black',Verdana,sans-serif;font-size:11pt;color:#1d4e89">J'HABITE + à Paris / au Havre</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:2.5mm">
+            <img data-src="clean/pictos/ecris.png" alt="Écris" style="flex:0 0 auto;height:8mm;width:auto" />
+            <div style="flex:1;min-width:0;font-size:15pt">J'habite <span style="border-bottom:2px solid #1c2430;display:inline-block;width:98mm"></span></div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:2mm">
+          <div style="display:flex;align-items:center;gap:2.5mm">
+            <img data-src="clean/pictos/ecoute.png" alt="Écoute" style="flex:0 0 auto;height:9mm;width:auto" />
+            <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:12.5pt">3. Écoutez. Répétez.</div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(6, 1fr);border:2px solid #1c2430">
+            <sc-for list="{{ nombres }}" as="n" hint-placeholder-count="6">
+              <div style="border-left:1px solid #c3d2e2;text-align:center;font-family:'Archivo Black',Verdana,sans-serif;font-size:22pt;padding:1.5mm 0">{{ n }}</div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:2mm">
+          <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:12.5pt">4. Mon âge</div>
+          <div style="display:flex;gap:4mm;flex-wrap:wrap">
+            <div style="flex:1;min-width:70mm;display:flex;align-items:center;gap:2.5mm;border:2px solid #1c2430;border-radius:4mm;padding:3mm;background:#f7fafd">
+              <img data-src="clean/seances/me-presenter/remi-pointe.png" alt="Rémi" style="flex:0 0 auto;height:19mm;width:auto" />
+              <div style="flex:1;min-width:0;font-size:15pt;line-height:1.5">J'ai 18 ans.<br /><span style="background:#ffe9a8;padding:0 2mm">Et toi ?</span></div>
+            </div>
+            <div style="flex:1;min-width:70mm;display:flex;align-items:center;gap:2.5mm;border:2px solid #1c2430;border-radius:4mm;padding:3mm;background:#f7fafd">
+              <img data-src="clean/seances/me-presenter/gusteau.png" alt="Gusteau" style="flex:0 0 auto;width:22mm;height:16mm;object-fit:contain;border-radius:2mm" />
+              <div style="flex:1;min-width:0;font-size:15pt;line-height:1.5">J'ai 50 ans.</div>
+            </div>
+          </div>
+          <div style="align-self:flex-start;display:flex;align-items:center;gap:2mm;border:2px dashed #1d4e89;border-radius:3mm;padding:1.5mm 3mm">
+            <img data-src="clean/pictos/structure.png" alt="" style="flex:0 0 auto;height:7mm;width:auto" />
+            <span style="font-family:'Archivo Black',Verdana,sans-serif;font-size:11pt;color:#1d4e89">J'AI + nombre + ANS</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:2.5mm">
+            <img data-src="clean/pictos/ecris.png" alt="Écris" style="flex:0 0 auto;height:8mm;width:auto" />
+            <div style="flex:1;min-width:0;font-size:15pt">J'ai <span style="border-bottom:2px solid #1c2430;display:inline-block;width:24mm"></span> ans.</div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:2mm;border-top:1.5px dashed #8a8a8a;padding-top:3mm">
+          <div style="display:flex;align-items:center;gap:2.5mm">
+            <img data-src="clean/pictos/camarade.png" alt="Un camarade" style="flex:0 0 auto;height:9mm;width:auto" />
+            <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:12.5pt">5. Demandez à un camarade.</div>
+          </div>
+          <div style="font-size:15pt;line-height:1.9">
+            Il / Elle s'appelle <span style="border-bottom:2px solid #1c2430;display:inline-block;width:92mm"></span><br />
+            Il / Elle a <span style="border-bottom:2px solid #1c2430;display:inline-block;width:24mm"></span> ans.
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+  </div>
+</doc-page>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:900,&quot;height&quot;:1180}}">
+/* LES DEUX PREMIÈRES SÉANCES DE « ME PRÉSENTER », reprises de ses quatre documents Word
+   (04/09/26) avec six corrections qu'elle a validées :
+
+   1. Rémi avait 12 ans devant des élèves de 16 à 18 ans, et surtout 12 ne figurait pas
+      dans la bande 15–20 qu'ils doivent utiliser : le modèle de la structure ne se prenait
+      pas dans l'outil de la structure. Rémi a 18 ans, Gusteau garde ses 50 ans — le
+      contraste reste, l'âge se montre sur la bande.
+   2. L'univers du dessin animé est allégé : l'entrée reste le métier de cuisinier, qui
+      parle à des élèves de lycée professionnel, sans habillage enfantin.
+   3. « J'habite » est passé de la séance 1 à la séance 2. La séance 1 portait trois
+      structures + la phonologie + deux écrits, la séance 2 une seule structure. Séance 1 :
+      prénom et métier. Séance 2 : ville et âge.
+   4. L'objectif écrit de la séance 1 disait « le prénom et la ville, rien d'autre » alors
+      que la fiche faisait copier le métier : c'est prénom + métier, la ville a suivi
+      « j'habite » en séance 2.
+   5. La clôture ne fait plus dire « j'habite au Havre » à tout le monde — plusieurs
+      habitent Harfleur ou Montivilliers, et faire mentir l'élève dans une séance sur se
+      présenter est le seul endroit où il ne faut pas.
+   6. Les cartons portent OU et U écrits : le lien couleur ↔ son était arbitraire, une
+      charge de plus à retenir. La carte porte maintenant l'information. */
+class Component extends DCLogic {
+  state = { ecran: 'prep1', diapo: 0, plein: false };
+
+  /* LES DEUX DIAPORAMAS, repris de ses deux PowerPoint (04/09/26). Deux écarts assumés,
+     les mêmes que sur les fiches : « J'habite » suit sa séance et passe du diaporama 1 au
+     diaporama 2, et Rémi a 18 ans au lieu de 12 — un âge qui figure sur la bande 15–20 et
+     qui est celui de la classe. Les images sont celles de ses PowerPoint, déjà rangées
+     pour les fiches : rien de neuf n'a été fabriqué. */
+  diapos() {
+    const R = 'clean/seances/me-presenter/';
+    const RECAP1 = ['JE M’APPELLE + prénom', 'JE SUIS + métier'];
+    const RECAP2 = RECAP1.concat(['J’HABITE + à / au + ville', 'J’AI + nombre + ANS']);
+    return {
+      diapo1: [
+        { nom: 'Bonjour', type: 'bonjour' },
+        { nom: 'ou / u', type: 'sons' },
+        { nom: 'Je m’appelle', type: 'bulle', img: R + 'cuisine.png', lignes: ['Bonjour !', 'Je m’appelle Rémi.'], etToi: true },
+        { nom: 'La structure', type: 'structure', structure: 'JE M’APPELLE + ______', exemples: ['Rémi', 'Colette', 'Alfredo'] },
+        { nom: 'Je suis cuisinier', type: 'bulle', img: R + 'remi-cuillere.png', lignes: ['Je suis cuisinier.'], etToi: true },
+        { nom: 'La structure', type: 'structure', structure: 'JE SUIS + ______', exemples: ['cuisinier', 'professeur', 'élève'] },
+        { nom: 'On récapitule', type: 'recap', recap: RECAP1 }
+      ],
+      diapo2: [
+        { nom: 'Bonjour', type: 'bonjour' },
+        { nom: 'Séance 1', type: 'recap', recap: RECAP1 },
+        { nom: 'ou / u', type: 'sons' },
+        { nom: 'J’habite', type: 'bulle', img: R + 'remi-fenetre.png', lignes: ['J’habite à Paris.'], etToi: true },
+        { nom: 'La structure', type: 'structure', structure: 'J’HABITE + ______', exemples: ['à Paris', 'au Havre', 'à Harfleur'] },
+        { nom: '15 à 20', type: 'nombres' },
+        { nom: 'J’ai 18 ans', type: 'bulle', img: R + 'remi-pointe.png', lignes: ['J’ai 18 ans.'], etToi: true },
+        { nom: 'J’ai 50 ans', type: 'bulle', img: R + 'gusteau.png', lignes: ['J’ai 50 ans.'] },
+        { nom: 'La structure', type: 'structure', structure: 'J’AI + ______ + ANS', exemples: ['18 ans', '50 ans', '___ ans'] },
+        { nom: 'On récapitule', type: 'recap', recap: RECAP2 }
+      ]
+    };
+  }
+
+  jeuCourant() { return this.diapos()[this.state.ecran] || []; }
+
+  bouger(pas) {
+    const n = this.jeuCourant().length;
+    if (!n) return;
+    this.setState(s => ({ diapo: Math.min(n - 1, Math.max(0, s.diapo + pas)) }));
+  }
+
+  clavier = (e) => {
+    if (!this.diapos()[this.state.ecran]) return;
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { this.bouger(1); e.preventDefault(); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { this.bouger(-1); e.preventDefault(); }
+    else if (e.key === 'Escape' && this.state.plein) { this.setState({ plein: false }); }
+  };
+
+  /* Les images sont celles de ses documents Word, extraites telles quelles. Elle y tient :
+     les élèves ont vu ces images en classe.
+     Le rangement suit l'USAGE et non la source (04/09/26) : les images propres à la
+     séquence sont dans `clean/seances/me-presenter/` (Rémi qui salue, à la cuillère, qui
+     pointe, à la fenêtre, Gusteau, la cuisine), et les cinq pictogrammes de consigne dans
+     `clean/pictos/` — écoute, entoure, écris, camarade, structure — parce qu'ils servent à
+     n'importe quelle séance. Un premier jet les avait mis ensemble dans `clean/rata/` :
+     ranger par œuvre de fiction obligeait à dupliquer les pictogrammes dans chaque
+     séquence, et l'abréviation ne se relit pas.
+     Elles portent `data-src` et non `src` — un `src="{{ … }}"` fait demander au navigateur
+     l'adresse littérale avant que les valeurs soient résolues, ce qui laisse une erreur de
+     chargement à chaque ouverture. On recopie l'adresse après le rendu. */
+  poserImages() {
+    const r = this.el || document;
+    r.querySelectorAll('img[data-src]').forEach(i => {
+      const s = i.getAttribute('data-src');
+      if (s && s.indexOf('{{') < 0 && i.getAttribute('src') !== s) i.setAttribute('src', s);
+    });
+  }
+  /* « Plein écran » est fait à la main et non avec le plein écran du navigateur : la vue
+     est dans un cadre, et le navigateur refuse la demande venue d'un cadre — le bouton ne
+     faisait rien (04/09/26). La diapositive est donc simplement posée par-dessus toute la
+     fenêtre ; Échap la referme. */
+  posePlein() {
+    const n = (this.el || document).querySelector('#diapo-scene');
+    if (!n) return;
+    /* Les valeurs de repos sont \u00e9crites en dur dans le gabarit : on les m\u00e9morise au
+       premier passage, sinon en sortir remettrait « vide » et effacerait le cadre, le
+       format 16/9 et la largeur maximale pour de bon. */
+    if (!this._repos) this._repos = n.getAttribute('style') || '';
+    if (this.state.plein) {
+      n.setAttribute('style', this._repos +
+        ';position:fixed;inset:0;z-index:9999;max-width:none;width:100vw;height:100vh' +
+        ';aspect-ratio:auto;border-radius:0;border:none');
+    } else {
+      n.setAttribute('style', this._repos);
+    }
+  }
+  componentDidMount() { this.poserImages(); this.posePlein(); window.addEventListener('keydown', this.clavier); }
+  componentWillUnmount() { window.removeEventListener('keydown', this.clavier); }
+  componentDidUpdate() { this.poserImages(); this.posePlein(); }
+
+  seances() {
+    return {
+      prep1: {
+        titre: 'Séance 1 — Me présenter : mon prénom, mon métier',
+        sous: 'Séquence « Me présenter, présenter quelqu\'un » — entrée par le métier (la cuisine) · 1 / 3',
+        cadre: [
+          ['Classe', 'UPE2A-NSA, lycée professionnel — 16/18 ans, groupe hétérogène, débutants complets à l\'oral pour la plupart'],
+          ['Durée', '55 min'],
+          ['Support', 'Fiche « Me présenter 1 » (1 page), diaporama, étiquettes-prénoms, cartons OU / U'],
+          ['Objectif principal', 'Dire son prénom et son métier (ou « élève ») avec deux structures fixes, et poser la question « et toi ? »'],
+          ['Objectif phonologique', 'Discriminer à l\'oreille [u] et [y] (ou / u). Pas de production exigée, pas d\'écrit.'],
+          ['Objectif écrit', 'Copier son prénom et son métier sur la ligne prévue. Rien d\'autre.'],
+          ['Compétences', 'Pré-A1 → A1.1 : interaction orale (se présenter, demander), compréhension orale de mots isolés'],
+          ['Prérequis', 'Aucun. Sait tenir un crayon et copier son prénom (vu en semaine 1).']
+        ],
+        phases: [
+          ['1', 'Rituel d\'entrée', '5\'', 'Collectif, oral',
+            'Le prof salue chaque élève par son prénom : « Bonjour, X ! ». Attendu : « Bonjour ! ». Affiche « Bonjour ! » au tableau, pointée à chaque fois.',
+            'Poser dès l\'entrée la formule que la fiche réutilise. Aucun matériel élève sorti.'],
+          ['2', 'Écoute — ou / u', '12\'', 'Collectif, oral, fiches fermées',
+            'Le prof, de profil, montre le geste. Pour le « ou » : ① faites « o » ; ② soufflez sur une bougie ; ③ faites « o » avec la même bouche que pour souffler. Pour le « u » : ① dites « i » ; ② sans bouger la langue, arrondissez les lèvres en avant comme pour dire « ou ». Résultat : « u ». Puis le prof dit les 8 mots un par un, les élèves répètent en chœur puis un par un. Jeu : le prof dit un mot, les élèves lèvent le carton OU ou le carton U.',
+            'Le secret : « dire i avec la bouche de ou ». On fait, on ne dit pas. Attendu : pas 100 % de réussite. Pour beaucoup de langues d\'origine, [y] n\'existe pas : c\'est normal, on y revient chaque jour. Les cartons portent OU et U écrits — pas de couleur à retenir en plus du son.'],
+          ['3', 'Entourer', '6\'', 'Individuel, fiche',
+            'On ouvre la fiche. Le prof lit la colonne OU en pointant chaque mot sur le diaporama, puis la colonne U. Ensuite, trois fois : « Entourez… rouge. » (le prof dit le mot, montre le carton OU, pointe le mot sur l\'écran ; les élèves entourent). Puis « Entourez… tu. » (carton U). Puis « Entourez… salut. » (carton U).',
+            'Les élèves ne lisent pas : ils suivent le pointage. Repérage spatial et tenue du crayon, pas lecture. Ne pas demander « quel mot ? ». Trois mots suffisent.'],
+          ['4', 'Modèle — Je m\'appelle', '10\'', 'Collectif, oral',
+            'Le prof joue la bulle avec la photo de Rémi : « Bonjour ! Je m\'appelle Rémi. Et toi ? » → se tourne vers un élève. L\'élève répond. Chaîne : chaque élève se tourne vers son voisin et pose « et toi ? ». Diapo : JE M\'APPELLE + ___.',
+            'Le « et toi ? » surligné est la clé : c\'est ce qui rend l\'élève acteur. Ne pas corriger la prononciation à ce stade, valider tout ce qui est compréhensible.'],
+          ['5', 'Écrire — mon prénom', '6\'', 'Individuel, fiche',
+            'Chaque élève copie son prénom sur la ligne, depuis son étiquette-prénom. Le prof passe et dit à chacun « Tu t\'appelles X », l\'élève répète « Je m\'appelle X ».',
+            'Différenciation : étiquette en capitales pour les non-scripteurs, en cursive pour ceux qui ont déjà des bases. Ceux qui ont fini illustrent la ligne, pas d\'exercice supplémentaire.'],
+          ['6', 'Modèle — mon métier', '10\'', 'Collectif, oral, fiche',
+            'Même démarche : « Je suis cuisinier. » (Rémi, la cuillère) → « Je suis professeur. » (le prof, geste) → « Je suis élève. » (tous, en chœur, puis un par un). La diapo de la structure apparaît à ce moment-là.',
+            'Tous diront « je suis élève » : c\'est voulu. Ce qui s\'apprend, c\'est le bloc JE SUIS + statut, et que le mot change selon la personne. Les élèves qui ont un métier en tête (maçon, coiffeur) le disent : c\'est le thème « Les métiers » qui fournit l\'image.'],
+          ['7', 'Écrire + un camarade', '8\'', 'Binômes, fiche',
+            'Chacun copie « élève » ou son métier, depuis le modèle écrit par le prof sur un post-it. Puis en binôme : A demande « et toi ? », B répond, A écrit le prénom de B sur la ligne « Il / Elle s\'appelle ».',
+            'Le prof fournit tous les modèles écrits : on copie, on ne compose pas. Attendu réaliste : deux lignes remplies sur trois. Le « il / elle » n\'est pas enseigné, il est entendu.'],
+          ['8', 'Clôture', '3\'', 'Collectif',
+            'Debout, chacun dit d\'une traite : « Bonjour, je m\'appelle X, je suis élève. » Applaudir. Fiches dans le classeur.',
+            'Bilan à l\'oral seulement. Pas d\'évaluation écrite en séance 1.']
+        ],
+        materiel: [
+          'Fiche élève imprimée (1 page, une par élève)',
+          'Étiquettes-prénoms (capitales + cursive), post-its vierges',
+          'Un carton OU et un carton U par élève (ou par binôme), les lettres écrites en grand',
+          'Photo de Rémi pour jouer les bulles'
+        ],
+        diapo: [
+          '1. « Bonjour ! »',
+          '2. Les deux colonnes OU / U',
+          '3. Rémi qui parle, bulle « Je m\'appelle Rémi. Et toi ? »',
+          '4. JE M\'APPELLE + prénom',
+          '5. Rémi cuisinier, bulle « Je suis cuisinier. »',
+          '6. JE SUIS + métier',
+          '7. Récapitulatif des deux structures'
+        ]
+      },
+      prep2: {
+        titre: 'Séance 2 — Me présenter : ma ville, mon âge',
+        sous: 'Séquence « Me présenter, présenter quelqu\'un » — entrée par le métier (la cuisine) · 2 / 3',
+        cadre: [
+          ['Classe', 'UPE2A-NSA, lycée professionnel — 16/18 ans, groupe hétérogène, débutants complets à l\'oral pour la plupart'],
+          ['Durée', '55 min'],
+          ['Support', 'Fiche « Me présenter 2 » (1 page), la fiche de la séance 1 (dans le classeur), diaporama, cartons OU / U, post-its'],
+          ['Prérequis (séance 1)', 'À l\'oral : Bonjour ! / Je m\'appelle X / Je suis élève / Et toi ? — dits en chaîne. À l\'écrit : copier son prénom et son métier depuis un modèle. Phonologie : le geste o → bougie → ou, le geste i → lèvres en avant → u, reconnaissance au carton OU / U. Ce qu\'on ne suppose pas : lire les mots de la fiche, écrire sans modèle.'],
+          ['Prérequis (maths)', 'Les nombres de 15 à 20 vus en chiffres avec les euros (livret des nombres). S\'ils ne le sont pas encore, garder la bande 15–20 comme seul support : on montre, on ne lit pas.'],
+          ['Objectif principal', 'Dire sa ville avec « J\'habite à / au … » et son âge avec « J\'ai … ans », et demander « et toi ? ». Dire la ville et l\'âge d\'un camarade avec « Il / Elle … ».'],
+          ['Objectif phonologique', 'Rebrassage ou / u (5 min), pas de son nouveau.'],
+          ['Objectif écrit', 'Recopier les deux phrases de la séance 1 depuis sa propre fiche. Copier sa ville depuis un modèle, écrire son âge en chiffres.'],
+          ['Compétences', 'Pré-A1 → A1.1 : interaction orale (se présenter, demander), compréhension orale de nombres']
+        ],
+        phases: [
+          ['1', 'Rituel d\'entrée', '3\'', 'Collectif, oral',
+            'Le prof salue chaque élève par son prénom. Attendu : « Bonjour ! ».',
+            'Même rituel qu\'en séance 1, et qu\'en séance 3. On ne change pas ce qui marche.'],
+          ['2', 'Rebrassage séance 1', '8\'', 'Collectif puis individuel, les deux fiches',
+            'Oral d\'abord : le prof relance la chaîne « Je m\'appelle X, je suis élève… et toi ? » autour de la table. Puis « Je me souviens » : chaque élève ressort sa fiche de la séance 1 et recopie ses deux phrases sur la nouvelle fiche.',
+            'C\'est LA phase prérequis. Si la chaîne orale ne repart pas, on y reste et le reste attendra : rien de neuf ne se pose sur du sable. Copier depuis sa propre fiche, c\'est la première fois qu\'ils réutilisent un écrit à eux.'],
+          ['3', 'Rebrassage ou / u', '5\'', 'Collectif, oral',
+            'Le prof refait les deux gestes de profil : o → bougie → ou ; i → lèvres en avant → u. Puis 6 mots de la séance 1 en désordre, cartons OU / U.',
+            'Quotidien, court. On mesure les progrès à l\'oreille sans le dire.'],
+          ['4', 'Modèle — J\'habite à…', '11\'', 'Collectif, oral, fiche',
+            '« J’habite à Paris. » (Rémi, l’image de la cuisine) → « J’habite au Havre. » (le prof) → tour de table : chacun dit SA ville (à Harfleur, à Montivilliers, au Havre…). Le prof écrit chaque ville sur un post-it au fur et à mesure. La diapo de la structure apparaît à ce moment-là.',
+            'La structure est J\'HABITE + (à / au + ville) : « à Paris », « au Havre » sont des blocs entiers, le petit mot reste collé à la ville. Aucune explication du à / au. Chacun dit sa vraie ville : c\'est une séance sur se présenter, on ne fait pas dire à un élève d\'Harfleur qu\'il habite au Havre.'],
+          ['5', 'Écoute — les nombres', '7\'', 'Collectif, oral, fiche',
+            'Le prof pointe la bande 15–20 sur le diaporama et dit chaque nombre, les élèves répètent en chœur puis un par un. Puis jeu : le prof dit un nombre, les élèves le montrent du doigt sur leur fiche.',
+            'On montre, on ne lit pas. Six nombres seulement : ce sont leurs âges. Si un élève a 14 ou 21 ans, on ajoute son nombre au tableau sans commentaire.'],
+          ['6', 'Modèle — J\'ai … ans', '10\'', 'Collectif, oral, fiche',
+            'Le prof joue Rémi : « J\'ai 18 ans. Et toi ? » → se tourne vers un élève. L\'élève cherche son nombre sur la bande, le montre, le prof dit la phrase, l\'élève répète. Puis Gusteau : « J\'ai 50 ans. » Puis le prof : « J\'ai … ans. » Chaîne autour de la table avec « et toi ? ». Diapo : J\'AI + nombre + ANS.',
+            'Rémi a 18 ans, un âge qui est sur la bande et qui est celui de la classe : le modèle se prend dans l\'outil. Gusteau à 50 ans donne le contraste. Le mot difficile est « ans » (voyelle nasale + liaison : « dix-sept-ans », « vingt-ans ») : on le donne en bloc, on ne l\'explique pas.'],
+          ['7', 'Écrire + un camarade', '8\'', 'Individuel puis binômes, fiche',
+            'Chacun copie sa ville depuis son post-it, puis écrit son âge en chiffres depuis la bande. Le prof passe : « Tu as X ans », l\'élève répète « J\'ai X ans ». Puis en binôme : A demande « et toi ? », B répond, A écrit le prénom et le nombre de B.',
+            'Deux chiffres à copier, pas plus. « Il / Elle a » n\'est pas enseigné : il est entendu, comme « il / elle s\'appelle » en séance 1. La 3ᵉ personne s\'installe par imprégnation sur trois séances.'],
+          ['8', 'Clôture', '3\'', 'Collectif',
+            'Debout, chacun dit d\'une traite : « Je m\'appelle X, je suis élève, j\'habite à [sa ville], j\'ai X ans. » Applaudir. Fiches dans le classeur, derrière celle de la séance 1.',
+            'Quatre phrases d\'affilée, c\'est le vrai bilan — et chacune vraie pour celui qui la dit. Pas d\'évaluation écrite.']
+        ],
+        materiel: [
+          'Fiche élève imprimée (1 page) ; les fiches de la séance 1 doivent être dans les classeurs',
+          'Cartons OU / U, étiquettes-prénoms',
+          'Post-its pour les villes et pour les âges hors 15–20',
+          'Photo de Rémi'
+        ],
+        diapo: [
+          '1. « Bonjour ! »',
+          '2. Les deux structures de la séance 1 (récap) — reste affichée pendant la phase 2',
+          '3. Les deux colonnes OU / U',
+          '4. Une ville, bulle « J\'habite à Paris. »',
+          '5. J\'HABITE + à Paris / au Havre',
+          '6. La bande 15 – 20, très grande',
+          '7. Rémi qui pointe, bulle « J\'ai 18 ans. Et toi ? »',
+          '8. Gusteau, bulle « J\'ai 50 ans. »',
+          '9. J\'AI + nombre + ANS',
+          '10. Récapitulatif des quatre structures'
+        ]
+      }
+    };
+  }
+
+  renderVals() {
+    const ec = this.state.ecran;
+    const S = this.seances();
+    const prep = S[ec] || S.prep1;
+    if (!S[ec] && !this.diapos()[ec]) { /* rien : un écran inconnu retombe sur la séance 1 */ }
+    const bt = (on) => on
+      ? { fond: '#1d4e89', encre: '#fff' }
+      : { fond: '#fff', encre: '#1d4e89' };
+    const jeu = this.diapos()[ec];
+    const d = jeu ? (jeu[Math.min(this.state.diapo, jeu.length - 1)] || {}) : {};
+    const btd = (on) => on ? { fond: '#6d5bd0', encre: '#fff' } : { fond: '#fff', encre: '#6d5bd0' };
+    return {
+      ecrans: [['prep1', 'Prép. séance 1'], ['fiche1', 'Fiche élève 1'], ['prep2', 'Prép. séance 2'], ['fiche2', 'Fiche élève 2']]
+        .map(([cle, nom], i) => Object.assign({
+          nom, sep: i === 0 ? 'transparent' : '#1d4e89',
+          onClick: () => this.setState({ ecran: cle })
+        }, bt(ec === cle))),
+      ecransDiapo: [['diapo1', 'Diapo séance 1'], ['diapo2', 'Diapo séance 2']]
+        .map(([cle, nom], i) => Object.assign({
+          nom, sep: i === 0 ? 'transparent' : '#6d5bd0',
+          onClick: () => this.setState({ ecran: cle, diapo: 0 })
+        }, btd(ec === cle))),
+      estDoc: !jeu,
+      estDiapo: !!jeu,
+      dEstBonjour: d.type === 'bonjour',
+      dEstSons: d.type === 'sons',
+      dEstNombres: d.type === 'nombres',
+      dEstBulle: d.type === 'bulle',
+      dEstStructure: d.type === 'structure',
+      dEstRecap: d.type === 'recap',
+      dImg: d.img || '',
+      dLignes: d.lignes || [],
+      dEtToi: !!d.etToi,
+      dStructure: d.structure || '',
+      dExemples: d.exemples || [],
+      dRecap: d.recap || [],
+      dNom: d.nom || '',
+      dRang: jeu ? (Math.min(this.state.diapo, jeu.length - 1) + 1) + ' / ' + jeu.length : '',
+      diapoPrec: () => this.bouger(-1),
+      diapoSuiv: () => this.bouger(1),
+      pleinEcran: () => this.setState(s => ({ plein: !s.plein })),
+      libelPlein: this.state.plein ? 'QUITTER' : 'PLEIN ÉCRAN',
+      estPrep: ec === 'prep1' || ec === 'prep2',
+      estFiche1: ec === 'fiche1',
+      estFiche2: ec === 'fiche2',
+      prepTitre: prep.titre,
+      prepSous: prep.sous,
+      prepCadre: prep.cadre.map(([cle, val]) => ({ cle, val })),
+      prepPhases: prep.phases.map(([num, titre, duree, modalite, quoi, pourquoi]) =>
+        ({ num, titre, duree, modalite, quoi, pourquoi })),
+      prepMateriel: prep.materiel,
+      prepDiapo: prep.diapo,
+      motsOu: ['rouge', 'bonjour', 'coucou', 'four'],
+      motsU: ['tu', 'salut', 'jus', 'sucre'],
+      nombres: ['15', '16', '17', '18', '19', '20'],
+      aide: ec === 'diapo1'
+        ? 'Le diaporama de la séance 1, à projeter : Bonjour, les sons ou / u, le prénom, le métier.'
+        : ec === 'diapo2'
+        ? 'Le diaporama de la séance 2, à projeter : le rappel, la ville, les nombres, l’âge.'
+        : ec === 'fiche1'
+        ? 'La fiche de l\'élève, séance 1 : les deux colonnes de sons, le prénom, le métier. Une par élève.'
+        : ec === 'fiche2'
+          ? 'La fiche de l\'élève, séance 2 : le rappel de la séance 1, la ville, la bande des nombres, l\'âge.'
+          : 'La fiche de préparation : le déroulement phase par phase, avec la colonne « pourquoi / vigilance ».',
+      imprimer: () => window.print()
+    };
+  }
+}
+</script>
+</body>
+</html>

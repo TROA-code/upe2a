@@ -15,6 +15,9 @@
      ouvert seul perdait l'échelle Lyon, ses exercices et les cases maths de la fiche. -->
 <script src="positionnement.js"></script>
 <script src="positionnement-tests.js"></script>
+<!-- Lecture du parcours scolaire écrit sur la fiche : c'est lui qui fait passer un test
+     en « suggestion » quand la fiche dit « scolarisé jusqu'en CM2 » (05/09). -->
+<script src="positionnement-parcours.js"></script>
 <script src="positionnement-dossiers.js"></script>
 <script src="positionnement-corriges.js"></script>
 <script src="positionnement-redaction.js"></script>
@@ -110,9 +113,12 @@
     </sc-if>
 
     <sc-if value="{{ estE2 }}" hint-placeholder-val="{{ false }}">
-      <div style="display:grid;grid-template-columns:{{ colonnes2 }};gap:18px;align-items:start">
+      <!-- ⚠ UNE SEULE colonne, pleine largeur. La base des tests était le second enfant
+           de la grille : depuis son retrait (05/09), une grille à deux colonnes laissait
+           une moitié droite VIDE — le grand blanc qu'elle a signalé. Tout le contenu de
+           l'étape 2 tient dans ce bloc unique. -->
+      <div style="display:flex;flex-direction:column;gap:18px">
         <div style="background:#fff;border:2px solid #c3d2e2;border-radius:14px;padding:20px 22px;display:flex;flex-direction:column;gap:13px">
-          <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:15px;color:#1d4e89">2 · LE TEST À DONNER</div>
 
           <sc-for list="{{ groupes }}" as="g" hint-placeholder-count="2">
             <div style="border:4px solid {{ g.encre }};border-radius:15px;overflow:hidden;display:flex;flex-direction:column">
@@ -123,26 +129,67 @@
                 </sc-if>
               </div>
               <div style="padding:15px 16px 17px;display:flex;flex-direction:column;gap:12px;background:#fff">
-                <sc-if value="{{ g.plusieurs }}" hint-placeholder-val="{{ true }}">
-                  <label style="display:flex;flex-direction:column;gap:5px;font-size:12px;color:#6b7a8d">
-                    <span>{{ g.motChoix }}</span>
-                    <select value="{{ g.choisi }}" onChange="{{ g.onChoisir }}" style="font-family:Verdana,sans-serif;font-size:13.5px;padding:10px 11px;border:1.5px solid #c3d2e2;border-radius:9px;background:#fbfcfe">
-                      <sc-for list="{{ g.options }}" as="o" hint-placeholder-count="2">
-                        <option value="{{ o.id }}">{{ o.libelle }}</option>
+                <sc-if value="{{ g.motSuggestions }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;flex-direction:column;gap:6px">
+                    <div style="font-size:11.5px;font-weight:bold;color:#1d6b42;letter-spacing:.04em">{{ g.motSuggestions }}</div>
+                    <div style="display:flex;gap:7px;flex-wrap:wrap">
+                      <sc-for list="{{ g.suggestions }}" as="s" hint-placeholder-count="1">
+                        <button onClick="{{ s.onClick }}" title="{{ s.raison }}" style="border:1.5px solid {{ s.bord }};background:{{ s.fond }};color:{{ s.encre }};border-radius:9px;padding:7px 11px;font-size:12.5px;font-weight:bold;cursor:pointer;font-family:inherit;text-align:left">{{ s.libelle }}</button>
                       </sc-for>
-                    </select>
-                  </label>
+                    </div>
+                  </div>
                 </sc-if>
                 <sc-if value="{{ g.motDonnes }}" hint-placeholder-val="{{ false }}">
                   <div style="font-size:12px;color:#2a7d5a;font-weight:bold">{{ g.motDonnes }}</div>
                 </sc-if>
-                <sc-if value="{{ g.alpha }}" hint-placeholder-val="{{ false }}">
-                  <button onClick="{{ g.onAlpha }}" style="align-self:flex-start;border:1.5px solid {{ g.alphaBord }};background:{{ g.alphaFond }};color:{{ g.alphaEncre }};border-radius:9px;padding:8px 12px;font-size:12px;font-weight:bold;cursor:pointer">{{ g.alphaTexte }}</button>
-                </sc-if>
                 <div style="border:3px solid {{ g.carte.bord }};background:{{ g.carte.fond }};border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:8px">
-                  <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:15px;line-height:1.25">{{ g.carte.titre }}</div>
-                  <div style="font-size:13px;color:#48586b">{{ g.carte.pourquoi }}</div>
-                  <div style="font-size:12.5px;color:#6b7a8d">{{ g.carte.detail }}</div>
+                  <sc-if value="{{ g.carte.sansTitre }}" hint-placeholder-val="{{ false }}">
+                    <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:15px;line-height:1.25">{{ g.carte.titreLong }}</div>
+                  </sc-if>
+                  <!-- Le nom du test affiché, court : « fin de 3e (Musset) ». Retiré puis
+                       remis le 05/09 — sans lui, la carte qui porte « JE L'AI DONNÉ »
+                       était la seule chose SANS nom à l'écran : toutes les alternatives
+                       étaient nommées, pas le test qu'on s'apprête à enregistrer. Ce
+                       qu'elle voulait retirer, c'est l'ÉCHELLE (« MI-MF-MS-TBM »).
+                       ⚠ EN PREMIER : le titre, puis sa justification. Une phrase grise
+                       au-dessus du titre inverse la hiérarchie. -->
+                  <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:14.5px;line-height:1.25">{{ g.carte.nom }}</div>
+                  <sc-if value="{{ g.carte.pourquoi }}" hint-placeholder-val="{{ false }}">
+                    <div style="font-size:13px;color:#48586b">{{ g.carte.pourquoi }}</div>
+                  </sc-if>
+                  <sc-if value="{{ g.carte.sansDetail }}" hint-placeholder-val="{{ false }}">
+                    <div style="font-size:12.5px;color:#6b7a8d">{{ g.carte.detail }}</div>
+                  </sc-if>
+                  <sc-if value="{{ g.barre }}" hint-placeholder-val="{{ true }}">
+                    <div style="display:flex;flex-direction:column;gap:8px;border:1.5px solid #dbe4ee;background:#fbfcfe;border-radius:10px;padding:10px 12px;min-width:0">
+                      <sc-if value="{{ g.carte.motPaliers }}" hint-placeholder-val="{{ false }}">
+                        <span style="font-size:12px;color:#48586b;font-weight:bold">{{ g.carte.motPaliers }}</span>
+                      </sc-if>
+                      <!-- Une seule ligne (sa demande du 05/09), mais elle doit rester DANS
+                           la carte : la prévisualisation peut être bien plus étroite que
+                           1000 px. `overflow-x:auto` + `min-width:0` donnent à la rangée un
+                           chemin de débordement — sans quoi les pastilles, qui ne peuvent ni
+                           passer à la ligne ni rétrécir, sortaient du cadre gris. -->
+                      <div style="display:flex;gap:5px;flex-wrap:nowrap;min-width:0;overflow-x:auto">
+                        <sc-for list="{{ g.carte.paliers }}" as="pal" hint-placeholder-count="0">
+                          <button onClick="{{ pal.onToggle }}" style="display:flex;gap:5px;align-items:center;border:1.5px solid #c3d2e2;background:#fff;color:#1d4e89;border-radius:9px;padding:6px 9px;font-size:12px;font-weight:bold;cursor:pointer;white-space:nowrap;flex:0 0 auto">
+                            <span style="font-size:13px">{{ pal.marque }}</span>
+                            <span>{{ pal.nom }}</span>
+                          </button>
+                        </sc-for>
+                      </div>
+                      <sc-if value="{{ g.motAutres }}" hint-placeholder-val="{{ false }}">
+                        <button onClick="{{ g.onAutres }}" style="align-self:flex-start;border:1.5px solid #c3d2e2;background:{{ g.fondAutres }};color:#48586b;border-radius:9px;padding:7px 11px;font-size:12px;font-weight:bold;cursor:pointer;font-family:inherit">{{ g.motAutres }}</button>
+                      </sc-if>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ g.voirAutres }}" hint-placeholder-val="{{ false }}">
+                    <div style="display:flex;gap:7px;flex-wrap:wrap">
+                      <sc-for list="{{ g.autres }}" as="o" hint-placeholder-count="1">
+                        <button onClick="{{ o.onClick }}" style="border:1.5px solid {{ o.bord }};background:{{ o.fond }};color:{{ o.encre }};border-radius:9px;padding:7px 11px;font-size:12.5px;cursor:pointer;font-family:inherit;text-align:left">{{ o.libelle }}</button>
+                      </sc-for>
+                    </div>
+                  </sc-if>
                   <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
                     <button onClick="{{ g.carte.onDonne }}" style="border:2px solid {{ g.carte.boutonBord }};border-radius:9px;background:{{ g.carte.boutonFond }};color:{{ g.carte.boutonEncre }};padding:9px 14px;font-size:12.5px;font-family:'Archivo Black',Verdana,sans-serif;cursor:pointer">{{ g.carte.boutonTexte }}</button>
                     <sc-if value="{{ g.carte.estDonne }}" hint-placeholder-val="{{ false }}">
@@ -157,8 +204,8 @@
                     <sc-if value="{{ g.carte.pdfCorrige }}" hint-placeholder-val="{{ false }}">
                       <button onClick="{{ g.carte.onPdfCorrige }}" style="border:0;background:none;font-size:12px;font-weight:bold;color:#1d4e89;text-decoration:underline;cursor:pointer;padding:0">Le corrigé</button>
                     </sc-if>
-                    <sc-if value="{{ g.carte.lien }}" hint-placeholder-val="{{ false }}">
-                      <a href="{{ g.carte.lien }}" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:bold">Sur le site du CASNAV de Lille</a>
+                    <sc-if value="{{ g.carte.rien }}" hint-placeholder-val="{{ false }}">
+                      <a href="{{ g.carte.lien }}" target="_blank" rel="noopener" style="font-size:12px">CASNAV de Lille</a>
                     </sc-if>
                   </div>
                   <sc-if value="{{ g.carte.pdfMot }}" hint-placeholder-val="{{ false }}">
@@ -168,6 +215,49 @@
               </div>
             </div>
           </sc-for>
+          <!-- UN AUTRE TEST A ÉTÉ DONNÉ : le chemin ne propose qu'une poignée de tests,
+               dans la langue déduite de la fiche. Ici elle choisit librement le test et
+               la langue — UNICEF en arabe pour Sana (05/09). -->
+          <div style="border:2px solid #c3d2e2;background:#fbfcfe;border-radius:12px;padding:15px 16px;display:flex;flex-direction:column;gap:11px">
+            <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:13px;color:#1d4e89">UN AUTRE TEST A ÉTÉ DONNÉ</div>
+            <div style="font-size:12.5px;color:#6b7a8d;line-height:1.55">{{ motAutreTest }}</div>
+            <label style="display:flex;flex-direction:column;gap:5px;font-size:12px;color:#6b7a8d">
+              <span>Lequel ?</span>
+              <select value="{{ autreTest }}" onChange="{{ onAutreTest }}" style="font-family:Verdana,sans-serif;font-size:13.5px;padding:10px 11px;border:1.5px solid #c3d2e2;border-radius:9px;background:#fff">
+                <option value="">— choisir un test —</option>
+                <sc-for list="{{ tousLesTests }}" as="t" hint-placeholder-count="3">
+                  <option value="{{ t.id }}">{{ t.nom }}</option>
+                </sc-for>
+              </select>
+            </label>
+            <label style="display:flex;flex-direction:column;gap:5px;font-size:12px;color:#6b7a8d">
+              <span>Dans quelle langue ?</span>
+              <select value="{{ autreLangue }}" onChange="{{ onAutreLangue }}" style="font-family:Verdana,sans-serif;font-size:13.5px;padding:10px 11px;border:1.5px solid #c3d2e2;border-radius:9px;background:#fff">
+                <sc-for list="{{ languesChoix }}" as="l" hint-placeholder-count="3">
+                  <option value="{{ l.nom }}">{{ l.nom }}</option>
+                </sc-for>
+              </select>
+            </label>
+            <button onClick="{{ onAjouterAutre }}" style="align-self:flex-start;background:{{ fondAjouter }};color:{{ encreAjouter }};font-family:'Archivo Black',Verdana,sans-serif;font-size:12.5px;border:1.5px solid #1d4e89;border-radius:10px;padding:11px 15px;cursor:pointer">ENREGISTRER CETTE PASSATION</button>
+            <sc-if value="{{ autreFait }}" hint-placeholder-val="{{ false }}">
+              <div style="border:2px solid #2a9d6e;background:#fff;border-radius:11px;padding:13px 14px;display:flex;flex-direction:column;gap:10px">
+                <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:13px;line-height:1.3">{{ autreFait.nom }}</div>
+                <div style="display:flex;gap:11px;align-items:center;flex-wrap:wrap">
+                  <div style="background:#1e7a53;color:#fff;font-family:'Archivo Black',Verdana,sans-serif;font-size:12.5px;border-radius:9px;padding:9px 14px">✓ DONNÉ</div>
+                  <button onClick="{{ autreFait.onRetirer }}" style="border:1.5px solid #e2c3c8;background:#fff;color:#b3283c;border-radius:9px;padding:9px 13px;font-size:12.5px;font-weight:bold;cursor:pointer" style-hover="border-color:#b3283c">Retirer</button>
+                  <sc-if value="{{ autreFait.pdf }}" hint-placeholder-val="{{ false }}">
+                    <button onClick="{{ autreFait.onPdf }}" style="display:flex;gap:7px;align-items:center;border:1.5px solid #c3d2e2;background:#fff;color:#1d4e89;border-radius:9px;padding:9px 13px;font-size:12.5px;font-weight:bold;cursor:pointer" style-hover="border-color:#1d4e89">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1d4e89" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"></path><path d="M7 12l5 5 5-5"></path><path d="M4 21h16"></path></svg>
+                      <span>{{ autreFait.pdfNom }}</span>
+                    </button>
+                  </sc-if>
+                  <sc-if value="{{ autreFait.corrige }}" hint-placeholder-val="{{ false }}">
+                    <button onClick="{{ autreFait.onCorrige }}" style="border:0;background:none;font-size:12.5px;font-weight:bold;color:#1d4e89;text-decoration:underline;cursor:pointer;padding:0">Le corrigé</button>
+                  </sc-if>
+                </div>
+              </div>
+            </sc-if>
+          </div>
           <div style="font-size:12.5px;color:#6b7a8d;border-top:1px solid #e6ecf3;padding-top:10px;line-height:1.6">{{ motLangues }}</div>
           <sc-if value="{{ aTraduire }}" hint-placeholder-val="{{ false }}">
             <button onClick="{{ ouvrirTraduction }}" style="background:#6d5bd0;color:#fff;font-family:'Archivo Black',Verdana,sans-serif;font-size:13px;border:0;border-radius:10px;padding:13px 16px;cursor:pointer;box-shadow:0 2px 0 #52439f;text-align:left;line-height:1.35">{{ motTraduire }}</button>
@@ -198,56 +288,37 @@
               </sc-if>
               <div style="font-size:12.5px;line-height:1.6;color:#3f3570">{{ motDemande }}</div>
               <div style="display:flex;gap:9px;flex-wrap:wrap">
-                <button onClick="{{ copierDemande }}" style="background:#6d5bd0;color:#fff;font-family:'Archivo Black',Verdana,sans-serif;font-size:12.5px;border:0;border-radius:9px;padding:12px 15px;cursor:pointer;box-shadow:0 2px 0 #52439f">{{ motCopier }}</button>
+                <button onClick="{{ traduireMaintenant }}" style="background:#6d5bd0;color:#fff;font-family:'Archivo Black',Verdana,sans-serif;font-size:12.5px;border:0;border-radius:9px;padding:12px 15px;cursor:pointer;box-shadow:0 2px 0 #52439f">{{ motTraduireVite }}</button>
+                <button onClick="{{ copierDemande }}" style="background:#fff;color:#4a3d94;font-family:'Archivo Black',Verdana,sans-serif;font-size:12.5px;border:1.5px solid #c9c1ee;border-radius:9px;padding:12px 15px;cursor:pointer">{{ motCopier }}</button>
                 <button onClick="{{ fermerTraduction }}" style="background:#fff;color:#4a3d94;font-family:'Archivo Black',Verdana,sans-serif;font-size:12.5px;border:1.5px solid #c9c1ee;border-radius:9px;padding:12px 15px;cursor:pointer">FERMER</button>
               </div>
+              <sc-if value="{{ tradErreur }}" hint-placeholder-val="{{ false }}">
+                <div style="border:1.5px solid #b3283c;background:#fbe3e6;border-radius:9px;padding:11px 13px;font-size:12.5px;color:#7d1b28;line-height:1.55">{{ tradErreur }}</div>
+              </sc-if>
+              <sc-if value="{{ tradLignes }}" hint-placeholder-val="{{ false }}">
+                <div style="background:#fff;border:1.5px solid #c9c1ee;border-radius:9px;padding:13px 14px;display:flex;flex-direction:column;gap:11px">
+                  <div style="border:1.5px solid #c9973f;background:#fdf4e6;border-radius:8px;padding:10px 12px;font-size:12px;color:#4a3208;line-height:1.55">{{ tradAvert }}</div>
+                  <sc-for list="{{ tradLignes }}" as="l" hint-placeholder-count="3">
+                    <div style="display:flex;flex-direction:column;gap:3px;border-top:1px solid #efecfa;padding-top:9px">
+                      <div style="font-size:11.5px;color:#8b98a8">{{ l.num }}</div>
+                      <div style="font-size:12.5px;color:#6b7a8d;line-height:1.5">{{ l.fr }}</div>
+                      <div style="font-size:14px;color:#1c2430;line-height:1.6;direction:{{ l.sens }};text-align:{{ l.align }}">{{ l.trad }}</div>
+                    </div>
+                  </sc-for>
+                  <button onClick="{{ copierTraduction }}" style="align-self:flex-start;background:#fff;color:#4a3d94;font-family:'Archivo Black',Verdana,sans-serif;font-size:12px;border:1.5px solid #c9c1ee;border-radius:9px;padding:10px 13px;cursor:pointer">{{ motCopierTrad }}</button>
+                </div>
+              </sc-if>
               <sc-if value="{{ aRecopier }}" hint-placeholder-val="{{ false }}">
                 <label style="display:flex;flex-direction:column;gap:5px;font-size:12px;color:#48586b">
                   <span>La copie n'a pas fonctionné. Sélectionne ce texte et copie-le à la main :</span>
                   <textarea value="{{ aRecopier }}" rows="3" style="font-family:Verdana,sans-serif;font-size:12.5px;padding:9px 10px;border:1.5px solid #c9c1ee;border-radius:8px;background:#fff;resize:vertical"></textarea>
                 </label>
               </sc-if>
-              <div style="font-size:11.5px;color:#6b7a8d;line-height:1.6">Traduction automatique en direct : possible seulement avec un service de traduction relié au site publié, et jamais sans relecture par un locuteur — une question mal traduite invalide le test.</div>
+              <div style="font-size:11.5px;color:#6b7a8d;line-height:1.6">La traduction instantanée est faite par l'assistant, dans l'appli — aucun service à souscrire. Elle sert à DÉPANNER : jamais d'évaluation sur une traduction non relue par un locuteur, une question mal traduite invalide le test.</div>
             </div>
           </sc-if>
         </div>
 
-        <div style="background:#eef1f5;border:2px dashed #c9d1da;border-radius:14px;padding:20px 22px;display:flex;flex-direction:column;gap:15px;opacity:.72">
-          <div style="display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap">
-            <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:15px;color:#6b7a8d">LA BASE DES TESTS</div>
-            <a href="https://drive.google.com/drive/folders/1Q_n5XZZ6oS9QaYbw5l3MBsWZFlnvBXF-?usp=drive_link" target="_blank" rel="noopener" style="border:2px solid #c9d1da;background:#fff;color:#1d4e89;border-radius:9px;padding:8px 13px;font-size:12.5px;font-weight:bold;text-decoration:none" style-hover="border-color:#1d4e89">Mon dossier Drive — les PDF des tests</a>
-          </div>
-          <sc-for list="{{ colonnes }}" as="c" hint-placeholder-count="3">
-            <div style="display:flex;flex-direction:column;gap:10px">
-              <div style="background:{{ c.couleur }};color:{{ c.encre }};border-radius:10px;padding:10px 13px;display:flex;flex-direction:column;gap:2px">
-                <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:13px;letter-spacing:.3px">{{ c.titre }}</div>
-                <div style="font-size:12px">{{ c.sous }}</div>
-              </div>
-              <sc-for list="{{ c.tests }}" as="t" hint-placeholder-count="2">
-                <div style="border:1.5px solid #e0e7f0;border-radius:11px;padding:11px 13px;display:flex;flex-direction:column;gap:5px;background:#fbfcfe">
-                  <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:12.5px;line-height:1.3">{{ t.titre }}</div>
-                  <div style="font-size:11.5px;color:#6b7a8d;line-height:1.5">{{ t.info }}</div>
-                  <div style="font-size:11.5px;color:#48586b">{{ t.langues }}</div>
-                  <sc-if value="{{ t.pdf }}" hint-placeholder-val="{{ false }}">
-                    <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:3px">
-                      <button onClick="{{ t.onPdf }}" title="Télécharger le test à imprimer" style="display:flex;gap:7px;align-items:center;border:1.5px solid #c3d2e2;background:#fff;color:#1d4e89;border-radius:9px;padding:7px 12px;font-size:12px;font-weight:bold;cursor:pointer" style-hover="border-color:#1d4e89">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1d4e89" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"></path><path d="M7 12l5 5 5-5"></path><path d="M4 21h16"></path></svg>
-                        <span>{{ t.pdfNom }}</span>
-                      </button>
-                      <sc-if value="{{ t.pdfCorrige }}" hint-placeholder-val="{{ false }}">
-                        <button onClick="{{ t.onPdfCorrige }}" style="border:0;background:none;font-size:12px;font-weight:bold;color:#1d4e89;text-decoration:underline;cursor:pointer;padding:0">Le corrigé</button>
-                      </sc-if>
-                    </div>
-                  </sc-if>
-                  <sc-if value="{{ t.pdfMot }}" hint-placeholder-val="{{ false }}">
-                    <div style="font-size:11px;color:#6b7a8d;font-style:italic">{{ t.pdfMot }}</div>
-                  </sc-if>
-                </div>
-              </sc-for>
-            </div>
-          </sc-for>
-          <div style="background:#fdf6ec;border:1.5px solid #d8a24a;border-radius:11px;padding:12px 14px;font-size:12px;line-height:1.6">{{ trou }}</div>
-        </div>
       </div>
     </sc-if>
 
@@ -290,11 +361,22 @@
             </sc-if>
             <sc-for list="{{ p.questions }}" as="q" hint-placeholder-count="5">
               <div style="border-top:1px solid #e6ecf3;padding-top:11px;display:flex;flex-direction:column;gap:9px">
+                <sc-if value="{{ q.domaineTitre }}" hint-placeholder-val="{{ false }}">
+                  <div style="background:#eef3f9;border-left:5px solid #1d4e89;border-radius:7px;padding:8px 13px;font-family:'Archivo Black',Verdana,sans-serif;font-size:12.5px;color:#1d4e89;letter-spacing:.03em">{{ q.domaineTitre }}</div>
+                </sc-if>
                 <div style="display:flex;gap:12px;align-items:baseline;justify-content:space-between;flex-wrap:wrap">
                   <div style="display:flex;gap:11px;align-items:baseline">
                     <span style="font-family:'Archivo Black',Verdana,sans-serif;font-size:14px;color:#6b7a8d">{{ q.num }}</span>
                     <div style="display:flex;flex-direction:column;gap:3px">
-                      <span style="font-size:13px;line-height:1.4">{{ q.question }}</span>
+                      <div style="display:flex;gap:9px;align-items:baseline;flex-wrap:wrap">
+                        <span style="font-size:13px;line-height:1.4">{{ q.question }}</span>
+                        <sc-if value="{{ q.finDe }}" hint-placeholder-val="{{ false }}">
+                          <span style="flex:none;font-size:11px;font-weight:bold;color:#4a3208;background:#f4d5a0;border-radius:20px;padding:3px 9px">{{ q.finDe }}</span>
+                        </sc-if>
+                      </div>
+                      <sc-if value="{{ q.competence }}" hint-placeholder-val="{{ false }}">
+                        <span style="font-size:11.5px;line-height:1.5;color:#6b7a8d">{{ q.competence }}</span>
+                      </sc-if>
                       <sc-if value="{{ q.vo }}" hint-placeholder-val="{{ false }}">
                         <span style="font-size:11.5px;line-height:1.35;color:#8b98a8;font-style:italic">{{ q.vo }}</span>
                       </sc-if>
@@ -352,17 +434,29 @@
               <textarea value="{{ p.observations }}" onChange="{{ p.onObserver }}" rows="3" placeholder="Ex. : elle connaît moyennement ses tables de multiplication, difficulté avec la table de 5." style="border:1.5px solid #dde4ec;border-radius:9px;padding:10px 12px;font-size:12.5px;font-family:inherit;line-height:1.5;resize:vertical"></textarea>
               <div style="font-size:11px;color:#8b98a8">Ces lignes rejoignent la fiche, à l'étape 4, sous les constats des exercices.</div>
             </div>
+            <sc-if value="{{ p.avertRtl }}" hint-placeholder-val="{{ false }}">
+              <div style="border:1.5px solid #b3283c;background:#fbe3e6;border-radius:10px;padding:11px 14px;font-size:12.5px;color:#7d1b28;line-height:1.55">{{ p.avertRtl }}</div>
+            </sc-if>
             <sc-if value="{{ p.sansCorrige }}" hint-placeholder-val="{{ false }}">
               <div style="border:1.5px solid #c9973f;background:#fdf4e6;border-radius:10px;padding:11px 14px;font-size:12.5px;color:#4a3208;line-height:1.55">{{ p.sansCorrige }}</div>
             </sc-if>
             <sc-for list="{{ p.items }}" as="it" hint-placeholder-count="5">
               <div style="display:flex;flex-direction:column;gap:9px;border-top:1px solid #e6ecf3;padding-top:9px">
+                <sc-if value="{{ it.domaineTitre }}" hint-placeholder-val="{{ false }}">
+                  <div style="background:#eef3f9;border-left:5px solid #1d4e89;border-radius:7px;padding:8px 13px;font-family:'Archivo Black',Verdana,sans-serif;font-size:12.5px;color:#1d4e89;letter-spacing:.03em">{{ it.domaineTitre }}</div>
+                </sc-if>
                 <sc-if value="{{ it.enColonne }}" hint-placeholder-val="{{ false }}">
                   <div style="display:flex;flex-direction:column;gap:9px">
                     <div style="display:flex;gap:12px;align-items:baseline">
                       <span style="font-family:'Archivo Black',Verdana,sans-serif;font-size:14px;color:#6b7a8d">{{ it.num }}</span>
                       <span style="font-size:13px;line-height:1.4">{{ it.titre }}</span>
+                      <sc-if value="{{ it.finDe }}" hint-placeholder-val="{{ false }}">
+                        <span style="flex:none;font-size:11px;font-weight:bold;color:#4a3208;background:#f4d5a0;border-radius:20px;padding:3px 9px">{{ it.finDe }}</span>
+                      </sc-if>
                     </div>
+                    <sc-if value="{{ it.competence }}" hint-placeholder-val="{{ false }}">
+                      <div style="margin-left:46px;font-size:11.5px;color:#6b7a8d;line-height:1.5">{{ it.competence }}</div>
+                    </sc-if>
                     <div style="margin-left:46px;display:flex;gap:8px;flex-wrap:wrap">
                       <sc-for list="{{ it.choix }}" as="ch" hint-placeholder-count="5">
                         <button onClick="{{ ch.onClick }}" title="{{ ch.aide }}" style="border:2px solid {{ ch.bord }};background:{{ ch.fond }};color:{{ ch.texte }};border-radius:9px;padding:8px 13px;font-size:12.5px;font-weight:bold;cursor:pointer;text-align:left;line-height:1.35">{{ ch.nom }}</button>
@@ -373,7 +467,17 @@
                 <sc-if value="{{ it.enLigne }}" hint-placeholder-val="{{ true }}">
                   <div style="display:grid;grid-template-columns:34px 1fr auto;gap:12px;align-items:center">
                     <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:14px;color:#6b7a8d">{{ it.num }}</div>
-                    <div style="font-size:13px;line-height:1.4">{{ it.titre }}</div>
+                    <div style="display:flex;flex-direction:column;gap:3px">
+                      <div style="display:flex;gap:9px;align-items:baseline;flex-wrap:wrap">
+                        <span style="font-size:13px;line-height:1.4">{{ it.titre }}</span>
+                        <sc-if value="{{ it.finDe }}" hint-placeholder-val="{{ false }}">
+                          <span style="flex:none;font-size:11px;font-weight:bold;color:#4a3208;background:#f4d5a0;border-radius:20px;padding:3px 9px">{{ it.finDe }}</span>
+                        </sc-if>
+                      </div>
+                      <sc-if value="{{ it.competence }}" hint-placeholder-val="{{ false }}">
+                        <div style="font-size:11.5px;color:#6b7a8d;line-height:1.5">{{ it.competence }}</div>
+                      </sc-if>
+                    </div>
                     <div style="display:flex;gap:5px;flex-wrap:wrap">
                       <sc-for list="{{ it.choix }}" as="ch" hint-placeholder-count="5">
                         <button onClick="{{ ch.onClick }}" title="{{ ch.aide }}" style="border:2px solid {{ ch.bord }};background:{{ ch.fond }};color:{{ ch.texte }};border-radius:8px;padding:7px 10px;font-size:12px;font-weight:bold;cursor:pointer;min-width:38px">{{ ch.nom }}</button>
@@ -499,7 +603,9 @@
 class Component extends DCLogic {
   state = { base: null, dossierId: '', etape: 1, enLecture: false, erreur: '', refus: '',
     rapide: {}, panneau: false, tradTest: '', tradLangue: '', copie: false, aRecopier: '', etroit: false,
-    modeRep: {}, ortho: '', orthoMot: '', fautes: {}, choixTest: {}, alpha: {},
+    modeRep: {}, ortho: '', orthoMot: '', fautes: {}, choixTest: {}, alpha: {}, paliers: {},
+    voirAutres: {}, autreTest: '', autreLangue: '',
+    tradEnCours: false, tradErreur: '', tradLignes: null, tradTitre: '', copieTrad: false,
     pdfUrl: '', pdfTitre: '', pdfErreur: '' };
 
   cadrePdf = React.createRef();
@@ -621,10 +727,153 @@ class Component extends DCLogic {
       /* En le redonnant, la date repart d'aujourd'hui : c'est la passation qui compte. */
       ? (d.tests || []).map(t => t.testId === test.id
         ? Object.assign({}, t, veutDonne
-          ? { donne: true, date: t.date || this.aujourdhui(), langue: t.langue || this.langueRetenue() }
+          ? { donne: true, date: t.date || this.aujourdhui(), langue: t.langue || this.langueRetenue(test) }
           : { donne: false })
         : t)
-      : (d.tests || []).concat([{ testId: test.id, donne: true, date: this.aujourdhui(), langue: this.langueRetenue(), scores: {} }]);
+      : (d.tests || []).concat([{ testId: test.id, donne: true, date: this.aujourdhui(), langue: this.langueRetenue(test), scores: {} }]);
+    this.majDossier({ tests });
+  }
+
+  /* Un livret Canopé est UN document : ses paliers se donnent ensemble. On écrit donc
+     plusieurs tests en une seule passe — une boucle sur marquerDonne() s'écraserait
+     elle-même, majDossier() relisant un state que setState n'a pas encore appliqué. */
+  marquerDonnes(tests, veut) {
+    const d = this.dossier(); if (!d || !tests.length) return;
+    let liste = (d.tests || []).slice();
+    tests.forEach(test => {
+      const i = liste.findIndex(t => t.testId === test.id);
+      if (i < 0) {
+        if (veut) liste = liste.concat([{ testId: test.id, donne: true, date: this.aujourdhui(),
+          langue: this.langueRetenue(), scores: {} }]);
+      } else {
+        liste = liste.map((t, k) => k !== i ? t : Object.assign({}, t, veut
+          ? { donne: true, date: t.date || this.aujourdhui(), langue: t.langue || this.langueRetenue() }
+          : { donne: false }));
+      }
+    });
+    this.majDossier({ tests: liste });
+  }
+
+  /* Une case de palier décochée est mémorisée par dossier : la sélection d'un élève ne
+     doit pas rester allumée sur le suivant. Par défaut, tout le livret est coché. */
+  paliersRetenus(cle) { return (this.state.paliers || {})[cle] !== false; }
+  basculerPalier(cle) {
+    const p = Object.assign({}, this.state.paliers || {});
+    p[cle] = !this.paliersRetenus(cle);
+    this.setState({ paliers: p });
+  }
+
+  /* Une ligne d'exercice de l'étape 3 : son intitulé, la réponse attendue, ses paliers. */
+  ligneExercice(it, test, pass, corrige, choixEch) {
+    return {
+      /* Un test dont le corrigé n'est pas dans l'appli : on numérote les exercices
+         sans inventer d'intitulé (elle a la feuille sous les yeux), et un mot au-
+         dessus de la liste explique pourquoi — « Exercice 1 (intitulé à préciser) »
+         se lisait comme un bug (02/09). */
+      num: it.num, titre: it.suppose ? 'Exercice ' + it.num : it.titre,
+      /* Le corrigé sous les yeux dans LES DEUX modes de saisie : « Je note moi-même »
+         est justement celui qu'elle utilise feuille en main. La réponse vient soit du
+         test lui-même (Lyon +16, via POSITIONNEMENT), soit du corrigé rangé (03/09). */
+      attendu: it.attendu
+        || (() => {
+          const e = corrige && corrige.find(x => test.id + '-' + x.num === it.id);
+          return (e && e.attendu) || '';
+        })(),
+      /* Elle préfère les paliers rédigés des corrigés Canopé aux boutons NE/--/-/+/++
+         et à la grille en une ligne : « 6 résultats corrects », « entre 4 et 5 »…
+         (03/09). Quand l'exercice porte ses paliers, ce sont eux qu'on affiche ;
+         la grille brute n'est plus répétée en dessous. */
+      grille: (it.paliers && it.paliers.length) ? '' : (it.grille || ''),
+      /* Le dernier palier remet l'exercice à « non évalué » : sans lui, un clic par
+         erreur ne se défaisait plus (les boutons NE/--/-/+/++ ont disparu pour ce
+         test). Et c'est le LIBELLÉ qui dit quel palier est allumé. */
+      choix: ((it.paliers && it.paliers.length)
+        ? it.paliers.concat([{ nom: 'Non évalué', v: 'NE' }])
+        : choixEch).map(v => {
+        const rep = (pass.reponses || {})[it.id];
+        const note = (pass.scores || {})[it.id];
+        const paliers = it.paliers && it.paliers.length;
+        const actif = paliers
+          ? (v.v === 'NE' ? !note : (rep ? rep === v.nom : note === v.v))
+          : note === v.v;
+        const dec = choixEch.find(x => x.v === v.v) || {};
+        return {
+          nom: v.nom, aide: v.aide || dec.aide || '',
+          fond: actif ? (dec.fond || '#eef3f9') : '#fff',
+          texte: actif ? (dec.texte || '#1c2430') : '#6b7a8d',
+          bord: actif ? (dec.texte || '#1d4e89') : '#dde4ec',
+          onClick: () => this.noter(test.id, it.id, v.v, paliers ? v.nom : '')
+        };
+      }),
+      /* des paliers rédigés se lisent en colonne, les codes courts en ligne */
+      enColonne: !!(it.paliers && it.paliers.length),
+      enLigne: !(it.paliers && it.paliers.length)
+    };
+  }
+
+  /* Ce que le PARCOURS de la fiche permet de suggérer. Renvoie toujours la phrase lue
+     et la raison : c'est elle qui juge, l'appli ne fait que montrer ce qu'elle a lu. */
+  lectureParcours(d) {
+    const P = window.PARCOURS;
+    if (!P || !d) return null;
+    const f = d.fiche || {};
+    const lu = P.lire(f.parcours || '');
+    if (!lu) return null;
+    const ec = P.ecart(lu, d.classeCle || '');
+    /* Le niveau lu → les tests qui portent sur ce niveau. En lecture, un test par
+       niveau ; en maths, le livret du cycle où tombe ce niveau. */
+    const MATHS = { cp: 'canope-maths-c2', ce1: 'canope-maths-c2', ce2: 'canope-maths-c2',
+      cm1: 'canope-maths-c3', cm2: 'canope-maths-c3', '6e': 'canope-maths-c3',
+      '5e': 'canope-maths-5e', '4e': 'canope-maths-4e', '3e': 'canope-maths-c4',
+      '2de': 'canope-maths-c4', '1re': 'canope-maths-c4', term: 'canope-maths-c4' };
+    /* ⚠ Au niveau LYCÉE, le parcours désigne le test de Créteil, PAS le fin de 3e de
+       Canopé : elle ne donne jamais ce dernier (05/09), et la lecture du parcours le
+       repromouvait en suggéré pour tous les lycéens — exactement la population où elle ne
+       le donne pas. Il n'existe pas de palier Canopé au-delà de la 3e, d'où ce renvoi. */
+    const LYCEE = ['2de', '1re', 'term'];
+    const ids = [];
+    if (LYCEE.indexOf(lu.niveauCle) >= 0) {
+      ids.push('creteil-lycee-gary');
+    } else if (lu.niveauCle) {
+      ids.push('canope-lecture-' + lu.niveauCle);
+    }
+    if (MATHS[lu.niveauCle]) ids.push(MATHS[lu.niveauCle]);
+    /* Pas de niveau lisible, mais une rupture annoncée (jamais scolarisé, école
+       coranique, interruption) : c'est le déchiffrage qu'il faut vérifier d'abord. */
+    if (!lu.niveauCle && (lu.ruptures || []).length) ids.push('decodage-latin');
+    return { lu, ecart: ec, ids,
+      raison: lu.raison + (ec && ec.ans ? ' — ' + ec.mot : ''),
+      /* La phrase de la fiche, telle qu'elle est écrite : c'est la pièce sur laquelle
+         elle juge. Affichée sous la raison, en italique. */
+      phrase: lu.phrase || '',
+      /* Un appui faible se dit : pas de « jusqu'en », donc pas de certitude. */
+      faible: lu.source === 'mention' };
+  }
+
+  /* Les paliers d'un livret (CP · CE1 · CE2 au cycle 2, CM1 · CM2 · 6e au cycle 3) :
+     elle donne le test complet, ou seulement une partie. La liste retenue vit dans le
+     DOSSIER — l'étape 3 en dépend, et elle doit survivre au rechargement. Rien
+     d'enregistré = test complet. */
+  paliersDe(test, pass) {
+    const tous = (test && test.paliers) || [];
+    if (!tous.length) return [];
+    const l = pass && pass.paliers;
+    return (l && l.length) ? tous.filter(p => l.indexOf(p) >= 0) : tous.slice();
+  }
+
+  basculerPalierTest(test, palier) {
+    const d = this.dossier(); if (!d) return;
+    const tous = (test.paliers || []).slice();
+    const deja = (d.tests || []).find(t => t.testId === test.id);
+    const actuels = this.paliersDe(test, deja);
+    const suite = actuels.indexOf(palier) >= 0
+      ? actuels.filter(p => p !== palier)
+      : tous.filter(p => actuels.indexOf(p) >= 0 || p === palier);
+    /* Tout décocher n'a pas de sens : on ne peut pas donner zéro palier. */
+    if (!suite.length) return;
+    const tests = deja
+      ? (d.tests || []).map(t => t.testId === test.id ? Object.assign({}, t, { paliers: suite }) : t)
+      : (d.tests || []).concat([{ testId: test.id, donne: false, paliers: suite, scores: {} }]);
     this.majDossier({ tests });
   }
 
@@ -645,8 +894,119 @@ class Component extends DCLogic {
     return (pass && pass.langue) || '';
   }
 
-  langueRetenue() {
+  /* UN AUTRE TEST A ÉTÉ DONNÉ (sa demande du 05/09). Le chemin ne propose qu'une poignée
+     de tests, dans la langue qu'il déduit de la fiche — or elle donne aussi des tests
+     hors chemin, et dans une AUTRE langue : « pour Sana on a donné UNICEF en langue arabe
+     pour voir comment elle se débrouille dans sa langue maternelle ». Ici, elle choisit
+     les deux : le test dans toute la base, la langue parmi les 26. */
+  ajouterAutreTest() {
+    const d = this.dossier(); if (!d) return;
+    const id = this.state.autreTest;
+    const test = id ? window.TESTS.TESTS.find(t => t.id === id) : null;
+    if (!test) return;
+    const langue = this.state.autreLangue || this.langueRetenue();
+    const deja = (d.tests || []).find(t => t.testId === test.id);
+    /* Déjà dans le dossier : on ne crée pas de doublon, on met la langue à jour — et on
+       le remet « donné » s'il avait été retiré. Les notes déjà saisies sont conservées. */
+    const tests = deja
+      ? (d.tests || []).map(t => t.testId === test.id
+        ? Object.assign({}, t, { donne: true, date: t.date || this.aujourdhui(), langue })
+        : t)
+      : (d.tests || []).concat([{ testId: test.id, donne: true,
+        date: this.aujourdhui(), langue, scores: {} }]);
+    this.majDossier({ tests });
+    /* ⚠ On NE vide PAS les deux listes (sa demande du 05/09 : « mon choix doit rester à
+       l'écran »). Vider donnait l'impression que rien n'avait été enregistré : le test
+       hors chemin n'a pas de carte dans les propositions du dessus, donc plus rien à
+       l'écran ne confirmait le geste. Le choix reste, et le bandeau de confirmation
+       ci-dessous porte les mêmes boutons qu'une carte de test donné. */
+  }
+
+  /* TRADUCTION INSTANTANÉE (sa demande du 05/09 : « je veux que ça traduise en
+     instantané »). L'assistant traduit dans la page — aucune clé, aucun service à
+     souscrire. Source : les questions du CORRIGÉ, pas le PDF : ce sont elles qu'elle lit
+     à l'écran quand elle saisit, et elles sont déjà en texte.
+     ⚠ Cela reste un DÉPANNAGE : les 26 langues de Canopé sont traduites par des
+     professionnels et valent mieux ; et une question mal traduite invalide le test. */
+  async traduireMaintenant() {
+    const id = this.state.tradTest, langue = (this.state.tradLangue || '').trim();
+    if (!id || !langue) {
+      this.setState({ tradErreur: 'Choisis un test et écris une langue.' });
+      return;
+    }
+    const CO = window.CORRIGES, T = window.TESTS;
+    const exos = CO ? CO.pour(id) : null;
+    const test = (T.TESTS || []).find(t => t.id === id);
+    if (!exos || !exos.length) {
+      this.setState({ tradErreur: "Le corrigé de ce test n'est pas encore dans l'appli : "
+        + "je n'ai pas ses questions en texte, il n'y a donc rien à traduire. Envoie-le-moi." });
+      return;
+    }
+    this.setState({ tradEnCours: true, tradErreur: '', tradLignes: null });
+    /* Un objet par exercice : numéro, question, propositions. Le modèle rend le même
+       tableau avec les champs traduits — en JSON, pour que rien ne se mélange. */
+    const source = exos.map(e => ({
+      num: e.num, question: e.question || '',
+      options: (e.options || []).map(o => Array.isArray(o) ? o[0] : o)
+        .concat((e.elements || []).map(x => x[0]))
+        .concat(e.phrases || []).concat((e.sous || []).map(s => s.libelle || ''))
+        .filter(Boolean)
+    }));
+    const consigne = "Tu traduis un test scolaire d'évaluation en " + langue + ".\n"
+      + "Contraintes : traduction fidèle, registre scolaire simple, adaptée à des élèves de "
+      + "6 à 18 ans. Ne reformule pas, ne simplifie pas, n'ajoute rien. Garde les numéros "
+      + "d'exercice et l'ordre des propositions à l'identique. Les noms propres restent "
+      + "tels quels.\n"
+      + "Réponds UNIQUEMENT par un tableau JSON de la même longueur et dans le même ordre, "
+      + 'chaque élément de la forme {"num":"1","question":"…","options":["…"]}. '
+      + 'Aucun texte avant ou après le JSON.';
+    try {
+      const rep = await window.claude.complete({
+        model: 'claude-sonnet-4-5', max_tokens: 8000, system: consigne,
+        messages: [{ role: 'user', content: JSON.stringify(source) }]
+      });
+      /* Le modèle encadre parfois le JSON de texte : on découpe sur les crochets. */
+      const a = rep.indexOf('['), b = rep.lastIndexOf(']');
+      const liste = JSON.parse(a >= 0 ? rep.slice(a, b + 1) : rep);
+      const lignes = liste.map((x, i) => ({
+        num: 'Exercice ' + (x.num || source[i].num),
+        fr: source[i] ? source[i].question : '',
+        trad: [x.question || ''].concat((x.options || []).map(o => '· ' + o)).join('\n')
+      }));
+      this.setState({ tradEnCours: false, tradLignes: lignes,
+        tradTitre: (test && test.titre) || id });
+    } catch (e) {
+      this.setState({ tradEnCours: false,
+        tradErreur: "La traduction n'a pas abouti (" + (e && e.message ? e.message : 'erreur')
+          + "). Réessaie dans un instant — ou copie la demande pour le chat, juste en dessous." });
+    }
+  }
+
+  copierTraduction() {
+    const l = this.state.tradLignes || [];
+    const txt = (this.state.tradTitre || '') + ' — ' + (this.state.tradLangue || '') + '\n\n'
+      + l.map(x => x.num + '\n' + x.trad).join('\n\n');
+    if (navigator.clipboard) navigator.clipboard.writeText(txt).catch(() => {});
+    this.setState({ copieTrad: true });
+  }
+
+  /* Les langues qui se lisent de DROITE À GAUCHE. Un seul endroit pour la liste : elle
+     sert au bandeau de l'étape 3 et à l'affichage des traductions (05/09).
+     ⚠ « kurde » tout court est écarté : le kurmandji s'écrit en alphabet latin, de gauche
+     à droite ; seul le sorani se lit de droite à gauche. */
+  estRtl(nom) {
+    const RTL = ['arabe', 'persan', 'farsi', 'dari', 'pachto', 'ourdou', 'urdu',
+      'hebreu', 'hébreu', 'sorani'];
+    const l = String(nom || '').toLowerCase();
+    return RTL.some(x => l.indexOf(x) >= 0);
+  }
+
+  langueRetenue(test) {
     const d = this.dossier(); if (!d) return '';
+    /* ⚠ Un test qui n'existe qu'en français ne peut pas être « passé en arabe » : sans ce
+       garde-fou, la fiche portait « Arabe » sur le test Lyon, qui n'est écrit qu'en
+       français (vu le 05/09). */
+    if (test && test.multilingue === false) return 'Français';
     const l = window.TESTS.languesPossibles(d.fiche || d);
     return l.disponibles.length ? l.disponibles[0].nom : (l.absentes[0] || '');
   }
@@ -729,13 +1089,29 @@ class Component extends DCLogic {
     const voulue = (fiche.langueScolarisation || fiche.langueMaternelle || d && d.langueScolarisation || '');
     /* canonique() renvoie un objet { cle, nom } : on compare les clés, pas les objets. */
     const cle = (x) => { const c = T.canonique && T.canonique(x); return c ? c.cle : ''; };
-    /* La fiche peut porter plusieurs langues (« Wolof, Français ») : on les essaie toutes. */
     /* Les langues sans tradition écrite scolaire (wolof, bambara…) ne servent pas à
        choisir un livret : on ne les compare pas. */
     const ecarte = (x) => (T.SANS_ECRIT_SCOLAIRE || [])
       .some(y => y.toLowerCase() === x.toLowerCase());
-    const meme = String(voulue).split(/[,;/]+/).map(x => x.trim()).filter(Boolean)
-      .filter(x => !ecarte(x))
+    /* ⚠ Les fiches écrivent les langues de toutes les façons : « arabe, français »,
+       « arabe et français », ou une par ligne. Sans couper aussi sur « et » et sur le
+       retour à la ligne, « arabe et français » formait UN seul mot qui n'égalait jamais
+       « français » : l'appli annonçait la version française du test puis refusait de la
+       donner, pour toutes les fiches bilingues (Sana, 05/09). */
+    const mots = String(voulue).split(/[,;/\n]+|\bet\b/).map(x => x.trim()).filter(Boolean)
+      .filter(x => !ecarte(x));
+    /* AUTRES VERSIONS DÉPOSÉES (elle a envoyé l'arabe le 05/09) : `p.versions` range un
+       PDF par langue. Si l'élève a cette langue, c'est CELLE-LÀ qu'on propose — le
+       français ne l'intéresse pas quand l'élève lit l'arabe. La version déposée passe
+       donc AVANT la langue par défaut du document. */
+    const versions = p.versions || {};
+    const trouvee = Object.keys(versions).find(nom =>
+      mots.some(x => cle(x) === cle(nom) || x.toLowerCase() === nom.toLowerCase()));
+    if (trouvee) {
+      return { sujet: versions[trouvee], nom: 'Télécharger le test (' + trouvee.toLowerCase() + ')',
+        mot: p.note || '' };
+    }
+    const meme = mots
       .some(x => cle(x) === cle(langue) || x.toLowerCase() === langue.toLowerCase());
     if (meme) {
       return { sujet: p.sujet, nom: 'Télécharger le test (' + langue + ')', mot: p.note || '' };
@@ -780,6 +1156,21 @@ class Component extends DCLogic {
 
   modeReponses(testId, oui) {
     this.setState({ modeRep: Object.assign({}, this.state.modeRep, { [testId]: oui }) });
+  }
+
+  /* Sa règle (05/09) : un élève **scolarisé en français** ne passe pas de test de
+     français langue seconde — son français EST sa langue de scolarisation, et c'est le
+     bloc bleu qui le mesure. Le bloc vert disparaît donc de l'étape ② pour lui. */
+  scolariseEnFrancais(d) {
+    if (!d) return false;
+    const f = d.fiche || {};
+    const l = String(f.langueScolarisation || d.langueScolarisation || '');
+    return /français|francais/i.test(l);
+  }
+
+  /* La fiche d'un exercice dans DOSSIERS, retrouvée par son numéro. */
+  exoDe(test, num) {
+    return window.DOSSIERS.exercices(test).find(x => x.num === String(num)) || null;
   }
 
   /* Une question à l'écran. Tous les types se rendent de la même façon : des lignes,
@@ -875,6 +1266,10 @@ class Component extends DCLogic {
     const vert = note === 'MS' || note === 'TBM';
     return {
       num: exo.num, question: exo.question, vo: exo.vo || '', aide: [exo.aide, exo.note].filter(Boolean).join(' '),
+      /* Comme sur la grille d'évaluation papier : le palier « FIN DE » et la compétence
+         officielle de l'exercice (05/09). L'un et l'autre viennent de DOSSIERS. */
+      finDe: (() => { const e = this.exoDe(test, exo.num); return e && e.finDe ? 'fin de ' + e.finDe : ''; })(),
+      competence: (() => { const e = this.exoDe(test, exo.num); return (e && e.competence) || ''; })(),
       /* La réponse attendue sous les yeux : elle corrigeait en comparant avec la
          feuille du corrigé papier posée à côté (03/09). */
       attendu: exo.attendu || '',
@@ -1252,6 +1647,9 @@ class Component extends DCLogic {
       avecEntete: !this.props.sansEntete,
       racine: (el) => { if (el && !this.racine) { this.racine = el; setTimeout(this.mesurer, 0); } },
       colonnes2: etroit ? 'minmax(0,1fr)' : 'repeat(2,minmax(0,1fr))',
+      /* ⚠ Plus de `colonnesE2` : l'étape 2 est passée en UNE colonne pleine largeur
+         (05/09). La base des tests était le second enfant de la grille — une fois retirée,
+         la moitié droite restait vide. */
       aideDepot: !!this.state.aideDepot,
       aideOn: () => this.setState({ aideDepot: true }),
       aideOff: () => this.setState({ aideDepot: false }),
@@ -1340,7 +1738,7 @@ class Component extends DCLogic {
         estDonne,
         matiere: t.matiere || '',
         titre: t.titre || '?', pourquoi: e.pourquoi,
-        detail: [t.niveaux ? t.niveaux.join(' · ') : '', t.echelle, t.materiel ? 'matériel : ' + t.materiel : '']
+        detail: [t.niveaux ? t.niveaux.join(' · ') : '', t.document || '', t.echelle, t.materiel ? 'matériel : ' + t.materiel : '']
           .filter(Boolean).join(' — '),
         lien: t.dansAppli ? '' : (t.lien || ''),
         /* Le PDF rangé dans le site : l'imprimante l'ouvre directement — mais seulement
@@ -1352,6 +1750,19 @@ class Component extends DCLogic {
         pdfCorrige: (T.PDFS[t.id] && T.PDFS[t.id].corrige) || '',
         onPdfCorrige: () => this.ouvrirPdf((T.PDFS[t.id] || {}).corrige || '', 'Corrigé — ' + t.titre),
         pdfMot: this.pdfDe(t, d).mot,
+        /* Cycles 2 et 3 : le test complet est possible, mais elle peut n'en donner qu'un
+           palier (CP · CE1 · CE2, puis CM1 · CM2 · 6e). Les cases pilotent les exercices
+           affichés à l'étape 3 et le bilan (05/09). */
+        motPaliers: (t.paliers && t.paliers.length)
+          ? (estDonne ? 'Paliers donnés :' : 'Le livret contient :')
+          : '',
+        paliers: (t.paliers || []).map(pal => {
+          const pass = (d && (d.tests || []).find(x => x.testId === t.id)) || null;
+          const pris = this.paliersDe(t, pass).indexOf(pal) >= 0;
+          return { id: t.id + '-' + pal, nom: pal, coche: pris,
+            marque: pris ? '☑' : '☐',
+            onToggle: () => this.basculerPalierTest(t, pal) };
+        }),
         /* Les mathématiques portent l'orange clair de la base des tests : d'un coup
            d'œil, on voit ce qui relève du français et ce qui relève des maths. */
         bord: aC ? '#d8a24a' : (estDonne ? '#2a9d6e' : (t.matiere === 'maths' ? '#e6c58e' : (repli ? '#e0e7f0' : '#c3d2e2'))),
@@ -1364,6 +1775,148 @@ class Component extends DCLogic {
       };
     });
 
+    /* Une carte pour un test que le chemin n'a pas proposé : le déchiffrage (bouton
+       « Difficultés de lecture ? ») et les tests que le PARCOURS suggère (05/09). */
+    const carteDe = (id, pourquoi, bloc) => {
+      const t = T.TESTS.find(x => x.id === id); if (!t) return null;
+      const estDonne = donnes.some(x => x.testId === t.id);
+      const p = T.PDFS[t.id] || {};
+      return { id: t.id, bloc: bloc || (t.matiere === 'maths' ? 'maths' : 'lecture'),
+        rang: '+', estDonne, matiere: t.matiere || '',
+        titre: t.titre, pourquoi, alpha: bloc === 'alpha',
+        detail: [t.niveaux ? t.niveaux.join(' · ') : '', t.document || '', t.echelle].filter(Boolean).join(' — '),
+        lien: t.dansAppli ? '' : (t.lien || ''),
+        pdf: this.pdfDe(t, d).sujet, pdfNom: this.pdfDe(t, d).nom,
+        onPdf: () => this.ouvrirPdf(this.pdfDe(t, d).sujet, t.titre),
+        pdfCorrige: p.corrige || '',
+        onPdfCorrige: () => this.ouvrirPdf(p.corrige || '', 'Corrigé — ' + t.titre),
+        pdfMot: this.pdfDe(t, d).mot,
+        motPaliers: (t.paliers && t.paliers.length)
+          ? (estDonne ? 'Paliers donnés :' : 'Le livret contient :') : '',
+        paliers: (t.paliers || []).map(pl => {
+          const pass = (d && (d.tests || []).find(x => x.testId === t.id)) || null;
+          const pris = this.paliersDe(t, pass).indexOf(pl) >= 0;
+          /* « fin de » tombe sur les cases : le titre de la carte dit déjà « fin de cycle
+             3 », et avec le préfixe les trois cases débordaient du cadre (05/09). */
+          return { id: t.id + '-' + pl, nom: pl, coche: pris,
+            marque: pris ? '☑' : '☐', onToggle: () => this.basculerPalierTest(t, pl) };
+        }),
+        bord: estDonne ? '#2a9d6e' : '#c9b8e4', fond: estDonne ? '#f1f8f4' : '#f7f4fd',
+        boutonFond: estDonne ? '#2a9d6e' : '#fff', boutonEncre: estDonne ? '#fff' : '#1d4e89',
+        boutonTexte: estDonne ? '✓ DONNÉ' : "JE L'AI DONNÉ",
+        onDonne: () => this.marquerDonne(t, true),
+        onRetirer: () => this.marquerDonne(t, false) };
+    };
+
+    /* LE PARCOURS FAIT ENTRER DES TESTS (05/09). « Scolarisée jusqu'en CE2 » à 15 ans :
+       le chemin de la classe d'âge ne propose pas le fin de CE2, il faut donc l'ajouter,
+       sinon la suggestion n'aurait rien à désigner. Les autres paliers du même livret
+       viennent avec, pour que la carte du livret reste complète. */
+    const parcSug = this.lectureParcours(d);
+    if (parcSug && parcSug.ids.length) {
+      const ajoute = (id, bloc) => {
+        if (!id || vals.propositions.some(c => c.id === id)) return;
+        const c = carteDe(id, parcSug.raison, bloc);
+        if (c) vals.propositions.push(c);
+      };
+      parcSug.ids.forEach(id => {
+        const t = T.TESTS.find(x => x.id === id); if (!t) return;
+        ajoute(id, t.matiere === 'maths' ? 'maths' : 'lecture');
+        if (t.livret) {
+          T.TESTS.filter(x => x.livret === t.livret).forEach(x => ajoute(x.id, 'lecture'));
+        }
+      });
+    }
+
+    /* UN LIVRET, UNE CARTE (05/09). Les livrets Canopé de compréhension de l'écrit sont
+       un seul document par cycle : proposer « fin de CP », « fin de CE1 » et « fin de CE2 »
+       sur trois lignes laissait croire à trois tests à photocopier. Les paliers d'un même
+       livret sont donc réunis sur une carte, avec une case par palier — toutes cochées
+       par défaut, elle en décoche si elle n'en donne qu'un. */
+    vals.propositions = (() => {
+      const sortie = [], groupes = {};
+      vals.propositions.forEach(c => {
+        const t = T.TESTS.find(x => x.id === c.id);
+        const liv = t && t.livret;
+        if (!liv || c.bloc !== 'lecture') { sortie.push(c); return; }
+        if (!groupes[liv]) { groupes[liv] = { tete: c, membres: [] }; sortie.push(groupes[liv]); }
+        groupes[liv].membres.push({ carte: c, test: t });
+      });
+      const nomCycle = { c2: 'cycle 2', c3: 'cycle 3', c4: 'cycle 4' };
+      /* La case du palier ne porte QUE le niveau — « CM1 · CM2 · 6e ». Le nom du texte
+         est le même pour les trois paliers d'un livret (c'est un seul récit) : le répéter
+         sur chaque case faisait déborder la ligne, alors qu'elle veut UNE ligne (05/09).
+         Il est donc dans le TITRE de la carte, une fois : « Livret cycle 3 (Sami) ».
+         « fin de » tombe aussi : le titre le dit déjà. */
+      const nomPalier = (t) => ((t.niveaux || []).join(' · ') || t.titre)
+        .replace(/\s*\([^)]*\)\s*$/, '').replace(/^fin de /, '');
+      const nomCourt = (t) => ((t.niveaux || []).join(' · ') || t.titre).replace(/\s*\([^)]*\)\s*$/, '');
+      return sortie.map(x => {
+        if (!x.membres) return x;
+        if (x.membres.length < 2) return x.tete;
+        const liv = (T.TESTS.find(y => y.id === x.tete.id) || {}).livret;
+        const cle = (d ? d.id : '') + '|';
+        /* ⚠ TOUS les paliers du livret, pas seulement ceux que le chemin a poussés :
+           le livret est un seul document, et elle en donne parfois le cycle entier
+           (Mathis, 03/09). Une carte qui annonce « tout le livret » en montrant deux
+           paliers sur trois interdirait de noter le troisième. */
+        const tousTests = T.TESTS.filter(y => y.livret === liv);
+        const proposes = x.membres.map(m => m.test.id);
+        const paliers = tousTests.map(t => {
+          const carte = (x.membres.find(m => m.test.id === t.id) || {}).carte;
+          const donne = !!(carte ? carte.estDonne : donnes.some(z => z.testId === t.id));
+          const coche = this.paliersRetenus(cle + t.id);
+          return { id: t.id, nom: nomPalier(t), coche, estDonne: donne,
+            marque: donne ? '✓' : (coche ? '☑' : '☐'),
+            /* Un palier hors chemin reste visible mais discret : c'est un choix d'elle. */
+            horsChemin: proposes.indexOf(t.id) < 0,
+            onToggle: () => this.basculerPalier(cle + t.id) };
+        });
+        const retenus = tousTests.filter(t => this.paliersRetenus(cle + t.id));
+        const donnesIci = tousTests.filter(t => donnes.some(z => z.testId === t.id));
+        const estDonne = donnesIci.length > 0;
+        /* Ce que le bouton ferait vraiment : les paliers cochés qui ne sont pas donnés.
+           Sans ça, « ✓ DONNÉ » se reclique et ajoute un test en silence — la régression
+           corrigée le 03/09. */
+        const aAjouter = retenus.filter(t => !donnes.some(z => z.testId === t.id));
+        return Object.assign({}, x.tete, {
+          id: 'livret-' + liv,
+          /* La carte groupée reprend un titre COURT : sans lui, « Le livret contient : »
+             flottait sans dire de quoi il s'agissait (« on ne sait pas trop ce que c'est
+             que ce livret », 05/09). « Compréhension de l'écrit — » est laissé de côté :
+             l'en-tête du bloc le dit déjà. Seuls les cycles 2 et 3 ont une carte livret. */
+          titre: 'Livret cycle ' + String(liv || '').replace('c', '') + ' (Sami)',
+          /* Les ids des paliers réunis : c'est par eux qu'une suggestion du parcours
+             reconnaît la carte du livret (son id, lui, est fabriqué). */
+          membres: tousTests.map(t => t.id),
+          pourquoi: (x.tete.pourquoi || '').replace(/le palier de fin de [^.]*\./i,
+            'le livret entier.'),
+          detail: '',
+          paliers,
+          motPaliers: estDonne
+            ? 'Donné : ' + donnesIci.map(nomCourt).join(' · ')
+            /* Ni « à donner » (ça prescrit) ni « suggérés » (le mot servait déjà aux
+               tests concurrents, juste au-dessus) : on dit ce que le livret CONTIENT,
+               et les cases pré-cochées disent ce qu'elle donnerait — libre à elle de
+               décocher (05/09). */
+            : 'Le livret contient :',
+          estDonne,
+          boutonFond: estDonne ? '#2a9d6e' : '#fff',
+          boutonEncre: estDonne ? '#fff' : '#1d4e89',
+          boutonTexte: !aAjouter.length
+            ? (estDonne ? '✓ DONNÉ' : 'COCHE UN PALIER')
+            : (estDonne
+              ? 'AJOUTER ' + aAjouter.map(nomCourt).join(' ET ').toUpperCase()
+              : (aAjouter.length === tousTests.length ? 'JE DONNE TOUT LE LIVRET' : 'JE DONNE CES PALIERS')),
+          bord: estDonne ? '#2a9d6e' : '#c3d2e2',
+          fond: estDonne ? '#f1f8f4' : '#f5f8fc',
+          /* Rien au clic quand il n'y a rien à ajouter : le bouton vert est un ÉTAT. */
+          onDonne: aAjouter.length ? () => this.marquerDonnes(aAjouter, true) : () => {},
+          onRetirer: () => this.marquerDonnes(tousTests, false)
+        });
+      });
+    })();
+
     /* Les propositions se rangent en deux familles, comme dans la base des tests :
        le français en bleu, les mathématiques en orange clair, chacune sous sa bande. */
     /* Trois familles, le même vocabulaire que la base des tests : la langue de
@@ -1373,29 +1926,12 @@ class Component extends DCLogic {
     /* Si l'élève bute sur la lecture, aucun niveau du cycle 3 ne dira rien d'utile :
        ce qu'il faut, c'est savoir s'il déchiffre. Le bouton descend d'un cran encore,
        vers l'alphabétisation — sa feuille de décodage, et le test NSA à construire. */
-    const carteDe = (id, pourquoi) => {
-      const t = T.TESTS.find(x => x.id === id); if (!t) return null;
-      const estDonne = donnes.some(x => x.testId === t.id);
-      const p = T.PDFS[t.id] || {};
-      return { id: t.id, bloc: 'lecture', rang: '+', estDonne, matiere: t.matiere || '',
-        titre: t.titre, pourquoi, alpha: true,
-        detail: [t.niveaux ? t.niveaux.join(' · ') : '', t.echelle].filter(Boolean).join(' — '),
-        lien: t.dansAppli ? '' : (t.lien || ''),
-        pdf: this.pdfDe(t, d).sujet, pdfNom: this.pdfDe(t, d).nom,
-        onPdf: () => this.ouvrirPdf(this.pdfDe(t, d).sujet, t.titre),
-        pdfCorrige: p.corrige || '',
-        onPdfCorrige: () => this.ouvrirPdf(p.corrige || '', 'Corrigé — ' + t.titre),
-        pdfMot: this.pdfDe(t, d).mot,
-        bord: estDonne ? '#2a9d6e' : '#c9b8e4', fond: estDonne ? '#f1f8f4' : '#f7f4fd',
-        boutonFond: estDonne ? '#2a9d6e' : '#fff', boutonEncre: estDonne ? '#fff' : '#1d4e89',
-        boutonTexte: estDonne ? '✓ DONNÉ' : "JE L'AI DONNÉ",
-        onDonne: () => this.marquerDonne(t, true),
-        onRetirer: () => this.marquerDonne(t, false) };
-    };
-    /* Attaché au dossier : le bouton d'un élève ne doit pas rester allumé sur le suivant. */
-    const alpha = !!(d && this.state.alpha[d.id]);
-    const cartesAlpha = !alpha ? [] : [
-      carteDe('decodage-latin', "Difficultés de lecture : on vérifie le déchiffrage — lettres, syllabes, chiffres, trois mots. Il n'existe pas de test d'alphabétisation : c'est l'observation qui tranche.")
+    /* Le test de déchiffrage n'a plus son bouton « Difficultés de lecture ? » (retiré le
+       05/09) : il vit simplement dans « Autres tests possibles » du bloc de lecture,
+       comme les autres. Un bouton pour faire apparaître un test alors qu'une liste des
+       autres tests existe déjà faisait deux chemins pour la même chose. */
+    const cartesAlpha = [
+      carteDe('decodage-latin', "Si l'élève bute sur la lecture : lettres, syllabes, chiffres, trois mots. Il n'existe pas de test d'alphabétisation — c'est l'observation qui tranche.", 'lecture')
     ].filter(Boolean);
     /* Jamais deux fois le même test à l'écran : quand le bouton est allumé, la carte de
        déchiffrage DÉMÉNAGE ici — on la retire du bloc où elle vivait (le bloc Français
@@ -1406,22 +1942,17 @@ class Component extends DCLogic {
     }
     vals.groupes = [
       { titre: 'ÉVALUATION EN LANGUE DE SCOLARISATION', sous: '', couleur: '#e3edf8', encre: '#1d4e89',
-        cartes: de('lecture').concat(cartesAlpha),
-        /* Toujours offert : un élève qui lit un peu le français peut buter sur la lecture
-           tout autant qu'un autre. */
-        alpha: true, alphaActif: alpha,
-        alphaTexte: alpha ? 'Masquer les tests de déchiffrage' : 'Difficultés de lecture ? Voir les tests de déchiffrage',
-
-        onAlpha: () => d && this.setState({
-          alpha: Object.assign({}, this.state.alpha, { [d.id]: !alpha })
-        }) },
+        cartes: de('lecture').concat(cartesAlpha) },
       { titre: 'MATHÉMATIQUES', sous: "en langue d'origine, ou en français après 16 ans", couleur: '#f4d5a0', encre: '#4a3208',
         cartes: de('maths') },
       /* `encre` fait la bordure (le vert qu'elle a choisi), `encreTexte` fait le texte :
          le même vert clair sur fond vert clair tombait à 2,6:1, illisible. */
+      /* Scolarisé en français : pas de bloc FRANÇAIS. Un test de français langue seconde
+         ne dirait rien de plus que le livret de compréhension de l'écrit déjà proposé en
+         bleu (sa règle du 05/09). */
       { titre: 'FRANÇAIS', sous: "si l'élève lit un peu le français", couleur: '#d9ecdf',
         encre: '#4f9d7d', encreTexte: '#1d6b42',
-        cartes: de('francais') },
+        cartes: this.scolariseEnFrancais(d) ? [] : de('francais') },
       /* Le public principal de l'appli : son test est « mixte », il ne relève ni de la
          langue de scolarisation, ni des maths, ni du français. Il a son bloc et son nom. */
       { titre: 'NON OU PEU SCOLARISÉ ANTÉRIEUREMENT', sous: "l'âge ne décide pas",
@@ -1437,7 +1968,7 @@ class Component extends DCLogic {
     const court = (titre) => titre
       .replace(/^Compréhension de l'écrit( et production écrite)? — /, '')
       .replace(/^Mathématiques — /, '')
-      .replace(/^Lecture en alphabet latin.*/, 'Lecture en alphabet latin')
+      .replace(/^Test de déchiffrage.*/, 'Test de déchiffrage')
       .replace(/^Français — compréhension écrite /, '');
 
     /* Chaque bloc habille son contenu de sa propre couleur : le bleu de la langue de
@@ -1464,12 +1995,83 @@ class Component extends DCLogic {
         /* Un bloc, une liste déroulante, une seule fiche de test à l'écran : empiler
            six cartes rendait l'étape illisible (sa remarque du 02/09). Le test proposé
            en premier est choisi d'office ; les replis sont dans la liste, annotés. */
+        const parc = parcSug;
+        /* CE QUI EST SUGGÉRÉ = ce que le parcours désigne RÉUNI à ce que le chemin de la
+           classe d'âge propose (rang chiffré, pas « + »).
+           ⚠ Avant le 05/09 (soir), le parcours ÉCRASAIT le chemin : dès qu'il parlait,
+           tout le reste tombait dans « autres tests » — y compris Les Trois Frères, qui
+           doit être suggéré pour une raison étrangère à tout palier : c'est le seul test
+           de lecture qui fait ÉCRIRE l'élève, et il vise le collégien scolarisé en
+           français. Un test peut donc être suggéré par son niveau OU par sa nature. */
+        const suggerePar = (c) => c.rang !== '+'
+          || !!(parc && parc.ids.length
+            && (parc.ids.indexOf(c.id) >= 0
+              || (c.membres || []).some(m => parc.ids.indexOf(m) >= 0)));
+        /* Un bloc, une carte à l'écran. Le test affiché d'office : celui qui est déjà
+           donné, sinon LA SUGGESTION — sans quoi la carte montrait le premier test du
+           chemin pendant que la ligne verte en suggérait un autre (05/09). */
         const choisi = this.state.choixTest[g.titre]
-          || (cartes.find(c => c.estDonne) || cartes[0]).id;
+          || (cartes.find(c => c.estDonne) || cartes.find(suggerePar) || cartes[0]).id;
         const carte = cartes.find(c => c.id === choisi) || cartes[0];
+        /* SUGGESTIONS puis AUTRES TESTS POSSIBLES (sa demande du 05/09, sur copie
+           d'écran). Le déroulant est remplacé par une liste ouverte : un `select` ne
+           laisse ni colorer ni décaler ses options, et surtout pas écrire la RAISON de
+           chaque suggestion — qui est tout l'intérêt.
+           ⚠ LE TEST AFFICHÉ RESTE DANS SA LISTE, en surbrillance (05/09, seconde
+           demande) : « dans autres tests possibles, toutes les possibilités · si je
+           clique sur les trois frères, ça change de couleur et j'ai la possibilité de
+           cliquer sur je l'ai donné ». Il avait été retiré des listes pour éviter un
+           doublon de titre — mais l'élu disparaissait alors de la liste des possibles, si
+           bien qu'on ne pouvait plus le désigner ni voir où il se situe. */
+        const ligne = (c) => ({
+          id: c.id,
+          libelle: court(c.titre) + (c.estDonne ? '  ✓ donné' : ''),
+          actif: c.id === choisi,
+          onClick: () => this.setState({
+            choixTest: Object.assign({}, this.state.choixTest, { [g.titre]: c.id })
+          })
+        });
+        const suggestions = cartes.filter(suggerePar).map(c => Object.assign(ligne(c), {
+          raison: (parc && parc.ids.length) ? parc.raison : (c.pourquoi || ''),
+          /* Le choisi se voit : fond plein et trait épais, dans le vert de sa liste. */
+          bord: c.id === choisi ? '#4f9d7d' : '#b6d9c4',
+          fond: c.id === choisi ? '#cfeadb' : '#eef7f1',
+          encre: '#1c4a34'
+        }));
+        const autres = cartes.filter(c => !suggerePar(c)).map(c => Object.assign(ligne(c), {
+          bord: c.id === choisi ? '#1d4e89' : '#dde4ec',
+          fond: c.id === choisi ? '#e3edf8' : '#fff',
+          encre: c.id === choisi ? '#1d4e89' : '#48586b'
+        }));
         return Object.assign({}, g, habits, {
           cartes,
           plusieurs: cartes.length > 1,
+          /* Un mot au-dessus du titre pour dire d'où vient la carte : « test suggéré »
+             quand c'est l'appli qui l'a choisi, « test choisi » quand elle a pris une
+             pastille, « test donné » quand la passation est enregistrée (05/09). */
+          motCarte: (carte && carte.estDonne) ? 'Test donné'
+            : (this.state.choixTest[g.titre] ? 'Test choisi'
+              : (carte && suggerePar(carte) ? 'Test suggéré' : '')),
+          suggestions,
+          autres,
+          /* « Autres tests possibles » n'est plus une liste ouverte en tête de bloc (sa
+             capture du 05/09) mais un BOUTON, à côté des paliers à donner : la liste ne
+             se déplie que si elle la demande. */
+          motAutres: autres.length ? 'Autres tests possibles' : '',
+          voirAutres: !!(this.state.voirAutres || {})[g.titre] && autres.length,
+          fondAutres: (this.state.voirAutres || {})[g.titre] ? '#eef3f9' : '#fff',
+          onAutres: () => this.setState({
+            voirAutres: Object.assign({}, this.state.voirAutres,
+              { [g.titre]: !(this.state.voirAutres || {})[g.titre] })
+          }),
+          /* La barre grise n'existe que s'il y a quelque chose à y mettre. */
+          barre: !!(carte && carte.motPaliers) || autres.length > 0,
+          /* ⚠ « Suggestions » en haut et « Paliers suggérés » en bas désignaient deux
+             choses différentes à dix lignes d'écart — des TESTS concurrents, et des
+             PARTIES du test affiché (elle l'a relevé le 05/09). Les trois libellés se
+             lisent maintenant comme une gradation : autres tests SUGGÉRÉS → autres tests
+             POSSIBLES, et à l'intérieur de la carte, ce que le livret CONTIENT. */
+          motSuggestions: suggestions.length ? 'Autres tests suggérés' : '',
           options: cartes.map(c => ({
             id: c.id,
             libelle: (c.rang === '+' ? '+ ' : c.rang + ' · ') + court(c.titre)
@@ -1479,7 +2081,17 @@ class Component extends DCLogic {
           onChoisir: (e) => this.setState({
             choixTest: Object.assign({}, this.state.choixTest, { [g.titre]: e.target.value })
           }),
-          carte,
+          carte: Object.assign({}, carte, {
+            /* `nom` = le titre débarrassé de « Compréhension de l'écrit — », que l'en-tête
+               du bloc dit déjà : « fin de 3e (Musset) », « Livret cycle 3 (Sami) ». */
+            nom: court((carte || {}).titre || ''),
+            titreLong: (carte || {}).titre || '',
+            /* Le « pourquoi » du chemin ne s'affiche pas quand le test vient du parcours :
+               le bandeau vert « Suggéré : … » a été retiré le 05/09 — « ça ne présente pas
+               d'intérêt, si tu te trompes dans l'analyse je peux palier avec autre test
+               possible ». La justification tient dans l'infobulle des pastilles vertes. */
+            pourquoi: (carte && suggerePar(carte) && parc && parc.ids.length) ? '' : (carte || {}).pourquoi
+          }),
           /* Un test donné ne doit jamais rester caché derrière un déroulant fermé :
              on les nomme sous la liste (03/09). */
           motDonnes: (() => {
@@ -1495,6 +2107,54 @@ class Component extends DCLogic {
 
     const lg = p ? p.langues : { disponibles: [], absentes: [] };
     const dispo = lg.disponibles.map(l => l.nom);
+    /* UN AUTRE TEST A ÉTÉ DONNÉ (05/09) : toute la base est offerte au choix, et les 26
+       langues — celles de la fiche d'abord, puisque ce sont les plus probables. */
+    vals.tousLesTests = (T.TESTS || []).map(t => ({ id: t.id,
+      nom: (t.matiere === 'maths' ? 'Maths — ' : (t.matiere === 'francais' ? 'Français — ' : 'Lecture — '))
+        + ((t.niveaux || []).join(' · ') || t.titre)
+        + ((((t.titre || '').match(/\(([^)]*)\)\s*$/) || [])[1])
+          ? ' (' + t.titre.match(/\(([^)]*)\)\s*$/)[1] + ')' : '') }));
+    const nomsFiche = dispo.concat(lg.absentes);
+    vals.languesChoix = nomsFiche.map(n => ({ nom: n }))
+      .concat((T.LANGUES || []).filter(l => nomsFiche.indexOf(l.nom) < 0).map(l => ({ nom: l.nom })));
+    vals.autreTest = this.state.autreTest || '';
+    vals.autreLangue = this.state.autreLangue || (vals.languesChoix[0] || {}).nom || '';
+    vals.onAutreTest = (e) => this.setState({ autreTest: e.target.value });
+    vals.onAutreLangue = (e) => this.setState({ autreLangue: e.target.value });
+    vals.onAjouterAutre = () => this.ajouterAutreTest();
+    vals.fondAjouter = this.state.autreTest ? '#1d4e89' : '#fff';
+    vals.encreAjouter = this.state.autreTest ? '#fff' : '#1d4e89';
+    /* La passation enregistrée se confirme ICI, dans le panneau, avec les mêmes boutons
+       qu'une carte de test donné : ✓ DONNÉ, Retirer, Télécharger, Le corrigé (sa demande
+       du 05/09). La carte du bloc au-dessus existe aussi, mais elle est loin dans la page
+       et souvent hors de l'écran au moment où elle clique. */
+    vals.autreFait = (() => {
+      const id = this.state.autreTest;
+      if (!id || !d) return null;
+      const pass = (d.tests || []).find(x => x.testId === id);
+      if (!pass || pass.donne === false) return null;
+      const t2 = (T.TESTS || []).find(x => x.id === id);
+      if (!t2) return null;
+      const p = ((T.PDFS) || {})[id] || {};
+      const versions = p.versions || {};
+      /* La langue de la passation commande le PDF : un test donné en arabe se retélécharge
+         en arabe, pas en français. */
+      const trouvee = Object.keys(versions).find(nom =>
+        (pass.langue || '').toLowerCase() === nom.toLowerCase());
+      const sujet = trouvee ? versions[trouvee] : (p.sujet || '');
+      return {
+        nom: ((t2.niveaux || []).join(' · ') || t2.titre) + ' — ' + (pass.langue || 'français'),
+        pdf: sujet,
+        pdfNom: trouvee ? 'Télécharger le test (' + trouvee.toLowerCase() + ')' : 'Télécharger le test',
+        corrige: p.corrige || '',
+        onPdf: () => this.ouvrirPdf(sujet, t2.titre),
+        onCorrige: () => this.ouvrirPdf(p.corrige || '', 'Corrigé — ' + t2.titre),
+        onRetirer: () => this.marquerDonne(t2, false)
+      };
+    })();
+    vals.motAutreTest = "Un test hors du chemin, ou passé dans une autre langue — par exemple "
+      + "le fin de 4e en arabe, pour voir ce que l'élève fait dans sa langue maternelle. "
+      + "Il se notera à l'étape suivante comme les autres.";
     vals.motLangues = !d ? '' : (dispo.length
       ? 'Test disponible en : ' + dispo.join(', ') + (lg.absentes.length ? ' — pas de version en ' + lg.absentes.join(', ') + '.' : '.')
       : 'Aucune des langues de la fiche n\'est traduite par Canopé' + (lg.absentes.length ? ' (' + lg.absentes.join(', ') + ')' : '') + ' : il faudra choisir une langue de repli avec l\'élève.');
@@ -1517,54 +2177,34 @@ class Component extends DCLogic {
       ? "Imprime-la, fais relire la feuille de contrôle, et redonne-moi les corrections : la version passera de « brouillon » à « relue »."
       : "Je traduis à partir de la version française de Canopé et je te rends une feuille prête à imprimer, dans la mise en page de l'appli. Elle se range ensuite dans la base : le prochain élève de cette langue l'aura déjà.";
     vals.motCopier = this.state.copie ? 'DEMANDE COPIÉE ✓' : 'COPIER LA DEMANDE POUR LE CHAT';
+    /* TRADUCTION INSTANTANÉE (05/09) : l'assistant traduit dans la page. */
+    vals.motTraduireVite = this.state.tradEnCours ? 'TRADUCTION EN COURS…' : 'TRADUIRE MAINTENANT';
+    vals.tradErreur = this.state.tradErreur || '';
+    vals.tradLignes = (this.state.tradLignes && this.state.tradLignes.length)
+      ? this.state.tradLignes.map(l => Object.assign({}, l, {
+        /* Une langue qui se lit de droite à gauche doit s'AFFICHER ainsi, sinon la
+           ponctuation se place à l'envers et le texte devient illisible (05/09). */
+        sens: this.estRtl(this.state.tradLangue) ? 'rtl' : 'ltr',
+        align: this.estRtl(this.state.tradLangue) ? 'right' : 'left'
+      }))
+      : null;
+    vals.tradAvert = "Traduction automatique, non relue : elle sert à dépanner, pas à "
+      + "évaluer. Fais-la relire par un locuteur avant de conclure quoi que ce soit sur "
+      + "l'élève. Si Canopé traduit cette langue, sa version vaut mieux que celle-ci.";
+    vals.motCopierTrad = this.state.copieTrad ? 'TRADUCTION COPIÉE ✓' : 'COPIER LA TRADUCTION';
+    vals.traduireMaintenant = () => this.traduireMaintenant();
+    vals.copierTraduction = () => this.copierTraduction();
     vals.ouvrirTraduction = () => this.ouvrirTraduction();
     vals.fermerTraduction = () => this.fermerTraduction();
     vals.copierDemande = () => this.copierDemande();
-    vals.auTestTrad = (e) => this.setState({ tradTest: e.target.value, copie: false, aRecopier: '' });
-    vals.auLangueTrad = (e) => this.setState({ tradLangue: e.target.value, copie: false, aRecopier: '' });
+    vals.auTestTrad = (e) => this.setState({ tradTest: e.target.value, copie: false, aRecopier: '', tradLignes: null, tradErreur: '' });
+    vals.auLangueTrad = (e) => this.setState({ tradLangue: e.target.value, copie: false, aRecopier: '', tradLignes: null, tradErreur: '', copieTrad: false });
 
-    /* la base des tests, en trois colonnes */
-    const tous = T ? T.TESTS : [];
-    const niveaux = (T && T.NIVEAUX ? T.NIVEAUX : []).map(n => n.nom.replace('fin de ', '')).join(' · ');
-    const recus = (T && T.RECUS) ? T.RECUS : [];
-    const compte = (n) => n === 0 ? 'aucun test' : n === 1 ? '1 test rangé' : n + ' tests rangés';
-    /* Les mêmes boutons que dans les propositions : ici on ne regarde pas la langue de
-       l'élève — la base est la base, on télécharge ce qui y est rangé. */
-    const dl = (id, titre, nom) => {
-      const p = ((T && T.PDFS) || {})[id] || {};
-      return {
-        pdf: p.sujet || '', pdfNom: nom || 'Télécharger le test',
-        pdfCorrige: p.corrige || '', pdfMot: p.note || '',
-        onPdf: () => this.ouvrirPdf(p.sujet || '', titre || id),
-        onPdfCorrige: () => this.ouvrirPdf(p.corrige || '', 'Corrigé — ' + (titre || id))
-      };
-    };
-    const carte = (t) => Object.assign({ titre: t.titre, info: (t.items ? t.items + ' exercices · ' : '') + t.echelle + ' · ' + t.source, langues: t.multilingue ? '26 langues' : 'en français' }, dl(t.id, t.titre));
-    vals.colonnes = [
-      { titre: 'ÉVALUATION EN LANGUE DE SCOLARISATION', sous: 'lire dans la langue où il a appris', couleur: '#1d4e89', encre: '#fff',
-        tests: [
-          Object.assign({ titre: "Compréhension de l'écrit — Canopé", info: 'un test par niveau : ' + niveaux + " — on commence au niveau de la classe d'âge, on descend si c'est trop dur", langues: '26 langues · MI-MF-MS-TBM' },
-            dl('canope-lecture-cm2', "Compréhension de l'écrit — cycle 3", 'Télécharger le livret cycle 3 (anglais)')),
-          { titre: 'Tes exemplaires', info: compte(recus.filter(x => x.testId.indexOf('lecture') > 0).length) + ' dans la base', langues: 'Leila D. (6e), en anglais : fin de CM2 trop dur, puis fin de CM1' }
-        ] },
-      { titre: 'MATHÉMATIQUES', sous: "en langue d'origine, ou en français après 16 ans", couleur: '#f4d5a0', encre: '#4a3208',
-        tests: [
-          { titre: 'Mathématiques — Canopé', info: 'un test par cycle : fin de cycle 2 · 3 · 4 — les PDF sont sur la page du CASNAV de Corse', langues: '26 langues · MI-MF-MS-TBM' },
-          { titre: 'Tes exemplaires', info: compte(recus.filter(x => x.testId.indexOf('maths') > 0).length) + ' dans la base', langues: 'Leila D., fin de cycle 2, passé en français' },
-          { titre: 'Le protocole de passation en maths', info: 'comment faire passer le test — CASNAV de Corse', langues: 'en français',
-            pdf: (T && T.PROTOCOLE_MATHS) || '', pdfNom: 'Télécharger le protocole', pdfCorrige: '', pdfMot: '',
-            onPdf: () => this.ouvrirPdf((T && T.PROTOCOLE_MATHS) || '', 'Protocole de passation en maths'), onPdfCorrige: () => {} },
-          { titre: 'Évaluation non verbale en maths', info: "pour les élèves en grande difficulté : rien à lire, rien à écrire — utile pour un NSA", langues: 'sans langue',
-            pdf: (T && T.NON_VERBAL_MATHS) || '', pdfNom: "Télécharger l'évaluation", pdfCorrige: '', pdfMot: '',
-            onPdf: () => this.ouvrirPdf((T && T.NON_VERBAL_MATHS) || '', 'Evaluation non verbale en maths'), onPdfCorrige: () => {} }
-        ].concat(tous.filter(t => t.cycleCle && t.matiere === 'maths').map(carte))
-         .concat(tous.filter(t => !t.niveauCle && !t.cycleCle && t.matiere === 'maths').map(carte)) },
-      { titre: 'FRANÇAIS', sous: "seulement si l'élève lit un peu le français", couleur: '#1e7a53', encre: '#fff',
-        tests: tous.filter(t => !t.niveauCle && !t.cycleCle && t.matiere === 'francais').map(carte) }
-    ];
-    /* Plus de trou : il n'existe pas de test pour les NSA, et il n'en faut pas — le test
-       de la classe d'âge, donné et observé, dit déjà l'essentiel (sa méthode, 02/09). */
-    vals.trou = "Pour un élève non scolarisé antérieurement, il n'y a pas de test à part : tu donnes celui de sa classe d'âge et tu observes — s'il ne lit pas, ou ne comprend rien de ce qu'il lit, cela se voit tout de suite.";
+    /* ⚠ LA BASE DES TESTS a été RETIRÉE de l'étape 2 le 05/09 (« ça ne sert vraiment à
+       rien ») : elle répétait les propositions du dessus et allongeait un écran où elle
+       n'a qu'un geste à faire. Le téléchargement de n'importe quel test passe désormais
+       par « Autres tests possibles », et « Un autre test a été donné » couvre toute la
+       base. `vals.colonnes` et `vals.trou` n'existent plus. */
 
     /* ---- Étape 3 ---- */
     vals.aucunTest = !donnes.length;
@@ -1582,7 +2222,11 @@ class Component extends DCLogic {
     vals.passations = donnes.map(pass => {
       const test = T.TESTS.find(x => x.id === pass.testId) || { titre: pass.testId, matiere: 'lecture' };
       const ech = D.echelleDe(test), choixEch = D.valeurs(ech);
-      const b = D.bilan(test, pass.scores);
+      /* Les paliers cochés à l'étape 2 commandent ce qui s'affiche et ce qui se calcule :
+         donner le CP et le CE1 du livret de cycle 2 ne doit pas faire un bilan sur les
+         22 exercices du livret entier (sa demande du 05/09). */
+      const pal = this.paliersDe(test, pass);
+      const b = D.bilan(test, pass.scores, pal);
       const CO = window.CORRIGES;
       const corrige = CO ? CO.pour(test.id) : null;
       /* Quand le corrigé existe, la saisie des réponses est le mode par défaut :
@@ -1591,7 +2235,23 @@ class Component extends DCLogic {
       const modeR = choix === undefined ? !!corrige : !!choix;
       return {
         aCorrige: !!corrige,
-        questions: (corrige && modeR) ? corrige.map(exo => this.question(test, pass, exo)) : [],
+        questions: (corrige && modeR) ? (() => {
+          /* Le même découpage en domaines que la grille papier, aussi en mode réponses. */
+          let dom = '';
+          /* ⚠ Le filtre par paliers ne s'applique QU'À un livret qui en a (cycles 2 et 3).
+             Appliqué à une liste d'exercices devinée (1…5), il faisait disparaître toute
+             question numérotée au-delà de 5 — Musset 6, 7, 8, UNICEF 6, et l'ex. 6 de
+             Buck qui marchait avant (régression trouvée en vérification, 05/09). */
+          const filtrable = pal && pal.length && test.paliers && test.paliers.length;
+          const gardes = filtrable ? D.exercices(test, pal).map(x => x.num) : null;
+          return corrige.filter(exo => !gardes || gardes.indexOf(String(exo.num)) >= 0).map(exo => {
+            const e = this.exoDe(test, exo.num);
+            const nom = e && e.domaine ? (D.DOMAINES[e.domaine] || '') : '';
+            const tete = nom && nom !== dom ? nom : '';
+            if (tete) dom = nom;
+            return Object.assign({ domaineTitre: tete }, this.question(test, pass, exo));
+          });
+        })() : [],
         bilanTitre: b.conclusion || '',
         bilanLignes: (() => { const l = this.constatsDe(test, pass); return l.length ? l : ''; })(),
         observations: pass.observations || '',
@@ -1632,56 +2292,46 @@ class Component extends DCLogic {
               : 'Note les paliers dans l\'ordre : le niveau retenu sera le plus haut atteint.');
         })(),
         onRetirer: () => this.marquerDonne(test, false),
-        sansCorrige: D.exercices(test).every(it => it.suppose)
+        /* ⚠ LANGUES QUI SE LISENT DE DROITE À GAUCHE (elle l'a signalé le 05/09) : le
+           corrigé vaut pour toutes les langues — mêmes questions, même barème — mais
+           l'ordre des propositions DÀNS un exercice est MIROIR. La première option de la
+           liste ci-dessous est donc celle la plus à DROITE sur la feuille de l'élève.
+           Sans cet avertissement, on saisit systématiquement la mauvaise case sur un
+           livret arabe, persan, dari, pachto, ourdou, hébreu ou kurde sorani. */
+        avertRtl: (() => {
+          /* ⚠ La langue vient de `languePassation`, JAMAIS de `pass.langue` brut : les
+             passations déjà enregistrées portent parfois une langue impossible — le test
+             Lyon, écrit seulement en français, était stocké « en Arabe ». Le garde-fou
+             posé à l'écriture ne corrige pas l'existant : il faut lire juste.
+             Le bandeau disait donc de lire à l'envers une feuille qui n'existe qu'en
+             français — exactement le mal qu'il devait empêcher, inversé. */
+          const nom = this.languePassation(test, pass) || '';
+          if (!this.estRtl(nom)) return '';
+          return 'Livret en ' + nom + ' : la lecture va de DROITE À GAUCHE. '
+            + "L'ordre des questions ne change pas, mais les propositions d'un exercice sont "
+            + 'inversées : la première option de chaque liste ci-dessous est celle la plus '
+            + "à DROITE sur la feuille de l'élève. Même chose pour les colonnes à relier.";
+        })(),
+        sansCorrige: D.exercices(test, pal).every(it => it.suppose)
           ? "Le corrigé de ce test n'est pas encore dans l'application : les exercices sont numérotés, sans intitulé ni barème. Envoie-le-moi et je range ses questions, comme pour les maths de cycle 3 et de fin de 4e."
           : '',
         /* En mode réponses, les exercices que le corrigé ne connaît pas encore
            gardent leur ligne de notation : rien ne disparaît de l'écran. */
-        items: D.exercices(test).filter(it => !(corrige && modeR)
-          || !corrige.some(exo => test.id + '-' + exo.num === it.id)).map(it => ({
-          /* Un test dont le corrigé n'est pas dans l'appli : on numérote les exercices
-             sans inventer d'intitulé (elle a la feuille sous les yeux), et un mot au-
-             dessus de la liste explique pourquoi — « Exercice 1 (intitulé à préciser) »
-             se lisait comme un bug (02/09). */
-          num: it.num, titre: it.suppose ? 'Exercice ' + it.num : it.titre,
-          /* Le corrigé sous les yeux dans LES DEUX modes de saisie : « Je note moi-même »
-             est justement celui qu'elle utilise feuille en main. La réponse vient soit du
-             test lui-même (Lyon +16, via POSITIONNEMENT), soit du corrigé rangé (03/09). */
-          attendu: it.attendu
-            || (() => {
-              const e = corrige && corrige.find(x => test.id + '-' + x.num === it.id);
-              return (e && e.attendu) || '';
-            })(),
-          /* Elle préfère les paliers rédigés des corrigés Canopé aux boutons NE/--/-/+/++
-             et à la grille en une ligne : « 6 résultats corrects », « entre 4 et 5 »…
-             (03/09). Quand l'exercice porte ses paliers, ce sont eux qu'on affiche ;
-             la grille brute n'est plus répétée en dessous. */
-          grille: (it.paliers && it.paliers.length) ? '' : (it.grille || ''),
-          /* Le dernier palier remet l'exercice à « non évalué » : sans lui, un clic par
-             erreur ne se défaisait plus (les boutons NE/--/-/+/++ ont disparu pour ce
-             test). Et c'est le LIBELLÉ qui dit quel palier est allumé. */
-          choix: ((it.paliers && it.paliers.length)
-            ? it.paliers.concat([{ nom: 'Non évalué', v: 'NE' }])
-            : choixEch).map(v => {
-            const rep = (pass.reponses || {})[it.id];
-            const note = (pass.scores || {})[it.id];
-            const paliers = it.paliers && it.paliers.length;
-            const actif = paliers
-              ? (v.v === 'NE' ? !note : (rep ? rep === v.nom : note === v.v))
-              : note === v.v;
-            const dec = choixEch.find(x => x.v === v.v) || {};
-            return {
-              nom: v.nom, aide: v.aide || dec.aide || '',
-              fond: actif ? (dec.fond || '#eef3f9') : '#fff',
-              texte: actif ? (dec.texte || '#1c2430') : '#6b7a8d',
-              bord: actif ? (dec.texte || '#1d4e89') : '#dde4ec',
-              onClick: () => this.noter(test.id, it.id, v.v, paliers ? v.nom : '')
-            };
-          }),
-          /* des paliers rédigés se lisent en colonne, les codes courts en ligne */
-          enColonne: !!(it.paliers && it.paliers.length),
-          enLigne: !(it.paliers && it.paliers.length)
-        }))
+        items: (() => {
+          const brut = D.exercices(test, pal).filter(it => !(corrige && modeR)
+            || !corrige.some(exo => test.id + '-' + exo.num === it.id));
+          /* Comme la grille d'évaluation papier : un bandeau par domaine, le palier
+             « FIN DE » et la compétence officielle sur chaque ligne (05/09). Les
+             exercices sont déjà dans l'ordre de la grille, on ne les retrie pas. */
+          let dom = '';
+          return brut.map(it => {
+            const nomDom = it.domaine ? (D.DOMAINES[it.domaine] || '') : '';
+            const tete = nomDom && nomDom !== dom ? nomDom : '';
+            if (tete) dom = nomDom;
+            return Object.assign({ domaineTitre: tete, finDe: it.finDe ? 'fin de ' + it.finDe : '',
+              competence: it.competence || '' }, this.ligneExercice(it, test, pass, corrige, choixEch));
+          });
+        })()
       };
     });
 

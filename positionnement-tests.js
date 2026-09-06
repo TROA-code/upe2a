@@ -49,19 +49,49 @@
   /* Les PDF rangés dans le dossier tests/ du site : un clic sur l'imprimante les ouvre,
      sans repasser par Canopé. Ce sont les fichiers d'origine, inchangés. */
   const PDFS = {
-    'canope-lecture-cm1': { sujet: 'tests/canope-ecrit-c3-anglais.pdf', langue: 'anglais',
+    /* Livret cycle 2, version française (reçu le 05/09) : les trois paliers dans le même
+       document, comme au cycle 3 — fin de CP (ex. 1 à 5), fin de CE1 (6 à 10), fin de CE2
+       (11 à 15). C'est le MÊME Sami que le cycle 3, un cran plus tôt : son premier jour
+       d'école. */
+    'canope-lecture-cp': { versions: { Arabe: 'tests/canope-ecrit-c2-arabe.pdf' }, sujet: 'tests/canope-ecrit-c2-francais.pdf', langue: 'français',
+      corrige: 'tests/canope-ecrit-c2-corrige-francais.pdf',
+      note: 'livret cycle 2 : les trois paliers dans le même document' },
+    'canope-lecture-ce1': { versions: { Arabe: 'tests/canope-ecrit-c2-arabe.pdf' }, sujet: 'tests/canope-ecrit-c2-francais.pdf', langue: 'français',
+      corrige: 'tests/canope-ecrit-c2-corrige-francais.pdf',
+      note: 'livret cycle 2 : les trois paliers dans le même document' },
+    'canope-lecture-ce2': { versions: { Arabe: 'tests/canope-ecrit-c2-arabe.pdf' }, sujet: 'tests/canope-ecrit-c2-francais.pdf', langue: 'français',
+      corrige: 'tests/canope-ecrit-c2-corrige-francais.pdf',
+      note: 'livret cycle 2 : les trois paliers dans le même document' },
+    'canope-lecture-cm1': { versions: { Arabe: 'tests/canope-ecrit-c3-arabe.pdf' }, sujet: 'tests/canope-ecrit-c3-anglais.pdf', langue: 'anglais',
       corrige: 'tests/canope-ecrit-c3-corrige-francais.pdf',
       note: 'livret cycle 3 : les trois paliers dans le même document' },
-    'canope-lecture-cm2': { sujet: 'tests/canope-ecrit-c3-anglais.pdf', langue: 'anglais',
+    'canope-lecture-cm2': { versions: { Arabe: 'tests/canope-ecrit-c3-arabe.pdf' }, sujet: 'tests/canope-ecrit-c3-anglais.pdf', langue: 'anglais',
       corrige: 'tests/canope-ecrit-c3-corrige-francais.pdf',
       note: 'livret cycle 3 : les trois paliers dans le même document' },
-    'canope-lecture-6e': { sujet: 'tests/canope-ecrit-c3-anglais.pdf', langue: 'anglais',
+    'canope-lecture-6e': { versions: { Arabe: 'tests/canope-ecrit-c3-arabe.pdf' }, sujet: 'tests/canope-ecrit-c3-anglais.pdf', langue: 'anglais',
       corrige: 'tests/canope-ecrit-c3-corrige-francais.pdf',
       note: 'livret cycle 3 : les trois paliers dans le même document' },
-    'canope-lecture-5e': { corrige: 'tests/canope-ecrit-c4-5e-corrige-buck.pdf',
+    'canope-lecture-5e': { versions: { Arabe: 'tests/canope-ecrit-c4-5e-arabe.pdf' }, corrige: 'tests/canope-ecrit-c4-5e-corrige-buck.pdf',
       note: 'le corrigé de Buck seulement — le sujet reste à déposer' },
+    /* Corrigés de français des deux paliers hauts du cycle 4, reçus le 05/09 ; leurs
+       sujets sont arrivés le même jour. Contrairement aux cycles 2 et 3, chaque palier
+       du cycle 4 est un document à part — texte différent à chaque niveau. */
+    'canope-lecture-4e': { versions: { Arabe: 'tests/canope-ecrit-c4-4e-arabe.pdf' }, sujet: 'tests/canope-ecrit-c4-4e-sujet.pdf', langue: 'français',
+      corrige: 'tests/canope-ecrit-c4-4e-corrige.pdf',
+      note: "dossier UNICEF sur les droits de l'enfant — trois documents" },
+    'canope-lecture-3e': { versions: { Arabe: 'tests/canope-ecrit-c4-3e-arabe.pdf' }, sujet: 'tests/canope-ecrit-c4-3e-sujet.pdf', langue: 'français',
+      corrige: 'tests/canope-ecrit-c4-3e-corrige.pdf',
+      note: 'texte de Musset, La Confession d\'un enfant du siècle' },
     'creteil-conte-college': { sujet: 'tests/creteil-3-freres-sujet.pdf', langue: 'français',
       corrige: "POSITIONNEMENT - Corrigé Les Trois Frères.dc.html" },
+    /* Refait à partir de ses captures d'écran (05/09) : elle n'avait pas le PDF.
+       ⚠ Le texte de Gary est sous droits et n'est PAS recopié dans le document — le
+       sujet reproduit la mise en page, les consignes, les notes et le questionnaire, et
+       renvoie à l'original pour la page du texte. */
+    'creteil-lycee-gary': { sujet: 'POSITIONNEMENT - Test lycée Romain Gary.dc.html',
+      langue: 'français',
+      corrige: 'POSITIONNEMENT - Corrigé FLSco lycée.dc.html',
+      note: 'refait d\'après ses captures — la page du texte reste à photocopier depuis l\'original' },
     'decodage-latin': { sujet: 'tests/decodage-alphabet-latin.pdf', langue: 'français' },
     'lyon-maths-16': { sujet: 'tests/lyon-maths-16-sujet.pdf', langue: 'français',
       corrige: 'tests/lyon-maths-16-corrige.pdf' },
@@ -69,7 +99,7 @@
        du CASNAV de Corse (elle m'a donné le lien le 02/09). Le bouton ouvre le fichier
        chez eux — version française ; les 25 autres langues sont sur la même page. */
     'canope-maths-c2': { sujet: 'https://www.ac-corse.fr/media/16904/download', langue: 'français',
-      corrige: 'https://www.ac-corse.fr/media/16910/download',
+      corrige: 'tests/canope-maths-c2-corrige.pdf',
       note: 'fin de cycle 2 · CASNAV de Corse — les 25 autres langues sont sur leur page' },
     'canope-maths-c3': { sujet: 'https://www.ac-corse.fr/media/16985/download', langue: 'français',
       corrige: 'tests/canope-maths-c3-corrige.pdf',
@@ -114,32 +144,49 @@
 
   const canope = (matiere, n) => ({
     id: 'canope-' + matiere + '-' + n.cle,
-    /* Le nom du texte entre parenthèses : à l'écran, « fin de 5e » ne dit pas lequel
-       des deux tests de ce niveau on désigne (elle a demandé « Buck », 02/09). */
+    /* Le nom du texte entre parenthèses après le niveau : le palier ordonne la liste et
+       part sur la fiche EANA, mais c'est au TEXTE qu'elle reconnaît le test (05/09).
+       Les quatre paliers du cycle 4 sont nommés de la même façon que ceux du cycle 3. */
     titre: (matiere === 'lecture' ? "Compréhension de l'écrit" : 'Mathématiques') + ' — ' + n.nom
-      + (matiere === 'lecture' && n.cle === '5e' ? ' (Buck)' : '')
-      + (matiere === 'lecture' && ['cm1', 'cm2', '6e'].indexOf(n.cle) >= 0 ? ' (Sami)' : ''),
+      + (matiere === 'lecture' ? (({ '5e': ' (Buck)', '4e': ' (UNICEF)', '3e': ' (Musset)',
+        cp: ' (Sami)', ce1: ' (Sami)', ce2: ' (Sami)',
+        cm1: ' (Sami)', cm2: ' (Sami)', '6e': ' (Sami)' })[n.cle] || '') : ''),
     matiere, source: CANOPE, niveaux: [n.nom], niveauCle: n.cle, cycle: n.cycle,
-    /* Les livrets Canopé de compréhension de l'écrit ne sont pas trois documents mais
-       UN par cycle, avec les paliers à la suite (cycle 3 : items 1 à 15, fin de CM1 →
-       fin de CM2 → fin de 6e). Elle peut donc donner « le cycle 3 complet » d'un coup :
-       l'appli le reconnaît par ce champ et regroupe les paliers (03/09). */
-    livret: matiere === 'lecture' ? 'c' + n.cycle : null,
+    /* Les livrets Canopé de compréhension de l'écrit sont UN document par cycle pour les
+       cycles 2 et 3, avec les paliers à la suite (cycle 3 : items 1 à 15, fin de CM1 →
+       fin de CM2 → fin de 6e). Elle peut donc donner « le cycle 2 complet » d'un coup :
+       l'appli le reconnaît par ce champ et regroupe les paliers en une carte (03/09).
+       ⚠ PAS AU CYCLE 4 (dit le 05/09) : « je ne donnerai jamais à faire tous les
+       exercices, donc “je donne le livret” n'a aucun sens ». Et de fait, ce sont trois
+       DOCUMENTS distincts chez Canopé — un texte différent par palier (Buck, UNICEF,
+       Musset). Le cycle 4 se donne donc test par test ; le champ `cycle: 4` suffit à les
+       ranger ensemble dans la base des tests. */
+    livret: (matiere === 'lecture' && n.cycle < 4) ? 'c' + n.cycle : null,
     ageIndicatif: [n.age - 1, n.age], echelle: 'MI-MF-MS-TBM',
     multilingue: true, lien: PAGE_LILLE, corriges: CORRIGES_CANOPE,
     materiel: matiere === 'maths'
       ? 'crayon, gomme, rapporteur, règle graduée, équerre, compas, crayons vert + rouge' : null
   });
 
+  /* Ce qu'elle donne, dit le 05/09 : aux cycles 2 et 3, le test COMPLET est possible et
+     reste proposé tel quel — mais elle veut pouvoir n'en donner qu'un palier (CP · CE1 ·
+     CE2, puis CM1 · CM2 · 6e), d'où le sous-menu de paliers sur la carte. Le CYCLE 4,
+     lui, est trop long pour être donné d'un coup : il se donne par NIVEAU (fin de 5e,
+     fin de 4e, fin de 3e), et son livret « fin de cycle 4 » porte le titre « fin de 3e ».
+     Les paliers viennent de la colonne FIN DE de la grille officielle. */
   const CYCLES = [
-    { cle: 'c2', nom: 'fin de cycle 2', cycle: 2, age: 8, exos: 'nombres jusqu\'à 1000, addition, soustraction, multiplication, suites, rangement, problèmes' },
-    { cle: 'c3', nom: 'fin de cycle 3', cycle: 3, age: 11, exos: 'décimaux, fractions, division posée, géométrie, mesures' },
-    { cle: 'c4', nom: 'fin de cycle 4', cycle: 4, age: 14, exos: 'diviseurs, factorisation, identités remarquables, équation produit, fonctions, trigonométrie, Thalès, agrandissement' }
+    { cle: 'c2', nom: 'fin de cycle 2', paliers: ['CP', 'CE1', 'CE2'], cycle: 2, age: 8, exos: 'nombres jusqu\'à 1000, addition, soustraction, multiplication, suites, rangement, problèmes' },
+    { cle: 'c3', nom: 'fin de cycle 3', paliers: ['CM1', 'CM2', '6e'], cycle: 3, age: 11, exos: 'décimaux, fractions, division posée, géométrie, mesures' },
+    { cle: 'c4', nom: 'fin de cycle 4', niveau: 'fin de 3e', cycle: 4, age: 14, exos: 'diviseurs, factorisation, identités remarquables, équation produit, fonctions, trigonométrie, Thalès, agrandissement' }
   ];
   const canopeMaths = (c) => ({
     id: 'canope-maths-' + c.cle,
-    titre: 'Mathématiques — ' + c.nom,
-    matiere: 'maths', source: CANOPE, niveaux: [c.nom], cycleCle: c.cle, cycle: c.cycle,
+    titre: 'Mathématiques — ' + (c.niveau || c.nom),
+    matiere: 'maths', source: CANOPE, niveaux: [c.niveau || c.nom], cycleCle: c.cle, cycle: c.cycle,
+    /* Les paliers notables à l'intérieur du livret (cycles 2 et 3 seulement). */
+    paliers: c.paliers || null,
+    /* Le nom du document Canopé quand le titre ne le dit pas, pour le retrouver chez eux. */
+    document: c.niveau ? 'livret ' + c.nom : '',
     ageIndicatif: [c.age - 2, c.age], echelle: 'MI-MF-MS-TBM', contenu: c.exos,
     materiel: c.cycle === 2
       ? 'crayon, gomme, règle graduée, équerre, compas'
@@ -192,7 +239,7 @@
     },
     {
       id: 'decodage-latin',
-      titre: 'Lecture en alphabet latin — lettres, syllabes, chiffres, mots',
+      titre: 'Test de déchiffrage — lettres, syllabes, chiffres, mots',
       matiere: 'francais', source: 'sa feuille, dans l\'application',
       niveaux: ['débutant en français'], ageIndicatif: [11, 25], echelle: 'MI-MF-MS-TBM',
       items: 4, multilingue: false, materiel: 'la feuille imprimée',
@@ -202,13 +249,36 @@
     },
     {
       id: 'creteil-conte-college',
-      titre: 'Compréhension de l\'écrit et production écrite — « Les Trois Frères »',
+      titre: "Compréhension de l'écrit et production écrite — Les Trois Frères",
       matiere: 'francais', source: 'CASNAV de Créteil',
       niveaux: ['fin de 5e'], niveauCle: '5e', cycle: 4, ageIndicatif: [11, 16], echelle: 'MI-MF-MS-TBM',
+      /* ⚠ « fin de 5e » est un rang que NOUS lui donnons : il n'est pas imprimé sur le
+         document de Créteil, qui se présente seulement comme un test FLSco pour
+         collégiens. Il lui en fallait un pour être ordonné entre les paliers Canopé (elle
+         l'a cité comme repli à côté de Buck, 02/09) — à corriger si le CASNAV précise
+         autre chose. Ce n'est pas ce rang qui le fait suggérer : c'est sa nature. */
+      niveauAttribue: true,
       items: 17, multilingue: false,
       note: "Test FLSco de Créteil, en français : pour les collégiens francophones. "
         + "Un conte de Jean Muzi, seize questions rédigées, puis une production écrite au choix.",
       materiel: 'stylo'
+    },
+    {
+      /* Ce qu'elle donne pour tester le NIVEAU LYCÉE à un francophone (dit le 05/09).
+         Elle ne l'avait qu'en captures d'écran : le document est refait dans l'appli. */
+      id: 'creteil-lycee-gary',
+      titre: "Compréhension de l'écrit et production écrite — lycée (Romain Gary)",
+      matiere: 'francais', source: 'CASNAV de Créteil',
+      niveaux: ['lycée'], niveauCle: '2de', cycle: 4, ageIndicatif: [15, 25],
+      /* Sa grille de compétences (reçue le 05/09) a son échelle propre en signes, et elle
+         ne vise pas un palier scolaire mais une ORIENTATION : CAP, bac pro, bac général. */
+      echelle: 'NE / --- / --+ / ++- / +++', echelleId: 'creteil', items: 20,
+      multilingue: false, materiel: 'stylo',
+      note: "Test FLSco pour le lycée, en français : c'est ce qu'elle donne aux "
+        + "francophones de niveau lycée. Trois types de documents — un extrait de "
+        + "La Promesse de l'aube (Romain Gary), une photographie, une affiche — vingt "
+        + "questions rédigées et une production écrite au choix. La grille classe en trois "
+        + "niveaux visés : vers le CAP, vers le bac pro, bac général et technologique."
     }
   ]);
 
@@ -235,7 +305,7 @@
 
   /* Les tests reçus d'elle, rangés dans la base. */
   const RECUS = [
-    { testId: 'canope-maths-c2', langue: 'Français', items: 9,
+    { testId: 'canope-maths-c2', langue: 'Français', items: 20,
       photos: ['uploads/IMG_20260901_074917.jpg', 'uploads/IMG_20260901_074921.jpg', 'uploads/IMG_20260901_074932.jpg'],
       eleve: 'Leila D., née en 2015 — 6e, finlandaise',
       note: "passé en FRANÇAIS, pas en langue d'origine — c'était le seul disponible" },
@@ -370,6 +440,19 @@
         pourquoi: k === 0 ? 'À garder sous la main : si le niveau au-dessus est trop dur.'
           : 'Et celui-ci, si le précédent est encore trop dur.',
         test: par('canope-lecture-' + n.cle), agrafe: true }));
+      /* Les livrets ENTIERS des cycles 3 puis 2, toujours sous la main (sa demande du
+         05/09). Aux cycles 2 et 3, un seul document contient les trois paliers : les
+         cartes « Livret cycle 3 » et « Livret cycle 2 » se forment d'elles-mêmes et se
+         donnent en entier — contrairement au cycle 4. Les paliers déjà poussés ci-dessus
+         ne sont pas dupliqués : `etapes` est dédoublonnée par test plus loin. */
+      ['cm2', 'cm1', 'ce2', 'ce1', 'cp'].forEach(cle2 => {
+        if (etapes.some(e => e.test && e.test.id === 'canope-lecture-' + cle2)) return;
+        etapes.push({ rang: etapes.length + 1,
+          pourquoi: ['ce2', 'ce1', 'cp'].indexOf(cle2) >= 0
+            ? 'Le livret du cycle 2 en entier : pour un élève qui lit à peine.'
+            : 'Le livret du cycle 3 en entier.',
+          test: par('canope-lecture-' + cle2), agrafe: true });
+      });
       const cycNum = cycleFait;
       /* Un cran au-dessus si elle s'en sort trop bien, un cran en dessous si c'est trop dur. */
       if (cycleFait !== cycleClasse) {
@@ -388,16 +471,38 @@
 
     if (!nsa && a != null && a >= 16) {
       etapes.push({ rang: 1, pourquoi: 'Plus de 16 ans et scolarité antérieure : on vise l\'orientation.', test: par('lyon-maths-16') });
-      etapes.push({ rang: 2, pourquoi: 'Lecture et écrit dans la langue de scolarisation.', test: par('canope-lecture-3e') });
+      /* ⚠ Pour un élève SCOLARISÉ EN FRANÇAIS, les paliers Canopé ne sont qu'un repli :
+         ses tests à elle sont ceux de Créteil (Les Trois Frères, Romain Gary), plus
+         proches de ce que l'élève va rencontrer en classe. Sa capture du 05/09 le dit :
+         « pour ce cas précis je dois voir en haut les trois frères et Gary ». */
+      etapes.push({ rang: 2, pourquoi: 'Lecture et écrit dans la langue de scolarisation.',
+        test: par('canope-lecture-4e'), agrafe: scolEnFrancais });
+      /* ⚠ Le fin de 3e n'est PLUS suggéré : « je ne donne jamais niveau 3ème car il est
+         nul ce test » (05/09). Elle avait demandé de le laisser en place le temps de
+         choisir un remplaçant ; sa capture du même jour a tranché — Les Trois Frères et
+         le Romain Gary en haut, Musset dans « autres tests possibles ». Il reste donc
+         téléchargeable, mais l'appli ne le propose plus. */
+      etapes.push({ rang: etapes.length + 1, pourquoi: 'Le palier de fin de 3e (Musset) : téléchargeable, mais elle ne le donne pas.', test: par('canope-lecture-3e'), agrafe: true });
       /* Les mêmes replis que pour un collégien : on commence en haut, on descend. */
-      etapes.push({ rang: etapes.length + 1, pourquoi: 'À garder sous la main : si la fin de 3e est trop dure.', test: par('canope-lecture-4e'), agrafe: true });
-      etapes.push({ rang: etapes.length + 1, pourquoi: 'Et si la fin de 4e est encore trop dure : Buck, en fin de 5e.', test: par('canope-lecture-5e'), agrafe: true });
+      etapes.push({ rang: etapes.length + 1, pourquoi: 'À garder sous la main : si la fin de 4e est trop dure — Buck.', test: par('canope-lecture-5e'), agrafe: true });
       etapes.push({ rang: etapes.length + 1, pourquoi: 'Et en dessous : le palier de fin de 6e.', test: par('canope-lecture-6e'), agrafe: true });
+      /* Et si même la fin de 6e est trop dure : les livrets entiers du cycle 3 puis du
+         cycle 2 (sa demande du 05/09 — « ajoute dans autres tests possibles cycle 3 et
+         cycle 2 »). Comme ces deux cycles sont groupés en livret, les paliers se
+         réunissent en une carte « Livret cycle 3 » et une carte « Livret cycle 2 », avec
+         leur PDF — celui-là se donne en entier, contrairement au cycle 4. */
+      etapes.push({ rang: etapes.length + 1, pourquoi: 'Le livret du cycle 3 en entier, si les paliers du collège sont hors de portée.', test: par('canope-lecture-cm2'), agrafe: true });
+      etapes.push({ rang: etapes.length + 1, pourquoi: 'Le livret du cycle 3 en entier.', test: par('canope-lecture-cm1'), agrafe: true });
+      etapes.push({ rang: etapes.length + 1, pourquoi: 'Le livret du cycle 2 en entier : pour un élève qui lit à peine.', test: par('canope-lecture-ce2'), agrafe: true });
+      etapes.push({ rang: etapes.length + 1, pourquoi: 'Le livret du cycle 2 en entier.', test: par('canope-lecture-ce1'), agrafe: true });
+      etapes.push({ rang: etapes.length + 1, pourquoi: 'Le livret du cycle 2 en entier.', test: par('canope-lecture-cp'), agrafe: true });
       etapes.push({ rang: etapes.length + 1, pourquoi: 'Si le test de plus de 16 ans est trop dur en maths : le palier de fin de 3e, puis ceux du dessous.', test: par('canope-maths-c4'), agrafe: true });
       etapes.push({ rang: etapes.length + 1, pourquoi: 'Puis la fin de 4e.', test: par('canope-maths-4e'), agrafe: true });
       etapes.push({ rang: etapes.length + 1, pourquoi: 'Puis la fin de 5e.', test: par('canope-maths-5e'), agrafe: true });
       etapes.push({ rang: etapes.length + 1, pourquoi: 'Et si le cycle 4 est trop dur : la fin de cycle 3.', test: par('canope-maths-c3'), agrafe: true });
-      etapes.push({ rang: etapes.length + 1, pourquoi: "L'autre test de fin de 5e, en français : seize questions puis une production écrite. Elle le cite comme repli à côté de Buck.", test: par('creteil-conte-college'), bloc: 'francais', agrafe: true });
+      /* Les Trois Frères n'est PAS poussé ici : le bloc `parleFrancais`, plus bas, le fait
+         déjà et sait s'il doit être suggéré ou seulement gardé sous la main. Le pousser
+         aux deux endroits créait un doublon où la version agrafée pouvait l'emporter. */
     } else {
       cheminDeLaClasse();
     }
@@ -405,8 +510,11 @@
       /* Pour un élève scolarisé EN français, « Les Trois Frères » vient d'abord : c'est
          le test qu'elle utilise pour les collégiens francophones. Le test Lyon +16 et la
          feuille de décodage restent en repli. */
-      const cle5e = (fiche.classeCle === '5e' || fiche.classeCle === '4e');
-      if (cle5e) {
+      /* « Je veux les 3 frères » (05/09) : il était réservé aux classes de 5e et 4e, donc
+         invisible pour une lycéenne francophone alors qu'elle le donne. Il est proposé
+         dès le collège et au-delà — c'est le seul test de lecture avec production écrite. */
+      const collegeOuPlus = a == null || a >= 11;
+      if (collegeOuPlus) {
         etapes.push({ rang: etapes.length + 1,
           pourquoi: scolEnFrancais
             ? "Scolarité en français : seize questions de compréhension et de langue, puis une production écrite."
@@ -417,6 +525,23 @@
              comme langue étrangère (le décodage, le test Lyon). */
           bloc: scolEnFrancais ? 'lecture' : 'francais',
           test: par('creteil-conte-college'), agrafe: !scolEnFrancais });
+      }
+      /* NIVEAU LYCÉE, francophone : c'est le Romain Gary qu'elle donne (05/09). Suggéré,
+         pas agrafé, quand l'élève est scolarisé EN français — comme Les Trois Frères un
+         cran plus bas.
+         ⚠ On teste l'ÂGE, pas `classeCle` : dans EANA.CLASSES, les trois lignes du lycée
+         (2de, 1re, Terminale) ont une clé NULLE — il n'existe pas de test Canopé à ce
+         niveau, donc pas de clé de palier. Une condition sur `classeCle === '2de'` ne
+         serait jamais vraie (code mort trouvé en vérification, 05/09). La règle attrape
+         donc aussi les plus de 18 ans, ce qui est voulu : au-delà du lycée, c'est encore
+         ce test-là qui est le plus proche. */
+      if (a != null && a >= 15) {
+        etapes.push({ rang: etapes.length + 1,
+          pourquoi: scolEnFrancais
+            ? "Niveau lycée et scolarité en français : vingt questions sur trois documents, puis une production écrite. La grille classe vers le CAP, le bac pro ou le bac général."
+            : "Le test de niveau lycée, en français : à garder sous la main si le cycle 4 est trop facile.",
+          bloc: scolEnFrancais ? 'lecture' : 'francais',
+          test: par('creteil-lycee-gary'), agrafe: !scolEnFrancais });
       }
       /* Le test Lyon vise l'orientation après 16 ans : hors de propos pour un collégien
          de cycle 3, même francophone. */

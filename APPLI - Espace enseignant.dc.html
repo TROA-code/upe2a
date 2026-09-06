@@ -1160,6 +1160,12 @@ Le trait d'union sépare les mots</label>
 </div>
 </sc-if>
 
+<sc-if value="{{ estEdt }}" hint-placeholder-val="{{ false }}">
+<div class="edt-hote" style="flex:1;min-height:0;overflow:hidden">
+<dc-import name="APPLI - Emploi du temps" hint-size="100%,100%"></dc-import>
+</div>
+</sc-if>
+
 <sc-if value="{{ estPosTable }}" hint-placeholder-val="{{ false }}">
 <div style="flex:1;min-height:0;display:flex;flex-direction:column;gap:12px;padding:18px 20px;overflow:hidden">
 <div style="flex:0 0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:10px">
@@ -1845,6 +1851,27 @@ Le trait d'union sépare les mots</label>
 </div>
 </sc-if>
 
+<sc-if value="{{ estDocsUtiles }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;overflow-y:auto;padding:18px 20px;display:flex;flex-direction:column;gap:14px">
+<span style="font-size:12.5px;color:#6b7386;line-height:1.5;max-width:640px">Les documents qui ne sont ni une fiche de lexique ni un exercice sur écran : des séances entières et les références. Chacun s'ouvre dans un onglet et s'imprime tout seul.</span>
+<sc-for list="{{ sequences }}" as="s" hint-placeholder-count="1">
+<div style="display:flex;flex-direction:column;gap:2px;border-left:5px solid #12233b;padding:2px 0 2px 12px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:15px;color:#12233b">{{ s.titre }}</span>
+<span style="font-size:12px;color:#6b7386;line-height:1.45">{{ s.detail }}</span>
+</div>
+</sc-for>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px">
+<sc-for list="{{ docsUtiles }}" as="d" hint-placeholder-count="3">
+<a href="{{ d.url }}" style="min-width:0;display:flex;flex-direction:column;gap:7px;background:#fff;border-radius:14px;box-shadow:0 2px 8px rgba(20,33,61,0.14);padding:16px 17px;text-decoration:none;border-top:5px solid {{ d.couleur }}">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:13.5px;color:#12233b;line-height:1.35">{{ d.titre }}</span>
+<span style="font-size:12px;color:#6b7386;line-height:1.5">{{ d.detail }}</span>
+<span style="font-size:11.5px;color:#1d4e89;font-weight:700">Ouvrir →</span>
+</a>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
 <sc-if value="{{ estDisques }}" hint-placeholder-val="{{ false }}">
 <div style="flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden">
 
@@ -2130,7 +2157,7 @@ Le trait d'union sépare les mots</label>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:840}}">
-const GROUPES_INIT=[{nom:'Débutants',eleves:['Élève A','Élève B','Élève C']},{nom:'Intermédiaires',eleves:[]},{nom:'Avancés',eleves:[]}];
+const GROUPES_INIT=[{nom:'Débutants',eleves:['Anita','Ahmed','Josephina','Sania','Yasir']},{nom:'Intermédiaires',eleves:[]},{nom:'Avancés',eleves:[]}];
 const THEMES=['Le corps','Les animaux','L\'école','Les repas','Les mathématiques','La maison','La famille, les métiers','L\'heure, le calendrier','Les actions courantes','Les vêtements, les couleurs','La ville, les transports','Se présenter','Les pays, les langues'];
 const PREF=f=>(/^(geste|phrase)-/.test(f)?f:'mot-'+f);
 // phrases illustrées, par thème : [phrase, image]
@@ -2156,10 +2183,10 @@ const PHRASES={
   ['Elle porte un sac sur le dos.','phrase-sacsurledos']
  ]};
 const BANQUE={
-/* Thème publié le 04/09, ses 10 images sont dans clean/. « un drapeau » (vignette
-   neutre, sans pays) manque encore : le mot n'est donc pas dans la liste — un mot sans
-   image donne une carte blanche à l'élève, et l'écran élève se construit sur BANQUE. */
- 'Les pays, les langues':[['le Portugal','portugal'],['l\'Espagne','espagne'],['l\'Italie','italie'],['le Maroc','maroc'],['l\'Algérie','algerie'],['la Turquie','turquie'],['la Pologne','pologne'],['le Brésil','bresil'],['le Vietnam','vietnam'],['les langues','langues']],
+/* Thème publié le 04/09. « un drapeau » (vignette neutre, sans pays) est arrivée le
+   05/09 : le mot est donc dans la liste, et c'est elle qui sert de repère pour le cadre
+   « De quel pays viens-tu ? » sur la carte « se présenter ». */
+ 'Les pays, les langues':[['le Portugal','portugal'],['l\'Espagne','espagne'],['l\'Italie','italie'],['le Maroc','maroc'],['l\'Algérie','algerie'],['la Turquie','turquie'],['la Pologne','pologne'],['le Brésil','bresil'],['le Vietnam','vietnam'],['les langues','langues'],['un drapeau','drapeau']],
  'La politesse':[['bonjour','geste-bonjour'],['bonsoir','geste-bonsoir'],['au revoir','geste-aurevoir'],['merci','geste-merci'],["s'il vous plaît",'geste-silvousplait'],['pardon','geste-pardon'],['oui','geste-oui'],['non','geste-non'],['à demain','geste-ademain']],
  "L'alphabet":[['a','ananas'],['b','ballon'],['c','carotte'],['d','deux'],['e','renard'],['f','fantome'],['g','gateau'],['i','gris'],['j','jupe'],['k','kangourou'],['l','lit'],['m','moto'],['n','nuage'],['o','orange'],['p','pied'],['q','cinq'],['r','robot'],['s','salade'],['t','table'],['u','rue'],['v','velo'],['w','wagon'],['x','xylophone'],['y','pyjama'],['z','zebre']],
  'Les jours':[['lundi','lundi'],['mardi','mardi'],['mercredi','mercredi'],['jeudi','jeudi'],['vendredi','vendredi'],['samedi','samedi'],['dimanche','dimanche']],
@@ -2188,7 +2215,10 @@ const BANQUE={
  'Les moments du repas':[],
  'À table':[['la table','table'],['une assiette','assiette'],['un verre','verre']],
  'Les couleurs':[['rouge','rouge'],['jaune','jaune'],['bleu','bleu'],['vert','vert-peinture'],['noir','noir'],['blanc','blanc'],['gris','gris'],['orange','orange-peinture'],['marron','marron']],
- 'Les transports':[['un vélo','velo'],['une voiture','voiture'],['un bus','bus'],['un train','train'],['un avion','avion'],['un taxi','taxi'],['un wagon','wagon']]
+ 'Les transports':[['un vélo','velo'],['une voiture','voiture'],['un bus','bus'],['un train','train'],['un avion','avion'],['un taxi','taxi'],['un wagon','wagon']],
+/* Thème publié le 05/09. 16 métiers de CAP / apprentissage — le coiffeur, le docteur et
+   l'informatique réutilisent des images déjà là. Filles sur l'électricité et la soudure. */
+ 'Les métiers':[['un maçon','macon'],['un peintre','peintre'],['un électricien','electricien'],['un plombier','plombier'],['un menuisier','menuisier'],['un soudeur','soudeur'],['un mécanicien','mecanicien'],['un cuisinier','cuisinier'],['un serveur','serveur'],['un boulanger','boulanger'],['un pâtissier','patissier'],['un vendeur','vendeur'],['un caissier','caissier'],['un magasinier','magasinier'],['un aide-soignant','aidesoignant'],['un agent d\'entretien','agententretien'],['un coiffeur','coiffeur']]
 };
 const VF={
  'Les anciens repas':[['pomme',"C'est une pomme.",true],['pomme',"C'est une banane.",false],['pain',"C'est du pain.",true],['riz',"C'est du café.",false],['carotte',"C'est une carotte.",true],['tomate',"C'est une pomme.",false],['cafe',"C'est un café.",true],['yaourt',"C'est un yaourt.",true]],
@@ -3790,10 +3820,12 @@ class Component extends DCLogic {
       sons:'Les sons — la progression de la classe', son:'Le son « '+(s.sonCle||'')+' »', texte:'Lire des textes — les aides à la lecture', creer:'Créer une fiche', outils:TITRES_DOM[s.outilsDomaine]||'Fiches à imprimer', competences:'Bilan des compétences', devoirs:'Je continue chez moi — préparer le travail du soir',
       alpha:"L'alphabet",alphaEcrire:'Écris la lettre',resultatAlpha:'Résultat',
       disques:'Outils de manipulation en classe',
+      docsUtiles:'Mes documents utiles — mes séances et mes références',
       accueilEleve:"Accueil d'un élève — la fiche, le test, les résultats, la préconisation",
+      edt:'Mon emploi du temps — la semaine, le jour, les documents de chaque créneau',
       pos:'Positionnement — saisir et corriger un test', posTable:'Positionnement — tous les élèves testés',
       themeAccueil:'Choisis ton tableau', tableauThemes:'Choisis ton thème', tableauCode:'Les lettres et les sons',sousTheme:s.themeParent||'Choisis',niveau:'Choisis ton niveau',themeEleve:'Choisis un thème',explore:s.themeEleve||'Exploration',trouve:'Trouve la bonne image',vf:'Vrai ou faux',lireDessin:'Trouve le bon dessin',lireMot:'Trouve le bon mot',repete:'Écoute et répète',situation:'Que dis-tu ?',ecrire:s.modeEcrire==='completer'?'Complète le mot':'Écris le mot',resultat:'Résultat'};
-    const ECRANS_PROF=['groupes','reglages','reglagesCode','fabrique','bilan','oral','themes','sons','son','texte','outils','creer','competences','devoirs','mdp','accueilEleve','pos','posTable','disques'];
+    const ECRANS_PROF=['groupes','reglages','reglagesCode','fabrique','bilan','oral','themes','sons','son','texte','outils','creer','competences','devoirs','mdp','accueilEleve','pos','posTable','disques','edt'];
     const RUBRIQUES=[
       ['Ma classe','#2a9d6e',[
         ['Gestion des élèves','groupes'],
@@ -3815,6 +3847,11 @@ class Component extends DCLogic {
       ['Positionnement','#1d4e89',[
         ["Accueil d'un élève",'accueilEleve'],
         ['Tous les élèves testés','posTable']]],
+      /* Mon organisation, graphite #44546a : la couleur sobre convient à l'administratif,
+         et aucune rubrique ne l'occupait (chantier ouvert le 06/09). Le cahier journal et
+         les fiches de prep viendront ici. */
+      ['Mon organisation','#44546a',[
+        ['Emploi du temps','edt']]],
       ['Ressources enseignantes','#6d5bd0',[
         ['Je continue chez moi','devoirs'],
         ['Outils de manipulation en classe','disques'],
@@ -3822,7 +3859,7 @@ class Component extends DCLogic {
         ['Rituels',''],
         ['Découverte du monde et des sciences',''],
         ['Étude de la langue',''],
-        ['Mes documents utiles','']]]
+        ['Mes documents utiles','docsUtiles']]]
     ];
     const ouvrirDom=(ec,dom)=>()=>{
       if(dom){
@@ -4513,7 +4550,28 @@ class Component extends DCLogic {
       pageSuiv:()=>{const n=this.lotsVus().length; this.setState(p=>({outilsPage:Math.min(Math.max(0,Math.floor((n-1)/9)),(p.outilsPage||0)+1)}));},
       vrai:true,
       estDisques:s.ecran==='disques',
+      estDocsUtiles:s.ecran==='docsUtiles',
+      /* « Mes documents utiles » : le point de menu existait mais n'ouvrait rien. Il tient
+         désormais ce qui n'est ni une fiche de lexique ni un exercice écran — des séances
+         entières et des références, chacune un document à part qui s'imprime tout seul
+         (04/09/26). Les liens sont relatifs : ces fichiers vivent à côté de l'appli. */
+      /* Les documents sont regroupés par séquence : « Séquence 1 — Bienvenue au lycée »
+         tient les deux premières séances, le jeu de cartes et la carte à remplir
+         (04/09/26). Les séquences suivantes s'ajouteront comme autant de groupes. */
+      sequences:[['Séquence 1 — Bienvenue au lycée','Se présenter : son prénom, son métier, sa ville, son âge.']]
+        .map(([titre,detail])=>({titre,detail})),
+      docsUtiles:[
+        ['Séance 1 et 2 — Me présenter','Les deux premières séances de la séquence : fiches de préparation et fiches élève. Prénom et métier, puis ville et âge.','#2a9d6e','SÉANCES - Me présenter (Ratatouille).dc.html'],
+        ['Séance 3 — Le jeu des cartes','Le jeu des cartes d’identité : diaporama des mots, carte vierge, neuf cartes fictives, planches à découper, et le modèle du CASNAV.','#6d5bd0','CARTE - se présenter (visuelle).dc.html'],
+        ['La carte à remplir — version simple','La même carte, sans les vignettes : une page à remplir à la main.','#1d4e89','CARTE - se présenter.dc.html']
+      /* Les documents s'ouvrent DANS la même vue, et non dans un nouvel onglet : ouvert à
+         part, l'onglet n'a pas le jeton de l'aperçu et n'affiche que « preview token
+         required ». La requête de la page courante est recopiée sur chaque lien, et le
+         bouton « Retour » du navigateur ramène ici (04/09/26). */
+      ].map(([titre,detail,couleur,url])=>({titre,detail,couleur,
+        url:url+(typeof location!=='undefined'?location.search:'')})),
       estAccueilEleve:s.ecran==='accueilEleve',
+      estEdt:s.ecran==='edt',
       dsqOutils:[['des','Les disques des dés','à scratcher sur les faces',false],
         ['etiquettes','Les étiquettes-mots','à manipuler et à classer',true],
         ['cartes','Les cartes à pince','une question, une réponse à pincer',true],

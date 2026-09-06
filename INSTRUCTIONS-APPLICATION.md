@@ -12,16 +12,16 @@ Trois conversations séparées n'ont plus de sens.
 
 À reprendre en priorité, dans cet ordre :
 1. **Le thème « Les métiers »** — elle génère les images, elle n'a pas fini ; rien n'est
-   publié. Voir la section « Thème Les métiers — EN COURS » : les 9 déjà rangées, les 11
-   qui manquent, et les deux réserves (texte parasite sur `mot-caissier`, trois images en
-   format large). Quand ce sera complet : créer le thème dans `BANQUE` + `THEMES` et
-   remplacer le cadre « langues » de la carte par le métier (« Il veut être mécanicien »).
-2. **`mot-drapeau`** — la vignette neutre manque ; en attendant, c'est le drapeau du
-   Portugal qui sert de repère en coin des cases « pays » de la carte. Le prompt lui a été
+   publié. Voir la section « Thème Les métiers — PUBLIÉ (05/09) » : les 19 images sont
+   rangées, le thème existe dans les deux `BANQUE`, et le cadre « langues » de la carte
+   est devenu « Quel métier veux-tu faire ? ». Rien ne reste en attente sur ce thème.
+2. **`mot-drapeau`** — arrivée le 05/09 : drapeau textile gris uni sur mât de bois. Elle
+   sert de repère en coin des cases « pays » de la carte. Le prompt lui a été
    donné.
 3. **La feuille de route n° 1** — livrée, elle voulait la retravailler plus tard.
-4. **Les tests non rangés** : maths fin de cycle 2 (exercices 7 à 9 devinés), et les
-   livrets de lecture Canopé, dont je n'ai pas les corrigés. Elle doit aussi revérifier
+4. **Les tests non rangés** : les livrets de lecture Canopé, dont je n'ai pas les
+   corrigés. (Le maths fin de cycle 2 est réglé — corrigé reçu le 05/09, voir la section
+   « Maths fin de cycle 2 : les 20 exercices ».) Elle doit aussi revérifier
    **l'angle de l'exercice 15** du maths cycle 3, au rapporteur (124° officiel, elle a
    trouvé 146° sur sa feuille imprimée).
 5. **Les verbes** — classement en quatre familles proposé et accepté (consignes de classe ·
@@ -237,6 +237,576 @@ existait mais valait la chaîne vide). Les deux échelles sont maintenant reconn
 toute nouvelle échelle devra être ajoutée là. La condensation habituelle s'applique : « Maîtrise les opérations posées, le rangement des
 nombres. Ne maîtrise pas le calcul de dérivées. »
 
+## Maths fin de cycle 2 : les 20 exercices (corrigé reçu le 05/09)
+
+Elle a envoyé le corrigé officiel Canopé → `tests/canope-maths-c2-corrige.pdf` (le bouton
+de téléchargement pointe désormais le fichier du projet, plus l'URL du CASNAV de Corse).
+⚠ **L'appli ne connaissait que 9 exercices, le test en a 20** — et les intitulés 7 à 9,
+devinés le 02/09, étaient faux : l'ex. 7 est un **rangement de nombres**, l'ex. 8 des
+**soustractions posées**, l'ex. 9 des **multiplications posées**. Corrigé.
+Les 20 exercices sont saisis dans `positionnement-corriges.js` avec les paliers du barème
+officiel, et rangés par domaine dans `positionnement-dossiers.js` (l'ex. 16 est noté trois
+fois par le corrigé — côtés · sommets · angles droits — donc trois lignes 16a / 16b / 16c,
+comme l'ex. 9 du fin de 3e). Répartition : nombres 1 à 9, données 2-3-10, grandeurs 11 à 14,
+géométrie 15 à 20 — les quatre cases maths de la fiche EANA se remplissent donc toutes.
+Particularités reprises du corrigé : les additions, soustractions et multiplications sont
+notées **asymétriquement** (seule la seconde opération porte une retenue → MS si elle seule
+est juste, MF si seule la première l'est) ; l'ex. 10 accorde **MS** quand les deux opérations
+sont bien choisies et que seul le calcul est faux ; l'ex. 16c accorde MS à « 1 angle droit » ;
+l'ex. 19 accorde MS au cercle de centre B passant par A ; l'ex. 17 accepte le carré tracé
+sous le segment. Les trois opérations posées portent la ligne « Un résultat écrit sans
+opération posée » (règle du 03/09).
+⚠ Même piège qu'au cycle 3 : l'ex. 11 (mesurer BC ≈ 6 cm) dépend de l'échelle d'impression —
+l'`aide` le dit, il faut mesurer sur la feuille de l'élève.
+
+⚠ **Le mot « suggéré » ne doit désigner qu'une chose.** « Suggestions » en haut du bloc et
+« Paliers suggérés » dans la carte nommaient deux réalités à dix lignes d'écart — des
+**tests concurrents** et des **parties du test affiché** (elle l'a relevé le 05/09). Les
+trois libellés se lisent maintenant comme une gradation : **Autres tests suggérés** →
+**Autres tests possibles**, et à l'intérieur de la carte **Le livret contient :** (puis
+« Paliers donnés : » après passation). Ni « à donner » (ça prescrit) ni « suggérés » (le
+mot est pris).
+
+## Le livret cycle 2 en lecture (reçu 05/09)
+
+Sujet et corrigé de compréhension de l'écrit, version française, copiés en
+`tests/canope-ecrit-c2-francais.pdf` et `…-c2-corrige-francais.pdf`. Les tests
+`canope-lecture-cp`, `-ce1` et `-ce2` existaient déjà (générés depuis `NIVEAUX`) mais
+n'avaient ni PDF ni corrigé : **une élève de niveau CP ou CE1 n'avait donc rien en
+lecture**. C'était le trou le plus gênant de l'appli.
+
+Comme au cycle 3, **un seul document pour les trois paliers** : fin de CP = exercices 1 à 5,
+fin de CE1 = 6 à 10, fin de CE2 = 11 à 15. C'est le **même Sami que le cycle 3**, un cran
+plus tôt — son premier jour d'école. Le nom est donc dans le titre pour les six paliers.
+
+⚠ **Le corrigé du cycle 2 détaille son barème exercice par exercice**, contrairement au
+cycle 3 : il est recopié tel quel. Les cas à ne pas lisser —
+- ex. 2 (relier dix mots) : au moins 8 → TBM, 5 → MS, 3 → MF ;
+- ex. 4 (dessiner les habits) : les 3 vêtements **et** l'étoile → TBM, au moins 3 éléments
+  → MS, au moins 2 → MF ;
+- ex. 10 (chronologie) : **4 3 1 2 vaut MS** — l'élève a suivi l'ordre du texte sans voir
+  que le plus-que-parfait vient avant ; la seule place du 1 respectée vaut MF
+  (barème `c2ex10`) ;
+- ex. 13 (où habite Sami) : « maison individuelle » vaut **MF**, pas MI — l'élève a vu
+  l'escalier sans reconnaître l'immeuble.
+⚠ **L'ex. 5 (entourer la chambre) : le corrigé ne dit pas quel dessin est le bon.** La
+saisie se fait donc au barème, et l'aide rappelle ce que le texte donne (le lit avec une
+chaise à côté, la grosse armoire près de la fenêtre, l'image aux chats sur le mur). Ne pas
+inventer un numéro de dessin.
+⚠ Deux domaines nouveaux pour la fiche : **lexique** (l'appariement mot-image du CP est du
+lexique pur) et **chronologie** (l'ex. 10). Les mettre dans « compréhension » aurait
+mélangé trois choses distinctes.
+
+## Le test de niveau LYCÉE : Romain Gary (05/09)
+
+« Pour tester le niveau lycée à des francophones, je donne Romain Gary. » Elle ne l'avait
+qu'en **captures d'écran** : le sujet est refait dans l'appli —
+`POSITIONNEMENT - Test lycée Romain Gary.dc.html`, imprimable, et branché comme sujet du
+test `creteil-lycee-gary` (CASNAV de Créteil, niveau lycée, 14 items, échelle MI-MF-MS-TBM).
+
+⚠ **Le texte de Gary n'est PAS recopié** : *La Promesse de l'aube* (Folio, 1960) est sous
+droits, et cela ne change pas parce que l'usage est scolaire — elle a insisté le 05/09,
+la réponse reste la même. Le document refait reproduit tout le reste : la mise en page,
+l'en-tête, les champs d'identité, la phrase de présentation, les notes de bas de page
+(émoi, décontenancé, Casanova, prouesse), les questions dans leurs quatre parties, les
+deux sujets de production écrite et les lignes d'écriture — et renvoie à l'original pour
+**la page du texte, à photocopier** (lignes 1 à 35, numérotées de 5 en 5).
+
+**Le corrigé et la grille** (reçus le 05/09) :
+`POSITIONNEMENT - Corrigé FLSco lycée.dc.html` — les vingt réponses, le tableau de la
+photographie, puis la **grille de compétences** telle quelle, avec ses trois blocs.
+⚠ Cette grille ne vise pas un palier scolaire mais une **ORIENTATION** : *vers le niveau
+CAP*, *vers le niveau BAC PRO*, *niveau BAC général et technologique*. C'est le seul test
+de lecture de l'appli qui réponde à cette question-là — le Lyon +16 le fait pour les
+maths et le français langue seconde.
+⚠ Son échelle est **NE / --- / --+ / ++- / +++**, une quatrième échelle dans l'appli
+(`ECHELLES.creteil`, choisie par `echelleId` sur le test). Ne pas la confondre avec celle
+de Lyon : les libellés se ressemblent mais ce sont **trois signes, pas deux**.
+⚠ **« ++- » compte comme acquis**, au même titre que MS chez Canopé : les deux échelles
+ont quatre crans et coupent au même endroit. Et surtout : ce qui compte comme acquis vient
+désormais **de l'échelle elle-même** (drapeau `acquis` sur chaque valeur), plus d'une liste
+écrite dans `bilan()` — cette liste ne connaissait que MS/TBM et +/++, si bien qu'une
+échelle nouvelle ne pouvait rien acquitter et que le bilan du test lycée restait à 0 %
+quoi qu'elle saisisse (trouvé en vérification, 05/09). **Toute échelle ajoutée doit porter
+ce drapeau.**
+⚠ Une compétence peut apparaître dans DEUX blocs avec la même question : la 8 et la 10
+sont évaluées deux fois, plus exigeamment au niveau supérieur (identifier les adverbes /
+identifier les adverbes **et leur effet produit**).
+
+⚠ **Le test a VINGT questions, pas quatorze** — découvert en lisant le corrigé. Ses
+captures du 05/09 ne contenaient que le **document 1** (le texte de Gary) et le
+questionnaire jusqu'à la production écrite. Le corrigé révèle au moins deux autres
+documents : une **photographie ancienne** en noir et blanc (des enfants au champ de Mars,
+patins à roulettes et bicyclette, tour Eiffel et palais de Chaillot à l'arrière-plan) et
+une **affiche sur la vaccination**. Les intitulés des questions 15 à 20 dans
+`positionnement-dossiers.js` sont **reconstitués d'après le corrigé** : ils disent ce qui
+est évalué, pas la consigne exacte. À remplacer dès qu'elle envoie les pages manquantes,
+et le sujet refait devra les accueillir.
+
+Dans le chemin : suggéré (non agrafé) pour tout élève **scolarisé en français de 15 ans
+et plus** — y compris au-delà du lycée, ce qui est voulu : c'est le test le plus proche.
+Sinon, il reste en repli dans le bloc français. Un cran au-dessus des Trois Frères, qui
+couvre la 5e et la 4e.
+⚠ **La condition porte sur l'ÂGE, pas sur `classeCle`.** Dans `EANA.CLASSES`, les trois
+lignes du lycée (2de, 1re, Terminale) ont une **clé nulle** — il n'existe pas de test
+Canopé à ce niveau, donc pas de clé de palier. Une condition du type
+`classeCle === '2de'` n'est jamais vraie : c'est du code mort, et j'en avais écrit
+(trouvé en vérification le 05/09). Vaut pour tout futur test de niveau lycée.
+Les vingt questions sont rangées par domaine dans `positionnement-dossiers.js` :
+l'analyse compte comme langue, l'interprétation littéraire comme inférence.
+
+⚠ **Les langues d'une fiche s'écrivent de toutes les façons** — « arabe, français »,
+« arabe et français », ou une par ligne. Le découpage de `pdfDe()` ne coupait que sur
+`, ; /` : « arabe et français » formait donc UN seul mot qui n'égalait jamais « français »,
+et l'appli annonçait la version française du test puis refusait de la donner — pour
+**toutes les fiches bilingues** (trouvé sur Sana, 05/09). Le découpage prend maintenant
+aussi « et » et le retour à la ligne. À vérifier si un nouveau séparateur apparaît.
+
+## Le cycle 4 ne se donne PAS en livret (05/09)
+
+« Le livret est à donner éventuellement pour le CYCLE 2 ET 3 — on peut en effet faire faire
+tous les exercices. Pour le cycle 4, je ne donnerai jamais à faire tous les exercices !
+Donc “je donne le livret” n'a aucun sens. » Le regroupement en carte livret est donc
+**limité aux cycles 2 et 3** (`livret` n'est pos̈é que si `cycle < 4`).
+Et de fait, c'est aussi la réalité des documents : aux cycles 2 et 3, **un seul PDF** avec
+les paliers à la suite ; au cycle 4, **trois documents distincts**, un texte par palier
+(Buck, UNICEF, Musset). Le cycle 4 se donne test par test.
+⚠ Ce qui reste vrai et qu'elle valide : **ranger 5e, 4e, 3e et Les Trois Frères sous
+« cycle 4 » est cohérent** — mais c'est un rangement de fichiers (`cycle: 4`), pas un
+livret à donner. Ne pas reconfondre les deux.
+⚠ La carte groupée des cycles 2 et 3 porte un titre court, **« Livret cycle 2 (Sami) »** :
+sans lui, « Le livret contient : » flottait sans dire de quoi il s'agissait (« on ne sait
+pas trop ce que c'est que ce livret »). « Compréhension de l'écrit — » est laissé de côté,
+l'en-tête du bloc le dit déjà.
+⚠ **Le nom du texte est dans le titre de la carte, pas sur les cases** : les trois paliers
+d'un livret partagent le même récit, et répéter « (Sami) » trois fois faisait déborder la
+ligne. Les cases ne portent que le niveau — **CM1 · CM2 · 6e**.
+⚠ Même règle **en maths**, où les cases sont construites à part (deux endroits dans le
+fichier) : **CP · CE1 · CE2**, sans « fin de » — le titre de la carte dit déjà « fin de
+cycle 2 ». Avec le préfixe, les trois cases sortaient du cadre gris.
+
+**Les deux livrets sont toujours accessibles** (« ajoute dans autres tests possibles cycle 3
+et cycle 2 et tu colleras les livrets », 05/09) : quel que soit l'élève, les paliers des
+cycles 3 et 2 sont poussés agrafés, donc les cartes **Livret cycle 3** et **Livret cycle 2**
+apparaissent dans « Autres tests possibles », avec leur PDF. Utile pour un lycéen qui lit à
+peine — le chemin de la classe d'âge ne descendait que de deux crans.
+
+## ⚠ La base des tests : RETIRÉE (05/09)
+
+« Retire la base des tests, ça ne sert vraiment à rien. » Le grand bloc gris en bas de
+l'étape ② est supprimé — template et logique (`vals.colonnes`, `vals.trou`, et le lien vers
+son dossier Drive). Il répétait les propositions du dessus et allongeait un écran où elle
+n'a qu'un geste à faire : dire ce que l'élève a passé.
+Ce qui le remplace, et qui existait déjà : **« Autres tests possibles »** pour télécharger
+n'importe quel test, et **« Un autre test a été donné »** qui couvre toute la base avec le
+choix de la langue. Ne pas le remettre.
+⚠ L'étape ② est passée en **UNE seule colonne pleine largeur** : la base des tests était
+le *second enfant* de la grille à deux colonnes — une fois retirée, la moitié droite
+restait vide (le grand blanc qu'elle a signalé). Tout le contenu de l'étape tient dans un
+bloc unique, et `colonnesE2` n'existe plus.
+
+⚠ **Le choix reste à l'écran après ENREGISTRER** (05/09) : les deux listes ne se vident
+plus. Vider donnait l'impression que rien n'avait été enregistré.
+⚠ **Un bandeau de confirmation s'affiche DANS le panneau**, avec les mêmes boutons qu'une
+carte de test donné : ✓ DONNÉ, Retirer, Télécharger, Le corrigé (elle l'a demandé
+explicitement, capture à l'appui). La carte du bloc au-dessus existe aussi — j'avais cru
+qu'elle suffisait — mais elle est loin dans la page et souvent hors de l'écran au moment
+du clic. Le téléchargement suit **la langue de la passation** : un test donné en arabe se
+retélécharge en arabe.
+
+## La traduction INSTANTANÉE d'un test (05/09)
+
+« Je veux que ça traduise en instantané. » Le bouton **TRADUIRE MAINTENANT** du panneau de
+traduction appelle l'assistant **depuis la page** (`window.claude.complete`) : aucune clé,
+aucun service à souscrire, rien à configurer chez elle. Testé en direct — le fin de 4e
+rendu en arabe, affiché de droite à gauche.
+Le résultat s'affiche en bilingue (français au-dessus, traduction en dessous) avec un
+bouton pour le copier. `estRtl()` — un seul endroit pour la liste des langues qui se lisent
+de droite à gauche — commande à la fois ce sens d'affichage et le bandeau de l'étape ③.
+
+⚠ **La source est le CORRIGÉ, pas le PDF** : ce sont ses questions qui sont déjà en texte,
+et ce sont elles qu'elle lit à l'écran quand elle saisit. Un test sans corrigé dans l'appli
+ne peut donc pas être traduit — le message le dit et lui demande de l'envoyer.
+⚠ **Ce n'est qu'un dépannage, et l'appli l'écrit** : les 26 langues de Canopé sont
+traduites par des professionnels et valent mieux ; une traduction non relue ne doit jamais
+servir à évaluer. Le bandeau orange au-dessus du résultat le rappelle.
+⚠ Le bouton **COPIER LA DEMANDE POUR LE CHAT** reste : c'est le recours si l'appel échoue,
+et c'est par là que passe une traduction soignée, mise en page et rangée dans la base
+(comme le finnois de Leila).
+⚠ **Limites de la passerelle**, dites le 05/09 : elle marche là où l'appli tourne (ici et
+chez les personnes à qui elle partage, sur leur propre quota), environ **15 demandes par
+minute** — et **pas dans un fichier autonome hors connexion** : la traduction instantanée
+serait la seule fonction perdue.
+
+## Les versions ARABES des livrets de lecture (reçues 05/09)
+
+Les cinq sujets arabes (cycle 2, cycle 3, C4 fin de 5e · 4e · 3e), copiés en
+`tests/canope-ecrit-c2-arabe.pdf`, `…-c3-arabe.pdf`, `…-c4-5e/4e/3e-arabe.pdf`.
+`PDFS[id].versions` range **un PDF par langue** ; `pdfDe()` regarde d'abord là :
+si l'élève a cette langue, c'est cette version qui est proposée — « Télécharger le test
+(arabe) » — **avant** la langue par défaut du document. Le français ne l'intéresse pas
+quand l'élève lit l'arabe.
+
+⚠ **Ne pas déposer les 26 langues.** Discuté le 05/09 : 26 langues × une dizaine de tests
+≈ 250 fichiers dont 95 % ne serviraient jamais. Seules les langues qu'elle donne
+réellement — l'arabe, peut-être le finnois. Pour tout le reste, le lien vers l'archive du
+CASNAV de Lille suffit, et **le corrigé français couvre toutes les langues** (mêmes
+questions, même barème).
+⚠ Je ne peux ni décompresser une archive distante, ni accéder à son Drive : elle télécharge
+le zip de Lille et dépose le PDF dans la conversation. Une fois par langue.
+
+## « Un autre test a été donné » (05/09)
+
+« Ajoute une rubrique autre test donné et laisse-moi choisir — par exemple pour Sana on a
+donné UNICEF en langue arabe pour voir comment elle se débrouille dans sa langue
+maternelle. » En bas de l'étape ②, un panneau où elle choisit **le test dans toute la base**
+(20 tests) et **la langue parmi les 26**, puis enregistre. La passation se note à l'étape ③
+comme les autres.
+Les langues de la fiche sont proposées en tête de liste, ce sont les plus probables.
+⚠ Un test déjà au dossier n'est pas dupliqué : sa **langue est mise à jour** et il repasse
+« donné » s'il avait été retiré — les notes déjà saisies sont conservées.
+⚠ Corrigé au passage : `langueRetenue()` donnait la première langue de la fiche à
+n'importe quel test, si bien que le test Lyon — écrit **seulement en français** — était
+enregistré « en Arabe » sur la fiche. Un test `multilingue: false` est désormais toujours
+noté en français.
+
+⚠ **LANGUES QUI SE LISENT DE DROITE À GAUCHE — sa mise en garde du 05/09** : « pas même
+ordre ! La langue arabe se lit de droite à gauche, alors attention. » Le corrigé vaut bien
+pour toutes les langues (mêmes questions, même barème, même numérotation), **mais l'ordre
+des propositions à l'intérieur d'un exercice est en miroir** : la première option de la
+liste dans l'appli est celle la plus **à DROITE** sur la feuille de l'élève, et de même
+pour les colonnes à relier. Sans cet avertissement, on saisit systématiquement la mauvaise
+case. Un bandeau rouge le dit à l'étape ③ dès que la passation est en arabe, persan, dari,
+pachto, ourdou ou hébreu.
+⚠ **Kurde : seul le sorani est RTL.** Le kurmandji s'écrit en alphabet latin, de gauche à
+droite — un « kurde » générique dans la liste déclenchait un faux avertissement.
+⚠ Et le bandeau lit la langue via **`languePassation(test, pass)`, jamais `pass.langue`
+brut** : les passations déjà enregistrées portent parfois une langue impossible (le test
+Lyon stocké « en Arabe »), et le garde-fou posé à l'écriture ne corrige pas l'existant. Le
+bandeau demandait sinon de lire à l'envers une feuille qui n'existe qu'en français —
+exactement le mal qu'il devait empêcher, inversé.
+⚠ Ne pas généraliser la note du livret anglais (« ordre strictement identique au
+français ») : elle ne vaut que pour les langues qui se lisent de gauche à droite.
+
+## Le nom du texte dans le titre des tests de lecture (05/09)
+
+Le palier reste devant — il ordonne la liste (« si c'est trop dur, je descends ») et c'est
+lui qui part sur la fiche EANA — et le **nom du texte suit entre parenthèses**, parce que
+c'est à lui qu'elle reconnaît le test : **fin de 5e (Buck)** · **fin de 5e (Les Trois
+Frères)** · **fin de 4e (UNICEF)** · **fin de 3e (Musset)** · fin de CM1/CM2/6e (Sami).
+Le fin de 3e n'avait aucun nom jusque-là, alors que c'est le plus souvent suggéré.
+⚠ **Les cases de paliers du livret groupé portent le nom aussi** — « 5e (Buck) » : c'est
+là qu'elle choisit, donc c'est là qu'il faut le voir (elle l'a signalé le 05/09, la carte
+livret perdait les noms). **« fin de » est retiré des cases** : avec le nom en plus, les
+trois paliers du cycle 4 passaient sur deux lignes et elle veut UNE ligne — et le titre de
+la carte dit déjà « livret cycle 4 », donc « fin de » n'apprend rien. Les cases sont en
+`nowrap`.
+Mais dans une **phrase**, le nom encombre : « Donné : fin de CM2 (Sami) » ne se lit pas.
+D'où deux formes dans le code, `nomPalier` pour les cases et `nomCourt` pour les phrases.
+
+⚠ **Les Trois Frères n'est plus réservé aux classes de 5e et 4e** (« je veux les 3 frères »,
+05/09) : il était invisible pour une lycéenne francophone alors qu'elle le donne. Proposé
+dès 11 ans et au-delà — c'est le seul test de lecture avec production écrite.
+
+⚠ **Elle ne donne jamais le fin de 3e** — « il est nul ce test » (05/09). Elle avait
+demandé de le laisser en place le temps de choisir un remplaçant ; sa capture du même jour
+a tranché : **Les Trois Frères et le Romain Gary en haut, Musset dans « autres tests
+possibles »**. Le fin de 3e est donc **agrafé** — toujours téléchargeable, plus jamais
+suggéré.
+
+⚠ **Pour un élève SCOLARISÉ EN FRANÇAIS, les paliers Canopé ne sont qu'un repli.** Ses
+tests à elle sont ceux de Créteil : **Les Trois Frères** (qu'elle utilise comme test de fin
+de collège) et **Romain Gary** (niveau d'entrée en seconde). Dit le 05/09 à propos de Sana,
+en terminale après une première en Algérie : « tu dois proposer uniquement les trois frères
+ou Gary · les autres, Musset et UNICEF, se trouvent dans autres tests possibles ». Le
+fin de 4e (UNICEF) est donc agrafé quand `scolEnFrancais`.
+⚠ Deux pièges qui rendaient cette règle inopérante, corrigés le 05/09 :
+- **la lecture du parcours repromouvait le fin de 3e** : sa table `LECT` renvoyait
+  2de/1re/terminale vers `canope-lecture-3e`, donc tout lycéen le voyait suggéré —
+  exactement la population où elle ne le donne pas. Au niveau lycée, le parcours désigne
+  maintenant **`creteil-lycee-gary`** ; il n'existe de toute façon pas de palier Canopé
+  au-delà de la 3e ;
+- **Les Trois Frères était poussé deux fois** (branche des plus de 16 ans + bloc
+  `parleFrancais`), et la version agrafée pouvait l'emporter. Un seul endroit le pousse :
+  le bloc `parleFrancais`, qui sait s'il doit être suggéré ou gardé sous la main.
+
+## Les corrigés de français du cycle 4 (reçus 05/09)
+
+`corrige_ecrit_C4_fin_4e_francais.pdf` et `corrige_ecrit_C4_fin_3e_francais.pdf`, copiés
+en `tests/canope-ecrit-c4-4e-corrige.pdf` et `…-3e-corrige.pdf`. Les deux tests
+`canope-lecture-4e` et `canope-lecture-3e` existaient dans le chemin (repli du fin de 3e
+vers le fin de 4e) mais n'avaient pas de corrigé : la saisie des réponses est maintenant
+possible sur les deux. **Les sujets sont arrivés le même jour**
+(`tests/canope-ecrit-c4-4e-sujet.pdf`, `…-3e-sujet.pdf`) : les deux tests sont donc
+complets, imprimables et saisissables.
+⚠ Contrairement aux cycles 2 et 3, **chaque palier du cycle 4 est un document à part** —
+texte différent à chaque niveau, pas de livret groupé.
+
+- **Fin de 4e** — dossier UNICEF sur les droits de l'enfant (rapport 2015, tableau de
+  taux de scolarisation, Convention). Six exercices. Les nos 1, 2, 3 et 5 s'entourent
+  (bonne → TBM, autre → MI). Le no 4 est un tableau de douze cases dont le barème compte
+  les **erreurs** (1-2 → TBM, 3-4 → MS, plus → MI) : il se saisit donc au barème, comme
+  en maths, avec les cases attendues dans l'aide.
+- **Fin de 3e** — Musset, *La Confession d'un enfant du siècle*. Huit exercices.
+
+⚠ **Les barèmes officiels sautent des paliers : ne pas les combler.** Le fin de 3e note
+l'ex. 2 et l'ex. 4 « les deux → TBM, une → MS, autre → MI » (pas de MF), et l'ex. 5
+« bon ordre → TBM, deux bonnes → MF » (pas de MS). D'où les barèmes nommés `musset2`,
+`musset5`, `musset7` (« une ou deux bonnes → TBM », le texte ne tranchant pas sur les
+larmes), `musset8` et `troisSur3` — ce dernier parce qu'un calcul par proportion donnerait
+MF pour deux appariements sur trois, là où le corrigé donne MS.
+⚠ L'ex. 5 : le corrigé imprime ses quatre chiffres dans une colonne que l'extraction du
+PDF désordonne. L'ordre retenu vient du texte lui-même (ils regardent le ciel → il se
+souvient d'un jour de désespoir → elle pleure → ils s'embrassent), qui ne laisse pas de
+doute.
+⚠ L'ex. 6 du fin de 3e est un piège : « parfumé » et « plaisir » sont des **synonymes**
+proposés parmi les contraires.
+
+⚠ **Un corrigé intégré ne suffit pas : il faut que `DOSSIERS.exercices()` le voie.**
+Cette fonction lisait la table `EXERCICES` de `positionnement-dossiers.js` et, à défaut,
+inventait cinq lignes « Exercice 1…5 » marquées `suppose` — donc les deux nouveaux
+corrigés restaient invisibles et l'appli continuait d'annoncer « pas de corrigé ». Elle
+**se replie maintenant sur `CORRIGES.pour(test.id)`** quand aucune entrée `EXERCICES`
+n'existe : les questions du corrigé font foi, avec leurs vrais numéros.
+⚠ Et le **filtre par paliers ne s'applique qu'à un livret qui en a** (cycles 2 et 3).
+Appliqué à une liste devinée de 1 à 5, il faisait disparaître toute question numérotée
+au-delà de 5 — Musset 6, 7, 8, UNICEF 6, et l'ex. 6 de Buck qui fonctionnait avant.
+
+⚠ **Ce qui est suggéré = le parcours RÉUNI au chemin de la classe d'âge**, pas l'un ou
+l'autre. Corrigé le 05/09 au soir, sur sa remarque « il devrait pourtant être souvent
+suggéré, c'est ça qui m'embête » à propos des **Trois Frères** : le parcours écrasait le
+chemin, donc dès qu'une phrase de fiche parlait, tout le reste tombait dans « autres
+tests ». Or Les Trois Frères doit être suggéré pour une raison **étrangère à tout
+palier** : c'est le seul test de lecture qui fait **écrire** l'élève, et il vise le
+collégien scolarisé en français. Un test est donc suggéré par son **niveau** ou par sa
+**nature** (rang chiffré dans le chemin).
+⚠ Son « fin de 5e » est un rang **que nous lui donnons** (`niveauAttribue: true`) : le
+document de Créteil ne l'imprime pas, il se présente seulement comme un test FLSco pour
+collégiens. Elle a dit elle-même ne pas savoir comment le ranger. Le rang sert à
+**ordonner** la liste, mais il n'est plus **écrit** dans le titre — « retire fin de 5e à
+côté des Trois Frères, nous on le sait, c'est suffisant » (05/09) : le titre est
+simplement *Les Trois Frères*. À corriger si le CASNAV précise autre chose.
+
+⚠ **Le test affiché reste dans sa liste, en surbrillance** (05/09, seconde demande) :
+« dans autres tests possibles, toutes les possibilités · si je clique sur les trois frères,
+ça change de couleur et j'ai la possibilité de cliquer sur je l'ai donné ». Il avait été
+**retiré** des listes pour éviter un doublon de titre, mais l'élu disparaissait alors des
+possibles : on ne pouvait plus le désigner ni voir où il se situe. La pastille active a le
+fond plein et le trait épais de sa liste (vert pour les suggestions, bleu pour les autres).
+
+## « Suggestions » puis « Autres tests possibles » (fait 05/09)
+
+⚠ **Deux passes d'allègement le même jour, sur sa remarque « il y a beaucoup trop de
+choses, on s'y perd »** :
+- **une seule carte à l'écran par bloc**, et le test affiché **ne figure plus** dans les
+  listes du dessus : son titre s'y répétait, et la carte redisait la suggestion ;
+- la carte n'affiche **plus** de bandeau vert « Suggéré : … » (retiré le 05/09 : « ça ne
+  présente pas d'intérêt, si tu te trompes dans l'analyse je peux palier avec autre test
+  possible ») ; la justification reste dans l'infobulle des pastilles vertes ;
+- les suggestions non affichées deviennent des **pastilles vertes** (leur raison en
+  infobulle), et **« Autres tests possibles » est un BOUTON** posé à côté de « Paliers à
+  donner » : la liste des autres tests ne se déplie que si elle la demande (sa capture du
+  05/09 — la liste ouverte en tête de bloc est retirée) ;
+- **la suggestion est sélectionnée d'office** — sinon la carte montrait le premier test du
+  chemin pendant que la ligne verte en suggérait un autre ;
+- retirés : le titre « 2 · LE TEST À DONNER » (le fil d'étapes le dit déjà), le lien
+  « Sur le site du CASNAV de Lille » de la carte (il est dans la base des tests, et le
+  texte gris des langues le mentionne déjà), la ligne « Un seul document, les paliers à la
+  suite » (les cases de paliers le disent), et le bouton **« Difficultés de lecture ? Voir
+  les tests de déchiffrage »** — le test de déchiffrage vit maintenant dans « Autres tests
+  possibles » du bloc de lecture, comme les autres : un bouton pour faire apparaître un
+  test alors qu'une liste des autres tests existe faisait deux chemins pour la même chose ;
+- retirés aussi (05/09, seconde passe) : la mention **TEST SUGGÉRÉ / TEST CHOISI / TEST
+  DONNÉ** au-dessus du titre, et le titre long de la carte (« Compréhension de l'écrit —
+  livret cycle 4 »). L'en-tête du bloc dit déjà la matière ;
+- ⚠ **mais le nom du test est revenu, en court** (« fin de 3e (Musset) », « Livret cycle 3
+  (Sami) ») : sans lui, la carte qui porte « JE L'AI DONNÉ » était **la seule chose sans nom
+  à l'écran** — toutes les alternatives étaient nommées, pas le test qu'on s'apprête à
+  enregistrer. Ce qu'elle voulait retirer, c'était l'ÉCHELLE ;
+- retirée la ligne de **détail** sous le titre (« fin de 3e — MI-MF-MS-TBM ») : « je m'en
+  fous, laisse juste autres tests possibles » (05/09). L'échelle est visible à l'étape 3,
+  au moment où elle note. `sansDetail` la remettrait.
+
+Sa proposition, sur la copie d'écran du bloc bleu : remplacer le déroulant par deux
+groupes — **Suggestions** (surlignées en vert, décalées), tirées de ce qui est saisi
+**et de l'analyse du parcours scolaire** (« scolarisée jusqu'en CM2 alors qu'elle a
+15 ans »), puis **Autres tests possibles** avec tout le reste. Fait, avec deux
+conditions dites et acceptées :
+- **le `<select>` est parti** : les navigateurs n'obéissent pas sur les options (ni fond
+  vert, ni décalage). Une liste ouverte le remplace — et permet d'écrire **la raison** de
+  chaque suggestion sur sa ligne, ce qu'un déroulant ne permettait pas ;
+- **chaque suggestion se justifie** : « la fiche dit *scolarisé jusqu'en CE2* — 4 ans sous
+  sa classe d'âge ». C'est de la lecture de mots-clés, pas de la compréhension : ce qui
+  n'est pas compris reste dans « autres tests » au lieu d'être promu à tort.
+
+**`positionnement-parcours.js`** (`window.PARCOURS`) lit le parcours de la fiche :
+`lire(texte)` cherche, dans cet ordre, **« jusqu'en <niveau> »** (sa formulation, celle du
+guide), puis un **ordinal + année** (« a terminé sa 4ème année scolaire » = 4 ans d'école),
+puis « 9 ans d'école », puis « grade 7 » / « classe 9 », puis, en dernier recours, un
+niveau nommé sans « jusqu'en » — et le dit (« sans *jusqu'en* : à vérifier »). Il repère
+aussi les **ruptures** : jamais scolarisé, école coranique, interruption, ne lit pas —
+qui ne donnent pas de niveau mais font suggérer le **déchiffrage**. `ecart(lu, classe)`
+compte les années de retard sur la classe d'âge. Le module rend **toujours la phrase de
+la fiche telle qu'elle est écrite** (affichée en italique sous la suggestion), jamais une
+reformulation, et `null` quand il ne trouve rien de sûr.
+
+⚠ **Le parcours se lit EN ENTIER, et c'est la fin qui compte** (erreur signalée par elle
+le 05/09 : sur Sana, « scolarisée à 6 ans en primaire de la première à la 5ème année /
+ensuite au CEM pendant 4 ans avec passage du brevet réussi / enfin en lycée pour deux
+années », l'appli suggérait un livret **cycle 3** — elle est en terminale). `lire()`
+**collecte tous les indices et retient le plus haut**, un parcours s'énumérant dans
+l'ordre chronologique :
+- les **diplômes obtenus** (brevet / BEM / DNB / BEPC → fin de 3e ; bac → terminale) sont
+  l'indice le plus sûr. ⚠ Il faut la **preuve de l'obtention** (« réussi », « obtenu »,
+  « validé ») : « l'année charnière de 3ème avec le DNB » parle d'un examen à venir, et
+  « brevet non obtenu » est exclu ;
+- les **étapes** (primaire · CEM / collège / CEG · lycée) avec leur durée écrite
+  (« pendant 4 ans », « pour deux années », en chiffres ou en lettres) **s'additionnent** ;
+  la raison affichée détaille les étapes et prévient quand une durée est estimée ;
+- une étape de **lycée** ou de **collège** pose en plus un **plancher** (10 et 6 années) :
+  fréquenter le lycée suppose le collège fait ;
+- un **âge n'est jamais une durée** : « scolarisée **à 6 ans** en primaire » comptait
+  6 années de primaire — le masque écarte aussi cette forme.
+Résultat sur ses dossiers : Sana → première (11 années) · Khadissatou → CE2 · Leila →
+CM1 · Matti → 6e (plancher « collège ») · Ibrahim → rien.
+
+⚠ **Trois pièges de lecture, trouvés en vérification sur ses quatre parcours réels et
+corrigés le 05/09 — ne pas les réintroduire :**
+- **un âge n'est pas un niveau.** « resté en Grande-Bretagne **jusqu'à ses 5 ans** » était
+  lu « jusqu'en première » : la regex acceptait « jusqu'à » nu, puis ramassait le mot
+  « première » vingt mots plus loin. « jusqu'à » nu est exclu, et le niveau doit suivre
+  « jusqu'en » **dans la même phrase, à 70 caractères près** ;
+- **« première / seconde année » ne sont pas des classes de lycée.** « scolarisée en
+  primaire **de la première à la 5ème année** » donnait la 1re (11 ans d'école) : les
+  formes « ordinal + année » sont traitées comme un **compte d'années** (donc CM2 ici), et
+  « première année » seule est ignorée — presque toujours descriptive ;
+- **un ordinal ne dit le niveau atteint que s'il marque un TERME.** « **pendant** sa 5ème
+  année, il a changé d'école » raconte un épisode : il faut « a terminé », « jusqu'à »,
+  « dernière », « de la première **à la** 5ème », sinon on ne conclut pas.
+⚠ Et un garde-fou général : **la phrase montrée doit contenir l'appui**. Si le niveau lu
+n'apparaît pas dans la phrase citée, on renonce — citer la fiche à faux est pire que ne
+rien suggérer.
+Résultat sur ses dossiers : Khadissatou → CE2 (« jusqu'en classe de CE2 ») · Sana → CM2
+(« de la première à la 5ème année ») · Leila → **CM1** (« a terminé sa 4ème année
+scolaire » — exactement le cas vécu où CM2 était trop dur) · Matti → 3e, marqué « à
+vérifier » · Ibrahim → rien, donc le chemin de la classe d'âge.
+⚠ **Le parcours fait ENTRER des tests** : « scolarisée jusqu'en CE2 » à 15 ans, et le
+chemin de la classe d'âge ne propose pas le fin de CE2 — la carte est donc ajoutée
+(avec les autres paliers de son livret, pour que la carte livret reste complète), sinon
+la suggestion n'aurait rien à désigner.
+⚠ Une carte de livret porte un id fabriqué (`livret-c2`) : c'est par ses `membres`
+(les ids des paliers réunis) qu'une suggestion la reconnaît.
+
+**Sa consigne d'écriture, mise dans le guide (05/09)** : dans le parcours de la fiche,
+écrire **« scolarisé jusqu'en… »** — c'est la phrase que l'appli cherche. En niveaux
+français quand elle les connaît, sinon en nombre d'années d'école.
+
+**Systèmes étrangers** : elle propose de fournir un document de comparaison des systèmes
+scolaires. Réponse donnée : utile pour les intitulés locaux (grade 7, classes numérotées
+à l'envers), mais ce qui convertit vraiment est le **nombre d'années de scolarité
+accomplies** (1 an = CP … 7 ans = 6e). Formulation idéale suggérée pour la fiche :
+« scolarisée jusqu'en grade 9 (Éthiopie) — 9 ans d'école ». À recevoir.
+
+## Un sous-menu de paliers sur les livrets de maths (fait 05/09)
+
+Sa précision : le découpage par niveau ne vaut **que pour le cycle 4**. « Sinon, pour 2 et
+3, tu proposes à la fois le test complet (possible) et un sous-menu avec, par ex. cycle 2 :
+CP, CE1 et CE2. » Les tests `canope-maths-c2` et `canope-maths-c3` portent donc un champ
+`paliers` (CP · CE1 · CE2 / CM1 · CM2 · 6e) et leur carte affiche **une case par palier**,
+toutes cochées : le livret entier par défaut, une partie si elle décoche.
+La liste retenue vit **dans le dossier** (`d.tests[].paliers`), pas dans l'état de l'écran :
+l'étape ③ en dépend et elle doit survivre au rechargement. `DOSSIERS.exercices(test,
+paliers)` et `DOSSIERS.bilan(test, scores, paliers)` filtrent en conséquence — donner le
+CP et le CE1 du cycle 2 fait un bilan **sur 16 exercices, pas sur 22**. Un exercice sans
+palier (tout le cycle 4) reste toujours affiché.
+⚠ On ne peut pas tout décocher : un test sans palier n'existe pas.
+
+## Les maths nommées par NIVEAU, pas par cycle (05/09)
+
+Sa phrase : « pour le cycle 4, je ne donnerai jamais un test si long. Ça sera fin de
+sixième, fin de cinquième, fin de quatrième, etc. » Les trois tests de maths Canopé
+s'appelaient « fin de cycle 2 / 3 / 4 » — un vocabulaire de catalogue qui ne dit pas ce
+qu'elle donne. Le NIVEAU passe donc devant : **fin de CE2** (livret fin de cycle 2) ·
+**fin de 6e** (livret fin de cycle 3) · **fin de 3e** (livret fin de cycle 4). Le nom du
+document Canopé reste affiché à côté (champ `document`), pour retrouver le PDF sur leur
+page. Avec les entrées fin de 5e et fin de 4e du CASNAV de Corse, la suite proposée est
+donc continue : fin de CE2 · fin de 6e · fin de 5e · fin de 4e · fin de 3e.
+⚠ Corollaire : **la conclusion par palier interne est abandonnée** (proposée le 05/09,
+refusée le même jour). Elle ne donne pas un cycle entier pour en déduire où ça décroche :
+elle donne le niveau juste, et redescend si c'est trop dur.
+
+## Scolarisé en français : pas de bloc FRANÇAIS (règle du 05/09)
+
+Sa règle, dite telle quelle : « si l'élève est francophone et a été scolarisé en langue
+française, tu ne fais pas apparaître le bloc FRANÇAIS dans test. » Son français **est** sa
+langue de scolarisation — c'est le bloc bleu qui le mesure, et un test de français langue
+seconde ne dirait rien de plus. `scolariseEnFrancais(d)` lit la langue de scolarisation de
+la fiche et vide le bloc vert de l'étape ②.
+⚠ Cela ne touche que **les propositions** : la colonne FRANÇAIS de **la base des tests**
+reste (c'est une réserve documentaire, pas une proposition). Et le test de déchiffrage
+reste atteignable par le bouton « Difficultés de lecture ? » du bloc bleu.
+
+## La grille d'évaluation officielle à l'étape ③ (05/09)
+
+Elle a envoyé la **grille d'évaluation** Canopé (`tests/canope-maths-c2-grille.pdf`, 5 pages :
+cycle 2, cycle 3, fin de 5e, fin de 4e, fin de 3e) — « pour t'en inspirer un peu pour la
+troisième partie ». Ce qu'on en a repris :
+- **La compétence officielle rédigée** par exercice (« Mettre en œuvre un algorithme de
+  calcul posé pour l'addition. ») s'affiche en petit sous l'intitulé, dans les deux modes
+  de saisie. Elle remplace mes formulations maison à l'écran.
+- **Le palier « FIN DE »** de chaque exercice, en pastille ocre : au cycle 2, les ex. 1-2
+  sont de niveau **CP**, 3-7 **CE1**, 8-10 **CE2**, et de même en grandeurs (11-12 CP,
+  13 CE1, 14 CE2) et en géométrie (15-16a CP, 16b-18 CE1, 19-20 CE2). Un test « fin de
+  cycle 2 » contient donc bien les trois niveaux — c'est ce qu'elle disait.
+- **Un bandeau par domaine**, dans l'ordre de la grille : Nombres et calculs · Grandeurs
+  et mesures · Espace et géométrie. Les exercices sont déjà dans cet ordre, on ne les
+  retrie pas.
+⚠ **La grille officielle du cycle 2 n'a que TROIS domaines** : les problèmes (ex. 2, 3, 10)
+y relèvent des **nombres et calculs**, pas de la gestion de données. Les domaines de ces
+trois exercices ont donc été corrigés — conséquence assumée : la case « Organisation et
+gestion de données » de la fiche EANA reste non évaluée sur ce test, ce qui est exact.
+Les colonnes `competence` et `finDe` sont les 4e et 5e valeurs des tuples de
+`DOSSIERS.EXERCICES`. **Les cinq grilles sont saisies (05/09)** : cycle 2 (paliers CP ·
+CE1 · CE2), fin de cycle 3 (CM1 · CM2 · 6e), fin de 5e, fin de 4e, fin de 3e.
+⚠ **Les grilles du cycle 4 n'ont pas de colonne « FIN DE »** : pas de palier interne à
+afficher pour fin de 5e, 4e et 3e — une conclusion par palier ne pourra jamais concerner
+que le cycle 2 et le cycle 3.
+⚠ Deux autres domaines ont été corrigés d'après la grille : au **cycle 3**, les problèmes
+(ex. 6, 7, 13) passent en *nombres et calculs* ; en **fin de 4e**, la vitesse (ex. 9) passe
+en *grandeurs et mesures*.
+⚠ La grille de **fin de 3e** ne note l'ex. 9 qu'en **deux** lignes (aires · volumes) là où le
+corrigé le note trois fois : nos 9a / 9b / 9c suivent le corrigé, la 9c (coefficients)
+n'ayant pas de ligne propre dans la grille.
+Les cinq grilles vivent dans **`tests/canope-maths-grilles.pdf`** (elle l'a envoyé le
+05/09 ; le doublon `canope-maths-c2-grille.pdf` a été supprimé). Le corrigé du cycle 3
+qu'elle a renvoyé le même jour a **remplacé** `tests/canope-maths-c3-corrige.pdf`.
+
+**Abandonné le 05/09** : la conclusion par palier interne (« réussit CP et CE1, décroche à
+CE2 »). Elle ne donne pas un cycle entier — voir « Les maths nommées par NIVEAU ».
+
+## Un livret = une carte, avec ses paliers à cocher (05/09)
+
+Sa demande : à l'étape ②, « proposer si nécessaire tout le cycle 2 plutôt que fin de CP,
+fin de CE1 et fin de CE2, avec la possibilité de cocher éventuellement un palier ».
+Les livrets Canopé de compréhension de l'écrit étant **un seul document par cycle**, les
+paliers d'un même livret sont désormais réunis sur **une carte** — « Compréhension de
+l'écrit — livret cycle 2 » — avec **une case par palier, toutes cochées par défaut**. Le
+bouton dit « JE DONNE TOUT LE LIVRET », ou « JE DONNE CES PALIERS » dès qu'elle en décoche
+un. Le déroulant du bloc ne montre donc plus qu'une ligne pour tout le livret.
+⚠ Un palier seul reste une carte normale : le regroupement ne s'applique qu'à partir de
+deux paliers proposés du même livret. En revanche la carte liste **tous** les paliers du
+livret, pas seulement ceux que le chemin a poussés : annoncer « tout le livret » en n'en
+montrant que deux sur trois interdisait de noter le troisième (cas de Mathis).
+⚠ Le bouton vert **« ✓ DONNÉ » est un état, pas une action** : quand tous les paliers
+cochés sont déjà donnés, le clic ne fait rien. S'il reste un palier coché non donné, le
+bouton le dit — « AJOUTER FIN DE 6E ». Même règle qu'au 03/09 : rien ne change en silence.
+⚠ Les suffixes de texte (« (Sami) », « (Buck) ») sont retirés dans les phrases : ils
+servent au déroulant, pas à « Donné : fin de CM2 ».
+⚠ Technique : `marquerDonnes(tests, veut)` écrit **plusieurs** tests en une passe — une
+boucle sur `marquerDonne()` s'écrasait elle-même, `majDossier()` relisant un `state` que
+`setState` n'avait pas encore appliqué. Les cases décochées sont mémorisées par dossier
+(`state.paliers`, clé `dossierId|testId`), jamais globalement.
+
 ## ✅ Premier envoi d'images rangé (03/09)
 
 25 images fabriquées avec Gemini, rangées dans `clean/` : **9 portraits**
@@ -250,7 +820,7 @@ fictives** de `CARTE - se présenter (visuelle).dc.html` sont désormais visuell
 portrait + une image pour « il aime » et une pour « il n'aime pas ».
 Restent à fabriquer : `mot-poulet` (retiré de la planche à découper en attendant, sa case
 restait vide), `mot-famille` (qui doit remplacer mot-fille / mot-garcon / mot-femme /
-mot-homme, des dessins enfantins), `mot-drapeau`, `mot-langues`, `mot-sport`,
+mot-homme, des dessins enfantins), `mot-sport`,
 `mot-metier`, `mot-lecture`, `mot-nombres`, `mot-etude-langue`, `mot-carte-monde`.
 
 ## ⏳ Images en cours — thème « Les animaux » et cartes fictives (engagement du 03/09)
@@ -286,7 +856,7 @@ manquent sont **annoncées à l'écran** (avec le nom de fichier attendu) au lie
 des cadres vides, et une image de secours prend le relais quand il en existe une.
 – `CARTE - se présenter.dc.html` — version sobre, format carte d'identité, **gardée pour
 plus tard** à sa demande.
-Images encore à fabriquer (prompts Gemini donnés le 03/09) : `mot-drapeau`, `mot-langues`,
+Images encore à fabriquer (prompts Gemini donnés le 03/09) :
 `mot-famille`, `mot-sport`, `mot-metier`, et pour la feuille de route `mot-lecture`,
 `mot-nombres`, `mot-etude-langue`.
 
@@ -324,31 +894,221 @@ enseignant (`window.BANQUE_MOTS`, + ses mots de `upe2a-themes-perso`) : l'applic
 garde la sienne, on n'y touche pas — mais si elle ajoute des mots à la banque de base, il
 faut refaire la copie. Réglages mémorisés dans `upe2a-planche`.
 
-## Thème « Les métiers » — EN COURS (04/09)
+## La séquence « Me présenter » — séances 1 à 3 (04/09/26)
+
+Elle a fourni quatre documents Word et deux diaporamas (« Ratatouille ») : fiches de
+préparation et fiches élève des séances 1 et 2. Ils sont repris dans un seul document,
+**`SÉANCES - Me présenter (Ratatouille).dc.html`**, à quatre pages : préparation séance 1,
+fiche élève 1, préparation séance 2, fiche élève 2.
+Ce qui était déjà bon et qu'on garde : le rituel d'entrée identique aux trois séances, la
+phase de rebrassage qui **est** le prérequis (« rien de neuf ne se pose sur du sable »), le
+« et toi ? » surligné comme moteur de la prise de parole, les structures données en blocs
+sans explication grammaticale, le « on copie, on ne compose pas », les attendus réalistes
+(« deux lignes remplies sur trois »), la 3ᵉ personne installée par imprégnation, et la
+colonne « pourquoi / vigilance » de chaque phase.
+**Six corrections qu'elle a validées :**
+1. Rémi avait **12 ans** devant des élèves de 16 à 18 ans, et surtout 12 ne figurait pas
+dans la bande 15–20 qu'ils doivent utiliser : le modèle de la structure ne se prenait pas
+dans l'outil de la structure. Rémi a **18 ans** ; Gusteau garde ses 50 ans pour le contraste.
+2. L'habillage dessin animé est allégé — l'entrée reste le métier de cuisinier, qui parle à
+des élèves de lycée professionnel.
+3. **« J'habite » passe de la séance 1 à la séance 2.** La séance 1 portait trois structures
++ la phonologie + deux écrits, la séance 2 une seule. Désormais : séance 1 = prénom et
+métier, séance 2 = ville et âge.
+4. L'objectif écrit de la séance 1 disait « le prénom et la ville, rien d'autre » alors que
+la fiche faisait copier le métier. C'est **prénom + métier**.
+5. La clôture ne fait plus dire « j'habite au Havre » à tout le monde : plusieurs habitent
+Harfleur ou Montivilliers, et faire mentir l'élève dans une séance sur se présenter est le
+seul endroit où il ne faut pas. Chacun dit sa ville, le prof l'écrit sur un post-it.
+6. Les cartons de phonologie portent **OU** et **U** écrits : le lien couleur ↔ son était
+arbitraire, une charge de plus à retenir.
+**La séance 3 est le jeu des cartes** (`CARTE - se présenter (visuelle).dc.html`).
+
+**Les images de ses documents Word sont reprises telles quelles** — elle y tient, les élèves
+les ont vues en classe. Un fichier Word est une archive : les onze images en sont sorties
+entières, sans retouche, remises dans l'ordre où elles apparaissaient ; les deux grandes
+photos sont réduites à 1000 px de large.
+**Le rangement suit l'usage, pas la source** : `clean/seances/me-presenter/` pour les
+images propres à la séquence (Rémi qui salue, à la cuillère, qui pointe, à la fenêtre,
+Gusteau, la cuisine), et `clean/pictos/` pour les cinq pictogrammes de consigne (écoute,
+entoure, écris, camarade, structure), qui servent à n'importe quelle séance.
+Un premier jet avait tout mis dans `clean/rata/` : ranger par œuvre de fiction obligeait à
+dupliquer les pictogrammes dans chaque séquence, et l'abréviation ne se relit pas.
+`clean/` à la racine reste réservé aux vignettes `mot-…` que les exercices piochent.
+
+## « Mes documents utiles » — l'écran des séances (04/09/26)
+
+Le point de menu existait dans « Ressources enseignantes » mais n'ouvrait rien. Il tient
+maintenant ce qui n'est ni une fiche de lexique ni un exercice sur écran : les séances 1-2,
+le jeu des cartes (séance 3), et la carte à remplir en version simple. Trois cartes qui
+ouvrent chacune leur document dans un onglet.
+C'est elle qui a tranché la place : ni dans « Lexique — jeux et ateliers » (le jeu de cartes
+n'est pas un jeu en ligne), ni sur l'écran du thème « Se présenter » (qui sert à préparer le
+lexique mot par mot, et qu'un gros document d'impression déséquilibre).
+
+## « Mon avenir au Havre » — la carte des lycées (repris 05/09)
+
+Elle a envoyé un fichier d'orientation existant (`uploads/orientation-havre (2).html`) :
+carte → lycée → métiers → fiche métier, cinq lycées et vingt CAP. L'ossature était bonne
+(retour à chaque étage, cibles à 88 px, phrases à la première personne, bouton
+haut-parleur) ; six choses ont été refaites d'après mes recommandations, qu'elle a validées :
+
+- **Vraie carte** : Leaflet + tuiles OpenStreetMap, plus la capture Google Maps en fond
+  d'écran avec des repères posés à des pourcentages inventés.
+- **Vraies coordonnées** : géocodées sur la **Base Adresse Nationale**
+  (`api-adresse.data.gouv.fr`), score ≥ 0,78 — Lavoisier 51 rue des Moteaux, EREA Genevoix
+  94 rue Colette, Schuman-Perret 51 avenue du 8 Mai 1945, Jules Le Cesne 33 rue de Fleurus,
+  Françoise de Grâce 16 rue de la Vallée. Les adresses et le quartier s'affichent sur la fiche.
+- **Photos à la place des icônes dessinées** : 14 des 20 métiers piochent dans `clean/`
+  (`mot-macon`, `mot-peintre`, `mot-soudeur`, `mot-agententretien`, `mot-electricien`,
+  `mot-plombier`, `mot-menuisier`, `mot-mecanicien`, `mot-cuisinier`, `mot-serveur`,
+  `mot-aidesoignant`, `mot-caissier`). Les 6 restants affichent **ce qu'il reste à
+  photographier**, jamais un pictogramme : mécanique camions, maintenance des bâtiments,
+  installations thermiques, café-hôtel-restaurant, entretien des textiles.
+- **Typographie adulte** : Archivo Black + Atkinson Hyperlegible ; Baloo 2 (ronde,
+  enfantine) écartée. Emojis des légendes retirés.
+- **Fichier `ORIENTATION - Mon avenir au Havre.html`** — en HTML simple et non en
+  composant : une carte a besoin de ses scripts au chargement.
+- **⚠ La source est identifiée (05/09)** : elle s'est inspirée du Genially « Présentation
+  des ULIS lycées du Havre », version 1.5 — septembre 2025, par N. Gay, S. Jolivet,
+  N. Lassade, E. Meys et S. Maurice. Les CAP listés sont donc ceux **accessibles en ULIS
+  lycée**, ce qui est écrit en pied de carte à la place de mon avertissement ONISEP.
+  Vérifié ligne à ligne contre ce document : Lavoisier, Schuman-Perret, Le Cesne et
+  Françoise de Grâce étaient exacts ; il manquait **Service en restaurant à l'EREA
+  Genevoix** — ajouté (21 métiers). Chaque fiche porte en plus le **nom exact du CAP**
+  (« Monteur en installations sanitaires (MIS) », « Réalisations industrielles en
+  chaudronnerie ou soudage (RICS) »…), le nom simple restant pour l'élève.
+  Le Genially contient aussi les **Bac pro** des cinq lycées : pas repris, à décider avec elle.
+
+Pas encore branché dans l'espace enseignant : elle a dit « on verra après pour le
+branchement ». Sa place logique est l'étage suivant du thème « Les métiers ».
+
+## Thème « Les métiers » — PUBLIÉ (05/09)
 
 Le cadre « langues » de la carte doit devenir **le métier qu'il veut faire** (elle a
 choisi cette piste parmi quatre : métier · transport · ce qu'il sait faire · où il
 habite). Phrase visée : « Il veut être mécanicien. »
-Liste arrêtée : 22 métiers accessibles en CAP / apprentissage — bâtiment (maçon, peintre,
-électricien, plombier, menuisier, soudeur), restauration (cuisinier, serveur, boulanger,
-pâtissier), commerce et logistique (vendeur, caissier, magasinier, chauffeur-livreur),
-soin et services (aide-soignant, agent d'entretien, coiffeur, esthéticienne), extérieur
-(jardinier, agriculteur), plus mécanicien, couturier et l'informatique. Garçons et filles
-alternés, avec des filles sur l'électricité, la soudure et l'agriculture — « ça change ce
-que les élèves se croient permis ».
-**Déjà rangées dans clean/** (04/09) : `mot-macon`, `mot-peintre`, `mot-electricien`,
-`mot-plombier`, `mot-cuisinier`, `mot-serveur`, `mot-boulanger`, `mot-aidesoignant`,
-`mot-caissier` — plus `mot-mecanique`, `mot-coiffure`, `mot-docteur`, `mot-ordinateur`
-qui existaient déjà.
-**Reste à fabriquer** : menuisier, soudeur, pâtissier, vendeur, magasinier, livreur,
-agent d'entretien, esthéticienne, jardinier, agriculteur, couturier.
-⚠ Trois réserves sur les images reçues : **`mot-caissier` porte du texte parasite**
-(badge « NATHALIE / CAISSIÈRE », briques « LAIT » et « PÂTES ») alors que le prompt
-l'interdisait ; et `mot-macon`, `mot-electricien`, `mot-caissier` sont en format large
-(1000 × 545) et non carré — acceptable dans une case en `contain`, mais moins homogène.
-**Elle n'a pas fini de les générer : rien n'est publié.** Le thème « Les métiers » n'existe
-donc pas encore dans `BANQUE`, et la carte garde le cadre « langues ». À reprendre quand
-elle enverra la suite.
+**Liste ramenée à 16 métiers (05/09).** Elle a écarté livreur, esthéticienne,
+jardinier, agriculteur et couturier — ils ne l'intéressent pas pour le moment.
+Reste : bâtiment (maçon, peintre, électricien, plombier, menuisier, soudeur),
+restauration (cuisinier, serveur, boulanger, pâtissier), commerce et logistique
+(vendeur, caissier, magasinier), soin et services (aide-soignant, agent d'entretien),
+plus mécanicien, coiffeur, docteur et l'informatique. Garçons et filles alternés, avec
+des filles sur l'électricité et la soudure — « ça change ce que les élèves se croient
+permis ».
+**Toutes les images sont rangées dans clean/ (05/09)** : `mot-macon`, `mot-peintre`,
+`mot-electricien`, `mot-plombier`, `mot-menuisier`, `mot-soudeur`, `mot-cuisinier`,
+`mot-serveur`, `mot-boulanger`, `mot-patissier`, `mot-vendeur`, `mot-caissier`,
+`mot-magasinier`, `mot-aidesoignant`, `mot-agententretien` — plus `mot-mecanique`,
+`mot-coiffure`, `mot-docteur`, `mot-ordinateur` qui existaient déjà.
+`mot-caissier` a été **remplacée** (05/09) : la nouvelle photo n'a plus de badge nommé,
+et le recadrage carré 1000 × 1000 exclut le paquet de pâtes portant « PÂTES ». Les six
+nouvelles images sont toutes en 1000 × 1000.
+`mot-macon` et `mot-electricien` ont été **remplacées** (05/09) par des photos carrées
+1000 × 1000 : tout le thème est homogène. L'électricienne est une femme, la piste
+« filles sur l'électricité » est donc tenue en image.
+**Thème publié le 05/09.** `Les métiers` existe dans les deux `BANQUE` (l'espace
+enseignant et `banque-mots.js`) : 19 entrées — les 16 métiers, plus coiffeur, docteur et
+l'informatique qui réutilisent des images déjà là. Tous les exercices de l'application
+(écouter · parler · lire · écrire, loto, vrai-faux) marchent donc sur ce thème sans
+autre réglage, et les fiches imprimables se fabriquent à la demande.
+**Carte « se présenter » basculée (05/09)** : la deuxième case n'est plus les langues
+mais **« Quel métier veux-tu faire ? »**, vignette `mot-mecanique`. Le chapô de la page
+disait encore « la famille, l'animal » : corrigé en « le pays, le métier qu'il veut faire »
+(05/09). Le groupe de mots
+« MON PAYS, MES LANGUES » est devenu « MON PAYS » (9 drapeaux, sans « les langues »), et
+un nouveau groupe « LE MÉTIER QUE JE VEUX FAIRE » liste 18 vignettes. Les neuf cartes
+fictives ont chacune un métier au lieu de leurs langues.
+**Les neuf personnes ont été réalignées sur leurs portraits (05/09)** — elle a repéré que
+« Marco, italien » était affiché sur un portrait de fille. Les portraits sont un lot fixe,
+donc c'est le prénom, le pays et le métier qui se règlent sur le visage : le prénom prend
+le sexe du portrait, la photo du métier prend le sexe de la personne, et le pays reste
+plausible avec le visage (afro-portugais, afro-brésilien). **Les prénoms ont été simplifiés (05/09)** : une ou deux syllabes, aucun accent, aucune
+nasale, aucune lettre muette — « João », « Lucía », « Giulia », « Kasia », « Youssef »
+demandaient trop à un élève qui découvre l'alphabet latin. Chacun reste plausible dans
+son pays.
+⚠ **`mot-docteur` retiré du thème (05/09)** : c'est un dessin vectoriel enfantin en
+193 × 228, seul non carré et seul en basse résolution au milieu de dix-sept photographies
+1000 × 1000. Il rendait plus petit et d'un style étranger au reste de la planche dès que
+les vignettes ont été agrandies. Le thème `Les métiers` compte donc **18 entrées**, et le
+groupe « LE MÉTIER QUE JE VEUX FAIRE » de la carte en compte 17. À remettre dès qu'une
+photo de médecin arrive.
+**Tranché le 05/09** : une photo de **coiffeuse en train de couper** remplace les ciseaux
+posés à plat pour le métier — une personne au travail comme les seize autres.
+⚠ **Erreur commise et corrigée le 05/09** : la nouvelle photo avait d'abord écrasé
+`mot-coiffure`, alors que ce fichier servait déjà au loisir « la coiffure » dans le groupe
+« À FAIRE, LE TEMPS ». Résultat : la même photo imprimée deux fois sur la planche à
+découper, une fois pour « coiffeur » et une fois pour « la coiffure » — l'ambiguïté même
+qu'un support d'appariement image ↔ mot doit éviter. La photo est donc désormais
+`mot-coiffeur.png`, et le thème « Les métiers » comme le groupe de la carte pointent
+dessus. **`mot-coiffure` (ciseaux + peigne) est perdue et doit être redemandée** : le
+loisir « la coiffure » n'a plus d'image en attendant. C'est exactement le cas traité
+correctement pour la mécanique juste avant — nouveau fichier plutôt qu'écrasement. Deux choix forcés dans le prompt et bien rendus : le
+client est **vu de dos** (son visage aurait attiré l'œil et l'élève n'aurait plus su qui
+est le coiffeur) et les **ciseaux sont à hauteur de la tête**, mèche entre les doigts —
+c'est le geste qui fait comprendre le métier, pas l'outil tenu à côté du corps.
+**`mot-mecanicien` créée le 05/09** : une mécanicienne devant un capot ouvert, clé à
+molette en main. C'est une **image nouvelle, pas un remplacement** — `mot-mecanique`
+(clé + tournevis posés à plat) reste en place pour ses deux autres emplois : la vignette
+en coin de la case « Quel métier veux-tu faire ? », où il faut un symbole générique de
+métier et non un métier précis, et le mot « la mécanique » dans la liste « ce que
+j'aime ». Le thème « Les métiers » pointe désormais sur `mot-mecanicien`, et la carte de
+Nadia aussi. La mécanicienne est une femme : même ligne que l'électricienne et la
+soudeuse. Le capot ouvert était exigé dans le prompt — sans voiture, une femme avec une
+clé pourrait être plombière ou soudeuse.
+`mot-ordinateur` est **sorti du thème** : l'informatique ne l'intéresse pas comme métier
+pour ces élèves. L'image reste dans la banque pour les autres thèmes, mais « Les métiers »
+ne la propose plus. Le thème compte donc **17 entrées**, et le groupe « LE MÉTIER QUE JE
+VEUX FAIRE » de la carte 17 vignettes.
+
+## Cinq pages, plus aucun réglage (05/09)
+
+Le sélecteur `PAGE À IMPRIMER` propose : **Diaporama des mots · Carte vierge · 9 cartes
+fictives · À découper · Le modèle CASNAV**. Il n'y a plus aucun interrupteur.
+**Le diaporama** déroule les 55 mots des quatre groupes de la carte, un par écran : image
+en grand, mot écrit dessous, deux flèches, un compteur. C'est le seul endroit où les mots
+s'écrivent — les documents à imprimer n'en portent aucun, comme la carte du modèle.
+**Le modèle CASNAV** est le PDF `docs/cartes-identite-brise-glace.pdf` (12 pages,
+qu'elle a fourni le 05/09). La page ne contient **qu'un bouton de téléchargement**, sans
+aperçu : une extension de Chrome chez elle bloque l'affichage des PDF
+(`ERR_BLOCKED_BY_CLIENT`), et quand un aperçu en images des 12 pages a été proposé pour
+contourner, elle a répondu qu'elle n'en voulait pas — « télécharger le pdf et ça m'ira
+très bien ». Le PDF d'origine est **gardé intact** : c'est la référence.
+**L'écran « Le modèle CASNAV » affiche les 12 pages et les imprime** (04/09/26). Le PDF
+lui-même est inatteignable depuis l'application : un onglet séparé renvoie « preview token
+required », le téléchargement direct « Fichier non disponible sur le site », l'aperçu en
+`<iframe>` est bloqué par son extension Chrome, et le rendu direct des pages par pdf.js
+dépasse le temps de calcul disponible.
+Les pages sont donc **reconstituées** en PNG dans `docs/modele/` : chaque page du PDF est
+une diapo 16:9 où 8 à 16 vignettes sont posées par-dessus un cadre de carte. Les extraire
+sans leurs positions ne rendait que le cadre vide — d'où sa remarque « je ne vois pas les
+images à l'intérieur ». Les positions viennent des matrices de transformation de la liste
+d'opérateurs de pdf.js, les images de l'extraction, et le tout est recomposé sur un canvas
+à 3×, puis recadré sur son contenu (les diapos avaient d'énormes marges blanches).
+Les images sont des `<img>` et non des `background-image` : Chrome n'imprime pas les
+arrière-plans quand « Graphiques d'arrière-plan » est décoché, ce qui donnait un aperçu
+d'impression vide.
+Deux détours ont été faits puis retirés à sa demande : un aperçu en miniatures et une
+version noir et blanc sur fond blanc pour économiser les cartouches (« reviens en
+arrière » — qui visait le noir et blanc, pas les pages ; les retirer lui a fait perdre
+l'impression et elle l'a très mal pris).
+Le PDF d'origine reste rangé intact dans `docs/cartes-identite-brise-glace.pdf`.
+
+## L'interrupteur « Jeu : prénom caché » retiré (05/09)
+
+Elle a demandé si les trois interrupteurs du haut valaient vraiment le coup. Deux sont
+irremplaçables : **« Images seules / Avec les mots »** (sans les mots l'élève dit, avec
+les mots il lit — deux séances différentes) et **« Je me présente / Je présente un
+camarade »** (qui réécrit les phrases du bas, deux objectifs de langue distincts).
+Le troisième est **supprimé** : il n'imprimait des « ? ? ? » que sur la carte à remplir,
+or les cartes des élèves sont remplies à la main et jamais réimprimées — en classe, on
+plie le coin ou on pose un post-it. Le titre « QUI EST-CE ? » et la variante d'aide qui en
+dépendaient sont partis avec.
+La liste : Bruno maçon (Portugal) · Ana pâtissière (Espagne) · Lina cuisinière (Italie) ·
+Marco aide-soignant (Brésil) · Mai soudeuse (Vietnam) · Ali plombier (Turquie) ·
+Nadia mécanicienne (Algérie) · Ola électricienne (Pologne) · Omar peintre (Maroc).
+L'électricité et la soudure sont tenues par des filles ; « la mécanique » étant une photo
+d'outils sans personne, elle va à tout le monde.
 
 ## Thème « Les pays, les langues » (créé 04/09)
 
@@ -363,8 +1123,8 @@ pour les vignettes.
 écrit sur le drapeau**, elle l'a demandé explicitement. Un drapeau seul ne se reconnaît pas.
 Les **10 images sont arrivées le 04/09** (9 drapeaux + `mot-langues`, deux jeunes adultes
 et deux bulles vides) : le thème est publié dans l'application. Deux réserves à lui
-signaler : « ALGERIE » est sans accent sur l'image, et `mot-drapeau` (vignette neutre)
-manque — c'est le drapeau du Portugal qui sert provisoirement de repère en coin des cases
+signaler : « ALGERIE » est sans accent sur l'image. `mot-drapeau` (vignette neutre) est
+arrivée le 05/09 et sert désormais de repère en coin des cases
 « pays », et le mot « un drapeau » n'est pas dans le thème (un mot sans image = carte
 blanche chez l'élève).
 Sur la carte, les **langues sont dites par des drapeaux** elles aussi (pays d'origine +
@@ -910,7 +1670,8 @@ c'est elle qui choisit. Seize questions rédigées + une production écrite au c
 bleu, un barème sous chaque exercice et les cases MI/MF/MS/TBM à entourer, comme chez Canopé.
 Le conte n'est pas recopié (extrait Flammarion) : elle photocopie le sujet.
 
-**Sa feuille de décodage** — « Lecture en alphabet latin » : lettres et syllabes (5 lignes),
+**Sa feuille de décodage** — nommée **« Test de déchiffrage »** dans l'appli depuis le
+05/09 (avant : « Lecture en alphabet latin », trop savant) : lettres et syllabes (5 lignes),
 chiffres et nombres (3 lignes), trois mots à reconnaître, appariement capitales/minuscules.
 ⚠ Elle **ne fait pas tout lire** : elle choisit des lettres, des syllabes, quelques chiffres,
 et vérifie surtout les trois mots. D'où le « rien » qui sort du calcul.
@@ -1077,6 +1838,907 @@ Publication : décompresser le zip, supprimer `work` et `uploads`, copier dans
 `Documents\GitHub\upe2a`, puis GitHub Desktop → champ **Summary** (obligatoire, en haut) →
 **Commit to main** → **Push origin**. Deux à cinq minutes avant que le site se mette à jour.
 Elle est novice : redonner les étapes numérotées sans supposer le vocabulaire acquis.
+
+---
+
+# 3. MON ORGANISATION — emploi du temps, cahier journal, fiches de prep
+
+Chantier ouvert le 06/09/2026, à sa demande, en mettant les tests de positionnement de
+côté (« je reviendrai sur les tests plus tard »).
+
+## Ce qu'elle a dit au démarrage (formulaire du 06/09)
+
+- **On commence par l'emploi du temps** : le voir, le modifier, l'imprimer.
+- **Les trois outils doivent s'enchaîner** : l'emploi du temps pré-remplit le cahier
+  journal, une case renvoie à sa fiche de prep. C'est le choix de conception qui commande
+  tout le reste — ne pas construire trois outils étanches.
+- **Le cahier journal s'écrit avant ET après** : elle prévoit, puis elle corrige. Il faut
+  donc deux états par créneau (prévu / fait), pas un seul champ.
+- **Champs du cahier journal** qu'elle a retenus : ce qui était prévu · ce qui a réellement
+  été fait · le matériel utilisé · ce qui n'a pas marché · les devoirs donnés.
+  (Écartés par elle : les absents, le comportement, les élèves à revoir.)
+- **Une fiche de prep = une séance avec des variantes par niveau** (NSA débutant /
+  intermédiaire / lecteur).
+- **Écran ET papier** : tout doit s'imprimer proprement.
+- ⚠ **Un remplaçant doit pouvoir s'en servir** : c'est le niveau de formalisme visé — pas
+  l'inspection, mais pas des notes personnelles illisibles non plus.
+- **L'emploi du temps change parfois** — donc modifiable, pas figé dans le code.
+- **Semaines A et B** : elle suit le calendrier, elle était en **semaine B** le 06/09/2026.
+- **Base : programme 2026 de l'école.**
+- Ce qu'elle veut au clic sur un créneau : « le PDF accroché avec les vidéos
+  nécessaires », et **la liste des élèves avec ce que j'ai donné à chacun** pour
+  différencier.
+
+## L'emploi du temps (fait 06/09)
+
+`APPLI - Emploi du temps.dc.html` + `emploi-du-temps.js` (`window.EDT`).
+Branché dans la barre latérale : nouvelle rubrique **Mon organisation**, graphite
+`#44546a` (couleur sobre, aucune autre rubrique ne l'occupait) — le cahier journal et les
+fiches de prep viendront s'y ranger.
+
+**Sa grille, recopiée de sa capture** : quatre jours, **pas de mercredi**. Huit domaines
+avec ses couleurs, deux vues (**semaine** en tableau aligné, **jour** en liste), navigation
+de semaine en semaine, impression en A4 paysage.
+⚠ **Ses couleurs sont éclaircies** : son rouge plein et son orange plein ne laissent pas
+lire un titre de quatre lignes. Fond clair + encre foncée (contraste ≥ 4,5:1), et la
+**bordure gauche épaisse** garde la couleur forte d'origine — on reconnaît la matière d'un
+coup d'œil sans perdre la lisibilité. Ne pas revenir aux fonds pleins.
+⚠ **Les cinq créneaux identiques les quatre jours sont écrits une seule fois**
+(`TOUS_LES_JOURS`) et dépliés : recopier quatre fois la même phrase, c'est quatre endroits
+à corriger le jour où elle la change.
+⚠ **Un créneau porte un id stable `jour-cle`** (`lundi-litteracie`) : c'est la clé de ses
+ressources, de ses notes de différenciation et, plus tard, du cahier journal. Ne jamais la
+fabriquer à partir de l'horaire, qui change.
+
+**Le panneau du créneau** : ses documents (les fichiers de l'appli déjà rattachés au bon
+créneau — séances de sons, livrets, planches), l'ajout d'un lien ou d'une vidéo, **une
+ligne par élève pour noter ce qu'elle lui a donné**, et la modification de l'intitulé, du
+détail et des horaires. Ses modifications vivent dans `upe2a-edt` **par-dessus** les
+données de départ, qui ne bougent pas : une modification ratée se répare en vidant la clé.
+Les noms d'élèves viennent de `upe2a-positionnement` — la seule liste nominative que
+l'appli persiste (Ma classe n'est pas encore enregistrée).
+
+**Semaines A / B** : alternance calculée depuis une ancre réglable (lundi 31/08/2026 =
+semaine B, d'après ce qu'elle a dit). Un bouton inverse l'alternance.
+
+## ⚠ Les vacances : ZONE B, académie de Normandie (06/09)
+
+« Je suis en zone B. Attention aux vacances ». Calendrier officiel 2026-2027 inscrit dans
+`VACANCES` : Toussaint 17/10 → 02/11 · Noël 19/12 → 04/01 · hiver **20/02 → 08/03** ·
+printemps **17/04 → 03/05** · pont de l'Ascension 06/05 → 11/05 · été à partir du 03/07.
+(Hiver et printemps sont les dates PROPRES à la zone B — ne pas les confondre avec A ou C.)
+Fériés retenus : seuls ceux qui tombent un jour de classe hors vacances — Armistice
+11/11/2026, lundi de Pâques 29/03/2027, lundi de Pentecôte 17/05/2027.
+
+⚠ **L'ALTERNANCE A/B SAUTE LES SEMAINES DE VACANCES.** C'est le point de sa mise en garde :
+compter les semaines du calendrier décalerait tout à chaque retour — deux semaines de
+Toussaint remettent la même lettre, quatre semaines d'été aussi. `lettreSemaine()` compte
+donc les **semaines de classe** depuis l'ancre. Une semaine de vacances n'a **pas de
+lettre** du tout (retourne `''`) et affiche un bandeau au lieu de la grille.
+⚠ Une semaine seulement **coupée** par un départ en vacances reste une semaine de classe :
+`semaineDeVacances()` vérifie le lundi ET le vendredi.
+
+## ⚠ Le mercredi et les jours de classe (06/09)
+
+« Celui que tu utilises va être légèrement modifié parce que j'ai cours le mercredi par
+exemple. » Les cinq jours existent dans `TOUS_JOURS` ; **les jours affichés viennent de
+`jours` dans ses réglages** (« Mes jours de classe », cases à cocher), pas d'une liste en
+dur. Ne jamais retirer le mercredi de `TOUS_JOURS`.
+⚠ **Décocher un jour ne supprime rien** : ses créneaux restent en mémoire et reviennent si
+elle le recoche.
+⚠ La grille s'adapte (`grilleColonnes`) et le sous-titre énumère ses jours : écrire
+« quatre jours, pas de mercredi » en dur deviendrait faux.
+**Ajouter un créneau** (jour, horaires, intitulé, domaine) : indispensable dès qu'un
+mercredi vide peut apparaître. Les id des créneaux ajoutés sont horodatés (`perso-…`) pour
+ne jamais heurter un id de départ.
+
+**Dupliquer un créneau** (demandé le 06/09) : bouton dans le panneau et dans la fiche. La
+copie emporte l'intitulé, le libellé court, le détail, les horaires, le domaine **et les
+liens ajoutés** — dupliquer un créneau, c'est le même travail un autre jour.
+⚠ **Deux créneaux au même moment SE PARTAGENT LA LARGEUR** (sa capture du 06/09). Avant, la
+copie se posait exactement sur l'original et le cachait. Les créneaux qui se chevauchent
+sont regroupés en grappes, et chacun prend la première sous-colonne libre de sa grappe ;
+une grappe de 1 occupe toute la largeur, donc un emploi du temps normal se lit comme avant.
+**C'est aussi la mécanique de ses groupes de niveaux** — le sujet qu'elle avait annoncé.
+⚠ **Mais PAS les notes de différenciation** : ce que Sana a fait lundi n'est pas ce qu'elle
+fera mercredi. Ne pas « corriger » ça.
+⚠ La copie part sur le **jour suivant** de ses jours de classe, pour ne pas se superposer à
+l'original, et le panneau s'ouvre directement en modification.
+
+⚠ **À lui faire confirmer** (encadré jaune dans l'écran) : voir le recalage horaire
+ci-dessous. Restent à demander : ce que désigne le **« (R) »** de ses rituels, et si les
+semaines A et B ont des emplois du temps **différents** (pour l'instant identiques).
+
+## Ses élèves (donnés le 06/09)
+
+**Anita · Ahmed · Josephina · Sania · Yasir** — la classe UPE2A. Inscrits dans
+`EDT.ELEVES` (emploi du temps) et dans `GROUPES_INIT` de l'espace enseignant, à la place
+des « Élève A / B / C » de démonstration.
+⚠ L'`id` est stable et indépendant du prénom (`e-anita`…) : c'est la clé de ses notes de
+différenciation. Renommer un élève ne doit pas effacer ce qui est écrit sur lui.
+⚠ **Les cinq sont dans « Débutants »** faute de savoir leurs niveaux — à lui faire
+répartir entre Débutants / Intermédiaires / Avancés.
+⚠ **« Sania » n'est pas forcément la « Sana » du dossier de positionnement** :
+orthographes différentes, ne pas les fusionner sans le lui demander.
+⚠ Le panneau du créneau n'utilise **pas** la liste du positionnement : celle-ci couvre tous
+les allophones de l'établissement, pas sa classe.
+
+## ⚠ Le mercredi fait partie de ses jours (06/09)
+
+« Ajoute le mercredi ! » — sa capture d'écran n'en montrait pas, mais **elle a bien cours
+le mercredi**. `JOURS_PAR_DEFAUT` compte donc **cinq jours**. Ne pas revenir aux quatre en
+se fiant à la capture.
+⚠ Le mercredi partage la charpente des autres jours (atelier lecture, récréation, atelier
+maths, rituel CSP, FLSco — tous dans `TOUS_LES_JOURS`) mais son **contenu propre est
+inconnu** : les trois créneaux qui lui sont propres portent des intitulés neutres et
+`aVerifier: true`. **À lui demander** ce qu'elle y fait — ne rien lui prêter.
+
+## ⚠ La grille doit tenir sur UNE page — sans ascenseur (06/09)
+
+Sa consigne : « pour gagner de l'espace, retire *Lecture de syllabes…* mais écris-le dans ta
+fenêtre de droite. Idem pour les autres. L'emploi du temps doit tenir sur une page. Je ne
+dois pas utiliser l'ascenseur. »
+
+Trois leviers, dans cet ordre d'importance :
+1. **Le détail sort des cases** — il ne vit plus que dans le panneau de droite, le mode
+   jour et l'impression.
+2. **Un libellé COURT par créneau** (champ `court` dans `emploi-du-temps.js`) : « Littéracie ·
+   nouveau son » au lieu de « Littéracie et écriture — nouveau son + vidéo métier ». C'est
+   le levier décisif : dans une colonne de 150 px le titre long prenait **quatre lignes**,
+   et c'est le retour à la ligne, pas la hauteur des cases, qui faisait déborder la page.
+   Le titre complet reste partout ailleurs.
+3. Hauteurs resserrées (`max(30, durée × 0,4)`), gaps et paddings réduits.
+
+Résultat mesuré : le tableau passe de 819 px à **725 px** de bas de carte, cinq jours et
+neuf plages compris. ⚠ Ne pas rallonger les libellés courts ni remonter les hauteurs sans
+remesurer.
+
+⚠ **Et surtout : c'est la COLONNE DE DROITE qui imposait la hauteur de la page**, pas la
+grille — `.edt-corps` est une grille `align-items:start` sans contrainte de hauteur, donc
+le plus haut de ses deux enfants gagne. La grille faisait 568 px, la colonne de droite
+832 px : ascenseur à l'ouverture malgré la grille optimisée. Deux corrections :
+- les trois cartes de réglages (jours de classe, ajouter un créneau, semaines A/B) sont
+  **repliées derrière un bouton RÉGLAGES** — elles pesaient 553 px des 832 et aucune ne
+  sert quand elle lit simplement sa semaine. Colonne repliée : **284 px** ;
+- la colonne de droite est **collante et défile en interne**
+  (`position:sticky; max-height:calc(100vh - 40px); overflow:auto`) : la grille ne bouge
+  jamais, et un panneau de créneau ouvert (documents + cinq élèves + modification, 500 px)
+  ne pousse plus la page.
+⚠ Toute nouvelle carte dans cette colonne doit aller **dans le repli**, pas au-dessus.
+
+⚠ **La cause de fond : la chaîne des hauteurs était rompue.** `height:100%` sur la coquille
+se résolvait contre `#dc-root` / `.sc-host`, qui ont une hauteur AUTO — donc retour à la
+hauteur du contenu, et ascenseur malgré une grille qui tenait. Corrigé dans le helmet :
+`html, body { height:100% }` **plus** `#dc-root, #dc-root > * { height:100% }` (page
+ouverte seule) et `.edt-hote, .edt-hote > * { height:100% }` (écran importé dans l'espace
+enseignant — la classe est posée sur le conteneur du `dc-import`, qui passe en
+`overflow:hidden`). La coquille prend alors la hauteur de la fenêtre **par construction**,
+la grille et le panneau défilent chacun en interne.
+Mesuré : `scrollHeight === innerHeight` dans les trois états (panneau fermé, panneau
+ouvert, réglages dépliés) — plus d'ascenseur de page.
+⚠ À l'impression la coquille se relâche (`.edt-racine { height:auto; overflow:visible }`) :
+sans ça la feuille serait coupée au premier écran.
+⚠ Ne pas repasser `.edt-corps` en `align-items:start` : c'est ce qui laissait la plus haute
+des deux colonnes dicter la hauteur du document.
+
+⚠ **Les deux modes d'affichage n'ont pas la même mécanique de défilement**, et c'est un
+partage par MODE, pas un réglage de pixels :
+- **deux colonnes (≥ 1080 px)** : chaque colonne est bornée à la hauteur disponible
+  (`min-height:0`, `max-height:100%`, `overflow:auto`) et défile en interne — la grille
+  reste en place ;
+- **empilé (< 1080 px)** : les deux blocs partagent UNE piste. Les borner revenait à
+  écraser chacun à ~200 px et à mettre un ascenseur **DANS** le tableau (4 lignes sur 9
+  visibles) — pire que le défaut d'origine. En empilé : `min-height:auto`,
+  `max-height:none`, `overflow:visible` sur les enfants, et `overflow:auto` sur
+  `.edt-corps` — la colonne défile d'un bloc, tableau intact.
+⚠ `min-height:0` est **indispensable en deux colonnes et nuisible en empilé** : il annule
+le minimum automatique de la ligne de grille, qui se réduit alors sous la hauteur de la
+carte, laquelle **déborde par-dessus le bloc suivant**. Chevauchement observé, pas
+théorique — ligne de 192 px pour une carte de 556 px.
+
+⚠ **`maj()` repart TOUJOURS de ce qui est enregistré, jamais de `state.base`.** Cet écran
+existe en deux exemplaires (la page seule et celui de l'espace enseignant) : une copie qui
+écrit son propre instantané **écrase en bloc** ce que l'autre vient de faire. Bug réel, pas
+théorique — deux nettoyages de données se sont fait annuler par un montage resté sur un
+état antérieur. Ne pas « optimiser » en relisant `state.base`.
+
+## ⚠ Semaine de vacances : tout est grisé (06/09)
+
+« Si vacances, tout est grisé stp. » La grille reçoit
+`filter: grayscale(1) opacity(.45)` **et `pointer-events: none`** : les couleurs de domaine
+à pleine intensité donnaient à une semaine de vacances l'air d'une semaine de classe, et
+on pouvait encore ouvrir, glisser ou dupliquer un créneau qui n'a pas lieu. Le bandeau
+bleu au-dessus nomme les vacances.
+
+## ⚠ La portée des modifications : le modèle ou UNE semaine (06/09)
+
+« La première semaine est forcément totalement différente. Je peux modifier mes
+créneaux ?? » Jusque-là **toute** modification s'appliquait à toutes les semaines. Deux
+couches désormais, empilées dans cet ordre par `EDT.semaine(base, cleSem)` : données de
+départ → **modèle** (`b.modifs / ajouts / retires`) → **modifications propres à la semaine**
+(`b.semaines['2026-09-07']`), qui l'emportent.
+
+⚠ **Un seul réglage commande TOUT** — modifier, ajouter, supprimer, dupliquer, glisser :
+le sélecteur « Toutes les semaines / Cette semaine » dans la barre de navigation. Pas de
+choix par action : elle ne peut pas se tromper sur ce qu'elle est en train de changer.
+Toute mutation de créneau passe par `ecrire(f)`, qui reçoit une cible ayant toujours les
+trois mêmes champs — les appelants n'ont pas à savoir dans quelle portée ils écrivent.
+⚠ **Les liens (documents, vidéos) restent globaux** : un document rattaché à un créneau
+l'est toutes les semaines. Ils s'écrivent hors de la portée, via `maj()`.
+⚠ Une semaine qui s'écarte du modèle affiche le repère **« semaine particulière »** avec
+« revenir au modèle » : sans lui, elle ressemble à un bug de l'appli.
+⚠ Le sélecteur est **dans la barre de navigation**, pas sur sa propre ligne : en ligne
+séparée il ajoutait 85 px et l'emploi du temps ne tenait plus sur une page.
+⚠ **Le second bouton porte la DATE de la semaine affichée** (« Semaine du 7/09 »), pas le
+mot « cette semaine » : elle l'avait lu comme « la semaine en cours » du calendrier, alors
+qu'il s'agit de la semaine sous ses yeux — navigue-t-elle jusqu'en janvier, c'est janvier
+qui est modifié. Ne pas revenir à un libellé sans date.
+⚠ `enregistrer` recopie le titre dans `court` : sinon la case garde l'ancien libellé
+abrégé et l'écran contredit le panneau.
+
+## ⚠ La FENÊTRE de modification (06/09)
+
+« Si je clique sur le bouton modifier, c'est une fenêtre qui s'ouvre. C'est plus fluide » —
+capture d'un modèle à l'appui. Construite : intitulé pleine largeur + badge du domaine en
+en-tête ; à gauche **Début / Fin** avec la **durée calculée en direct** et le jour ; en
+dessous la **précision** ; à droite le **type de créneau** (les huit domaines, en boutons
+radio colorés) ; en pied **Supprimer · Annuler · Valider**.
+
+⚠ **Le bloc dépliable qui vivait dans le panneau de droite a été RETIRÉ** : la fenêtre le
+remplace. Le panneau ne garde que les documents, les élèves, *Modifier*, *Dupliquer* et
+*Revenir à l'original*. Ne pas le réintroduire.
+⚠ **L'avertissement de portée est UNE phrase, en ROUGE, et rien de plus** — sa consigne
+mot pour mot (06/09) : « contente-toi de dire en rouge : *attention, toutes les semaines de
+l'année seront modifiées* ». Pas de titre, pas d'explication en dessous : le message se lit
+d'un coup d'œil ou il ne se lit pas. J'avais mis un panneau à deux niveaux, puis un
+panneau orange — les deux refusés.
+⚠ Et **rien du tout quand la portée est la semaine seule** : il n'y a pas de danger, donc
+pas d'alerte.
+
+⚠ **DOUBLE-CLIC SUR UNE CASE VIDE → création d'un créneau** (06/09) : la même fenêtre sert
+à créer et à modifier — un second formulaire divergerait au premier changement. La case
+cliquée impose **le jour et la plage horaire**, c'est tout l'intérêt du geste ; elle choisit
+l'intitulé et le type (donc la couleur). Le bouton devient **CRÉER**, la corbeille
+disparaît, et rien n'est enregistré sans intitulé (un bloc sans nom est introuvable dans la
+grille). Curseur `cell` sur les cases vides.
+⚠ Le clic sur le fond ferme la fenêtre ; le clic dans la carte est arrêté (`rien`).
+⚠ **Pas de « Niveaux » dans cette fenêtre pour l'instant**, alors que son modèle en montre
+(GS-CP-CE1…) : chez elle ce sera ses groupes de niveau, et c'est le même sujet que les
+**deux créneaux en parallèle** qu'elle a annoncé vouloir. À concevoir avec elle, pas à
+deviner.
+
+⚠ **ON NE COLLE PAS D'ÉTIQUETTES SUR LES PORTES DU LYCÉE** — mon invention, qu'elle a
+relevée le 06/09 : « c'est bizarre comme déroulé ». Ses notes disaient « coller sur le mur
+par étage », c'est-à-dire un **affichage dans la classe**, un panneau par étage — pas des
+papiers scotchés sur la porte du CPE ou de l'infirmerie. Le tour du lycée se fait avec la
+**feuille des lieux** : on nomme, ils répètent, ils mettent une **croix**. Les étiquettes
+servent à l'affichage de la classe et au cahier.
+
+## ⚠ « Retrouve les noms des adultes » dans le rallye (06/09)
+
+Sa demande : mettre le bloc **Les adultes du lycée** dans le jeu de piste, sous forme
+d'exercice — « retrouve les noms des adultes » —, plus le **téléphone du lycée** et **par où
+on rentre (hall ? portail de la cour ?)**.
+
+Page ajoutée dans `SÉANCE 1 - Jeu de piste au rez-de-chaussée.dc.html`, avant la page
+enseignante : les quatre portraits (mêmes fichiers que l'autre document, pas de doublon)
+avec un **cadre pointillé sous chacun** pour coller l'étiquette-nom, la fonction et la salle
+déjà écrites en gris ; les quatre noms à découper en dessous.
+⚠ **ON ÉCRIT LE NOM, ON NE LE COLLE PLUS** (sa correction du 06/09 : « écrire chaque nom »).
+Les cadres pointillés sous les portraits sont devenus de **vraies lignes d'écriture** —
+trait plein, ligne de base — et la planche de noms est devenue **le modèle à recopier**,
+posé à côté (« Modèle · une bande par élève »). Les trois bandes gardent leur intérêt : un
+modèle par élève, sous les yeux.
+⚠ C'est le seul endroit du rallye où l'on écrit ; le reste reste la croix.
+⚠ **Les étiquettes-noms sont sur LEUR PROPRE page**, jamais sur la feuille de collage : je
+les avais mises sous les portraits, si bien que découper les noms charcutait la feuille où
+ils devaient être collés — et emportait le téléphone et l'entrée juste en dessous. Même
+règle que les bandes de lieux : **trois bandes écartées**, une par élève, un seul coup de
+ciseaux vertical.
+⚠ **Les étiquettes-noms ET les cadres pointillés font 4,4 × 0,95 cm**, en dur des deux
+côtés. Le cadre avait d'abord une largeur élastique (`flex:1`, 180 px) plus petite que
+l'étiquette (5,2 cm) : elle mordait sur le portrait. **Ne jamais changer l'un sans
+l'autre** — même règle que la planche des lieux.
+
+⚠ **LE TÉLÉPHONE ET L'ENTRÉE SONT LAISSÉS À COMPLÉTER** : je ne les connais pas et je ne les
+invente pas — un numéro faux dans un document que des élèves apprennent par cœur est pire
+que pas de numéro. Le téléphone est en **cinq cases** (les groupes de deux chiffres se
+recopient, ils ne s'écrivent pas de mémoire) ; l'entrée est en **deux choix à entourer**,
+LE HALL ou LE PORTAIL DE LA COUR — un geste possible pour un non-lecteur. Elle-même hésitait
+entre les deux : à trancher avec elle.
+
+## ⚠ La fiche de prep = TROIS ACTIVITÉS DE 50 MIN (06/09)
+
+*« Parle de mon rallye dans la fiche de prep. J'ai 3 × 50 minutes quand même… »* Le
+déroulement ne faisait que 110 min et le rallye n'y tenait qu'une ligne, dans un temps de
+30 min partagé avec le tour du lycée. Refait en trois blocs nommés, 150 min :
+⚠ On dit **ACTIVITÉ 1, 2, 3**, pas « séance » (sa préférence du 06/09) : les trois blocs
+s'enchaînent dans la même journée.
+- **Activité 1 — Je m'appelle, je viens de** : 20 le cercle · 15 « Donne à chacun son
+  prénom » (la planche d'appariement) · 15 la mappemonde ;
+- **Activité 2 — Le rallye du rez-de-chaussée** : 10 avant de sortir (montrer et nommer
+  les neuf photos) · 25 le rallye · 15 au retour (coller les étiquettes, écrire les noms
+  des adultes). **Le rallye a son activité entière** ;
+- **Activité 3 — Les étages, et le memory** : 20 le tour des étages (avec la rencontre de
+  l'infirmière) · 15 le memory planche 1 · 15 sur le cahier.
+
+⚠ **On fait parler les élèves pendant le tour des étages** (sa demande du 06/09) : à chaque
+adulte rencontré, c'est l'élève qui se présente, pas l'enseignante — « Comment tu
+t'appelles ? » / « Je m'appelle Yasir », et l'adulte répond « Moi, je suis l'infirmière ».
+Encadré bleu dans l'activité 3.
+
+⚠ **L'écriture vient en DERNIER**, activité 3 : à ce stade ils ont vu leur nom vingt fois et
+le modèle est collé à côté. Ne pas remonter ce temps.
+⚠ Chaque activité nomme **le document qu'elle utilise** en tête de bandeau — les trois
+fichiers sont séparés, il faut savoir lequel photocopier.
+⚠ Le temps « Si tu as un problème… » a été **fondu dans le tour des étages** : on rencontre
+l'infirmière à l'infirmerie, pas dans un temps abstrait en classe.
+⚠ L'activité 2 **et** l'activité 3 sont chacune sur leur propre page : une A4 à 2 cm de marge
+porte **UNE** activité de 50 min, pas deux. La page 1 en portait deux et débordait de 345 px
+— le rallye, celui qu'elle voulait mettre en valeur, était coupé en plein milieu, avec
+l'encadré « les toilettes en premier » et tout le temps de retour. Vérifié : les sept pages
+sont à 1123/1123, marges de 2 cm en haut, en bas et sur les côtés.
+
+⚠ **Une page « Les prénoms en grand »** (sa demande du 06/09) : six étiquettes de
+⚠ **Le prénom est dans la MOITIÉ BASSE de l'étiquette** (`align-items:flex-end`), et un
+trait pointillé marque le pli à mi-hauteur. Centré, le prénom était coupé en deux par la
+pliure et une moitié partait à l'envers derrière le chevalet — le porte-nom devenait
+inutilisable. Vérifié : le pli tombe 25 px au-dessus du texte sur les cinq étiquettes. Ne
+pas revenir à `align-items:center`, et ne pas retirer le trait de pli : sans repère on plie
+à vue. Le prénom est en très gros parce
+que c'est le premier mot qu'un NSA reconnaît, et il doit le reconnaître de loin. La sixième
+est vierge, pour une arrivée en cours d'année.
+
+## ⚠ Le diaporama de classe (06/09)
+
+`SÉANCE 1 - Diaporama de classe.dc.html`, 31 diapositives en 1920 × 1080, sur `deck-stage`.
+
+⚠ **RÈGLE UNIQUE : une image, UN mot.** Pas de phrase, pas de puce, pas de titre
+décoratif. Ce qui s'affiche est le mot qu'on vient de dire à voix haute, et il remplit
+l'écran — **110 px minimum**, jusqu'à 200 px pour BONJOUR. Élèves NSA : une diapositive
+chargée de texte ne leur apprend rien et les décourage.
+⚠ **Tout ce qui n'est pas le mot va dans les NOTES DE L'ORATRICE** : la salle, l'horaire,
+l'avertissement (« ce n'est pas un billard », « réservation avant 10h25 »). Ne jamais faire
+remonter ces phrases sur la diapositive.
+
+Structure : titre · BONJOUR · COMMENT TU T'APPELLES ? · JE M'APPELLE… · les cinq prénoms ·
+**NOM / PRÉNOM** (avec les deux TARAKHEIL côte à côte) · les 4 adultes · les 7 lieux en
+pictos · les 9 photos du rallye · la grille des neuf pour la vérification au retour · les
+phrases du jour. Trois intercalaires sombres marquent les sections (adultes, lieux,
+rallye) — les seules diapositives sur fond `#1c2430`.
+⚠ Il suit exactement l'ordre des trois activités de la fiche de prep : on peut le dérouler
+sans chercher.
+
+## ⚠ Le memory des lieux — planche dédiée (06/09)
+
+Sa question : *« pour le memory, j'imprime toilettes, cantine, etc. en 2 exemplaires, c'est
+ça ? »* Réponse donnée : oui pour un memory **image ↔ image**, non pour un memory
+**image ↔ mot**. Et les planches du rallye ne conviennent pas — vignettes de tailles
+différentes, papier fin. D'où `SÉANCE 1 - Memory des lieux.dc.html`, trois pages :
+1. **Memory 1 — image et image** : 6 pictos × 2 = 12 cartes ;
+2. **Memory 2 — image et mot** : 6 pictos + 6 mots ;
+3. la page enseignante (ordre d'introduction, variante à deux).
+
+⚠ **Chaque planche est un jeu COMPLET** : rien à photocopier deux fois, rien à jeter. C'est
+tout l'intérêt de les avoir séparées.
+⚠ **TOUTES LES CARTES FONT 4,6 × 4,6 cm**, sans exception. Une carte de memory doit être
+indevinable : des tailles différentes se reconnaissent à la découpe et le jeu ne fonctionne
+plus. Ne jamais rétrécir une carte pour gagner de la place.
+⚠ **Papier 160 g minimum**, ou collage sur carton : sur du papier ordinaire l'image se voit
+à travers la carte retournée.
+⚠ Les six lieux : TOILETTES · CANTINE · CDI · INFIRMERIE · SECRÉTARIAT · PERMANENCE — tous
+en **pictogrammes**, donc de style homogène. Ne pas y mêler les photos du rallye : un
+picto et une photo ne se comparent pas.
+
+## ⚠ Les pictogrammes des lieux du lycée (06/09)
+
+Elle a **généré elle-même** huit images pour les lieux de la séance 1, en me reprochant à
+juste titre de ne pas les avoir placées. Six sont exploitables, redimensionnées à 1000 px
+de large (proportions conservées, fond blanc) :
+`clean/lycee-toilettes.png` · `lycee-secretariat.png` · `lycee-infirmerie.png` ·
+`lycee-cdi.png` · `lycee-permanence.png` · `lycee-couloir.png`.
+Elles composent une **page élève « LES LIEUX DU LYCÉE »** dans
+`SÉANCE 1 - Le lycée, les lieux et les gens.dc.html`, sur le même dispositif que le jeu de
+piste : image + mot + case à cocher, une **croix** pour seul geste.
+
+⚠ **Deux images sont écartées, et il faut le lui redire si elle les renvoie :**
+- `Gemini_Generated_Image_m0mf25…(1).jpg` est **inexploitable** — un fragment flou, gris et
+  bleu, sans sujet identifiable ;
+- `Gemini_Generated_Image_5rp1bs…jpg` est un **rectangle abstrait** (bandes grises et bande
+  bleue) : je n'ai pas su dire quel lieu il désigne. À nommer avant usage.
+
+⚠ **Trois lieux du déroulement n'ont AUCUNE image** : l'**intendance**, la **cantine** et la
+**salle des professeurs**. Ils ne figurent donc pas sur la page — une case sans image ne
+s'apparie pas. Les étiquettes à coller sur les portes, elles, les gardent.
+⚠ **La vie scolaire utilise sa PHOTO** (`lycee-assistants-education.png`), pas un picto :
+ce sont leurs portes, c'est mieux.
+⚠ **Le couloir est traité à part**, en bas de page : c'est un mot de déplacement (« au bout
+du couloir »), pas un lieu à trouver.
+⚠ **Le CDI détonne** : illustration en couleurs, quand les cinq autres sont des
+pictogrammes au trait. À remplacer si elle veut une planche homogène.
+
+⚠ **Les portraits ne sont QUE dans le rallye** (`SÉANCE 1 - Jeu de piste…`), plus dans
+« Le lycée, les lieux et les gens » : elle a fait supprimer le doublon le 06/09 — « c'est
+dans mon rallye ». Le bloc « Étiquettes — les gens » (CPE, PROVISEUR, SURVEILLANT,
+INFIRMIÈRE, PROFESSEUR) est parti avec.
+
+⚠ **La page « Ma carte — je me présente » est devenue un APPARIEMENT** : *« appariement,
+mais chaque élève essaie de donner aux autres leur prénom »* (06/09). Un élève prend le tas
+des prénoms et donne à chacun le sien — « Tu t'appelles… » —, celui qui reçoit accepte ou
+refuse ; puis on recommence avec les noms de famille, et on associe les deux. Douze
+étiquettes (5 prénoms + 5 noms + 2 vierges pour une arrivée en cours d'année).
+⚠ **SANIA et YASIR portent le même nom, TARAKHEIL** : ce n'est pas une coquille, c'est le
+point le plus intéressant du jeu — deux étiquettes identiques, deux personnes différentes.
+⚠ **« Je viens de… » a été retiré** : écrire un nom de pays le premier jour est hors de
+portée d'un NSA, et elle a eu raison de demander à quoi cette carte servait. Le pays
+viendra par **une gommette sur un planisphère**, comme ses notes le prévoient.
+
+⚠ **Les fichiers portraits** : `clean/personne-cpe.png` (**M. LEMEILLE**, CPE, salle 018) et
+`clean/personne-professeur.png` (**Mme TROALLIC**, professeur — elle-même). Recadrés en
+carré, serrés sur la tête ; pour le CPE, le fond bleu et les motifs de la plaquette
+officielle sont écartés. Ce sont les **seuls visages** dont elle m'ait envoyé la photo : ne
+pas inventer de portraits pour les autres adultes.
+⚠ **Ils sont dans le RALLYE**, page « LES ADULTES DU LYCÉE », avec **Mme HOULLEMARE**
+(proviseur) et **M. SEYS** (proviseur adjoint). Ils étaient d'abord sur la page des lieux
+(où des visages n'ont rien à faire), puis en double dans les deux documents : c'est le
+rallye qui les garde.
+⚠ Ne pas confondre `personne-cpe.png` avec `clean/lycee-cpe.png` (jeu de piste) : celui-là
+est la **plaque de la porte** du bureau, un lieu — celui-ci est **la personne**.
+
+## ⚠⚠ SES ÉLÈVES SONT NSA : ILS NE SAVENT PAS LIRE
+
+Rappel qu'elle m'a fait le 06/09, à juste titre : ma page élève du jeu de piste demandait
+de **lire les mots** et de **les recopier**. C'est inutilisable pour des élèves non
+scolarisés antérieurement.
+
+**Règle pour toute feuille élève** : aucune phrase, aucune consigne écrite, aucun mot à
+écrire. **Les consignes sont ORALES** et vivent sur la page enseignante. Ce qu'un
+non-lecteur peut faire : **chercher, montrer, cocher, coller, entourer, apparier**. Les
+chiffres passent (ils les apprennent). Le prénom se recopie, il ne s'écrit pas de mémoire.
+⚠ Cette règle vaut aussi pour les documents « sympas » : la mise en page ne rachète pas une
+consigne illisible.
+
+⚠ **La marge se met sur chaque `.page`, PAS sur `<doc-page margin>`.** En pagination
+explicite (une `<section class="page">` par page), l'attribut `margin` du composant est
+**sans effet** : les pages sont pleine page par définition et le contenu porte ses propres
+retraits. Elle a demandé « au moins 1,5 cm sur les côtés » le 06/09 ; j'ai modifié
+l'attribut **trois fois** (0,55 → 0,85 → 1 in) sans rien changer à l'écran, puis je lui ai
+affirmé à tort que sa capture montrait un artefact d'aperçu. Le document a maintenant
+`padding:2cm` sur chacune de ses trois pages. Ne jamais répondre à une demande de marge en
+touchant `margin` sur un document paginé.
+
+## ⚠ Le jeu de piste du rez-de-chaussée (06/09)
+
+Elle a photographié neuf endroits de son lycée pour un **jeu de piste** au RDC, à faire en
+petits groupes. Document : `SÉANCE 1 - Jeu de piste au rez-de-chaussée.dc.html` — **cinq pages** :
+1. **la feuille de piste** : les neuf photos, un numéro, **le mot** et une case à cocher.
+   Le seul geste demandé est une **croix** — sa précision du 06/09 : *« je peux montrer les
+   images avec les mots avant le jeu de piste. S'ils trouvent, ils checkent avec une
+   croix. »* Le mot n'est donc pas là pour être décodé mais pour être **reconnu** : elle le
+   montre et le dit avant le départ. Les photos sont en 4/3 (et non carrées) pour que la
+   page tienne sur une A4 ;
+2. **la feuille de collage** : les **mêmes photos, SANS les mots** (sa demande du 06/09),
+   avec un cadre pointillé sous chacune. C'est l'exercice qui suit le jeu de piste. ⚠ Les
+   numéros sont **conservés** et identiques à ceux de la feuille de piste : c'est ce qui
+   permet de corriger sans lire ;
+3. **les grandes étiquettes** — neuf, **pour le tableau** ;
+4. **les petites étiquettes** — **4,2 cm × 0,95 cm**, exactement la taille intérieure des
+   cadres pointillés de la page 2 : elles se collent « pile poil » (sa demande du 06/09).
+   ⚠ **Trois BANDES verticales écartées**, séparées par un trait de coupe et numérotées
+   avec un repère ✂ : elle donne **une bande entière à chaque élève**, donc un seul coup de
+   ciseaux vertical doit suffire — les colonnes collées les unes aux autres l'obligeaient à
+   viser (sa demande du 06/09). Chaque bande porte les neuf mots dans l'ordre des photos.
+   ⚠ **LES TOILETTES a été RETIRÉ** (06/09) : il n'y a pas de toilettes parmi ses neuf
+   photos. Une étiquette sans image correspondante brouille la correction d'un exercice
+   d'appariement au lieu de l'enrichir — je l'avais ajoutée de mon propre chef, à tort.
+   ⚠ **Ne pas changer ces dimensions sans changer aussi les cadres de la page 2** — c'est
+   tout l'intérêt de cette planche. Les deux libellés les plus longs (LES PLATS À EMPORTER,
+   LE DÉFIBRILLATEUR) sont en 7 pt, les autres en 8 pt ;
+5. **la page enseignante** : les consignes orales, le corrigé, et ce qu'on lit sur les
+   photos.
+⚠ Les étiquettes ne se **lisent** pas, elles se **reconnaissent** : l'enseignante dit le
+mot, l'élève cherche la forme et la colle. C'est de la discrimination visuelle — la marche
+avant la lecture.
+
+⚠ **La photo n° 1 est un BABY-FOOT, pas un billard.** Elle l'avait appelé « un billard » ;
+deux jeux différents, deux mots différents, et c'est le genre de confusion qu'un lecteur
+débutant garde longtemps. Signalé, et écrit noir sur blanc dans le corrigé.
+
+**Deux informations utiles trouvées SUR les photos**, reprises dans le document :
+- **la cantine se réserve avant 10h25** (écrit sur la borne) — passé cette heure, pas de
+  repas ;
+- **la vie scolaire est fermée de 12h05 à 13h05** (ouverte 7h45–12h05 puis 13h05–17h45).
+Et deux salles nommées : **vie scolaire = 017**, **CPE M. LEMEILLE = 018**.
+
+**Deux séries d'images, à ne pas confondre :**
+- `clean/lycee-*.png` — les photos entières, 1000 px de large, proportions d'origine
+  (1000×750 pour le baby-foot, 1000×1333 pour les huit autres) ;
+- `clean/carte-*.png` — **1000 × 1000** pour le memory, où des cartes de tailles
+  différentes se retournent mal. Le recadrage n'est **pas** centré aveuglément : sur une
+  photo debout le sujet (plaque, panneau, machine) est presque toujours dans le haut, donc
+  chaque image a son ancrage vertical propre.
+⚠ La règle du projet est **1000 px de large au maximum, proportions conservées** — pas un
+carré imposé. Le carré est une série *supplémentaire*, décidée pour le jeu.
+⚠ Sur la photo du baby-foot, **un élève est partiellement visible** (jambes, main, téléphone
+en haut à droite). Le cadrage carré en coupe l'essentiel, mais la version entière le montre :
+à vérifier avec elle avant tout affichage hors de la classe.
+
+## ⚠ Ses élèves — liste officielle (06/09)
+
+Capture de son ENT, classe **0-UPE2A-NSA**, 5 élèves, orthographe exacte :
+**FAKHILZAI Anita · HALAWA Ahmed Samir · TARAKHEIL Sania · TARAKHEIL Yasir ·
+ZANGA Josefina**.
+⚠ Deux corrections par rapport à ce que j'avais : « Josephina » s'écrit **Josefina** (sans
+h), et Ahmed a un second prénom, **Samir**.
+⚠ **Sania et Yasir TARAKHEIL portent le même nom** : frère et sœur, très probablement. Ne
+pas les fusionner ni supposer que l'un parle pour l'autre.
+`ELEVES` porte désormais `nom` (le prénom, ce qu'on affiche en classe) et `famille` (le NOM).
+
+## ⚠ Séance 1 — Le lycée, les lieux et les gens (06/09)
+
+Faite à partir des **notes d'une collègue** qu'elle m'a transmises pour son premier cours.
+Document imprimable en quatre pages (`SÉANCE 1 - Le lycée, les lieux et les gens.dc.html`,
+`doc-page`, A4) : le déroulement en six phases minutées, les mots classés (lieux / gens /
+objets) avec six phrases, dix **étiquettes de lieux** à découper et coller sur les portes,
+et les **cartes « je me présente »** — une par élève, déjà nommée, plus une vierge.
+⚠ **« Les toilettes en premier, avant tout le reste »** : elle l'avait écrit avec dix points
+d'exclamation, c'est encadré dans la séance.
+⚠ La phase « si tu as un problème… » ferme la séance : infirmière, assistante sociale,
+psychologue, surveillant. C'est ce qu'ils doivent retenir même s'ils oublient le reste.
+⚠ J'ai ajouté une phrase que ses notes n'avaient pas : **« Je ne comprends pas »**.
+⚠ **Aucune image générique** : pour ces mots-là, ce sont LEURS portes et LEURS adultes qu'il
+faut photographier. Les étiquettes prévoient la place.
+
+**La direction, reçue le 06/09** : `clean/personne-houllemare.png` (Mme HOULLEMARE,
+proviseur) et `clean/personne-seys.png` (Monsieur SEYS, proviseur adjoint), en page 4.
+⚠ Défauts signalés sur ces deux photos : la première avait un **curseur rose** sur le bord
+droit (bande de 16 px recadrée, couleurs inchangées) et un **fond de bureau chargé** ;
+la seconde est une capture d'écran de recherche Google, **280 × 262 px seulement** — juste
+suffisant pour une vignette imprimée, trop petit pour une étiquette en grand.
+
+## ⚠ Où vivent les données — décidé avec elle le 06/09
+
+- **Les dossiers élèves du positionnement restent dans le navigateur** (`upe2a-dossiers`,
+  `upe2a-positionnement`). C'est **son choix explicite** : « je préfère qu'ils soient en
+  local pour éviter la récupération de données ». Ne jamais proposer de les publier.
+- **L'emploi du temps doit la suivre partout.** Ses modifications vivent dans
+  `upe2a-edt` (navigateur) ; quand elle dit **« enregistre mon emploi du temps »**, je lis
+  son état courant et je l'écris **dans `emploi-du-temps.js`**, qui devient la version de
+  départ publiée avec l'application. Un export/import par fichier est resté en réserve
+  (« on verra plus tard comment faire autrement »).
+- **Les thèmes** : ceux livrés sont dans le code et voyagent ; ceux qu'elle crée dans
+  l'appli restent dans `upe2a-themes-perso` (images comprises, en entier — vider le cache
+  les efface). **D'où sa décision : les prochains thèmes se créent ICI, avec moi**, dans le
+  code, comme « Les animaux ». Ne plus la laisser fabriquer un thème durable côté
+  navigateur.
+
+⚠ **Ne jamais supprimer une définition de `renderVals` sans chercher son `sc-for`.** En
+purgeant le code mort de l'ancienne grille, j'ai emporté `v.ongletsJour` : le `sc-for` du
+gabarit bouclait sur une liste inexistante, **sans aucune erreur en console**, et la vue
+JOUR restait figée sur un seul jour, sans moyen d'en changer. Une liste absente ne
+prévient pas — contrairement à un trou `{{ }}`, qui log un avertissement.
+
+## ⚠ L'AXE DU TEMPS remplace la grille en cases (06/09)
+
+Elle a envoyé un emploi du temps vierge : « le fait d'avoir des créneaux notés de 20 minutes
+sur la gauche ça m'intéresse, et les **lignes** plutôt que les doubles lignes m'intéressent
+aussi. » La vue semaine est donc un **vrai calendrier** : une colonne d'heures à gauche
+graduée toutes les 20 minutes, un simple trait par repère (les heures pleines un peu plus
+marquées), et les créneaux **posés en absolu à leur heure réelle**.
+
+⚠ **Positionnement absolu, pas de lignes de grille** : ses horaires ne sont pas des
+multiples de 20 (09:10, 10:35, 11:45…), donc aucune grille de 20 minutes ne peut les
+porter. `PX = 1.6` px par minute → 20 min = 32 px.
+⚠ **Les bornes viennent des données**, arrondies au pas de 20 (ici 09:00 → 14:00). Écrire
+07:00 → 18:00 en dur, comme le modèle qu'elle montre, laisserait les deux tiers de la page
+vides et l'emploi du temps ne tiendrait plus sur un écran.
+⚠ **Plus de cases** : les trous sous les blocs disparaissent d'eux-mêmes, et un jour peut
+avoir des horaires propres sans casser la lecture des autres. C'est ce qui rend l'étirement
+par créneau enfin cohérent.
+⚠ **Le glisser/déposer lit l'heure du point de chute** (`heureDe`, pas de 5 min) et
+**conserve la durée** du créneau ; le **double-clic sur une colonne** crée un créneau de
+20 minutes à l'heure cliquée (pas de 20). Plus besoin de cases-cibles.
+⚠ **L'horaire ne s'affiche que s'il reste de la place APRÈS le titre.** La vraie contrainte
+est la hauteur **une fois le titre replié**, pas la hauteur seule : un seuil en hauteur pure
+supposait un titre d'une ligne, et « Monde · espace et géographie » en tenait deux dans un
+bloc de 25 minutes — horaire tranché. Le nombre de lignes est estimé d'après la longueur du
+titre et la largeur disponible (`22 / nb` caractères par ligne).
+⚠ **C'est la troisième fois que ce genre de seuil se trompe** (hauteur seule, largeur
+oubliée, puis repli du titre oublié). Tout futur seuil d'affichage dans un bloc doit se
+poser la question du texte **replié**, pas de la boîte.
+⚠ **TYPOGRAPHIE COMPACTE sous 26 px de haut OU en sous-colonne partagée** (9,5 px,
+interligne serré, rembourrage réduit), **plus `overflow-wrap: anywhere` sur le titre**.
+Deux causes, deux corrections :
+- en HAUTEUR : un créneau de 10 minutes fait 14 px, soit 12 px de contenu, contre une ligne
+  de 11 px à interligne 1,2 qui en fait 13,2 — « Rituel CSP » était coupé en deux ;
+- en LARGEUR : depuis le partage en sous-colonnes, un bloc étroit est le cas normal (et le
+  sera d'autant plus avec ses groupes de niveaux) — à 11 px dans 26 px de contenu,
+  « Rituel » (36 px) était tranché en « Ritue ». Sans `overflow-wrap: anywhere`, un mot
+  long (« Mathematiques », « Regroupement ») reste tranché quel que soit le rembourrage.
+Vérifié : **aucun bloc ne rogne son texte**, ni en hauteur ni en largeur.
+⚠ **L'heure est centrée SUR son trait, et la translation ne porte QUE sur le texte.** Le
+conteneur porte le trait : le translater désalignait les traits de la colonne des horaires
+de 6 px par rapport à ceux des jours. C'est ce qui faisait paraître 09h10 mal centré entre
+09h00 et 09h20 (« ça manque de précision », 06/09) **alors que le calcul était exact**.
+Vérifié après correction : le haut du bloc de 09h10 tombe **à 0 px** du milieu des traits
+09h00 / 09h20, idem pour 09h30 entre 09h20 et 09h40.
+⚠ Corollaire : ne jamais poser de `transform` sur un élément qui porte un filet de repère.
+⚠ Des créneaux qui se chevauchent s'affichent **superposés sans signal** : la vue les
+dessine tels quels. Sa semaine en contient encore (séquelles de l'ancien étirement de
+ligne) ; elle a refusé le nettoyage.
+
+⚠ **UN JOUR FÉRIÉ EST GRISÉ ET INERTE** (06/09), comme une semaine de vacances :
+`grayscale(1) opacity(.38)` + `pointer-events: none` sur la colonne, et son nom en gris.
+Sans ça on prépare une séance pour un jour où personne ne vient, et on peut encore y
+déposer ou y créer un créneau. Vérifié sur la semaine du 29 mars 2027 (lundi de Pâques) :
+seule la colonne du lundi est grisée et inerte.
+
+## ⚠ Déplacer un créneau à la souris (06/09)
+
+⚠ **AUCUN changement d'état au démarrage du glissé.** Je posais `drag` dans l'état pour
+griser le bloc : le rendu reconstruisait l'élément source, et **le navigateur annule un
+glissé dont la source est remplacée**. D'où « je cherche à faire glisser ce bloc… je n'y
+arrive pas ». L'identifiant part dans un champ d'instance (`this.dragId`), pas dans l'état,
+et le survol accepte toujours le dépôt sans tester l'état. Ne pas réintroduire de `setState`
+dans `onDragStart` ni d'opacité dépendant du glissé.
+⚠ **`this.prise`** retient la distance entre le pointeur et le HAUT du bloc à la saisie, et
+le dépôt la soustrait. Sans elle, le créneau se posait là où était le pointeur et non là où
+elle voyait le bloc : il fallait viser l'heure à la souris — « j'ai réussi mais c'était un
+peu laborieux ». Le dépôt conserve la durée du créneau, au pas de 5 minutes.
+
+## ⚠ La RÉCRÉATION n'est pas une séance (06/09)
+
+« Le créneau récréation est toujours fixe de 10h00 à 10h15. Je sais pas trop comment le
+matérialiser. » Traitement retenu : une **bande grise continue en travers des cinq jours**,
+nommée **une seule fois** (sur le premier jour). Sans bordure latérale, les cinq segments
+se lisent comme une seule bande — c'est une pause qui appartient à la classe entière, pas
+une séance par jour.
+⚠ Elle reste un vrai créneau dans les données, mais **rien ne la modifie depuis
+l'interface** — ni fiche, ni déplacement, ni étirement (« le bloc ne peut pas être
+modifié », 06/09). Son horaire vit dans `emploi-du-temps.js` : **toujours 10h00 – 10h15**.
+Elle est exclue de `blocs` et rendue via `fixes` (`domaine === 'recre'`), sans `onClick`.
+⚠ **Elle ne se laisse jamais pousser** par l'étirement du créneau qui la précède : si elle
+suit, on s'arrête à son début, même collée. Sans ça, rallonger la littéracie décalait la
+récréation de toute l'école.
+⚠ Lundi avait dérivé à 09h45 (séquelle d'un essai) : remis à 10h00 sur sa consigne
+explicite. Les cinq jours sont alignés.
+⚠ **« Récréation » n'est PAS proposée comme type** dans la fenêtre ni dans « Ajouter un
+créneau » : ce n'est pas un type qu'on attribue, c'est une pause fixe écrite dans
+`emploi-du-temps.js`. Elle l'était, et l'appliquer à un créneau le rendait **définitivement
+inerte** dans la vue semaine — plus de fiche, plus de titre, plus de documents, une simple
+barre noire (et sans même son nom hors du premier jour). Filtrée de `fen.domaines` et de
+`v.nvDomaines`.
+
+⚠ **Sans intitulé, le nom du TYPE choisi sert de titre.** Avant, je refusais de créer et
+**il ne se passait rien du tout** : elle a cliqué sur CRÉER sans comprendre (06/09). Un
+bouton qui ne fait rien sans expliquer pourquoi est un bouton cassé — et le nom du type est
+un titre parfaitement acceptable. Ne pas remettre de refus silencieux.
+
+## ⚠ Rallonger / raccourcir un créneau à la souris (06/09)
+
+Elle a envoyé une capture avec une flèche verticale sur le bord d'un créneau. Une poignée
+**↕** est posée sur le bord bas des blocs ; on la tire pour changer l'heure de fin.
+
+⚠ **L'opération porte sur la LIGNE entière, pas sur une seule case** : son emploi du temps
+est aligné sur les cinq jours, et redimensionner un seul jour ferait éclater la plage en
+deux lignes dont une presque vide. C'est aussi ce que sa flèche, tracée entre deux lignes,
+désigne. Une étiquette flottante l'écrit pendant le glissé (« toute la ligne, les 5 jours »).
+⚠ **Les créneaux qui commençaient à l'ancienne fin sont décalés** : sans ça un trou (ou un
+chevauchement) s'ouvre dans la journée. Vérifié : rallonger l'atelier lecture de 10 min
+donne 09h10–09h40 sur les cinq jours **et** pousse le rituel à 09h40–10h00.
+⚠ **La poignée n'apparaît qu'AU SURVOL** de la ligne (06/09) : une flèche posée en
+permanence sur chaque ligne salissait la grille. Le survol est suivi **en JavaScript** et
+non en CSS : la poignée est un FRÈRE du bouton, et un `:hover` inline ne peut pas atteindre
+un frère. Le survol est retenu **par plage**, pas par case — survoler le mercredi fait
+apparaître la poignée, qui reste sur le premier jour (une seule flèche par ligne).
+⚠ **Son dessin exact** (capture du 06/09, après un premier essai refusé) : une double
+flèche **pleine**, violet `#a238c9` cerné de noir, **posée nue sur le bloc** — pas de
+pastille blanche autour, pas de flèche en trait fin. 30 px.
+⚠ **La poignée n'est posée que sur le premier jour de la ligne** : cinq flèches pour une
+même opération feraient croire à cinq réglages distincts.
+⚠ **La clé de survol est le RANG de la ligne, pas ses horaires** : deux lignes peuvent
+partager les mêmes bornes le temps d'un glissé, et on voyait alors **deux flèches
+superposées** (signalé le 06/09). La condition d'affichage est la ligne survolée, rien
+d'autre — la clause « pendant un glissé » ajoutait une seconde flèche.
+
+⚠ **Le curseur des créneaux est une MAIN VIOLETTE** (sa demande du 06/09, capture à
+l'appui) : un pointeur SVG en data-URI, violet `#a238c9` cerné de noir, point actif au bout
+de l'index. Il remplace la main blanche du système sur les blocs de la grille et de la vue
+jour. Écrit en littéral dans les deux styles — pas de classe CSS.
+⚠ **TAILLE : 24 px, celle de la flèche du système** — sa consigne finale, « même taille que
+ta flèche hors cadre ». Le tâtonnement a été 28 → 42 → 58 → **24** : à 58 px le curseur
+paraissait énorme dès qu'on sortait de la grille et retrouvait le pointeur normal. La
+double flèche de la bande fait **24 px** aussi, pour la même raison. Ne pas les faire
+grossir.
+
+⚠ **AUCUNE flèche n'est DESSINÉE sur la bande de jointure** : son curseur *est* déjà la
+double flèche violette, et en dessiner une seconde par-dessus donnait **deux
+flèches superposées** à l'écran — le bug qu'elle a signalé deux fois. La bande est
+invisible ; c'est le curseur qui informe. Ne pas remettre d'icône visible là.
+
+⚠ **SES TROIS RÈGLES DE CURSEUR** (06/09), à respecter telles quelles — **trois curseurs,
+et trois seulement** :
+- **sur un bloc** → la main violette au doigt pointé ;
+- **sur une jointure, ou sur le bord bas d'un bloc sans rien en dessous** → la double
+  flèche violette **seule** ;
+- **n'importe où ailleurs** → la flèche du système, rien de spécial (donc pas de
+  `cursor:cell` sur les colonnes ; le double-clic pour créer reste annoncé par l'infobulle).
+⚠ J'avais fabriqué un curseur **composite** main + double flèche sur la jointure : refusé
+net (« NON !! »). Chaque position a son curseur, pas un mélange. Vérifié : main sur le
+bloc, double flèche sur la jointure, `auto` ailleurs.
+D'où une **BANDE de 18 px à cheval sur le bord bas de chaque bloc** — dont **14 px à
+l'intérieur du bloc** et 4 px en dessous —, sur toute sa largeur et sur **chaque jour**.
+Elle porte le curseur double flèche, déclenche le redimensionnement, et un trait violet
+apparaît au survol pour montrer la prise.
+⚠ **La hauteur de la bande se calcule PAR BLOC** : `max(6, min(14, h × 0,4))`. À 18 px
+fixes elle recouvrait entièrement les créneaux courts — « Rituel CSP » (10 min = 14 px)
+n'était **plus cliquable du tout**, donc plus de fiche, plus de Modifier, plus de Supprimer
+depuis la vue semaine. Vérifié après correction : **aucun bloc inaccessible**, bandes de 6
+à 14 px. Ne pas remettre une hauteur constante.
+⚠ **Ne pas la réduire davantage.** À 11 px on attrapait le bloc (qui est `draggable`) et on
+le **déplaçait** au lieu de l'étirer : « je ne parviens pas à étirer » (06/09).
+
+⚠ **L'ÉTIREMENT NE TOUCHE QUE LE CRÉNEAU TIRÉ, sur SON jour.** Sa consigne du 06/09, sans
+appel : « la flèche d'étirement étire tous les créneaux ! même ceux du lundi, mardi, jeudi
+et vendredi. C'est une erreur ! Je veux uniquement que tu étires le créneau sélectionné. »
+Mes deux versions précédentes agissaient sur toute la ligne (les cinq jours) — d'abord par
+horaires identiques, puis par clé de créneau : **les deux étaient fausses**. Et d'autant
+plus fausses qu'elle va avoir des groupes de niveaux différents d'un jour à l'autre.
+**Ne jamais remettre une action de ligne ici.** L'étiquette du glissé dit « ce créneau
+seulement ».
+⚠ Seul le créneau qui suit, **le même jour**, est décalé — sinon un trou s'ouvre dans la
+journée.
+⚠ **Le plafond se calcule sur le créneau SUIVANT DANS LA JOURNÉE, pas sur celui qui commence
+pile à la fin.** Sinon, dès qu'un trou existe (elle a supprimé des créneaux, ou un
+étirement précédent a décalé une fin), plus rien ne limite le glissé : on obtenait un
+créneau de **8 h** chevauchant les trois suivants. Trois cas :
+- **collé au suivant** → le suivant se laisse pousser, plafond = sa fin − 5 min ;
+- **séparé par un trou** → on remplit le trou et on s'arrête à son début ;
+- **plus rien après** → minuit.
+⚠ **Et le plafond ne descend JAMAIS sous la fin actuelle du créneau.** Sans ce garde-fou, un
+créneau qui chevauche déjà le suivant voyait sa fin ramenée au plafond **dès le premier
+pixel vers le bas** : tirer vers le bas le raccourcissait de 70 minutes, en silence. Tirer
+vers le bas ne doit jamais raccourcir — au pire, ne plus grandir. Le raccourcissement
+passe par le haut (plancher : début + 5 min).
+Vérifié : sur un créneau suivi d'un trou, un glissé de 400 px s'arrête pile au début du
+suivant.
+⚠ Conséquence assumée : un jour peut avoir des bornes différentes des autres, et la grille
+montre alors des cases vides sur les jours qui n'ont rien à cette plage. C'est le prix
+d'un emploi du temps réellement modifiable jour par jour — ce n'est pas un défaut à
+« corriger » en réalignant les jours.
+
+⚠ Des cases vides **légitimes** existent aussi : « Apprendre ensemble » n'existe que le
+lundi et PROJET que le jeudi, donc leurs lignes sont vides ailleurs.
+⚠ **Échelle du glissé : 1 px = 1 minute, par pas de 5 minutes** — rectifié par elle le
+06/09 (« l'étirement par 5 minutes !! ») après que j'avais compris 10. L'axe reste gradué
+aux **20 minutes** : ce sont deux choses différentes, ne pas les aligner. Le dépôt suit le
+même pas de 5.
+⚠ **Mais le PLANCHER de durée est de 5 minutes, pas 10.** Si la durée minimale valait aussi
+10, un créneau de 10 minutes (« Rituel CSP ») était déjà à son plancher : impossible de le
+raccourcir, donc impossible de **faire remonter le créneau d'en dessous**. C'est ce qu'elle
+a signalé à la jointure CSP / FLSco (06/09). Vérifié : CSP passe à 11h35–11h40 et le FLSco
+remonte à 11h40.
+La hauteur réelle des cases est de 1,6 px/min — ne pas « corriger » l'échelle du glissé
+pour la faire coïncider avec elle.
+⚠ **APERÇU VIVANT pendant l'étirement** (ses quatre captures du 06/09) : le bloc **grandit
+sous la souris** et son horaire se met à jour dedans, avec un halo violet. Avant, seule une
+étiquette flottante changeait et le bloc restait figé jusqu'au relâchement — elle en a
+conclu « ça marche pas », à juste titre : rien ne bougeait là où elle regardait.
+⚠ **L'étiquette flottante centrale a été supprimée** : deux affichages du même horaire,
+dont un au milieu de l'écran, ne servaient qu'à masquer le tableau.
+⚠ **BORNE HAUTE : la ligne ne peut pas dévorer la suivante** — la fin ne dépasse jamais
+(fin du créneau suivant − 5 min), plafond calculé au début du glissé. Sans cette limite, on
+poussait le `debut` du suivant au-delà de son propre `fin` : le créneau devenait invalide,
+la grille fabriquait des plages absurdes et un second glissé alignait **toute la journée
+sur la même heure** (constaté en essai : tout à 10h10). Vérifié après correction — trois
+glissés de 5 h d'affilée s'arrêtent à 09h55 et laissent 5 min au rituel, aucun créneau
+invalide.
+Le redimensionnement respecte la portée (modèle / semaine affichée) comme toutes les
+autres modifications.
+⚠ Le glissé est suivi sur la **fenêtre** (mousemove/mouseup), pas sur la poignée : la
+souris sort du bloc dès les premiers pixels, et un relâchement ailleurs laisserait la
+manipulation coincée.
+
+## ⚠ La fiche du créneau au SIMPLE CLIC (06/09)
+
+« Pour rendre l'appli plus fluide, si je clique par ex sur atelier lecture j'ai un truc
+comme ça qui s'ouvre » — capture d'une petite fiche flottante. Construite : badge du
+domaine, **titre complet** (la case n'a que le libellé court), horaire + durée, le détail,
+l'avertissement d'horaire, puis une rangée de cinq icônes — **modifier · dupliquer ici ·
+dupliquer vers un autre jour · documents et élèves · supprimer**.
+
+⚠ Elle **remplace le menu au double-clic** : un double-clic sur une grille ne se devine
+pas. Le clic droit l'ouvre aussi.
+⚠ Elle est ancrée **sur le bloc**, pas sur le pointeur : ancrée au pointeur, elle sautait
+d'un endroit à l'autre selon l'endroit exact du clic. Bornée à la fenêtre.
+⚠ « Dupliquer vers » se **déplie** dans la fiche : une liste de jours toujours visible
+doublerait sa hauteur pour un geste occasionnel.
+⚠ Le panneau de droite n'est plus atteint par le clic sur la case mais par **l'icône
+document** de la fiche.
+
+⚠ **CRÉER UN TYPE DE CRÉNEAU avec sa couleur** (demande du 06/09) : bouton
+« + Nouveau type » sous la liste, un nom et une **palette fermée de six teintes**
+(bleu, vert, prune, brique, ocre, ardoise). Chaque teinte est livrée avec son fond, son
+trait **et son encre** : un choix libre de couleur donnerait des blocs illisibles — texte
+foncé sur fond foncé. Ne pas remplacer par un sélecteur de couleur libre.
+⚠ Ses types vivent dans `base.domaines` et **s'ajoutent** aux huit livrés. Toujours passer
+par `EDT.domaines(base)` — lire `EDT.DOMAINES` directement fait disparaître ses types de
+l'affichage.
+⚠ Dans le code du composant, `DOM` est **local à `renderVals`** : les autres méthodes
+(`panneau`) doivent recalculer `E.domaines(base)`, sinon ReferenceError et écran blanc.
+
+## ⚠ Le recalage horaire du 06/09 — et ce qui manque encore
+
+« Pour l'instant tu modifies le premier créneau horaire et la suite dans la même logique.
+**Je commence à 09h10 le matin et la récréation est de 10h00 à 10h15.** »
+Appliqué : atelier lecture 09h10–09h30, rituel 09h30–10h00 (les deux remplissent
+exactement la première heure), **récréation 10h00–10h15** (un vrai créneau, domaine `recre`,
+grisé — ce n'est pas une séance mais il doit occuper sa place, sinon les horaires suivants
+ne tombent pas juste).
+
+⚠ **Puis l'atelier de maths, PUIS la littéracie** — inversé à sa demande le 06/09
+(« inverse atelier de maths stp, je le veux pour toutes les semaines de 10h15 à 10h35,
+littéracie après ») : atelier maths **10h15–10h35**, littéracie **10h35–11h35**, rituel CSP
+11h35–11h45, FLSco 11h45–12h15. Ces deux horaires sont confirmés par elle (plus de
+`aVerifier` sur l'atelier de maths). Ne pas remettre la littéracie juste après la
+récréation.
+
+⚠ **Il manque l'heure de fin de matinée.** En gardant ses durées après la récréation, la
+journée court jusqu'à **13h15** (« Découverte du monde » à 12h15–13h15, « Apprendre
+ensemble » à 13h45 le lundi) : ça ne tient pas. Les créneaux d'après-récréation portent
+tous `aVerifier: true` et l'encadré jaune le lui demande explicitement. **À recaler dès
+qu'elle répond** — ne pas inventer une pause déjeuner.
+
+## ⚠ L'année scolaire est bornée : 7 septembre 2026 → 4 juillet 2027 (06/09)
+
+Sa consigne, mot pour mot : « tu commences l'emploi du temps au 7 septembre 2026 jusqu'au
+4 juillet 2027 ». `EDT.ANNEE`. ⚠ Ce **n'est pas** la rentrée officielle (1er septembre) :
+c'est SON emploi du temps qui commence le 7. Les flèches de navigation s'arrêtent aux deux
+bornes et s'éteignent (une flèche qui ne fait rien laisse croire à une panne), et l'appli
+consultée hors année s'ouvre sur la première semaine plutôt que sur du vide.
+⚠ **L'ancre de l'alternance est le lundi 07/09/2026 = semaine B** — la première semaine de
+son année, cohérent avec ce qu'elle a dit la veille.
+⚠ Le décalage de navigation est recalculé depuis la semaine réellement affichée
+(`bouger()`) : sinon dix clics sur « › » en fin d'année accumulent un décalage fantôme
+qu'il faut défaire dix fois avant que « ‹ » ne réponde.
+
+## Le menu du double-clic et le glisser/déposer (06/09)
+
+**Double-clic ou clic droit sur un créneau** → menu : Ouvrir · Modifier · **Dupliquer vers**
+(un bouton par jour de classe, + « le même jour ») · Supprimer. Il se ferme au clic ailleurs
+et à Échap, et sa position est bornée à la fenêtre (ouvert sur le vendredi, il sortirait
+à droite).
+
+**Glisser/déposer** : on tire un créneau sur une autre case, la case d'arrivée impose son
+jour ET sa plage horaire. La case visée s'éclaire, le créneau tiré pâlit.
+⚠ **Le déplacement passe par `modifs`, y compris pour le jour — l'id ne bouge PAS**
+(`lundi-litteracie` reste `lundi-litteracie` même déplacé au mercredi). C'est voulu : ses
+ressources, ses notes de différenciation et, plus tard, son cahier journal sont accrochés
+à cet id ; un id recalculé les perdrait tous.
+⚠ **Déposer sur une case occupée ne fait rien** : échanger deux séances en silence est plus
+dangereux que de refuser. Elle déplace en deux gestes.
+⚠ `dataTransfer.setData` est appelé même si on n'en lit pas la valeur : sans ça Firefox
+annule le glissé.
+
+## À construire ensuite
+
+⚠ **L'impression doit porter son titre.** L'en-tête de l'écran est masqué à l'impression
+(classe `edt-ecran`) : sans `@media print { .edt-titre-papier { display:block !important } }`,
+la feuille sort **sans semaine, sans dates, sans nom de classe** — une grille colorée
+anonyme, inutilisable par le remplaçant qu'elle a justement cité comme lecteur. Le
+`!important` est indispensable, le `display:none` étant inline. La légende des couleurs
+s'imprime aussi (`edt-legende`) : sur papier on ne peut pas cliquer un bloc pour savoir
+de quel domaine il relève.
+⚠ Et le corps de l'écran doit repasser **en flux** à l'impression (`.edt-corps` →
+`display:block !important`) : une piste de grille **explicite survit à un enfant en
+`display:none`**, si bien que la colonne de droite masquée laissait une piste vide qui
+mangeait un tiers de la feuille A4. `padding:0` en même temps, pour ne pas doubler la
+marge de 8 mm de `@page`. Le défaut ne se voyait qu'au-delà de 1080 px de large — donc
+sur son ordinateur, pas dans un aperçu étroit.
+
+Le **cahier journal** (prévu/fait par créneau, pré-rempli depuis l'emploi du temps) puis
+les **fiches de prep** (une séance, trois variantes de niveau), reliées depuis le panneau
+du créneau.
 
 ---
 

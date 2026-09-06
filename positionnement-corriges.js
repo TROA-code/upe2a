@@ -818,98 +818,273 @@
           non: 'La construction d\'un triangle au compas n\'est pas acquise.' } }
     ],
     /* Mathématiques, fin de cycle 2 — Canopé, version française.
-       Seuls les exercices connus sont ici : la page 2 du livret (ex. 1 à 3). Les
-       suivants s'ajouteront quand le reste du sujet sera saisi. */
+       Corrigé officiel reçu le 05/09 (tests/canope-maths-c2-corrige.pdf) : les 20
+       exercices sont saisis, avec les paliers du barème officiel. Les intitulés 7 à 9,
+       auparavant devinés, étaient faux : l'ex. 7 est un rangement, l'ex. 8 des
+       soustractions posées, l'ex. 9 des multiplications posées. */
     'canope-maths-c2': [
       { num: '1', type: 'sous',
-        /* la réponse attendue, affichée à l'étape 3 : plus besoin du corrigé papier */
         attendu: '47 · 35',
         question: 'Entourer le nombre qui correspond au matériel dessiné',
         sous: [
           { libelle: '4 barres de dix et 7 unités', options: ['84', '74', '47'], bonne: '47' },
           { libelle: '5 unités et 3 barres de dix', options: ['35', '53', '23'], bonne: '35' }
         ],
-        aide: 'Deux collections à reconnaître. Une bonne réponse sur deux → MF.',
+        aide: 'Barème officiel : 2 réponses exactes → TBM, 1 → MS, autre → MI.',
         rubrique: 'mathsNombres',
         constat: { court: 'la lecture des nombres jusqu\'à 100',
           ok: 'Sait lire les nombres jusqu\'à 100 représentés avec du matériel.',
           non: 'La lecture des nombres jusqu\'à 100 avec du matériel n\'est pas installée.' } },
       { num: '2', type: 'unique',
-        /* la réponse attendue, affichée à l'étape 3 : plus besoin du corrigé papier */
         attendu: '16 + 14',
         question: 'Tom a 14 ballons rouges et 16 ballons bleus. Combien a-t-il de ballons en tout ?',
         options: ['16 - 14', '14 + 14', '16 + 14', '16 + 16'], bonne: '16 + 14',
-        rubrique: 'mathsNombres',
+        aide: 'Barème officiel : réponse exacte → TBM, autre → MI.',
+        rubrique: 'mathsDonnees',
         constat: { court: 'le choix de l\'addition dans un problème',
           ok: 'Sait choisir l\'addition dans un problème de réunion.',
           non: 'Ne choisit pas encore l\'opération qui convient dans un problème d\'addition.' } },
       { num: '3', type: 'unique',
-        /* la réponse attendue, affichée à l'étape 3 : plus besoin du corrigé papier */
         attendu: '29 − 15',
         question: "Dans la classe, il y a 29 élèves. 15 élèves sont des garçons. Combien y a-t-il de filles ?",
         options: ['29 - 15', '15 + 29', '29 + 15', '29 × 15'], bonne: '29 - 15',
-        rubrique: 'mathsNombres',
+        aide: 'Barème officiel : réponse exacte → TBM, autre → MI.',
+        rubrique: 'mathsDonnees',
         constat: { court: 'le choix de la soustraction dans un problème',
           ok: 'Sait choisir la soustraction dans un problème de complément.',
           non: 'Ne choisit pas encore l\'opération qui convient dans un problème de soustraction.' } },
-      { num: '4', type: 'ouvert',
-        /* la réponse attendue, affichée à l'étape 3 : plus besoin du corrigé papier */
-        attendu: '382 = 300 + 80 + 2 · 582 = 500 + 80 + 2 · 718 = 8 + 700 + 10', question: 'Décomposer les nombres',
-        sous: [{ libelle: '382 = 300 + 80 + 2' },
-          { libelle: '582 = 500 + 80 + 2' },
-          { libelle: '718 = 8 + 700 + 10' }],
+      { num: '4', type: 'bareme',
+        attendu: '382 = 300 + 80 + 2 · 582 = 500 + 80 + 2 · 718 = 8 + 700 + 10',
+        question: 'Décomposer 382, 582 et 718',
+        options: [['Les 3 décompositions exactes', 'TBM'],
+          ['2 décompositions exactes', 'MS'],
+          ['1 décomposition exacte', 'MF'],
+          ['Aucune', 'MI'], ['Rien écrit', 'MI']],
+        aide: 'L\'ordre des termes n\'a pas d\'importance. Barème officiel : 3 → TBM, 2 → MS, 1 → MF, 0 → MI.',
         rubrique: 'mathsNombres',
         constat: { court: 'la décomposition en centaines, dizaines et unités',
           ok: 'Sait décomposer un nombre en centaines, dizaines et unités.',
+          mf: 'Décompose un nombre en centaines, dizaines et unités sans fiabilité.',
           non: 'La décomposition en centaines, dizaines et unités n\'est pas maîtrisée.' } },
-      { num: '5', type: 'ouvert',
-        /* la réponse attendue, affichée à l'étape 3 : plus besoin du corrigé papier */
-        attendu: '48 + 31 = 79 · 166 + 254 = 420', question: 'Calculer',
-        sous: [{ libelle: '48 + 31' }, { libelle: '166 + 254 (addition posée)' }],
-        aide: "« Rien » se coche quand l'opération est laissée vide : c'est un constat, pas une erreur.",
+      { num: '5', type: 'bareme',
+        attendu: '48 + 31 = 79 · 166 + 254 = 420',
+        question: 'Calculer : 48 + 31, puis 166 + 254 (addition posée avec retenue)',
+        options: [['Les 2 résultats exacts', 'TBM'],
+          ['Seule l\'addition à retenue est juste', 'MS'],
+          ['Seule la première addition est juste', 'MF'],
+          ['Un résultat écrit sans opération posée', 'MI'],
+          ['Aucun résultat exact', 'MI'], ['Rien écrit', 'MI']],
+        aide: 'Seule la seconde addition demande de gérer une retenue (remarque du corrigé officiel).',
         rubrique: 'mathsNombres',
         constat: { court: 'l\'addition posée',
-          ok: 'Sait poser et calculer une addition.',
-          non: 'Calcule une addition simple en ligne, mais ne pose pas encore l\'addition.',
-          mi: 'Ne sait pas réaliser des additions ou des soustractions posées.',
-          rien: 'Ne sait pas réaliser des additions ou des soustractions posées.' },
+          ok: 'Sait poser et calculer une addition, retenue comprise.',
+          ms: 'Sait poser une addition à retenue.',
+          mf: 'Calcule une addition simple, mais la retenue n\'est pas installée.',
+          non: 'L\'addition posée n\'est pas maîtrisée.',
+          sansPoser: 'Écrit un résultat d\'addition sans poser l\'opération : la technique n\'est pas installée.',
+          rien: 'Ne sait pas réaliser des additions posées.' },
         rienVaut: 'MI' },
-      { num: '6', type: 'ouvert',
-        /* la réponse attendue, affichée à l'étape 3 : plus besoin du corrigé papier */
-        attendu: '150 · 140 · 130 · 120 · 110 · 100 · 90 · 80 · 70 · 60 · 50', question: 'Compléter la suite de 10 en 10, de 150 à 50',
-        sous: [{ libelle: '120, 110, 100' }, { libelle: '90, 80, 70, 60' }],
+      { num: '6', type: 'bareme',
+        attendu: '150 · 140 · 130 · 120 · 110 · 100 · 90 · 80 · 70 · 60 · 50',
+        question: 'Compléter la suite de 10 en 10, de 150 à 50',
+        options: [['La suite complète et exacte', 'TBM'],
+          ['La suite amorcée puis fausse', 'MI'],
+          ['Autre', 'MI'], ['Rien écrit', 'MI']],
+        aide: 'Barème officiel : réponse exacte → TBM, autre → MI.',
         rubrique: 'mathsNombres',
         constat: { court: 'les suites de 10 en 10',
           ok: 'Sait poursuivre une suite décroissante de 10 en 10.',
-          non: 'Poursuit une suite décroissante de 10 en 10 sur quelques termes seulement.' } },
-      /* Exercices 7 à 9 : la page n'a pas encore été relevée, les intitulés viennent de
-         la liste des exercices du test. Les lignes restent saisissables. */
-      { num: '7', type: 'ouvert',
-        /* la réponse attendue, affichée à l'étape 3 : plus besoin du corrigé papier */
-        attendu: 'la suite rangée du plus petit au plus grand', question: 'Ranger des nombres du plus petit au plus grand',
-        sous: [{ libelle: 'La suite rangée' }], rubrique: 'mathsNombres',
+          non: 'La suite décroissante de 10 en 10 n\'est pas maîtrisée.' } },
+      { num: '7', type: 'bareme',
+        attendu: '2 · 7 · 14 · 20 · 41 · 125 · 152',
+        question: 'Ranger du plus petit au plus grand : 152 · 2 · 14 · 7 · 125 · 41 · 20',
+        options: [['La suite entièrement exacte', 'TBM'],
+          ['Range les nombres à un chiffre, se trompe au-delà', 'MI'],
+          ['Autre', 'MI'], ['Rien écrit', 'MI']],
+        aide: 'Barème officiel : réponse exacte → TBM, autre → MI.',
+        rubrique: 'mathsNombres',
         constat: { court: 'le rangement des nombres',
           ok: 'Sait ranger des nombres du plus petit au plus grand.',
           non: 'Le rangement des nombres du plus petit au plus grand n\'est pas maîtrisé.' } },
-      { num: '8', type: 'ouvert',
-        /* la réponse attendue, affichée à l'étape 3 : plus besoin du corrigé papier */
-        attendu: 'la soustraction posée, résultat exact', question: 'Soustractions posées',
-        sous: [{ libelle: 'La soustraction posée' }], rubrique: 'mathsNombres',
+      { num: '8', type: 'bareme',
+        attendu: '87 − 52 = 35 · 512 − 139 = 373',
+        question: 'Calculer : 87 − 52, puis 512 − 139 (soustraction posée avec retenue)',
+        options: [['Les 2 résultats exacts', 'TBM'],
+          ['Seule la soustraction à retenue est juste', 'MS'],
+          ['Seule la première soustraction est juste', 'MF'],
+          ['Un résultat écrit sans opération posée', 'MI'],
+          ['Aucun résultat exact', 'MI'], ['Rien écrit', 'MI']],
+        aide: 'Seule la seconde soustraction demande de gérer une retenue (remarque du corrigé officiel).',
+        rubrique: 'mathsNombres',
         constat: { court: 'la soustraction posée',
-          ok: 'Sait poser et calculer une soustraction.',
+          ok: 'Sait poser et calculer une soustraction, retenue comprise.',
+          ms: 'Sait poser une soustraction à retenue.',
+          mf: 'Calcule une soustraction simple, mais la retenue n\'est pas installée.',
           non: 'La soustraction posée n\'est pas maîtrisée.',
-          rien: 'Ne sait pas réaliser des additions ou des soustractions posées.' },
+          sansPoser: 'Écrit un résultat de soustraction sans poser l\'opération : la technique n\'est pas installée.',
+          rien: 'Ne sait pas réaliser des soustractions posées.' },
         rienVaut: 'MI' },
-      { num: '9', type: 'ouvert',
-        /* la réponse attendue, affichée à l'étape 3 : plus besoin du corrigé papier */
-        attendu: 'la multiplication posée, résultat exact', question: 'Multiplications posées',
-        sous: [{ libelle: 'La multiplication posée' }], rubrique: 'mathsNombres',
-        rienVaut: 'MI',   /* laissée vide sur le test : c'est un échec, comme aux ex. 5 et 8 */
+      { num: '9', type: 'bareme',
+        attendu: '32 × 4 = 128 · 75 × 3 = 225',
+        question: 'Calculer : 32 × 4, puis 75 × 3 (multiplication posée avec retenue)',
+        options: [['Les 2 résultats exacts', 'TBM'],
+          ['1 résultat exact', 'MS'],
+          ['Un résultat écrit sans opération posée', 'MI'],
+          ['Aucun résultat exact', 'MI'], ['Rien écrit', 'MI']],
+        aide: 'Seule la seconde multiplication demande de gérer une retenue (remarque du corrigé officiel).',
+        rubrique: 'mathsNombres',
         constat: { court: 'la multiplication posée',
           ok: 'Sait poser et calculer une multiplication.',
-          non: 'Connaît moyennement ses tables de multiplication.',
-          mi: 'La multiplication posée n\'est pas maîtrisée.',
-          rien: 'La multiplication posée n\'est pas maîtrisée.' } }
+          ms: 'Pose la multiplication ; les tables restent fragiles.',
+          non: 'La multiplication posée n\'est pas maîtrisée.',
+          sansPoser: 'Écrit un résultat de multiplication sans poser l\'opération : la technique n\'est pas installée.',
+          rien: 'La multiplication posée n\'est pas maîtrisée.' },
+        rienVaut: 'MI' },
+      { num: '10', type: 'bareme',
+        attendu: '104 livres · 8 cartes',
+        question: 'Deux problèmes : 26 élèves × 4 livres, puis 32 cartes partagées entre 4 joueurs',
+        options: [['Les 2 réponses exactes', 'TBM'],
+          ['1 réponse exacte', 'MS'],
+          ['Les 2 opérations justes, erreur de calcul', 'MS'],
+          ['Autre', 'MI'], ['Rien écrit', 'MI']],
+        aide: 'Le corrigé accorde MS quand les deux opérations sont bien choisies (26 × 4 et 32 ÷ 4) et que seul le calcul est faux.',
+        rubrique: 'mathsDonnees',
+        constat: { court: 'les problèmes de multiplication et de partage',
+          ok: 'Résout un problème de multiplication et un problème de partage.',
+          ms: 'Choisit la bonne opération dans un problème, le calcul reste fragile.',
+          non: 'Ne choisit pas encore l\'opération qui convient dans un problème.' } },
+      { num: '11', type: 'bareme',
+        attendu: 'environ 6 cm',
+        question: 'Mesurer la longueur du segment BC',
+        options: [['Environ 6 cm, avec ou sans unité', 'TBM'],
+          ['Une mesure fausse', 'MI'],
+          ['Rien écrit', 'MI']],
+        aide: 'Attention : une impression « ajustée à la page » change la longueur du segment. Mesurer sur la feuille de l\'élève avant de noter.',
+        rubrique: 'mathsGrandeurs',
+        constat: { court: 'la mesure d\'une longueur à la règle',
+          ok: 'Sait mesurer une longueur à la règle graduée.',
+          non: 'La mesure d\'une longueur à la règle n\'est pas acquise.' } },
+      { num: '12', type: 'bareme',
+        attendu: 'un segment de 7 cm tracé depuis le point',
+        question: 'Tracer un segment de 7 cm à partir du point',
+        options: [['Le segment mesure 7 cm', 'TBM'],
+          ['Le segment mesure 6 ou 8 cm', 'MF'],
+          ['Autre tracé', 'MI'], ['Rien tracé', 'MI']],
+        aide: 'Barème officiel : 7 cm → TBM, 6 ou 8 cm → MF, autre → MI.',
+        rubrique: 'mathsGrandeurs',
+        constat: { court: 'le tracé d\'un segment à la règle',
+          ok: 'Sait tracer un segment d\'une longueur donnée.',
+          mf: 'Trace un segment à la règle, le report de la mesure reste approximatif.',
+          non: 'Le tracé d\'un segment d\'une longueur donnée n\'est pas acquis.' } },
+      { num: '13', type: 'bareme',
+        attendu: '15 mètres · 800 kilogrammes · 1 litre · 10 heures',
+        question: 'Entourer la bonne unité (maison, vache, bouteille, montre)',
+        options: [['Les 4 réponses exactes', 'TBM'],
+          ['3 réponses exactes', 'MS'],
+          ['2 réponses exactes', 'MF'],
+          ['Autre', 'MI'], ['Rien entouré', 'MI']],
+        aide: 'Barème officiel : 4 → TBM, 3 → MS, 2 → MF, autre → MI.',
+        rubrique: 'mathsGrandeurs',
+        constat: { court: 'le choix des unités de mesure',
+          ok: 'Choisit l\'unité qui convient pour une longueur, une masse, une contenance, une durée.',
+          mf: 'Choisit l\'unité qui convient dans les cas les plus simples.',
+          non: 'Le choix de l\'unité de mesure n\'est pas acquis.' } },
+      { num: '14', type: 'bareme',
+        attendu: '4 ans = 48 mois\n1 kg = 1 000 g\n1 h = 60 min\n1 km = 1 000 m\n30 m = 3 000 cm\n120 min = 2 h\n1 min = 60 s\n1 m = 100 cm\n1 l = 100 cl',
+        question: 'Compléter les 9 égalités (durées, masses, longueurs, contenances)',
+        options: [['9 ou 8 réponses exactes', 'TBM'],
+          ['7 ou 6 réponses exactes', 'MS'],
+          ['5, 4 ou 3 réponses exactes', 'MF'],
+          ['Moins de 3', 'MI'], ['Rien écrit', 'MI']],
+        aide: 'Barème officiel : 9-8 → TBM, 7-6 → MS, 5-3 → MF, autre → MI.',
+        rubrique: 'mathsGrandeurs',
+        constat: { court: 'les conversions d\'unités',
+          ok: 'Maîtrise les conversions d\'unités usuelles.',
+          mf: 'Connaît quelques conversions d\'unités, pas toutes.',
+          non: 'Les conversions d\'unités ne sont pas maîtrisées.' } },
+      { num: '15', type: 'bareme',
+        attendu: 'cercle · triangle · carré',
+        question: 'Entourer le nom de chaque figure (3 figures)',
+        options: [['Les 3 noms exacts', 'TBM'],
+          ['2 noms exacts', 'MS'],
+          ['Autre', 'MI'], ['Rien entouré', 'MI']],
+        aide: 'Barème officiel : 3 → TBM, 2 → MS, autre → MI.',
+        rubrique: 'mathsGeometrie',
+        constat: { court: 'le nom des figures usuelles',
+          ok: 'Nomme les figures usuelles.',
+          non: 'Le nom des figures usuelles n\'est pas installé.' } },
+      { num: '16a', type: 'bareme',
+        attendu: '5 côtés',
+        question: 'Combien cette figure a-t-elle de côtés ?',
+        options: [['5', 'TBM'], ['Autre réponse', 'MI'], ['Rien écrit', 'MI']],
+        rubrique: 'mathsGeometrie',
+        constat: { court: 'les côtés d\'une figure',
+          ok: 'Sait compter les côtés d\'une figure.',
+          non: 'Ne compte pas encore les côtés d\'une figure.' } },
+      { num: '16b', type: 'bareme',
+        attendu: '5 sommets',
+        question: 'Combien cette figure a-t-elle de sommets ?',
+        options: [['5', 'TBM'], ['Autre réponse', 'MI'], ['Rien écrit', 'MI']],
+        rubrique: 'mathsGeometrie',
+        constat: { court: 'les sommets d\'une figure',
+          ok: 'Sait compter les sommets d\'une figure.',
+          non: 'Le mot « sommet » n\'est pas installé.' } },
+      { num: '16c', type: 'bareme',
+        attendu: '2 angles droits',
+        question: 'Combien cette figure a-t-elle d\'angles droits ?',
+        options: [['2', 'TBM'], ['1 angle droit', 'MS'],
+          ['Autre réponse', 'MI'], ['Rien écrit', 'MI']],
+        aide: 'Barème officiel : 2 → TBM, « 1 angle droit » → MS, autre → MI.',
+        rubrique: 'mathsGeometrie',
+        constat: { court: 'la reconnaissance des angles droits',
+          ok: 'Repère les angles droits d\'une figure.',
+          ms: 'Repère un angle droit sur deux.',
+          non: 'La reconnaissance des angles droits n\'est pas acquise.' } },
+      { num: '17', type: 'bareme',
+        attendu: 'un carré construit sur le côté déjà tracé',
+        question: 'Tracer un carré à partir du côté déjà dessiné',
+        options: [['Carré exact', 'TBM'],
+          ['Quadrilatère tracé, côtés ou angles faux', 'MI'],
+          ['Rien tracé', 'MI']],
+        aide: 'Le corrigé accepte le carré tracé sous le segment.',
+        rubrique: 'mathsGeometrie',
+        constat: { court: 'la construction d\'un carré',
+          ok: 'Sait construire un carré à partir d\'un côté donné.',
+          non: 'La construction d\'un carré n\'est pas acquise.' } },
+      { num: '18', type: 'bareme',
+        attendu: 'le plan qui correspond au dessin',
+        question: 'Entourer le plan qui correspond au dessin',
+        options: [['Le bon plan', 'TBM'], ['Un autre plan', 'MI'], ['Rien entouré', 'MI']],
+        aide: 'Barème officiel : réponse exacte → TBM, autre → MI.',
+        rubrique: 'mathsGeometrie',
+        constat: { court: 'le passage du dessin au plan',
+          ok: 'Sait reconnaître un espace vu de dessus.',
+          non: 'Le passage du dessin au plan n\'est pas acquis.' } },
+      { num: '19', type: 'bareme',
+        attendu: 'un cercle de centre A passant par B',
+        question: 'Tracer au compas un cercle de centre A qui passe par B',
+        options: [['Cercle de centre A passant par B', 'TBM'],
+          ['Cercle de centre B passant par A', 'MS'],
+          ['Autre tracé', 'MI'], ['Rien tracé', 'MI']],
+        aide: 'Un compas doit avoir été mis à disposition dès le début du test.',
+        rubrique: 'mathsGeometrie',
+        constat: { court: 'le tracé d\'un cercle au compas',
+          ok: 'Sait tracer un cercle au compas à partir de son centre.',
+          ms: 'Sait tenir un compas ; le centre et le point de passage sont encore confondus.',
+          non: 'Le tracé d\'un cercle au compas n\'est pas acquis.' } },
+      { num: '20', type: 'bareme',
+        attendu: 'tableau en rouge · bureau de Luc en vert · bureau d\'Anne en bleu · Catherine',
+        question: 'Plan de la classe : colorier le tableau, le bureau de Luc, celui d\'Anne, puis dire qui est assis là',
+        options: [['Les 4 réponses exactes', 'TBM'],
+          ['3 ou 2 réponses exactes', 'MS'],
+          ['1 réponse exacte', 'MF'],
+          ['Autre', 'MI'], ['Rien fait', 'MI']],
+        aide: 'Barème officiel : 4 → TBM, 3 ou 2 → MS, 1 → MF, autre → MI.',
+        rubrique: 'mathsGeometrie',
+        constat: { court: 'le repérage sur un plan',
+          ok: 'Sait se repérer sur le plan d\'un espace connu.',
+          mf: 'Se repère sur un plan de façon encore incertaine.',
+          non: 'Le repérage sur un plan n\'est pas acquis.' } }
     ],
     /* Cycle 4, fin de 5e — texte « Buck » (Jack London, L'Appel de la forêt).
        Corrigé officiel : chaque exercice a SON barème, recopié dans bareme. */
@@ -960,6 +1135,182 @@
           "à l'empêcher de bouger", "à l'étrangler"],
         bonnes: ["à l'étrangler"],
         aide: "Barème : « à l'étrangler » seul → TBM ; « à l'étrangler » + « à l'empêcher de bouger » → MS ; les autres → MF ou MI." }
+    ],
+    /* Cycle 4, fin de 4e — dossier UNICEF sur les droits de l'enfant (trois documents :
+       le rapport 2015, un tableau de taux de scolarisation, la Convention).
+       Corrigé officiel reçu le 05/09. Les exercices 1, 2, 3 et 5 sont à entourer : la
+       réponse se saisit, l'appli note (bonne → TBM, autre → MI, comme le corrigé).
+       L'exercice 4 est un tableau de douze cases : on compte les ERREURS, donc il se
+       saisit au barème, comme en maths. */
+    'canope-lecture-4e': [
+      { num: '1', type: 'unique', question: 'Quel est le sujet commun aux trois documents ?',
+        options: ['La condition des enfants dans le monde.',
+          'Le travail des enfants dans les pays en voie de développement.',
+          "L'éducation des enfants en Europe."],
+        bonne: 'La condition des enfants dans le monde.' },
+      { num: '2', type: 'unique',
+        question: "De quelle année date la Convention des droits de l'enfant (document 1) ?",
+        options: ['1985', '2015', '1990'], bonne: '1990',
+        aide: "Le document 1 dit « il y a vingt-cinq ans » et le rapport est de 2015." },
+      { num: '3', type: 'unique',
+        question: 'À quel article de la Convention (document 3) le document 2 fait-il référence ?',
+        options: ['Article 24', 'Article 28', 'Article 32'], bonne: 'Article 28',
+        aide: "Le document 2 porte sur la scolarisation : c'est l'article 28, le droit à l'éducation." },
+      { num: '4', type: 'bareme',
+        attendu: 'autant de garçons que de filles au primaire : Asie du Sud, Asie de l\'Est et Pacifique, Europe — plus de filles que de garçons au secondaire : Asie de l\'Est et Pacifique, Amérique latine et Caraïbes',
+        question: 'Tableau à cocher : où y a-t-il autant de garçons que de filles au primaire, et plus de filles au secondaire ?',
+        options: [['Aucune, une ou deux erreurs', 'TBM'], ['Trois ou quatre erreurs', 'MS'],
+          ['Plus de quatre erreurs', 'MI'], ['Rien coché', 'MI']],
+        aide: "Cases attendues — primaire (autant) : Asie du Sud (94/94), Asie de l'Est et Pacifique (95/95), Europe (95/95). Secondaire (plus de filles) : Asie de l'Est et Pacifique (75/76), Amérique latine et Caraïbes (71/75). Barème officiel : 1 ou 2 erreurs → TBM, 3 ou 4 → MS, plus de 4 → MI." },
+      { num: '5', type: 'unique', question: "Depuis l'existence de la Convention :",
+        options: ["La situation des enfants s'est améliorée.",
+          "Tous les problèmes des enfants ont été réglés.",
+          "La situation des enfants n'a pas changé."],
+        bonne: "La situation des enfants s'est améliorée.",
+        aide: "Le document 1 dit les deux à la fois : des progrès importants, et un trop grand nombre d'enfants encore en difficulté. La bonne réponse est donc la première." },
+      { num: '6', type: 'paires', bareme: 'troisSur3',
+        question: 'À quoi servent les documents proposés ? (relier)',
+        colonnes: ['À informer', 'À divertir', 'À fixer officiellement les lois'],
+        elements: [
+          ['Document 1 — le rapport UNICEF', 'À informer'],
+          ['Document 2 — le tableau de statistiques', 'À informer'],
+          ['Document 3 — la Convention', 'À fixer officiellement les lois']
+        ],
+        aide: "« À divertir » ne sert à rien : deux documents vont sur « informer ». Barème officiel : les trois → TBM, deux → MS, une → MF, aucune → MI." }
+    ],
+    /* Cycle 4, fin de 3e — Alfred de Musset, La Confession d'un enfant du siècle (1836).
+       Corrigé officiel reçu le 05/09. Plusieurs exercices attendent DEUX réponses à
+       entourer (« les bonnes réponses » au pluriel dans le corrigé) : ils sont saisis en
+       cases à cocher, avec le barème officiel — souvent sans MF, ce qui est écrit tel quel
+       et ne doit pas être « arrondi ». */
+    'canope-lecture-3e': [
+      { num: '1', type: 'unique', question: 'Combien y a-t-il de personnages dans ce texte ?',
+        options: ['1', '2', '3'], bonne: '2' },
+      { num: '2', type: 'multi', bareme: 'musset2',
+        question: "Où et quand se situe l'histoire ? (deux réponses)",
+        options: ['Dans un appartement', "À l'extérieur", 'Au lever du jour',
+          'À la tombée de la nuit'],
+        bonnes: ["À l'extérieur", 'À la tombée de la nuit'],
+        aide: "Le texte dit « la lune se couchait » et parle des arbres et des charmilles. Barème officiel : les deux → TBM, une → MS, autre → MI (pas de MF)." },
+      { num: '3', type: 'unique', question: 'Cet extrait relate :',
+        options: ['Un rendez-vous amical', 'Une nouvelle rencontre', 'Un rêve',
+          'Un rendez-vous amoureux', 'Une séparation'],
+        bonne: 'Un rendez-vous amoureux' },
+      { num: '4', type: 'multi', bareme: 'musset2',
+        question: 'Le cadre est-il : (deux réponses)',
+        options: ['Inquiétant', 'Romantique', 'Sinistre', 'Paisible', 'On ne sait pas'],
+        bonnes: ['Romantique', 'Paisible'],
+        aide: "« la plus belle nuit du monde », « pas un souffle de vent », « l'air était tiède et embaumé ». Barème officiel : les deux → TBM, une → MS, autre → MI." },
+      { num: '5', type: 'ordre', bareme: 'musset5',
+        question: "Classer les éléments dans l'ordre chronologique, de 1 à 4",
+        phrases: ["Les personnages s'embrassent.", 'Les personnages regardent le paysage.',
+          'La jeune femme pleure.', 'Le narrateur songe à un épisode douloureux.'],
+        rangs: [4, 1, 3, 2],
+        aide: "Ordre du texte : ils regardent le ciel, il se souvient d'un jour de désespoir, elle a les yeux noyés de larmes, ils s'embrassent. Barème officiel : le bon ordre → TBM, deux bonnes → MF, autre → MI (pas de MS)." },
+      { num: '6', type: 'paires', bareme: 'troisSur3',
+        question: 'Relier chaque mot à son CONTRAIRE',
+        colonnes: ['Nostalgique', 'Parfumé', 'Plaisir', 'Inodore', 'Dégoût', 'Joyeux'],
+        elements: [
+          ['Embaumé', 'Inodore'],
+          ['Volupté', 'Dégoût'],
+          ['Mélancolique', 'Joyeux']
+        ],
+        aide: "Piège de l'exercice : « parfumé » et « plaisir » sont des SYNONYMES, pas des contraires. Barème officiel : les trois → TBM, deux → MS, une → MF, aucune → MI." },
+      { num: '7', type: 'multi', bareme: 'musset7',
+        question: "Pourquoi la jeune femme pleure-t-elle ? (une ou deux réponses)",
+        options: ['Elle regrette de se laisser séduire par le narrateur', 'Elle est effrayée',
+          'Elle est heureuse', 'Elle est malade'],
+        bonnes: ['Elle regrette de se laisser séduire par le narrateur', 'Elle est heureuse'],
+        aide: "Le corrigé accepte l'une ou l'autre, ou les deux : le texte ne tranche pas. Barème officiel : une ou deux bonnes → TBM, autre → MI." },
+      { num: '8', type: 'paires', bareme: 'musset8',
+        question: "Quels sont les effets de l'amour sur le narrateur ?",
+        colonnes: ['VRAI', 'FAUX', 'ON NE SAIT PAS'],
+        elements: [
+          ["L'amour lui permet d'oublier le reste du monde.", 'VRAI'],
+          ['Il rend malheureux.', 'FAUX'],
+          ['Il modifie sa perception du monde.', 'VRAI'],
+          ['Il redonne un sens à son existence.', 'VRAI']
+        ],
+        aide: "Appuis du texte : « l'univers fut oublié », « une volupté mélancolique nous enivrait », « tout était si plein maintenant ». Barème officiel : les quatre → TBM, trois → MS, une ou deux → MF, aucune → MI." }
+    ],
+    /* Livret cycle 2, version française (reçu le 05/09). Un test par palier, avec les
+       barèmes officiels recopiés tels quels — ils sont détaillés ici, exercice par
+       exercice, contrairement au cycle 3.
+       ⚠ C'est le même Sami que le cycle 3, un cran plus tôt : son PREMIER JOUR d'école. */
+    'canope-lecture-cp': [
+      { num: '1', type: 'bareme', question: 'Lire le texte à voix haute',
+        options: [['Lecture fluide', 'TBM'], ['Lecture hésitante, plutôt à l\'aise', 'MS'],
+          ['Lecture hésitante, difficile', 'MF'], ['Lecture ânonnante', 'MI']],
+        aide: "Barème officiel : fluide → TBM ; hésitante → MS ou MF selon le degré ; ânonnante → MI." },
+      { num: '2', type: 'bareme', question: 'Relier les dix mots à leur image',
+        attendu: 'réveil · lit · chaise · casquette · maman · pantalon · garçon · étoile · chat · pull',
+        options: [['Huit mots reliés ou plus', 'TBM'], ['Cinq à sept mots', 'MS'],
+          ['Trois ou quatre mots', 'MF'], ['Moins de trois mots', 'MI'], ['Rien relié', 'MI']],
+        aide: 'Barème officiel : au moins 8 → TBM, au moins 5 → MS, au moins 3 → MF, autre → MI.' },
+      { num: '3', type: 'unique', question: 'À quelle heure sonne le réveil de Sami ?',
+        options: ['six heures', 'sept heures', 'huit heures'], bonne: 'sept heures' },
+      { num: '4', type: 'bareme', question: 'Dessiner les habits de Sami avec les bonnes couleurs',
+        attendu: 'pantalon bleu · pull rouge · casquette verte avec une étoile rouge',
+        options: [['Les 3 vêtements dessinés + l\'étoile sur la casquette', 'TBM'],
+          ['Au moins 3 éléments dessinés', 'MS'], ['Au moins 2 éléments dessinés', 'MF'],
+          ['Autre réponse', 'MI'], ['Rien dessiné', 'MI']],
+        aide: "Le texte dit : pantalon bleu, pull rouge, casquette préférée verte avec une étoile rouge dessus. Barème officiel : 3 vêtements + l'étoile → TBM ; au moins 3 éléments → MS ; au moins 2 → MF." },
+      { num: '5', type: 'bareme', question: 'Entourer la chambre de Sami et barrer les autres dessins',
+        options: [['Le bon dessin entouré, les autres barrés', 'TBM'],
+          ['Le bon dessin entouré, les autres non barrés', 'MS'],
+          ['Un autre dessin entouré', 'MI'], ['Rien entouré', 'MI']],
+        aide: "⚠ Le corrigé ne dit pas quel dessin est le bon : à repérer sur la feuille. Le texte donne le lit avec une chaise à côté, une grosse armoire à côté de la fenêtre, et sur le mur une image avec des chats. Barème officiel : juste → TBM, faux → MI (le palier MS est ajouté pour l'élève qui entoure sans barrer)." }
+    ],
+    'canope-lecture-ce1': [
+      { num: '6', type: 'unique', question: 'Qui a choisi les habits de Sami ?',
+        options: ['Sami', 'la maman de Sami', 'le petit frère de Sami', 'le père de Sami'],
+        bonne: 'Sami',
+        aide: "Le texte dit : « Hier soir, il a passé beaucoup de temps à préparer ses vêtements. »" },
+      { num: '7', type: 'multi', bareme: 'buck1',
+        question: "Barrer les fruits qui ne sont PAS dans l'assiette",
+        options: ['des ananas', 'des fraises', 'des oranges', 'des bananes', 'des pommes', 'des poires'],
+        bonnes: ['des fraises', 'des oranges', 'des poires'],
+        aide: "Dans l'assiette : ananas, bananes, pommes. À barrer : fraises, oranges, poires. Barème officiel : 3 trouvés → TBM, 2 → MS, 1 → MF, autre → MI." },
+      { num: '8', type: 'unique',
+        question: 'Vrai ou faux : Sami a passé peu de temps à préparer ses vêtements',
+        options: ['vrai', 'faux'], bonne: 'faux',
+        aide: "Le texte dit « beaucoup de temps » : la phrase de l'exercice dit le contraire." },
+      { num: '9', type: 'unique',
+        question: 'Vrai ou faux : Sami déteste ce que sa maman a préparé pour le petit-déjeuner',
+        options: ['vrai', 'faux'], bonne: 'faux',
+        aide: "Le texte parle de « bonnes odeurs » et de « délicieux gâteaux » : c'est à l'élève de l'inférer, le texte ne dit jamais qu'il aime." },
+      { num: '10', type: 'ordre', bareme: 'c2ex10',
+        question: "Numéroter les phrases de l'action la plus ancienne à la plus récente",
+        phrases: ['Sami sort de sa chambre', "Sami ouvre l'armoire",
+          'Sami se regarde dans le miroir', 'Sami a préparé ses vêtements'],
+        rangs: [4, 3, 2, 1],
+        aide: "Barème officiel : 4 3 2 1 → TBM ; 4 3 1 2 → MS (n'a pas vu l'antériorité mais a suivi l'ordre du texte) ; seule la place du 1 respectée → MF ; autre → MI." }
+    ],
+    'canope-lecture-ce2': [
+      { num: '11', type: 'unique',
+        question: 'Vrai ou faux : Sami déteste que sa maman passe sa main dans ses cheveux',
+        options: ['vrai', 'faux'], bonne: 'vrai' },
+      { num: '12', type: 'unique', question: 'Sami prend des gâteaux dans son cartable',
+        options: ['oui', 'non'], bonne: 'non',
+        aide: "Il en aimerait, mais « il choisit de ne pas en prendre »." },
+      { num: '13', type: 'unique', question: 'Où habite Sami ?',
+        options: ['dans un appartement', 'dans une caravane',
+          'dans une maison individuelle', 'dans un château'],
+        bonne: 'dans un appartement',
+        /* Le corrigé accorde MF à « maison individuelle » : l'élève a vu l'escalier
+           sans reconnaître l'immeuble. */
+        presque: { 'dans une maison individuelle': 'MF' },
+        aide: "Le texte dit « l'escalier de l'immeuble ». Barème officiel : « maison individuelle » vaut MF, les autres MI." },
+      { num: '14', type: 'unique', question: 'Pourquoi la mère de Sami court dans l\'escalier ?',
+        options: ['pour lui faire un bisou', 'pour lui donner sa casquette',
+          'pour lui caresser les cheveux', 'parce qu\'elle est en retard'],
+        bonne: 'pour lui donner sa casquette' },
+      { num: '15', type: 'unique',
+        question: "Selon toi, pourquoi Sami pense que c'est important d'avoir sa casquette ?",
+        options: ['pour ne pas se perdre', 'parce qu\'elle le rassure',
+          'pour aller plus vite à l\'école', 'parce que c\'est son dernier jour d\'école'],
+        bonne: 'parce qu\'elle le rassure',
+        aide: "Le texte dit « ma casquette porte-bonheur » : c'est la seule question du livret qui demande d'interpréter un sentiment." }
     ],
     'canope-lecture-cm1': [
       { num: '1', type: 'bareme', question: "Lecture à voix haute (environ 3 lignes)",
@@ -1131,7 +1482,8 @@
       const faux = rep.length - justes;
       if (exo.bareme === 'buck1' || exo.bareme === 'buck3') {
         /* 3 bonnes → TBM, 2 → MS, 1 → MF, aucune → MI. Une réponse fausse retire une
-           bonne : sinon tout entourer donnerait le maximum. */
+           bonne : sinon tout entourer donnerait le maximum. Le même barème sert au
+           fin de CE1 du cycle 2 (ex. 7, les fruits à barrer). */
         return ['MI', 'MF', 'MS', 'TBM'][Math.max(0, Math.min(3, justes - faux))];
       }
       if (exo.bareme === 'buck2') {
@@ -1155,6 +1507,20 @@
         if (justes >= 2) return 'MS';
         if (justes >= 1) return 'MF';
         return 'MI';
+      }
+      if (exo.bareme === 'musset2') {
+        /* Barème officiel des exercices 2 et 4 du fin de 3e : les deux bonnes → TBM, une
+           → MS, autre → MI. Le corrigé ne prévoit PAS de MF ici : ne pas l'inventer.
+           Une réponse fausse déclasse, sinon tout entourer donnerait le maximum. */
+        if (faux) return 'MI';
+        if (justes >= 2) return 'TBM';
+        return justes === 1 ? 'MS' : 'MI';
+      }
+      if (exo.bareme === 'musset7') {
+        /* « une ou deux bonnes réponses → TBM, les autres → MI » : le texte ne tranche
+           pas entre les deux lectures, le corrigé accepte donc l'une, l'autre, ou les deux. */
+        if (faux) return 'MI';
+        return justes >= 1 ? 'TBM' : 'MI';
       }
       return niveau(Math.max(0, justes - faux) / exo.bonnes.length);
     }
@@ -1182,6 +1548,22 @@
         if (aLUn) return 'MF';
         return 'MI';
       }
+      if (exo.bareme === 'musset5') {
+        /* Barème officiel du fin de 3e : le bon ordre → TBM, deux bonnes → MF, autre
+           → MI. Pas de MS : le corrigé saute ce palier, on ne le comble pas. */
+        if (justes === exo.rangs.length) return 'TBM';
+        return justes >= 2 ? 'MF' : 'MI';
+      }
+      if (exo.bareme === 'c2ex10') {
+        /* Barème officiel du fin de CE1 (cycle 2) : 4 3 2 1 → TBM ; 4 3 1 2 → MS — l'élève
+           a suivi l'ordre du texte sans voir que le plus-que-parfait vient AVANT ; seule
+           la place du 1 (l'antériorité) respectée → MF ; autre → MI. */
+        if (justes === exo.rangs.length) return 'TBM';
+        const suite = rep.map(x => Number(x));
+        if (suite[0] === 4 && suite[1] === 3 && suite[2] === 1 && suite[3] === 2) return 'MS';
+        const iUn = exo.rangs.indexOf(1);
+        return Number(rep[iUn]) === 1 ? 'MF' : 'MI';
+      }
       return niveau(justes / exo.rangs.length);
     }
     if (exo.type === 'paires') {
@@ -1198,6 +1580,18 @@
         if (justes >= 3) return 'MS';
         if (justes >= 2) return 'MF';
         return 'MI';
+      }
+      if (exo.bareme === 'troisSur3') {
+        /* Trois appariements : les trois → TBM, deux → MS, un → MF, aucun → MI.
+           Le calcul par proportion donnerait MF pour deux sur trois (0,67) : c'est
+           pourquoi ce barème existe. */
+        return ['MI', 'MF', 'MS', 'TBM'][Math.min(3, justes)];
+      }
+      if (exo.bareme === 'musset8') {
+        /* Quatre affirmations : les quatre → TBM, trois → MS, une ou deux → MF. */
+        if (justes >= 4) return 'TBM';
+        if (justes === 3) return 'MS';
+        return justes >= 1 ? 'MF' : 'MI';
       }
       return niveau(justes / exo.elements.length);
     }

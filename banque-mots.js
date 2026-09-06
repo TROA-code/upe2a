@@ -6,7 +6,7 @@
    clean/geste-<mot>.png pour les gestes de politesse. window.BANQUE_MOTS */
 (function () {
   const BANQUE = {
- 'Les pays, les langues':[['le Portugal','portugal'],['l\'Espagne','espagne'],['l\'Italie','italie'],['le Maroc','maroc'],['l\'Algérie','algerie'],['la Turquie','turquie'],['la Pologne','pologne'],['le Brésil','bresil'],['le Vietnam','vietnam'],['les langues','langues']],
+ 'Les pays, les langues':[['le Portugal','portugal'],['l\'Espagne','espagne'],['l\'Italie','italie'],['le Maroc','maroc'],['l\'Algérie','algerie'],['la Turquie','turquie'],['la Pologne','pologne'],['le Brésil','bresil'],['le Vietnam','vietnam'],['les langues','langues'],['un drapeau','drapeau']],
     'Les animaux': [['un chat', 'chat'], ['un chien', 'chien'], ['un lapin', 'lapin'],
       ['une poule', 'poule'], ['une vache', 'vache'], ['un mouton', 'mouton'],
       ['un oiseau', 'oiseau'], ['un poisson', 'poisson'], ['un cheval', 'cheval']],
@@ -38,7 +38,11 @@
  'Les moments du repas':[],
  'À table':[['la table','table'],['une assiette','assiette'],['un verre','verre']],
  'Les couleurs':[['rouge','rouge'],['jaune','jaune'],['bleu','bleu'],['vert','vert-peinture'],['noir','noir'],['blanc','blanc'],['gris','gris'],['orange','orange-peinture'],['marron','marron']],
- 'Les transports':[['un vélo','velo'],['une voiture','voiture'],['un bus','bus'],['un train','train'],['un avion','avion'],['un taxi','taxi'],['un wagon','wagon']]
+ 'Les transports':[['un vélo','velo'],['une voiture','voiture'],['un bus','bus'],['un train','train'],['un avion','avion'],['un taxi','taxi'],['un wagon','wagon']],
+ /* Thème publié le 05/09 : 16 métiers accessibles en CAP / apprentissage, plus le
+    coiffeur, le docteur et l'informatique qui existaient déjà. Les images sont dans
+    clean/. Livreur, esthéticienne, jardinier, agriculteur et couturier ont été écartés. */
+ 'Les métiers':[['un maçon','macon'],['un peintre','peintre'],['un électricien','electricien'],['un plombier','plombier'],['un menuisier','menuisier'],['un soudeur','soudeur'],['un mécanicien','mecanicien'],['un cuisinier','cuisinier'],['un serveur','serveur'],['un boulanger','boulanger'],['un pâtissier','patissier'],['un vendeur','vendeur'],['un caissier','caissier'],['un magasinier','magasinier'],['un aide-soignant','aidesoignant'],['un agent d\'entretien','agententretien'],['un coiffeur','coiffeur']]
 };
   const PREF = f => (/^(geste|phrase)-/.test(f) ? f : 'mot-' + f);
   /* Ses mots à elle, ajoutés dans l'espace enseignant, viennent se ranger à la suite. */
