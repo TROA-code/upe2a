@@ -1,5 +1,17 @@
 # INSTRUCTIONS — UPE2A NSA (fichier unique)
 
+## ⚠⚠ RÈGLE ABSOLUE — LES MARGES D'IMPRESSION (07/09)
+
+**2 cm de marge sur les QUATRE côtés de tout document imprimé.** Haut, bas, gauche, droite.
+Sa consigne, donnée après trois documents trop serrés : « il faut vraiment que tu laisses des
+marges à droite à gauche en haut en bas. Note ça une bonne fois pour toutes. »
+Donc `margin="2cm"` sur chaque `<doc-page>` — jamais 0.5in, jamais moins.
+Une feuille sans marge se lit mal, se perfore mal, se range mal en classeur, et beaucoup
+d'imprimantes coupent purement et simplement le bord.
+**Quand le contenu ne tient plus : on enlève du texte, ou on ajoute une page. On ne mange
+jamais la marge.** (Le corollaire vu le même jour : on ne rapetisse pas non plus les images
+— sur un document pour NSA, l'image est le contenu ; c'est le texte qui se coupe.)
+
 Phrase pour démarrer : « Lis INSTRUCTIONS-APPLICATION.md, on reprend. »
 
 Ce fichier est **la seule source à jour**. Il remplace `INSTRUCTIONS.md`,
@@ -8,7 +20,47 @@ Ce fichier est **la seule source à jour**. Il remplace `INSTRUCTIONS.md`,
 deviennent des sources de contenu que l'application met en page et imprime à la demande.
 Trois conversations séparées n'ont plus de sens.
 
-## Là où on s'est arrêtés (04/09)
+## Là où on s'est arrêtés (08/09) — À LIRE EN PREMIER
+
+Dernière session : positionnement (Sana, Ibrahim, Haralds, Seydina, Nafisatu).
+
+**Réglé le 07-08/09 — ne pas défaire :**
+- **Fiche EANA** : accents (une double espace faisait échouer la sélection, pas un
+  encodage) · taille de police en `0 Tf` · `NeedAppearances` à VRAI · case « scolarisé
+  NON » (nom de champ cherché sans la casse) · caractères hors WinAnsi nettoyés · onze
+  champs ajoutés · psy EN et OEPRE retirés (**pas de son ressort**).
+- **Les trois échelles** (Canopé, Lyon, Créteil) lues par la FORME du signe, plus par
+  énumération.
+- **Palier maths** : socle en plancher à 60 %, les deux domaines hauts exigés pour
+  « 1ère GT ou Terminale ». Sana = 2de GT, Ibrahim = CAP, Seydina = CAP.
+- **Un test passé dans une AUTRE LANGUE que le français va en « lecture en langue
+  d'origine »** — sa règle, qui a toujours valu. C'est la langue de passation qui décide
+  de la case, pas la rubrique de l'exercice.
+- **« Décodage-encodage »** ne reçoit QUE la feuille de décodage : les conclusions des
+  tests de compréhension partent en « compréhension écrite ». Pas de décompte d'items
+  sur la fiche (« 15 sur 17 : plus de la moitié » = raisonnement interne).
+- **Les observations de passation ne partent PLUS sur la fiche** : ce sont ses notes de
+  travail, elles énumèrent surtout les manques.
+- **Trois repères d'auteur** sur chaque case de l'étape ④ : « ✎ ta version » (+ liseré
+  bleu), « ⟵ déjà dans la fiche déposée », « • » (brouillon). Et quand une proposition
+  attend derrière, elle s'AFFICHE en petit sous la case avec un bouton **« Ajouter sous
+  mon texte »** — jamais à la place : son point sur la lecture seule vient d'abord.
+- **Tests ajoutés** : Gary « ambassador » en anglais (16 items, ce n'est PAS la traduction
+  du Gary français) · CE B1 « Des bilingues par millions » · CE A2 « Je me souviens… » ·
+  constats des 17 items des Trois Frères. Lyon +16 atteignable dès 14 ans en « autres
+  tests possibles ».
+- **Formulations** : au maximum les SIENNES (grille CASNAV, phrases types, banque de
+  formulations), mais je continue à proposer — elle supprime ce qui ne va pas.
+
+**En attente de sa réponse :**
+1. Haralds — 10 exercices de maths sur 20 non notés, ce qui bloque son palier.
+2. La copie du **B1** de Haralds, si elle veut que je préremplisse.
+3. **Le Gary anglais de Haralds** : elle a dit « je ne lui ai jamais donné un test en
+   anglais » après me l'avoir fait ranger. À clarifier avant d'y toucher.
+4. Les **corrigés Canopé** de lecture qu'elle n'a pas envoyés.
+5. Les deux photos d'élèves : Anita = écharpe noire, Sania = bandeau de perles ?
+
+## Chantiers plus anciens (04/09)
 
 À reprendre en priorité, dans cet ordre :
 1. **Le thème « Les métiers »** — elle génère les images, elle n'a pas fini ; rien n'est
@@ -165,16 +217,39 @@ scolarisation, orange maths, vert français, violet « autres tests »), chaque 
 portant `bloc`, et la carte prend la couleur de sa bande. Une bande sans test ne
 s'affiche pas.
 
-## Les accents dans la fiche téléchargée (corrigé 02/09)
+### La case « scolarisé : NON » n'était jamais cochée (07/09)
 
-« Scolarité conforme à la classe d'âge » sortait **« ScolaritÈ conforme ‡ la classe
-d'ge »** dans le PDF téléchargé. Cause : les champs de la fiche d'origine sont décrits
-avec une police en encodage **MacRoman**, et pdf-lib y écrit des octets WinAnsi (é = 0xE9
-relu « È », à = 0xE0 relu « ‡ », â purement perdu). `EANA.remplir()` embarque donc sa
-propre Helvetica (`doc.embedFont(StandardFonts.Helvetica)`) et appelle
-`form.updateFieldAppearances(police)` **après** la saisie, ce qui regénère l'apparence de
-tous les champs avec une police WinAnsi. À vérifier sur un téléchargement réel à chaque
-fois qu'on touche à ce fichier.
+La fiche EANA 76 **mélange les majuscules d'un champ à l'autre** : « Scolarisé oui » avec un S
+majuscule, mais « scolarisé non » en minuscule. `form.getField('Scolarisé non')` échouait donc
+toujours, et **l'information centrale du document pour un élève NSA partait vide en silence** —
+seul indice, un « champ absent » perdu dans les refus. Le nom du champ se cherche désormais
+**sans tenir compte de la casse** (`pareilNom`), ce qui règle la classe entière du défaut et
+pas seulement ce champ. Vérifié : case « non » cochée, case « oui » décochée, zéro refus.
+
+### Les caractères que le PDF ne sait pas écrire (07/09)
+
+« Le remplissage a échoué : WinAnsi cannot encode "ᵉ" » — et **rien** ne se téléchargeait.
+Un formulaire PDF standard n'écrit qu'en **WinAnsi** (Europe occidentale) : un « 3ᵉ » avec le
+petit e en exposant suffisait à tout arrêter. Le caractère ne venait pas de moi mais du
+**PDF déposé par le CIO** (`fiche.parcours` d'Ibrahim, « 3ᵉ année »), donc impossible à
+éviter à la saisie.
+`EANA.remplir()` nettoie désormais chaque valeur : `NFKC` replie les variantes typographiques
+sur la lettre ordinaire (ᵉ → e, ≈ → ~) **sans défaire les accents** (`NFKD` casserait les é),
+puis ce qui reste hors WinAnsi est retiré et **signalé dans les refus**. Les signes que
+WinAnsi sait écrire sont conservés tels quels — œ, « », —, … : les remplacer serait une perte
+gratuite sur une fiche française.
+⚠ **Une phrase en ARABE (ou tout alphabet non latin) ne peut pas figurer dans cette fiche** :
+la police du formulaire ne la contient pas. Elle est retirée et signalée, jamais remplacée en
+silence.
+
+## Les accents dans la fiche téléchargée
+
+⚠ **Diagnostic périmé — voir « Les accents du PDF : une double espace, pas un encodage
+(07/09) » plus bas, qui fait foi.** Le 02/09 j'avais conclu à un conflit d'encodage
+(MacRoman contre WinAnsi) et embarqué notre propre Helvetica. Le défaut est revenu le 07/09 :
+la cause réelle était une **double espace** dans la valeur, qui faisait échouer la sélection
+en silence. La police embarquée est conservée (avec `/DR`, `/DA` et `NeedAppearances` à vrai),
+mais elle ne suffisait pas et n'était pas le cœur du problème.
 
 ## « Très bonne maîtrise » : ne pas l'écrire sur un texte mal compris (fait 02/09)
 
@@ -407,12 +482,155 @@ bloc unique, et `colonnesE2` n'existe plus.
 
 ⚠ **Le choix reste à l'écran après ENREGISTRER** (05/09) : les deux listes ne se vident
 plus. Vider donnait l'impression que rien n'avait été enregistré.
-⚠ **Un bandeau de confirmation s'affiche DANS le panneau**, avec les mêmes boutons qu'une
-carte de test donné : ✓ DONNÉ, Retirer, Télécharger, Le corrigé (elle l'a demandé
-explicitement, capture à l'appui). La carte du bloc au-dessus existe aussi — j'avais cru
-qu'elle suffisait — mais elle est loin dans la page et souvent hors de l'écran au moment
-du clic. Le téléchargement suit **la langue de la passation** : un test donné en arabe se
-retélécharge en arabe.
+⚠ **UN SEUL BOUTON, celui de partout ailleurs (07/09)** : « il y a un bouton *enregistrer
+cette passation* ET un ✓ DONNÉ, c'est un peu redondant, non ? » — elle avait raison. J'avais
+inventé pour ce panneau un bouton bleu « ENREGISTRER CETTE PASSATION » **plus** une pastille
+verte « ✓ DONNÉ » juste en dessous : deux choses qui se lisaient comme la même action, et un
+**état déguisé en bouton**. Sa consigne : « comme d'hab un bouton donné qui change de couleur
+si c'est donné ». Trois états — **gris et inerte** sans test choisi (un bouton actif qui ne
+fait rien est un bouton cassé) · **JE L'AI DONNÉ** blanc à encre bleue · **✓ DONNÉ** vert,
+inerte au reclic (règle du 03/09). Ne pas réintroduire de bouton propre à ce panneau.
+⚠ **Et la couleur du donné est celle du BLOC, pas un vert à part** (07/09) : les cartes de
+test portent l'encre de leur bloc — bleu nuit en lecture, brun en maths — et ce panneau, dont
+le titre est bleu, prenait un vert qu'on ne voyait nulle part ailleurs. Le même état se
+présentait donc sous trois teintes selon l'endroit. « Comme pour les autres » : bleu nuit
+`#1d4e89`. Ne pas le repasser au vert.
+### Les accents du PDF : une double espace, pas un encodage (07/09)
+
+« Scolarit**È** conforme **‡** la classe d'**ge**  [en fran**Á**is] » dans la fiche remplie.
+J'ai d'abord accusé l'encodage MacRoman et écrit une table de transcodage — **fausse piste**,
+qui abîmait au passage les libellés déjà corrects. La vraie cause : notre valeur portait
+**deux espaces** (« d'âge  [en français] ») là où le document n'en a qu'une, donc la
+comparaison stricte la déclarait « hors liste », **rien n'était sélectionné**, et la case
+gardait la vieille valeur abîmée du fichier d'origine. Le remplissage échouait en silence.
+Corrigé par une **comparaison indulgente** (sans accent, sans casse, espaces normalisées) et
+en sélectionnant le libellé **du document**. Zéro refus vérifié.
+Conservé au passage, utile mais insuffisant seul : notre Helvetica déclarée dans `/DR`, le
+`/DA` de chaque champ qui pointe dessus (le sien disait « /F11 14 Tf », une police du
+document), les apparences regénérées champ par champ, et **`NeedAppearances` à VRAI** —
+essayé à faux d'abord, ce qui gardait à l'écran l'ancien dessin abîmé des listes déroulantes
+alors que la valeur enregistrée était déjà juste. À vrai, le lecteur redessine à partir de la
+bonne valeur avec NOTRE police. Les deux vont ensemble : police dans `/DR` + `/DA`, drapeau à
+vrai. Ne pas repasser le drapeau à faux sans corriger l'autre.
+
+### La langue de la passation se change sur la carte (07/09)
+
+« Je dois pouvoir dire dans l'appli que je lui ai donné le test en anglais !! » — le cas
+d'Ibrahim : Canopé ne traduit pas le bengali, elle a donné le livret **en anglais**, langue
+qu'il comprend. Le panneau « un autre test » avait sa liste, mais un test proposé par le
+chemin n'en avait **aucune** : la langue restait celle de l'élève.
+
+Une liste **« en … »** (les 26 langues) est donc posée à **DEUX endroits**, avec la même
+valeur : sur la carte de l'étape ② à droite du `✓ DONNÉ` — c'est là qu'elle enregistre la
+passation, et sa première question a été « où ? » quand je ne l'avais mise qu'à l'étape ③ —
+et sur la carte de résultats de l'étape ③. Elle n'apparaît **qu'une fois le test donné**
+(avant, il n'y a pas de passation à qualifier) et **jamais sur un test `multilingue: false`**
+(garde-fou du 03/09 : le test Lyon stocké « en Arabe »). `majPassation()` ne touche que la
+langue — notes, réponses et observations restent.
+
+⚠ **Et la fiche le DIT, avec la raison** : quand la langue de la passation ne correspond à
+aucune langue déclarée de l'élève, le brouillon écrit dans « Langues (autres que le
+français) » : « Comprend l'anglais : le livret Canopé n'existant pas en benghali, le test de
+lecture a été donné dans cette langue. » Sans elle, la fiche laissait croire que le test avait
+été passé dans sa langue de scolarisation, et le résultat s'y lisait comme un niveau acquis
+« dans sa langue » — le CASNAV a besoin de cette information pour l'interpréter.
+⚠ **Le champ des langues en contient PLUSIEURS** : « Français⏎Arabe » pour Sana, « Le
+Finlandais et l'Anglais » pour Matti. Comparer la chaîne entière faisait conclure à une langue
+tierce pour tout élève bilingue — la fiche de Sana annonçait « le livret Canopé n'existant pas
+en français⏎arabe », alors que c'est le livret arabe qu'elle a passé. Donc : découper (sauts de
+ligne, virgules, « et »), retirer les articles, comparer à CHAQUE langue déclarée
+(comparaison tolérante : sa fiche porte « Benghali », la liste « Bengali »), et **ne jamais
+écrire le champ brut dans une phrase**.
+
+### Les onze champs du PDF qui n'étaient nulle part (07/09)
+
+« Dans préco, ça serait vraiment pas mal de revoir en fait tous les éléments du PDF. » En
+comparant `positionnement-eana.js` (les vrais noms de champs de la fiche EANA 76) à l'étape
+④, **onze champs du document n'existaient pas dans l'appli** : ils partaient donc vides à
+l'impression, sans que rien ne le signale. Ajoutés dans l'ordre du document : série ou
+spécialité préconisée · souhaits scolaires ou professionnels · suivi Mission Locale ·
+scolarisé dans sa langue maternelle · évalué par (+ par qui) · OEPRE · date et nom du
+psychologue EN · remarques générales.
+
+⚠ **Retirés aussitôt : la date et le nom du psychologue EN** (07/09) — « mon rôle s'arrête à
+la préconisation du CASNAV, après ce n'est plus de mon ressort ». Les champs existent dans le
+PDF mais relèvent d'un autre professionnel. **Le critère n'est donc pas « tous les champs du
+PDF » mais « tous les champs qui sont de son ressort ».** Ne pas les remettre.
+
+Deux comptent particulièrement pour ses 16-18 ans : **la série ou spécialité** (une préco
+« 2Pro » sans spécialité n'oriente rien) et **la Mission Locale**.
+
+⚠ **Les cases à cocher ne prennent pas « oui »/« non » mais un booléen**, et la fiche en a
+**deux par question** — même traitement que le sexe. La **tranche d'âge** (moins de 16 /
+16-18 / plus de 18) se déduit de la date de naissance, jamais saisie.
+⚠ **Ce qui n'a PAS de case dans ce PDF** : les niveaux de la grille CASNAV (`<cle>Niveau`)
+et `mathsLangueOrigine`. Ils servent à l'écran et au brouillon, et sont retirés avant le
+remplissage — sinon `remplir` les compte en refus.
+
+### Les déroulants CASNAV et les pastilles (07/09) — fait
+
+Elle a envoyé cinq documents de formulations types (grille Aix-Marseille 07-2012, « phrases
+types évaluation Casnav », `POSITIONNER.pdf`, `banque_formulations.docx`, plus ses pages
+annotées). Sa demande : **du rouge puis de l'orange puis du vert — un préfiltre pour gagner
+du temps** ; déroulant pour la grille CASNAV, **pastilles** pour les formulations libres.
+
+**Deux commandes, deux rôles distincts** — c'est le point d'équilibre trouvé après deux
+retraits de sa part (« retire ça » sur la lecture en langue de scolarisation, « vire moi ça »
+sur les maths en langue de scolarisation, champ inexistant dans la fiche EANA 76) :
+- le **déroulant CASNAV** ne pose plus que le **niveau CECRL** (`<cle>Niveau`, paramètre
+  `niveauSeul`) — il n'écrit plus dans la case. Ses libellés gardent leur phrase, c'est ce
+  qui permet de choisir le bon niveau. Bandes : **≤A1.1 rouge · A1.1 et A1 orange · A2 et B1
+  vert**. Il en reste **quatre** : compréhension orale, production orale, lecture /
+  compréhension écrite, production d'écrit — les quatre domaines de la colonne « Langue
+  française ». Ne pas en rajouter ailleurs : partout où il a côtoyé des pastilles, elle l'a
+  fait retirer ;
+- les **pastilles composent le texte**, et se combinent (un clic ajoute, un second retire ;
+  le reste de la case repart au caractère près). Elles portent un **mot-clé**, la case reçoit
+  la **phrase rédigée** — sa question du 07/09 : « je mets des mots et tu fais les phrases ? ».
+  Posées sur : lecture à voix haute en langue de scolarisation · geste graphique ·
+  mathématiques · lecture en français (+ phonologie) · production orale · compréhension orale
+  · compréhension écrite · production d'écrit · Remarques (les formulations rapides constat /
+  besoins / préconisations, `banque_formulations.docx`, encre neutre — ici la couleur ne
+  dirait pas un niveau, et le « X » du document devient son prénom).
+
+⚠ **UN TRI, PAS TOUTE LA BANQUE** (« il faut opérer un tri bien sûr ») : **cinq à neuf choix
+par case**, deux ou trois par bande, en préférant les formulations qui se distinguent
+nettement. Une pastille de plus est une pastille à lire. Ce qui manque se tape à la main.
+Compté à l'écran : compréhension orale 5 · geste graphique 7 · maths 7 · production orale 7 ·
+compréhension écrite 7 · production d'écrit 7 · lecture à voix haute 8 · lecture en français 9
+(7 + 2 de phonologie). Deux exceptions assumées : les **Remarques en portent 11** (les trois
+sections de son propre document, qu'on ne découpe pas) et le **geste graphique 16** — « tu
+peux mettre des mots en plus du coup » (07/09) : c'est ce qu'elle observe le plus finement, et
+aucun test ne le mesure.
+⚠ **La longueur des PHRASES compte autant que leur nombre** : la case « Décodage-encodage »
+ne fait que trois lignes (43 pt mesurés, 240 signes), donc ses pastilles tiennent chacune sur
+une ligne. Trois clics bavards la faisaient déborder.
+⚠ **Les tournures sont NOMINALES**, sans « il » ni « elle » : la même pastille sert pour tous
+les élèves, sans accord à reprendre.
+⚠ **Les budgets de longueur sont MESURÉS dans le PDF**, pas estimés : on lit le cadre du
+champ (`getWidgets()[0].getRectangle()`), on compte les lignes à 11 pt et les signes à 4,6 pt,
+et on garde 15 % de marge. Mon premier chiffre à l'estime (330 pour la lecture) était trop
+sévère — le cadre en tient 470. Un avertissement s'affiche sous la case à l'approche, en
+rouge au-delà : à l'écran le cadre grandit avec le texte, donc rien ne laissait devinier la
+limite et elle la découvrait à l'impression, phrase coupée en deux.
+
+⚠ **Une CARTE s'affiche DANS le panneau**, comme celles des blocs (07/09 : « je veux voir un
+bloc comme pour Romain Gary ou maths avec le test sélectionné »). Nom du test en titre,
+« matière · langue · donné le … » en dessous, puis Retirer / Télécharger / Le corrigé (elle
+les a demandés explicitement, capture à l'appui). La carte du bloc au-dessus existe aussi —
+j'avais cru qu'elle suffisait — mais elle est loin dans la page et souvent hors de l'écran au
+moment du clic. Le téléchargement suit **la langue de la passation** : un test donné en arabe
+se retélécharge en arabe. Trois règles éprouvées à ses dépens :
+- **le panneau se replie** dès qu'une passation est enregistrée (« j'ai choisi lecture
+  UNICEF, arabe, donc ce bloc doit disparaître logiquement ») : ne restent que la carte puis
+  le bouton **+ UN AUTRE TEST A ÉTÉ DONNÉ**, dans cet ordre — on lit ce qui est enregistré
+  avant d'ajouter (son inversion du 07/09). Déplier repart d'un choix vide, la langue reste ;
+- **choisir un test déjà au dossier replie aussitôt** : elle voyait un « ✓ DONNÉ » figé et
+  cherchait le bouton (« je n'ai pas le bouton je l'ai donné ») — il n'y avait rien à
+  enregistrer. La carte répond à la vraie question, « où en est ce test ? » ;
+- **on ne carde ici que le hors-chemin**, plus le test sélectionné. Carder tout le dossier
+  répétait Romain Gary et le fin de 3e qui ont déjà leur carte dans leur bloc — mais exclure
+  aussi le test sélectionné vidait le panneau. Les deux erreurs ont été faites le 07/09.
 
 ## La traduction INSTANTANÉE d'un test (05/09)
 

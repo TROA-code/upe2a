@@ -24,7 +24,10 @@ const PTS={}; ECHELLE.forEach(e=>{ PTS[e.v]=e.pts; });
    plus besoin de la feuille papier. */
 const MATHS=[
   [1,'Effectuer des opérations','CAP','base','16 · 48 · 13 · 237,63 · 1500 · 5','4 ou 5 calculs justes : ++ · 3 : + · 2 : − · 0 ou 1 : − −',[['Les 6 calculs justes','++'],['4 ou 5 calculs justes','+'],['3 calculs justes','+'],['2 calculs justes','-'],['0 ou 1 calcul juste','--'],['Rien écrit','--']],"nombres","les opérations posées"],
-  [2,'Ranger des nombres','CAP','base','− 30 · − 3,5 · − 3 · 0 · 2 · 4 · 5 · 7 · 12 · 12,5 · 14 · 19 · 50','tout juste : ++ · les positifs bien classés : + · 4 erreurs maxi : − · plus de 4 : − −',[['Tout est juste','++'],['Les nombres positifs sont bien classés','+'],['4 erreurs au maximum','-'],['Plus de 4 erreurs','--'],['Rien écrit','--']],"nombres","le rangement des nombres"],
+  /* ⚠ LA RÉPONSE ATTENDUE COMMENCE À − 3 (07/09, sa correction) : « − 30 » et « − 3,5 »
+     sont les EXEMPLES imprimés sur la feuille pour montrer comment ranger, pas des nombres
+     à classer. Les inclure faussait la liste et le décompte des erreurs. */
+  [2,'Ranger des nombres','CAP','base','− 3 · 0 · 2 · 4 · 5 · 7 · 12 · 12,5 · 14 · 19 · 50','tout juste : ++ · les positifs bien classés : + · 4 erreurs maxi : − · plus de 4 : − −',[['Tout est juste','++'],['Les nombres positifs sont bien classés','+'],['4 erreurs au maximum','-'],['Plus de 4 erreurs','--'],['Rien écrit','--']],"nombres","le rangement des nombres"],
   [3,'Convertir des grandeurs','CAP','base',"1 km = 1 000 m\n1 g = 1 000 mg\n1 h = 3 600 s",'3 conversions justes : ++ · 2 : + · 1 : − · 0 : − −',[['Les 3 conversions justes','++'],['2 conversions justes','+'],['1 conversion juste','-'],['Aucune conversion juste','--'],['Rien écrit','--']],'grandeurs',"les conversions d'unités"],
   [4,'Relier les fractions égales','CAP','base',"2/6 = 1/3\n3/4 = 0,75\n0,5 = 1/2\n5/20 = 1/4\n3/2 = 1,5",'5 égalités justes : ++ · 4 : + · 2 ou 3 : − · 0 ou 1 : − −',[['Les 5 égalités justes','++'],['4 égalités justes','+'],['2 ou 3 égalités justes','-'],['1 égalité juste','--'],['Aucune égalité juste','--'],['Rien écrit','--']],"nombres","les fractions égales"],
   [5,'Lire un tableau à double entrée','CAP','base',"Chine : 1 386 000 000 habitants\nSénégal : Dakar\nMexique : peso",'3 réponses justes : ++ · 2 : + · 1 : − · 0 : − −',[['Les 3 réponses justes','++'],['2 réponses justes','+'],['1 réponse juste','-'],['Aucune réponse juste','--'],['Rien écrit','--']],"donnees","la lecture d'un tableau à double entrée"],
@@ -34,7 +37,10 @@ const MATHS=[
   [9,'Calculer avec des puissances','2de BAC PRO','inter',"10² × 10⁴ × 10¹⁰ = 10¹⁶\n10⁸ ÷ 10⁵ = 10³\n(10⁴)⁻² = 10⁻⁸",'3 réponses justes : ++ · 2 : + · 1 : − · 0 : − −',[['Les 3 réponses justes','++'],['2 réponses justes','+'],['1 réponse juste','-'],['Aucune réponse juste','--'],['Rien écrit','--']],"nombres","le calcul avec les puissances"],
   [10,"Résoudre des problèmes d'échelles",'2de BAC PRO','inter',"600 km",'réponse correcte : ++ · bon nombre de carreaux mais 4e proportionnelle fausse (500 km) : + · carreaux lus sans proportionnalité : −',[['Réponse correcte (600 km)','++'],['Carreaux bien lus, 4e proportionnelle fausse (500 km)','+'],['Carreaux bien lus, sans proportionnalité','-'],['Autre réponse','--'],['Rien écrit','--']],"grandeurs","les problèmes d'échelle"],
   [11,'Estimer un ordre de grandeur (aires)','2de BAC PRO','inter','Aire ≈ 250 m²','réponse juste : ++ · réponse fausse : − −',[['Réponse juste (≈ 250 m²)','++'],['Réponse fausse','--'],['Rien écrit','--']],"grandeurs","les ordres de grandeur d'aires"],
-  [12,'Utiliser un diagramme','2de BAC PRO','inter',"nombres : 60 · 45 · 75 · 90 · 30 (total 300)\nfréquences : 20 · 15 · 25 · 30 · 10 %",'tout juste : ++ · fréquences justes et quelques nombres corrects : + · fréquences justes seules : −',[['Tout est juste','++'],['Fréquences justes et quelques nombres corrects','+'],['Fréquences justes seulement','-'],['Autre','--'],['Rien écrit','--']],"donnees","la lecture d'un diagramme"],
+  /* ⚠ Sans « 60 » ni « 20 % » (07/09, sa correction) : la première valeur de chaque ligne
+     est donnée en EXEMPLE sur la feuille, l'élève complète les quatre autres. Le total de
+     300 reste, lui : c'est bien la somme des cinq. */
+  [12,'Utiliser un diagramme','2de BAC PRO','inter',"nombres : 45 · 75 · 90 · 30 (total 300)\nfréquences : 15 · 25 · 30 · 10 %",'tout juste : ++ · fréquences justes et quelques nombres corrects : + · fréquences justes seules : −',[['Tout est juste','++'],['Fréquences justes et quelques nombres corrects','+'],['Fréquences justes seulement','-'],['Autre','--'],['Rien écrit','--']],"donnees","la lecture d'un diagramme"],
   [13,'Se repérer dans le plan','2de BAC PRO','inter',"B (4 ; − 2)\nC (0,5 ; 2)\nD (2 ; 1), E (− 2 ; 3) et F (0 ; 1)",'tout juste : ++ · 3 réponses justes sur 4 : + · 1 ou 2 : − · 0 : − −',[['Tout est juste','++'],['3 réponses justes sur 4','+'],['1 ou 2 réponses justes','-'],['Aucune réponse juste','--'],['Rien écrit','--']],"geometrie","le repérage dans le plan"],
   [14,'Résoudre une équation','2de BAC PRO','inter',"x = 5\nx = − 4\nx = 60",'3 équations justes : ++ · 2 : + · 1 : − · 0 : − −',[['Les 3 équations justes','++'],['2 équations justes','+'],['1 équation juste','-'],['Aucune équation juste','--'],['Rien écrit','--']],"nombres","la résolution d'équations"],
   [15,'Développer une expression littérale','2de GT','inter',"14x + 28\n− 12x² + 17x + 5\n9x² − 4",'3 développements justes : ++ · 2 : + · 1 : − · 0 : − −',[['Les 3 développements justes','++'],['2 développements justes','+'],['1 développement juste','-'],['Aucun développement juste','--'],['Rien écrit','--']],"nombres","le développement d'expressions littérales"],
@@ -96,14 +102,29 @@ function pctGroupe(scores, exos){
 }
 
 /* Palier conseillé en maths : le plus haut niveau dont les exercices sont réussis.
-   Volontairement prudent — un niveau n'est retenu qu'au-dessus de 60 %. */
+   ⚠ LE NIVEAU AVANCÉ RÉUSSI NE SE FAIT PLUS RECALER PAR L'INTERMÉDIAIRE (07/09 : « il a le
+   niveau lycée général, alors pourquoi tu conseilles un bac pro ? »). Sana avait 87 % au
+   socle, 67 % en avancé… et 58 % en intermédiaire : la règle exigeait 60 % PARTOUT, donc
+   deux points manquants sur un domaine intermédiaire la faisaient tomber deux crans plus
+   bas, en 2de BAC PRO. Une réussite au niveau le plus haut n'est pas annulée par un trou
+   plus bas — c'est un trou à combler, pas un plafond.
+   La règle est donc : le plus haut domaine réussi décide, l'intermédiaire ne sert plus que
+   de garde-fou large (50 %) contre un score avancé isolé. Volontairement prudent : un
+   niveau n'est retenu qu'au-dessus de 60 %. */
 function palierMaths(scores){
   const t=TESTS.maths;
   const g=id=>pctGroupe(scores, t.exercices.filter(e=>e.groupe===id));
   const base=g('base'), inter=g('inter'), avance=g('avance');
   if(base.evalues===0 && inter.evalues===0 && avance.evalues===0) return null;
-  if((avance.pct||0)>=60 && (inter.pct||0)>=60) return '1ère GT ou Terminale';
-  if((inter.pct||0)>=60 && (base.pct||0)>=60) return '2de GT';
+  /* ⚠ LE PALIER LE PLUS HAUT EXIGE LES DEUX DOMAINES (07/09, troisième passe : « Sana a le
+     niveau pour une première ??? »). Non : son 67 % en avancé repose sur TROIS exercices
+     (2 réussis sur 3), quand l'intermédiaire en compte douze et n'est qu'à 58 %. Conclure
+     « 1ère GT ou Terminale » sur trois items était une sur-interprétation.
+     Le vrai défaut qu'elle avait signalé était ailleurs : la chute de DEUX crans (jusqu'à
+     2de BAC PRO) pour deux points manquants. La correction juste est donc le cran
+     intermédiaire — 2de GT — et non le sommet. */
+  if((avance.pct||0)>=60 && (inter.pct||0)>=60 && (base.pct||0)>=60) return '1ère GT ou Terminale';
+  if(((avance.pct||0)>=60 || (inter.pct||0)>=60) && (base.pct||0)>=60) return '2de GT';
   if((inter.pct||0)>=40 && (base.pct||0)>=60) return '2de BAC PRO';
   if((base.pct||0)>=50) return 'CAP';
   return 'Socle non consolidé';

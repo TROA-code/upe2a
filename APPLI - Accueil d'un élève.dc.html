@@ -192,6 +192,20 @@
                   </sc-if>
                   <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
                     <button onClick="{{ g.carte.onDonne }}" style="border:2px solid {{ g.carte.boutonBord }};border-radius:9px;background:{{ g.carte.boutonFond }};color:{{ g.carte.boutonEncre }};padding:9px 14px;font-size:12.5px;font-family:'Archivo Black',Verdana,sans-serif;cursor:pointer">{{ g.carte.boutonTexte }}</button>
+                    <!-- ⚠ LA LANGUE SE CHOISIT LÀ OÙ ELLE MARQUE LE TEST DONNÉ (07/09 :
+                         « où ? » — je l'avais posée à l'étape ③ seulement, alors qu'elle
+                         enregistre la passation ici, à l'étape ②). Même liste des deux
+                         côtés, même valeur : c'est la langue de la passation. -->
+                    <sc-if value="{{ g.carte.langues }}" hint-placeholder-val="{{ false }}">
+                      <label style="display:flex;gap:7px;align-items:center;font-size:12px;color:#48586b">
+                        <span>en</span>
+                        <select value="{{ g.carte.langue }}" onChange="{{ g.carte.onLangue }}" style="font-family:Verdana,sans-serif;font-size:12.5px;padding:6px 9px;border:1.5px solid #c3d2e2;border-radius:8px;background:#fff">
+                          <sc-for list="{{ g.carte.langues }}" as="l" hint-placeholder-count="3">
+                            <option value="{{ l.nom }}">{{ l.nom }}</option>
+                          </sc-for>
+                        </select>
+                      </label>
+                    </sc-if>
                     <sc-if value="{{ g.carte.estDonne }}" hint-placeholder-val="{{ false }}">
                       <button onClick="{{ g.carte.onRetirer }}" title="Ce test n'a pas été donné, finalement" style="border:1.5px solid #e3c6ca;background:#fff;color:#a3283c;border-radius:9px;padding:8px 12px;font-size:12px;cursor:pointer">Retirer</button>
                     </sc-if>
@@ -219,8 +233,18 @@
                dans la langue déduite de la fiche. Ici elle choisit librement le test et
                la langue — UNICEF en arabe pour Sana (05/09). -->
           <div style="border:2px solid #c3d2e2;background:#fbfcfe;border-radius:12px;padding:15px 16px;display:flex;flex-direction:column;gap:11px">
+            <!-- ⚠ REPLIÉ dès que la passation est enregistrée (07/09) : « j'ai choisi
+                 lecture UNICEF, arabe, donc ce bloc doit disparaître logiquement ». Une fois
+                 le geste fait il n'y a plus rien à choisir, et deux listes + un paragraphe
+                 d'explication en travers de l'écran ne servent qu'à encombrer. Il ne reste
+                 que le bouton de dépli, les tests enregistrés et les trois actions. -->
+            <sc-if value="{{ panneauOuvert }}" hint-placeholder-val="{{ true }}">
             <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:13px;color:#1d4e89">UN AUTRE TEST A ÉTÉ DONNÉ</div>
+            </sc-if>
+            <sc-if value="{{ panneauOuvert }}" hint-placeholder-val="{{ true }}">
             <div style="font-size:12.5px;color:#6b7a8d;line-height:1.55">{{ motAutreTest }}</div>
+            </sc-if>
+            <sc-if value="{{ panneauOuvert }}" hint-placeholder-val="{{ true }}">
             <label style="display:flex;flex-direction:column;gap:5px;font-size:12px;color:#6b7a8d">
               <span>Lequel ?</span>
               <select value="{{ autreTest }}" onChange="{{ onAutreTest }}" style="font-family:Verdana,sans-serif;font-size:13.5px;padding:10px 11px;border:1.5px solid #c3d2e2;border-radius:9px;background:#fff">
@@ -230,6 +254,8 @@
                 </sc-for>
               </select>
             </label>
+            </sc-if>
+            <sc-if value="{{ panneauOuvert }}" hint-placeholder-val="{{ true }}">
             <label style="display:flex;flex-direction:column;gap:5px;font-size:12px;color:#6b7a8d">
               <span>Dans quelle langue ?</span>
               <select value="{{ autreLangue }}" onChange="{{ onAutreLangue }}" style="font-family:Verdana,sans-serif;font-size:13.5px;padding:10px 11px;border:1.5px solid #c3d2e2;border-radius:9px;background:#fff">
@@ -238,24 +264,41 @@
                 </sc-for>
               </select>
             </label>
-            <button onClick="{{ onAjouterAutre }}" style="align-self:flex-start;background:{{ fondAjouter }};color:{{ encreAjouter }};font-family:'Archivo Black',Verdana,sans-serif;font-size:12.5px;border:1.5px solid #1d4e89;border-radius:10px;padding:11px 15px;cursor:pointer">ENREGISTRER CETTE PASSATION</button>
-            <sc-if value="{{ autreFait }}" hint-placeholder-val="{{ false }}">
-              <div style="border:2px solid #2a9d6e;background:#fff;border-radius:11px;padding:13px 14px;display:flex;flex-direction:column;gap:10px">
-                <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:13px;line-height:1.3">{{ autreFait.nom }}</div>
+            </sc-if>
+            <sc-if value="{{ panneauOuvert }}" hint-placeholder-val="{{ true }}">
+              <button onClick="{{ onAjouterAutre }}" style="align-self:flex-start;background:{{ fondAjouter }};color:{{ encreAjouter }};font-family:'Archivo Black',Verdana,sans-serif;font-size:12.5px;border:2px solid {{ bordAjouter }};border-radius:10px;padding:11px 15px;cursor:{{ curseurAjouter }}">{{ texteAjouter }}</button>
+            </sc-if>
+            <!-- ⚠ UNE CARTE PAR PASSATION, comme dans les blocs (07/09) : « je veux voir
+                 un bloc comme pour Romain Gary ou maths avec le test sélectionné ». Le nom
+                 du test en titre, la matière / la langue / la date en dessous, puis ses
+                 trois actions. Pas de « ✓ DONNÉ » sur la carte : le cadre bleu nuit et le
+                 « donné le… » le disent déjà. -->
+            <sc-for list="{{ autresCartes }}" as="c" hint-placeholder-count="1">
+              <div style="border:2px solid #1d4e89;background:#fff;border-radius:11px;padding:13px 14px;display:flex;flex-direction:column;gap:9px">
+                <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:13.5px;color:#14385f;line-height:1.3">{{ c.nom }}</div>
+                <div style="font-size:12px;color:#5c6b7e">{{ c.sous }}</div>
                 <div style="display:flex;gap:11px;align-items:center;flex-wrap:wrap">
-                  <div style="background:#1e7a53;color:#fff;font-family:'Archivo Black',Verdana,sans-serif;font-size:12.5px;border-radius:9px;padding:9px 14px">✓ DONNÉ</div>
-                  <button onClick="{{ autreFait.onRetirer }}" style="border:1.5px solid #e2c3c8;background:#fff;color:#b3283c;border-radius:9px;padding:9px 13px;font-size:12.5px;font-weight:bold;cursor:pointer" style-hover="border-color:#b3283c">Retirer</button>
-                  <sc-if value="{{ autreFait.pdf }}" hint-placeholder-val="{{ false }}">
-                    <button onClick="{{ autreFait.onPdf }}" style="display:flex;gap:7px;align-items:center;border:1.5px solid #c3d2e2;background:#fff;color:#1d4e89;border-radius:9px;padding:9px 13px;font-size:12.5px;font-weight:bold;cursor:pointer" style-hover="border-color:#1d4e89">
+                  <button onClick="{{ c.onRetirer }}" style="border:1.5px solid #e2c3c8;background:#fff;color:#b3283c;border-radius:9px;padding:9px 13px;font-size:12.5px;font-weight:bold;cursor:pointer" style-hover="border-color:#b3283c">Retirer</button>
+                  <sc-if value="{{ c.pdf }}" hint-placeholder-val="{{ false }}">
+                    <button onClick="{{ c.onPdf }}" style="display:flex;gap:7px;align-items:center;border:1.5px solid #c3d2e2;background:#fff;color:#1d4e89;border-radius:9px;padding:9px 13px;font-size:12.5px;font-weight:bold;cursor:pointer" style-hover="border-color:#1d4e89">
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1d4e89" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"></path><path d="M7 12l5 5 5-5"></path><path d="M4 21h16"></path></svg>
-                      <span>{{ autreFait.pdfNom }}</span>
+                      <span>{{ c.pdfNom }}</span>
                     </button>
                   </sc-if>
-                  <sc-if value="{{ autreFait.corrige }}" hint-placeholder-val="{{ false }}">
-                    <button onClick="{{ autreFait.onCorrige }}" style="border:0;background:none;font-size:12.5px;font-weight:bold;color:#1d4e89;text-decoration:underline;cursor:pointer;padding:0">Le corrigé</button>
+                  <sc-if value="{{ c.corrige }}" hint-placeholder-val="{{ false }}">
+                    <button onClick="{{ c.onCorrige }}" style="border:0;background:none;font-size:12.5px;font-weight:bold;color:#1d4e89;text-decoration:underline;cursor:pointer;padding:0">Le corrigé</button>
                   </sc-if>
                 </div>
               </div>
+            </sc-for>
+            <!-- Le bouton de dépli vient APRÈS les cartes (07/09 : « je veux juste une
+                 inversion, fin de 4e et en dessous un autre test ») : on lit d'abord ce
+                 qui est enregistré, puis on ajoute. -->
+            <sc-if value="{{ panneauReplie }}" hint-placeholder-val="{{ false }}">
+              <button onClick="{{ onDeplier }}" style="display:flex;gap:8px;align-items:center;align-self:flex-start;border:2px solid #c3d2e2;background:#fff;color:#1d4e89;font-family:'Archivo Black',Verdana,sans-serif;font-size:12.5px;border-radius:10px;padding:11px 15px;cursor:pointer" style-hover="border-color:#1d4e89">
+                <span style="font-size:16px;line-height:1">+</span>
+                <span>UN AUTRE TEST A ÉTÉ DONNÉ</span>
+              </button>
             </sc-if>
           </div>
           <div style="font-size:12.5px;color:#6b7a8d;border-top:1px solid #e6ecf3;padding-top:10px;line-height:1.6">{{ motLangues }}</div>
@@ -341,6 +384,21 @@
               <div style="display:flex;flex-direction:column;gap:4px">
                 <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:16px">{{ p.titre }}</div>
                 <div style="font-size:12.5px;color:#6b7a8d">{{ p.sous }}</div>
+                <!-- ⚠ LA LANGUE DE LA PASSATION SE CHANGE ICI (07/09 : « je dois pouvoir
+                     dire dans l'appli que je lui ai donné le test en anglais ! »). Le
+                     panneau « un autre test » avait sa liste, mais un test proposé par le
+                     chemin n'en avait AUCUNE : la langue restait celle de l'élève, et
+                     l'anglais d'Ibrahim était introuvable. -->
+                <sc-if value="{{ p.langues }}" hint-placeholder-val="{{ false }}">
+                  <label style="display:flex;gap:7px;align-items:center;font-size:12px;color:#6b7a8d">
+                    <span>Donné en</span>
+                    <select value="{{ p.langue }}" onChange="{{ p.onLangue }}" style="font-family:Verdana,sans-serif;font-size:12.5px;padding:5px 8px;border:1.5px solid #c3d2e2;border-radius:8px;background:#fff">
+                      <sc-for list="{{ p.langues }}" as="l" hint-placeholder-count="3">
+                        <option value="{{ l.nom }}">{{ l.nom }}</option>
+                      </sc-for>
+                    </select>
+                  </label>
+                </sc-if>
               </div>
               <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
                 <sc-if value="{{ p.pct }}" hint-placeholder-val="{{ false }}">
@@ -403,7 +461,12 @@
                         </sc-if>
                       </div>
                     </sc-if>
-                    <div style="display:flex;gap:6px;flex-wrap:wrap">
+                    <!-- ⚠ UNE PROPOSITION PAR LIGNE, COMME SUR LA FEUILLE (07/09 : « les
+                         placer comme dans le test, 6 lignes par ex pour la question 1, ça
+                         évite toute confusion »). En rangée, les six indices de Buck se
+                         répartissaient sur deux ou trois lignes selon la largeur : plus rien
+                         ne correspondait à l'ordre du papier qu'elle a sous les yeux. -->
+                    <div style="display:flex;gap:6px;flex-wrap:wrap;flex-direction:{{ l.sens }}">
                       <sc-for list="{{ l.boutons }}" as="b" hint-placeholder-count="3">
                         <button onClick="{{ b.onClick }}" style="border:2px solid {{ b.bord }};background:{{ b.fond }};color:{{ b.texte }};border-radius:8px;padding:7px 11px;font-size:12px;font-weight:bold;cursor:pointer;display:flex;flex-direction:column;gap:2px;align-items:flex-start;text-align:left">
                           <span>{{ b.nom }}</span>
@@ -431,8 +494,8 @@
             </sc-if>
             <div style="border-top:1px solid #e6ecf3;padding-top:12px;display:flex;flex-direction:column;gap:7px">
               <div style="font-size:12.5px;font-weight:bold;color:#48586b">Ce que tu as observé pendant la passation</div>
-              <textarea value="{{ p.observations }}" onChange="{{ p.onObserver }}" rows="3" placeholder="Ex. : elle connaît moyennement ses tables de multiplication, difficulté avec la table de 5." style="border:1.5px solid #dde4ec;border-radius:9px;padding:10px 12px;font-size:12.5px;font-family:inherit;line-height:1.5;resize:vertical"></textarea>
-              <div style="font-size:11px;color:#8b98a8">Ces lignes rejoignent la fiche, à l'étape 4, sous les constats des exercices.</div>
+              <textarea value="{{ p.observations }}" onChange="{{ p.onObserver }}" rows="3" placeholder="Ce que les notes ne disent pas : sa façon de travailler, ce qu'elle a demandé, ce qui l'a bloquée." style="border:1.5px solid #dde4ec;border-radius:9px;padding:10px 12px;font-size:12.5px;font-family:inherit;line-height:1.5;resize:vertical"></textarea>
+              <div style="font-size:11px;color:#8b98a8">Ces lignes restent ici, pour toi. Elles ne partent pas sur la fiche.</div>
             </div>
             <sc-if value="{{ p.avertRtl }}" hint-placeholder-val="{{ false }}">
               <div style="border:1.5px solid #b3283c;background:#fbe3e6;border-radius:10px;padding:11px 14px;font-size:12.5px;color:#7d1b28;line-height:1.55">{{ p.avertRtl }}</div>
@@ -540,8 +603,39 @@
                   </sc-for>
                 </select>
               </sc-if>
+              <!-- Grille CASNAV : les phrases sont rangées en trois bandes de couleur
+                   (débutant / en cours / autonome) et chacune porte son niveau. La
+                   choisir renseigne la case ET le niveau. -->
+              <sc-if value="{{ s.estCasnav }}" hint-placeholder-val="{{ false }}">
+                <select value="{{ s.valeur }}" onChange="{{ s.onChange }}" style="font-family:Verdana,sans-serif;font-size:13px;padding:9px 10px;border:1.5px solid #c3d2e2;border-radius:8px;background:#fbfcfe;max-width:100%">
+                  <option value="">— choisir une formulation —</option>
+                  <sc-for list="{{ s.groupes }}" as="g" hint-placeholder-count="3">
+                    <optgroup label="{{ g.label }}">
+                      <sc-for list="{{ g.options }}" as="o" hint-placeholder-count="2">
+                        <option value="{{ o.valeur }}" style="color:{{ o.encre }}">{{ o.texte }}</option>
+                      </sc-for>
+                    </optgroup>
+                  </sc-for>
+                </select>
+              </sc-if>
+              <sc-if value="{{ s.niveau }}" hint-placeholder-val="{{ false }}">
+                <div style="font-size:12px;font-weight:bold;color:{{ s.niveauEncre }}">{{ s.niveau }}</div>
+              </sc-if>
               <sc-if value="{{ s.estTexte }}" hint-placeholder-val="{{ false }}">
-                <textarea value="{{ s.valeur }}" onChange="{{ s.onChange }}" ref="{{ s.ref }}" data-auto="1" rows="{{ s.lignes }}" style="font-family:Verdana,sans-serif;font-size:13.5px;padding:9px 10px;border:1.5px solid #c3d2e2;border-radius:8px;background:#fbfcfe;resize:vertical;line-height:1.5"></textarea>
+                <textarea value="{{ s.valeur }}" onChange="{{ s.onChange }}" ref="{{ s.ref }}" data-auto="1" rows="{{ s.lignes }}" style="font-family:Verdana,sans-serif;font-size:13.5px;padding:9px 10px;border:1.5px solid {{ s.bord }};border-radius:8px;background:#fbfcfe;resize:vertical;line-height:1.5"></textarea>
+              </sc-if>
+              <!-- La proposition se lit ici, sous la case, sans rien effacer. Le bouton
+                   l'ajoute EN DESSOUS du texte existant. -->
+              <sc-if value="{{ s.proposition }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;flex-direction:column;gap:4px;border-left:3px solid #1d4e89;padding:2px 0 2px 8px">
+                  <div style="font-size:11px;color:#1d4e89;font-weight:bold">Proposition — elle ne s'écrit pas toute seule</div>
+                  <div style="font-size:11.5px;color:#48586b;line-height:1.45;white-space:pre-line">{{ s.proposition }}</div>
+                  <button onClick="{{ s.onAjouter }}" style="align-self:flex-start;border:1.5px solid #1d4e89;background:#fff;color:#1d4e89;border-radius:7px;padding:4px 10px;font-size:11.5px;font-weight:bold;cursor:pointer;font-family:Verdana,sans-serif">Ajouter sous mon texte</button>
+                </div>
+              </sc-if>
+              <!-- La case du PDF a une hauteur fixe : ce qui déborde est perdu. -->
+              <sc-if value="{{ s.limite }}" hint-placeholder-val="{{ false }}">
+                <div style="font-size:11.5px;font-weight:bold;color:{{ s.limiteEncre }}">{{ s.limite }}</div>
               </sc-if>
               <sc-if value="{{ s.fautes }}" hint-placeholder-val="{{ false }}">
                 <div style="display:flex;flex-direction:column;gap:6px;background:#fdf2f4;border:1.5px solid #eecdd3;border-radius:9px;padding:9px 11px">
@@ -889,8 +983,17 @@ class Component extends DCLogic {
   /* La langue de PASSATION. Un test qui n'existe qu'en français a été passé en français,
      quelle que soit la langue de scolarisation de l'élève : la fiche écrivait « passé en
      bengali » pour le test Lyon +16, qui n'existe pas en bengali (03/09). */
+  /* ⚠ UN TEST NON TRADUIT PEUT QUAND MÊME AVOIR ÉTÉ DONNÉ DANS UNE AUTRE LANGUE (07/09 :
+     « en fait, il a fait Romain Gary en anglais »). Le garde-fou du 03/09 forçait
+     « français » dès que le test n'existe pas en plusieurs langues — il empêchait bien
+     l'absurdité d'un test Lyon « passé en bengali », mais il effaçait aussi une passation
+     réelle : c'est elle qui traduit, et l'appli n'a pas à le lui interdire.
+     Le choix DÉLIBÉRÉ est donc conservé (`pass.traduite`), et lui seul : une langue restée
+     dans un dossier sans ce drapeau retombe sur « français ». */
   languePassation(test, pass) {
-    if (test && test.multilingue === false) return 'français';
+    if (test && test.multilingue === false) {
+      return (pass && pass.traduite && pass.langue) ? pass.langue : 'français';
+    }
     return (pass && pass.langue) || '';
   }
 
@@ -1141,13 +1244,44 @@ class Component extends DCLogic {
       const phrase = CO.constat(exo, (pass.reponses || {})[cle], (pass.scores || {})[cle]);
       if (phrase) out.push(phrase);
     }
-    (pass.observations || '').split('\n').map(x => x.trim()).filter(Boolean).forEach(x => out.push(x));
+    /* ⚠ LES OBSERVATIONS NE PARTENT PLUS DANS LA FICHE (07/09). Elles sont écrites POUR
+       ELLE, au fil de la correction — « il connaît les deux titres mais les a inversés »,
+       « écriture cursive lisible » — et font trois à six lignes. Versées dans une case qui
+       n'en tient que quatre, elles chassaient le bilan du test et débordaient à
+       l'impression. Elles restent visibles sur la carte du test, à leur place. */
     /* Deux exercices peuvent aboutir au même constat — « ne sait pas poser » vaut pour
        l'addition comme pour la soustraction : la phrase ne s'écrit qu'une fois. */
     return out.filter((x, i) => out.indexOf(x) === i);
   }
 
   /* Ce que la saisie ne dit pas : ce qu'elle a vu pendant la passation. */
+  /* La langue d'une passation déjà enregistrée (07/09) : le test de Buck donné en anglais
+     faute de bengali. On ne touche à rien d'autre — notes, réponses et observations
+     restent. */
+  majPassation(test, modif) {
+    const d = this.dossier(); if (!d) return;
+    this.majDossier({ tests: (d.tests || []).map(t =>
+      t.testId === test.id ? Object.assign({}, t, modif) : t) });
+  }
+
+  /* ⚠ Une proposition PAR LIGNE dès qu'elles sont longues ou nombreuses (07/09) : « les
+     placer comme dans le test, 6 lignes par ex pour la question 1, ça évite toute
+     confusion ». Sur le papier, les propositions sont l'une sous l'autre ; en rangée, les
+     six indices de Buck se répartissaient sur deux ou trois lignes selon la largeur de
+     l'écran, et l'ordre ne correspondait plus à sa feuille. Les listes courtes de mots
+     (« aimant · doux · cruel… ») restent en rangée : les mettre en colonne allongerait
+     l'écran pour rien. */
+  sensDesChoix(exo) {
+    const o = exo.options || [];
+    /* Un libellé BILINGUE fait deux lignes à lui seul : dès qu'un exercice porte sa version
+       étrangère, ses propositions passent en colonne. L'exercice 6 de Buck restait en
+       rangée — quatre propositions dont la plus longue faisait 27 signes, juste sous mes
+       seuils — alors que sur la feuille ce sont quatre puces l'une sous l'autre. */
+    if (exo.voOptions && exo.voOptions.length) return 'column';
+    const long = o.some(x => String(Array.isArray(x) ? x[0] : x).length > 20);
+    return (long || o.length >= 4) ? 'column' : 'row';
+  }
+
   observer(testId, texte) {
     const d = this.dossier(); if (!d) return;
     this.majDossier({ tests: (d.tests || []).map(t =>
@@ -1189,11 +1323,29 @@ class Component extends DCLogic {
     });
     const lignes = [];
     if (exo.type === 'ouvert') {
+      /* ⚠ L'ÉCHELLE DE MAÎTRISE, PAS « JUSTE / FAUX / RIEN » (07/09, sa règle générale) :
+         « d'une manière générale, ça va pas juste faux rien. Je préfère NE, insuffisant,
+         fragile, bonne maîtrise, très bonne maîtrise. »
+         Une réponse rédigée n'est presque jamais juste ou fausse — c'est le sens même du
+         test : on juge une maîtrise. Ce sont d'ailleurs les quatre codes officiels de
+         Canopé (MI · MF · MS · TBM), déjà utilisés partout ailleurs dans l'appli : les
+         boutons les écrivent en clair, le dossier garde les codes.
+         « NE » = non évalué, et c'est un état à part : ni un échec, ni une réussite —
+         elle n'a pas posé la question, ou l'élève n'y est pas arrivé. */
+      /* « Très insuffisant » et non « Insuffisant » (07/09, sa correction) : le mot est
+         celui de l'échelle Canopé (MI = maîtrise très insuffisante) et il marque l'écart
+         avec « fragile », qui est déjà un manque. */
+      const ECHELLE = [['', 'NE'], ['MI', 'Très insuffisant'], ['MF', 'Fragile'],
+        ['MS', 'Bonne maîtrise'], ['TBM', 'Très bonne maîtrise']];
       exo.sous.forEach((q, i) => {
-        lignes.push({ libelle: q.libelle, boutons: ['juste', 'faux', 'rien'].map(v =>
-          bt(v, cur[i] === v, () => {
+        /* Les passations saisies avant le 07/09 portent encore juste / faux / rien : on
+           les relit dans la nouvelle échelle plutôt que de les perdre. */
+        const ancien = { juste: 'TBM', faux: 'MI', rien: '' };
+        const val = ancien[cur[i]] != null ? ancien[cur[i]] : cur[i];
+        lignes.push({ libelle: q.libelle, boutons: ECHELLE.map(([v, nom]) =>
+          bt(nom, (val || '') === v, () => {
             const suite = cur.slice();
-            suite[i] = cur[i] === v ? '' : v;
+            suite[i] = (val || '') === v ? '' : v;
             this.repondre(test.id, exoId, exo, suite);
           })) });
       });
@@ -1215,11 +1367,11 @@ class Component extends DCLogic {
         ] });
       });
     } else if (exo.type === 'unique') {
-      lignes.push({ libelle: '', boutons: exo.options.map((o, i) =>
+      lignes.push({ sens: this.sensDesChoix(exo), libelle: '', boutons: exo.options.map((o, i) =>
         bt(o, cur === o, () => this.repondre(test.id, exoId, exo, cur === o ? '' : o),
           exo.voOptions && exo.voOptions[i])) });
     } else if (exo.type === 'multi') {
-      lignes.push({ libelle: '', boutons: exo.options.map((o, i) =>
+      lignes.push({ sens: this.sensDesChoix(exo), libelle: '', boutons: exo.options.map((o, i) =>
         bt(o, cur.indexOf(o) >= 0, () => {
           const suite = cur.indexOf(o) >= 0 ? cur.filter(x => x !== o) : cur.concat([o]);
           this.repondre(test.id, exoId, exo, suite);
@@ -1346,11 +1498,150 @@ class Component extends DCLogic {
   propositionsFiche(d) {
     const T = window.TESTS, D = window.DOSSIERS;
     const out = {}, maths = [], fr = [];
+    /* Les conclusions des tests de compréhension en français : elles rejoignent la case
+       « compréhension écrite », jamais « décodage-encodage » (08/09). */
+    let compr = null;
     /* Un test retiré ne compte plus dans la fiche, même si ses notes sont conservées. */
     const passes = (d.tests || []).filter(t => this.estDonneDans(t));
     /* Lecture en langue d'origine : le niveau atteint, pas une liste de pourcentages. */
     const n = D.niveauAtteint(passes, T.TESTS);
     if (n && n.phrase) out.lectureLangueOrigine = n.phrase;
+    /* ⚠ CETTE CASE PORTE DEUX CHOSES ET TIENT EN TROIS LIGNES (07/09). Ses mots : « je
+       dois mettre ici les résultats du test de français si le français n'est pas la langue
+       de scolarisation, j'ai aucun autre endroit sinon. Donc plusieurs rubriques ici, mais
+       j'ai pas beaucoup de place, il faudra synthétiser. Par ex pour Sana, dire qu'un test
+       en arabe a été donné car en français trop difficile. »
+       On écrit donc l'ENCHAÎNEMENT, pas deux bilans côte à côte : le test français, sa
+       difficulté, puis le test passé dans la langue de l'élève et son résultat. Une phrase
+       chacun, jamais de pourcentage par domaine — la place manque, et la case du dessous
+       (« Décodage-encodage ») porte déjà le détail du français.
+       Le seuil de 50 % sépare « trop difficile » de « réussi » : c'est celui du bilan, pas
+       une invention d'ici. Entre les deux, on n'affirme rien de causal. */
+    const lectures = passes.map(p => {
+      const test = T.TESTS.find(x => x.id === p.testId);
+      if (!test || (test.matiere !== 'lecture' && test.matiere !== 'francais')) return null;
+      const b = D.bilan(test, p.scores);
+      /* Le titre porte déjà sa propre parenthèse (« fin de 4e (UNICEF) ») : la remettre
+         entre parenthèses donnait « (fin de 4e (UNICEF)) ». On l'écrit donc à plat. */
+      const brut = test.titre.includes('—') ? test.titre.replace(/^[^—]*—\s*/, '') : test.titre;
+      return { test, pass: p, b, langue: this.languePassation(test, p) || 'français',
+        court: brut.replace(/\s*\(([^)]*)\)\s*$/, ' · $1'),
+        /* ⚠ NOTÉ ou NON NOTÉ, c'est toute la question. `bilan` renvoie 0 % pour un test
+           à peine entamé : sur Gary, 1 exercice saisi sur 20 donnait « s'est révélé trop
+           difficile : 0 % de réussite » — un échec AFFIRMÉ sur un test qu'elle venait
+           tout juste de commencer. `conclusion` ne tombe que quand la saisie est finie :
+           c'est elle qui autorise à conclure, jamais le pourcentage seul. Le générateur
+           de maths posait déjà ce garde-fou dans la même fonction. */
+        conclu: !!b.conclusion };
+    }).filter(Boolean);
+    const enFrancais = lectures.filter(x => /fran/i.test(x.langue));
+    const enLangue = lectures.filter(x => !/fran/i.test(x.langue));
+    if (enLangue.length) {
+      const phrases = [];
+      const f = enFrancais[enFrancais.length - 1];
+      const a = enLangue[enLangue.length - 1];
+      /* Le point final : les conclusions en portent déjà un — « Niveau fin de CM1
+         atteint.. » sortait sur le dossier de Leila. */
+      /* ⚠ `bilan.conclusion` est une PHRASE AUTONOME (« Niveau fin de 5e non atteint. ») :
+         elle se met après un point, jamais après un deux-points — sinon la fiche porte
+         « … (Buck) : Niveau fin de 5e non atteint. », majuscule au milieu de la phrase. */
+      const fin = (t) => /[.!?]$/.test(String(t).trim()) ? String(t).trim() : String(t).trim() + '.';
+      /* ⚠ « TROP DIFFICILE » EST SON JUGEMENT, PAS UN CALCUL (07/09). Le déduire d'un
+         pourcentage était impossible : un test abandonné parce qu'il était trop dur est
+         précisément celui qui ne sera JAMAIS noté en entier, donc `conclusion` reste nulle
+         et la phrase causale qu'elle demandait ne pouvait pas sortir. C'est maintenant la
+         petite liste « Le test en français était… » de l'étape ④ qui l'autorise.
+         Et pas de pourcentage dans cette case : elle a réécrit l'appréciation de maths à
+         la main pour en retirer « 62 % de réussite » — même fiche, mêmes lecteurs. */
+      const juge = String((d.synthese || {}).francaisTropDifficile || '');
+      /* ⚠ LA LANGUE DU TEST N'EST PAS TOUJOURS CELLE DE L'ÉLÈVE (07/09, le cas d'Ibrahim :
+         « j'ai donné Buck en anglais car j'avais pas de bengali et il comprend l'anglais,
+         mais je peux pas l'écrire »). Canopé ne traduit pas le bengali : elle a donné le
+         livret dans une LANGUE TIERCE que l'élève comprend. Sans cette phrase, la fiche
+         laissait croire que le test avait été passé dans sa langue de scolarisation — et le
+         résultat s'y lisait comme un niveau acquis « dans sa langue ».
+         On le dit donc en clair, avec la raison : c'est une information que le CASNAV doit
+         avoir pour interpréter le résultat. */
+      /* ⚠ LE CHAMP DES LANGUES EN CONTIENT PLUSIEURS (07/09) : « Français\nArabe » pour
+         Sana, « Le Finlandais et l'Anglais » pour Matti. Comparer la chaîne ENTIÈRE faisait
+         conclure à une langue tierce pour tout élève qui en déclare deux — et la fiche de
+         Sana annonçait « le livret Canopé n'existant pas en français\narabe », alors que
+         c'est précisément le livret arabe qu'elle a utilisé. Une contre-vérité sur un
+         document lu par le CASNAV.
+         On découpe donc le champ (sauts de ligne, virgules, « et », points-virgules), on
+         retire les articles, et la langue tierce n'est retenue que si la passation ne
+         correspond à AUCUNE des langues déclarées. Et on n'écrit JAMAIS le champ brut dans
+         une phrase : seulement une langue normalisée. */
+      const siennes = String((d.fiche || {}).langueMaternelle || d.langueScolarisation
+        || d.langue || '')
+        .split(/[\n,;/]|\bet\b|\bou\b/i)
+        .map(x => x.replace(/^\s*(l'|le |la |les )/i, '').trim())
+        .filter(Boolean);
+      /* Comparaison tolérante : sa fiche porte « Benghali », la liste « Bengali ». */
+      const noyau = (x) => String(x || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase().replace(/[^a-z]/g, '').replace(/h/g, '').slice(0, 6);
+      const elle = /^f/i.test(String((d.synthese || {}).sexe || '')) || (d.fiche || {}).sexeF === true;
+      const tierce = siennes.length && a
+        && !siennes.some(l => noyau(l) === noyau(a.langue));
+      /* Celle qu'on nomme dans la phrase : la première déclarée qui n'est pas le français
+         — c'est sa langue de scolarisation. Jamais l'énumération entière. */
+      const sienne = (siennes.find(l => !/^fran/i.test(noyau(l))) || siennes[0] || '').trim();
+      if (tierce) {
+        /* La même information va AUSSI dans « Langues (autres que le français) » : cette
+           case-là est presque toujours vide, alors que la case de lecture porte souvent
+           déjà le texte de la fiche déposée — qui gagne, et à raison. Sans cela, sur le
+           dossier d'Ibrahim, la seule phrase de la fiche restait « La lecture en anglais
+           est fluide », sans dire pourquoi le test n'était pas en bengali. */
+        out.langues = 'Comprend ' + (/^[aeiouéè]/i.test(a.langue) ? "l'" : 'le ')
+          + a.langue.toLowerCase() + ' : le livret Canopé n\'existant pas en '
+          + sienne.toLowerCase() + ', le test de lecture a été donné dans cette langue.';
+        /* Phrase courte : la case ne tient que quatre lignes, et le détail par compétence
+           qui suit en prend déjà trois (07/09). « qu'il », pas « que il ». */
+        phrases.push('Livret indisponible en ' + sienne.toLowerCase()
+          + ' : test donné en ' + a.langue.toLowerCase()
+          + ', langue ' + (elle ? "qu'elle" : "qu'il") + ' comprend.');
+        if (f && /trop/i.test(juge)) phrases.unshift(
+          "Le test de compréhension de l'écrit en français (" + f.court + ") s'est révélé trop difficile.");
+        if (n && n.phrase) phrases.push(fin(n.phrase));
+        else if (a.conclu) phrases.push(fin(a.b.conclusion));
+        else phrases.push("Saisie en cours : la conclusion sera écrite une fois tous les exercices notés.");
+        /* ⚠ Dédoublonnage : deux tests du même niveau (le Gary anglais et le Gary français
+           sont tous deux « lycée ») faisaient écrire « Lit au niveau lycée. Lit au niveau
+           lycée. » (07/09). Une phrase ne se répète jamais dans une case de quatre lignes. */
+        /* Dédoublonnage PHRASE À PHRASE sur le texte final : deux entrées différentes
+           pouvaient contenir la même conclusion (« Lit au niveau lycée. »), qui ressortait
+           deux fois de suite dans une case de quatre lignes. */
+        out.lectureLangueOrigine = phrases.map(x => fin(String(x).trim())).join(' ')
+          .split(/(?<=\.)\s+/).map(x => x.trim()).filter(Boolean)
+          .filter((x, i, l) => l.indexOf(x) === i).join(' ');
+      } else if (f && /trop/i.test(juge)) {
+        phrases.push("Le test de compréhension de l'écrit en français (" + f.court
+          + ") s'est révélé trop difficile.");
+        phrases.push('Un test en ' + a.langue.toLowerCase() + ' a donc été donné : ' + a.court + '.');
+      } else if (f && f.conclu) {
+        phrases.push("Test de compréhension de l'écrit en français : " + f.court + '. '
+          + fin(f.b.conclusion));
+        phrases.push('Un test en ' + a.langue.toLowerCase() + ' a également été donné : ' + a.court + '.');
+      } else {
+        if (f) phrases.push("Un test de compréhension de l'écrit en français a été donné : "
+          + f.court + '.');
+        /* ⚠ PAS DEUX FOIS LE PALIER DANS LA MÊME LIGNE (08/09) : `a.court` vaut
+           « fin de 5e · Buck », et la phrase de niveau qui suit répète « fin de 5e ». On ne
+           garde donc ici que le NOM du texte — « Buck » —, le palier étant dit juste après. */
+        const aNom = String(a.court || '').split('·').pop().trim() || a.court;
+        phrases.push("Test de compréhension de l'écrit en " + a.langue.toLowerCase()
+          + ' (' + aNom + ').');
+      }
+      /* ⚠ LE RÉSULTAT VIENT DE `niveauAtteint`, JAMAIS DU DERNIER TEST DE LA LISTE. Il
+         synthétise TOUS les paliers passés (« Lit au niveau fin de CM1 — fin de CM2 non
+         atteint. ») : prendre `enLangue[dernier]`, c'était l'ordre de SAISIE, pas l'ordre
+         des niveaux — sur le dossier de Leila, l'échec au CM2 disparaissait de la fiche, et
+         selon l'ordre d'entrée c'est la réussite au CM1 qui aurait sauté. */
+      if (n && n.phrase) phrases.push(fin(n.phrase));
+      else if (a.conclu) phrases.push(fin(a.b.conclusion));
+      else phrases.push("Saisie en cours : la conclusion sera écrite une fois tous les exercices notés.");
+      out.lectureLangueOrigine = phrases.map(fin).join(' ');
+    }
     /* Les quatre cases « Mathématiques » de la fiche EANA, une par domaine. */
     const cases = { nombres: 'mathsNombres', donnees: 'mathsDonnees', grandeurs: 'mathsGrandeurs', geometrie: 'mathsGeometrie' };
     for (const p of passes) {
@@ -1394,12 +1685,20 @@ class Component extends DCLogic {
         /* `b.mot` et `b.conclusion` sont des PHRASES, pas des qualificatifs : on les
            met à la suite, jamais entre parenthèses. Et tant que la saisie n'est pas
            finie, le pourcentage ne s'annonce pas comme un résultat ferme. */
-        const langue = this.languePassation(test, p).toLowerCase();
-        maths.push(test.titre.replace(/^Mathématiques — /, 'Test de mathématiques ')
-          + (langue ? ', passé en ' + langue : '')
-          + (b.conclusion ? ' : ' + b.pct + ' % de réussite. ' + b.conclusion
-            : ' : ' + b.pct + ' % de réussite sur les exercices notés à ce jour, '
-              + 'la saisie n\'est pas terminée.'));
+        /* ⚠ NI POURCENTAGE NI LANGUE DE PASSATION dans cette phrase (07/09, elle a
+           réécrit la case à la main) : « Test de mathématiques plus de 16 ans (test de
+           Lyon). Palier conseillé : 2de BAC PRO. » La fiche est lue par le CASNAV et par
+           la famille — un « 62 % de réussite » se lit comme une note chiffrée, alors que
+           le test ne sert qu'à situer un palier d'orientation. Le nom de la source entre
+           parenthèses remplace « (orientation) », qui ne disait rien à personne.
+           Tant que la saisie n'est pas finie, on le dit en mots, sans chiffre. */
+        const source = /16 ans/.test(test.titre) ? ' (test de Lyon)' : '';
+        maths.push('Test de mathématiques '
+          + test.titre.replace(/^Mathématiques — /, '').replace(/\s*\(orientation\)\s*/, '')
+          + source + '.'
+          + (b.conclusion ? ' ' + b.conclusion
+            : ' Saisie en cours : l\'appréciation sera complète une fois tous les '
+              + 'exercices notés.'));
         if (phrases) {
           /* On ne dit QUE ce qu'il réussit : la liste des niveaux non atteints n'apprend
              rien (le palier conseillé le dit déjà) et se lit comme un jugement — elle a
@@ -1424,8 +1723,21 @@ class Component extends DCLogic {
             ? 'Domaine acquis : ' + dom.pct + ' % de réussite.'
             : 'Domaine non acquis : ' + dom.pct + ' % de réussite.';
         }
+        /* Les constats rédigés, exercice par exercice, prennent la suite plus bas et
+           remplacent ces phrases de pourcentage : c'est eux qu'on lit sur la fiche. */
       } else if (test.matiere === 'francais') {
-        fr.push((b.conclusion ? b.conclusion + ' ' : '') + (b.mot || ''));
+        /* ⚠ « DÉCODAGE-ENCODAGE » N'EST PAS LA CASE DES BILANS DE LECTURE (08/09 : « tu peux
+           pas écrire ça pour encodage décodage : Niveau fin de 5e atteint, 15 items acquis
+           sur 17 »). Cette case dit si l'élève sait déchiffrer et transcrire — lettres,
+           syllabes, combinatoire. Un test de COMPRÉHENSION (Les Trois Frères, B1, A2) n'y a
+           rien à faire : sa conclusion part en compréhension écrite, avec les autres.
+           Seule la feuille de décodage y reste. Et le décompte d'items (« 15 sur 17 : plus
+           de la moitié ») est un raisonnement interne : la fiche garde la conclusion, pas
+           l'arithmétique qui y mène. */
+        const phrase = b.conclusion || '';
+        if (!phrase) continue;
+        if (test.id === 'decodage-latin') fr.push(phrase);
+        else (compr = compr || []).push(phrase);
       }
     }
     /* Les tirets de la fiche : un constat rédigé par exercice saisi, puis ce qu'elle a
@@ -1439,25 +1751,31 @@ class Component extends DCLogic {
       const tirets = {}, notes = {};
       for (const p of passes) {
         const corrige = CO.pour(p.testId); if (!corrige) continue;
+        /* ⚠ UN TEST PASSÉ DANS UNE AUTRE LANGUE QUE LE FRANÇAIS VA DANS « LECTURE EN LANGUE
+           D'ORIGINE », TOUJOURS (07/09, sa règle : « ça a toujours été le cas »). Le Gary
+           anglais de Haralds remplissait « compréhension écrite » — la case du FRANÇAIS —
+           et ses constats s'y mélangeaient à ceux du test B1, réellement passé en français.
+           La rubrique de l'exercice ne suffit donc pas : c'est la LANGUE DE LA PASSATION qui
+           décide de la case. Vaut pour toutes les langues, pas seulement l'anglais. */
+        const enFrancais = /^(|français)$/i.test(
+          String(this.languePassation(T.TESTS.find(x => x.id === p.testId), p) || '').trim());
         for (const exo of corrige) {
           if (!exo.rubrique) continue;
           const cle = p.testId + '-' + exo.num;
           const note = (p.scores || {})[cle];
           const phrase = CO.constat(exo, (p.reponses || {})[cle], note);
           if (!phrase) continue;
-          (tirets[exo.rubrique] = tirets[exo.rubrique] || []).push(phrase);
-          (notes[exo.rubrique] = notes[exo.rubrique] || []).push({
+          const ou = enFrancais ? exo.rubrique : 'lectureLangueOrigine';
+          (tirets[ou] = tirets[ou] || []).push(phrase);
+          (notes[ou] = notes[ou] || []).push({
             court: (exo.constat && exo.constat.court) || '', note: note || '' });
         }
-        const obs = (p.observations || '').trim();
-        if (obs) {
-          const test = T.TESTS.find(x => x.id === p.testId);
-          const ou = (test && test.matiere === 'maths') ? 'mathsNombres' : 'lectureLangueOrigine';
-          obs.split('\n').filter(Boolean).forEach(l => {
-            (tirets[ou] = tirets[ou] || []).push(l.trim());
-            (notes[ou] = notes[ou] || []).push({ court: '', note: '', obs: l.trim() });
-          });
-        }
+        /* ⚠ LES OBSERVATIONS NE VONT PLUS DANS LA FICHE (07/09 : « ne reflète pas trop son
+           niveau, je trouve »). Écrites au fil de la correction, elles énumèrent surtout ce
+           qui a manqué — versées telles quelles dans la case, elles donnaient d'un élève à
+           12 items sur 16 le portrait d'un élève en échec, et faisaient 700 signes dans une
+           case qui en tient 400. Elles restent sur la carte du test, où elles servent : ce
+           sont ses notes de travail, pas une appréciation pour le CASNAV. */
       }
       /* Les tests notés à la grille d'orientation (Lyon +16) n'ont pas de corrigé saisi
          exercice par exercice : leurs exercices portent directement leur case de fiche
@@ -1487,11 +1805,34 @@ class Component extends DCLogic {
         const condensable = exos.length >= 1 && exos.every(x => x.court);
         let lignes;
         if (condensable) {
+          /* ⚠ LES TROIS ÉCHELLES, ET SANS LISTE EN DUR (07/09). Canopé (MI/MF/MS/TBM),
+             Lyon (--/-/+/++) et Créteil (---/--+/++-/+++). Les codes de Créteil manquaient :
+             les cases « Compréhension écrite » et « Expression écrite » de Haralds sortaient
+             VIDES alors que ses seize questions étaient notées — le même défaut qu'avec les
+             codes Lyon le 03/09, sur une échelle de plus.
+             D'où la règle par la FORME du code plutôt que par énumération : un signe positif
+             en tête, ou MS / TBM, vaut acquis ; un signe négatif vaut manqué. Une échelle
+             ajoutée demain n'exigera plus de retoucher ces deux lignes. */
+          const signe = (n) => {
+            const s = String(n || '').trim();
+            if (!s || s === 'NE') return 0;
+            if (s === 'MS' || s === 'TBM') return 1;
+            if (s === 'MF' || s === 'MI') return -1;
+            if (s.charAt(0) === '+') return 1;
+            if (s.charAt(0) === '-') return -1;
+            return 0;
+          };
+          const parSigne = (v) => uniq(exos.filter(x => signe(x.note) === v).map(x => x.court));
           const de = (vals) => uniq(exos.filter(x => vals.indexOf(x.note) >= 0).map(x => x.court));
-          /* Les deux échelles : Canopé (MI/MF/MS/TBM) ET Lyon (--/-/+/++). Sans les
-             codes Lyon, les quatre cases maths d'un élève de plus de 16 ans sortaient
-             VIDES sur le PDF, alors que le test était entièrement noté (03/09). */
-          const oui = de(['TBM', 'MS', '++', '+']), non = de(['MF', 'MI', '-', '--']);
+          const nonBrut = parSigne(-1);
+          /* ⚠ Une compétence ne peut pas être maîtrisée ET non maîtrisée (07/09). Depuis
+             que les libellés sont REGROUPÉS — « l'inférence » porte quatre questions de
+             Gary, « le prélèvement d'informations explicites » deux — la même compétence
+             peut être réussie ici et ratée là : la fiche affichait alors « Maîtrise
+             l'inférence. Ne maîtrise pas l'inférence. » Le doute compte comme un manque :
+             le brouillon ne doit jamais flatter. */
+          const oui = parSigne(1).filter(x => nonBrut.indexOf(x) < 0);
+          const non = nonBrut;
           /* ⚠ Ne JAMAIS écrire « et 6 autres points » : la fiche est lue par le CASNAV
              et par la famille, une compétence passée sous silence n'a aucun sens
              (03/09). Toutes sont nommées, séparées par des virgules et un « et »
@@ -1511,11 +1852,56 @@ class Component extends DCLogic {
         } else {
           lignes = uniq(tirets[cle].filter(x => obs.indexOf(x) < 0));
         }
-        out[cle] = lignes.concat(obs).map(x => '- ' + x).join('\n');
+        /* ⚠ La synthèse de « lecture en langue de scolarisation » n'est pas écrasée par
+           les observations (07/09) : dès qu'elle tapait une observation sur un test de
+           lecture, la case perdait l'enchaînement français → langue de l'élève qu'elle
+           venait de demander et ne gardait que ses tirets. On ajoute en dessous. */
+        const bloc = lignes.concat(obs).map(x => '- ' + x).join('\n');
+        out[cle] = (cle === 'lectureLangueOrigine' && out[cle]) ? out[cle] + '\n' + bloc : bloc;
       }
+    }
+    /* ⚠ DÉDOUBLONNAGE SUR LE TEXTE FINAL DE CHAQUE CASE (07/09, troisième tentative — les
+       deux précédentes agissaient trop tôt). « Lit au niveau lycée. » sortait deux fois :
+       la phrase venait du récit, la case était ensuite CONCATÉNÉE avec le bloc des
+       constats, et les découpages posés avant cette concaténation ne pouvaient rien voir.
+       On coupe donc en phrases ET en lignes, une fois tout assemblé. */
+    for (const cle in out) {
+      if (typeof out[cle] !== 'string') continue;
+      const vues = {};
+      out[cle] = out[cle].split('\n').map((ligne) => ligne.split(/(?<=\.)\s+/)
+        .map((x) => x.trim()).filter(Boolean)
+        .filter((x) => { const k = x.toLowerCase(); if (vues[k]) return false; vues[k] = 1; return true; })
+        .join(' ')).filter(Boolean).join('\n');
     }
     if (maths.length) out.mathsGeneral = maths.join('\n');
     if (fr.length) out.lectureFrancais = fr.join('\n');
+    if (compr && compr.length) {
+      out.comprehensionEcrite = (out.comprehensionEcrite ? out.comprehensionEcrite + '\n' : '')
+        + compr.join('\n');
+    }
+    /* ⚠ PRÉREMPLISSAGE DES NIVEAUX DE LA GRILLE CASNAV (07/09 : « tu préremplis ce que tu
+       peux »). On ne devine RIEN : le niveau ne sort que d'un test réellement noté, et le
+       palier scolaire atteint se traduit dans l'échelle de la grille — c'est la
+       correspondance que porte la grille elle-même, cycle par cycle.
+       Un test à demi saisi ne donne pas de palier : la case reste vide plutôt que fausse.
+       Ces valeurs passent par `propositionsFiche`, donc elles s'affichent avec le point
+       bleu et s'effacent dès qu'elle écrit par-dessus. */
+    const bandeDuPalier = (texte) => {
+      const t = String(texte || '').toLowerCase();
+      if (/non lecteur|non scolaris/.test(t)) return '≤A1.1';
+      if (/\b(cp|ce1)\b/.test(t)) return 'A1.1';
+      if (/\b(ce2|cm1)\b/.test(t)) return 'A1';
+      if (/\b(cm2|6e|6ème|sixième)\b/.test(t)) return 'A2';
+      if (/\b(5e|4e|3e|5ème|4ème|3ème|collège)\b/.test(t)) return 'B1';
+      return '';
+    };
+    const nv = D.niveauAtteint(passes, T.TESTS);
+    if (nv) {
+      const b = bandeDuPalier(nv.palier || nv.niveau || nv.mot || nv.phrase);
+      /* La colonne « langue de scolarisation antérieure » de la grille : c'est exactement
+         ce que mesure le livret Canopé passé dans la langue de l'élève. */
+      if (b) out.lectureLangueOrigineNiveau = b;
+    }
     /* Par-dessus les chiffres, le brouillon rédigé dans ses tournures à elle : il ne
        remplace que les cases qu'il sait écrire, et jamais ce qu'elle a déjà saisi. */
     if (window.REDACTION) {
@@ -1557,7 +1943,60 @@ class Component extends DCLogic {
       }
       const b = window.REDACTION.brouillon(f, {
         niveau: n, finesse,
-        classe: (d.synthese || {}).precoClasse || (d.fiche || {}).classeEnvisagee
+        classe: (d.synthese || {}).precoClasse || (d.fiche || {}).classeEnvisagee,
+        /* ⚠ DEUX CLASSES, PAS UNE (07/09) : `classe` est celle qu'elle PRÉCONISE (pour la
+           dernière phrase), `classeActuelle` celle où l'élève est INSCRIT (pour le
+           paragraphe de profil). Confondues, la fiche écrivait « en adéquation avec les
+           attendus du niveau UPE2A Sas ». */
+        /* ⚠ `fiche.classe` est un OBJET ({nom, cle, cycle, ecart}), pas une chaîne : la
+           fiche sortait « les attendus du niveau [object Object] » (07/09). C'est
+           `d.classe` qui porte le nom lisible ; on ne prend `fiche.classe` qu'en repli, et
+           par son `.nom`. */
+        classeActuelle: d.classe || ((d.fiche || {}).classe || {}).nom || '',
+        /* ⚠ LE CONTRASTE LANGUE DE SCOLARISATION / FRANÇAIS (07/09 : « je veux que tu
+           résumes dans Remarques : Sana se débrouille en langue arabe, c'est plus
+           compliqué en français »). C'est l'information que le CASNAV cherche en premier
+           chez un élève scolarisé antérieurement : il sait lire, la marche à franchir est
+           le français. Les Remarques ne le disaient nulle part — il fallait recouper deux
+           rubriques éloignées de la fiche. */
+        langueScol: (enLangue.length
+          ? enLangue[enLangue.length - 1].langue : ''),
+        /* « Se débrouille » ne s'écrit que sur un test FINI et réussi : sinon la fiche
+           affirmerait un acquis sur une saisie en cours. */
+        /* ⚠ LA NÉGATION D'ABORD (07/09) : « fin de 5e NON atteint » contient « atteint »,
+           donc la recherche de « atteint|acquis|réussi » y voyait une réussite. Ibrahim,
+           dont le fin de 5e n'est pas acquis et qui est inscrit en Terminale, était décrit
+           comme « lit et comprend un texte de son niveau de classe » — faux deux fois. Tout
+           élève en échec passait pour un bon lecteur. Le veto se lit AVANT le reste. */
+        origineOk: (() => {
+          const a2 = enLangue[enLangue.length - 1];
+          if (!enLangue.length || !a2.conclu) return false;
+          const t = String((n && n.phrase) || a2.b.conclusion || '');
+          if (/\bnon\s+(atteint|acquis)|\bpresque\s+atteint|ne\s+maîtris|insuffisant/i.test(t)) return false;
+          return /atteint|acquis|réussi|maîtris/i.test(t);
+        })(),
+        francaisDur: /trop/i.test(String((d.synthese || {}).francaisTropDifficile || '')),
+        /* Le palier réellement atteint dans sa langue (« fin de CM2 », « fin de 4e ») :
+           c'est lui qui ferme la phrase « … acquis scolaires, qui sont conformes à une
+           scolarité de … ». Sans lui, on reste sur « conformes à sa classe d'âge ». */
+        palierOrigine: (n && (n.palier || n.niveau)) ? String(n.palier || n.niveau) : '',
+        /* ⚠ L'ÉTAT RÉEL DU FRANÇAIS, LU DANS SES PROPRES CASES (07/09 : « c'est n'importe
+           quoi ce que tu as écrit »). Sur Ibrahim, la fiche annonçait « a suivi une
+           scolarité conforme à sa classe d'âge » alors que trois cases plus haut elle
+           venait d'écrire « impossible pour le moment » en compréhension orale, en
+           compréhension écrite ET en production, et « maîtrise quelques lettres de
+           l'alphabet » en décodage. Le paragraphe de profil ne regardait que la liste
+           « niveau scolaire », jamais ce qu'elle avait observé.
+           Ce drapeau est donc un VETO tiré de ses observations : quand le français est
+           tout à construire, on le dit, au lieu d'une phrase qui laisse croire au
+           contraire. */
+        debutantFrancais: (() => {
+          const s = d.synthese || {};
+          const cases = ['comprehensionOrale', 'comprehensionEcrite', 'expressionEcrite',
+            'productionOrale', 'lectureFrancais'].map(k => String(s[k] || '').toLowerCase());
+          const muet = cases.filter(t => /impossible|non producteur|non lecteur|ne comprend pas|à apprendre|n'est pas maîtrisé/.test(t));
+          return muet.length >= 2;
+        })()
       });
       /* Le profil scolaire l'emporte sur la phrase chiffrée : pour un élève peu ou non
          scolarisé, « Le déchiffrage est laborieux » dit plus que le niveau atteint. */
@@ -1607,16 +2046,76 @@ class Component extends DCLogic {
       return;
     }
     this.setState({ refus: '', remplissage: true });
-    const valeurs = Object.assign({}, this.propositionsFiche(d), d.synthese || {});
+    /* ⚠ TOUT CE QUE PORTAIT LE PDF DÉPOSÉ EST RÉÉCRIT (07/09 : « tous les éléments qui s'y
+       trouvent tu les réécris »). La fiche lue passe donc en premier — y compris les
+       champs que l'étape ④ ne propose pas (psy EN, OEPRE, contacts, hébergement) : ils
+       ne sont pas de son ressort, mais ce que le CIO y a écrit ne doit pas disparaître à
+       l'impression. Le brouillon passe par-dessus, puis ses saisies, qui gagnent
+       toujours. */
+    /* ⚠ ET L'ORDRE EST CELUI DE L'ÉCRAN, au mot près : brouillon, PUIS fiche déposée, PUIS
+       ses saisies. Écrit dans l'autre sens, le brouillon repassait devant la fiche à
+       l'impression seulement — l'appli affichait le texte du CIO et imprimait le mien.
+       C'est la régression du 03/09, « exactement ce qu'elle a vu sur Compréhension orale »,
+       revenue par la porte du remplissage. Ce qui est à l'écran EST ce qui s'imprime. */
+    /* ⚠ ON NE RECOPIE QUE LES CHAMPS REMPLIS DE LA FICHE DÉPOSÉE (07/09 : « où se trouve
+       les maths ? Y'a rien !! »). La fiche lue porte ses 84 champs, la plupart VIDES —
+       en la superposant en bloc, ses cases vides écrasaient les propositions du brouillon,
+       et les quatre cases de maths partaient blanches alors que les vingt exercices étaient
+       notés et affichés à l'écran. Un vide n'est pas une valeur : il n'écrase rien. */
+    const fichePleine = {};
+    for (const k in (d.fiche || {})) {
+      const v = d.fiche[k];
+      if (v === '' || v == null || v === false) continue;
+      fichePleine[k] = v;
+    }
+    const valeurs = Object.assign({}, this.propositionsFiche(d), fichePleine, d.synthese || {});
     /* « sexe » sert aux accords du brouillon, pas au PDF : la fiche a deux cases. */
-    /* Relecture avant impression : ponctuation, majuscules, espaces. Le sens ne bouge pas. */
-    const valeursRelues = window.RELECTURE ? window.RELECTURE.tout(valeurs) : valeurs;
-    for (const k in valeursRelues) valeurs[k] = valeursRelues[k];
+    /* ⚠ LES COMMANDES SE TRADUISENT AVANT LA RELECTURE (07/09). La relectrice met une
+       majuscule et un point à toute valeur : « oui » devenait « Oui. », qui n'est égal ni
+       à « oui » ni à « non » — les deux cases restaient vides, et la Mission Locale était
+       activement DÉCOCHÉE alors qu'elle avait répondu oui. Rien ne pouvait le signaler :
+       une case accepte le booléen, donc l'écriture « réussit » avec la mauvaise valeur.
+       Ces clés sont des commandes, pas de la prose : on les convertit d'abord, et le test
+       tolère la casse et la ponctuation. */
+    const estOui = (v) => /^oui/i.test(String(v || '').trim());
+    const estNon = (v) => /^non/i.test(String(v || '').trim());
     if (valeurs.sexe) {
-      valeurs.sexeF = valeurs.sexe === 'Fille';
-      valeurs.sexeM = valeurs.sexe === 'Garçon';
+      valeurs.sexeF = /^fille/i.test(String(valeurs.sexe).trim());
+      valeurs.sexeM = /^gar/i.test(String(valeurs.sexe).trim());
       delete valeurs.sexe;
     }
+    /* Les cases à cocher du PDF ne prennent pas « oui » / « non » mais un booléen, et la
+       fiche en a DEUX par question. */
+    /* ⚠ Ces valeurs arrivent SOIT en « oui »/« non » (ses listes), SOIT en booléen (les
+       cases du PDF déposé, relues par EANA.lire). `estOui(true)` valait « false » : une
+       case cochée par le CIO se retrouvait DÉCOCHÉE à la réimpression, sans un mot dans
+       les refus — une case accepte le booléen. On traduit donc les deux formes. */
+    const vrai = (v) => v === true || estOui(v);
+    if (typeof valeurs.scolLangueMaternelle === 'string' && valeurs.scolLangueMaternelle) {
+      valeurs.scolLangueMaternelleOui = estOui(valeurs.scolLangueMaternelle);
+      valeurs.scolLangueMaternelleNon = estNon(valeurs.scolLangueMaternelle);
+      delete valeurs.scolLangueMaternelle;
+    }
+    if (valeurs.missionLocale != null) valeurs.missionLocale = vrai(valeurs.missionLocale);
+    /* Relecture avant impression : ponctuation, majuscules, espaces. Le sens ne bouge pas.
+       Elle ne voit plus que du texte : les booléens sont déjà posés. */
+    /* ⚠ Et elle ne touche pas non plus aux valeurs de LISTE DÉROULANTE : le PDF n'accepte
+       que ses propres libellés, au caractère près. « Anouck CARRE » relu en « Anouck
+       carre. » partirait en refus (07/09, même famille de bug que les cases à cocher). */
+    const LISTES = ['niveauScolaire', 'niveauFrancais', 'precoClasse', 'accompagnement',
+      'responsable', 'evaluePar'];
+    const valeursRelues = window.RELECTURE ? window.RELECTURE.tout(valeurs) : valeurs;
+    for (const k in valeursRelues) {
+      if (typeof valeurs[k] === 'boolean' || LISTES.indexOf(k) >= 0) continue;
+      valeurs[k] = valeursRelues[k];
+    }
+    /* La tranche d'âge est une des trois cases du haut : elle se déduit de la date de
+       naissance, jamais saisie à la main. */
+    const tr = window.EANA.tranche(window.EANA.age((d.fiche || {}).naissance || d.naissance));
+    if (tr) valeurs[tr] = true;
+    /* Les niveaux de la grille CASNAV et les maths en langue de scolarisation n'ont pas
+       de case dans ce PDF : ils servent à l'écran et au brouillon, pas au remplissage. */
+    for (const k in valeurs) if (/Niveau$/.test(k) || k === 'mathsLangueOrigine') delete valeurs[k];
     let r;
     try {
       r = await window.EANA.remplir(src, valeurs);
@@ -1770,6 +2269,17 @@ class Component extends DCLogic {
         boutonFond: estDonne ? '#2a9d6e' : '#fff',
         boutonEncre: estDonne ? '#fff' : '#1d4e89',
         boutonTexte: estDonne ? '✓ DONNÉ' : "JE L'AI DONNÉ",
+        /* ⚠ LA LANGUE SE CHOISIT LÀ OÙ ELLE MARQUE LE TEST DONNÉ (07/09 : « où ? »). Je
+           l'avais posée à l'étape ③ seulement, alors qu'elle enregistre la passation ici.
+           Elle n'apparaît qu'une fois le test donné — avant, il n'y a pas de passation à
+           qualifier — et jamais sur un test écrit seulement en français (garde-fou du
+           03/09 : le test Lyon stocké « en Arabe »). */
+        /* La liste des langues s'affiche même pour un test qui n'existe qu'en français :
+           c'est elle qui traduit à la main quand il n'y a pas de version officielle. */
+        langues: estDonne ? (T.LANGUES || []).map(l => ({ nom: l.nom })) : '',
+        langue: this.languePassation(t, (d && (d.tests || []).find(x => x.testId === t.id)) || null) || 'Français',
+        onLangue: (e) => this.majPassation(t, { langue: e.target.value,
+          traduite: t.multilingue === false && !/fran/i.test(e.target.value) }),
         onDonne: () => this.marquerDonne(t, true),
         onRetirer: () => this.marquerDonne(t, false)
       };
@@ -2119,11 +2629,132 @@ class Component extends DCLogic {
       .concat((T.LANGUES || []).filter(l => nomsFiche.indexOf(l.nom) < 0).map(l => ({ nom: l.nom })));
     vals.autreTest = this.state.autreTest || '';
     vals.autreLangue = this.state.autreLangue || (vals.languesChoix[0] || {}).nom || '';
-    vals.onAutreTest = (e) => this.setState({ autreTest: e.target.value });
+    /* ⚠ Choisir un test DÉJÀ enregistré replie aussitôt le panneau (07/09 : « je n'ai pas
+       le bouton je l'ai donné »). Elle voyait « ✓ DONNÉ » figé, sans comprendre pourquoi
+       le bouton refusait de s'appuyer : il n'y avait rien à enregistrer. Le repli montre
+       la carte du test et ses actions, ce qui répond à la vraie question — « où en est ce
+       test ? » — au lieu d'un bouton mort. */
+    vals.onAutreTest = (e) => {
+      const id = e.target.value;
+      const p = id && d ? (d.tests || []).find(x => x.testId === id) : null;
+      this.setState({ autreTest: id, autreOuvert: !(p && p.donne !== false) });
+    };
     vals.onAutreLangue = (e) => this.setState({ autreLangue: e.target.value });
-    vals.onAjouterAutre = () => this.ajouterAutreTest();
-    vals.fondAjouter = this.state.autreTest ? '#1d4e89' : '#fff';
-    vals.encreAjouter = this.state.autreTest ? '#fff' : '#1d4e89';
+    /* ⚠ UN SEUL BOUTON, comme partout ailleurs dans l'appli (sa demande du 07/09) :
+       « JE L'AI DONNÉ » qui devient « ✓ DONNÉ » vert. J'avais inventé ici un bouton bleu
+       « ENREGISTRER CETTE PASSATION » + une pastille verte d'état juste en dessous : deux
+       choses qui se lisaient comme la même action, et un état déguisé en bouton. Ne pas
+       réintroduire de bouton propre à ce panneau. */
+    const autreDonne = (() => {
+      const id = this.state.autreTest;
+      if (!id || !d) return false;
+      const p = (d.tests || []).find(x => x.testId === id);
+      return !!p && p.donne !== false;
+    })();
+    /* Trois états, et le vert est un ÉTAT, pas une action (règle du 03/09) : recliquer
+       « ✓ DONNÉ » ne retire rien — seul « Retirer » retire. Et sans test choisi le bouton
+       est gris et inerte : un bouton actif qui ne fait rien est un bouton cassé. */
+    vals.onAjouterAutre = () => {
+      if (!this.state.autreTest || autreDonne) return;
+      this.ajouterAutreTest();
+      /* Enregistré → le panneau se replie de lui-même : il n'y a plus rien à choisir. */
+      this.setState({ autreOuvert: false });
+    };
+    /* ⚠ REPLI DU PANNEAU (07/09) : « j'ai choisi lecture UNICEF, arabe, donc ce bloc doit
+       disparaître logiquement ». Replié, il n'affiche qu'un bouton de dépli, la ligne des
+       tests enregistrés et les trois actions. Sa règle du 05/09 (« mon choix doit rester à
+       l'écran après enregistrement ») est tenue autrement : ce n'est plus le contenu des
+       deux listes qui rassure, c'est « Déjà enregistrés » et les boutons du test. */
+    vals.panneauReplie = autreDonne && !this.state.autreOuvert;
+    vals.panneauOuvert = !vals.panneauReplie;
+    /* Déplier, c'est vouloir en enregistrer un AUTRE : on repart d'un choix vide. La
+       langue reste, c'est le même élève. */
+    vals.onDeplier = () => this.setState({ autreOuvert: true, autreTest: '' });
+    /* ⚠ LA COULEUR DU DONNÉ EST CELLE DU BLOC, pas un vert à part (07/09 : « je veux
+       ici JE L'AI DONNÉ qui devient donné comme pour les autres »). Les cartes de test
+       portent l'encre de leur bloc — bleu nuit en lecture, brun en maths — et ce panneau,
+       dont le titre est bleu, prenait un vert qu'on ne voyait nulle part ailleurs : le
+       même état se présentait sous trois teintes. Ne pas le repasser au vert. */
+    vals.texteAjouter = autreDonne ? '✓ DONNÉ' : "JE L'AI DONNÉ";
+    vals.fondAjouter = autreDonne ? '#1d4e89' : '#fff';
+    vals.encreAjouter = autreDonne ? '#fff' : (this.state.autreTest ? '#1d4e89' : '#9aa4b2');
+    vals.bordAjouter = autreDonne ? '#1d4e89' : (this.state.autreTest ? '#1d4e89' : '#d7dee7');
+    vals.curseurAjouter = (this.state.autreTest && !autreDonne) ? 'pointer' : 'default';
+    /* ⚠ « + UN AUTRE » (07/09) : « dans l'absolu on pourrait donner encore et encore des
+       tests ». Le panneau ne se vide JAMAIS tout seul après enregistrement (sa règle du
+       05/09 : vider donnait l'impression que rien n'avait été enregistré) — c'est donc à
+       elle de dire qu'elle passe au suivant. Le bouton ne remet à zéro que le TEST : la
+       langue reste, c'est le même élève. */
+    /* Et comme le bandeau de confirmation ne parle que du test sélectionné, la liste de
+       tout ce qui est au dossier reste sous les yeux : sinon un « + » ferait disparaître
+       la trace de ce qu'elle vient d'enregistrer. */
+    /* ⚠ DES CARTES, PAS UNE LIGNE DE TEXTE (07/09 : « je veux voir un bloc comme pour
+       Romain Gary ou maths avec le test sélectionné : fin de 4e UNICEF »). La ligne
+       « Déjà enregistrés : … » écrivait les noms à la queue leu leu, en petit, et ne se
+       lisait pas comme un test au dossier. Chaque passation enregistrée ici prend donc la
+       forme d'une carte, comme dans les blocs : nom du test en titre, la langue et la
+       date, puis ses trois actions. Ne pas revenir à une liste en texte. */
+    /* ⚠ SEULEMENT LES PASSATIONS HORS CHEMIN (07/09) : ce panneau existe pour les tests
+       que les blocs ne proposent PAS. Carder ici tout le dossier remettait une carte pour
+       Romain Gary et le fin de 3e alors qu'ils en ont déjà une dans leur bloc, juste
+       au-dessus — la redondance qu'elle a dénoncée deux fois. On retire donc tout id que
+       les blocs proposent, y compris les paliers réunis sous une carte de livret. */
+    const idsDesBlocs = (() => {
+      const ids = {};
+      (vals.groupes || []).forEach(g => (g.cartes || []).forEach(c => {
+        ids[c.id] = 1;
+        (c.membres || []).forEach(m => { ids[m.id || m] = 1; });
+        (c.paliers || []).forEach(p => { ids[p.id] = 1; });
+      }));
+      return ids;
+    })();
+    vals.autresCartes = (() => {
+      if (!d) return [];
+      /* Le test SÉLECTIONNÉ ici garde toujours sa carte, même si un bloc propose le même
+         (07/09) : c'est celle qu'elle vient d'enregistrer, et sans elle le panneau replié
+         était vide — « je ne vois plus rien à l'écran ». Le filtre des blocs ne vaut donc
+         que pour les AUTRES passations du dossier. */
+      const selection = this.state.autreTest;
+      return (d.tests || []).filter(t => t.donne !== false
+        && (t.testId === selection || !idsDesBlocs[t.testId])).map(t => {
+        const t2 = (T.TESTS || []).find(x => x.id === t.testId);
+        if (!t2) return null;
+        const nom = t2.titre.includes('—') ? t2.titre.replace(/^[^—]*—\s*/, '') : t2.titre;
+        const langue = this.languePassation(t2, t) || 'français';
+        const p = ((T.PDFS) || {})[t.testId] || {};
+        const versions = p.versions || {};
+        const trouvee = Object.keys(versions).find(n => langue.toLowerCase() === n.toLowerCase());
+        const sujet = trouvee ? versions[trouvee] : (p.sujet || '');
+        const matiere = t2.matiere === 'maths' ? 'Maths' : 'Compréhension de l\'écrit';
+        return {
+          id: t.testId,
+          nom: nom,
+          sous: matiere + ' · ' + langue.toLowerCase() + (t.date ? ' · donné le ' + t.date : ''),
+          pdf: sujet,
+          pdfNom: trouvee ? 'Télécharger le test (' + trouvee.toLowerCase() + ')' : 'Télécharger le test',
+          corrige: p.corrige || '',
+          onPdf: () => this.ouvrirPdf(sujet, t2.titre),
+          onCorrige: () => this.ouvrirPdf(p.corrige || '', 'Corrigé — ' + t2.titre),
+          onRetirer: () => this.marquerDonne(t2, false)
+        };
+      }).filter(Boolean);
+    })();
+    vals.dejaEnregistres = (() => {
+      if (!d) return '';
+      const noms = (d.tests || []).filter(t => t.donne !== false).map(t => {
+        const t2 = (T.TESTS || []).find(x => x.id === t.testId);
+        if (!t2) return '';
+        /* ⚠ `niveaux` n'est pas toujours un palier scolaire : sur le test Lyon +16, c'est
+           la liste de ses PALIERS D'ORIENTATION (CAP · Bac pro · 2de GT · 1re · Terminale),
+           qui s'écrivait ici comme cinq tests distincts (07/09). On repart donc du TITRE,
+           débarrassé de la matière — « plus de 16 ans (orientation) ». */
+        /* La matière est déjà dite par le bloc : on ne garde que ce qui suit le tiret
+           cadratin — « lycée (Romain Gary) », « fin de 4e (UNICEF) ». */
+        const nom = t2.titre.includes('—') ? t2.titre.replace(/^[^—]*—\s*/, '') : t2.titre;
+        return nom + ' (' + (this.languePassation(t2, t) || 'français').toLowerCase() + ')';
+      }).filter(Boolean);
+      return noms.length ? noms.join(' · ') : '';
+    })();
     /* La passation enregistrée se confirme ICI, dans le panneau, avec les mêmes boutons
        qu'une carte de test donné : ✓ DONNÉ, Retirer, Télécharger, Le corrigé (sa demande
        du 05/09). La carte du bloc au-dessus existe aussi, mais elle est loin dans la page
@@ -2272,6 +2903,12 @@ class Component extends DCLogic {
         bloc: pass.bloc || test.matiere || 'lecture',
         sous: [this.languePassation(test, pass) ? 'en ' + this.languePassation(test, pass) : '', 'donné le ' + pass.date,
           b.evalues + ' exercice' + (b.evalues > 1 ? 's' : '') + ' noté' + (b.evalues > 1 ? 's' : '') + ' sur ' + b.total].filter(Boolean).join(' · '),
+        /* Un test écrit seulement en français ne propose pas de liste : le garde-fou du
+           03/09 (le test Lyon stocké « en Arabe ») reste en place. */
+        langues: (T.LANGUES || []).map(l => ({ nom: l.nom })),
+        langue: this.languePassation(test, pass) || 'Français',
+        onLangue: (e) => this.majPassation(test, { langue: e.target.value,
+          traduite: test.multilingue === false && !/fran/i.test(e.target.value) }),
         pct: b.pct != null ? String(b.pct) : '',
         conclusion: b.conclusion || '',
         conclusionFond: b.conclusion ? (b.palier ? '#f4d5a0' : (b.atteint ? '#e6f2e9' : '#fbe3e6')) : '#eef1f5',
@@ -2364,15 +3001,63 @@ class Component extends DCLogic {
        Avant le 03/09 le brouillon passait devant et effaçait sans le dire ce que le CIO
        avait écrit — c'est exactement ce qu'elle a vu sur « Compréhension orale ». */
     const ficheVal = (cle) => {
+      /* ⚠ Les cases à cocher du PDF déposé reviennent en BOOLÉENS, et par PAIRES (07/09 :
+         « tu préremplis ce que tu peux aussi grâce au PDF que je t'envoie »). Les deux
+         listes oui/non de l'étape ④ n'existent pas sous ce nom dans la fiche : sans cette
+         traduction, ce que le CIO avait déjà coché restait invisible et elle le ressaisissait. */
+      const f = (d && d.fiche) || {};
+      if (cle === 'scolLangueMaternelle') {
+        if (f.scolLangueMaternelleOui) return 'oui';
+        if (f.scolLangueMaternelleNon) return 'non';
+        return null;
+      }
+      if (cle === 'missionLocale') return f.missionLocale ? 'oui' : null;
       const v = propre((d && d.fiche && d.fiche[cle]) || '');
       return v === '' ? null : v;
     };
+    /* ⚠ LA FICHE DÉPOSÉE ET LE BROUILLON S'ADDITIONNENT (07/09 : « et le bilan de Gary en
+       langue d'origine ??? »). La fiche du CIO avait priorité ABSOLUE sur mon brouillon —
+       règle du 03/09, pour ne jamais effacer ce qu'un collègue a écrit — si bien que le
+       résultat du Gary anglais de Haralds ne s'écrivait nulle part : la case portait déjà
+       « La lecture en anglais est parfaitement fluide », donc l'appli se taisait.
+       Or ce ne sont pas deux versions du même texte, mais DEUX INFORMATIONS : ce que le CIO
+       savait, et ce que les tests de cette semaine ont mesuré. Le brouillon s'ajoute donc
+       EN DESSOUS, jamais à la place, et seulement s'il apporte autre chose.
+       Ce qu'ELLE saisit continue de tout remplacer : c'est sa case. */
+    const memeIdee = (a, b) => {
+      const n = (x) => String(x || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]+/gi, ' ').trim().toLowerCase();
+      const A = n(a), B = n(b);
+      return !A || !B || A.indexOf(B) >= 0 || B.indexOf(A) >= 0;
+    };
+    /* ⚠ NE JAMAIS COMPOSER fiche + brouillon DANS LA VALEUR AFFICHÉE (07/09, essayé puis
+       retiré le même soir) : la case est un champ contrôlé, et le texte composé se faisait
+       aussitôt ENREGISTRER comme sa saisie — la case passait en « ✎ ta version » sans
+       qu'elle ait rien tapé, et le brouillon se taisait pour de bon. Chaque origine reste
+       donc seule dans la case, dans l'ordre : sa saisie, puis la fiche déposée, puis le
+       brouillon. Le libellé dit qu'une proposition attend, et vider la case la fait venir. */
     const def = (cle) => syn[cle] != null ? syn[cle]
       : (ficheVal(cle) != null ? ficheVal(cle) : propre(props[cle] != null ? props[cle] : ''));
-    /* « • » = mon brouillon ; « ⟵ fiche » = ce qui venait du PDF déposé. */
-    const puce = (cle) => syn[cle] != null ? ''
-      : (ficheVal(cle) != null ? ' ⟵ déjà dans la fiche déposée'
+    /* « • » = mon brouillon ; « ⟵ fiche » = ce qui venait du PDF déposé.
+       ⚠ ET « ✎ TA VERSION » QUAND C'EST ELLE QUI A ÉCRIT (07/09). Sa saisie fait taire le
+       brouillon — la règle du 03/09, qui protège ses textes —, mais RIEN ne le disait :
+       trois lettres tapées par accident (« Sait ») dans « espace et géométrie » ont suffi à
+       faire taire l'appli, et elle a ressaisi tout le test de maths en boucle sans
+       comprendre pourquoi la case restait muette. Le repère nomme donc l'auteur de chaque
+       case, dans les trois cas possibles. */
+    const puce = (cle) => syn[cle] != null ? ' ✎ ta version'
+      : (ficheVal(cle) != null
+        ? (props[cle] != null && !memeIdee(ficheVal(cle), propre(props[cle]))
+          ? ' ⟵ fiche déposée · une proposition attend'
+          : ' ⟵ déjà dans la fiche déposée')
         : (props[cle] != null ? ' •' : ''));
+    /* Un liseré sur la case qu'elle a écrite : le libellé se lit avant, le cadre se voit de
+       loin. Vide la case pour rendre la main au brouillon. */
+    const sienne = (cle) => syn[cle] != null;
+    /* La phrase d'aide ne s'affiche QUE là où un brouillon existe et se trouve donc réduit
+       au silence : ailleurs, il n'y a rien à récupérer et le rappel serait du bruit. */
+    const brouillonEnAttente = (cle) => props[cle] != null
+      && (syn[cle] != null || ficheVal(cle) != null);
     /* Un menu déroulant de phrases toutes faites qui ÉCRIT dans la case du dessous :
        la liste ne retient rien, la valeur vit dans la case (et reste corrigeable). */
     const propose = (cle, libelle, phrases) => ({
@@ -2381,16 +3066,358 @@ class Component extends DCLogic {
       onChange: (e) => { if (e.target.value) this.champSynthese(cle, e.target.value); }
     });
     const liste = (cle, libelle, options) => ({ libelle: libelle + puce(cle), estListe: true, estTexte: false, options: options || [], valeur: def(cle), onChange: (e) => this.champSynthese(cle, e.target.value) });
+    /* ⚠ LA GRILLE CASNAV AIX-MARSEILLE (07/09, ses photos) — un déroulant par domaine.
+       Sa demande : « choisir les meilleures formulations, avec du rouge puis de l'orange
+       puis du vert, un préfiltre, pour que je gagne du temps ».
+       Deux choses la rendent différente d'un simple menu de phrases :
+       - dans cette grille, chaque phrase EST un niveau (« peut comprendre des textes
+         courts très simples » = A2). Choisir la phrase renseigne donc AUSSI le niveau,
+         rangé sous la clé `<cle>Niveau` — c'est ce qu'elle recopiait à la main ;
+       - les trois bandes de couleur sont l'échelle du CERCL, pas un jugement : ≤A1.1 en
+         rouge, A1.1 et A1 en orange, A2 et B1 en vert. Même code partout, pour que l'œil
+         ne change jamais de repère.
+       La phrase choisie s'écrit dans la case du dessous et reste corrigeable : la grille
+       ne retient rien, la valeur vit dans la case (comme les menus du 02/09). */
+    const BANDE = { '≤A1.1': 'r', '< CP': 'r', 'A1.1': 'o', 'A1': 'o', 'A2': 'v', 'B1': 'v' };
+    const ENCRE = { r: '#b3283c', o: '#a2660f', v: '#1e7a53', n: '#48586b' };
+    /* ⚠ `niveauSeul` : LE DÉROULANT NE DONNE QUE LE NIVEAU, LES PASTILLES ÉCRIVENT LE TEXTE
+       (07/09). Sur les quatre domaines du français, la grille CASNAV et ses formulations
+       disaient la même chose de deux façons — la redondance qu'elle a fait retirer sur la
+       lecture en langue de scolarisation (« vire moi ça »). Plutôt que de perdre le niveau
+       CECRL, qu'elle recopiait à la main, on sépare les deux rôles : le déroulant pose
+       `<cle>Niveau`, les pastilles composent la phrase. Les libellés du déroulant gardent
+       leur phrase — c'est ce qui permet de choisir le bon niveau — mais elle ne s'écrit
+       plus dans la case. */
+    const casnav = (cle, libelle, items, siennes, niveauSeul) => {
+      const v = def(cle), niv = def(cle + 'Niveau');
+      /* ⚠ Un item sans niveau garde une bande NEUTRE et n'affiche aucune pastille : sur la
+         grille, la case « niveau de compétences acquis » des mathématiques est laissée
+         VIDE à dessein — coller un A2 à des mathématiques mettrait un code de langue sur
+         une fiche lue par le CASNAV et par la famille. */
+      const groupes = [
+        { label: '● Débutant', codes: ['≤A1.1', '< CP'] },
+        { label: '● En cours', codes: ['A1.1', 'A1'] },
+        { label: '● Autonome', codes: ['A2', 'B1'] },
+        { label: '● À compléter', codes: [''] }
+      ].map(g => ({
+        label: g.label, options: items.filter(i => g.codes.indexOf(i.niveau || '') >= 0).map(i => ({
+          texte: (i.niveau ? i.niveau + ' — ' : '') + i.phrase, valeur: i.phrase,
+          encre: ENCRE[BANDE[i.niveau]] || '#48586b' }))
+      })).filter(g => g.options.length);
+      /* Ses propres formulations restent atteignables dans le MÊME déroulant : deux menus
+         pour une seule case seraient la redondance qu'elle dénonce depuis vendredi. */
+      if (siennes && siennes.length) groupes.push({ label: '● Tes formulations',
+        options: siennes.map(p => ({ texte: p, valeur: p, encre: '#48586b' })) });
+      /* Le niveau prérempli d'après les tests marque sa phrase « conseillé » dans le
+         déroulant : elle voit d'un coup d'œil laquelle prendre, sans que rien ne soit
+         écrit à sa place dans la case. */
+      groupes.forEach(g => g.options.forEach(o => {
+        const it = items.find(i => i.phrase === o.valeur);
+        if (niv && it && it.niveau === niv && o.valeur !== v) o.texte = o.texte + '  ·  conseillé';
+      }));
+      return { libelle: libelle + puce(cle), estCasnav: true, estListe: false, estTexte: false,
+        options: [], groupes,
+        valeur: niveauSeul
+          ? ((items.find(i => i.niveau === niv) || {}).phrase || '')
+          : (items.some(i => i.phrase === v) || (siennes || []).indexOf(v) >= 0 ? v : ''),
+        niveau: niv ? 'Niveau retenu : ' + niv : '',
+        niveauEncre: ENCRE[BANDE[niv]] || '#48586b',
+        onChange: (e) => {
+          const p = e.target.value;
+          const trouve = items.find(i => i.phrase === p);
+          this.champSynthese(cle + 'Niveau', trouve ? trouve.niveau : '');
+          /* En mode « niveau seul », la case n'est pas touchée : les pastilles s'en
+             occupent. */
+          if (niveauSeul) return;
+          /* ⚠ La grille AJOUTE, elle n'efface pas. Plusieurs de ces cases contiennent
+             déjà un paragraphe — écrit par le brouillon d'après les tests, ou rédigé à la
+             main : le remplacer par une phrase de grille supprimerait le travail sans
+             retour possible. Si la case tient un texte étranger à la grille, la phrase
+             choisie s'ajoute en dessous, à elle de couper ce qui est en trop. */
+          const actuel = (def(cle) || '').trim();
+          /* ⚠ Et la remise à zéro n'efface QUE la phrase de grille. « — choisir une
+             formulation — » sur une case tenant son paragraphe écrit à la main effaçait
+             tout le paragraphe : le chemin d'écriture était prudent, celui d'effacement
+             ne l'était pas. On retire donc la ligne de grille, ligne à ligne, et ce
+             qu'elle a rédigé reste. */
+          /* ⚠ On retire les lignes de grille et RIEN D'AUTRE : ses lignes repartent au
+             caractère près, lignes vides comprises. Un `.trim()` sur chaque ligne suivi
+             d'un filtre sur les lignes non vides supprimait aussi le saut de paragraphe
+             qu'elle avait posé exprès — son texte se retrouvait recompacté au premier clic
+             sur la grille, sur la case même que le correctif précédent devait protéger. */
+          const deGrille = (l) => items.some(i => i.phrase === l) || (siennes || []).indexOf(l) >= 0;
+          const sien = actuel.split('\n').filter(l => !deGrille(l.trim()))
+            .join('\n').replace(/\n+$/, '');
+          this.champSynthese(cle, !p ? sien : (sien ? sien + '\n' + p : p));
+        } };
+    };
+    /* ⚠ PASTILLES COMBINABLES (07/09, sa demande : « des pastilles pour les formulations
+       libres »). Une case de constat veut souvent DEUX OU TROIS phrases ensemble — sur sa
+       page annotée elle coche « connaît certaines lettres » ET « rudiments de
+       combinatoire » ET « ne maîtrise pas la combinatoire ». Un déroulant n'en donnerait
+       qu'une. Un clic ajoute la phrase en fin de case, un second la retire ; tout ce
+       qu'elle a écrit autour repart au caractère près, lignes vides comprises.
+       Les pastilles sont rangées du plus débutant au plus autonome et portent l'encre de
+       leur bande — c'est le préfiltre qu'elle a demandé, même code que la grille CASNAV. */
+    const pastilles = (cle, libelle, items) => ({
+      libelle, estListe: false, estTexte: false, estChoix: true, options: [],
+      choix: items.map(([bande, nom, phrase]) => {
+        const lignes = (def(cle) || '').split('\n');
+        const actif = lignes.some(l => l.trim() === phrase);
+        const encre = ENCRE[bande];
+        return { nom, fond: actif ? encre : '#fff', encre: actif ? '#fff' : encre,
+          bord: actif ? encre : '#dde4ec',
+          onClick: () => {
+            const suite = actif
+              ? lignes.filter(l => l.trim() !== phrase).join('\n').replace(/\n+$/, '')
+              : ((def(cle) || '').replace(/\n+$/, '') ? (def(cle) || '').replace(/\n+$/, '') + '\n' + phrase : phrase);
+            this.champSynthese(cle, suite);
+          } };
+      })
+    });
+    /* Ses formulations de lecture, telles qu'elle les écrit (« lecture fluide, sans
+       problème », « bute sur certains mots », « il suit avec le doigt »), complétées par
+       ses deux pages types — combinatoire, graphies, reconnaissance globale, accès à la
+       phrase. Tournures nominales, sans « il » ni « elle » : la même pastille sert pour
+       tous les élèves, sans accord à reprendre. */
+    const LECTURE = [
+      ['r', 'non lecteur', "Non lecteur : l'alphabet latin n'est pas connu."],
+      ['r', 'pas la combinatoire', 'Ne maîtrise pas la combinatoire.'],
+      ['o', 'alphabet, quelques mots', "Maîtrise l'alphabet et connaît quelques mots."],
+      ['o', 'rudiments de combinatoire', 'A des rudiments de combinatoire.'],
+      ['o', 'hésitante, avec le doigt', 'Lecture hésitante, avec le doigt.'],
+      ['v', 'combinatoire', 'Maîtrise la combinatoire et les digrammes.'],
+      ['v', 'fluide', 'Lecture fluide, sans problème.']
+    ];
+    /* ⚠ CETTE CASE JUGE LA FLUENCE, PAS LA COMPRÉHENSION (07/09, elle a été très
+       claire) : « je fais lire et je juge, c'est tout. Parfois l'élève ânonne, parfois au
+       contraire il lit très bien, il met l'intonation. La compréhension peut être difficile
+       à évaluer à ce moment précis, mais je juge la fluence. »
+       Les items décrivent donc ce qu'on ENTEND pendant la lecture à voix haute — débit,
+       découpage, ponctuation, intonation. La compréhension, quand elle est mesurée, l'est
+       par le livret Canopé et arrive par le brouillon.
+       « Texte documentaire » retiré : « ça n'a aucun intérêt » — c'était un jugement de
+       compréhension déguisé en fluence, et il venait de moi, pas de ses listes.
+       Aucune mention de l'alphabet latin, des digrammes ni des trois graphies : ces
+       phrases ne valent que pour le français. */
+    const LANGUE_SCOL = [
+      ['r', 'non lecteur', 'Non lecteur : ne peut pas lire le texte.'],
+      ['r', 'ânonne', 'Lecture ânonnée : déchiffre syllabe par syllabe.'],
+      ['o', 'hésitante, avec le doigt', 'Lecture hésitante : suit avec le doigt, bute sur certains mots.'],
+      ['o', 'mot à mot', 'Lit mot à mot, sans grouper les mots par unités de sens.'],
+      ['o', 'ponctuation ignorée', 'Ne tient pas compte de la ponctuation.'],
+      ['v', 'rapide et sûre', 'Lecture rapide et sûre.'],
+      ['v', 'met l\'intonation', 'Lecture expressive : respecte la ponctuation et met l\'intonation.'],
+      /* La réserve honnête : ce qu'un test n'a pas mesuré ne doit pas s'écrire comme un
+         constat. Encre neutre — ce n'est ni un manque ni une réussite. */
+      ['n', 'compréhension non évaluée', 'Seule la fluence a été évaluée : la compréhension ne pouvait pas l\'être à ce moment.']
+    ];
+    /* Le geste graphique, d'après ses deux pages types (« Écriture ») : ce qu'on voit sur
+       la feuille — le tracé, la graphie, la tenue de ligne. Combinables, parce qu'un même
+       élève écrit souvent en capitales ET signe en cursive, ou recopie lisiblement SANS
+       maîtriser l'alphabet épelé. */
+    const GESTE = [
+      ['r', 'non scripteur', "Non scripteur : le geste graphique n'est pas installé."],
+      ['r', 'lettres dessinées', 'Chaque lettre est dessinée.'],
+      ['r', 'pas la réglure', "N'écrit pas sur la réglure."],
+      ['o', 'capitales ou script', 'Écrit en capitales ou en script.'],
+      /* Deux constats qu'elle a formulés sur Ibrahim le 07/09 et qui manquaient : le
+         mélange des graphies dans un même mot, et la lisibilité — qui est autre chose que
+         la régularité du tracé. */
+      ['o', 'écriture mixte', 'Écriture mixte : mélange les graphies dans un même mot.'],
+      ['o', 'peu lisible', 'Certains mots sont difficilement lisibles.'],
+      /* ⚠ CE JEU EST PLUS LONG QUE LES AUTRES, ET C'EST VOULU (07/09 : « tu peux mettre des
+         mots en plus du coup »). Le geste graphique est ce qu'elle observe le plus finement,
+         et aucun test ne le mesure : c'est la seule rubrique où la liste doit couvrir le
+         détail. Les autres rubriques restent à cinq ou neuf choix. */
+      ['r', 'lettres en miroir', 'Certaines lettres sont inversées ou écrites en miroir.'],
+      ['r', 'tient mal son crayon', 'La tenue du crayon gêne le tracé.'],
+      ['o', 'geste mal assuré', 'Le geste graphique est mal assuré.'],
+      ['o', 'écriture irrégulière', 'Écriture irrégulière.'],
+      ['o', 'très lente', "L'écriture est très lente : la copie prend beaucoup de temps."],
+      ['o', 'prénom et nom', (d && d.prenom ? d.prenom : "L'élève") + ' sait écrire son prénom et son nom en cursive.'],
+      ['o', 'recopie lisiblement', 'Peut recopier facilement, de manière lisible.'],
+      ['v', 'geste presque automatisé', 'Le geste est presque automatisé.'],
+      ['v', 'cursive maîtrisée', "Le geste graphique est maîtrisé. L'écriture est cursive."],
+      ['v', 'écriture efficace', 'Écriture très efficace et lisible, en cursive.'],
+      ['v', 'scripteur dans sa langue', 'Scripteur dans sa langue de scolarisation.']
+    ];
+    /* Sa page « Exemples de formulations rapides à adapter » (banque_formulations.docx) :
+       constat, besoins, préconisations. Le « X » du document devient son prénom. Encre
+       neutre pour toutes : ici la couleur ne dirait pas un niveau, seulement une section —
+       et les trois sections se suivent déjà dans l'ordre du document. */
+    const REMARQUES = [
+      ['n', 'langue insuffisante', (d && d.prenom ? d.prenom : "L'élève") + ' présente un niveau de maîtrise de la langue française encore insuffisant pour suivre les enseignements sans accompagnement.'],
+      ['n', 'acquis fragiles', 'Les acquis apparaissent fragiles, en particulier en lecture et en production écrite.'],
+      ['n', 'comprend mais s\'exprime peu', 'Manifeste de bonnes compétences de compréhension, mais reste en difficulté dans l\'expression.'],
+      ['n', 'appui sur ses langues', 'Dispose de bases solides dans sa langue d\'origine, ce qui pourra constituer un appui pour les apprentissages.'],
+      ['n', 'besoin FLS', 'Un renforcement en FLS est nécessaire pour consolider le lexique de base et les structures grammaticales.'],
+      ['n', 'besoin code écrit', 'La maîtrise du code écrit doit être consolidée afin de permettre un meilleur accès aux consignes et aux supports disciplinaires.'],
+      ['n', 'besoin maths', 'Présente des fragilités en mathématiques.'],
+      ['n', 'préco N-1', 'Une scolarisation en N-1 serait pertinente afin de consolider les acquis et de sécuriser le parcours scolaire.'],
+      ['n', 'préco horaire FLS', 'Un volume horaire conséquent en FLS est recommandé.'],
+      ['n', 'préco sciences', 'Un accompagnement rapproché dans les disciplines scientifiques apparaît nécessaire.'],
+      ['n', 'préco suivi individualisé', 'La mise en place d\'un suivi individualisé permettrait de soutenir la progression.']
+    ];
+    /* Ses trois pages de formulations, rubrique par rubrique (POSITIONNER.pdf, « Phrases
+       types évaluation Casnav », banque_formulations.docx). Tournures nominales, sans
+       « il » ni « elle » : la même pastille sert pour tous les élèves, sans accord à
+       reprendre. Rangées du plus débutant au plus autonome. */
+    /* ⚠ UN TRI, PAS TOUTE LA BANQUE (07/09 : « il faut opérer un tri bien sûr »). Ses pages
+       comptent une trentaine de formulations par rubrique, souvent deux façons de dire la
+       même chose. Une pastille de plus est une pastille à lire : on garde SIX OU SEPT choix
+       par case, deux ou trois par bande, en préférant celles qui se distinguent nettement
+       les unes des autres. Ce qui manque se tape à la main dans la case, comme avant. */
+    const MATHS = [
+      ['r', 'unités inconnues', 'Les unités de longueur, de taille et de poids ne sont pas connues.'],
+      ['r', 'calcule sur ses doigts', 'Peut réaliser de petits calculs de tête ou en comptant sur ses doigts, mais ne connaît pas les techniques opératoires.'],
+      ['r', 'pas le calcul littéral', 'Ne maîtrise pas le calcul littéral.'],
+      ['o', 'dénombre, ordonne, séquence', 'Peut dénombrer, ordonner et séquencer.'],
+      ['o', 'opérations à retenue', 'Connaît les additions à retenue, les soustractions et les multiplications à un chiffre.'],
+      ['v', 'techniques opératoires', 'Maîtrise les techniques opératoires.'],
+      ['v', 'logique arithmétique', 'A réussi les exercices de logique arithmétique.']
+    ];
+    /* Deux choix seulement, et des phrases d'une ligne : la case « Décodage-encodage » ne
+       fait que TROIS lignes dans la fiche (43 pt mesurés, 240 signes), et elle porte déjà
+       les six pastilles de lecture. */
+    const PHONO = [
+      ['r', 'phonologie non acquise', "Le système phonologique n'est pas maîtrisé."],
+      ['v', 'phonologie acquise', 'Le système phonologique est connu.']
+    ];
+    const PROD_ORALE = [
+      ['r', 'non producteur', 'Non producteur en français.'],
+      ['r', 'erreurs systématiques', 'Commet des erreurs systématiques.'],
+      ['o', 'expressions isolées', 'Utilise des expressions simples, isolées.'],
+      ['o', 'cherche ses mots', 'Cherche ses mots et commet quelques erreurs.'],
+      ['o', 'débit lent', 'Le débit est lent, marqué par des pauses.'],
+      /* ⚠ « Il parle avec un accent » ne s'écrit pas ainsi sur une fiche officielle (08/09,
+         sa demande : « dis-le autrement, bien sûr »). Un accent n'est pas un défaut de
+         langue : la formulation dit ce qui compte pour le CASNAV — l'intelligibilité — et
+         nomme la cause sans la juger. */
+      ['v', 'accent de sa langue', 'La prononciation reste marquée par sa langue première, sans gêner la compréhension.'],
+      ['v', 'peut décrire', 'Peut décrire et présenter des activités, des personnes, ses goûts.'],
+      ['v', 'parle couramment', 'Parle couramment français : la communication est aisée.']
+    ];
+    const COMPR_ORALE = [
+      ['r', 'ne comprend pas', 'Ne comprend pas encore le français oral.'],
+      ['o', 'mots isolés', 'Peut saisir des mots isolés, pas le sens global.'],
+      ['o', 'dépend de la répétition', "La communication dépend de la répétition, d'un débit plus lent et de la reformulation."],
+      ['v', 'compréhension satisfaisante', 'Capacité de compréhension satisfaisante.'],
+      ['v', 'francophone', 'Francophone : comprend le français oral sans aide particulière.']
+    ];
+    const COMPR_ECRITE = [
+      ['r', 'texte non compris', "Le texte n'est pas compris."],
+      ['r', 'contresens nombreux', 'Contresens nombreux.'],
+      ['o', 'mots transparents', 'Peut comprendre des mots transparents et des énoncés simples.'],
+      ['o', 'appui sur la langue source', "S'appuie sur la langue source."],
+      ['o', 'sens global seulement', 'Peut saisir le sens global, mais ne comprend pas tout.'],
+      ['v', 'lit de façon autonome', 'Lit de manière autonome, avec un niveau satisfaisant de compréhension.'],
+      ['v', 'compréhension immédiate', 'Compréhension immédiate et correcte.']
+    ];
+    const EXPR_ECRITE = [
+      ['r', 'impossible', "La production écrite est impossible pour l'instant."],
+      ['r', 'écriture phonétique', 'Écriture phonétique.'],
+      ['o', 'questions fermées', "Répond aisément aux questions fermées, mais la production d'énoncés complets est encore difficile."],
+      ['o', 'phrases isolées', 'Écrit une série de phrases simples, isolées.'],
+      ['o', 'erreurs de langue', "Erreurs d'accords, de grammaire et de conjugaison."],
+      ['v', 'connecteurs simples', 'Écrit des phrases simples reliées par des connecteurs simples.'],
+      ['v', 'texte structuré', 'Écrit un texte structuré et clair : production cohérente et construite.']
+    ];
+    const CASNAV = {
+      oral: [
+        { niveau: '≤A1.1', phrase: 'Non francophone complet.' },
+        { niveau: 'A1.1', phrase: "Reconnaît quelques expressions familières et quotidiennes, peut s'identifier et répondre à quelques questions personnelles." },
+        { niveau: 'A1', phrase: 'Comprend des mots familiers et des expressions très courantes au sujet de lui-même ou de sa famille si on lui parle distinctement et lentement.' },
+        { niveau: 'A2', phrase: 'Comprend des expressions et un vocabulaire très fréquent relatif à ce qui le concerne de très près.' },
+        { niveau: 'B1', phrase: 'Comprend les points essentiels quand un langage clair et standard est utilisé sur des sujets familiers.' }
+      ],
+      prodOral: [
+        { niveau: '≤A1.1', phrase: 'Non producteur.' },
+        { niveau: 'A1.1', phrase: "Peut répondre à des questions concernant sa nationalité, son âge, son lieu d'habitation, son école au moyen d'énoncés simples (un ou deux mots) en ayant recours à la langue première ou à d'autres langues." },
+        { niveau: 'A1', phrase: "Peut communiquer de façon simple si l'interlocuteur répète ou reformule et l'aide à formuler. Peut poser des questions simples sur des sujets familiers. Peut décrire son lieu d'habitation avec des phrases simples." },
+        { niveau: 'A2', phrase: "Peut communiquer lors de tâches simples et habituelles. Peut utiliser une série de phrases ou d'expressions pour décrire sa famille, ses loisirs." },
+        { niveau: 'B1', phrase: "Peut s'exprimer de manière simple pour raconter des expériences et des événements, des rêves, des espoirs ou des buts." }
+      ],
+      lecture: [
+        { niveau: '≤A1.1', phrase: 'Non lecteur.' },
+        { niveau: 'A1.1', phrase: 'Déchiffre des syllabes, des noms, des mots les plus courants, des données chiffrées dans un texte court.' },
+        { niveau: 'A1', phrase: 'Peut comprendre des noms familiers, des mots, des phrases très simples.' },
+        { niveau: 'A2', phrase: 'Peut comprendre des textes courts très simples. Peut trouver une information dans des documents courants.' },
+        { niveau: 'B1', phrase: "Peut comprendre des textes rédigés dans une langue courante ou relative à l'école ou au collège." }
+      ],
+      ecrit: [
+        { niveau: '≤A1.1', phrase: 'Non producteur.' },
+        { niveau: 'A1.1', phrase: 'Peut recopier des mots ou des messages brefs, des chiffres et des dates. Reconnaît différentes graphies. Peut donner des informations sur soi dans des questionnaires.' },
+        { niveau: 'A1', phrase: 'Peut écrire une courte carte postale simple, porter des détails personnels dans un questionnaire.' },
+        { niveau: 'A2', phrase: 'Peut écrire des messages simples et courts, une lettre personnelle très simple.' },
+        { niveau: 'B1', phrase: 'Peut écrire un texte simple et cohérent sur des sujets familiers, des lettres personnelles pour décrire expériences et impressions.' }
+      ],
+      /* Colonne de droite de la grille : la langue de scolarisation antérieure. Les
+         phrases y sont plus courtes que celles du français — ce n'est pas une erreur de
+         recopie, la grille les distingue ainsi. */
+      lectureOrigine: [
+        { niveau: '≤A1.1', phrase: 'Non lecteur.' },
+        { niveau: 'A1.1', phrase: "Reconnaît des noms, des mots, comprend des textes constitués d'une ou deux phrases." },
+        { niveau: 'A1', phrase: 'Peut comprendre des noms familiers, des mots ainsi que des phrases très simples.' },
+        { niveau: 'A2', phrase: 'Peut comprendre des textes courts et simples.' },
+        { niveau: 'B1', phrase: "Peut comprendre des textes rédigés dans une langue courante ou relative à l'école ou au collège." }
+      ],
+      /* Les mathématiques ne sont PAS notées en CECRL : la grille n'y met que « < CP »,
+         et laisse la dernière case vide pour qu'on écrive le palier de fin de cycle. On
+         reprend donc « niveau fin de … » en entier — c'est la seule information utile de
+         cette ligne — et on préremplit le palier quand les tests le donnent. */
+      mathsOrigine: [
+        { niveau: '< CP', phrase: 'Niveau de compétences très faible (inférieur au CP).' },
+        { niveau: '< CP', phrase: 'Peut réaliser un exercice en suivant un modèle.' }
+      ].concat((() => {
+        const nv = d ? D.niveauAtteint(donnes, T.TESTS) : null;
+        const palier = nv && (nv.palier || nv.niveau || nv.mot);
+        const sortie = [{ niveau: '', phrase: 'Niveau de compétences acquis : niveau fin de …' }];
+        if (palier) sortie.unshift({ niveau: '',
+          phrase: 'Niveau de compétences acquis : niveau ' + String(palier).toLowerCase() + '.' });
+        return sortie;
+      })())
+    };
     /* Le cadre grandit avec son contenu : ces brouillons font cinq à sept lignes, et
        ils doivent être lus en entier avant de partir dans le PDF. */
-    const texte = (cle, libelle) => {
+    const texte = (cle, libelle, budget) => {
       const v = String(def(cle) || '');
       const fautes = ((this.state.fautes || {})[cle] || []).map(f => ({
         mot: f.mot, message: f.message,
         propositions: f.propositions.map(p => ({ nom: p, onClick: () => this.corriger(cle, f, p) }))
       }));
+      /* ⚠ LA CASE DU PDF A UNE HAUTEUR FIXE, ET CE QUI DÉBORDE EST PERDU — sans un mot
+         (07/09 : sa capture montrait « Le prélèvement d'une information précise… » coupé
+         au bas du cadre). À l'écran le cadre grandit avec le texte, donc rien ne laissait
+         devinier la limite : elle ne la découvrait qu'à l'impression.
+         Le budget est un ORDRE DE GRANDEUR mesuré sur la fiche (≈ 4 lignes de 80 signes
+         pour la lecture) : on avertit à l'approche, on n'empêche jamais d'écrire. */
+      const reste = budget ? budget - v.length : null;
       return { libelle: libelle + puce(cle), estListe: false, estTexte: true, options: [],
         cle, valeur: v, lignes: 2, ref: this.hauteurAuto, fautes: fautes.length ? fautes : '',
+        bord: sienne(cle) ? '#1d4e89' : '#c3d2e2',
+        /* ⚠ LA PROPOSITION SE LIT SANS RIEN EFFACER, ET S'AJOUTE D'UN CLIC (07/09, son
+           choix : « B — je veux le garder au-dessus du bilan car je commence par faire un
+           point sur la lecture seule »).
+           Avant : un simple avertissement lui disait qu'une proposition attendait, à charge
+           pour elle de VIDER la case pour la voir — donc de perdre le texte du CIO si elle
+           voulait le garder. Le texte s'affiche maintenant en petit sous la case, et le
+           bouton l'insère EN DESSOUS de ce qui est déjà écrit. Jamais à la place : son
+           observation de la lecture à voix haute vient d'abord, le bilan du test ensuite.
+           C'est sa démarche, pas une question de mise en page. */
+        proposition: brouillonEnAttente(cle) ? propre(props[cle]) : '',
+        onAjouter: () => {
+          const actuel = String(def(cle) || '').replace(/\n+$/, '');
+          const ajout = propre(props[cle]);
+          if (!ajout || actuel.indexOf(ajout) >= 0) return;
+          this.champSynthese(cle, actuel ? actuel + '\n' + ajout : ajout);
+        },
+        limite: (budget && reste < 40)
+          ? (reste < 0
+            ? 'Trop long pour la case du PDF : ' + (-reste) + ' signes de trop, la fin sera coupée à l\'impression.'
+            : 'Il reste ' + reste + ' signes avant de déborder de la case du PDF.')
+          : '',
+        limiteEncre: (budget && reste < 0) ? '#b3283c' : '#a2660f',
         onChange: (e) => { this.hauteurAuto(e.target); this.champSynthese(cle, e.target.value); } };
     };
     vals.saisies = [
@@ -2398,51 +3425,111 @@ class Component extends DCLogic {
       /* Le sexe commande les accords du brouillon (« Il est entré » / « Elle est entrée »). */
       liste('sexe', 'Fille ou garçon', ['', 'Fille', 'Garçon']),
       liste('niveauScolaire', 'Niveau scolaire global', O.niveauScolaire),
-      texte('lectureLangueOrigine', "Lecture en langue d'origine"),
-      /* Un clic écrit la phrase : c'est le seul constat qu'aucun test ne mesure. */
-      { libelle: 'Geste graphique — ce que tu as vu', estListe: false, estTexte: false, estChoix: true,
-        options: [], choix: [
-          ['Cursive maîtrisée', 'Le geste graphique est maîtrisé. L\'écriture est cursive.'],
-          ['Cursive parfaite', 'Le geste graphique est parfaitement maîtrisé. L\'écriture est cursive.'],
-          ['Script', 'L\'écriture en script est maîtrisée.'],
-          ['Script + signature cursive', 'Le geste graphique est maîtrisé. L\'écriture est en script, la signature en cursive.'],
-          ['Prénom et nom seulement', (d && d.prenom ? d.prenom : 'L\'élève') + ' sait écrire son prénom et son nom en écriture cursive.'],
-          ['Pas installé', 'Le geste graphique n\'est pas installé.']
-        ].map(([nom, phrase]) => {
-          const actif = def('gesteGraphique') === phrase;
-          return { nom,
-            fond: actif ? '#1d4e89' : '#fff', encre: actif ? '#fff' : '#48586b',
-            bord: actif ? '#1d4e89' : '#dde4ec',
-            onClick: () => this.champSynthese('gesteGraphique', actif ? '' : phrase) };
-        }) },
-      texte('gesteGraphique', 'Geste graphique'),
-      texte('langues', 'Langues (autres que le français)'),
-      texte('mathsGeneral', 'Mathématiques — appréciation générale'),
+      /* ⚠ PAS DE DÉROULANT CASNAV SUR CETTE CASE (07/09) : elle l'a retiré dès qu'il a
+         côtoyé les pastilles. Les cinq phrases de la grille disaient la même chose que les
+         pastilles, en plus long, et ne se combinaient pas — deux commandes pour une case,
+         la redondance qu'elle traque depuis vendredi. Les pastilles gagnent ici : elles se
+         cochent à plusieurs. Ne pas le remettre. */
+      /* Cette liste ne va pas au PDF : elle autorise la phrase causale du brouillon
+         (« … s'est révélé trop difficile : un test en arabe a donc été donné »). C'est un
+         jugement, pas un calcul — voir propositionsFiche. */
+      liste('francaisTropDifficile', 'Le test en français était…', ['', 'trop difficile', 'faisable']),
+      pastilles('lectureLangueOrigine', 'Lecture à voix haute en langue de scolarisation — ce que tu as entendu (plusieurs possibles)', LANGUE_SCOL),
+      /* ⚠ LES BUDGETS SONT MESURÉS DANS LE PDF, plus estimés (07/09) : on lit le cadre du
+         champ (`getWidgets()[0].getRectangle()`), on compte les lignes à 11 pt et les
+         signes à 4,6 pt de large, et on garde 15 % de marge. Mon premier chiffre (330 pour
+         la lecture) était trop sévère : le cadre en tient 470. Refaire la mesure si la
+         fiche officielle change de mise en page. */
+      texte('lectureLangueOrigine', "Lecture en langue d'origine", 400),
+      /* ⚠ DES PASTILLES COMBINABLES, plus un choix unique (07/09) : les six boutons
+         d'avant s'excluaient l'un l'autre, alors qu'un même élève écrit souvent en
+         capitales ET signe en cursive, ou recopie lisiblement SANS maîtriser l'alphabet
+         épelé. Aucun test ne mesure le geste : c'est ce qu'elle voit sur la feuille. */
+      pastilles('gesteGraphique', 'Geste graphique — clique ce que tu as vu (plusieurs possibles)', GESTE),
+      texte('gesteGraphique', 'Geste graphique', 240),
+      texte('langues', 'Langues (autres que le français)', 560),
+      /* ⚠ L'ORDRE DE L'ÉTAPE ④ SUIT CELUI DU PDF (07/09 : « pour suivre le déroulé du
+         PDF ») : lecture · geste graphique · langues · mathématiques · connaissance du
+         français · préconisations. Les mathématiques en langue de scolarisation sont un
+         champ de MATHS : elles se rangent ici, avec les autres, pas entre la lecture et le
+         geste graphique. Ne pas réordonner par thème — c'est le document qui commande,
+         parce qu'elle remplit l'écran en lisant la fiche papier à côté. */
+      /* ⚠ PAS DE « MATHS EN LANGUE DE SCOLARISATION » (07/09, elle l'a fait retirer) :
+         ce champ n'existe pas dans la fiche EANA 76 — il venait de la grille Aix-Marseille
+         qu'elle avait photographiée, pas du document qu'elle remplit. Deux cases de plus à
+         l'écran qui ne partaient nulle part à l'impression. Les quatre cases de maths du
+         PDF, plus l'appréciation générale, disent déjà tout. Ne pas le remettre. */
       texte('mathsNombres', 'Maths · nombres et calcul'),
       texte('mathsDonnees', 'Maths · organisation de données'),
       texte('mathsGrandeurs', 'Maths · grandeurs et mesures'),
       texte('mathsGeometrie', 'Maths · espace et géométrie'),
+      /* ⚠ L'APPRÉCIATION GÉNÉRALE VIENT EN DERNIER (07/09) : « c'est le bilan ». Elle
+         était au-dessus des quatre domaines, donc à lire avant ce qu'elle résume. On la
+         pose sous « espace et géométrie », à sa place de conclusion. */
+      pastilles('mathsGeneral', 'Mathématiques — clique ce que tu as vu (plusieurs possibles)', MATHS),
+      texte('mathsGeneral', 'Mathématiques — appréciation générale (le bilan)', 400),
       liste('niveauFrancais', 'Niveau de français', O.niveauFrancais),
-      texte('lectureFrancais', 'Décodage-encodage'),
-      texte('productionOrale', 'Production orale / communication'),
+      /* ⚠ Le titre dit « en français » (07/09 : « on est dans la même rubrique là ? ») :
+         « Lecture » tout court se confondait avec la lecture en langue de scolarisation,
+         qui est dans la PREMIÈRE rubrique du PDF, très au-dessus. Ici on est dans
+         « Connaissance du français » et ces pastilles écrivent dans « Décodage-encodage ». */
+      pastilles('lectureFrancais', 'Lecture en français — clique ce que tu as vu (plusieurs possibles)', LECTURE.concat(PHONO)),
+      texte('lectureFrancais', 'Décodage-encodage', 240),
+      casnav('productionOrale', 'Production orale — niveau CASNAV', CASNAV.prodOral, null, true),
+      pastilles('productionOrale', 'Production orale — ce que tu as entendu (plusieurs possibles)', PROD_ORALE),
+      texte('productionOrale', 'Production orale / communication', 475),
       /* Aucun test ne mesure la compréhension orale : c'est elle qui l'observe pendant
          l'entretien. Une liste de phrases graduées, du plus débutant au plus autonome,
          évite de la réécrire à chaque élève (sa demande du 02/09). La case reste
          librement modifiable juste en dessous. */
-      propose('comprehensionOrale', 'Compréhension orale — une phrase à reprendre', [
+      /* Ses six phrases graduées du 02/09 rejoignent le déroulant CASNAV, dans leur propre
+         groupe : un seul menu par case. */
+      casnav('comprehensionOrale', 'Compréhension orale — niveau CASNAV', CASNAV.oral, [
         "Ne comprend pas encore le français oral : les échanges passent par une langue tierce, par le geste ou par l'image.",
         "Comprend une consigne très simple de la classe lorsqu'elle est accompagnée d'un geste ou d'un support visuel.",
         "Comprend les consignes courantes de la classe et les questions sur son identité, à condition de parler lentement.",
         "Comprend une consigne en plusieurs étapes et le sens général d'un échange sur un sujet familier.",
         "Comprend un récit court lu à voix haute et en restitue l'essentiel.",
         "Comprend le français oral de la classe sans aide particulière, y compris les consignes de travail."
-      ]),
-      texte('comprehensionOrale', 'Compréhension orale'),
-      texte('comprehensionEcrite', 'Compréhension écrite'),
-      texte('expressionEcrite', 'Expression écrite'),
+      ], true),
+      pastilles('comprehensionOrale', 'Compréhension orale — ce que tu as observé (plusieurs possibles)', COMPR_ORALE),
+      texte('comprehensionOrale', 'Compréhension orale', 315),
+      casnav('comprehensionEcrite', 'Lecture et compréhension écrite — niveau CASNAV', CASNAV.lecture, null, true),
+      pastilles('comprehensionEcrite', 'Compréhension écrite — ce que tu as vu (plusieurs possibles)', COMPR_ECRITE),
+      texte('comprehensionEcrite', 'Compréhension écrite', 475),
+      casnav('expressionEcrite', "Production d'écrit — niveau CASNAV", CASNAV.ecrit, null, true),
+      pastilles('expressionEcrite', "Production d'écrit — ce que tu as vu (plusieurs possibles)", EXPR_ECRITE),
+      texte('expressionEcrite', 'Expression écrite', 790),
+      /* ⚠ LES CASES DU PDF QUI N'ÉTAIENT NULLE PART (07/09 : « dans préco, ça serait
+         vraiment pas mal de revoir en fait tous les éléments du PDF »). La fiche EANA 76
+         a onze champs que l'étape ④ ne proposait pas : ils partaient donc VIDES à
+         l'impression, sans que rien ne le signale. Les voici, dans l'ordre du document.
+         Deux d'entre eux comptent particulièrement pour ses élèves de 16-18 ans : la
+         série ou spécialité (une préco « 2Pro » sans spécialité n'orienting rien) et le
+         suivi Mission Locale. */
       liste('precoClasse', 'Classe préconisée', O.precoClasse),
+      texte('precoSerie', 'Série ou spécialité préconisée'),
       liste('accompagnement', 'Accompagnement linguistique', O.accompagnement),
-      texte('remarquesCasnav', 'Remarques')
+      /* ⚠ NI SOUHAITS DE L'ÉLÈVE, NI MISSION LOCALE (07/09, elle les a fait retirer).
+         Même règle que le psy EN et OEPRE : ces champs existent dans la fiche EANA 76 mais
+         ne relèvent pas d'elle — les souhaits se recueillent en entretien d'orientation,
+         le suivi Mission Locale se décide ailleurs. Ce qu'un CIO y aurait écrit repart
+         quand même à l'impression (la fiche déposée est réécrite en entier).
+         Le critère reste : « tous les champs qui sont de son ressort », pas « tous les
+         champs du PDF ». Ne pas les remettre. */
+      liste('scolLangueMaternelle', 'Scolarisé dans sa langue maternelle', ['', 'oui', 'non']),
+      liste('evaluePar', 'Évalué par', O.evaluePar),
+      texte('evalueParAutre', 'Évalué par (qui, si « Autre »)'),
+      /* ⚠ NI RENCONTRE PSY EN, NI OEPRE (07/09) : « mon rôle s'arrête à la préconisation
+         du CASNAV, après ce n'est plus de mon ressort ». Ces champs existent dans le PDF
+         mais relèvent d'autres professionnels : les proposer ici l'inviterait à renseigner
+         ce qu'elle n'a pas à renseigner. Le critère n'est pas « tous les champs du PDF »
+         mais « tous les champs qui sont de son ressort ». Ne pas les remettre.
+         Ce qu'un CIO y aurait déjà écrit n'est pas perdu pour autant : la fiche déposée
+         est relue en entier et ses valeurs repartent telles quelles à l'impression. */
+      texte('remarquesGenerales', 'Remarques générales', 930),
+      pastilles('remarquesCasnav', 'Remarques — formulations rapides (plusieurs possibles)', REMARQUES),
+      texte('remarquesCasnav', 'Remarques', 1220)
     ];
     this.dernieresSaisies = vals.saisies;
     vals.onOrthographe = () => this.verifierOrthographe();

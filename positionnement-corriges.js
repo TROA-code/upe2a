@@ -80,55 +80,55 @@
        (Jean Muzi). En français, pour les collégiens francophones : les réponses sont
        rédigées, chacune se juge juste / faux / rien. Les attendus viennent du texte. */
     'creteil-conte-college': [
-      { num: '1', type: 'ouvert', question: "Ce texte est le début de : poésie / théâtre / conte + les mots qui le prouvent",
+      { num: '1', constat: { court: "l'identification du type de texte" }, type: 'ouvert', question: "Ce texte est le début de : poésie / théâtre / conte + les mots qui le prouvent",
         sous: [{ libelle: 'Sa réponse' }], rubrique: 'comprehensionEcrite',
         aide: "Attendu : conte — « Il était une fois »" },
-      { num: '2', type: 'ouvert', question: "Où se passe cette histoire ?",
+      { num: '2', constat: { court: "le prélèvement d'indices dans le texte" }, type: 'ouvert', question: "Où se passe cette histoire ?",
         sous: [{ libelle: 'Sa réponse' }], rubrique: 'comprehensionEcrite',
         aide: "Attendu : dans un village du Mont-Liban" },
-      { num: '3', type: 'ouvert', question: "Quels sont les personnages principaux ?",
+      { num: '3', constat: { court: "le repérage des personnages" }, type: 'ouvert', question: "Quels sont les personnages principaux ?",
         sous: [{ libelle: 'Sa réponse' }], rubrique: 'comprehensionEcrite',
         aide: "Attendu : les deux paysans (le père et la mère), leur fille Warda, les trois frères" },
-      { num: '4', type: 'ouvert', question: "« Ils possédaient un petit champ à la terre fertile. » — un verbe conjugué, un nom, un adjectif",
+      { num: '4', constat: { court: "la reconnaissance des temps verbaux" }, type: 'ouvert', question: "« Ils possédaient un petit champ à la terre fertile. » — un verbe conjugué, un nom, un adjectif",
         sous: [{ libelle: 'Sa réponse' }], rubrique: 'expressionEcrite',
         aide: "Attendu : possédaient · champ ou terre · petit ou fertile" },
-      { num: '5', type: 'ouvert', question: "Lignes 10 à 14 : un verbe au présent, un à l'imparfait, un au passé simple",
+      { num: '5', constat: { court: "la reconnaissance des temps verbaux" }, type: 'ouvert', question: "Lignes 10 à 14 : un verbe au présent, un à l'imparfait, un au passé simple",
         sous: [{ libelle: 'Sa réponse' }], rubrique: 'expressionEcrite',
         aide: "Attendu : trouve (présent) · proposaient, haussait, lançait (imparfait) · finirent, épousèrent (passé simple)" },
-      { num: '6', type: 'ouvert', question: "Mettre au pluriel : « Ce paysan avait une belle jeune fille à marier »",
+      { num: '6', constat: { court: "les accords au pluriel" }, type: 'ouvert', question: "Mettre au pluriel : « Ce paysan avait une belle jeune fille à marier »",
         sous: [{ libelle: 'Sa réponse' }], rubrique: 'expressionEcrite',
         aide: "Attendu : Ces paysans avaient de belles jeunes filles à marier" },
-      { num: '7', type: 'ouvert', question: "Lignes 6 à 7 : qui sont les « prétendants » ?",
+      { num: '7', constat: { court: "la compréhension du lexique du texte" }, type: 'ouvert', question: "Lignes 6 à 7 : qui sont les « prétendants » ?",
         sous: [{ libelle: 'Sa réponse' }], rubrique: 'comprehensionEcrite',
         aide: "Attendu : les garçons du village qui rêvent d'épouser Warda" },
-      { num: '8', type: 'ouvert', question: "Quels cadeaux les prétendants proposent-ils ?",
+      { num: '8', constat: { court: "le prélèvement d'indices dans le texte" }, type: 'ouvert', question: "Quels cadeaux les prétendants proposent-ils ?",
         sous: [{ libelle: 'Sa réponse' }], rubrique: 'comprehensionEcrite',
         aide: "Attendu : leur âne, leur dromadaire" },
-      { num: '9', type: 'ouvert', question: "Vrai ou faux : « La mère est contente des cadeaux » + justification",
+      { num: '9', constat: { court: "la justification par une citation du texte" }, type: 'ouvert', question: "Vrai ou faux : « La mère est contente des cadeaux » + justification",
         sous: [{ libelle: 'Sa réponse' }], rubrique: 'comprehensionEcrite',
         aide: "Attendu : faux — « La mère haussait les épaules », « on en trouve partout »" },
-      { num: '10', type: 'ouvert', question: "Que vont faire les trois frères pour trouver un cadeau unique ?",
+      { num: '10', constat: { court: "la compréhension du récit" }, type: 'ouvert', question: "Que vont faire les trois frères pour trouver un cadeau unique ?",
         sous: [{ libelle: 'Sa réponse' }], rubrique: 'comprehensionEcrite',
         aide: "Attendu : partir en voyage, chacun de son côté, et se retrouver un an plus tard" },
-      { num: '11', type: 'ouvert', question: "Passer au discours indirect : « C'est un cadeau unique au monde qu'il faut offrir à ma fille »",
+      { num: '11', constat: { court: "la transposition au discours indirect" }, type: 'ouvert', question: "Passer au discours indirect : « C'est un cadeau unique au monde qu'il faut offrir à ma fille »",
         sous: [{ libelle: 'Sa réponse' }], rubrique: 'expressionEcrite',
         aide: "Attendu : …que c'était un cadeau unique au monde qu'il fallait offrir à sa fille" },
-      { num: '12', type: 'ouvert', question: "Lignes 4 à 16 : quatre mots en rapport avec le mariage",
+      { num: '12', constat: { court: "la compréhension du lexique du texte" }, type: 'ouvert', question: "Lignes 4 à 16 : quatre mots en rapport avec le mariage",
         sous: [{ libelle: 'Sa réponse' }], rubrique: 'comprehensionEcrite',
         aide: "Attendu : se marier, épouser, prétendants, la main, épousèrent" },
-      { num: '13', type: 'ouvert', question: "Lignes 8 à 14 : quatre pronoms mis à la place de « prétendants »",
+      { num: '13', constat: { court: "les substituts du nom" }, type: 'ouvert', question: "Lignes 8 à 14 : quatre pronoms mis à la place de « prétendants »",
         sous: [{ libelle: 'Sa réponse' }], rubrique: 'expressionEcrite',
         aide: "Attendu : les uns, les autres, leur, ils, en, celui" },
-      { num: '14', type: 'ouvert', question: "Pourquoi ne reste-t-il que trois prétendants ? Deux raisons",
+      { num: '14', constat: { court: "l'inférence" }, type: 'ouvert', question: "Pourquoi ne reste-t-il que trois prétendants ? Deux raisons",
         sous: [{ libelle: 'Sa réponse' }], rubrique: 'comprehensionEcrite',
         aide: "Attendu : la mère refuse tous leurs cadeaux ; ils se lassent et épousent d'autres jeunes filles" },
-      { num: '15', type: 'ouvert', question: "Ligne 29 : recopier la comparaison",
+      { num: '15', constat: { court: "le repérage d'une figure de style" }, type: 'ouvert', question: "Ligne 29 : recopier la comparaison",
         sous: [{ libelle: 'Sa réponse' }], rubrique: 'comprehensionEcrite',
         aide: "Attendu : « rapide comme l'éclair »" },
-      { num: '16', type: 'ouvert', question: "Le cheval plaira-t-il à la mère ? Réponse appuyée sur le texte",
+      { num: '16', constat: { court: "l'inférence" }, type: 'ouvert', question: "Le cheval plaira-t-il à la mère ? Réponse appuyée sur le texte",
         sous: [{ libelle: 'Sa réponse' }], rubrique: 'comprehensionEcrite',
         aide: "Attendu : non : un cheval n'est pas unique au monde — réponse argumentée attendue" },
-      { num: '17', type: 'bareme', question: 'Production écrite (sujet 1 ou sujet 2)',
+      { num: '17', constat: { court: "la production d'un écrit argumenté" }, type: 'bareme', question: 'Production écrite (sujet 1 ou sujet 2)',
         options: [['Récit construit, 10 à 15 lignes, langue maîtrisée', 'TBM'],
           ['Récit compréhensible, quelques erreurs de langue', 'MS'],
           ['Quelques phrases, récit incomplet', 'MF'],
@@ -137,6 +137,228 @@
         constat: { ok: 'Produit un récit construit et compréhensible à l\'écrit.',
           non: 'La production écrite reste très limitée.' },
         aide: 'Sujet 1 : le voyage du deuxième frère (10 lignes). Sujet 2 : le retour au village (15 lignes).' }
+    ],
+    /* CASNAV de Créteil — FLSco lycée, trois documents : un extrait de « La Promesse de
+       l'aube » (Romain Gary), une photographie du champ de Mars, une affiche sur la
+       vaccination. Vingt questions rédigées, puis une production écrite.
+       Corrigé officiel envoyé par elle le 07/09 (trois captures).
+       ⚠ Les questions 1 à 12 sont celles du sujet, mot pour mot, et 13-14 sont les deux
+       sujets de production écrite AU CHOIX (« traiter au choix un des sujets suivants ») :
+       elle note celui que l'élève a traité et laisse l'autre sur NE.
+       Les questions 15 à 20 ne figuraient pas dans ses captures du 05/09 : leur libellé est
+       RECONSTITUÉ d'après le corrigé (15 et 16 portent sur la photographie du champ de
+       Mars, 17 et 18 sur l'affiche de vaccination, 19 et 20 sur le lien entre les
+       documents). À remplacer par les vrais libellés le jour où elle aura les pages
+       manquantes. */
+    /* ⚠ LE GARY « AMBASSADOR » EN ANGLAIS (07/09, ses six photos). Un AUTRE extrait de La
+       Promesse de l'aube et d'autres questions que le Gary français : les deux corrigés
+       sont donc séparés, et le numéro d'exercice suit la feuille anglaise (I. 1-7,
+       II. 8-10, III. 11-15, IV. production écrite = item 16).
+       Les attendus sont tirés du texte lui-même, ligne par ligne — pas d'un corrigé
+       officiel, qu'elle n'a pas fourni. À corriger si elle en reçoit un. */
+    /* ⚠ LES DEUX FEUILLES NOTÉES SUR 5 (07/09, ses photos). Le barème en points est repris
+       dans les attendus, mais la saisie se fait à l'échelle de maîtrise : un point et demi
+       ne se coche pas. Pour les vrai/faux, la JUSTIFICATION fait la note — cocher juste
+       sans citer le texte ne vaut pas le point. */
+    'ce-b1-bilingues': [
+      { num: '1', type: 'unique', question: "De quel type de texte s'agit-il ?",
+        options: ['Un texte descriptif', 'Un texte informatif', 'Un texte narratif'],
+        bonne: 'Un texte informatif', constat: { court: "l'identification du type de texte" },
+        aide: 'Attendu : un texte informatif (/1). Le texte donne des chiffres et des faits, il ne raconte pas et ne décrit pas.',
+        rubrique: 'comprehensionEcrite' },
+      { num: '2a', type: 'ouvert', sous: [{ libelle: 'Vrai / Faux' }, { libelle: 'Justification' }],
+        question: '« Le nombre de personnes bilingues diminue. » Vrai ou faux ? Justifiez.',
+        constat: { court: "la justification par une citation du texte" },
+        aide: "Attendus (/1,5) : FAUX, et la citation « le chiffre ne cesse d'augmenter ». Cocher faux sans citer ne vaut pas le point entier.",
+        rubrique: 'comprehensionEcrite' },
+      { num: '2b', type: 'ouvert', sous: [{ libelle: 'Vrai / Faux' }, { libelle: 'Justification' }],
+        question: '« En général, les personnes qui parlent plusieurs langues changent de langue selon les situations. » Vrai ou faux ? Justifiez.',
+        constat: { court: "la justification par une citation du texte" },
+        aide: "Attendus (/1,5) : VRAI, avec « un indien ne parle pas la même langue à la maison, dans la rue ou à son travail » ou « à la maison, au travail ou dans la rue, le vocabulaire change ».",
+        rubrique: 'comprehensionEcrite' },
+      { num: '2c', type: 'ouvert', sous: [{ libelle: 'Sa réponse' }],
+        question: "Pourquoi un bilingue parfait n'existe-t-il pas ?",
+        constat: { court: "la compréhension fine du texte" },
+        aide: "Attendu (/1) : parce que deux langues sont rarement utiles dans le même contexte — on n'a pas les mêmes compétences dans chacune, et les langues se complètent (compter dans l'une, jouer dans l'autre).",
+        rubrique: 'comprehensionEcrite' }
+    ],
+    'ce-a2-train': [
+      { num: '1', type: 'ouvert', sous: [{ libelle: 'Sa réponse' }],
+        question: "Où se passe l'histoire ?",
+        constat: { court: "le repérage du lieu" },
+        aide: "Attendu (/1) : dans le train, dans un compartiment.",
+        rubrique: 'comprehensionEcrite' },
+      { num: '2', type: 'ouvert', sous: [{ libelle: 'Sa réponse' }],
+        question: "À quel moment de l'année se passe l'histoire ?",
+        constat: { court: "le repérage du moment" },
+        aide: "Attendu (/1) : juste après les fêtes de Noël, en hiver (elle rentre des sports d'hiver).",
+        rubrique: 'comprehensionEcrite' },
+      { num: '3', type: 'unique', question: 'Combien y a-t-il de personnes dans le compartiment ?',
+        options: ['1 femme et 1 homme', '2 femmes et 1 homme', '1 femme et 2 hommes'],
+        bonne: '1 femme et 2 hommes', constat: { court: "le repérage des personnages" },
+        aide: "Attendu (/1) : 1 femme et 2 hommes — la narratrice, le jeune et le plus âgé.",
+        rubrique: 'comprehensionEcrite' },
+      { num: '5', type: 'unique', question: "Que fait l'homme à Nîmes ?",
+        options: ['Il remercie la femme et lui donne un livre', "Il s'en va et oublie son sac", 'Il garde le livre et quitte le train'],
+        bonne: 'Il garde le livre et quitte le train', constat: { court: "la compréhension du récit" },
+        aide: "Attendu (/1) : il garde le livre et quitte le train. ⚠ La feuille n'a pas de question 4 : la numérotation est celle du document.",
+        rubrique: 'comprehensionEcrite' },
+      { num: '6', type: 'unique', question: 'Quelle est la réaction de la narratrice ?',
+        options: ["Elle est heureuse parce que l'homme est parti", "Elle a peur parce qu'elle se retrouve seule", "Elle est surprise parce que l'homme a emporté son livre"],
+        bonne: "Elle est surprise parce que l'homme a emporté son livre",
+        constat: { court: "la compréhension du récit" },
+        aide: "Attendu (/1) : elle est surprise — « à ma grande surprise, il a gardé le livre ».",
+        rubrique: 'comprehensionEcrite' }
+    ],
+    'gary-ambassadeur-en': [
+      { num: '1', type: 'ouvert', sous: [{ libelle: 'Sa réponse' }], question: 'Who is the author?', constat: { court: "le prélèvement d'indices dans le texte" },
+        aide: 'Attendu : Romain Gary.', rubrique: 'comprehensionEcrite' },
+      { num: '2', type: 'ouvert', sous: [{ libelle: 'Sa réponse' }], question: 'What is the title of the novel?', constat: { court: "le prélèvement d'indices dans le texte" },
+        aide: 'Attendu : Promise at Dawn (La Promesse de l\'aube). ⚠ Le titre du roman, pas celui de l\'extrait — la confusion est fréquente.',
+        rubrique: 'comprehensionEcrite' },
+      { num: '3', type: 'ouvert', sous: [{ libelle: 'Sa réponse' }], question: 'What is the title of the extract?', constat: { court: "le prélèvement d'indices dans le texte" },
+        aide: 'Attendu : « You Will Be an Ambassador, My Son… ».', rubrique: 'comprehensionEcrite' },
+      { num: '4', type: 'ouvert', sous: [{ libelle: 'Sa réponse' }], question: 'Who are the characters?', constat: { court: "le repérage des personnages" },
+        aide: 'Attendu : la mère, le fils (le narrateur) et Aniela, la domestique. Deux sur trois suffisent.',
+        rubrique: 'comprehensionEcrite' },
+      { num: '5', type: 'ouvert', sous: [{ libelle: 'Sa réponse' }], question: 'In which season does the scene take place? Copy two expressions.', constat: { court: "le prélèvement d'indices dans le texte" },
+        aide: 'Attendu : winter (l\'hiver), avec deux relevés parmi « snowy city », « cold weather », « ten degrees below zero », « the snow gave the world a strange thickness ».',
+        rubrique: 'comprehensionEcrite' },
+      { num: '6', type: 'ouvert', sous: [{ libelle: 'Sa réponse' }], question: 'How old is the child in the text?', constat: { court: "le prélèvement d'indices dans le texte" },
+        aide: 'Attendu : eight years old (ligne 11).', rubrique: 'comprehensionEcrite' },
+      { num: '7', type: 'unique', question: 'Where does the scene take place?', constat: { court: "le prélèvement d'indices dans le texte" },
+        options: ['in France', 'in Poland', 'in Russia'], bonne: 'in Poland',
+        aide: 'Attendu : in Poland. Le chapeau du document le dit — Gary a émigré en Pologne à 7 ans.',
+        rubrique: 'comprehensionEcrite' },
+      { num: '8', type: 'ouvert', sous: [{ libelle: 'Sa réponse' }], question: 'What feelings does the son have toward his mother? Explain using elements from the text.', constat: { court: "la compréhension du récit" },
+        aide: 'Attendu : l\'amour et le dévouement, avec un appui sur le texte — « everything my mother wanted, I would give her » (l. 12-13).',
+        rubrique: 'comprehensionEcrite' },
+      { num: '9', type: 'ouvert', sous: [{ libelle: 'Sa réponse' }], question: 'Explain the expression "the marks of tiredness" (line 22).', constat: { court: "l'inférence" },
+        aide: 'Attendu : les traces de fatigue sur son visage — elle vient de traverser la ville à pied par dix degrés en dessous de zéro. L\'inférence est la clé.',
+        rubrique: 'comprehensionEcrite' },
+      { num: '10', type: 'ouvert', sous: [{ libelle: 'Sa réponse' }], question: "Is the mother worried about her son's future? Why?", constat: { court: "l'inférence" },
+        aide: 'Attendu : NON — elle est confiante, elle l\'imagine ambassadeur et dit « We just have to be patient, that\'s all » (l. 18). Son visage est « happy and peaceful, without any sign of worry » (l. 22).',
+        rubrique: 'comprehensionEcrite' },
+      { num: '11', type: 'ouvert', question: 'Find a verb in the present perfect, the imperfect, the simple future, and the present.', constat: { court: "la reconnaissance des temps verbaux" },
+        sous: [{ libelle: 'Present perfect' }, { libelle: 'Imperfect' }, { libelle: 'Simple future' }, { libelle: 'Present' }],
+        aide: 'Attendus : present perfect « I have never been able » (l. 29) · imperfect « would come back » (l. 1) ou « was sewing » (l. 21) · simple future « You will be » (l. 10) · present « gives » / « is ». Quatre bonnes → +++, trois → ++-.',
+        rubrique: 'comprehensionEcrite' },
+      { num: '12', type: 'ouvert', sous: [{ libelle: 'Sa réponse' }], question: 'Lines 10-11: copy the sentence, replacing "I" with "he".', constat: { court: "la transposition de personne" },
+        aide: 'Attendu : « He had no idea what that was, but he agreed. He was only eight years old, but his decision was made: everything his mother wanted, he would give her. » Les trois accords à reprendre : he / his / her.',
+        rubrique: 'expressionEcrite' },
+      { num: '13', type: 'ouvert', sous: [{ libelle: 'Sa réponse' }], question: 'Line 7: "with a look of wonder" — find two words from the same word family.', constat: { court: "les familles de mots" },
+        aide: 'Attendu : wonderful (l. 25) et wondered / wandered. ⚠ Piège du texte : « her gaze wandered » (l. 24) s\'écrit avec un a et n\'est PAS de la même famille.',
+        rubrique: 'comprehensionEcrite' },
+      { num: '14', type: 'ouvert', sous: [{ libelle: 'Sa réponse' }], question: 'Give a synonym for the word "worry" (line 22).', constat: { court: "le lexique" },
+        aide: 'Attendus : concern, anxiety, fear. « Anxious » est de la bonne famille mais c\'est un adjectif, pas un nom — à accepter en demi-teinte.',
+        rubrique: 'comprehensionEcrite' },
+      { num: '15', type: 'ouvert', sous: [{ libelle: 'Sa réponse' }], question: 'Explain the word "hero" (line 27).', constat: { court: "le lexique" },
+        aide: 'Attendu : une personne admirée pour son courage, ses actions nobles, ce qu\'elle fait pour les autres.',
+        rubrique: 'comprehensionEcrite' },
+      { num: '16', constat: { court: "la production d'un écrit argumenté" }, type: 'ouvert', sous: [{ libelle: 'Sa réponse' }], question: 'Writing skills — Topic 1 (a person who influenced you) or Topic 2 (should parents choose their children\'s future?), about ten lines.',
+        aide: 'Attendus : une dizaine de lignes, DEUX parties si le sujet 2 est choisi (thèse et arguments contraires), des arguments développés et non répétés, et une langue tenue. C\'est l\'exercice qui départage le plus.',
+        rubrique: 'expressionEcrite' }
+    ],
+    'creteil-lycee-gary': [
+      { num: '1', type: 'ouvert', question: 'Présenter le document (œuvre, auteur, date)',
+        sous: [{ libelle: 'Sa réponse' }], rubrique: 'comprehensionEcrite',
+        constat: { court: 'les éléments simples du paratexte' },
+        aide: "Attendu : « La Promesse de l'aube » · Romain Gary · 1960" },
+      { num: '2', type: 'ouvert', question: "Qui sont les deux personnages ? Que sait-on de l'apparence physique de la fillette ?",
+        sous: [{ libelle: 'Sa réponse' }], rubrique: 'comprehensionEcrite',
+        constat: { court: 'le prélèvement d\'informations explicites' },
+        aide: "Attendu : Valentine et le jeune Romain Gary. Elle est belle : « une brune aux yeux clairs, admirablement faite »." },
+      { num: '3', type: 'ouvert', question: "Quels sentiments éprouvent les personnages l'un pour l'autre ?",
+        sous: [{ libelle: 'Sa réponse' }], rubrique: 'comprehensionEcrite',
+        constat: { court: 'l\'inférence' },
+        aide: "Attendu : lui tombe amoureux — « admirablement faite », « apparaître », « je ne cesserai de chanter sa beauté, sa douceur », « résolu à la séduire ». Elle ne ressent rien : « n'était pas femme à se laisser impressionner »." },
+      { num: '4', type: 'ouvert', question: 'Proposer un titre qui rende compte de cet extrait.',
+        sous: [{ libelle: 'Sa réponse' }], rubrique: 'comprehensionEcrite',
+        constat: { court: 'la compréhension globale d\'un texte' },
+        aide: "On accepte tous les titres se rapprochant des notions d'amour, de rencontre ou d'enfance." },
+      { num: '5', type: 'ouvert', question: "Identifier les deux temps du passé utilisés dans le texte et donner un exemple pour chacun d'entre eux.",
+        sous: [{ libelle: 'Sa réponse' }], rubrique: 'expressionEcrite',
+        constat: { court: 'les temps du récit' },
+        aide: "Attendu (les plus simples suffisent) : imparfait « s'appelait Valentine » · passé composé « je l'ai vue ». Le texte contient aussi le passé simple « l'émoi qui s'empara », le subjonctif imparfait « de façon qu'il n'y eût plus » et le plus-que-parfait « me l'avait dit »." },
+      { num: '6', type: 'ouvert', question: "Quel est le pronom personnel dominant de l'extrait ? Qui représente-t-il ?",
+        sous: [{ libelle: 'Sa réponse' }], rubrique: 'expressionEcrite',
+        constat: { court: 'le repérage des marques de l\'énonciation' },
+        aide: "Attendu : « je ». Il représente l'auteur devenu adulte et narrateur de cette rencontre amoureuse." },
+      { num: '7', type: 'ouvert', question: "Relever trois mots ou expressions montrant que le jeune garçon idéalise la jeune fille au moment de son apparition (lignes 1 à 10).",
+        sous: [{ libelle: 'Sa réponse' }], rubrique: 'comprehensionEcrite',
+        constat: { court: 'le prélèvement d\'informations explicites' },
+        aide: "Attendu : « la décrire à perte de souffle », « chanter sa beauté », « admirablement faite », « apparaître »." },
+      { num: '8', type: 'ouvert', question: "« Absolument », « immédiatement », « toujours », « jamais » (lignes 10 à 15) : quelle est la nature de ces mots ? Qu'expriment-ils ?",
+        sous: [{ libelle: 'Sa réponse' }], rubrique: 'expressionEcrite',
+        constat: { court: 'la nature grammaticale des mots' },
+        aide: "Attendu : des adverbes. Ils expriment tous la force de l'amour fou et éternel qu'éprouve le personnage." },
+      { num: '9', type: 'ouvert', question: "Quel âge l'auteur a-t-il au moment où il écrit son texte ?",
+        sous: [{ libelle: 'Sa réponse' }], rubrique: 'comprehensionEcrite',
+        constat: { court: 'l\'inférence' },
+        aide: 'Attendu : 46 ans.' },
+      { num: '10', type: 'ouvert', question: "Relire les lignes 7 à 10. Relever les réactions physiques que provoque l'apparition de la jeune fille sur le personnage principal. Quel sentiment traduisaient ces réactions ?",
+        sous: [{ libelle: 'Sa réponse' }], rubrique: 'comprehensionEcrite',
+        constat: { court: 'l\'inférence' },
+        aide: 'Attendu : les jambes qui deviennent molles, le cœur qui saute violemment, la vue qui se trouble. Elles traduisent le coup de foudre.' },
+      { num: '11', type: 'ouvert', question: "Quelle figure de style est utilisée dans : « tout devenait feu et flamme autour de moi » (ligne 18) et « je pris place parmi les plus grands amants de tous les temps » (lignes 32 et 33) ? Pourquoi l'auteur a-t-il choisi cette figure de style ?",
+        sous: [{ libelle: 'La figure de style' }, { libelle: 'Pourquoi ce choix' }],
+        rubrique: 'comprehensionEcrite',
+        constat: { court: 'le repérage des figures de style' },
+        aide: "Attendu : l'hyperbole (on accepte aussi la notion d'exagération). Objectif : montrer l'intensité extrême de son amour." },
+      { num: '12', type: 'ouvert', question: "Ce texte est une autobiographie. Quels indices permettent de l'affirmer ? (S'appuyer sur les questions précédentes.)",
+        sous: [{ libelle: 'Sa réponse' }], rubrique: 'comprehensionEcrite',
+        constat: { court: 'l\'identification du genre d\'un texte' },
+        aide: "Attendu : le « je » représente le narrateur devenu adulte ; la rencontre est vue de son point de vue et décrite subjectivement (« comme une apparition ») ; il s'agit d'un épisode de son enfance." },
+      /* ⚠ 13 ET 14 SONT LES DEUX SUJETS DE PRODUCTION ÉCRITE, AU CHOIX (vérifié le 07/09
+         sur le sujet lui-même : « IV) Production écrite : traiter au choix un des sujets
+         suivants », 13 puis « OU » puis 14, et « Sujet choisi n° … »). J'en avais fait
+         deux exercices distincts — production d'un côté, maîtrise de la langue de
+         l'autre — ce qui était faux : ce sont deux ÉNONCÉS alternatifs.
+         Elle note donc celui que l'élève a traité et laisse l'autre sur NE. Le corrigé
+         officiel renvoie pour les deux à la grille de compétences du sujet (« 13) voir la
+         grille de compétences qui suit le corrigé des questions » · « 14) idem »). */
+      { num: '13', type: 'bareme', question: "Sujet 1 : Racontez à la manière de Romain Gary une rencontre ou un événement qui a suscité chez vous des émotions très fortes.",
+        options: [['Récit construit et expressif, langue maîtrisée', 'TBM'],
+          ['Récit compréhensible, quelques erreurs de langue', 'MS'],
+          ['Quelques phrases, récit incomplet', 'MF'],
+          ['Moins de trois phrases, ou hors sujet', 'MI']],
+        rubrique: 'expressionEcrite',
+        constat: { court: "la production d'un écrit" },
+        aide: "Un seul des deux sujets est traité : laisser l'autre sur NE. Le corrigé renvoie à la grille de compétences qui suit les questions." },
+      { num: '14', type: 'bareme', question: 'Sujet 2 : Vous êtes Valentine. Racontez cette rencontre.',
+        options: [['Récit construit, point de vue tenu, langue maîtrisée', 'TBM'],
+          ['Récit compréhensible, quelques erreurs de langue', 'MS'],
+          ['Quelques phrases, récit incomplet', 'MF'],
+          ['Moins de trois phrases, ou hors sujet', 'MI']],
+        rubrique: 'expressionEcrite',
+        constat: { court: "la production d'un écrit" },
+        aide: "Ce sujet demande en plus de changer de point de vue (écrire en Valentine). Un seul des deux sujets est traité : laisser l'autre sur NE." },
+      { num: '15', type: 'bareme', question: 'La photographie : compléter le tableau (premier plan / arrière-plan · personnages, objets et monuments, lieu)',
+        options: [['Les six cases justes', 'TBM'], ['Quatre ou cinq cases justes', 'MS'],
+          ['Deux ou trois cases justes', 'MF'], ['Une case juste ou aucune', 'MI']],
+        rubrique: 'comprehensionEcrite',
+        constat: { court: 'la lecture de l\'image' },
+        aide: "Attendu — au premier plan : les enfants · les patins à roulettes, la bicyclette. À l'arrière-plan : la ville, Paris · la tour Eiffel, le palais de Chaillot. Lieu : Paris, le champ de Mars." },
+      { num: '16', type: 'ouvert', question: 'Pourquoi cette photographie est-elle à la fois humoristique et nostalgique ?',
+        sous: [{ libelle: 'Sa réponse' }], rubrique: 'comprehensionEcrite',
+        constat: { court: 'la lecture de l\'image' },
+        aide: "Attendu : humoristique car la fillette se fait traîner par un petit garçon qui semble être son petit frère ; nostalgique car elle appartient au passé, la photo est en noir et blanc et montre un souvenir heureux d'enfance." },
+      { num: '17', type: 'ouvert', question: "Quel est le thème de cette affiche ?",
+        sous: [{ libelle: 'Sa réponse' }], rubrique: 'comprehensionEcrite',
+        constat: { court: 'la compréhension globale d\'un document' },
+        aide: 'Attendu : la vaccination.' },
+      { num: '18', type: 'ouvert', question: "Quel conseil cette affiche donne-t-elle ? Pourquoi ?",
+        sous: [{ libelle: 'Sa réponse' }], rubrique: 'comprehensionEcrite',
+        constat: { court: 'l\'inférence' },
+        aide: "Attendu : faire vacciner son enfant pour sa santé, mais aussi pour pouvoir l'inscrire à l'école." },
+      { num: '19', type: 'ouvert', question: "Quel lien peut-on établir entre la photographie et l'affiche ?",
+        sous: [{ libelle: 'Sa réponse' }], rubrique: 'comprehensionEcrite',
+        constat: { court: 'la mise en relation de documents' },
+        aide: "Attendu : celui de l'école et de la bonne santé des enfants, qui peut être physique et mentale." },
+      { num: '20', type: 'ouvert', question: 'Quel est le point commun entre les trois documents ?',
+        sous: [{ libelle: 'Sa réponse' }], rubrique: 'comprehensionEcrite',
+        constat: { court: 'la mise en relation de documents' },
+        aide: "Attendu : l'enfance." }
     ],
     /* Canopé — mathématiques, cycle 4 / FIN DE 5E, langue d'origine : français. Corrigé
        officiel (CASNAV de Corse, PDF 17066), reçu d'elle le 02/09. Même traitement que
@@ -1099,11 +1321,37 @@
           '« Ses yeux devinrent vitreux. »'],
         bonnes: ['« Buck avait accepté la corde avec calme. »',
           '« Il grogna de façon menaçante. »', '« Sa langue pendait. »'],
+        /* ⚠ Version anglaise (07/09) : elle a donné Buck EN ANGLAIS à Ibrahim, faute de
+           bengali. Sans ces libellés, elle notait une copie anglaise en lisant des
+           propositions françaises — « ça évite toute confusion ». Les citations reprennent
+           le texte de Jack London, « The Call of the Wild », dans l'ordre de la feuille. */
+        /* ⚠ Libellés anglais RELEVÉS SUR LA FEUILLE (ses trois photos du 07/09), plus mes
+           traductions : Canopé a sa propre version anglaise, et elle ne dit pas tout à fait
+           la même chose que la française. À ne pas « améliorer » — c'est le papier que
+           l'élève a devant lui. */
+        vo: 'Which sentences imply that Buck is an animal? [Circle the correct answers]',
+        voOptions: ['"Buck had accepted the rope with quiet dignity"',
+          '"He growled menacingly"',
+          '"Never in all his life had he been so angry"',
+          '"His tongue lolling out of his mouth"',
+          '"In his pride believing that to intimate was to command"',
+          '"His eyes glazed"'],
+        /* ⚠ Les six exercices de Buck n'avaient AUCUN `constat` (07/09) : ses notes ne
+           produisaient donc pas une ligne sur la fiche, alors qu'elle demandait que « les
+           résultats de Buck se trouvent ici à la suite ». Libellés courts, regroupés par
+           compétence, comme sur Gary. */
+        constat: { court: "le prélèvement d'indices dans le texte" },
         aide: 'Barème : 3 bonnes → TBM, 2 → MS, 1 → MF, aucune → MI.' },
       { num: '2', type: 'multi', bareme: 'buck2',
         question: "Quels mots caractérisent le mieux l'homme dans le texte ? (plusieurs réponses)",
         options: ['aimant', 'doux', 'cruel', 'habile', 'fort', 'soumis', 'patient'],
         bonnes: ['cruel', 'habile', 'fort'],
+        /* La version anglaise dit « Clever », pas « habile » : l'ordre des mots diffère
+           aussi du français (Loving · Kind · Cruel · Clever · Strong · Submissive ·
+           Patient). C'est celui de la feuille. */
+        vo: 'Which adjectives apply the best to the man in the text? [Circle the correct answers]',
+        voOptions: ['Loving', 'Kind', 'Cruel', 'Clever', 'Strong', 'Submissive', 'Patient'],
+        constat: { court: "la caractérisation d'un personnage" },
         aide: 'Barème : les trois, ou « habile » + « fort » → TBM ; « cruel » + un des deux → MS ; une seule → MF.' },
       { num: '3', type: 'paires', bareme: 'buck3',
         question: 'Vrai ou faux ?',
@@ -1113,6 +1361,12 @@
           ['Buck ne comprend pas ce qui se passe.', 'VRAI'],
           ['Buck, jusque-là, se pensait supérieur aux autres.', 'VRAI']
         ],
+        constat: { court: "l'inférence" },
+        vo: 'True or False? [Circle the correct answer]',
+        voColonnes: ['TRUE', 'FALSE'],
+        voElements: ['Buck is used to being treated badly.',
+          "Buck doesn't understand what's going on.",
+          'Until now, Buck had a high self-esteem.'],
         aide: 'Barème : 3 bonnes → TBM, 2 → MS, 1 → MF, aucune → MI.' },
       { num: '4', type: 'paires', bareme: 'buck3',
         question: 'À quel domaine se rapporte chacun de ces mots ?',
@@ -1122,18 +1376,34 @@
           ['le grognement', 'une réaction'],
           ['la colère', 'un sentiment']
         ],
+        /* ⚠ La version anglaise dit « Displeasure » là où la française dit « la douleur » :
+           déplaisir et douleur ne sont pas le même mot, et le classement attendu s'en
+           trouve discutable (07/09, à trancher avec elle). On garde le libellé de la
+           feuille, sans corriger le corrigé français. */
+        constat: { court: 'le classement du lexique' },
+        vo: 'To which field do the following words relate? [Connect the words with a line]',
+        voColonnes: ['A feeling', 'A reaction', 'A sensation'],
+        voElements: ['Displeasure', 'Growling', 'Anger'],
         aide: 'Barème : toutes → TBM, 2 → MS, 1 → MF, aucune → MI.' },
       { num: '5', type: 'ordre', bareme: 'buck5',
         question: "Numéroter les événements de 1 à 4, dans l'ordre de l'histoire",
         phrases: ['Buck se sent en danger.', "Buck s'évanouit.",
           'Buck se laisse faire.', 'Buck résiste.'],
         rangs: [2, 4, 1, 3],
+        constat: { court: 'la chronologie du récit' },
+        vo: 'Place the events in chronological order by numbering them from 1 to 4',
+        voPhrases: ['Buck senses that he is in danger', 'Buck faints.',
+          'Buck stays passive.', 'Buck resists.'],
         aide: 'Barème : toutes justes → TBM, 2 justes → MS, moins de 2 → MI (pas de MF).' },
       { num: '6', type: 'multi', bareme: 'buck6',
         question: "À quoi sert la corde dans l'extrait ? (une ou plusieurs réponses)",
         options: ['à frapper Buck', 'à emmener Buck en promenade',
           "à l'empêcher de bouger", "à l'étrangler"],
         bonnes: ["à l'étrangler"],
+        constat: { court: "la compréhension d'un détail du récit" },
+        vo: 'What is the rope used for in the extract? [Circle the correct answer(s)]',
+        voOptions: ['To hit Buck.', 'To take Buck for a walk.',
+          'To stop Buck from moving.', 'To strangle Buck.'],
         aide: "Barème : « à l'étrangler » seul → TBM ; « à l'étrangler » + « à l'empêcher de bouger » → MS ; les autres → MF ou MI." }
     ],
     /* Cycle 4, fin de 4e — dossier UNICEF sur les droits de l'enfant (trois documents :
@@ -1444,18 +1714,32 @@
   function noteDe(exo, rep) {
     if (rep == null) return null;
     if (exo.type === 'ouvert') {
-      /* « rien » n'est pas une erreur : c'est une ligne qu'elle n'a pas fait lire.
-         Elle sort du calcul — sinon sa feuille de décodage, où elle choisit deux ou
-         trois lignes, conclurait MI sur tout le reste. */
-      const lues = rep.filter(x => x === 'juste' || x === 'faux');
-      const riens = rep.filter(x => x === 'rien').length;
-      /* Sur un test, une opération laissée vide EST un échec (`rienVaut: 'MI'`) : on la
-         lui a proposée. Sur sa feuille de décodage, c'est elle qui n'a pas fait lire la
-         ligne — elle ne compte pas. */
-      if (!lues.length) return riens && exo.rienVaut ? exo.rienVaut : null;
-      const justes = lues.filter(x => x === 'juste').length;
-      if (exo.rienVaut === 'MI') return niveau(justes / exo.sous.length);
-      return niveau(justes / lues.length);
+      /* ⚠ ÉCHELLE DE MAÎTRISE depuis le 07/09 : les réponses valent '' (NE, non évalué),
+         MI, MF, MS ou TBM — plus « juste / faux / rien ». Sa règle : « d'une manière
+         générale ça va pas juste faux rien, je préfère NE, insuffisant, fragile, bonne
+         maîtrise, très bonne maîtrise ». Une réponse rédigée se juge en maîtrise, pas en
+         vrai ou faux.
+         Les passations d'avant sont relues : juste → TBM, faux → MI, rien → NE.
+         NE sort du calcul — ce n'est pas un échec, c'est une question non posée : sinon sa
+         feuille de décodage, où elle ne choisit que deux ou trois lignes, conclurait MI
+         sur tout le reste. Sauf `rienVaut: 'MI'`, où le vide EST un échec parce que
+         l'exercice a bien été proposé à l'élève. */
+      const ancien = { juste: 'TBM', faux: 'MI', rien: '' };
+      const RANG = { MI: 0, MF: 1, MS: 2, TBM: 3 };
+      const notes = rep.map(x => (ancien[x] != null ? ancien[x] : x))
+        .filter(x => RANG[x] != null);
+      const riens = rep.length - notes.length;
+      if (!notes.length) return riens && exo.rienVaut ? exo.rienVaut : null;
+      /* Une seule sous-question — le cas de presque tous ces exercices : sa note est LA
+         note, sans moyenne qui l'arrondirait. */
+      if (notes.length === 1 && (exo.sous || []).length === 1) return notes[0];
+      /* Plusieurs sous-questions : on fait la MOYENNE DES NIVEAUX, pas une part de bonnes
+         réponses — `niveau()` attend une proportion de justes et ramenait une seule
+         réponse « fragile » sur trois lignes à « insuffisant ». Arrondi vers le bas : le
+         brouillon ne doit jamais flatter. */
+      const total = notes.reduce((s, x) => s + RANG[x], 0);
+      const sur = exo.rienVaut === 'MI' ? (exo.sous || notes).length : notes.length;
+      return ['MI', 'MF', 'MS', 'TBM'][Math.max(0, Math.min(3, Math.floor(total / sur)))];
     }
     if (exo.type === 'sous') {
       /* plusieurs petites questions dans un même exercice, une seule note */
@@ -1644,16 +1928,42 @@
     if (rep === 'Un résultat écrit sans opération posée') {
       return c.sansPoser || c.non || '';
     }
-    const toutRien = exo.type === 'ouvert' && (rep || []).length
-      && (rep || []).every(x => x === 'rien' || !x) && (rep || []).some(x => x === 'rien');
+    /* ⚠ « NON ÉVALUÉ » VAUT AUSSI POUR LA CHAÎNE VIDE (07/09). Depuis le passage à
+       l'échelle de maîtrise, le bouton NE enregistre '' et non plus 'rien' : la détection
+       ne trouvait donc plus jamais de non-évaluation, et sa feuille de décodage — où elle
+       ne fait lire que deux ou trois lignes exprès — perdait son « Non évalué ». Les deux
+       formes comptent, l'ancienne pour les saisies déjà en base. */
+    const neuf = (Array.isArray(rep) ? rep : []).map(x => (x === 'juste' ? 'TBM' : x === 'faux' ? 'MI' : x));
+    const toutRien = exo.type === 'ouvert' && neuf.length && neuf.every(x => !x || x === 'rien');
     if (toutRien && c.rien && !exo.rienVaut) return c.rien;
     if (!note) return toutRien && c.rien ? c.rien : '';
     const parNiveau = { TBM: c.tbm, MS: c.ms, MF: c.mf, MI: c.mi };
     if (parNiveau[note]) return parNiveau[note];
     if (toutRien && c.rien) return c.rien;
+    /* ⚠ REPLI SUR `court` (07/09). Dix-sept des vingt exercices de Gary ne portent qu'un
+       libellé court — c'est lui qui alimente la ligne condensée « Maîtrise X, Y et Z / Ne
+       maîtrise pas… » qu'elle a demandée le 02/09. Sans ce repli, `constat` renvoyait
+       `undefined`, `propositionsFiche` sautait l'exercice, et la case « compréhension
+       écrite » de la fiche restait VIDE alors qu'elle avait noté les vingt questions. */
+    if (!c.ok && !c.non && c.court) {
+      return (acquisNote(note) ? 'Maîtrise ' : 'Ne maîtrise pas ') + c.court + '.';
+    }
     return acquisNote(note) ? c.ok : c.non;
   }
-  const acquisNote = (n) => n === 'MS' || n === 'TBM';
+  /* ⚠ TOUTES LES ÉCHELLES, PAS SEULEMENT CANOPÉ (07/09). Cette fonction ne connaissait que
+     MS et TBM : sur l'échelle de Créteil (NE / --- / --+ / ++- / +++), un « +++ » tombait
+     donc en NON acquis, et un élève à 75 % était décrit comme ne maîtrisant RIEN sur une
+     fiche lue par le CASNAV et par la famille. Même famille de faute que le « moins de la
+     moitié » du même jour.
+     Les trois échelles en service : Canopé (MI/MF/MS/TBM), Lyon (--/-/+/++) et Créteil
+     (---/--+/++-/+++). Une note ACQUISE est celle qui commence par un signe positif, ou MS
+     ou TBM. « NE » et la chaîne vide restent non évaluées. */
+  const acquisNote = (n) => {
+    const s = String(n || '').trim();
+    if (!s || s === 'NE') return false;
+    if (s === 'MS' || s === 'TBM') return true;
+    return s.charAt(0) === '+';
+  };
 
   window.CORRIGES = { CORRIGES: C, pour, note, noteDe, noteJuge, niveau, vide, constat };
 })();

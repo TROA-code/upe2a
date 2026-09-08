@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" />
+<style>
+  doc-page:not(:defined) { visibility: hidden; }
+  @media print { .ecran-seul { display: none !important; } }
+  a { color: #1d4e89; }
+  a:hover { color: #123a6b; }
+</style>
+<script src="doc-page.js"></script>
+</helmet>
+
+<div class="ecran-seul" style="font-family:Verdana,Tahoma,sans-serif;padding:16px 18px 6px;display:flex;flex-direction:column;gap:10px">
+  <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:16px;letter-spacing:.02em">JE ME CONNECTE À L'ENT — GUIDE ÉLÈVE</div>
+  <div style="font-size:11.5px;color:#6b7386;line-height:1.5;max-width:74ch">
+    Cinq pages A4 : la vraie capture d'écran à chaque étape, et le bouton entouré en rouge.
+    Six mots de texte par étape au maximum. À poser à côté du clavier, pas à lire.
+  </div>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+    <button onClick="{{ imprimer }}" style="border:none;background:#2a9d6e;color:#fff;border-radius:9px;padding:10px 18px;font-family:'Archivo Black',Verdana,sans-serif;font-size:12px;letter-spacing:.04em;cursor:pointer">IMPRIMER</button>
+    <span style="font-size:11.5px;color:#8595a8">Recto-verso, trois feuilles (la dernière au recto seul).</span>
+  </div>
+</div>
+
+<!-- ⚠ MARGES : 2 cm sur les QUATRE côTÉS, jamais moins (07/09, sa consigne, exaspérée après
+     trois documents trop serrés). Ça vaut pour tout ce qui s'imprime : une feuille sans
+     marge se lit mal, se troue mal, se range mal — et beaucoup d'imprimantes coupent le
+     bord. On enlève du contenu ou on ajoute une page ; on ne mange pas la marge. -->
+<!-- ⚠ `margin` NE FAIT RIEN ICI : une page explicite (`section.page`) est toujours en plein
+     bord, l'attribut ne vaut que pour un document au fil du texte. Les 2 cm sont donc en
+     `padding` sur CHAQUE section — c'est le seul endroit où ils tiennent. Vérifié en
+     mesurant la section : 794 px de large, contenu 794 px, donc zéro marge avant ce
+     correctif. -->
+<doc-page size="a4" margin="2cm">
+
+  <section class="page" style="padding:2cm;box-sizing:border-box;font-family:Verdana,Tahoma,sans-serif;color:#1c2430;display:flex;flex-direction:column;gap:6mm">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;border-bottom:2.5px solid #1c2430;padding-bottom:2mm;gap:6mm">
+      <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:17pt">JE ME CONNECTE À L'ENT</div>
+      <div style="font-size:10pt;color:#6b7386">1 / 5</div>
+    </div>
+
+    <div style="display:flex;gap:4mm;align-items:flex-start">
+      <div style="flex:0 0 auto;width:13mm;height:13mm;border-radius:50%;background:#1d4e89;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Archivo Black',Verdana,sans-serif;font-size:16pt">1</div>
+      <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3mm">
+        <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:15pt">J'écris l'adresse.</div>
+        <div style="border:2.5px solid #1c2430;border-radius:6mm;padding:4mm 6mm;background:#fff;display:flex;align-items:center;gap:4mm">
+          <div style="font-family:Consolas,'Courier New',monospace;font-size:17pt;letter-spacing:.02em;word-break:break-all">www.l-educdenormandie.fr</div>
+        </div>
+        <!-- ⚠ Le L minuscule de « l-educ » (07/09) : en police à espacement fixe, il se
+             confond avec un I majuscule. C'est la faute de frappe qui bloque la classe. -->
+        <div style="font-size:12pt;line-height:1.5">En haut, dans la barre blanche.</div>
+        <div style="font-size:12pt;line-height:1.5;color:#b3283c;font-weight:bold">La première lettre est un <b>l</b> comme <b>lycée</b>. Ensuite, un tiret.</div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:4mm;align-items:flex-start">
+      <div style="flex:0 0 auto;width:13mm;height:13mm;border-radius:50%;background:#1d4e89;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Archivo Black',Verdana,sans-serif;font-size:16pt">2</div>
+      <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3mm">
+        <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:15pt">Je clique sur ÉLÈVE.</div>
+        <img src="clean/ent/ent-1.png" alt="Le bouton Élève est entouré en rouge" style="width:100%;height:auto;display:block;border:1px solid #c3d2e2" />
+      </div>
+    </div>
+  </section>
+
+  <section class="page" style="padding:2cm;box-sizing:border-box;font-family:Verdana,Tahoma,sans-serif;color:#1c2430;display:flex;flex-direction:column;gap:6mm">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;border-bottom:2.5px solid #1c2430;padding-bottom:2mm;gap:6mm">
+      <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:17pt">JE ME CONNECTE À L'ENT</div>
+      <div style="font-size:10pt;color:#6b7386">2 / 5</div>
+    </div>
+
+    <div style="display:flex;gap:4mm;align-items:flex-start">
+      <div style="flex:0 0 auto;width:13mm;height:13mm;border-radius:50%;background:#1d4e89;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Archivo Black',Verdana,sans-serif;font-size:16pt">3</div>
+      <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3mm">
+        <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:15pt">Je clique sur COLLÈGE / LYCÉE.</div>
+        <img src="clean/ent/ent-2.png" alt="Le bouton Collège / Lycée est entouré en rouge" style="width:88%;height:auto;display:block;border:1px solid #c3d2e2" />
+      </div>
+    </div>
+
+    <!-- ⚠ LES ÉTAPES 3 ET 4 SONT SUR LA MÊME PAGE (sa demande du 07/09) : les deux gestes
+         se font sur le MÊME écran, à quelques secondes d'intervalle — les séparer obligeait
+         l'élève à tourner la feuille sans que l'écran ait changé.
+         Elles ne tiennent qu'à une condition : les deux captures sont un peu MOINS LARGES
+         (88 % et 82 %), ce qui réduit leur hauteur en gardant le rapport intact. On ne
+         borne jamais la hauteur — c'est ce qui les écrasait. -->
+    <div style="display:flex;gap:4mm;align-items:flex-start">
+      <div style="flex:0 0 auto;width:13mm;height:13mm;border-radius:50%;background:#1d4e89;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Archivo Black',Verdana,sans-serif;font-size:16pt">4</div>
+      <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3mm">
+        <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:15pt">Je clique sur SE CONNECTER.</div>
+        <!-- ⚠ PAS DE `max-height` SUR CES CAPTURES : bornée en hauteur dans un conteneur
+             flex, l'image s'écrase au lieu de se réduire (07/09, « c'est écrasé »). Pour
+             gagner de la place, on raccourcit le TEXTE, jamais l'image : c'est elle que
+             l'élève regarde. -->
+        <img src="clean/ent/ent-3.png" alt="Le bouton Se connecter est entouré en rouge" style="width:82%;height:auto;align-self:flex-start;display:block;border:1px solid #c3d2e2" />
+        <div style="border-left:4px solid #b3283c;padding-left:4mm;font-size:12pt;line-height:1.5">
+          Au lycée, je laisse <b>« Non »</b>.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page" style="padding:2cm;box-sizing:border-box;font-family:Verdana,Tahoma,sans-serif;color:#1c2430;display:flex;flex-direction:column;gap:6mm">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;border-bottom:2.5px solid #1c2430;padding-bottom:2mm;gap:6mm">
+      <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:17pt">JE ME CONNECTE À L'ENT</div>
+      <div style="font-size:10pt;color:#6b7386">3 / 5</div>
+    </div>
+
+    <div style="display:flex;gap:4mm;align-items:flex-start">
+      <div style="flex:0 0 auto;width:13mm;height:13mm;border-radius:50%;background:#1d4e89;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Archivo Black',Verdana,sans-serif;font-size:16pt">5</div>
+      <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3mm">
+        <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:15pt">Je clique sur ÉLÈVE.</div>
+        <img src="clean/ent/ent-4.png" alt="Le bouton Élève d'ÉduConnect est entouré en rouge" style="width:100%;height:auto;display:block;border:1px solid #c3d2e2" />
+        <div style="border-left:4px solid #b3283c;padding-left:4mm;font-size:12pt;line-height:1.5">
+          <b>ÉLÈVE est à droite.</b> À gauche, c'est pour les parents.
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:4mm;align-items:flex-start">
+      <div style="flex:0 0 auto;width:13mm;height:13mm;border-radius:50%;background:#1d4e89;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Archivo Black',Verdana,sans-serif;font-size:16pt">6</div>
+      <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3mm">
+        <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:15pt">J'écris mon identifiant et mon mot de passe.</div>
+        <img src="clean/ent/ent-5.png" alt="Les deux cases identifiant et mot de passe sont entourées en rouge" style="width:100%;height:auto;display:block;border:1px solid #c3d2e2" />
+      </div>
+    </div>
+  </section>
+
+  <section class="page" style="padding:2cm;box-sizing:border-box;font-family:Verdana,Tahoma,sans-serif;color:#1c2430;display:flex;flex-direction:column;gap:6mm">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;border-bottom:2.5px solid #1c2430;padding-bottom:2mm;gap:6mm">
+      <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:17pt">MON MOT DE PASSE</div>
+      <div style="font-size:10pt;color:#6b7386">4 / 5</div>
+    </div>
+
+    <!-- ⚠ Le comparatif des DEUX identifiants (session du lycée / ENT) a été retiré à sa
+         demande le 07/09 : ne pas le remettre. Il portait en plus une faute de ma part —
+         « a.fakhilzai » écrit avec un point sous la mention « sans point ». -->
+    <div style="display:flex;flex-direction:column;gap:3mm">
+      <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:15pt">Pour écrire mon mot de passe.</div>
+      <div style="display:flex;gap:4mm;flex-wrap:wrap;font-size:11pt;line-height:1.5">
+        <div style="flex:1;min-width:52mm;border:1.5px solid #c3d2e2;border-radius:3mm;padding:3mm 4mm">
+          <b>Une grande lettre</b><br />Je garde la touche <b>Maj</b> (↑) appuyée, et j'écris la lettre.
+        </div>
+        <div style="flex:1;min-width:52mm;border:1.5px solid #c3d2e2;border-radius:3mm;padding:3mm 4mm">
+          <b>Un chiffre</b><br />Les chiffres sont en haut du clavier. Je garde <b>Maj</b> (↑) appuyée.
+        </div>
+        <div style="flex:1;min-width:52mm;border:1.5px solid #c3d2e2;border-radius:3mm;padding:3mm 4mm">
+          <b>Je ne vois pas ce que j'écris</b><br />C'est normal. Je clique sur l'œil pour vérifier.
+        </div>
+      </div>
+      <div style="font-size:11pt;color:#48586b;line-height:1.5">Mon mot de passe ne se donne à personne. Si je l'ai perdu, je le dis à ma professeure.</div>
+    </div>
+  </section>
+
+  <!-- ⚠ LE MESSAGE REPREND LES TROIS PHRASES DE LA SÉQUENCE « ME PRÉSENTER » (son idée du
+       07/09) : « je m'appelle… j'ai … ans… je viens de… ». La mission ENT de sa collègue
+       faisait écrire « Je viens de réaliser l'activité de prise en main de l'ENT », une
+       phrase que ses élèves ne peuvent ni lire ni composer. Ici l'élève n'écrit QUE ce
+       qu'il sait déjà dire, et le message devient l'aboutissement de la séquence de
+       français : les mêmes structures, mais adressées à quelqu'un pour de vrai.
+       Ne pas rallonger le modèle : quatre lignes, dont trois déjà apprises. -->
+  <section class="page" style="padding:2cm;box-sizing:border-box;font-family:Verdana,Tahoma,sans-serif;color:#1c2430;display:flex;flex-direction:column;gap:5mm">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;border-bottom:2.5px solid #1c2430;padding-bottom:2mm;gap:6mm">
+      <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:17pt">J'ÉCRIS UN MESSAGE</div>
+      <div style="font-size:10pt;color:#6b7386">5 / 5</div>
+    </div>
+
+    <div style="display:flex;gap:4mm;align-items:flex-start">
+      <div style="flex:0 0 auto;width:13mm;height:13mm;border-radius:50%;background:#1d4e89;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Archivo Black',Verdana,sans-serif;font-size:16pt">7</div>
+      <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3mm">
+        <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:15pt">J'écris à ma professeure.</div>
+        <div style="font-size:11pt;color:#48586b;line-height:1.5">Dans l'ENT, je clique sur <b style="color:#1c2430">Messagerie</b>, puis sur <b style="color:#1c2430">Nouveau message</b>.</div>
+      </div>
+    </div>
+
+    <div style="border:2.5px solid #1c2430;border-radius:4mm;padding:5mm;display:flex;flex-direction:column;gap:4mm">
+      <div style="display:flex;gap:3mm;align-items:baseline;flex-wrap:wrap">
+        <div style="font-size:11pt;color:#1d4e89;font-weight:bold;letter-spacing:.04em;min-width:22mm">OBJET</div>
+        <div style="font-size:14pt">Je me présente</div>
+      </div>
+      <div style="border-top:1px solid #c3d2e2;padding-top:4mm;display:flex;flex-direction:column;gap:4mm;font-size:15pt;line-height:1.4">
+        <!-- « Bonjour madame », pas « Bonjour » tout court (07/09) : on écrit à une
+             personne, et l'apostrophe s'adresse à elle. C'est aussi la formule qu'ils
+             devront réutiliser en stage. -->
+        <div>Bonjour madame,</div>
+        <div style="display:flex;align-items:baseline;gap:2mm;flex-wrap:nowrap">
+          <span>Je m'appelle</span>
+          <span style="flex:1;border-bottom:2px solid #1c2430;height:8mm"></span>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:2mm">
+          <span>J'ai</span>
+          <span style="flex:1;border-bottom:2px solid #1c2430;height:8mm"></span>
+          <span>ans.</span>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:2mm">
+          <span>Je viens</span>
+          <span style="flex:1;border-bottom:2px solid #1c2430;height:8mm"></span>
+        </div>
+        <div>Bonne journée,</div>
+        <div style="display:flex;align-items:baseline;gap:2mm">
+          <span style="flex:1;border-bottom:2px solid #1c2430;height:8mm"></span>
+        </div>
+      </div>
+    </div>
+
+    <div style="border-left:4px solid #b3283c;padding-left:4mm;font-size:11pt;line-height:1.5;color:#48586b">
+      Avant d'envoyer, je vérifie : le <b style="color:#1c2430">nom de ma professeure</b>, l'<b style="color:#1c2430">objet</b>, et mon <b style="color:#1c2430">prénom</b> à la fin.
+    </div>
+
+    <div style="border-top:1.5px dashed #8a8a8a;padding-top:4mm;font-size:11pt;line-height:1.55;color:#48586b">
+      <b style="color:#1c2430">Je me relis.</b> Une majuscule au début de chaque phrase. Un point à la fin.
+      Mon prénom avec une majuscule, mon nom en majuscules.
+    </div>
+  </section>
+
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:900,&quot;height&quot;:1250}}">
+class Component extends DCLogic {
+  /* GUIDE DE CONNEXION À L'ÉDUC DE NORMANDIE (07/09), construit sur SES captures d'écran :
+     elle a parcouru le parcours réel écran par écran (profil → niveau → mémorisation →
+     ÉduConnect → identifiant). Chaque bouton à cliquer est entouré en rouge par le script
+     d'annotation, sur la vraie image : aucun écran n'est redessiné, aucun n'est inventé.
+
+     ⚠ LE GUIDE S'ARRÊTE À L'ÉCRAN DU MOT DE PASSE : elle n'avait pas les codes élèves, donc
+     l'écran de PREMIÈRE CONNEXION (nouveau mot de passe à choisir, date de naissance à
+     confirmer) n'a pas pu être capturé. À ajouter en page 5 quand elle aura les identifiants.
+
+     ⚠ DEUX IDENTIFIANTS DIFFÉRENTS, et c'est le piège de la semaine : la session Windows du
+     lycée est `afakhilzai` (une lettre + le nom, SANS point, mot de passe Lecesne2026!!),
+     l'ENT est au format `p.nomXX` (avec un point et des chiffres, mot de passe du papier
+     ÉduConnect). La page 4 les met côte à côte pour cette raison. Ne pas fusionner les deux.
+
+     Le texte reste à l'infinitif de la première personne (« je clique »), six mots par
+     étape au plus : le guide se regarde, il ne se lit pas. */
+  renderVals() {
+    return { imprimer: () => window.print() };
+  }
+}
+</script>
+</body>
+</html>

@@ -38,7 +38,14 @@
   }
   const prenom = (f) => (f.prenom || '').trim();
   /* « Il » / « Elle » : la fiche EANA coche le sexe, l'étape 4 le redemande en clair. */
-  const feminin = (f) => f.sexe === 'F' || f.sexe === 'Fille';
+  /* ⚠ TROIS FORMES POSSIBLES (07/09) : la fiche EANA déposée coche deux booléens
+     (`sexeF` / `sexeM`), l'étape ④ enregistre « Fille » / « Garçon », et d'anciens
+     dossiers portent « F ». Ne lire que `f.sexe` faisait sortir « Sana se débrouille en
+     arabe : IL lit et comprend », « Non lecteurrice », « a été scolarisé » — au masculin
+     sur les quatre filles dont la fiche vient du CIO, là où l'accord est le plus visible.
+     Les trois formes comptent. */
+  const feminin = (f) => f.sexeF === true
+    || f.sexe === 'F' || f.sexe === 'Fille' || f.sexe === 'fille';
   const il = (f) => (feminin(f) ? 'Elle' : 'Il');
 
   /* --- Lecture en langue de scolarisation ---------------------------------- */
@@ -134,12 +141,76 @@
         ? (ctx.finesse === 'fragile'
           ? nom + ' maîtrise la langue française à l\'oral et lit avec fluidité. En revanche, la compréhension fine d\'un texte reste fragile : l\'implicite et les inférences passent encore à côté.'
           : nom + ' a une très bonne maîtrise de la langue française (compréhension et expression).')
-        : 'Le profil de compétences de ' + nom + ' est en adéquation avec les attendus du niveau '
-          + (ctx.classe || 'de sa classe d\'âge') + '. Le niveau global est conforme à celui de sa classe d\'âge.');
+        /* ⚠ « EN ADÉQUATION AVEC LES ATTENDUS DU NIVEAU TERMINALE » NE S'ÉCRIT PLUS À
+           L'AVEUGLE (07/09 : « ça, c'est une grosse grosse boulette de ta part »). Cette
+           phrase sortait du seul choix « Scolarité conforme à la classe d'âge » dans une
+           liste — donc SANS AUCUNE PREUVE — sur une élève dont le test de français venait
+           d'être jugé trop difficile. Elle affirmait un niveau de classe que rien ne
+           soutenait, sur une fiche lue par le CASNAV et par la famille, et contredisait
+           deux rubriques plus haut de la même page.
+           Trois garde-fous désormais : rien ne s'écrit si le français est en cause
+           (`francaisDur`) ou si la lecture fine est fragile ; la scolarité antérieure et
+           le niveau de FRANÇAIS sont deux choses distinctes — on parle de scolarité, pas
+           de compétences ; et on ne compare plus à « les attendus du niveau X », qui
+           mélange les deux. Ne pas rétablir la formule. */
+        /* ⚠ « ET EST INSCRIT EN TERMINALE » NE S'ÉCRIT PLUS (07/09 : « c'est n'importe quoi
+           ce que tu as écrit — Ibrahim Khalil a suivi une scolarité conforme à sa classe
+           d'âge et est inscrit en Terminale »). Deux fautes en une phrase : la classe
+           d'accueil est un fait administratif qui figure DÉJÀ en tête de la fiche, et
+           l'accoler à « scolarité conforme » la faisait lire comme un niveau atteint — sur
+           un élève dont elle venait d'écrire « impossible pour le moment » en compréhension
+           orale, écrite et en production. Ne pas rétablir la mention de la classe ici.
+           `debutantFrancais` dit ce qu'elle a observé : la scolarité antérieure est un
+           acquis, le français reste entièrement à construire. Les deux dans la même
+           phrase, sinon la première se lit comme un bilan. */
+        : ctx.debutantFrancais
+          ? nom + ' a suivi une scolarité conforme à sa classe d\'âge dans son pays ; '
+            + 'le français est en revanche entièrement à construire.'
+          : nom + ' a suivi une scolarité conforme à sa classe d\'âge.');
     } else if (p === 'autrelangue') {
       par.push(nom + ' présente un profil scolaire solide : '
         + (feminin(f) ? 'elle est entrée' : 'il est entré')
         + ' rapidement dans les exercices et a travaillé avec efficacité.');
+    }
+
+    /* 1 bis. le contraste langue de scolarisation / français (07/09) : « Sana se
+       débrouille en langue arabe, c'est plus compliqué en français ». C'est ce que le
+       CASNAV cherche d'abord chez un élève scolarisé antérieurement — il sait lire, la
+       marche à franchir est le français. Une phrase, jamais deux bilans côte à côte : la
+       place manque dans la case.
+       On ne l'écrit QUE si un test a été passé dans sa langue : sans point de comparaison,
+       « c'est plus compliqué en français » ne veut rien dire. */
+    /* ⚠ UN SEUL PARAGRAPHE, QUI RACONTE L'ENCHAÎNEMENT (07/09, sa reformulation) : « Le
+       test en français s'est révélé trop difficile. Un test en arabe a donc été donné pour
+       situer ses acquis scolaires, qui sont … ». Le constat, la décision, le résultat — et
+       le résultat FERME la phrase, ce qui manquait : « pour situer ses acquis scolaires »
+       laissait le lecteur sans réponse.
+       Ne pas revenir à « Le profil de compétences de X » : cette entrée en matière annonce
+       un bilan de compétences là où il s'agit d'expliquer POURQUOI le test a été passé
+       dans une autre langue. */
+    /* ⚠ SA PROPRE RÉÉCRITURE, REPRISE TELLE QUELLE (07/09) : elle a réécrit le paragraphe
+       dans la case, et sa version est meilleure que la mienne sur trois points — le
+       « pourtant » qui NOUE la scolarité antérieure et l'échec en français (mes deux
+       paragraphes séparés laissaient le lecteur faire le lien), « Ils sont conformes à … »
+       en phrase courte plutôt qu'une relative qui n'en finissait pas, et un seul
+       paragraphe au lieu de deux.
+       Le paragraphe de profil est donc absorbé ici : ne pas le rajouter au-dessus, il ferait
+       doublon avec « a suivi une scolarité conforme à sa classe d'âge ». */
+    if (ctx.langueScol && ctx.francaisDur) {
+      if (par.length) par.pop();
+      par.push(nom + ' a suivi une scolarité conforme à sa classe d\'âge pourtant le test '
+        + 'en français s\'est révélé trop difficile. Un test en '
+        + String(ctx.langueScol).toLowerCase() + ' a donc été donné pour situer ses acquis '
+        + 'scolaires. '
+        + (ctx.origineOk
+          ? (ctx.palierOrigine
+            ? 'Ils sont conformes à une scolarité de ' + ctx.palierOrigine + '.'
+            : 'Ils sont conformes à sa classe d\'âge.')
+          : 'La saisie est en cours.'));
+    } else if (ctx.langueScol && ctx.origineOk) {
+      par.push(nom + ' se débrouille en ' + String(ctx.langueScol).toLowerCase()
+        + ' : ' + (feminin(f) ? 'elle lit et comprend' : 'il lit et comprend')
+        + ' un texte de son niveau de classe. L\'entrée dans l\'écrit est plus difficile en français.');
     }
 
     /* 2. les mathématiques */
@@ -155,19 +226,31 @@
     }
 
     /* 4. la préconisation, toujours en dernier */
-    if (p === 'nsa' || p === 'peu') {
-      par.push('Nous préconisons une intégration en UPE2A NSA afin de consolider les fondamentaux.');
-    } else if (p === 'francophone') {
-      par.push(ctx.finesse === 'fragile'
-        ? 'Nous préconisons une affectation en ' + (ctx.classeLongue || ctx.classe || 'classe ordinaire')
-          + ', avec un accompagnement en compréhension de l\'écrit. La difficulté ne porte pas sur la langue parlée mais sur la lecture fine : un dispositif UPE2A ne se justifie pas.'
-        : 'Nous préconisons une affectation en ' + (ctx.classeLongue || ctx.classe || 'classe ordinaire')
-          + ' sans dispositif de soutien linguistique.');
-    } else if (p === 'autrelangue') {
-      par.push(ctx.classe
-        ? 'Compte tenu de la période de l\'année, une affectation en ' + ctx.classe
-          + ' lui serait profitable. Par ailleurs, un dispositif UPE2A lui permettrait de consolider ses apprentissages en français.'
-        : 'Un dispositif UPE2A lui permettrait de consolider ses apprentissages en français.');
+    /* ⚠ UNE SEULE TOURNURE, AU CONDITIONNEL (07/09, sa demande mot pour mot) : « Une
+       affectation en [classe préconisée] lui permettrait de … » — puis ce que le
+       dispositif rend possible : consolider les fondamentaux pour un NSA, travailler son
+       projet professionnel pour un SAS. Trois raisons de s'y tenir :
+       - c'est une PROPOSITION au CASNAV, qui décide : le conditionnel le dit, « nous
+         préconisons » sonnait comme une décision déjà prise ;
+       - la phrase part de la classe qu'elle a choisie, donc elle ne peut plus contredire
+         ce choix (« UPE2A Sas […] un dispositif UPE2A ne se justifie pas », 07/09) ;
+       - « lui » vaut pour une fille comme pour un garçon : aucun accord à reprendre.
+       Le profil ne change plus la STRUCTURE, seulement la suite du « lui permettrait
+       de ». Ne pas réintroduire une phrase par profil. */
+    const ou = ctx.classeLongue || ctx.classe;
+    if (ou) {
+      const quoi = /nsa/i.test(ou)
+        ? 'de consolider les fondamentaux avant d\'envisager une orientation'
+        : /sas/i.test(ou)
+          ? 'de travailler sur son projet professionnel'
+          : /upe2a|fle|allophone/i.test(ou)
+            ? 'de consolider ses apprentissages en français'
+            : (p === 'nsa' || p === 'peu')
+              ? 'de consolider les fondamentaux'
+              : ctx.finesse === 'fragile'
+                ? 'de poursuivre sa scolarité avec un accompagnement en compréhension de l\'écrit'
+                : 'de poursuivre sa scolarité';
+      par.push('Une affectation en ' + ou + ' lui permettrait ' + quoi + '.');
     }
     return par.join('\n\n');
   }

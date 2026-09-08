@@ -11,7 +11,7 @@
       seuil: 'MS et TBM : on considère que c\'est acquis',
       valeurs: [
         { v: 'NE', nom: 'NE', aide: 'non évalué', pts: null, fond: '#eef1f5', texte: '#8a91a3' },
-        { v: 'MI', nom: 'MI', aide: 'maîtrise insuffisante', pts: 0, fond: '#fbe3e6', texte: '#b3283c' },
+        { v: 'MI', nom: 'MI', aide: 'maîtrise très insuffisante', pts: 0, fond: '#fbe3e6', texte: '#b3283c' },
         { v: 'MF', nom: 'MF', aide: 'maîtrise fragile', pts: 1, fond: '#fdeedd', texte: '#a35a12' },
         { v: 'MS', nom: 'MS', aide: 'maîtrise satisfaisante', pts: 2, acquis: true, fond: '#e6f2e9', texte: '#2a6b45' },
         { v: 'TBM', nom: 'TBM', aide: 'très bonne maîtrise', pts: 3, acquis: true, fond: '#cfeadb', texte: '#155e3d' }
@@ -378,6 +378,14 @@
        ensuite dans un document officiel. */
     const complet = evalues > 0 && evalues === exos.length;
     const atteint = complet ? nbAcquis * 2 > evalues : null;
+    /* ⚠ LA MOITIÉ PILE N'EST PAS « MOINS DE LA MOITIÉ » (07/09 : « mais il est quasi
+       atteint le niveau 5e, non ? »). Sur Buck, Ibrahim a 3 items acquis sur 6 : la phrase
+       annonçait « moins de la moitié, le niveau n'est pas atteint » — arithmétiquement
+       faux, et injuste sur une fiche officielle. Canopé fixe ce qui est acquis (MS et TBM)
+       mais PAS le seuil du niveau : la majorité stricte est notre choix, à assumer comme
+       tel. Le cas d'égalité se dit donc pour ce qu'il est — presque atteint — sans changer
+       `atteint`, qui reste prudent pour le calcul des paliers. */
+    const limite = complet && nbAcquis * 2 === evalues;
     let mot = null, conclusion = null, palier = null;
     if (evalues && !complet) {
       mot = evalues + ' item' + (evalues > 1 ? 's' : '') + ' noté' + (evalues > 1 ? 's' : '')
@@ -391,13 +399,15 @@
         mot = (b && b.phrase) ? b.phrase : null;
       } else {
         const nom = (test.niveaux && test.niveaux[0]) ? test.niveaux[0] : (test.titre || 'ce niveau');
-        conclusion = 'Niveau ' + nom + (atteint ? ' atteint.' : ' non atteint.');
+        conclusion = 'Niveau ' + nom + (atteint ? ' atteint.' : (limite ? ' presque atteint.' : ' non atteint.'));
         mot = atteint
           ? nbAcquis + ' item' + (nbAcquis > 1 ? 's' : '') + ' acquis sur ' + evalues + ' : plus de la moitié, le niveau est atteint.'
-          : nbAcquis + ' item' + (nbAcquis > 1 ? 's' : '') + ' acquis sur ' + evalues + " : moins de la moitié, le niveau n'est pas atteint.";
+          : (limite
+            ? nbAcquis + ' items acquis sur ' + evalues + ' : la moitié exactement — le niveau est à la limite.'
+            : nbAcquis + ' item' + (nbAcquis > 1 ? 's' : '') + ' acquis sur ' + evalues + " : moins de la moitié, le niveau n'est pas atteint.");
       }
     }
-    return { pct, evalues, total: exos.length, max, acquis: nbAcquis, atteint,
+    return { pct, evalues, total: exos.length, max, acquis: nbAcquis, atteint, limite,
       domaines, conclusion, mot, palier, echelle: ech };
   }
 
@@ -411,7 +421,12 @@
       if (!t || !t.niveauCle || t.matiere !== 'lecture') continue;
       const b = bilan(t, p.scores);
       if (b.atteint == null) continue;
-      faits.push({ cle: t.niveauCle, nom: (t.niveaux && t.niveaux[0]) || t.titre, atteint: b.atteint, rang: RANGS.indexOf(t.niveauCle) });
+      /* ⚠ LE CAS D'ÉGALITÉ SE PROPAGE ICI AUSSI (07/09) : posé dans `bilan()` seulement,
+         la carte de résultats disait « presque atteint » pendant que cette fonction
+         écrivait « reprendre au niveau du dessous » sur la fiche — un constat et une
+         préconisation qui se contredisent sur le même document. */
+      faits.push({ cle: t.niveauCle, nom: (t.niveaux && t.niveaux[0]) || t.titre,
+        atteint: b.atteint, limite: !!b.limite, rang: RANGS.indexOf(t.niveauCle) });
     }
     if (!faits.length) return null;
     faits.sort((a, b) => a.rang - b.rang);
@@ -420,6 +435,7 @@
     const echoue = faits.filter(f => !f.atteint);
     const rates = echoue.filter(f => !plusHaut || f.rang > plusHaut.rang).map(f => f.nom);
     const et = (l) => l.length > 1 ? l.slice(0, -1).join(', ') + ' et ' + l[l.length - 1] : l[0];
+    const majuscule = (s) => String(s || '').charAt(0).toUpperCase() + String(s || '').slice(1);
     return {
       faits,
       niveau: plusHaut ? plusHaut.nom : null,
@@ -431,8 +447,19 @@
         ? 'Lit au niveau ' + plusHaut.nom
           + (rates.length ? ' — ' + et(rates) + (rates.length > 1 ? ' non atteints' : ' non atteint') : '')
           + '.'
-        : (echoue.length ? et(echoue.map(f => f.nom)) + (echoue.length > 1 ? ' non atteints' : ' non atteint')
-          + " : reprendre au niveau du dessous." : null)
+        /* À égalité d'items, on ne recommande PAS de redescendre : le niveau est à la
+           limite, ce qui est une information utile, pas un échec.
+           ⚠ MAJUSCULE INITIALE (08/09) : ces deux branches commencent par le nom du palier
+           (« fin de 5e »), jamais capitalisé — la fiche portait « … Buck. fin de 5e non
+           atteint », minuscule après un point. La branche du dessus n'avait pas le défaut
+           parce qu'elle commence par « Lit au niveau ». */
+        : (echoue.length
+          ? majuscule(echoue.every(f => f.limite)
+            ? et(echoue.map(f => f.nom)) + (echoue.length > 1 ? ' presque atteints' : ' presque atteint')
+              + ' : la moitié des items acquis.'
+            : et(echoue.map(f => f.nom)) + (echoue.length > 1 ? ' non atteints' : ' non atteint')
+              + ' : reprendre au niveau du dessous.')
+          : null)
     };
   }
 

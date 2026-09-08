@@ -279,6 +279,58 @@
         + "La Promesse de l'aube (Romain Gary), une photographie, une affiche — vingt "
         + "questions rédigées et une production écrite au choix. La grille classe en trois "
         + "niveaux visés : vers le CAP, vers le bac pro, bac général et technologique."
+    },
+    {
+      /* ⚠ CE TEST N'EST PAS LA TRADUCTION DU PRÉCÉDENT (07/09). Elle a donné à Haralds un
+         Romain Gary « en anglais » — mais le document est bâti sur un AUTRE extrait de La
+         Promesse de l'aube (« You Will Be an Ambassador, My Son… », la scène de la mère qui
+         rentre avec ses cartons à chapeaux) et pose SEIZE questions d'une autre facture :
+         identification, compréhension, étude de la langue, production écrite au choix entre
+         deux sujets. Le Gary français, lui, porte sur la rencontre avec Valentine et
+         travaille sur trois documents (texte, photographie, affiche).
+         Les deux ne se recouvrent donc PAS : saisir les réponses de l'un dans la grille de
+         l'autre n'aurait aucun sens. D'où cette entrée séparée. */
+      id: 'gary-ambassadeur-en',
+      titre: "Compréhension de l'écrit et production écrite — lycée, en anglais (Romain Gary, « ambassador »)",
+      matiere: 'lecture', source: 'Document du lycée (version anglaise)',
+      niveaux: ['lycée'], niveauCle: '2de', cycle: 4, ageIndicatif: [15, 25],
+      echelle: 'NE / --- / --+ / ++- / +++', echelleId: 'creteil', items: 16,
+      multilingue: true, materiel: 'stylo',
+      note: "Le même exercice que le Gary français, mais sur un autre extrait et EN ANGLAIS : "
+        + "pour un élève qui ne lit pas encore le français et dont la langue de scolarisation "
+        + "n'est pas traduite par Canopé, l'anglais permet de mesurer ce qu'il sait faire "
+        + "d'un texte littéraire — inférence, temps verbaux, reformulation, argumentation. "
+        + "Trente lignes de texte, sept notes de vocabulaire, seize questions."
+    },
+    {
+      /* ⚠ SES DEUX TESTS DE COMPRÉHENSION ÉCRITE NOTÉS SUR 5 (07/09) : « on a aussi un test
+         B1 et A2 pour des élèves qui peuvent se débrouiller en français ». Ce sont deux
+         feuilles distinctes, une par niveau du CECRL, qu'elle donne à un élève déjà à
+         l'aise à l'oral — entre le décodage (débutant) et le Romain Gary (niveau lycée).
+         Barème en points sur la feuille, mais la saisie garde l'échelle de maîtrise :
+         c'est celle des autres tests, et un point et demi ne se coche pas. */
+      id: 'ce-b1-bilingues',
+      titre: "Compréhension écrite — niveau B1 (Des bilingues par millions)",
+      matiere: 'francais', source: 'Document du lycée · Science et Vie Junior (2001)',
+      niveaux: ['B1'], niveauCle: null, cycle: 4, ageIndicatif: [13, 25],
+      echelle: 'MI / MF / MS / TBM', echelleId: 'canope', items: 4,
+      multilingue: false, materiel: 'stylo',
+      note: "Une page, notée sur 5 : un texte documentaire sur le bilinguisme, puis le type "
+        + "de texte, deux vrai/faux À JUSTIFIER par une citation, et une question de "
+        + "compréhension fine. C'est la justification qui départage : cocher juste sans "
+        + "citer le texte ne vaut pas le point."
+    },
+    {
+      id: 'ce-a2-train',
+      titre: "Compréhension écrite — niveau A2 (Je me souviens…)",
+      matiere: 'francais', source: 'Document du lycée · Taxi 2, Hachette (2003)',
+      niveaux: ['A2'], niveauCle: null, cycle: 3, ageIndicatif: [12, 25],
+      echelle: 'MI / MF / MS / TBM', echelleId: 'canope', items: 5,
+      multilingue: false, materiel: 'stylo',
+      note: "Une page, notée sur 5 : un récit court dans un train, deux questions ouvertes "
+        + "(lieu, moment de l'année) et trois questions à cocher. ⚠ La feuille passe de la "
+        + "question 3 à la question 5 : la numérotation est celle du document, il n'y a pas "
+        + "de question 4."
     }
   ]);
 
@@ -461,6 +513,14 @@
           test: par('canope-maths-c' + cycleClasse), agrafe: true });
       }
       if (cycNum > 2) etapes.push({ rang: etapes.length + 1, pourquoi: 'À garder sous la main : si le cycle au-dessus est trop dur.', test: par('canope-maths-c' + (cycNum - 1)), agrafe: true });
+      /* ⚠ LE TEST D'ORIENTATION RESTE ATTEIGNABLE AVANT 16 ANS (08/09 : « pour Seydina j'ai
+         donné plus de 16 ans, mets-le dans autre test possible »). Il n'apparaissait nulle
+         part pour un élève de 15 ans en 2de : la règle des 16 ans le faisait disparaître de
+         la page, alors qu'un lycéen de 15 ans se pose déjà les mêmes questions
+         d'orientation. Suggéré à partir de 16 ans, simplement gardé sous la main avant. */
+      if (a != null && a >= 14) etapes.push({ rang: etapes.length + 1,
+        pourquoi: "À garder sous la main : le test d'orientation de plus de 16 ans, si l'élève est déjà au lycée.",
+        test: par('lyon-maths-16'), agrafe: true });
       /* Entre le cycle 3 (fin de 6e) et le cycle 4 (fin de 3e), l'écart est grand :
          le test de fin de 4e est le palier intermédiaire. */
       if (cyc === 'c4') {
@@ -471,11 +531,26 @@
 
     if (!nsa && a != null && a >= 16) {
       etapes.push({ rang: 1, pourquoi: 'Plus de 16 ans et scolarité antérieure : on vise l\'orientation.', test: par('lyon-maths-16') });
+      /* ⚠ LE ROMAIN GARY EST PROPOSÉ À TOUT LYCÉEN, francophone ou pas (07/09 : « il est en
+         classe de première, pourquoi tu me proposes un test de quatrième ? Tu devrais me
+         proposer Romain Gary voyons »). Il n'était poussé que dans le bloc `parleFrancais`,
+         donc invisible pour un élève dont on ne sait pas encore s'il parle français — c'est
+         justement le cas au moment du positionnement, avant tout test. L'appli suggérait
+         alors le fin de 4e Canopé comme seul test de lecture : un test de collège pour un
+         élève de première.
+         Le Gary est le test de son NIVEAU DE CLASSE en français ; le Canopé traduit mesure
+         autre chose (ce qu'il sait lire dans SA langue). Les deux se donnent, dans cet
+         ordre-là. */
+      etapes.push({ rang: 2,
+        pourquoi: "Niveau lycée, en français : vingt questions sur trois documents, puis une production écrite. La grille classe vers le CAP, le bac pro ou le bac général.",
+        bloc: 'lecture', test: par('creteil-lycee-gary') });
       /* ⚠ Pour un élève SCOLARISÉ EN FRANÇAIS, les paliers Canopé ne sont qu'un repli :
          ses tests à elle sont ceux de Créteil (Les Trois Frères, Romain Gary), plus
          proches de ce que l'élève va rencontrer en classe. Sa capture du 05/09 le dit :
          « pour ce cas précis je dois voir en haut les trois frères et Gary ». */
-      etapes.push({ rang: 2, pourquoi: 'Lecture et écrit dans la langue de scolarisation.',
+      etapes.push({ rang: 3, pourquoi: lang.length
+          ? 'Compréhension de l\'écrit dans sa langue de scolarisation (' + lang[0] + ') : ce qu\'il sait lire dans SA langue, si le français est trop difficile.'
+          : 'Compréhension de l\'écrit dans la langue de scolarisation.',
         test: par('canope-lecture-4e'), agrafe: scolEnFrancais });
       /* ⚠ Le fin de 3e n'est PLUS suggéré : « je ne donne jamais niveau 3ème car il est
          nul ce test » (05/09). Elle avait demandé de le laisser en place le temps de
@@ -535,7 +610,7 @@
          serait jamais vraie (code mort trouvé en vérification, 05/09). La règle attrape
          donc aussi les plus de 18 ans, ce qui est voulu : au-delà du lycée, c'est encore
          ce test-là qui est le plus proche. */
-      if (a != null && a >= 15) {
+      if (a != null && a >= 15 && !etapes.some(e => e.test && e.test.id === 'creteil-lycee-gary')) {
         etapes.push({ rang: etapes.length + 1,
           pourquoi: scolEnFrancais
             ? "Niveau lycée et scolarité en français : vingt questions sur trois documents, puis une production écrite. La grille classe vers le CAP, le bac pro ou le bac général."
