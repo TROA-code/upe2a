@@ -165,7 +165,28 @@ ma journée ». Dans `APPLI - Emploi du temps.dc.html` :
 enseignant.** Un composant enfant ne charge pas ses propres scripts ; la ligne évite un
 écran vide transitoire. Elle a validé qu'on la garde.
 
-## Session précédente (08/09) — positionnement
+## ⚠ LECTURE — le palier proposé est celui qui est ACHEVÉ (10/09)
+
+Cas CIUREA, élève **en 5e** : l'appli suggérait le **fin de 5e (Buck)**. « Il doit être
+scolarisé en cinquième. Tu ne peux donc pas me proposer un test fin de cinquième. Le plus
+cohérent c'est du cycle 3. »
+Les livrets Canopé sont des tests de **FIN d'année** : un élève qui est *en* 5e n'a pas
+fait sa 5e. Son dernier palier achevé est la **fin de 6e**. La règle existait déjà en
+maths (par cycle) ; elle n'avait jamais été appliquée à la lecture. Corrigé dans
+`cheminDeLaClasse()` de `positionnement-tests.js` :
+- **suggéré : le palier du dessous** (`NIVEAUX[i-1]`) — 5e → fin de 6e, 4e → fin de 5e,
+  6e → fin de CM2. Vaut pour toutes les classes.
+- **le palier de sa classe est à ÉGALITÉ en haut de page à partir de février**
+  (`mois >= 2 && mois <= 8`) : arrivé en cours d'année, l'élève a fait une bonne partie de
+  sa classe. Avant février, il reste seulement sous la main.
+- les **deux replis** partent maintenant du palier achevé, pas de la classe.
+
+⚠ Le « **livret Sami 2** » qui apparaissait dans la même liste n'est PAS une erreur : c'est
+le livret Canopé du **cycle 2 en français**, rangé dans *autres tests possibles* depuis sa
+demande du 05/09 (les livrets entiers cycle 3 puis cycle 2, toujours sous la main). Sami
+est le personnage des livrets cycles 2 et 3, comme Buck (fin de 5e), UNICEF (4e),
+Musset (3e). Ne pas le retirer.
+
 
 Sana, Ibrahim, Haralds, Seydina, Nafisatu.
 

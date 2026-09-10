@@ -463,7 +463,20 @@
          fin de 6e trop dur → fin de CM2 → fin de CM1. C'est elle qui juge sur pièce,
          l'appli garde simplement les deux niveaux du dessous sous la main. */
       const ref = NIVEAUX[i];
-      const replis = [i - 1, i - 2].filter(j => j >= 0).map(j => NIVEAUX[j]);
+      /* ⚠ LE PALIER DE LECTURE EST CELUI QUI EST ACHEVÉ, PAS CELUI DE LA CLASSE (10/09 :
+         « il doit être scolarisé en cinquième, tu ne peux donc pas me proposer un test
+         fin de cinquième »). Les livrets Canopé sont des tests de FIN d'année : un élève
+         qui est EN 5e n'a pas fait sa 5e, son dernier palier achevé est la fin de 6e.
+         Même règle qu'en maths, qui l'appliquait déjà par cycle. Vaut pour toutes les
+         classes : 4e → fin de 5e, 6e → fin de CM2.
+         ⚠ À PARTIR DE FÉVRIER les deux sont à égalité en haut de page (sa règle du
+         10/09) : arrivé en cours d'année, l'élève a fait une bonne partie de sa classe,
+         son palier peut être tenu. Avant février, il reste sous la main. */
+      const lu = NIVEAUX[Math.max(0, i - 1)];
+      const mois = new Date().getMonth() + 1;
+      const anneeEntamee = mois >= 2 && mois <= 8;
+      const iLu = Math.max(0, i - 1);
+      const replis = [iLu - 1, iLu - 2].filter(j => j >= 0).map(j => NIVEAUX[j]);
       /* ⚠ Les maths Canopé n'ont qu'un test par CYCLE, et c'est un test de FIN de cycle :
          « fin de cycle 4 » = fin de 3e. Pour une élève de 5e, ce cycle n'est pas fait —
          on propose donc le dernier cycle ACHEVÉ (cycle 3, fin de 6e) et on garde le sien
@@ -482,9 +495,17 @@
         test: par('canope-maths-' + cyc) });
       etapes.push({ rang: 2,
         pourquoi: nsa
-          ? "Non ou peu scolarisé antérieurement : on donne quand même le test de la classe d'âge, et on observe — s'il ne lit pas, ou ne comprend rien de ce qu'il lit, cela se voit tout de suite."
-          : "Compréhension de l'écrit dans la langue de scolarisation.",
-        test: par('canope-lecture-' + ref.cle) });
+          ? "Non ou peu scolarisé antérieurement : on donne quand même le test du dernier palier achevé, et on observe — s'il ne lit pas, ou ne comprend rien de ce qu'il lit, cela se voit tout de suite."
+          : (lu.cle !== ref.cle
+            ? "Compréhension de l'écrit dans la langue de scolarisation : le dernier palier ACHEVÉ. L'élève est en " + (fiche.classeDage || ref.nom) + ", il ne l'a pas terminée."
+            : "Compréhension de l'écrit dans la langue de scolarisation."),
+        test: par('canope-lecture-' + lu.cle) });
+      /* Le palier de sa classe : à égalité à partir de février, sous la main avant. */
+      if (lu.cle !== ref.cle) etapes.push({ rang: anneeEntamee ? 2 : etapes.length + 1,
+        pourquoi: anneeEntamee
+          ? "L'année est entamée : le palier de sa classe se tient aussi. À donner à égalité, c'est toi qui juges sur pièce."
+          : "À garder sous la main : le palier de sa classe, si le précédent est trop facile.",
+        test: par('canope-lecture-' + ref.cle), agrafe: !anneeEntamee });
       replis.forEach((n, k) => etapes.push({ rang: 3 + k,
         pourquoi: k === 0 ? 'À garder sous la main : si le niveau au-dessus est trop dur.'
           : 'Et celui-ci, si le précédent est encore trop dur.',
