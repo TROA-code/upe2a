@@ -14,15 +14,160 @@ jamais la marge.** (Le corollaire vu le même jour : on ne rapetisse pas non plu
 
 Phrase pour démarrer : « Lis INSTRUCTIONS-APPLICATION.md, on reprend. »
 
+## ⏸ À REPRENDRE — le sommaire des supports (09/09)
+
+**L'ouverture entre directement dans l'espace élève** (sa demande du 09/09) : `index.html`
+n'affiche plus la liste des supports, il **redirige** vers l'application, qui s'ouvre déjà
+verrouillée côté élève. La requête est recopiée, donc les liens « Je continue chez moi »
+(`?devoir=…`) marchent toujours.
+
+⚠ **Le sommaire n'est pas supprimé, il vit dans `sommaire.html`** — mais **plus rien ne le
+relie à l'application** : on ne l'atteint qu'en tapant son adresse. Elle le sait, elle a dit
+« on verra plus tard », et elle a demandé que ce soit écrit ici pour qu'on en reparle.
+**À trancher avec elle : dans quelle rubrique de l'espace enseignant on le branche.**
+(Il tient les livrets imprimables : cahier d'écriture, les quatre Mes mots, Livret 3,
+le livre interactif, la version sonore.)
+
+## ⚠ LE JEU DU SYMBOLE COMMUN — dimensions arrêtées (09/09)
+
+`JEU - Le symbole commun (cartes).dc.html`, branché dans *Outils de manipulation en classe*
+(onglet à côté des disques des dés). Deux cartes du paquet ont **toujours une image en
+commun, et une seule** ; on en retourne deux, le premier qui nomme l'image gagne la carte.
+Le paquet se construit sur un **plan projectif** : 3 images par carte → 7 cartes ·
+4 → 13 · 6 → 31. Rien n'est dessiné, ce sont **ses photos de `clean/`**.
+
+**LES DIMENSIONS, À NE PLUS CHERCHER** (trois passes d'agrandissement le 09/09, « parfait ») :
+- **cartes carrées de 7,7 × 7,7 cm**, deux par ligne, **6 par page**, gap 0,3 cm ;
+- **2 cm de marge sur les quatre côtés**, posés sur chaque `section.page` (pagination
+  explicite : l'attribut `margin` de `<doc-page>` est sans effet) ;
+- **le mot à 16 px, soit 12 pt** — le minimum du projet, et c'est la planche qui sert à
+  LIRE. Il ne descend jamais, même à 6 images par carte : on rétrécit l'image, pas le mot ;
+- cases (`CASE` sans mot / `LARG` avec mot) : 3 img → 3,4 / 3,4 cm · 4 img → 3,35 / 3,4 ·
+  6 img → 2,35 / 3,4, l'image à 2,2 cm à six.
+⚠ **PLAFOND DE LARGEUR DE CASE : 3,52 cm** — deux cases plus le gap doivent tenir dans la
+largeur intérieure de la carte, (7,7 − 2×0,25 − 0,15) / 2. À 3,6 cm, `flex-wrap` ne mettait
+qu'UNE case par ligne : les images s'empilaient sur trois rangées, la carte débordait de
+86 px et `overflow:hidden` coupait le premier haut d'image et le dernier mot **en silence**.
+Toute retouche de `CASE` ou `LARG` doit revérifier ce plafond.
+⚠ **8,2 cm ne tient PAS** : trois rangées débordent de 34 px. 7,7 est le maximum à six
+cartes par page. Pour aller plus grand il faudrait descendre à quatre cartes par page —
+beaucoup plus de papier, arbitrage non fait.
+⚠ **Rotation faible (±11°), jamais un quart de tour**, et **le mot reste droit** : une photo
+de visage à l'envers ne se reconnaît pas. Les tailles varient d'une case à l'autre pour que
+la recherche visuelle soit réelle, mais le tirage est **déterministe** — sinon le paquet
+serait différent à chaque impression.
+⚠ **Pas de `<img src="{{ }}">`** dans les cartes : le hole part en requête réseau non résolu
+pendant le streaming. Les images passent par `background-image`.
+Deux planches sont imprimées : **images seules** (nommer à l'oral) et **images et mots**
+(lire), plus une page enseignante. Papier 160 g minimum.
+
+**Le thème « Le corps » a été refait en entier le 09/09** : treize photos du **même modèle**
+(le gris derrière les anciennes la gênait), 1000 × 1000, fond blanc — visage, yeux, nez,
+bouche, oreille, cheveux, main, jambe, pied, **bras, dos, genou, dents** (les quatre
+derniers sont nouveaux, ils complètent le paquet de 13 cartes). Trois réserves signalées et
+non tranchées : les **cercles et la flèche rouges** sur six photos (utiles en anatomie,
+gênants sur une carte de jeu), la photo des **dents qui n'est pas le même modèle**, et la
+**jambe habillée d'un legging**.
+
 Ce fichier est **la seule source à jour**. Il remplace `INSTRUCTIONS.md`,
 `INSTRUCTIONS-FRANCAIS.md` et `INSTRUCTIONS-MATHS.md`, tous supprimés. Raison :
 **le français et les maths sont intégrés dans l'application** — les livrets papier
 deviennent des sources de contenu que l'application met en page et imprime à la demande.
 Trois conversations séparées n'ont plus de sens.
 
-## Là où on s'est arrêtés (08/09) — À LIRE EN PREMIER
+## Là où on s'est arrêtés (09/09) — À LIRE EN PREMIER
 
-Dernière session : positionnement (Sana, Ibrahim, Haralds, Seydina, Nafisatu).
+Dernière session (10/09) : jeu du symbole commun, entrée directe dans l'espace élève,
+première version autonome. **Elle prépare une mise en ligne sur GitHub.**
+
+**Fait le 10/09 :**
+- **Le sujet du test Lyon maths +16 est remplacé par son PDF d'origine.** À l'impression,
+  l'ancien fichier perdait des graphiques et affichait un **carré à la place du signe ÷**
+  (police non embarquée). `tests/lyon-maths-16-sujet.pdf` est maintenant **son document
+  original, copié tel quel, sans aucune retouche** — c'est lui que télécharge le bouton
+  « sujet » du test `lyon-maths-16`. ⚠ **Ne jamais régénérer ni « remettre en page » ce
+  PDF** : un test officiel s'imprime à l'identique.
+- **Idem pour le Romain Gary** : son PDF officiel est arrivé le 10/09 →
+  `tests/creteil-lycee-gary-sujet.pdf`, branché comme sujet de `creteil-lycee-gary` à la
+  place de la version refaite d'après ses captures. Le fichier refait
+  (`POSITIONNEMENT - Test lycée Romain Gary.dc.html`) **n'est plus relié à rien** : à
+  supprimer quand elle le confirme. Le corrigé reste
+  `POSITIONNEMENT - Corrigé FLSco lycée.dc.html`.
+- **Le jeu du symbole commun** est terminé — dimensions arrêtées, voir la section dédiée
+  plus haut. Le thème « Le corps » a treize photos du même modèle.
+- **`index.html` redirige vers l'application** : on entre directement dans l'espace élève.
+  Le sommaire vit dans `sommaire.html` et n'est relié à rien — voir la section « À
+  REPRENDRE » en tête de fichier.
+- **Le fichier autonome a été supprimé (10/09)** : `autonome/Lire des textes.html` était
+  fait pour une collègue, elle n'en a plus besoin. La recette reste utile si on en refait
+  un : copier l'écran, forcer l'état de départ, **neutraliser la coquille** dans
+  `renderVals()` (`montrerMenu:false`, `menuReplie:false`, `groupeHaut:false`,
+  `afficheAccueil:'none'`, `pasTelAppli:false`, `estTelAppli:false`), insérer le
+  `<template id="__bundler_thumbnail">`, bundler, supprimer la source de travail.
+  ⚠ **Un fichier autonome = un écran seul, aucune commande qui mène ailleurs**
+  (« je veux JUSTE lire des textes »).
+
+**⏸ À REPRENDRE — sa voix (`voice.educ-ai.fr`) :**
+Elle veut que **sa propre voix, enregistrée sous « celine »**, remplace la voix du
+navigateur **partout** (mots, phrases, textes). Le site est une application JavaScript :
+je n'ai pas pu lire sa documentation. **Il faut qu'elle copie-colle la page `/docs`** :
+adresse du point d'appel, nom des champs (texte, voix), forme de la réponse (audio direct
+ou lien), et **s'il faut une clé**. ⚠ Une clé posée dans l'application serait **visible de
+tous** — c'est exactement ce qui avait fait écarter Claude pour l'orthographe. Quand ce
+sera branché : **cache local** des sons déjà entendus (rapidité en classe) et **repli sur
+la voix du navigateur** hors connexion. Elle a demandé qu'on lui explique **pas à pas**.
+
+**Fait le 09/09 :**
+- **`DOC-TECHNIQUE.md`** créé à la racine : documentation à destination d'un développeur
+  (architecture Design Components + `support.js`, écrans, API publique des 18 modules
+  `window.*`, clés localStorage et IndexedDB, dépendances externes, conventions d'images
+  et d'impression, pièges connus, procédures d'ajout de contenu). À tenir à jour comme
+  ce fichier-ci.
+- **Le zip du projet** lui a été livré pour GitHub. Deux réserves signalées, non tranchées :
+  `uploads/` contient des documents sources et des photos d'élèves, et les PDF de `tests/`
+  et `docs/` appartiennent à Canopé / CASNAV / Charivari. **À exclure d'un dépôt public.**
+- **Éléments pour la fiche du dépôt** (elle les a demandés) : description en une ligne,
+  topics, et la pile technique — JavaScript ES2020, React via `support.js`, aucun build,
+  aucun backend, données en localStorage + IndexedDB, pdf-lib et Leaflet en CDN.
+
+**Le rituel des cartes de langage (09/09) — décision arrêtée :**
+Elle voulait faire tirer une carte au hasard par un élève, tester la connaissance, puis
+montrer l'appli élève. J'ai proposé et fabriqué un document qui générait une carte par
+thème depuis la banque de mots — **elle a refusé et gardé les cartes de Charivari**
+(« j'adore les cartes de Charivari », « ses élèves LISENT »). Le document a été supprimé.
+Le PDF est rangé dans `docs/charivari-cartes-rituel-langage.pdf`, la carte **« Rituel —
+cartes de langage »** figure dans *Mes documents utiles*, et le sommaire a une section
+**Rituels**. ⚠ **Ne pas reproposer de fabriquer ces cartes.**
+
+**Le mode PROJECTION de l'emploi du temps (09/09) :**
+Besoin dit tel quel : « c'est pour projeter pour mes élèves et pouvoir avoir le déroulé de
+ma journée ». Dans `APPLI - Emploi du temps.dc.html` :
+- **La colonne de droite a été retirée** : les deux cartes d'aide (« Clique sur un
+  créneau », « À vérifier avec toi ») sont supprimées, et la colonne n'apparaît plus que
+  pour un créneau ouvert ou les réglages. Sinon la grille prend toute la largeur.
+- **RÉGLAGES** est remonté dans la barre du haut (il partait avec la colonne).
+- **Bouton PLEIN ÉCRAN** (`state.plein`) : ne restent que la navigation de semaine,
+  SEMAINE/JOUR, les onglets de jours et QUITTER — sur **une seule ligne**. Disparaissent :
+  titre, ligne de classe, réglages, impression, portée des modifications, légende, rappel
+  « semaine particulière ». `Échap` sort.
+- ⚠ **L'échelle verticale se MESURE, elle ne se devine pas.** `ajusterEchelle()` lit la
+  position réelle de l'axe du temps et recalcule `PX` (px par minute) pour que la journée
+  remplisse la hauteur sans ascenseur. Trois itérations ont été nécessaires (« y a pas
+  vraiment de différence », « monte encore ») : c'est **cette échelle** qui fait le mode,
+  pas la barre du haut. Le même `PX` convertit un clic en horaire — le recalculer est sans
+  danger, un `zoom` CSS fausserait le glisser-déposer.
+- ⚠ `requestFullscreen` est **refusé par la page hôte** de l'espace enseignant
+  (permissions policy) : le rejet de la promesse est avalé explicitement, et l'affichage
+  ne dépend que de `state.plein`.
+- Son verdict : « parfait ».
+
+**Chargement : `emploi-du-temps.js` est déclaré dans le `<helmet>` de l'espace
+enseignant.** Un composant enfant ne charge pas ses propres scripts ; la ligne évite un
+écran vide transitoire. Elle a validé qu'on la garde.
+
+## Session précédente (08/09) — positionnement
+
+Sana, Ibrahim, Haralds, Seydina, Nafisatu.
 
 **Réglé le 07-08/09 — ne pas défaire :**
 - **Fiche EANA** : accents (une double espace faisait échouer la sélection, pas un

@@ -84,14 +84,11 @@
       note: 'texte de Musset, La Confession d\'un enfant du siècle' },
     'creteil-conte-college': { sujet: 'tests/creteil-3-freres-sujet.pdf', langue: 'français',
       corrige: "POSITIONNEMENT - Corrigé Les Trois Frères.dc.html" },
-    /* Refait à partir de ses captures d'écran (05/09) : elle n'avait pas le PDF.
-       ⚠ Le texte de Gary est sous droits et n'est PAS recopié dans le document — le
-       sujet reproduit la mise en page, les consignes, les notes et le questionnaire, et
-       renvoie à l'original pour la page du texte. */
-    'creteil-lycee-gary': { sujet: 'POSITIONNEMENT - Test lycée Romain Gary.dc.html',
+    /* ⚠ Le sujet est SON PDF OFFICIEL (10/09), copié tel quel — il remplace la version
+       refaite d'après ses captures, qui s'imprimait mal. Ne pas le régénérer. */
+    'creteil-lycee-gary': { sujet: 'tests/creteil-lycee-gary-sujet.pdf',
       langue: 'français',
-      corrige: 'POSITIONNEMENT - Corrigé FLSco lycée.dc.html',
-      note: 'refait d\'après ses captures — la page du texte reste à photocopier depuis l\'original' },
+      corrige: 'POSITIONNEMENT - Corrigé FLSco lycée.dc.html' },
     'decodage-latin': { sujet: 'tests/decodage-alphabet-latin.pdf', langue: 'français' },
     'lyon-maths-16': { sujet: 'tests/lyon-maths-16-sujet.pdf', langue: 'français',
       corrige: 'tests/lyon-maths-16-corrige.pdf' },

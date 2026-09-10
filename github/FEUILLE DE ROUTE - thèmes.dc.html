@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" />
+<style>
+  doc-page:not(:defined) { visibility: hidden; }
+  @media print { .ecran-seul { display: none !important; } }
+</style>
+<script src="banque-mots.js"></script>
+<script src="doc-page.js"></script>
+</helmet>
+
+<div class="ecran-seul" style="font-family:Verdana,Tahoma,sans-serif;background:#eef1f5;padding:20px 22px;display:flex;flex-direction:column;gap:15px;border-bottom:2px solid #c3d2e2">
+  <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:baseline;justify-content:space-between">
+    <div style="display:flex;flex-direction:column;gap:4px">
+      <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:16px;color:#1d4e89">LES FEUILLES DE ROUTE</div>
+      <div style="font-size:12.5px;color:#556;line-height:1.55">Sur le modèle du CASNAV : à gauche les thèmes, à droite l'alphabet et les outils, avec « à travailler » et « validé le ».</div>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button onClick="{{ nouvelle }}" style="border:1.5px solid #c3d2e2;background:#fff;color:#1d4e89;border-radius:9px;padding:9px 14px;font-size:12.5px;font-weight:bold;cursor:pointer">Nouvelle feuille</button>
+      <button onClick="{{ imprimer }}" style="border:none;background:#2a9d6e;color:#fff;border-radius:9px;padding:10px 18px;font-family:'Archivo Black',Verdana,sans-serif;font-size:12px;letter-spacing:.04em;cursor:pointer">IMPRIMER</button>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:9px;flex-wrap:wrap;align-items:center">
+    <sc-for list="{{ feuilles }}" as="f" hint-placeholder-count="2">
+      <button onClick="{{ f.onClick }}" style="border:2px solid {{ f.bord }};background:{{ f.fond }};color:{{ f.encre }};border-radius:10px;padding:9px 15px;font-size:12.5px;font-weight:bold;cursor:pointer;display:flex;gap:9px;align-items:baseline">
+        <span>{{ f.titre }}</span>
+        <span style="font-size:11px;opacity:.75">{{ f.compte }}</span>
+      </button>
+    </sc-for>
+  </div>
+
+  <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;background:#fff;border:1.5px solid #dde4ec;border-radius:11px;padding:12px 14px">
+    <label style="display:flex;flex-direction:column;gap:4px;font-size:11.5px;color:#6b7a8d;flex:1 1 200px">
+      <span>Nom de cette feuille</span>
+      <input value="{{ nomFeuille }}" onChange="{{ onRenommer }}" style="border:1.5px solid #dde4ec;border-radius:8px;padding:9px 11px;font-size:13px;font-family:inherit" />
+    </label>
+    <label style="display:flex;flex-direction:column;gap:4px;font-size:11.5px;color:#6b7a8d;flex:1 1 170px">
+      <span>Période (facultatif)</span>
+      <input value="{{ sousTitre }}" onChange="{{ onSousTitre }}" placeholder="septembre — octobre" style="border:1.5px solid #dde4ec;border-radius:8px;padding:9px 11px;font-size:13px;font-family:inherit" />
+    </label>
+    <div style="display:flex;gap:9px">
+      <button onClick="{{ toutDecocher }}" style="border:1.5px solid #c3d2e2;background:#fff;color:#1d4e89;border-radius:9px;padding:9px 13px;font-size:12px;cursor:pointer">Tout décocher</button>
+      <sc-if value="{{ peutSupprimer }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ supprimer }}" style="border:1.5px solid #e3c6ca;background:#fff;color:#a3283c;border-radius:9px;padding:9px 13px;font-size:12px;cursor:pointer">Supprimer</button>
+      </sc-if>
+    </div>
+  </div>
+
+  <sc-for list="{{ familles }}" as="fam" hint-placeholder-count="3">
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div style="font-size:11.5px;color:#6b7a8d;font-weight:bold;letter-spacing:.04em">{{ fam.titre }}</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <sc-for list="{{ fam.items }}" as="t" hint-placeholder-count="6">
+          <button onClick="{{ t.onClick }}" style="border:2px solid {{ t.bord }};background:{{ t.fond }};color:{{ t.encre }};border-radius:999px;padding:8px 14px;font-size:12.5px;cursor:pointer">{{ t.nom }}</button>
+        </sc-for>
+      </div>
+    </div>
+  </sc-for>
+  <div style="font-size:12px;color:#6b7a8d">{{ compte }}</div>
+</div>
+
+<doc-page margin="0.55in">
+  <div style="font-family:Verdana,Tahoma,sans-serif;color:#1c2430;display:flex;flex-direction:column;gap:11px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:18px">
+      <div style="display:flex;flex-direction:column;gap:2px">
+        <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:17pt">{{ titreImprime }}</div>
+        <sc-if value="{{ sousTitre }}" hint-placeholder-val="{{ false }}">
+          <div style="font-size:10.5pt;color:#444">{{ sousTitre }}</div>
+        </sc-if>
+      </div>
+      <div style="font-size:12pt">Prénom : <span style="display:inline-block;width:56mm;border-bottom:1px solid #1c2430">&nbsp;</span></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:8mm">
+      <!-- hint 0 ici AUSSI : une colonne fantôme streamerait tout son sous-arbre,
+           donc l'image « {{ l.image }} » non résolue -->
+      <sc-for list="{{ colonnes }}" as="col" hint-placeholder-count="0">
+        <table style="width:100%;border-collapse:collapse;font-size:11pt">
+          <thead>
+            <tr>
+              <th style="border:1px solid #1c2430;padding:3px 6px;background:#f0f0f0;font-size:8.5pt;font-weight:normal;text-align:left">&nbsp;</th>
+              <th style="border:1px solid #1c2430;padding:3px 4px;background:#f0f0f0;font-size:8.5pt;font-weight:normal;width:20mm">À travailler</th>
+              <th style="border:1px solid #1c2430;padding:3px 4px;background:#f0f0f0;font-size:8.5pt;font-weight:normal;width:22mm">Validé le</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- hint 0 : un enfant fantôme streamé demanderait l'image « {{ l.image }} » -->
+            <sc-for list="{{ col.lignes }}" as="l" hint-placeholder-count="0">
+              <tr>
+                <td style="border:1px solid #1c2430;padding:3px 6px">
+                  <div style="display:flex;gap:3mm;align-items:center">
+                    <!-- image en fond, pas en <img> : un hole non résolu dans un style
+                         ne déclenche aucune requête pendant le streaming -->
+                    <sc-if value="{{ l.image }}" hint-placeholder-val="{{ false }}">
+                      <div style="width:13mm;height:13mm;flex:none;background-image:url({{ l.image }});background-size:contain;background-repeat:no-repeat;background-position:center"></div>
+                    </sc-if>
+                    <span style="font-size:10.5pt;line-height:1.2">{{ l.nom }}</span>
+                  </div>
+                </td>
+                <td style="border:1px solid #1c2430;width:20mm"></td>
+                <td style="border:1px solid #1c2430;width:22mm"></td>
+              </tr>
+            </sc-for>
+          </tbody>
+        </table>
+      </sc-for>
+    </div>
+    <sc-if value="{{ vide }}" hint-placeholder-val="{{ false }}">
+      <div style="font-size:11pt;color:#666;padding:12px 0">Rien de coché : choisis les lignes au-dessus de la feuille.</div>
+    </sc-if>
+  </div>
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:900,&quot;height&quot;:1180}}">
+/* Les feuilles de route, sur le modèle du CASNAV (Padlet « Planches thématiques FLSCO »
+   de Pouppez, PDF déposé le 03/09) : deux colonnes de lignes, chacune avec « à travailler »
+   et « validé le » — les THÈMES à gauche, l'ALPHABET ET LES OUTILS à droite.
+   Une feuille par période ; la n° 1 est livrée avec ce qu'elle veut faire en première
+   période. « Ne va pas trop loin » (03/09) : on garde exactement la forme du modèle. */
+const THEMES = ['La politesse', 'Se présenter', "L'école", 'Le corps', 'Les animaux',
+  'Les repas', 'La maison', 'La famille, les métiers', 'Les actions courantes',
+  'Les vêtements, les couleurs', 'La ville, les transports', 'Les mathématiques'];
+/* Les sous-thèmes qu'elle détaille ligne par ligne, comme « les mois » du modèle. */
+const DETAIL = {
+  'Les jours': ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'],
+  'Les mois': ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août',
+    'septembre', 'octobre', 'novembre', 'décembre'],
+  'Les saisons': ['le printemps', "l'été", "l'automne", "l'hiver"]
+};
+/* La colonne de droite du modèle, à l'identique — « Les lettres 1, 2, 3 » incluses. */
+const DROITE = ['Les lettres 1', 'Les lettres 2', 'Les lettres 3', 'La lecture',
+  'Les nombres', 'Les mathématiques', "L'étude de la langue", 'Outils et documents',
+  'Les arts visuels'];
+/* La vignette de chaque ligne. « Du visuel dans chaque case, pas juste le titre » (03/09) :
+   l'image du premier mot de la banque ne convient pas partout — « Les mois » sortait avec
+   une galette des rois, et les lignes de droite n'ont pas de mots du tout. Ces choix-ci
+   sont explicites, pris dans les images déjà présentes dans clean/.
+   ⚠ Manquent encore de vrais visuels pour la lecture, les nombres et l'étude de la
+   langue : à lui demander. En attendant, l'image la plus proche. */
+const VIGNETTES = {
+  /* « Se présenter » : la carte d'identité factice qu'elle a envoyée le 03/09 — plus
+     parlante qu'une carte à jouer pour des élèves de 16 à 18 ans. */
+  'La politesse': 'geste-bonjour', 'Se présenter': 'mot-identite', "L'école": 'mot-ecole',
+  'Les jours': 'mot-lundi', 'Les mois': 'mot-mois', 'Les saisons': 'mot-soleil',
+  'Le corps': 'mot-main', 'Les animaux': 'mot-chat', 'Les repas': 'mot-assiette',
+  'La maison': 'mot-maison', 'Les mathématiques': 'chiffre5', 'Les nombres': 'chiffre5',
+  'Les lettres 1': 'mot-lettre', 'Les lettres 2': 'mot-lettre', 'Les lettres 3': 'mot-lettre',
+  'La lecture': 'mot-livre', "L'étude de la langue": 'mot-cahier',
+  'Outils et documents': 'mot-trousse', 'Les arts visuels': 'mot-feutre'
+};
+const CLE = 'upe2a-feuilles-route';
+const DEPART = [{
+  nom: 'Feuille de route n° 1', sousTitre: 'première période',
+  gauche: ['La politesse', 'Se présenter', 'Les jours', 'Les mois', 'Les saisons', "L'école"],
+  droite: ['Les lettres 1', 'Les lettres 2', 'La lecture', 'Les nombres']
+}];
+
+class Component extends DCLogic {
+  state = { feuilles: null, active: 0 };
+
+  componentDidMount() {
+    /* Les vignettes qu'elle a choisies dans la planche des thèmes servent aussi ici :
+       une seule image par thème dans toute l'application. */
+    try {
+      const p = JSON.parse(localStorage.getItem('upe2a-planche-themes') || '{}');
+      this.imagesPlanche = (p && p.images) || {};
+    } catch (e) { this.imagesPlanche = {}; }
+    let feuilles = null;
+    try {
+      const l = JSON.parse(localStorage.getItem(CLE) || 'null');
+      /* Les feuilles enregistrées avant le passage à deux colonnes n'avaient qu'un
+         champ `themes` : on les récupère dans la colonne de gauche. */
+      if (l && l.length) {
+        feuilles = l.map(f => ({
+          nom: f.nom, sousTitre: f.sousTitre || '',
+          gauche: f.gauche || f.themes || [], droite: f.droite || []
+        }));
+      }
+    } catch (e) {}
+    this.setState({ feuilles: feuilles || DEPART });
+  }
+
+  liste() { return this.state.feuilles || DEPART; }
+  courante() { return this.liste()[this.state.active] || this.liste()[0]; }
+
+  garder(feuilles, active) {
+    const s = { feuilles };
+    if (active != null) s.active = active;
+    this.setState(s);
+    try { localStorage.setItem(CLE, JSON.stringify(feuilles)); } catch (e) {}
+  }
+
+  majCourante(champs) {
+    this.garder(this.liste().map((f, i) =>
+      i === this.state.active ? Object.assign({}, f, champs) : f));
+  }
+
+  basculer(cote, nom) {
+    const c = this.courante()[cote] || [];
+    this.majCourante({ [cote]: c.indexOf(nom) >= 0 ? c.filter(x => x !== nom) : c.concat([nom]) });
+  }
+
+  renderVals() {
+    const liste = this.liste(), f = this.courante();
+    const gauche = f.gauche || [], droite = f.droite || [];
+    const bt = (actif) => ({
+      fond: actif ? '#1d4e89' : '#fff',
+      encre: actif ? '#fff' : '#48586b',
+      bord: actif ? '#1d4e89' : '#c3d2e2'
+    });
+    const past = (cote, l) => l.map(n => Object.assign({
+      nom: n, onClick: () => this.basculer(cote, n)
+    }, bt((cote === 'gauche' ? gauche : droite).indexOf(n) >= 0)));
+    const familles = [
+      { titre: 'À GAUCHE — LES THÈMES', items: past('gauche', THEMES) },
+      { titre: 'À GAUCHE — LE TEMPS', items: past('gauche', Object.keys(DETAIL)) },
+      { titre: "À DROITE — L'ALPHABET ET LES OUTILS", items: past('droite', DROITE) }
+    ];
+    /* UNE LIGNE PAR THÈME, comme la feuille du CASNAV — pas une ligne par mot. J'avais
+       détaillé « Les mois » en janvier, février… : elle a coupé net le 03/09, la feuille
+       doit ressembler à celle de Pouppez, rien de plus. */
+    /* Du VISUEL dans chaque case, pas seulement le titre (03/09) : l'image du premier mot
+       du thème dans la banque. Une ligne sans image (« Les lettres 1 », « Outils et
+       documents ») garde son titre seul. */
+    const B = window.BANQUE_MOTS;
+    const img = (n) => {
+      const choisie = (this.imagesPlanche || {})[n];
+      if (choisie) return choisie;
+      if (VIGNETTES[n]) return 'clean/' + VIGNETTES[n] + '.png';
+      const mots = (B && B.mots(n)) || [];
+      return mots[0] ? mots[0].image : '';
+    };
+    const lignes = (l) => l.map(n => ({ nom: n, image: img(n) }));
+    const lg = lignes(gauche), ld = lignes(droite);
+    return {
+      familles,
+      colonnes: [{ lignes: lg }, { lignes: ld }],
+      vide: !lg.length && !ld.length,
+      feuilles: liste.map((x, i) => Object.assign({
+        titre: x.nom || ('Feuille ' + (i + 1)),
+        compte: ((x.gauche || []).length + (x.droite || []).length) + ' lignes',
+        onClick: () => this.setState({ active: i })
+      }, bt(i === this.state.active))),
+      nomFeuille: f.nom || '', sousTitre: f.sousTitre || '',
+      titreImprime: f.nom || 'Ma feuille de route',
+      compte: (lg.length + ld.length) + ' lignes sur cette feuille',
+      onRenommer: (e) => this.majCourante({ nom: e.target.value }),
+      onSousTitre: (e) => this.majCourante({ sousTitre: e.target.value }),
+      toutDecocher: () => this.majCourante({ gauche: [], droite: [] }),
+      peutSupprimer: liste.length > 1,
+      supprimer: () => {
+        const l = liste.filter((x, i) => i !== this.state.active);
+        this.garder(l, Math.max(0, this.state.active - 1));
+      },
+      nouvelle: () => {
+        const l = liste.concat([{ nom: 'Feuille de route n° ' + (liste.length + 1), sousTitre: '', gauche: [], droite: [] }]);
+        this.garder(l, l.length - 1);
+      },
+      imprimer: () => window.print()
+    };
+  }
+}
+</script>
+</body>
+</html>

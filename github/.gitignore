@@ -1,0 +1,14 @@
+# Documents sous droits et données personnelles — jamais publiés
+tests/
+docs/
+uploads/
+clean/eleves/
+
+# Notes de travail
+INSTRUCTIONS-APPLICATION.md
+RECAPITULATIF.md
+CLAUDE.md
+
+# Système
+.DS_Store
+Thumbs.db

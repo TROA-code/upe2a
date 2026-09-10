@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mon avenir au Havre</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous"></script>
+<style>
+:root{
+  --ink:#1c2430; --ink-soft:#5a6472; --bord:#c3d2e2; --fond:#f4f7fa;
+  --navy:#1d4e89;
+  --erea:#b4472a; --schuman:#8a6a12; --lavoisier:#1f6f6f; --lecesne:#6b3f7a; --degrace:#2f6b46;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{
+  font-family:'Atkinson Hyperlegible',Verdana,Tahoma,sans-serif;
+  color:var(--ink); background:#fff; -webkit-tap-highlight-color:transparent;
+}
+button{font-family:inherit;cursor:pointer;color:inherit}
+:focus-visible{outline:3px solid var(--navy);outline-offset:3px}
+
+.page{display:none;min-height:100vh;flex-direction:column}
+.page.actif{display:flex}
+
+.barre{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:14px 20px;border-bottom:2px solid var(--ink);flex:0 0 auto;
+}
+.barre h1{font-family:'Archivo Black',Verdana,sans-serif;font-size:19px;letter-spacing:.02em;margin:0;font-weight:400}
+.retour{
+  display:flex;align-items:center;gap:10px;background:#fff;border:2px solid var(--ink);
+  border-radius:10px;padding:10px 18px;font-weight:700;font-size:15px;min-height:52px;
+}
+.retour:active{transform:scale(.98)}
+.etiquette{
+  display:inline-flex;align-items:center;gap:10px;border:2px solid var(--bord);
+  border-radius:999px;padding:7px 16px;font-weight:700;font-size:14px;
+}
+.etiquette .rond{width:14px;height:14px;border-radius:50%;flex:0 0 auto}
+
+/* ---------- carte ---------- */
+#carte{flex:1;min-height:0}
+.leaflet-container{font-family:'Atkinson Hyperlegible',Verdana,sans-serif}
+.repere{
+  display:flex;align-items:center;gap:9px;background:#fff;border:3px solid var(--c);
+  border-radius:12px;padding:8px 13px;font-weight:700;font-size:15px;white-space:nowrap;
+  box-shadow:0 3px 10px rgba(28,36,48,.28);color:var(--ink);line-height:1.15;
+}
+.repere .puce{
+  width:26px;height:26px;border-radius:50%;background:var(--c);color:#fff;flex:0 0 auto;
+  display:flex;align-items:center;justify-content:center;font-family:'Archivo Black',sans-serif;font-size:14px;
+}
+.note-prof{
+  flex:0 0 auto;border-top:1px solid var(--bord);background:var(--fond);
+  padding:9px 20px;font-size:12.5px;color:var(--ink-soft);
+}
+
+/* ---------- listes de métiers ---------- */
+.corps{flex:1;min-height:0;overflow:auto;padding:22px 20px 34px}
+.titre-section{font-family:'Archivo Black',Verdana,sans-serif;font-size:22px;font-weight:400;margin:0 0 4px}
+.sous-titre{margin:0 0 20px;font-size:15px;color:var(--ink-soft)}
+.grille{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px}
+.carte-metier{
+  display:flex;flex-direction:column;gap:0;background:#fff;border:2px solid var(--bord);
+  border-radius:14px;overflow:hidden;padding:0;text-align:left;min-height:230px;
+}
+.carte-metier:active{transform:scale(.985)}
+.carte-metier .vignette{
+  height:150px;background:var(--fond);display:flex;align-items:center;justify-content:center;
+  border-bottom:2px solid var(--bord);overflow:hidden;
+}
+.carte-metier .vignette img{max-width:100%;max-height:100%;object-fit:contain}
+.a-photographier{
+  font-size:12.5px;color:var(--ink-soft);text-align:center;padding:0 14px;line-height:1.4;
+}
+.carte-metier .nom{
+  padding:12px 14px;font-family:'Archivo Black',Verdana,sans-serif;font-size:15px;
+  line-height:1.25;white-space:pre-line;border-left:6px solid var(--c);flex:1;
+}
+
+/* ---------- fiche ---------- */
+.fiche{max-width:940px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+.fiche-tete{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.fiche-nom{font-family:'Archivo Black',Verdana,sans-serif;font-size:30px;line-height:1.15;white-space:pre-line}
+.fiche-bloc{display:grid;grid-template-columns:minmax(240px,1fr) 1.3fr;gap:22px;align-items:start}
+.fiche-photo{
+  border:2px solid var(--bord);border-radius:14px;background:var(--fond);min-height:240px;
+  display:flex;align-items:center;justify-content:center;overflow:hidden;padding:10px;
+}
+.fiche-photo img{max-width:100%;max-height:320px;object-fit:contain}
+.phrase{
+  display:flex;align-items:flex-start;gap:14px;border:2px solid var(--ink);border-radius:14px;
+  padding:16px 18px;font-size:23px;line-height:1.45;
+}
+.hp{
+  flex:0 0 auto;width:56px;height:56px;border-radius:50%;border:none;background:var(--navy);
+  color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center;
+}
+.hp.parle{animation:bat .9s ease-in-out infinite}
+@keyframes bat{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+.lignes{display:flex;flex-direction:column;gap:12px}
+.ligne{display:flex;align-items:center;gap:12px;font-size:17px}
+.ligne .cle{
+  font-family:'Archivo Black',Verdana,sans-serif;font-size:12px;letter-spacing:.06em;
+  color:var(--ink-soft);min-width:112px;
+}
+.ligne .val{font-weight:700}
+#fiche-mini{height:200px;border:2px solid var(--bord);border-radius:14px}
+</style>
+</head>
+<body>
+
+<!-- ================= PAGE 1 — LA CARTE ================= -->
+<section class="page actif" id="page-carte">
+  <div class="barre">
+    <h1>MON AVENIR AU HAVRE</h1>
+    <span class="etiquette">Touche un lycée</span>
+  </div>
+  <div id="carte"></div>
+  <div class="note-prof" id="note-prof">
+    Formations : « Présentation des ULIS lycées du Havre », version 1.5 — septembre 2025
+    (N. Gay, S. Jolivet, N. Lassade, E. Meys, S. Maurice). Les CAP listés sont ceux
+    accessibles en ULIS lycée. Coordonnées : Base Adresse Nationale. Carte : OpenStreetMap.
+  </div>
+</section>
+
+<!-- ================= PAGE 2 — LES MÉTIERS D'UN LYCÉE ================= -->
+<section class="page" id="page-metiers">
+  <div class="barre">
+    <button class="retour" data-vers="page-carte">← La carte</button>
+    <span class="etiquette" id="et-metiers"><span class="rond"></span><span></span></span>
+  </div>
+  <div class="corps">
+    <h2 class="titre-section">Choisis un métier</h2>
+    <p class="sous-titre">Touche la photo du métier qui t’intéresse.</p>
+    <div class="grille" id="grille-metiers"></div>
+  </div>
+</section>
+
+<!-- ================= PAGE 3 — LA FICHE MÉTIER ================= -->
+<section class="page" id="page-fiche">
+  <div class="barre">
+    <button class="retour" data-vers="page-metiers">← Les métiers</button>
+    <span class="etiquette" id="et-fiche"><span class="rond"></span><span></span></span>
+  </div>
+  <div class="corps">
+    <div class="fiche">
+      <div class="fiche-tete"><div class="fiche-nom" id="fiche-nom"></div></div>
+      <div class="fiche-bloc">
+        <div class="fiche-photo" id="fiche-photo"></div>
+        <div class="lignes">
+          <div class="phrase">
+            <button class="hp" id="btn-hp" aria-label="Écouter la phrase">►</button>
+            <div id="fiche-phrase"></div>
+          </div>
+          <div class="ligne"><span class="cle">DIPLÔME</span><span class="val" id="fiche-diplome"></span></div>
+          <div class="ligne"><span class="cle">SON NOM EXACT</span><span class="val" id="fiche-officiel"></span></div>
+          <div class="ligne"><span class="cle">LE LYCÉE</span><span class="val" id="fiche-lycee"></span></div>
+          <div class="ligne"><span class="cle">L’ADRESSE</span><span class="val" id="fiche-adresse"></span></div>
+          <div class="ligne"><span class="cle">POUR Y ALLER</span><span class="val" id="fiche-trajet"></span></div>
+          <div id="fiche-mini"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+/* Coordonnées réelles : Base Adresse Nationale (api-adresse.data.gouv.fr), score ≥ 0,78.
+   Les photos sont celles du thème « Les métiers » de l'application ; les métiers non
+   encore photographiés affichent ce qu'il reste à photographier — jamais un pictogramme. */
+const P = 'clean/';
+const LYCEES = [
+  { id:'lavoisier', nom:'Lycée Lavoisier', court:'Lavoisier', couleur:'var(--lavoisier)',
+    lat:49.526143, lon:0.098575, adresse:'51 rue des Moteaux', quartier:'Bléville',
+    metiers:[
+      { nom:'MÉCANIQUE\nVOITURES', photo:P+'mot-mecanicien.png', phrase:"Je répare les voitures. Je regarde le moteur, les freins et les pneus.", diplome:'CAP', officiel:'Maintenance des véhicules, option voitures particulières (VP)', trajet:'En bus' },
+      { nom:'MÉCANIQUE\nCAMIONS', manque:'Un mécanicien devant un camion, capot ouvert.', phrase:"Je répare les camions. Je travaille sur des gros moteurs.", diplome:'CAP', officiel:'Maintenance des véhicules, option transport routier (VTR)', trajet:'En bus' },
+      { nom:'CHAUDRONNERIE\nSOUDURE', photo:P+'mot-soudeur.png', phrase:"Je coupe, je plie et je soude le métal.", diplome:'CAP', officiel:'Réalisations industrielles en chaudronnerie ou soudage (RICS)', trajet:'En bus' }
+    ] },
+  { id:'erea', nom:'EREA Maurice Genevoix', court:'EREA Genevoix', couleur:'var(--erea)',
+    lat:49.514209, lon:0.10071, adresse:'94 rue Colette', quartier:'Mont-Gaillard',
+    metiers:[
+      { nom:'MAÇONNERIE', photo:P+'mot-macon.png', phrase:"Je construis des murs. Je pose des briques et du béton.", diplome:'CAP', officiel:'Maçon', trajet:'En bus' },
+      { nom:'PEINTRE', photo:P+'mot-peintre.png', phrase:"Je peins les murs. Je pose aussi du papier peint.", diplome:'CAP', officiel:'Peintre applicateur de revêtements (PAR)', trajet:'En bus' },
+      { nom:'MÉTALLERIE', photo:P+'mot-soudeur.png', phrase:"Je soude le métal. Je fabrique des portails et des grilles.", diplome:'CAP', officiel:'Métallier (MET)', trajet:'En bus' },
+      { nom:'MAINTENANCE\nDES BÂTIMENTS', manque:'Un agent avec une caisse à outils dans un couloir.', phrase:"Je répare dans les bâtiments : l’eau, l’électricité, les petits travaux.", diplome:'CAP', officiel:'Intervention en maintenance technique des bâtiments (IMTB)', trajet:'En bus' },
+      { nom:'AGENT DE\nPROPRETÉ', photo:P+'mot-agententretien.png', phrase:"Je nettoie les locaux avec des machines professionnelles.", diplome:'CAP', officiel:'Agent de propreté et d’hygiène (APH)', trajet:'En bus' },
+      { nom:'SERVICE EN\nRESTAURANT', photo:P+'mot-serveur.png', phrase:"Je sers les clients à table, au restaurant.", diplome:'CAP', officiel:'Service en restaurant', trajet:'En bus' }
+    ] },
+  { id:'schuman', nom:'Lycée Schuman-Perret', court:'Schuman-Perret', couleur:'var(--schuman)',
+    lat:49.515993, lon:0.166039, adresse:'51 avenue du 8 Mai 1945', quartier:'Caucriauville',
+    metiers:[
+      { nom:'ÉLECTRICIEN', photo:P+'mot-electricien.png', phrase:"J’installe l’électricité. Je répare les prises et les câbles.", diplome:'CAP', officiel:'Électricien', trajet:'En tramway' },
+      { nom:'INSTALLATIONS\nSANITAIRES', photo:P+'mot-plombier.png', phrase:"J’installe les tuyaux d’eau : l’évier, la douche, les toilettes.", diplome:'CAP', officiel:'Monteur en installations sanitaires (MIS)', trajet:'En tramway' },
+      { nom:'PEINTRE\nAPPLICATEUR', photo:P+'mot-peintre.png', phrase:"Je peins les murs et je pose les sols.", diplome:'CAP', officiel:'Peintre applicateur de revêtements (PAR)', trajet:'En tramway' },
+      { nom:'MENUISIER\nINSTALLATEUR', photo:P+'mot-menuisier.png', phrase:"Je fabrique et je pose les portes et les fenêtres en bois.", diplome:'CAP', officiel:'Menuisier installateur (MI)', trajet:'En tramway' },
+      { nom:'INSTALLATIONS\nTHERMIQUES', manque:'Un chauffagiste devant une chaudière.', phrase:"J’installe le chauffage : la chaudière et les radiateurs.", diplome:'CAP', officiel:'Monteur en installations thermiques (MIT)', trajet:'En tramway' }
+    ] },
+  { id:'lecesne', nom:'Lycée Jules Le Cesne', court:'Jules Le Cesne', couleur:'var(--lecesne)',
+    lat:49.491205, lon:0.13866, adresse:'33 rue de Fleurus', quartier:'Graville',
+    decalage:'translate(calc(-100% + 12px), -26px)',
+    metiers:[
+      { nom:'CUISINE', photo:P+'mot-cuisinier.png', phrase:"Je prépare les plats en cuisine, avec le chef.", diplome:'CAP', officiel:'Cuisine', trajet:'En tramway' },
+      { nom:'SERVICE EN\nRESTAURANT', photo:P+'mot-serveur.png', phrase:"Je sers les clients à table, au restaurant.", diplome:'CAP', officiel:'Service en restaurant', trajet:'En tramway' },
+      { nom:'CAFÉ - HÔTEL\nRESTAURANT', manque:'Une personne au comptoir d’un café, qui sert un client.', phrase:"J’accueille les clients. Je sers les boissons et je tiens la caisse.", diplome:'CAP', officiel:'Commercialisation et services en café-hôtel-restaurant', trajet:'En tramway' },
+      { nom:'ENTRETIEN\nDES TEXTILES', manque:'Une personne qui repasse du linge en pressing.', phrase:"Je lave, je repasse et je répare les vêtements.", diplome:'CAP', officiel:'Entretien des textiles', trajet:'En tramway' }
+    ] },
+  { id:'degrace', nom:'Lycée Françoise de Grâce', court:'Françoise de Grâce', couleur:'var(--degrace)',
+    lat:49.492809, lon:0.14955, adresse:'16 rue de la Vallée', quartier:'Vallée Béreult',
+    decalage:'translate(-12px, 26px)',
+    metiers:[
+      { nom:'ACCOMPAGNANT\nGRAND ÂGE', photo:P+'mot-aidesoignant.png', phrase:"J’aide les personnes âgées, chaque jour.", diplome:'CAP', officiel:'Agent accompagnant au grand âge', trajet:'En bus' },
+      { nom:'ÉQUIPIER DE\nCOMMERCE', photo:P+'mot-caissier.png', phrase:"Je range les rayons du magasin. J’aide les clients.", diplome:'CAP', officiel:'Équipier polyvalent du commerce', trajet:'En bus' },
+      { nom:'PRODUCTION EN\nRESTAURATION', photo:P+'mot-cuisinier.png', phrase:"Je prépare beaucoup de repas, à la cantine.", diplome:'CAP', officiel:'Production et service en restauration', trajet:'En bus' }
+    ] }
+];
+
+/* ---------- navigation ---------- */
+let lyceeActif = null, metierActif = null, mini = null;
+function aller(id){
+  document.querySelectorAll('.page').forEach(p => p.classList.toggle('actif', p.id === id));
+  window.scrollTo(0, 0);
+  if (id === 'page-fiche' && mini) setTimeout(() => mini.invalidateSize(), 60);
+}
+document.querySelectorAll('.retour').forEach(b => b.addEventListener('click', () => aller(b.dataset.vers)));
+
+function etiqueter(el, lycee){
+  el.querySelector('.rond').style.background = lycee.couleur;
+  el.querySelectorAll('span')[1].textContent = lycee.court;
+}
+
+/* ---------- la carte ---------- */
+const carte = L.map('carte', { zoomControl:true }).setView([49.508, 0.132], 12);
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution:'© OpenStreetMap contributors', maxZoom:18
+}).addTo(carte);
+
+LYCEES.forEach((ly, i) => {
+  /* Jules Le Cesne et Françoise de Grâce sont à 800 m : leurs deux étiquettes ne tiennent
+     pas côte à côte au zoom de la ville. Chacune est donc décalée autour de son point —
+     l'une au-dessus à gauche, l'autre en dessous à droite — le point lui-même ne bouge pas. */
+  const html = '<div class="repere" style="--c:' + ly.couleur +
+               (ly.decalage ? ';transform:' + ly.decalage : '') + '">' +
+               '<span class="puce">' + (i + 1) + '</span>' + ly.court + '</div>';
+  L.marker([ly.lat, ly.lon], {
+    icon: L.divIcon({ html, className:'', iconSize:null, iconAnchor:[20, 22] }),
+    keyboard:true, title:ly.nom
+  }).addTo(carte).on('click', () => ouvrirLycee(ly));
+});
+carte.fitBounds(LYCEES.map(l => [l.lat, l.lon]), { padding:[70, 70] });
+
+/* ---------- les métiers ---------- */
+function vignette(m){
+  if (m.photo) return '<div class="vignette"><img src="' + m.photo + '" alt="' + m.nom.replace(/\n/g, ' ') + '"></div>';
+  return '<div class="vignette"><div class="a-photographier">Photo à faire :<br>' + m.manque + '</div></div>';
+}
+function ouvrirLycee(ly){
+  lyceeActif = ly;
+  etiqueter(document.getElementById('et-metiers'), ly);
+  document.getElementById('grille-metiers').innerHTML = ly.metiers.map((m, i) =>
+    '<button class="carte-metier" style="--c:' + ly.couleur + '" data-i="' + i + '">' +
+    vignette(m) + '<span class="nom">' + m.nom + '</span></button>').join('');
+  document.querySelectorAll('#grille-metiers .carte-metier').forEach(b =>
+    b.addEventListener('click', () => ouvrirFiche(ly.metiers[+b.dataset.i])));
+  aller('page-metiers');
+}
+
+/* ---------- la fiche ---------- */
+function ouvrirFiche(m){
+  metierActif = m;
+  const ly = lyceeActif;
+  etiqueter(document.getElementById('et-fiche'), ly);
+  document.getElementById('fiche-nom').textContent = m.nom;
+  document.getElementById('fiche-nom').style.borderBottom = '5px solid ' + ly.couleur;
+  document.getElementById('fiche-photo').innerHTML = m.photo
+    ? '<img src="' + m.photo + '" alt="">'
+    : '<div class="a-photographier">Photo à faire :<br>' + m.manque + '</div>';
+  document.getElementById('fiche-phrase').textContent = m.phrase;
+  document.getElementById('fiche-diplome').textContent = m.diplome;
+  document.getElementById('fiche-officiel').textContent = m.officiel;
+  document.getElementById('fiche-lycee').textContent = ly.nom;
+  document.getElementById('fiche-adresse').textContent = ly.adresse + ' — ' + ly.quartier;
+  document.getElementById('fiche-trajet').textContent = m.trajet;
+  aller('page-fiche');
+  if (!mini) {
+    mini = L.map('fiche-mini', { zoomControl:false, dragging:false, scrollWheelZoom:false, doubleClickZoom:false, attributionControl:true });
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution:'© OpenStreetMap contributors', maxZoom:18 }).addTo(mini);
+    mini.repere = null;
+  }
+  mini.setView([ly.lat, ly.lon], 14);
+  if (mini.repere) mini.removeLayer(mini.repere);
+  mini.repere = L.circleMarker([ly.lat, ly.lon], { radius:11, color:'#fff', weight:3, fillColor:getComputedStyle(document.documentElement).getPropertyValue('--' + ly.id).trim(), fillOpacity:1 }).addTo(mini);
+  setTimeout(() => mini.invalidateSize(), 60);
+}
+
+/* ---------- la phrase lue ---------- */
+document.getElementById('btn-hp').addEventListener('click', function(){
+  if (!metierActif || !window.speechSynthesis) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(metierActif.phrase);
+  u.lang = 'fr-FR'; u.rate = 0.85;
+  const b = this;
+  b.classList.add('parle');
+  u.onend = u.onerror = () => b.classList.remove('parle');
+  speechSynthesis.speak(u);
+});
+</script>
+</body>
+</html>

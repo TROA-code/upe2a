@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>UPE2A NSA — supports</title>
+<link rel="stylesheet" href="polices.css" />
+<script>
+// un lien « J'écoute chez moi » va droit à l'application
+(function(){
+  var q = location.search || '';
+  if (/[?&]devoir=/.test(q)) {
+    location.replace('APPLI%20-%20Espace%20enseignant.dc.html' + q);
+  }
+})();
+</script>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#eef2f7;font-family:Archivo,system-ui,sans-serif;color:#14213d}
+  .wrap{max-width:980px;margin:0 auto;padding:38px 22px 60px}
+  h1{font-family:'Archivo Black',Archivo,sans-serif;font-size:30px;margin:0 0 6px}
+  .sub{font-size:15px;color:#6b7386;margin:0 0 30px}
+  h2{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#8a91a3;margin:34px 0 12px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+  a.card{display:flex;flex-direction:column;gap:5px;background:#fff;border:none;border-left:5px solid #1d4e89;border-radius:10px;box-shadow:0 2px 8px rgba(18,35,59,.1);padding:15px 17px;text-decoration:none;color:#14213d}
+  a.card:hover{box-shadow:0 5px 16px rgba(18,35,59,.18)}
+  a.card b{font-family:'Archivo Black',Archivo,sans-serif;font-size:15px;font-weight:400}
+  a.card span{font-size:12.5px;color:#6b7386}
+  .appli{border-left-color:#2a9d6e;padding:22px 24px}
+  .appli b{font-size:20px}
+  .maths{border-left-color:#e59a2b}
+  .note{margin-top:38px;font-size:12.5px;color:#8a91a3;line-height:1.6}
+  a{color:#1d4e89}
+  a:hover{color:#14213d}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>UPE2A NSA</h1>
+<p class="sub">Application et supports imprimables — élèves allophones non scolarisés antérieurement</p>
+
+<h2>Application</h2>
+<div class="grid">
+<a class="card appli" href="APPLI%20-%20Espace%20enseignant.dc.html"><b>Ouvrir l'application</b><span>Thèmes, lettres et sons, exercices</span></a>
+</div>
+
+<h2>Français — livrets</h2>
+<div class="grid">
+<a class="card" href="FR%20-%20Cahier%20d'%C3%A9criture%20-%20Tracer%20les%20lettres.dc.html"><b>Cahier d'écriture</b><span>Tracer les 28 lettres</span></a>
+<a class="card" href="FR%20-%20Livret%202%20-%20Mes%20mots%20-%20Volume%201.dc.html"><b>Mes mots — volume 1</b><span>Dictionnaire illustré</span></a>
+<a class="card" href="FR%20-%20Livret%202%20-%20Mes%20mots%20-%20Volume%202.dc.html"><b>Mes mots — volume 2</b><span>Dictionnaire illustré</span></a>
+<a class="card" href="FR%20-%20Livret%202%20-%20Mes%20mots%20-%20Volume%203.dc.html"><b>Mes mots — volume 3</b><span>Dictionnaire illustré</span></a>
+<a class="card" href="FR%20-%20Livret%202%20-%20Mes%20mots%20-%20Volume%204.dc.html"><b>Mes mots — volume 4</b><span>Dictionnaire illustré</span></a>
+<a class="card" href="FR%20-%20Livret%203%20-%20Les%20repas.dc.html"><b>Livret 3 — Les repas</b><span>Lotos et lexique</span></a>
+</div>
+
+<h2>Rituels</h2>
+<div class="grid">
+<a class="card" href="docs/charivari-cartes-rituel-langage.pdf"><b>Cartes rituel langage</b><span>Charivari à l'école — 30 cartes à imprimer</span></a>
+</div>
+
+<h2>Français — écrans</h2>
+<div class="grid">
+<a class="card" href="FR%20-%20Mes%20mots%20-%20livre%20interactif.html"><b>Mes mots — livre interactif</b><span>À l'écran, avec le son</span></a>
+<a class="card" href="FR%20-%20Mes%20mots%20-%20version%20sonore.html"><b>Mes mots — version sonore</b><span>Écoute des mots</span></a>
+</div>
+
+<h2>Français — séances de sons</h2>
+<div class="grid">
+<a class="card" href="FR%20-%20S%C3%A9ance%20type%20-%20Le%20son%20A.dc.html"><b>Le son A</b><span>Séance complète</span></a>
+<a class="card" href="FR%20-%20S%C3%A9ance%20type%20-%20Le%20son%20I.dc.html"><b>Le son I</b><span>Séance complète</span></a>
+<a class="card" href="FR%20-%20S%C3%A9ance%20type%20-%20Le%20son%20O.dc.html"><b>Le son O</b><span>Séance complète</span></a>
+</div>
+
+<h2>Mathématiques</h2>
+<div class="grid">
+<a class="card maths" href="MATHS%20-%20Livret%201%20-%20Les%20nombres%20de%200%20%C3%A0%2010.dc.html"><b>Livret 1 — Les nombres de 0 à 10</b><span>Lecture et écriture des nombres</span></a>
+<a class="card maths" href="MATHS%20-%20Livret%201%20bis%20-%20Tracer%20les%20chiffres.dc.html"><b>Livret 1 bis — Tracer les chiffres</b><span>Geste graphique</span></a>
+<a class="card maths" href="MATHS%20-%20Livret%202%20-%20Comparer%20et%20ranger.dc.html"><b>Livret 2 — Comparer et ranger</b><span>Ordre et comparaison</span></a>
+</div>
+
+<p class="note">Pour imprimer un livret : l'ouvrir, puis Fichier → Imprimer → Enregistrer au format PDF.</p>
+</div>
+</body>
+</html>
