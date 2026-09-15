@@ -1,5 +1,26 @@
 # INSTRUCTIONS — UPE2A NSA (fichier unique)
 
+## ⚠⚠ LES MOTS REPÈRES DE L'ALPHABET VIVENT À TROIS ENDROITS (15/09)
+
+La table validée avec elle (11 et 13/09) :
+a ananas · b ballon · c carotte · d deux · **e melon** · **f fenêtre** · g gâteau ·
+**h : AUCUNE case** (elle a tranché : le h n'a pas de son) · **i immeuble** · **j jaune** ·
+**k kiwi** · l lit · m moto · n nuage · **o ordinateur** · p pied · **q quatre** ·
+**r robot** · s salade · t table · **u usine** · v vélo · w wagon · x xylophone ·
+**y yaourt** · **z zéro**
+
+Elle est recopiée dans **trois fichiers** qu'il faut corriger ENSEMBLE :
+1. `APPLI - Espace enseignant.dc.html` → `const ALPHA_IMG` ;
+2. `banque-mots.js` → `"L'alphabet"` — **c'est celui-là que sert l'appli EN LIGNE** ;
+3. `FR - Mes mots - livre interactif.html` → les boutons `class="w al"`.
+
+⚠ **Le piège du 15/09** : l'espace enseignant affichait la bonne liste, l'appli en ligne
+affichait encore renard, fantôme, gris, jupe, kangourou, orange, cinq, rue, pyjama, zèbre —
+avec des dessins enfantins et deux cases vides. Cause : seul `ALPHA_IMG` avait été corrigé,
+`banque-mots.js` était resté périmé. Si un écart réapparaît entre l'aperçu et le site,
+**commencer par comparer ces trois tables**.
+⚠ Il y avait aussi un doublon : R et U renvoyaient tous les deux à « rue ».
+
 ## ⏳ À RAPPELER — les photos de LA RADIO (15/09)
 
 Elle a donné les **14 mots** du thème radio et demandé une planche de mots seule :

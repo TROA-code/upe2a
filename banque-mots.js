@@ -11,7 +11,13 @@
       ['une poule', 'poule'], ['une vache', 'vache'], ['un mouton', 'mouton'],
       ['un oiseau', 'oiseau'], ['un poisson', 'poisson'], ['un cheval', 'cheval']],
  'La politesse':[['bonjour','geste-bonjour'],['bonsoir','geste-bonsoir'],['au revoir','geste-aurevoir'],['merci','geste-merci'],["s'il vous plaît",'geste-silvousplait'],['pardon','geste-pardon'],['oui','geste-oui'],['non','geste-non'],['à demain','geste-ademain']],
- "L'alphabet":[['a','ananas'],['b','ballon'],['c','carotte'],['d','deux'],['e','renard'],['f','fantome'],['g','gateau'],['i','gris'],['j','jupe'],['k','kangourou'],['l','lit'],['m','moto'],['n','nuage'],['o','orange'],['p','pied'],['q','cinq'],['r','robot'],['s','salade'],['t','table'],['u','rue'],['v','velo'],['w','wagon'],['x','xylophone'],['y','pyjama'],['z','zebre']],
+  /* ⚠ MOTS REPÈRES — UNE SEULE TABLE DE RÉFÉRENCE, celle validée avec elle les 11 et 13/09,
+    identique à ALPHA_IMG dans « APPLI - Espace enseignant ». Elle était restée périmée ici
+    (renard, fantôme, gris, jupe, kangourou, orange, cinq, rue, pyjama, zèbre) et les
+    exercices élèves affichaient donc des dessins enfantins et deux cases vides — signalé
+    le 15/09. Toute correction de l'alphabet doit se faire AUX DEUX ENDROITS.
+    Le h n'a volontairement pas de case : elle a tranché qu'il n'a pas de son. */
+ "L'alphabet":[['a','ananas'],['b','ballon'],['c','carotte'],['d','deux'],['e','melon'],['f','fenetre'],['g','gateau'],['i','immeuble'],['j','jaune'],['k','kiwi'],['l','lit'],['m','moto'],['n','nuage'],['o','ordinateur'],['p','pied'],['q','quatre'],['r','robot'],['s','salade'],['t','table'],['u','usine'],['v','velo'],['w','wagon'],['x','xylophone'],['y','yaourt'],['z','zero']],
  'Les jours':[['lundi','lundi'],['mardi','mardi'],['mercredi','mercredi'],['jeudi','jeudi'],['vendredi','vendredi'],['samedi','samedi'],['dimanche','dimanche']],
  'Les mois':[['janvier','janvier'],['février','fevrier'],['mars','mars'],['avril','avril'],['mai','mai'],['juin','juin'],['juillet','juillet'],['août','aout'],['septembre','septembre'],['octobre','octobre'],['novembre','novembre'],['décembre','decembre']],
  'La météo':[['le soleil','soleil'],['un nuage','nuage'],['la pluie','pluie'],['la neige','neige'],['le vent','vent'],["l'orage",'orage'],['le brouillard','brouillard'],['il fait chaud','chaud'],['il fait froid','froid']],

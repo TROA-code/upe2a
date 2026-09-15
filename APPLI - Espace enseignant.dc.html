@@ -2477,7 +2477,7 @@ class Component extends DCLogic {
     /* Mot de passe de l'ESPACE ENSEIGNANT — « ecole76! » depuis le 15/09 (avant : « ecole »).
        Sans rapport avec celui des étiquettes de session ENT, qui est celui des ÉLÈVES et vit
        dans « ÉTIQUETTES - Codes de session.dc.html ». Ne pas confondre les deux. */
-    ecran:'themeAccueil', themeImpose:'', verrou:true, saisieMdp:'', mdpRef:'ecole76!', erreurMdp:'', groupes:GROUPES_INIT.map(g=>({...g,eleves:[...g.eleves]})),
+    ecran:'themeAccueil', themeImpose:'', verrou:true, saisieMdp:'', mdpRef:this.chargerMdp(), erreurMdp:'', groupes:GROUPES_INIT.map(g=>({...g,eleves:[...g.eleves]})),
     groupe:'Débutants', groupeSel:'Débutants', eleveSel:'Élève A', dest:'Intermédiaires',
     nouveauGroupe:'', nouvelEleve:'', infoTransfert:'', 
     champs:{"J'écoute":true,"Je lis":true,"Je parle":true,"J'écris":true},
@@ -3075,6 +3075,13 @@ class Component extends DCLogic {
         this.setState({fluence:base});
       }
     }));
+  }
+  /* Le mot de passe qu'elle choisit dans les réglages doit SURVIVRE AU RECHARGEMENT
+     (15/09 : « j'ai changé le mot de passe et ça marche pas »). Il ne vivait qu'en état,
+     donc l'appli reprenait « ecole76! » à chaque ouverture et le nouveau était refusé. */
+  chargerMdp(){
+    try{ const v=localStorage.getItem('upe2a-mdp-prof'); if(v) return v; }catch(e){}
+    return 'ecole76!';
   }
   chargerVoix(){
     try{ const v=localStorage.getItem('upe2a-voix'); if(v) return v; }catch(e){}
@@ -5458,7 +5465,8 @@ class Component extends DCLogic {
       validerMdp:()=>this.setState(p=>
         !p.mdp1 ? {mdpInfo:'Saisissez un mot de passe.',mdpOk:false}
         : p.mdp1!==p.mdp2 ? {mdpInfo:'Les deux mots de passe sont différents.',mdpOk:false}
-        : {mdpInfo:'Mot de passe enregistré.',mdpOk:true,mdpRef:p.mdp1,mdp1:'',mdp2:''})
+        : (()=>{ try{ localStorage.setItem('upe2a-mdp-prof',p.mdp1); }catch(e){}
+            return {mdpInfo:'Mot de passe enregistré.',mdpOk:true,mdpRef:p.mdp1,mdp1:'',mdp2:''}; })())
     };
   }
 }
