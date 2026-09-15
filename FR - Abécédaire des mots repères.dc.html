@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+doc-page:not(:defined){visibility:hidden}
+body{margin:0}
+a{color:#1d5c3a}
+a:hover{color:#14213d}
+</style>
+<link rel="stylesheet" href="polices.css" />
+<script src="./doc-page.js"></script>
+</helmet>
+<doc-page size="a4" orientation="landscape">
+<section class="page" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;box-sizing:border-box;font-family:Helvetica,'Helvetica Neue',Arial,sans-serif;color:#14213d">
+<sc-for list="{{ moities }}" as="m" hint-placeholder-count="2">
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;box-sizing:border-box;padding:7mm 9mm 7mm;border-bottom:1px dashed #c9ccd6">
+<div style="flex:0 0 auto;display:flex;align-items:baseline;justify-content:space-between;gap:6mm;border-bottom:1.2px solid #1d5c3a;padding-bottom:1.2mm;margin-bottom:2mm">
+<span style="font-size:12pt;font-weight:700;letter-spacing:-0.01em">{{ titre }}</span>
+<span style="font-size:7.5pt;letter-spacing:0.18em;text-transform:uppercase;color:#8a91a3">Français &middot; UPE2A NSA</span>
+</div>
+<div style="flex:1;min-height:0;display:grid;gap:1.5mm;grid-auto-rows:minmax(0,1fr);grid-template-columns:repeat(13,minmax(0,1fr))">
+<sc-for list="{{ cells }}" as="c" hint-placeholder-count="26">
+<div style="display:flex;flex-direction:column;align-items:stretch;min-height:0;overflow:hidden;border:1px solid #d8dbe4;border-radius:1mm">
+<span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;height:5.2mm;text-align:center;font-family:'BA Script',Helvetica,sans-serif;font-size:9pt;line-height:1;color:#14213d;background:#fafbfc">{{ c.capitale }}</span>
+<span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;gap:1mm;height:5.2mm;text-align:center;font-family:'BA Script',Helvetica,sans-serif;font-size:9pt;line-height:1;color:#14213d;background:#fafbfc;border-top:1px solid #eceef3">{{ c.lettre }}</span>
+<span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;height:6mm;text-align:center;font-family:'BA Cursive','BA Script',cursive;font-size:9pt;line-height:1;color:#1d5c3a;background:#fafbfc;border-top:1px solid #eceef3;border-bottom:1px solid #eceef3">{{ c.cursive }}</span>
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:0.6mm;padding:0.8mm 0.5mm 0">
+<sc-for list="{{ c.images }}" as="im" hint-placeholder-count="1">
+<img src="{{ im.img }}" alt="{{ im.mot }}" style="max-height:100%;max-width:100%;width:auto;height:auto;object-fit:contain;display:block;min-width:0" />
+</sc-for>
+</div>
+<div style="flex:0 0 auto;display:flex;flex-direction:column;align-items:center;padding:0.5mm 0.5mm 1mm">
+<sc-for list="{{ c.images }}" as="im" hint-placeholder-count="1">
+<span style="font-family:'BA Script',Helvetica,sans-serif;font-size:6.5pt;line-height:1.05;color:#14213d;white-space:nowrap">{{ im.mot }}</span>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</section>
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1123,&quot;height&quot;:794},&quot;titre&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Mon abécédaire&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Feuille&quot;},&quot;deuxCopies&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Feuille&quot;},&quot;avecMot&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Feuille&quot;}}">
+/* Table de LETTRES (26), pas la table de graphies Retz. Quatre cases ont deux mots
+   dans la même case : c, g, o, s. Le h est volontairement VIDE (il n'a pas de son) —
+   ses trois écritures s'affichent, rien dessous.
+   Format : A4 PAYSAGE coupé en deux — une demi-feuille par élève, à coller sur le
+   bureau. Les trois écritures sont EMPILÉES (capitale, script, cursive) comme sur son
+   modèle ; les photos sont volontairement petites, elles ne servent que de rappel.
+   13 colonnes × 2 rangées = les 26 lettres dans une demi-feuille. */
+const MOTS = [
+  ['a','ananas'],['b','ballon'],['c','carotte','cerise'],['d','deux'],['e','melon'],
+  ['f','fenetre'],['g','gateau','gilet'],['h'],['i','immeuble'],['j','jaune'],
+  ['k','kiwi'],['l','lit'],['m','moto'],['n','nuage'],['o','ordinateur','pot'],['p','pied'],
+  ['q','quatre'],['r','robot'],['s','salade','rose'],['t','table'],['u','usine'],
+  ['v','velo'],['w','wagon'],['x','xylophone'],['y','yaourt'],['z','zero']
+];
+const ECRIT = { fenetre:'fenêtre', gateau:'gâteau', velo:'vélo', zero:'zéro' };
+
+class Component extends DCLogic {
+  renderVals() {
+    /* Le « a » s'écrit de deux façons en script : le a à boucle et le ɑ simple.
+       On met les deux dans la même case, c'est la même lettre. */
+    const DEUX_GRAPHIES = { a: 'a \u0251' };
+    const cells = MOTS.map(m => ({
+      lettre: DEUX_GRAPHIES[m[0]] || m[0],
+      cursive: m[0],
+      capitale: m[0].toUpperCase(),
+      images: m.slice(1).map(f => ({ mot: ECRIT[f] || f, img: 'clean/mot-' + f + '.png' }))
+    }));
+    const deux = this.props.deuxCopies ?? true;
+    return {
+      cells,
+      moities: deux ? [{ n: 1 }, { n: 2 }] : [{ n: 1 }],
+      avecMot: this.props.avecMot ?? true,
+      titre: this.props.titre ?? 'Mon abécédaire'
+    };
+  }
+}
+</script>
+</body>
+</html>

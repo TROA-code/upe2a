@@ -96,6 +96,11 @@ class Component extends DCLogic {
   }
 
   renderVals() {
+    /* ⚠ NE PAS TOUCHER À CE MOT DE PASSE (15/09). C'est celui de l'ENT des ÉLÈVES, donné
+       par l'établissement — il ne se « change » pas depuis ici. Passé à « ecole76! » par
+       erreur puis rétabli : « ecole76! » était le mot de passe de l'ESPACE ENSEIGNANT de
+       l'appli (bouton orange Espace enseignant), qui vit dans APPLI - Espace enseignant.
+       Deux mots de passe distincts, ne jamais les confondre. */
     const mdp = this.props.motDePasse || 'Lecesne2026!!';
     const liste = this.eleves().map((e) => ({
       eleve: e.prenom + ' ' + e.famille,

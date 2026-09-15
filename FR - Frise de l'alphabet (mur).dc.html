@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+doc-page:not(:defined){visibility:hidden}
+body{margin:0}
+a{color:#1d5c3a}
+a:hover{color:#14213d}
+</style>
+<link rel="stylesheet" href="polices.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Didact+Gothic&amp;display=swap" />
+<meta name="ext-resource-dependency" content="clean/mot-ananas.png" />
+<meta name="ext-resource-dependency" content="clean/mot-ballon.png" />
+<meta name="ext-resource-dependency" content="clean/mot-carotte.png" />
+<meta name="ext-resource-dependency" content="clean/mot-cerise.png" />
+<meta name="ext-resource-dependency" content="clean/mot-deux.png" />
+<meta name="ext-resource-dependency" content="clean/mot-melon.png" />
+<meta name="ext-resource-dependency" content="clean/mot-fenetre.png" />
+<meta name="ext-resource-dependency" content="clean/mot-gateau.png" />
+<meta name="ext-resource-dependency" content="clean/mot-gilet.png" />
+<meta name="ext-resource-dependency" content="clean/mot-immeuble.png" />
+<meta name="ext-resource-dependency" content="clean/mot-jaune.png" />
+<meta name="ext-resource-dependency" content="clean/mot-kiwi.png" />
+<meta name="ext-resource-dependency" content="clean/mot-lit.png" />
+<meta name="ext-resource-dependency" content="clean/mot-moto.png" />
+<meta name="ext-resource-dependency" content="clean/mot-nuage.png" />
+<meta name="ext-resource-dependency" content="clean/mot-ordinateur.png" />
+<meta name="ext-resource-dependency" content="clean/mot-pot.png" />
+<meta name="ext-resource-dependency" content="clean/mot-pied.png" />
+<meta name="ext-resource-dependency" content="clean/mot-quatre.png" />
+<meta name="ext-resource-dependency" content="clean/mot-robot.png" />
+<meta name="ext-resource-dependency" content="clean/mot-salade.png" />
+<meta name="ext-resource-dependency" content="clean/mot-rose.png" />
+<meta name="ext-resource-dependency" content="clean/mot-table.png" />
+<meta name="ext-resource-dependency" content="clean/mot-usine.png" />
+<meta name="ext-resource-dependency" content="clean/mot-velo.png" />
+<meta name="ext-resource-dependency" content="clean/mot-wagon.png" />
+<meta name="ext-resource-dependency" content="clean/mot-xylophone.png" />
+<meta name="ext-resource-dependency" content="clean/mot-yaourt.png" />
+<meta name="ext-resource-dependency" content="clean/mot-zero.png" />
+<script src="./doc-page.js"></script>
+</helmet>
+<doc-page size="a4" orientation="landscape">
+<sc-for list="{{ pages }}" as="p" hint-placeholder-count="4">
+<section class="page" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;box-sizing:border-box;padding:8mm 6mm;font-family:Helvetica,'Helvetica Neue',Arial,sans-serif;color:#14213d">
+
+<div style="flex:1.6;min-height:0;display:flex;flex-direction:column;border:1.2px solid #14213d;padding:3mm 2mm">
+<div style="flex:0 0 auto;display:grid;grid-template-columns:{{ p.colonnesCss }}">
+<sc-for list="{{ p.cells }}" as="c" hint-placeholder-count="7">
+<span style="text-align:center;font-family:'Century Gothic','Didact Gothic','BA Script',sans-serif;font-size:{{ tailleCapitale }};line-height:1;color:{{ c.encre }}">{{ c.capitale }}</span>
+</sc-for>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:{{ p.colonnesCss }};padding-top:1mm">
+<sc-for list="{{ p.cells }}" as="c" hint-placeholder-count="7">
+<span style="min-width:0;min-height:0;display:flex;align-items:center;justify-content:center;gap:1.5mm;padding:0 1.5mm">
+<sc-for list="{{ c.images }}" as="im" hint-placeholder-count="0">
+<sc-if value="{{ im.img }}" hint-placeholder-val="{{ false }}">
+<img src="{{ im.img }}" alt="{{ im.mot }}" style="max-height:100%;max-width:100%;height:auto;width:auto;object-fit:contain;display:block;min-width:0" />
+</sc-if>
+</sc-for>
+</span>
+</sc-for>
+</div>
+</div>
+
+<div style="flex:0 0 auto;height:4mm"></div>
+
+<div style="flex:1;min-height:0;display:grid;align-content:center;grid-template-columns:{{ p.colonnesCss }};border:1.2px solid #14213d;padding:4mm 2mm">
+<sc-for list="{{ p.cells }}" as="c" hint-placeholder-count="7">
+<span style="text-align:center;font-family:'Century Gothic','Didact Gothic','BA Script',sans-serif;font-size:{{ tailleLettre }};line-height:1;color:{{ c.encre }}">{{ c.lettre }}</span>
+</sc-for>
+</div>
+
+<div style="flex:0 0 auto;height:4mm"></div>
+
+<div style="flex:1.1;min-height:0;display:grid;align-content:center;grid-template-columns:{{ p.colonnesCss }};border:1.2px solid #14213d;padding:3mm 2mm">
+<sc-for list="{{ p.cells }}" as="c" hint-placeholder-count="7">
+<span style="text-align:center;font-family:'BA Cursive','BA Script',cursive;font-size:{{ tailleCursive }};line-height:1.45;padding:1mm 0;color:{{ c.encre }}">{{ c.lettre }}</span>
+</sc-for>
+</div>
+
+<div style="flex:0 0 auto;display:flex;align-items:baseline;justify-content:space-between;gap:6mm;padding-top:2.5mm;font-size:7.5pt;color:#b9bdc9">
+<span>{{ p.assemblage }}</span>
+<span>Français &middot; UPE2A NSA</span>
+</div>
+</section>
+</sc-for>
+</doc-page>
+<template id="__bundler_thumbnail">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" fill="#1d4e89" /><text x="100" y="92" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="54" font-weight="bold" fill="#fff">Aa</text><text x="100" y="140" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="20" fill="#9ec3ee">alphabet</text></svg>
+</template>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1123,&quot;height&quot;:794},&quot;lettresParFeuille&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:5,&quot;min&quot;:3,&quot;max&quot;:7,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Mise en page&quot;},&quot;avecImages&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Frise&quot;},&quot;couleurVoyelles&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#d81b60&quot;,&quot;options&quot;:[&quot;#d81b60&quot;,&quot;#c1440e&quot;,&quot;#1d4e89&quot;,&quot;#14213d&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Frise&quot;}}">
+/* Frise murale d'après sa photo du 14/09 : trois bandes continues — capitales avec
+   l'image du mot repère, script, cursive — les voyelles en rouge.
+   Imprimée en segments A4 paysage : chaque feuille porte les trois bandes pour les
+   mêmes lettres, on les met bout à bout et les trois bandes se poursuivent. C'est ce
+   qui s'aligne le mieux au mur (une seule découpe par feuille au lieu de trois).
+   Le h reste vide : il n'a pas de son. */
+const MOTS = [
+  ['a','ananas'],['b','ballon'],['c','carotte','cerise'],['d','deux'],['e','melon'],
+  ['f','fenetre'],['g','gateau','gilet'],['h'],['i','immeuble'],['j','jaune'],
+  ['k','kiwi'],['l','lit'],['m','moto'],['n','nuage'],['o','ordinateur','pot'],['p','pied'],
+  ['q','quatre'],['r','robot'],['s','salade','rose'],['t','table'],['u','usine'],
+  ['v','velo'],['w','wagon'],['x','xylophone'],['y','yaourt'],['z','zero']
+];
+const ECRIT = { fenetre:'fenêtre', gateau:'gâteau', velo:'vélo', zero:'zéro' };
+const VOYELLES = ['a','e','i','o','u','y'];
+
+class Component extends DCLogic {
+  renderVals() {
+    /* A4 EN HAUTEUR, comme ses feuilles au mur (photo du 14/09) : chaque feuille porte
+       les trois bandes pour les mêmes lettres, on découpe les trois bandes et on les
+       colle bout à bout — trois longues bandes sous le tableau. Six lettres par feuille,
+       cinq feuilles pour l'alphabet : c'est la densité de son affichage. */
+    /* Feuilles en PAYSAGE (14/09) : en portrait la case ne faisait que 45 mm en A3,
+       trop petit pour du fond de classe. 297 mm de large / 5 lettres = 56 mm par case,
+       soit 79 mm imprimé en A3. */
+    const parPage = Math.max(3, Math.min(7, this.props.lettresParFeuille ?? 5));
+    const rouge = this.props.couleurVoyelles ?? '#d81b60';
+    const cells = MOTS.map(m => ({
+      lettre: m[0],
+      capitale: m[0].toUpperCase(),
+      encre: VOYELLES.includes(m[0]) ? rouge : '#14213d',
+      images: (this.props.avecImages ?? true)
+        ? m.slice(1).map(f => ({ mot: ECRIT[f] || f, img: 'clean/mot-' + f + '.png' }))
+        : []
+    }));
+    /* Répartition équilibrée : à 5 par feuille, 26 lettres laissaient un « z » tout seul
+       sur une 6e feuille (14/09). On garde le même nombre de feuilles mais on répartit
+       — 5,5,4,4,4,4 — la largeur de colonne ne change pas, la dernière se recoupe. */
+    const nbPages = Math.ceil(cells.length / parPage);
+    const base = Math.floor(cells.length / nbPages);
+    const reste = cells.length % nbPages;
+    const pages = [];
+    for (let i = 0, k = 0; k < nbPages; k++) {
+      const taille = base + (k < reste ? 1 : 0);
+      const bloc = cells.slice(i, i + taille);
+      i += taille;
+      const n = k + 1;
+      pages.push({
+        cells: bloc,
+        /* Les dernières feuilles ont moins de lettres : on garde la même largeur de
+           colonne que les pleines pour que les bandes restent alignées. */
+        colonnesCss: 'repeat(' + parPage + ',minmax(0,1fr))',
+        assemblage: n === 1
+          ? 'Feuille 1 — à gauche'
+          : 'Feuille ' + n + ' — à coller à droite de la feuille ' + (n - 1)
+      });
+    }
+    return {
+      pages,
+      /* Lettres plus fines et plus petites qu'au premier jet : sur sa photo la lettre
+         et sa vignette font à peu près la même hauteur, l'une juste au-dessus de l'autre.
+         Police géométrique à « a » d'un seul étage (Century Gothic, sinon Didact Gothic,
+         dessinée pour l'apprentissage) — c'est celle de ses bandes. */
+      tailleCapitale: parPage <= 3 ? '86pt' : (parPage <= 5 ? '70pt' : '52pt'),
+      tailleLettre: parPage <= 3 ? '80pt' : (parPage <= 5 ? '64pt' : '48pt'),
+      /* La cursive a des boucles hautes (b, d, f, l) et des jambages bas (g, j, p, y) :
+         à taille égale elle débordait du cadre. Plus petite, avec de l'interligne et
+         une marge haut/bas, elle tient dedans (son signalement du 14/09). */
+      tailleCursive: parPage <= 3 ? '62pt' : (parPage <= 5 ? '50pt' : '38pt')
+    };
+  }
+}
+</script>
+</body>
+</html>

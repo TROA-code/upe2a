@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+doc-page:not(:defined){visibility:hidden}
+body{margin:0}
+a{color:#1d5c3a}
+a:hover{color:#14213d}
+</style>
+<script src="./doc-page.js"></script>
+</helmet>
+<doc-page size="a4">
+<section class="page" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:12mm;box-sizing:border-box;font-family:Helvetica,'Helvetica Neue',Arial,sans-serif;color:#14213d">
+<div style="flex:0 0 auto;display:flex;align-items:flex-end;justify-content:space-between;gap:6mm;border-bottom:1.5px solid #1d5c3a;padding-bottom:3mm">
+<div style="display:flex;flex-direction:column;gap:1.5mm">
+<span style="font-size:8.5pt;letter-spacing:0.18em;text-transform:uppercase;color:#5b6273">Français &middot; UPE2A NSA</span>
+<span style="font-size:17pt;font-weight:700;letter-spacing:-0.01em">{{ titre }}</span>
+</div>
+<div style="display:flex;align-items:flex-end;gap:4mm;flex:0 0 auto">
+<div style="display:flex;align-items:flex-end;gap:2mm">
+<span style="font-size:8.5pt;letter-spacing:0.12em;text-transform:uppercase;color:#5b6273;padding-bottom:1mm">Prénom</span>
+<span style="display:block;width:38mm;border-bottom:1.2px solid #b9bdc9;height:6.5mm"></span>
+</div>
+<div style="display:flex;align-items:flex-end;gap:2mm">
+<span style="font-size:8.5pt;letter-spacing:0.12em;text-transform:uppercase;color:#5b6273;padding-bottom:1mm">Date</span>
+<span style="display:block;width:24mm;border-bottom:1.2px solid #b9bdc9;height:6.5mm"></span>
+</div>
+</div>
+</div>
+<div style="flex:0 0 auto;display:flex;align-items:baseline;gap:4mm;padding:4mm 0 3mm">
+<span style="font-size:12.5pt;font-weight:700;line-height:1.2">Le restaurant</span>
+<span style="flex:1;font-size:11.5pt;line-height:1.3;text-wrap:pretty">Tu lis les consignes et tu fais ce qui est demandé.</span>
+</div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm;background:#f4f6f3;border:1px solid #d6ded6;border-radius:2mm;padding:2.5mm 4mm;box-sizing:border-box;margin-bottom:4mm">
+<span style="flex:0 0 auto;font-size:8pt;letter-spacing:0.14em;text-transform:uppercase;color:#1d5c3a;font-weight:700">Les mots outils</span>
+<div style="flex:1;display:flex;flex-wrap:wrap;gap:1.5mm 4mm;align-items:baseline">
+<sc-for list="{{ banque }}" as="b" hint-placeholder-count="10">
+<span style="font-size:12pt;font-weight:700;line-height:1.1">{{ b }}</span>
+</sc-for>
+</div>
+</div>
+<div style="flex:0 0 auto;border:1px solid #e2e0da;border-radius:2mm;padding:2mm;box-sizing:border-box;display:flex;align-items:center;justify-content:center;margin-bottom:4.5mm">
+<img src="clean/scene-restaurant.png" alt="Une salle de restaurant : un serveur, une cliente qui lit la carte, un cuisinier à la porte de la cuisine, trois tables, une horloge, une caisse." style="width:100%;height:auto;display:block" />
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.5mm 7mm;align-content:start">
+<sc-for list="{{ consignes }}" as="c" hint-placeholder-count="10">
+<div style="display:flex;align-items:flex-start;gap:2.5mm;break-inside:avoid">
+<span style="flex:0 0 auto;width:5.5mm;height:5.5mm;border:1.3px solid #1d5c3a;border-radius:1mm;display:flex;align-items:center;justify-content:center;font-size:8.5pt;font-weight:700;line-height:1;color:#1d5c3a;margin-top:0.6mm">{{ c.num }}</span>
+<span style="flex:1;font-size:11pt;line-height:1.32;text-wrap:pretty">{{ c.avant }}<strong>{{ c.outil }}</strong>{{ c.apres }}</span>
+</div>
+</sc-for>
+</div>
+</section>
+<sc-if value="{{ corrige }}" hint-placeholder-val="{{ false }}">
+<section class="page" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:12mm;box-sizing:border-box;font-family:Helvetica,'Helvetica Neue',Arial,sans-serif;color:#14213d">
+<div style="flex:0 0 auto;display:flex;align-items:flex-end;justify-content:space-between;gap:6mm;border-bottom:1.5px solid #c1440e;padding-bottom:3mm;margin-bottom:5mm">
+<div style="display:flex;flex-direction:column;gap:1.5mm">
+<span style="font-size:8.5pt;letter-spacing:0.18em;text-transform:uppercase;color:#c1440e">Pour l'enseignante</span>
+<span style="font-size:17pt;font-weight:700;letter-spacing:-0.01em">Corrigé &mdash; où c'est, dans l'image</span>
+</div>
+<span style="font-size:9.5pt;color:#5b6273;max-width:80mm;text-align:right;text-wrap:pretty">Chaque consigne ne se réussit que si le mot outil est compris : c'est lui qui dit où agir.</span>
+</div>
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;gap:0">
+<sc-for list="{{ consignes }}" as="c" hint-placeholder-count="10">
+<div style="flex:1;min-height:0;display:flex;align-items:center;gap:3mm;border-top:1px solid #eceae4;padding:1.5mm 0;box-sizing:border-box">
+<span style="flex:0 0 auto;width:6mm;height:6mm;border-radius:50%;background:#1d5c3a;color:#fff;display:flex;align-items:center;justify-content:center;font-size:9pt;font-weight:700;line-height:1">{{ c.num }}</span>
+<span style="flex:0 0 26mm;font-size:11.5pt;font-weight:700;line-height:1.2">{{ c.outil }}</span>
+<span style="flex:1;font-size:10.5pt;line-height:1.3;color:#5b6273;text-wrap:pretty">{{ c.ou }}</span>
+</div>
+</sc-for>
+</div>
+</section>
+</sc-if>
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:794,&quot;height&quot;:1123},&quot;titre&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Utilisation des mots outils&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Feuille&quot;},&quot;corrige&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Feuille&quot;}}">
+/* « Le restaurant », deuxième fiche du même type que la sienne (lire une consigne, agir
+   sur l'image) — 13/09. Ici l'objectif est nommé : chaque consigne se réussit UNIQUEMENT
+   si le mot outil est compris, c'est lui qui dit OÙ agir. Un seul mot outil par consigne,
+   en gras. Scène extraite de son .docx (clean/scene-restaurant.png). */
+const C = [
+  ['Tu colories la veste du cuisinier qui est ', 'dans', ' la cuisine en vert.',
+   "Le cuisinier à la porte, au fond : c'est le seul qui n'est pas dans la salle."],
+  ['Tu dessines un verre ', 'sur', ' la table du milieu.',
+   'La table du centre, vide, devant la porte de la cuisine.'],
+  ['Tu dessines un sac ', 'sous', ' la table de gauche.',
+   'Par terre, sous le plateau de la table de gauche — pas dessus.'],
+  ['Tu colories en bleu la chaise qui est ', 'à côté de', ' la cliente.',
+   'La cliente est à droite : la chaise vide de sa table, celle de gauche.'],
+  ['Tu dessines une fleur sur la table qui est ', 'entre', ' les deux autres tables.',
+   "La table du milieu : une à sa gauche, une à sa droite."],
+  ['Tu entoures en bleu le serveur qui est ', 'devant', " l'horloge.",
+   "Le serveur au plateau, au centre gauche, sous l'horloge."],
+  ['Tu colories en jaune l’horloge qui est ', 'au-dessus du', ' serveur.',
+   "L'horloge ronde, en haut à gauche."],
+  ['Tu entoures en noir toutes ', 'les', ' tables de la salle.',
+   'Trois tables. Le pluriel de la consigne annonce déjà qu’il y en a plusieurs.'],
+  ['Tu dessines une assiette ', 'sur', ' le plateau du serveur.',
+   'Le plateau rond qu’il tient dans la main droite.'],
+  ['Tu colories la porte d’entrée ', 'avec', ' ta couleur préférée.',
+   "La porte de gauche, celle qui donne sur la rue — pas celle de la cuisine."]
+];
+
+class Component extends DCLogic {
+  renderVals() {
+    const consignes = C.map((c, i) => ({
+      num: i + 1, avant: c[0], outil: c[1], apres: c[2], ou: c[3]
+    }));
+    /* La banque reprend les mots outils travaillés, dans l'ordre des consignes, sans doublon. */
+    const banque = [];
+    consignes.forEach(c => { if (banque.indexOf(c.outil) < 0) banque.push(c.outil); });
+    return {
+      consignes, banque,
+      titre: this.props.titre ?? 'Utilisation des mots outils',
+      corrige: this.props.corrige ?? true
+    };
+  }
+}
+</script>
+</body>
+</html>

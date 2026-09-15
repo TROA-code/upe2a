@@ -1,5 +1,71 @@
 # INSTRUCTIONS — UPE2A NSA (fichier unique)
 
+## ⏳ À RAPPELER — les photos de LA RADIO (15/09)
+
+Elle a donné les **14 mots** du thème radio et demandé une planche de mots seule :
+micro · casque · platine · enceinte · ordinateur · câble · silence · parler · écouter ·
+enregistrer · couper · animateur · technicien · invité.
+
+« Je mettrai les images plus tard. **Tu me le rappelleras.** » → le lui rappeler à chaque
+reprise tant que les photos manquent.
+
+Fichier : `FR - La radio en images.dc.html`. La première page (planche de mots) s'imprime
+déjà. Les cases des pages suivantes portent le nom de fichier attendu, à déposer dans
+`clean/` : `mot-micro.png`, `mot-casque.png`, `mot-platine.png`, `mot-enceinte.png`,
+`mot-cable.png`, `mot-silence.png`, `mot-parler.png`, `mot-ecouter.png`,
+`mot-enregistrer.png`, `mot-couper.png`, `mot-animateur.png`, `mot-technicien.png`,
+`mot-invite.png` (`mot-ordinateur.png` existe déjà).
+⚠ Quatre mots ne se photographient pas comme un objet — **le silence, parler, écouter,
+enregistrer, couper** : prévoir une photo de situation ou de geste, pas un objet posé.
+
+## ✅ LES PLANCHES EN IMAGES — nouvelle collection (15/09)
+
+`Lexique → Les planches en images`, à côté de « Mes mots ». **Deux séries distinctes, à ne
+pas confondre** : « Mes mots » = fiches de lexique (beaucoup de mots, petites photos) ;
+« Les planches en images » = grandes photos + version muette à manipuler.
+
+Faites : **Les métiers** (17), **Le lycée** (9), **Le matériel scolaire** (9),
+**Le visage** (10), **La radio** (mots seuls, photos à venir).
+
+Chaque planche : une version **avec le mot** sous la photo, une version **muette** (cadre
+en pointillés vide) et une page d'**étiquettes-mots à découper** à poser dans les cadres.
+Les deux versions sont débrayables dans les réglages. Bouton **Imprimer** vert en haut à
+droite, masqué à l'impression.
+
+⚠ **COTES VALIDÉES — ne pas les changer isolément** (une planche modifiée oblige à refaire
+les autres, elles doivent rester interchangeables) :
+- photo de la version muette **78 × 85 mm**, soit **le double** de la version avec le mot
+  (48 × 55 mm) — sa demande : « les photos sont trop petites, double la taille » ;
+- **le cadre en pointillés et l'étiquette font la MÊME taille, 78 × 22 mm** (elle l'a
+  relevé : le mot dépassait du cadre). Toute retouche de l'un oblige à refaire l'autre ;
+- 22 mm = la place de **deux lignes** à 19 pt (« un agent d'entretien » ne tient pas sur
+  une seule) ;
+- mot à **19 pt** sur les étiquettes, **14 pt** sous les photos. **Taille validée, ne pas
+  la baisser** pour gagner des pages : c'est le nombre de cases par feuille qui cède.
+- **PAS D'A3** — elle n'a qu'une imprimante A4. Ne jamais « optimiser » en remettant 6 ou
+  9 cases par page sur la version muette : c'est exactement ce qu'elle a refusé.
+
+⚠ Les photos passent par **background-image**, jamais par `<img src="{{ }}">` : un hole
+dans un src part en requête réseau non résolue pendant le streaming. Les cases sont donc
+écrites en dur dans le gabarit.
+
+⚠ **Les flèches rouges du visage sont voulues** (cou, lèvre, joue) : sans elles la photo ne
+désigne pas la bonne partie. Seule planche concernée — ne pas en ajouter ailleurs.
+
+⚠ « Le visage » **n'existe pas comme thème** dans l'appli : « Le corps » ne contient que des
+phrases (« il a mal à la tête »). Manquent la tête, le front, le menton, le sourcil.
+
+⚠ **Il n'y a pas de fiche « Les métiers » dans « Mes mots »**, alors que le thème existe à
+l'écran avec ses 17 photos. À faire si elle veut homogénéiser.
+
+## ⏳ Le thème LES ANIMAUX — toujours pas publié (15/09)
+
+Décidé avec elle : **deux sous-thèmes**, animaux domestiques et animaux sauvages.
+- **Domestiques, prêt** (9 photos) : chat, chien, lapin, poisson, oiseau, cheval, vache,
+  mouton, poule.
+- **Sauvages, incomplet** : seulement renard, girafe, zèbre. Il manque **lion, éléphant,
+  ours, loup, singe (un macaque), serpent (enroulé)** — prompts déjà donnés.
+
 ## ⚠⚠ RÈGLE ABSOLUE — LES MARGES D'IMPRESSION (07/09)
 
 **2 cm de marge sur les QUATRE côtés de tout document imprimé.** Haut, bas, gauche, droite.
@@ -75,7 +141,273 @@ Ce fichier est **la seule source à jour**. Il remplace `INSTRUCTIONS.md`,
 deviennent des sources de contenu que l'application met en page et imprime à la demande.
 Trois conversations séparées n'ont plus de sens.
 
-## Là où on s'est arrêtés (09/09) — À LIRE EN PREMIER
+## Là où on s'est arrêtés (14/09, 2e session) — À LIRE EN PREMIER
+
+### 🆕 COORDO UPE2A — la deuxième application (14/09)
+
+`COORDO UPE2A.dc.html`, **séparée de l'appli enseignante**, pour son travail de
+coordination. Sa demande : « uniquement le menu positionnements » + le tableau de son
+fichier `uploads/eleves_UPE2A-NSA.xlsx`, un **formulaire** de saisie qui alimente
+directement le tableau, et pouvoir **« dialoguer avec le tableau »** pour obtenir
+instantanément une durée de prise en charge.
+
+⚠ **LA RÈGLE MÉTIER : l'UPE2A dure UN AN** à partir de la **date d'entrée dans le
+dispositif** (pas de l'entrée en FLS). Passé ce délai l'élève sort du dispositif —
+**sauf dérogation** — mais **peut continuer à bénéficier d'heures de FLS**. Toute la
+coloration du tableau vient de là. (Elle a d'abord écrit « 1 mois », puis corrigé : « 1 an
+pardon ».)
+
+Trois onglets : **Le tableau** · **Nouvel élève** · **Je demande**.
+- Les **8 élèves de son Excel** sont préchargés (dates converties des séries Excel),
+  stockés dans `localStorage` sous `coordo-upe2a-eleves`.
+- Colonnes ajoutées à son fichier : **lycée d'affectation**, classe, âge, prise en charge
+  (« 11 mois 4 j (339 j) »), fin théorique, reste, heures FLS/semaine, dérogation. Les
+  champs du formulaire vont plus loin : pays, langues, arrivée en France, scolarité
+  antérieure (NSA / Peu scolarisé / SA), motif de dérogation, observations.
+- Pastille : **vert** < 1 an · **orange** fin dans moins de 3 mois · **rouge** dépassé sans
+  dérogation · **violet** dérogation · **gris** sorti ou sans date d'entrée.
+- « Je demande » n'est **pas une IA** : lecture de la question par prénom/nom et par
+  mots-clés (dépassement, sortie, dérogation, lycée, heures FLS, combien, moyenne), pour
+  que la réponse tombe hors connexion.
+- Export CSV (`;`, BOM UTF-8, s'ouvre dans Excel) et impression A4 paysage.
+- ⚠ Piège corrigé par le vérificateur : la carte du tableau doit porter **`flex:0 0 auto`**
+  — sans ça elle se comprime dans le conteneur flex et coupe silencieusement les lignes.
+
+**Fichier autonome livré** : `autonome/COORDO UPE2A.html` (un seul fichier, hors connexion).
+⚠ Les élèves saisis vivent dans le navigateur qui ouvre le fichier — ils ne suivent pas le
+fichier d'un poste à l'autre.
+
+**Deux questions non tranchées** : ce que veut dire son **statut « In »** (j'ai mis
+In / Sorti du dispositif / En attente d'affectation), et si elle veut un **export Excel**
+en plus du CSV.
+
+### Dans l'appli enseignante (14/09, 2e session)
+
+- **« J'entends, j'entoure » est rangé dans Rituels**, en premier, avant les cartes
+  Charivari. Les cartes de rituel savent maintenant faire deux choses : **télécharger un
+  PDF** (`estPdf`) ou **ouvrir un document de l'appli** par un `<a href>` (`estLien`).
+- ⚠ **`clean/fenetre.png` n'était PAS un doublon** de `mot-fenetre.png` : c'est la
+  **fenêtre du décor** posée sur le mur de briques, à six endroits (verrou, accueil,
+  tableau des thèmes, tableau du code, sous-thème, espace élève). Je l'avais supprimée le
+  14/09 par erreur — « Je suis trop triste, je la veux !! ». Récupérée depuis
+  `github/clean/fenetre.png`. **Ne jamais supprimer une image sans vérifier qui l'utilise.**
+- La frise de l'alphabet est rangée dans « Affichages de la classe » → **Au mur**.
+- La rubrique « Affichages » de `sommaire.html` n'existe plus (vérifié).
+
+### Reste à faire
+- Le **livret d'évaluation Lecture période 1** n'est rangé nulle part.
+- Les **cinq supports des mots repères** (11-13/09) non plus.
+- La **suite du rituel** « J'entends, j'entoure » (semaine du 22 septembre).
+- La photo de **pot** (`clean/mot-pot.png`).
+- Où rebrancher `sommaire.html`.
+
+## Là où on s'est arrêtés (14/09) — À LIRE EN PREMIER
+
+Session longue, entièrement sur les mots repères et l'affichage. Quatre documents créés,
+deux corrections dans l'application, deux photos remplacées.
+
+### Les supports créés le 14/09
+
+**`FR - Abécédaire des mots repères.dc.html`** — A4 **paysage coupé en deux**, une
+demi-feuille par élève à coller sur le bureau, deux copies identiques par feuille.
+Les trois écritures sont **empilées** dans chaque case : CAPITALE, script, cursive, puis la
+photo et le mot. 13 colonnes × 2 rangées = les 26 lettres.
+⚠ Trois refus successifs avant d'arriver là, à ne pas refaire :
+– 3 pages A4 portrait (« c'est pour coller sur le bureau, 3 pages ça va faire beaucoup ») ;
+– les trois écritures sur UNE MÊME LIGNE pour tenir sur une page (« je ne veux pas que les
+lettres soient sur la même ligne ») — c'est l'empilement qu'elle veut, elle préfère payer
+en taille d'image ;
+– lettres coupées : chaque écriture a maintenant sa case à **hauteur fixe** (5,2 / 5,2 / 6 mm),
+jamais une hauteur automatique.
+Le **« a » porte ses deux graphies script (a ɑ)** dans la même case, à sa demande ; la
+cursive n'en a qu'une. Marges resserrées à 7/9 mm (ce n'est pas une feuille d'élève) et
+lettres à 9 pt pour laisser la place aux photos — « on voit pas les images » était la
+dernière remarque avant validation (« Top »).
+Tweaks : titre, deux copies, avec le mot.
+
+**`FR - Frise de l'alphabet (mur).dc.html`** — l'affichage **sous son tableau**, d'après sa
+photo. Trois bandes continues : capitales avec la photo du mot repère, script, cursive,
+**voyelles en rouge** (#d81b60). Chaque feuille porte les trois bandes pour les mêmes
+lettres : on découpe les trois bandes de chaque feuille et on les colle bout à bout.
+⚠ **A4 PAYSAGE, 5 lettres par feuille, 6 feuilles**, réparties 5-5-4-4-4-4 (à 5 pile, le
+« z » partait seul sur une 6e feuille). Elle imprime **en A3** : la case passe de 56 à
+**79 mm**, la capitale à 35 mm de haut — l'échelle de sa photo.
+⚠ Deux erreurs de direction à ne pas refaire : **A3 paysage 13 lettres** (« c'est nul, on
+était partie sur une demi-page ») puis **A4 portrait 6 lettres** (case 45 mm en A3 :
+« 4,5 cm c'est pas suffisant »). C'est le paysage qui donne la plus grosse case.
+Police des capitales et du script : **géométrique à « a » d'un seul étage** (Century Gothic,
+sinon Didact Gothic) — « une police qui ressemble beaucoup aux photos ». Pas Belle Allure.
+⚠ La **cursive est plus petite** que le script (50 pt contre 64) avec interligne 1,45 et
+marge verticale : ses boucles hautes et ses jambages débordaient du cadre.
+Espace lettre/image : 1 mm, elle le voulait serré.
+Tweaks : lettres par feuille (3-7), couleur des voyelles, avec images.
+
+**`FR - Livret d'évaluation - Lecture période 1.dc.html`** — 9 pages A4, refonte complète
+d'une maquette antérieure, avec **ses photos de `clean/`** partout (plus aucun picto écrit
+en texte). Sept paliers + couverture + cible de lecture en anneaux + page enseignant.
+⚠ Trois exercices refusés et remplacés :
+– « **Entourez les mots de la classe** » (mots-outils + intrus) : **supprimé**, « je trouve
+ça complètement con comme exercice ». Le « reliez » du palier 1 passe à 8 paires.
+– « **Lisez, puis montrez l'image** » (palier 2) : sans objet, l'image était à côté du mot.
+Remplacé par **« Regardez l'image. Entourez le mot. »** — trois mots qui ne diffèrent que
+d'une syllabe (moto/mito/momo, table/tabe/talbe). C'est cet exercice qu'elle aime
+(« J'aime beaucoup cet exercice »), il a donné le rituel de la semaine.
+– palier 3 : « reliez » passe à **10 paires**, « il va falloir en ajouter ».
+⚠ **Images en cases fixes de 12 à 14 mm**, jamais en `height:100%` : « réduis la taille des
+images ». Les paires se lisent mot → image sur la même ligne.
+Palier 5 : la consigne « Mettez la tenue » est devenue « **Levez la main** » faute d'image.
+Palier 7 (recette, sons complexes, réponses écrites) = les deux élèves déjà lecteurs.
+
+**`FR - Rituel - J'entends, j'entoure (semaine du 15 septembre).dc.html`** — né de
+l'exercice ci-dessus. Une feuille par jour, **12 items**, cinq minutes en début d'heure,
+mardi 15 → vendredi 18 septembre. La difficulté **change d'axe** chaque jour au lieu de
+monter en volume : même consonne (ma mo mu) · même voyelle (ma la ra) · syllabe retournée
+(la/al) · bilan mélangé. 5e page = **ce qu'il faut dicter**, les 48 réponses dans l'ordre,
+à ne pas distribuer.
+⚠ **Aucune syllabe retournée en m ni en n** : « le am peut être embêtant car peut se dire
+[an] ». *am* se lit [ã], *im* [ɛ̃] — l'élève aurait raison de ne pas entendre ce qu'on lui
+demande. Seuls l, r, s, t, v, p sont retournés. Règle générale, pas seulement pour ce
+fichier.
+Sons de la période 1 uniquement : a i o u é e / l m r s v t p.
+Elle a demandé une **suite** de ce rituel — proposer la semaine suivante.
+
+### Deux corrections dans l'application (14/09)
+
+**Le mot de passe ouvre son MENU, point final.** Il déposait sur « Gestion des groupes et
+des élèves ». ⚠ **J'avais mal compris « Organisation en premier » (09/09)** : ça ne voulait
+dire qu'une chose, **cette rubrique en haut du menu** — pas cet écran à l'ouverture.
+`{verrou:false, ecran:'groupes', menuReplie:false, menuTel:true}`.
+
+**Bouton « Menu » (trois barres) dans la barre du haut, en fenêtre étroite et côté
+enseignant seulement.** Elle travaille **sur son téléphone**. Le menu latéral est masqué
+sous 760 px — volontaire, pour que l'élève ne le voie jamais — mais **rien ne le
+remplaçait** : elle n'avait plus de menu du tout. Le bouton ouvre le même menu en panneau
+plein écran, toutes rubriques dépliées, items à 44 px ; choisir un écran referme.
+⚠ **Ne jamais mettre `target="_blank"`** sur un lien de l'application : le nouvel onglet
+sort du cadre et affiche « preview token required ». Ça lui est arrivé sur l'abécédaire.
+
+### ✅ « Affichages de la classe » — l'écran (14/09)
+
+Nouveau point de menu dans **Ressources enseignantes**, juste **avant** « Mes documents
+utiles ». C'est elle qui a proposé la place ; mon idée d'une rubrique de premier niveau a
+été **refusée** (« Je ne t'ai pas donné mon accord pour affichage !! ») — et la rubrique
+que j'avais créée dans `sommaire.html` sans son accord **y est encore, à retirer**.
+⚠ **Séparé de « Mes documents utiles »** à sa demande : « je vais avoir un peu trop de
+choses, ça va vite être le bordel ». Celui-ci a sa règle écrite à l'écran (séances entières
+et références) ; on lit une séance, on accroche une affiche.
+Sous-menu **par où ça se colle** : *Sur la table de l'élève* (abécédaire) · *Au mur* (ENT,
+planche de thème) · *Cartes de référence* (se présenter, version visuelle).
+⚠ **La frise et le livret d'évaluation n'y sont PAS encore** — à ajouter, la frise dans
+« Au mur ».
+
+### Les photos (14/09)
+
+Remplacées par des photos réalistes qu'elle a générées : **`clean/mot-fenetre.png`** (était
+un dessin au trait orange) et **`clean/mot-usine.png`**. Le doublon hors convention
+`clean/fenetre.png` est supprimé.
+**`clean/mot-pot.png` est à refaire** — dessin au trait sur fond bleu, 172 px. Prompt donné,
+photo pas encore envoyée.
+Tranché : **deux, quatre, zéro** restent des chiffres dessinés (« on laisse »), **jaune et
+rose** conviennent, **xylophone** est bien une photo (je m'étais trompé en le signalant).
+Prompt qui marche : sujet centré, fond blanc uni, **aucun décor** (la première fenêtre
+montrait la mer → l'élève lit « mer »), éclairage diffus, format carré.
+
+### À faire à la reprise (14/09)
+- ⚠ **Ranger la frise et le livret d'évaluation** dans « Affichages de la classe » /
+  une rubrique Français, et **retirer** de `sommaire.html` la rubrique « Affichages » créée
+  sans son accord.
+- ⚠ **Les cinq supports du 11-13/09 ne sont toujours rangés nulle part** (voir plus bas).
+  Le rituel, lui, est dans `sommaire.html` — mais le sommaire n'est relié à rien.
+- Proposer la **semaine suivante** du rituel « J'entends, j'entoure ».
+- Attendre sa photo de **pot**.
+- ⚠ **Elle travaille sur téléphone et son cache garde les anciennes versions.** `index.html`
+  porte un `?v=` à incrémenter quand elle ne voit pas une modification (actuellement v4).
+  Ne pas dire « actualisé » sans l'avoir fait : je ne peux pas vider son cache.
+- ⚠ **L'impression depuis Android capture l'écran** au lieu du document (elle a eu une photo
+  de l'interface, « 1/1 », A4). Pour un vrai PDF : depuis un ordinateur, ou lui livrer un
+  fichier autonome à télécharger. Elle a demandé ce dernier pour la frise (une collègue
+  imprime) — le fichier a été supprimé depuis, la frise ayant changé de format.
+
+## Là où on s'est arrêtés (13/09)
+
+### ⚠ LES MOTS REPÈRES — nouvelle table de LETTRES (11 et 13/09)
+
+Refonte complète des mots repères, décidée mot par mot avec elle. **C'est une table de
+LETTRES (26), à ne pas confondre avec la table Retz de l'appli, qui est une table de
+GRAPHIES (52 entrées : `ou`, `an`, `oi`…).** Les deux coexistent, la nouvelle n'écrase
+pas l'autre. ⚠ **Elle a commencé à transformer la table Retz le 11/09 (« ne touche à
+rien donc ») — ne rien modifier dans `lecture-sons.js` sans son accord.**
+
+**La liste validée — 29 mots, 25 cases, h vide :**
+
+| | | | |
+|---|---|---|---|
+| a ananas | b ballon | **c carotte · cerise** | d deux |
+| e melon | f fenêtre | **g gâteau · gilet** | h — *(vide)* |
+| i immeuble | j jaune | k kiwi | l lit |
+| m moto | n nuage | **o ordinateur · pot** | p pied |
+| q quatre | r robot | **s salade · rose** | t table |
+| u usine | v vélo | w wagon | x xylophone |
+| y yaourt | z zéro | | |
+
+Les quatre lettres en gras ont **deux images dans la même case, un seul trait** (deux
+sons pour le c et le g, deux timbres pour le o, le s qui fait /z/ dans *rose*).
+
+**Le principe qu'elle a posé : c'est le SON de la lettre, pas l'initiale.** D'où *melon*
+pour le e (le son /ə/ ne peut pas commencer un mot français — seulement *le, je, me, de*
+ou l'intérieur des mots) et le **h volontairement vide** (« le h n'a pas de son »).
+⚠ Elle a tranché : **rien n'est écrit dans la case du h** — pas même un « h » pâle, sinon
+c'est la seule case où l'élève recopie au lieu de chercher. Elle le dit à l'oral.
+
+**Remplacés** (leur photo RESTE dans `clean/`, elle sert dans les thèmes) : cinq→quatre,
+date→deux, fantôme→fenêtre, gris→immeuble, jupe→jaune, pomme→pot seul, pyjama→yaourt,
+rue→usine, zèbre→zéro. *fille* reste repère mais pour le son `ill` seulement.
+
+**Photos** : `clean/mot-gilet.png` et `clean/mot-immeuble.png` créées ; **robot,
+xylophone, wagon, yaourt REFAITS** le 13/09 (c'étaient des dessins enfantins sur fond de
+couleur, avec curseur parasite — le « xylophone » était même un balafon). Réserves
+signalées et non tranchées : l'immeuble a une bande de **trottoir** en bas (pas de fond
+uni), le wagon est **très allongé** donc petit en case carrée, et deux/quatre/zéro sont
+des **chiffres dessinés** de styles différents (elle les garde ainsi pour l'instant).
+
+**Arbitrages de vocabulaire, pour ne pas les rouvrir :** *gilet* plutôt que *girafe* ou
+*gymnase* (« GH+YY c'est rare quand même » — `ge`/`gi` sont les graphies ordinaires) ;
+*euro* écarté pour le e (c'est le son `eu`, déjà pris par *bleu*) mais proposable comme
+2e mot du `eu` ; *robot* gardé pour le r ; *xylophone* gardé bien qu'imparfait (le x s'y
+dit /gz/) faute de mot français courant en x.
+⚠ **La confusion à ne pas refaire** : l'abécédaire Retz qu'elle a montré (renard, gris,
+fantôme, cinq) indexe des **lettres** — il n'y a jamais eu de « en » dans *renard* ni de
+« in » dans *gris*. Ne pas critiquer ces mots comme s'ils illustraient des sons.
+
+### Les supports créés (11 et 13/09)
+
+- **`FR - Écrire les mots repères.dc.html`** — 2 pages A4, 15 cases par page : la photo,
+  et **un seul trait** dessous. ⚠ Pas de lettre, pas de modèle cursif, pas de lignage
+  Seyes : « je travaillerai la graphie plus tard », « le moins de feuilles possibles ».
+  Tweaks : titre, cases par page (9-18).
+- **`FR - Diaporama des mots repères.dc.html`** — 51 diapos : titre, puis pour chaque
+  case **la photo seule, puis la même avec le mot** (diapo marquée ✓). ⚠ **Pas de
+  lettres affichées** et les mots d'une même case sont **sur la même diapo**, comme sur
+  la feuille.
+- **`FR - L'image, j'écris.dc.html`** — refonte de son `.docx` : 9 items syllabe
+  manquante (entourer, puis écrire), avec ses vraies photos. ⚠ Dans son document la
+  **bonne syllabe était toujours en premier** — l'ordre est alterné ici.
+- **`FR - Utilisation des mots outils.dc.html`** — sur SA scène de restaurant
+  (`clean/scene-restaurant.png`, extraite de son `.docx`) : 10 consignes « je lis, je
+  fais », **un seul mot outil par consigne, en gras**, et c'est lui qui dit où agir
+  (*sous* la table ≠ *sur* la table). Une première version en phrases à trous a été
+  remplacée par celle-ci.
+- **`FR - Je lis, je fais - Le restaurant (2).dc.html`** — même scène, 12 consignes, mais
+  le mot en gras est le **mot de LEXIQUE** (plateau, assiette, fourchette, couteau,
+  cuillère, verre, carte, tablier, caisse) + ses mots repères. Les trois dernières font
+  **écrire** le mot.
+
+Tous ont une page **corrigé** en dernière page, désactivable dans les Tweaks avant
+photocopie.
+
+⚠ **AUCUN de ces cinq fichiers n'est rangé nulle part** — voir « À faire à la reprise ».
+
+## Là où on s'est arrêtés (09/09)
 
 Dernière session (10/09) : jeu du symbole commun, entrée directe dans l'espace élève,
 première version autonome. **Elle prépare une mise en ligne sur GitHub.**
@@ -164,6 +496,26 @@ ma journée ». Dans `APPLI - Emploi du temps.dc.html` :
 **Chargement : `emploi-du-temps.js` est déclaré dans le `<helmet>` de l'espace
 enseignant.** Un composant enfant ne charge pas ses propres scripts ; la ligne évite un
 écran vide transitoire. Elle a validé qu'on la garde.
+
+## ⚠ CLASSE D'ÂGE LYCÉE ET MOINS DE 16 ANS — le repli silencieux sur la fin de CP (10/09)
+
+Cas **Giorgi, né en 2011 → classe d'âge 2de, 14 ans réels**. L'appli proposait un
+**livret Sami** en lecture et un **fin de cycle 2 (CE2)** en maths. Cause : `NIVEAUX`
+(`positionnement-tests.js`) s'arrête à la **fin de 3e** — aucun palier Canopé ne
+correspond au lycée. `findIndex` rendait **−1**, et le `Math.max(0, …)` retombait **en
+silence sur `NIVEAUX[0]`, la fin de CP** ; le cycle des maths était ensuite déduit de ce
+faux palier. Le chemin des plus de 16 ans ne le rattrapait pas : il a 14 ans.
+⚠ **Sa classe d'âge 2de est JUSTE** — la règle est l'année de naissance, pas l'âge réel
+(né en 2015 = 6e à la rentrée 2026, donc né en 2011 = 2de). Ne pas « corriger » ça.
+
+Branche ajoutée en tête de `cheminDeLaClasse()` pour `2de / 1re / term` :
+- **suggéré en lecture : le Romain Gary** (déjà sa règle du 07/09, elle ne valait que
+  pour les plus de 16 ans) ;
+- **suggéré en maths : fin de cycle 4** — dernier cycle achevé d'une 2de ;
+- **sous la main, dans l'ordre qu'elle a donné : fin de 3e, fin de 4e, fin de 5e**, puis
+  les maths (4e, 5e, cycle 3), puis les livrets cycle 3 et cycle 2 ;
+- ⚠ **PAS le test d'orientation +16 ans** : « il a 14 ans, le + de 16 orientation n'est
+  pas un bon choix. »
 
 ## ⚠ LECTURE — le palier proposé est celui qui est ACHEVÉ (10/09)
 
@@ -2151,6 +2503,22 @@ sous 860 px — `1fr` seul déborde dans la coquille enseignante (défaut trouv�
 le 01/09).
 
 ## À faire à la reprise
+- ⚠ **RANGER LES TROIS SUPPORTS DE MOTS REPÈRES — LUI LE RAPPELER (elle l'a demandé le
+  13/09).** Rien n'est encore rangé nulle part : `FR - Écrire les mots repères.dc.html`,
+  `FR - Diaporama des mots repères.dc.html` et `FR - L'image, j'écris.dc.html` existent
+  mais ne sont atteignables par aucun écran ni aucun sommaire.
+  - **Étape 1, tout de suite quand elle le dit** : trois lignes dans `sommaire.html`.
+  - **Étape 2, à ATTENDRE** : un bloc « Les mots repères » en tête de l'écran
+    *apprentissage du code*, avant la liste des sons. ⚠ **Ne pas le brancher avant qu'elle
+    ait fini de transformer la table Retz** — elle l'a commencée le 11/09 (« je vais
+    transformer la table Retz en fait, ne touche à rien donc »). Brancher maintenant
+    revient à câbler sur une table qui va bouger.
+  - ⚠ **Depuis le 13/09 il y a CINQ fichiers à ranger**, pas trois : ajouter
+    `FR - Utilisation des mots outils.dc.html` et
+    `FR - Je lis, je fais - Le restaurant (2).dc.html`.
+  - ⚠ Les deux jeux sont **distincts** : la table Retz liste des **graphies** (52 entrées :
+    `ou`, `an`, `oi`…), les mots repères listent des **lettres** (26, h vide). Le second
+    s'ajoute à côté du premier, il ne l'écrase pas.
 - **API de synthèse vocale `https://voice.educ-ai.fr/docs`** (décidé 31/08) : brancher l'appli
   dessus pour utiliser **la voix de l'enseignante** à la place de la voix du navigateur.
   Lire la doc de l'API en premier. Concerne partout où l'appli lit un mot ou une phrase

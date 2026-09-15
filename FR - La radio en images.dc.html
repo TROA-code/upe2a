@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+doc-page:not(:defined){visibility:hidden}
+body{margin:0}
+a{color:#1d4e89}
+a:hover{color:#14213d}
+@media print{.om-noprint{display:none !important}}
+</style>
+<script src="./doc-page.js"></script>
+</helmet>
+<button class="om-noprint" onClick="{{ imprimer }}" style="position:fixed;top:14px;right:14px;z-index:60;border:none;border-radius:11px;background:#2a9d6e;color:#fff;padding:13px 22px;font-family:Arial,Helvetica,sans-serif;font-size:13.5px;font-weight:700;cursor:pointer;box-shadow:0 3px 0 #217d57">Imprimer</button>
+<doc-page size="a4">
+<section class="page" data-screen-label="Les mots" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:20mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#14213d">
+<div style="flex:0 0 auto;padding-bottom:2.5mm;border-bottom:2.5px solid #c4479e">
+<span style="display:block;font-size:19pt;font-weight:700;line-height:1.05">La radio — les mots</span>
+<span style="display:block;margin-top:1mm;font-size:10.5pt;color:#5a6270">Quatorze mots du studio. Les photos viendront s’ajouter dans les cases des pages suivantes.</span>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:22mm;align-content:start;gap:4mm 6mm;padding-top:6mm">
+<div style="min-width:0;display:flex;align-items:center;justify-content:center;border:1.5px dashed #14213d;border-radius:2mm;padding:2mm;box-sizing:border-box;overflow:hidden;width:calc(100% - 4.5mm);margin:0 auto">
+<span style="text-align:center;font-size:19pt;font-weight:700;color:#14213d;line-height:1.15">le micro</span>
+</div>
+<div style="min-width:0;display:flex;align-items:center;justify-content:center;border:1.5px dashed #14213d;border-radius:2mm;padding:2mm;box-sizing:border-box;overflow:hidden;width:calc(100% - 4.5mm);margin:0 auto">
+<span style="text-align:center;font-size:19pt;font-weight:700;color:#14213d;line-height:1.15">le casque</span>
+</div>
+<div style="min-width:0;display:flex;align-items:center;justify-content:center;border:1.5px dashed #14213d;border-radius:2mm;padding:2mm;box-sizing:border-box;overflow:hidden;width:calc(100% - 4.5mm);margin:0 auto">
+<span style="text-align:center;font-size:19pt;font-weight:700;color:#14213d;line-height:1.15">la platine</span>
+</div>
+<div style="min-width:0;display:flex;align-items:center;justify-content:center;border:1.5px dashed #14213d;border-radius:2mm;padding:2mm;box-sizing:border-box;overflow:hidden;width:calc(100% - 4.5mm);margin:0 auto">
+<span style="text-align:center;font-size:19pt;font-weight:700;color:#14213d;line-height:1.15">l&#39;enceinte</span>
+</div>
+<div style="min-width:0;display:flex;align-items:center;justify-content:center;border:1.5px dashed #14213d;border-radius:2mm;padding:2mm;box-sizing:border-box;overflow:hidden;width:calc(100% - 4.5mm);margin:0 auto">
+<span style="text-align:center;font-size:19pt;font-weight:700;color:#14213d;line-height:1.15">l&#39;ordinateur</span>
+</div>
+<div style="min-width:0;display:flex;align-items:center;justify-content:center;border:1.5px dashed #14213d;border-radius:2mm;padding:2mm;box-sizing:border-box;overflow:hidden;width:calc(100% - 4.5mm);margin:0 auto">
+<span style="text-align:center;font-size:19pt;font-weight:700;color:#14213d;line-height:1.15">le câble</span>
+</div>
+<div style="min-width:0;display:flex;align-items:center;justify-content:center;border:1.5px dashed #14213d;border-radius:2mm;padding:2mm;box-sizing:border-box;overflow:hidden;width:calc(100% - 4.5mm);margin:0 auto">
+<span style="text-align:center;font-size:19pt;font-weight:700;color:#14213d;line-height:1.15">le silence</span>
+</div>
+<div style="min-width:0;display:flex;align-items:center;justify-content:center;border:1.5px dashed #14213d;border-radius:2mm;padding:2mm;box-sizing:border-box;overflow:hidden;width:calc(100% - 4.5mm);margin:0 auto">
+<span style="text-align:center;font-size:19pt;font-weight:700;color:#14213d;line-height:1.15">parler</span>
+</div>
+<div style="min-width:0;display:flex;align-items:center;justify-content:center;border:1.5px dashed #14213d;border-radius:2mm;padding:2mm;box-sizing:border-box;overflow:hidden;width:calc(100% - 4.5mm);margin:0 auto">
+<span style="text-align:center;font-size:19pt;font-weight:700;color:#14213d;line-height:1.15">écouter</span>
+</div>
+<div style="min-width:0;display:flex;align-items:center;justify-content:center;border:1.5px dashed #14213d;border-radius:2mm;padding:2mm;box-sizing:border-box;overflow:hidden;width:calc(100% - 4.5mm);margin:0 auto">
+<span style="text-align:center;font-size:19pt;font-weight:700;color:#14213d;line-height:1.15">enregistrer</span>
+</div>
+<div style="min-width:0;display:flex;align-items:center;justify-content:center;border:1.5px dashed #14213d;border-radius:2mm;padding:2mm;box-sizing:border-box;overflow:hidden;width:calc(100% - 4.5mm);margin:0 auto">
+<span style="text-align:center;font-size:19pt;font-weight:700;color:#14213d;line-height:1.15">couper</span>
+</div>
+<div style="min-width:0;display:flex;align-items:center;justify-content:center;border:1.5px dashed #14213d;border-radius:2mm;padding:2mm;box-sizing:border-box;overflow:hidden;width:calc(100% - 4.5mm);margin:0 auto">
+<span style="text-align:center;font-size:19pt;font-weight:700;color:#14213d;line-height:1.15">l&#39;animateur</span>
+</div>
+<div style="min-width:0;display:flex;align-items:center;justify-content:center;border:1.5px dashed #14213d;border-radius:2mm;padding:2mm;box-sizing:border-box;overflow:hidden;width:calc(100% - 4.5mm);margin:0 auto">
+<span style="text-align:center;font-size:19pt;font-weight:700;color:#14213d;line-height:1.15">le technicien</span>
+</div>
+<div style="min-width:0;display:flex;align-items:center;justify-content:center;border:1.5px dashed #14213d;border-radius:2mm;padding:2mm;box-sizing:border-box;overflow:hidden;width:calc(100% - 4.5mm);margin:0 auto">
+<span style="text-align:center;font-size:19pt;font-weight:700;color:#14213d;line-height:1.15">l&#39;invité</span>
+</div>
+</div>
+</section>
+<sc-if value="{{ avecMots }}" hint-placeholder-val="{{ true }}">
+<section class="page" data-screen-label="Radio 1" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:20mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#14213d">
+<div style="flex:0 0 auto;padding-bottom:2.5mm;border-bottom:2.5px solid #1d4e89">
+<span style="display:block;font-size:19pt;font-weight:700;line-height:1.05">La radio</span>
+<span style="display:block;margin-top:1mm;font-size:10.5pt;color:#5a6270">Photo et mot. Les cases en pointillés attendent les photos.</span>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:73mm;align-content:start;gap:6mm;padding-top:6mm">
+<div style="min-width:0;display:flex;flex-direction:column;gap:2mm;border:1.2px solid #c9cfd8;border-radius:2mm;padding:3mm 2mm 2.5mm;box-sizing:border-box;overflow:hidden">
+<div style="flex:1;min-height:0;border:1.5px dashed #c9cfd8;border-radius:2mm;display:flex;align-items:center;justify-content:center">
+<span style="font-size:8.5pt;color:#aeb6c2;letter-spacing:.02em">mot-micro</span>
+</div>
+<span style="flex:0 0 auto;text-align:center;font-size:14pt;font-weight:700;color:#14213d;line-height:1.15">le micro</span>
+</div>
+<div style="min-width:0;display:flex;flex-direction:column;gap:2mm;border:1.2px solid #c9cfd8;border-radius:2mm;padding:3mm 2mm 2.5mm;box-sizing:border-box;overflow:hidden">
+<div style="flex:1;min-height:0;border:1.5px dashed #c9cfd8;border-radius:2mm;display:flex;align-items:center;justify-content:center">
+<span style="font-size:8.5pt;color:#aeb6c2;letter-spacing:.02em">mot-casque</span>
+</div>
+<span style="flex:0 0 auto;text-align:center;font-size:14pt;font-weight:700;color:#14213d;line-height:1.15">le casque</span>
+</div>
+<div style="min-width:0;display:flex;flex-direction:column;gap:2mm;border:1.2px solid #c9cfd8;border-radius:2mm;padding:3mm 2mm 2.5mm;box-sizing:border-box;overflow:hidden">
+<div style="flex:1;min-height:0;border:1.5px dashed #c9cfd8;border-radius:2mm;display:flex;align-items:center;justify-content:center">
+<span style="font-size:8.5pt;color:#aeb6c2;letter-spacing:.02em">mot-platine</span>
+</div>
+<span style="flex:0 0 auto;text-align:center;font-size:14pt;font-weight:700;color:#14213d;line-height:1.15">la platine</span>
+</div>
+<div style="min-width:0;display:flex;flex-direction:column;gap:2mm;border:1.2px solid #c9cfd8;border-radius:2mm;padding:3mm 2mm 2.5mm;box-sizing:border-box;overflow:hidden">
+<div style="flex:1;min-height:0;border:1.5px dashed #c9cfd8;border-radius:2mm;display:flex;align-items:center;justify-content:center">
+<span style="font-size:8.5pt;color:#aeb6c2;letter-spacing:.02em">mot-enceinte</span>
+</div>
+<span style="flex:0 0 auto;text-align:center;font-size:14pt;font-weight:700;color:#14213d;line-height:1.15">l&#39;enceinte</span>
+</div>
+<div style="min-width:0;display:flex;flex-direction:column;gap:2mm;border:1.2px solid #c9cfd8;border-radius:2mm;padding:3mm 2mm 2.5mm;box-sizing:border-box;overflow:hidden">
+<div style="flex:1;min-height:0;border:1.5px dashed #c9cfd8;border-radius:2mm;display:flex;align-items:center;justify-content:center">
+<span style="font-size:8.5pt;color:#aeb6c2;letter-spacing:.02em">mot-ordinateur</span>
+</div>
+<span style="flex:0 0 auto;text-align:center;font-size:14pt;font-weight:700;color:#14213d;line-height:1.15">l&#39;ordinateur</span>
+</div>
+<div style="min-width:0;display:flex;flex-direction:column;gap:2mm;border:1.2px solid #c9cfd8;border-radius:2mm;padding:3mm 2mm 2.5mm;box-sizing:border-box;overflow:hidden">
+<div style="flex:1;min-height:0;border:1.5px dashed #c9cfd8;border-radius:2mm;display:flex;align-items:center;justify-content:center">
+<span style="font-size:8.5pt;color:#aeb6c2;letter-spacing:.02em">mot-cable</span>
+</div>
+<span style="flex:0 0 auto;text-align:center;font-size:14pt;font-weight:700;color:#14213d;line-height:1.15">le câble</span>
+</div>
+<div style="min-width:0;display:flex;flex-direction:column;gap:2mm;border:1.2px solid #c9cfd8;border-radius:2mm;padding:3mm 2mm 2.5mm;box-sizing:border-box;overflow:hidden">
+<div style="flex:1;min-height:0;border:1.5px dashed #c9cfd8;border-radius:2mm;display:flex;align-items:center;justify-content:center">
+<span style="font-size:8.5pt;color:#aeb6c2;letter-spacing:.02em">mot-silence</span>
+</div>
+<span style="flex:0 0 auto;text-align:center;font-size:14pt;font-weight:700;color:#14213d;line-height:1.15">le silence</span>
+</div>
+<div style="min-width:0;display:flex;flex-direction:column;gap:2mm;border:1.2px solid #c9cfd8;border-radius:2mm;padding:3mm 2mm 2.5mm;box-sizing:border-box;overflow:hidden">
+<div style="flex:1;min-height:0;border:1.5px dashed #c9cfd8;border-radius:2mm;display:flex;align-items:center;justify-content:center">
+<span style="font-size:8.5pt;color:#aeb6c2;letter-spacing:.02em">mot-parler</span>
+</div>
+<span style="flex:0 0 auto;text-align:center;font-size:14pt;font-weight:700;color:#14213d;line-height:1.15">parler</span>
+</div>
+<div style="min-width:0;display:flex;flex-direction:column;gap:2mm;border:1.2px solid #c9cfd8;border-radius:2mm;padding:3mm 2mm 2.5mm;box-sizing:border-box;overflow:hidden">
+<div style="flex:1;min-height:0;border:1.5px dashed #c9cfd8;border-radius:2mm;display:flex;align-items:center;justify-content:center">
+<span style="font-size:8.5pt;color:#aeb6c2;letter-spacing:.02em">mot-ecouter</span>
+</div>
+<span style="flex:0 0 auto;text-align:center;font-size:14pt;font-weight:700;color:#14213d;line-height:1.15">écouter</span>
+</div>
+</div>
+</section>
+<section class="page" data-screen-label="Radio 2" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:20mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#14213d">
+<div style="flex:0 0 auto;padding-bottom:2.5mm;border-bottom:2.5px solid #1d4e89">
+<span style="display:block;font-size:19pt;font-weight:700;line-height:1.05">La radio <span style="font-size:12pt;font-weight:400;color:#5a6270">(suite)</span></span>
+<span style="display:block;margin-top:1mm;font-size:10.5pt;color:#5a6270">Photo et mot. Les cases en pointillés attendent les photos.</span>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:73mm;align-content:start;gap:6mm;padding-top:6mm">
+<div style="min-width:0;display:flex;flex-direction:column;gap:2mm;border:1.2px solid #c9cfd8;border-radius:2mm;padding:3mm 2mm 2.5mm;box-sizing:border-box;overflow:hidden">
+<div style="flex:1;min-height:0;border:1.5px dashed #c9cfd8;border-radius:2mm;display:flex;align-items:center;justify-content:center">
+<span style="font-size:8.5pt;color:#aeb6c2;letter-spacing:.02em">mot-enregistrer</span>
+</div>
+<span style="flex:0 0 auto;text-align:center;font-size:14pt;font-weight:700;color:#14213d;line-height:1.15">enregistrer</span>
+</div>
+<div style="min-width:0;display:flex;flex-direction:column;gap:2mm;border:1.2px solid #c9cfd8;border-radius:2mm;padding:3mm 2mm 2.5mm;box-sizing:border-box;overflow:hidden">
+<div style="flex:1;min-height:0;border:1.5px dashed #c9cfd8;border-radius:2mm;display:flex;align-items:center;justify-content:center">
+<span style="font-size:8.5pt;color:#aeb6c2;letter-spacing:.02em">mot-couper</span>
+</div>
+<span style="flex:0 0 auto;text-align:center;font-size:14pt;font-weight:700;color:#14213d;line-height:1.15">couper</span>
+</div>
+<div style="min-width:0;display:flex;flex-direction:column;gap:2mm;border:1.2px solid #c9cfd8;border-radius:2mm;padding:3mm 2mm 2.5mm;box-sizing:border-box;overflow:hidden">
+<div style="flex:1;min-height:0;border:1.5px dashed #c9cfd8;border-radius:2mm;display:flex;align-items:center;justify-content:center">
+<span style="font-size:8.5pt;color:#aeb6c2;letter-spacing:.02em">mot-animateur</span>
+</div>
+<span style="flex:0 0 auto;text-align:center;font-size:14pt;font-weight:700;color:#14213d;line-height:1.15">l&#39;animateur</span>
+</div>
+<div style="min-width:0;display:flex;flex-direction:column;gap:2mm;border:1.2px solid #c9cfd8;border-radius:2mm;padding:3mm 2mm 2.5mm;box-sizing:border-box;overflow:hidden">
+<div style="flex:1;min-height:0;border:1.5px dashed #c9cfd8;border-radius:2mm;display:flex;align-items:center;justify-content:center">
+<span style="font-size:8.5pt;color:#aeb6c2;letter-spacing:.02em">mot-technicien</span>
+</div>
+<span style="flex:0 0 auto;text-align:center;font-size:14pt;font-weight:700;color:#14213d;line-height:1.15">le technicien</span>
+</div>
+<div style="min-width:0;display:flex;flex-direction:column;gap:2mm;border:1.2px solid #c9cfd8;border-radius:2mm;padding:3mm 2mm 2.5mm;box-sizing:border-box;overflow:hidden">
+<div style="flex:1;min-height:0;border:1.5px dashed #c9cfd8;border-radius:2mm;display:flex;align-items:center;justify-content:center">
+<span style="font-size:8.5pt;color:#aeb6c2;letter-spacing:.02em">mot-invite</span>
+</div>
+<span style="flex:0 0 auto;text-align:center;font-size:14pt;font-weight:700;color:#14213d;line-height:1.15">l&#39;invité</span>
+</div>
+</div>
+</section>
+</sc-if>
+<sc-if value="{{ avecMuette }}" hint-placeholder-val="{{ true }}">
+<section class="page" data-screen-label="Muette 1" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:20mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#14213d">
+<div style="flex:0 0 auto;padding-bottom:2.5mm;border-bottom:2.5px solid #8a4b1e">
+<span style="display:block;font-size:19pt;font-weight:700;line-height:1.05">La radio — je pose le bon mot</span>
+<span style="display:block;margin-top:1mm;font-size:10.5pt;color:#5a6270">Découpez les étiquettes de la première page. Posez chaque mot sous sa photo.</span>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:114mm;align-content:start;gap:6mm;padding-top:6mm">
+<div style="min-width:0;display:flex;flex-direction:column;gap:2mm;border:1.2px solid #c9cfd8;border-radius:2mm;padding:3mm 2mm 2.5mm;box-sizing:border-box;overflow:hidden">
+<div style="flex:1;min-height:0;border:1.5px dashed #c9cfd8;border-radius:2mm;display:flex;align-items:center;justify-content:center">
+<span style="font-size:8.5pt;color:#aeb6c2;letter-spacing:.02em">mot-micro</span>
+</div>
+<span style="flex:0 0 auto;height:22mm;border:1.5px dashed #9aa3b0;border-radius:2mm;display:block"></span>
+</div>
+<div style="min-width:0;display:flex;flex-direction:column;gap:2mm;border:1.2px solid #c9cfd8;border-radius:2mm;padding:3mm 2mm 2.5mm;box-sizing:border-box;overflow:hidden">
+<div style="flex:1;min-height:0;border:1.5px dashed #c9cfd8;border-radius:2mm;display:flex;align-items:center;justify-content:center">
+<span style="font-size:8.5pt;color:#aeb6c2;letter-spacing:.02em">mot-casque</span>
+</div>
+<span style="flex:0 0 auto;height:22mm;border:1.5px dashed #9aa3b0;border-radius:2mm;display:block"></span>
+</div>
+<div style="min-width:0;display:flex;flex-direction:column;gap:2mm;border:1.2px solid #c9cfd8;border-radius:2mm;padding:3mm 2mm 2.5mm;box-sizing:border-box;overflow:hidden">
+<div style="flex:1;min-height:0;border:1.5px dashed #c9cfd8;border-radius:2mm;display:flex;align-items:center;justify-content:center">
+<span style="font-size:8.5pt;color:#aeb6c2;letter-spacing:.02em">mot-platine</span>
+</div>
+<span style="flex:0 0 auto;height:22mm;border:1.5px dashed #9aa3b0;border-radius:2mm;display:block"></span>
+</div>
+<div style="min-width:0;display:flex;flex-direction:column;gap:2mm;border:1.2px solid #c9cfd8;border-radius:2mm;padding:3mm 2mm 2.5mm;box-sizing:border-box;overflow:hidden">
+<div style="flex:1;min-height:0;border:1.5px dashed #c9cfd8;border-radius:2mm;display:flex;align-items:center;justify-content:center">
+<span style="font-size:8.5pt;color:#aeb6c2;letter-spacing:.02em">mot-enceinte</span>
+</div>
+<span style="flex:0 0 auto;height:22mm;border:1.5px dashed #9aa3b0;border-radius:2mm;display:block"></span>
+</div>
+</div>
+</section>
+<section class="page" data-screen-label="Muette 2" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:20mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#14213d">
+<div style="flex:0 0 auto;padding-bottom:2.5mm;border-bottom:2.5px solid #8a4b1e">
+<span style="display:block;font-size:19pt;font-weight:700;line-height:1.05">La radio — je pose le bon mot <span style="font-size:12pt;font-weight:400;color:#5a6270">(2/4)</span></span>
+<span style="display:block;margin-top:1mm;font-size:10.5pt;color:#5a6270">Posez chaque mot sous sa photo.</span>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:114mm;align-content:start;gap:6mm;padding-top:6mm">
+<div style="min-width:0;display:flex;flex-direction:column;gap:2mm;border:1.2px solid #c9cfd8;border-radius:2mm;padding:3mm 2mm 2.5mm;box-sizing:border-box;overflow:hidden">
+<div style="flex:1;min-height:0;border:1.5px dashed #c9cfd8;border-radius:2mm;display:flex;align-items:center;justify-content:center">
+<span style="font-size:8.5pt;color:#aeb6c2;letter-spacing:.02em">mot-ordinateur</span>
+</div>
+<span style="flex:0 0 auto;height:22mm;border:1.5px dashed #9aa3b0;border-radius:2mm;display:block"></span>
+</div>
+<div style="min-width:0;display:flex;flex-direction:column;gap:2mm;border:1.2px solid #c9cfd8;border-radius:2mm;padding:3mm 2mm 2.5mm;box-sizing:border-box;overflow:hidden">
+<div style="flex:1;min-height:0;border:1.5px dashed #c9cfd8;border-radius:2mm;display:flex;align-items:center;justify-content:center">
+<span style="font-size:8.5pt;color:#aeb6c2;letter-spacing:.02em">mot-cable</span>
+</div>
+<span style="flex:0 0 auto;height:22mm;border:1.5px dashed #9aa3b0;border-radius:2mm;display:block"></span>
+</div>
+<div style="min-width:0;display:flex;flex-direction:column;gap:2mm;border:1.2px solid #c9cfd8;border-radius:2mm;padding:3mm 2mm 2.5mm;box-sizing:border-box;overflow:hidden">
+<div style="flex:1;min-height:0;border:1.5px dashed #c9cfd8;border-radius:2mm;display:flex;align-items:center;justify-content:center">
+<span style="font-size:8.5pt;color:#aeb6c2;letter-spacing:.02em">mot-silence</span>
+</div>
+<span style="flex:0 0 auto;height:22mm;border:1.5px dashed #9aa3b0;border-radius:2mm;display:block"></span>
+</div>
+<div style="min-width:0;display:flex;flex-direction:column;gap:2mm;border:1.2px solid #c9cfd8;border-radius:2mm;padding:3mm 2mm 2.5mm;box-sizing:border-box;overflow:hidden">
+<div style="flex:1;min-height:0;border:1.5px dashed #c9cfd8;border-radius:2mm;display:flex;align-items:center;justify-content:center">
+<span style="font-size:8.5pt;color:#aeb6c2;letter-spacing:.02em">mot-parler</span>
+</div>
+<span style="flex:0 0 auto;height:22mm;border:1.5px dashed #9aa3b0;border-radius:2mm;display:block"></span>
+</div>
+</div>
+</section>
+<section class="page" data-screen-label="Muette 3" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:20mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#14213d">
+<div style="flex:0 0 auto;padding-bottom:2.5mm;border-bottom:2.5px solid #8a4b1e">
+<span style="display:block;font-size:19pt;font-weight:700;line-height:1.05">La radio — je pose le bon mot <span style="font-size:12pt;font-weight:400;color:#5a6270">(3/4)</span></span>
+<span style="display:block;margin-top:1mm;font-size:10.5pt;color:#5a6270">Posez chaque mot sous sa photo.</span>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:114mm;align-content:start;gap:6mm;padding-top:6mm">
+<div style="min-width:0;display:flex;flex-direction:column;gap:2mm;border:1.2px solid #c9cfd8;border-radius:2mm;padding:3mm 2mm 2.5mm;box-sizing:border-box;overflow:hidden">
+<div style="flex:1;min-height:0;border:1.5px dashed #c9cfd8;border-radius:2mm;display:flex;align-items:center;justify-content:center">
+<span style="font-size:8.5pt;color:#aeb6c2;letter-spacing:.02em">mot-ecouter</span>
+</div>
+<span style="flex:0 0 auto;height:22mm;border:1.5px dashed #9aa3b0;border-radius:2mm;display:block"></span>
+</div>
+<div style="min-width:0;display:flex;flex-direction:column;gap:2mm;border:1.2px solid #c9cfd8;border-radius:2mm;padding:3mm 2mm 2.5mm;box-sizing:border-box;overflow:hidden">
+<div style="flex:1;min-height:0;border:1.5px dashed #c9cfd8;border-radius:2mm;display:flex;align-items:center;justify-content:center">
+<span style="font-size:8.5pt;color:#aeb6c2;letter-spacing:.02em">mot-enregistrer</span>
+</div>
+<span style="flex:0 0 auto;height:22mm;border:1.5px dashed #9aa3b0;border-radius:2mm;display:block"></span>
+</div>
+<div style="min-width:0;display:flex;flex-direction:column;gap:2mm;border:1.2px solid #c9cfd8;border-radius:2mm;padding:3mm 2mm 2.5mm;box-sizing:border-box;overflow:hidden">
+<div style="flex:1;min-height:0;border:1.5px dashed #c9cfd8;border-radius:2mm;display:flex;align-items:center;justify-content:center">
+<span style="font-size:8.5pt;color:#aeb6c2;letter-spacing:.02em">mot-couper</span>
+</div>
+<span style="flex:0 0 auto;height:22mm;border:1.5px dashed #9aa3b0;border-radius:2mm;display:block"></span>
+</div>
+<div style="min-width:0;display:flex;flex-direction:column;gap:2mm;border:1.2px solid #c9cfd8;border-radius:2mm;padding:3mm 2mm 2.5mm;box-sizing:border-box;overflow:hidden">
+<div style="flex:1;min-height:0;border:1.5px dashed #c9cfd8;border-radius:2mm;display:flex;align-items:center;justify-content:center">
+<span style="font-size:8.5pt;color:#aeb6c2;letter-spacing:.02em">mot-animateur</span>
+</div>
+<span style="flex:0 0 auto;height:22mm;border:1.5px dashed #9aa3b0;border-radius:2mm;display:block"></span>
+</div>
+</div>
+</section>
+<section class="page" data-screen-label="Muette 4" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:20mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#14213d">
+<div style="flex:0 0 auto;padding-bottom:2.5mm;border-bottom:2.5px solid #8a4b1e">
+<span style="display:block;font-size:19pt;font-weight:700;line-height:1.05">La radio — je pose le bon mot <span style="font-size:12pt;font-weight:400;color:#5a6270">(4/4)</span></span>
+<span style="display:block;margin-top:1mm;font-size:10.5pt;color:#5a6270">Posez chaque mot sous sa photo.</span>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:114mm;align-content:start;gap:6mm;padding-top:6mm">
+<div style="min-width:0;display:flex;flex-direction:column;gap:2mm;border:1.2px solid #c9cfd8;border-radius:2mm;padding:3mm 2mm 2.5mm;box-sizing:border-box;overflow:hidden">
+<div style="flex:1;min-height:0;border:1.5px dashed #c9cfd8;border-radius:2mm;display:flex;align-items:center;justify-content:center">
+<span style="font-size:8.5pt;color:#aeb6c2;letter-spacing:.02em">mot-technicien</span>
+</div>
+<span style="flex:0 0 auto;height:22mm;border:1.5px dashed #9aa3b0;border-radius:2mm;display:block"></span>
+</div>
+<div style="min-width:0;display:flex;flex-direction:column;gap:2mm;border:1.2px solid #c9cfd8;border-radius:2mm;padding:3mm 2mm 2.5mm;box-sizing:border-box;overflow:hidden">
+<div style="flex:1;min-height:0;border:1.5px dashed #c9cfd8;border-radius:2mm;display:flex;align-items:center;justify-content:center">
+<span style="font-size:8.5pt;color:#aeb6c2;letter-spacing:.02em">mot-invite</span>
+</div>
+<span style="flex:0 0 auto;height:22mm;border:1.5px dashed #9aa3b0;border-radius:2mm;display:block"></span>
+</div>
+</div>
+</section>
+</sc-if>
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:794,&quot;height&quot;:1123},&quot;avecMots&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Versions&quot;},&quot;avecMuette&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Versions&quot;}}">
+/* LA RADIO — 14 mots donnés par elle le 15/09, dans son ordre :
+   micro, casque, platine, enceinte, ordinateur, câble, silence, parler, écouter,
+   enregistrer, couper, animateur, technicien, invité.
+   Trois verbes et un nom abstrait (le silence) : ces quatre-là ne se photographient pas
+   comme un objet, il faudra une photo de situation ou un geste.
+
+   ⚠⚠ LES PHOTOS N'EXISTENT PAS ENCORE (15/09) — elle les enverra plus tard et m'a demandé
+   de le lui RAPPELER. Les cases en pointillés portent le nom de fichier attendu :
+     clean/mot-micro.png · mot-casque.png · mot-platine.png · mot-enceinte.png ·
+     mot-ordinateur.png (existe déjà, thème Le lycée) · mot-cable.png · mot-silence.png ·
+     mot-parler.png · mot-ecouter.png · mot-enregistrer.png · mot-couper.png ·
+     mot-animateur.png · mot-technicien.png · mot-invite.png
+   Pour les brancher : remplacer la fonction trou() par le background-image de la série
+   (voir « Les métiers en images »), rien d'autre à toucher.
+
+   La PREMIÈRE page est la planche de mots seule — c'est ce qu'elle a demandé aujourd'hui,
+   utilisable telle quelle sans aucune photo. Les pages suivantes sont la structure de la
+   série, prêtes à recevoir les images.
+
+   ⚠ PAS D'A3 : tout en A4, 2 cm de marge. Cotes de la série, ne pas les changer
+   isolément : photo muette 78 × 85 mm, cadre en pointillés et étiquette tous deux à
+   78 × 22 mm, mot à 19 pt sur les étiquettes, 14 pt sous les photos. */
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      imprimer: () => window.print(),
+      avecMots: this.props.avecMots ?? true,
+      avecMuette: this.props.avecMuette ?? true
+    };
+  }
+}
+</script>
+</body>
+</html>

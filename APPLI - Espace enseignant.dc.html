@@ -75,10 +75,44 @@ input,select,button{font-family:inherit}
 <sc-if value="{{ pasTel }}" hint-placeholder-val="{{ true }}">
 <button onClick="{{ actionAcces }}" style="flex:0 0 auto;border:none;border-radius:11px;background:#f08a24;color:#fff;padding:11px 20px;font-family:Archivo Black, Archivo, sans-serif;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;white-space:nowrap;box-shadow:0 3px 0 #c96f14">{{ libelleAcces }}</button>
 </sc-if>
+<sc-if value="{{ montrerBoutonMenu }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ ouvrirMenuTel }}" title="Voir mon menu" style="flex:0 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;width:44px;height:44px;border:2px solid rgba(255,255,255,0.5);border-radius:12px;background:none;cursor:pointer;padding:0">
+<span style="width:18px;height:2px;background:#fff;border-radius:2px;display:block"></span>
+<span style="width:18px;height:2px;background:#fff;border-radius:2px;display:block"></span>
+<span style="width:18px;height:2px;background:#fff;border-radius:2px;display:block"></span>
+</button>
+</sc-if>
 <sc-if value="{{ estTel }}" hint-placeholder-val="{{ false }}">
 <button onClick="{{ actionAcces }}" title="{{ libelleAcces }}" style="flex:0 0 auto;width:44px;height:44px;border:none;border-radius:12px;background:#f08a24;color:#fff;font-size:19px;line-height:1;cursor:pointer;box-shadow:0 3px 0 #c96f14">&#9881;</button>
 </sc-if>
 </div>
+
+<sc-if value="{{ menuTelOuvert }}" hint-placeholder-val="{{ false }}">
+<div style="position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;background:#12233b">
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid #24344d">
+<span style="flex:1;min-width:0;font-family:Archivo Black, Archivo, sans-serif;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:#fff">Mon menu</span>
+<button onClick="{{ fermerMenuTel }}" title="Fermer" style="flex:0 0 auto;width:40px;height:40px;border:2px solid rgba(255,255,255,0.45);border-radius:11px;background:none;color:#fff;font-size:19px;line-height:1;cursor:pointer;padding:0">&#10005;</button>
+</div>
+<div class="om-rail" style="flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;padding-bottom:14px">
+<sc-for list="{{ menuRubTel }}" as="r" hint-placeholder-count="6">
+<div style="flex:0 0 auto;margin:12px 14px 0;display:flex;flex-direction:column;gap:3px">
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:9px;border-radius:10px;background:#1d4e89;color:#fff;padding:10px 12px">
+<span style="flex:0 0 auto;width:9px;height:9px;border-radius:50%;background:{{ r.vif }};display:block"></span>
+<span style="flex:1;min-width:0;font-family:Archivo Black, Archivo, sans-serif;font-size:11.5px;letter-spacing:0.05em;text-transform:uppercase">{{ r.nom }}</span>
+</div>
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:2px">
+<sc-for list="{{ r.items }}" as="m" hint-placeholder-count="3">
+<button onClick="{{ m.ouvrir }}" style="flex:0 0 auto;display:flex;align-items:center;gap:10px;min-height:44px;border:none;outline:none;border-radius:9px;background:{{ m.fond }};color:{{ m.encre }};padding:9px 12px;cursor:pointer;text-align:left;font-family:Archivo, sans-serif;line-height:1.25">
+<span style="flex:0 0 auto;width:7px;height:7px;border-radius:50%;background:{{ m.point }};display:block"></span>
+<span style="flex:1;min-width:0;font-size:14px;font-weight:{{ m.poids }}">{{ m.titre }}</span>
+</button>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-if>
 
 <div style="flex:1;min-height:0;display:flex">
 
@@ -1814,6 +1848,19 @@ Le trait d'union sépare les mots</label>
 </div>
 </sc-if>
 <div style="min-width:0;min-height:0;display:flex;flex-direction:column;gap:14px;overflow:auto">
+<sc-if value="{{ aDocsColl }}" hint-placeholder-val="{{ false }}">
+<span style="flex:0 0 auto;font-size:12.5px;color:#6b7386;line-height:1.5;max-width:640px">Ces documents ne se composent pas page par page : chacun s'ouvre et s'imprime tel quel. À découper et à coller dans le cahier de l'élève.</span>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px">
+<sc-for list="{{ docsColl }}" as="d" hint-placeholder-count="2">
+<a href="{{ d.url }}" style="min-width:0;display:flex;flex-direction:column;gap:7px;background:#fff;border-radius:14px;box-shadow:0 2px 8px rgba(20,33,61,0.14);padding:16px 17px;text-decoration:none;border-top:5px solid #8a4b1e">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:13.5px;color:#12233b;line-height:1.35">{{ d.titre }}</span>
+<span style="font-size:12px;color:#6b7386;line-height:1.5">{{ d.detail }}</span>
+<span style="margin-top:2px;font-size:11.5px;font-weight:700;color:#8a4b1e">Ouvrir le document &#8594;</span>
+</a>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ pasDocsColl }}" hint-placeholder-val="{{ true }}">
 <div style="flex:0 0 auto;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(20,33,61,0.12);padding:14px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
 <span style="flex:1;min-width:160px;font-size:13.5px;color:#12233b;font-weight:700">{{ resumeOutils }}</span>
 <button onClick="{{ pagePrec }}" style="border:1px solid #c9cfd8;border-radius:9px;background:#fff;color:#12233b;width:32px;height:32px;font-size:15px;font-weight:700;cursor:pointer;padding:0">&#8592;</button>
@@ -1822,6 +1869,7 @@ Le trait d'union sépare les mots</label>
 <button onClick="{{ effacerOutils }}" style="border:2px solid #c9cfd8;border-radius:10px;background:#fff;color:#6b7386;padding:10px 16px;font-size:12px;font-weight:700;cursor:pointer">Tout effacer</button>
 <button onClick="{{ imprimerOutils }}" style="border:none;border-radius:11px;background:#2a9d6e;color:#fff;padding:12px 24px;font-family:Archivo Black, Archivo, sans-serif;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;box-shadow:0 3px 0 #217d57">Imprimer</button>
 </div>
+</sc-if>
 <sc-if value="{{ aCasesOutils }}" hint-placeholder-val="{{ false }}">
 <div style="flex:0 0 auto;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(20,33,61,0.12);padding:12px 14px;display:flex;flex-direction:column;gap:9px">
 <span style="font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#6b7a8d;font-weight:700">{{ libelleCasesOutils }}</span>
@@ -1832,6 +1880,7 @@ Le trait d'union sépare les mots</label>
 </div>
 </div>
 </sc-if>
+<sc-if value="{{ pasDocsColl }}" hint-placeholder-val="{{ true }}">
 <div style="flex:1 0 auto;min-height:300px;display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:18px;align-content:start;padding:2px 2px 10px">
 <sc-for list="{{ vignettes }}" as="v" hint-placeholder-count="8">
 <div style="display:flex;flex-direction:column;gap:7px;min-width:0">
@@ -1850,6 +1899,7 @@ Le trait d'union sépare les mots</label>
 </div>
 </sc-for>
 </div>
+</sc-if>
 </div>
 </div>
 </sc-if>
@@ -1875,6 +1925,26 @@ Le trait d'union sépare les mots</label>
 </div>
 </sc-if>
 
+<sc-if value="{{ estAffichages }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;overflow-y:auto;padding:18px 20px;display:flex;flex-direction:column;gap:18px">
+<span style="font-size:12.5px;color:#6b7386;line-height:1.5;max-width:640px">Ce qui s'imprime une fois et reste sous les yeux de l'élève : au mur, sur sa table, ou dans sa pochette. Chacun s'ouvre dans un onglet et s'imprime tout seul.</span>
+<sc-for list="{{ affichagesGroupes }}" as="g" hint-placeholder-count="3">
+<div style="display:flex;flex-direction:column;gap:10px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:{{ g.couleur }};border-left:5px solid {{ g.couleur }};padding-left:11px">{{ g.groupe }}</span>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px">
+<sc-for list="{{ g.items }}" as="d" hint-placeholder-count="2">
+<a href="{{ d.url }}" style="min-width:0;display:flex;flex-direction:column;gap:7px;background:#fff;border-radius:14px;box-shadow:0 2px 8px rgba(20,33,61,0.14);padding:16px 17px;text-decoration:none;border-top:5px solid {{ g.couleur }}">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:13.5px;color:#12233b;line-height:1.35">{{ d.titre }}</span>
+<span style="font-size:12px;color:#6b7386;line-height:1.5">{{ d.detail }}</span>
+<span style="font-size:11.5px;color:#1d4e89;font-weight:700">Ouvrir →</span>
+</a>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
 <sc-if value="{{ estRituels }}" hint-placeholder-val="{{ false }}">
 <div style="flex:1;min-height:0;overflow-y:auto;padding:18px 20px;display:flex;flex-direction:column;gap:14px">
 <span style="font-size:12.5px;color:#6b7386;line-height:1.5;max-width:640px">Les rituels de classe : les documents qu'on ressort chaque jour ou chaque semaine, toujours au même moment.</span>
@@ -1883,7 +1953,12 @@ Le trait d'union sépare les mots</label>
 <div style="min-width:0;display:flex;flex-direction:column;gap:7px;background:#fff;border-radius:14px;box-shadow:0 2px 8px rgba(20,33,61,0.14);padding:16px 17px;border-top:5px solid {{ d.couleur }}">
 <span style="font-family:Archivo Black, Archivo, sans-serif;font-size:13.5px;color:#12233b;line-height:1.35">{{ d.titre }}</span>
 <span style="font-size:12px;color:#6b7386;line-height:1.5">{{ d.detail }}</span>
+<sc-if value="{{ d.estPdf }}" hint-placeholder-val="{{ false }}">
 <button type="button" onClick="{{ d.telecharger }}" style="align-self:flex-start;margin-top:2px;background:#1d4e89;color:#fff;border:0;border-radius:9px;padding:9px 14px;font-family:Archivo Black, Archivo, sans-serif;font-size:11.5px;letter-spacing:.03em;cursor:pointer">TÉLÉCHARGER LE PDF</button>
+</sc-if>
+<sc-if value="{{ d.estLien }}" hint-placeholder-val="{{ true }}">
+<a href="{{ d.url }}" style="align-self:flex-start;margin-top:2px;background:#1d4e89;color:#fff;border:0;border-radius:9px;padding:9px 14px;font-family:Archivo Black, Archivo, sans-serif;font-size:11.5px;letter-spacing:.03em;cursor:pointer;text-decoration:none">OUVRIR LE DOCUMENT</a>
+</sc-if>
 </div>
 </sc-for>
 </div>
@@ -2215,7 +2290,13 @@ const BANQUE={
    « De quel pays viens-tu ? » sur la carte « se présenter ». */
  'Les pays, les langues':[['le Portugal','portugal'],['l\'Espagne','espagne'],['l\'Italie','italie'],['le Maroc','maroc'],['l\'Algérie','algerie'],['la Turquie','turquie'],['la Pologne','pologne'],['le Brésil','bresil'],['le Vietnam','vietnam'],['les langues','langues'],['un drapeau','drapeau']],
  'La politesse':[['bonjour','geste-bonjour'],['bonsoir','geste-bonsoir'],['au revoir','geste-aurevoir'],['merci','geste-merci'],["s'il vous plaît",'geste-silvousplait'],['pardon','geste-pardon'],['oui','geste-oui'],['non','geste-non'],['à demain','geste-ademain']],
- "L'alphabet":[['a','ananas'],['b','ballon'],['c','carotte'],['d','deux'],['e','renard'],['f','fantome'],['g','gateau'],['i','gris'],['j','jupe'],['k','kangourou'],['l','lit'],['m','moto'],['n','nuage'],['o','orange'],['p','pied'],['q','cinq'],['r','robot'],['s','salade'],['t','table'],['u','rue'],['v','velo'],['w','wagon'],['x','xylophone'],['y','pyjama'],['z','zebre']],
+ /* Table de LETTRES validée mot par mot avec elle (11 et 13/09) — c'est le SON de la
+    lettre, pas l'initiale : d'où « melon » pour le e. Quatre lettres ont deux images
+    (c, g, o, s), elle les veut toutes les deux ici aussi — sans risque : le tirage des
+    distracteurs exclut déjà les items portant la MÊME lettre (m[0]!==cible[0]), donc
+    carotte et cerise ne se retrouvent jamais dans la même question. Le h n'a pas de son :
+    il n'a PAS de case dans le thème, elle le dit à l'oral. */
+ "L'alphabet":[['a','ananas'],['b','ballon'],['c','carotte'],['c','cerise'],['d','deux'],['e','melon'],['f','fenetre'],['g','gateau'],['g','gilet'],['i','immeuble'],['j','jaune'],['k','kiwi'],['l','lit'],['m','moto'],['n','nuage'],['o','ordinateur'],['o','pot'],['p','pied'],['q','quatre'],['r','robot'],['s','salade'],['s','rose'],['t','table'],['u','usine'],['v','velo'],['w','wagon'],['x','xylophone'],['y','yaourt'],['z','zero']],
  'Les jours':[['lundi','lundi'],['mardi','mardi'],['mercredi','mercredi'],['jeudi','jeudi'],['vendredi','vendredi'],['samedi','samedi'],['dimanche','dimanche']],
  'Les mois':[['janvier','janvier'],['février','fevrier'],['mars','mars'],['avril','avril'],['mai','mai'],['juin','juin'],['juillet','juillet'],['août','aout'],['septembre','septembre'],['octobre','octobre'],['novembre','novembre'],['décembre','decembre']],
  'La météo':[['le soleil','soleil'],['un nuage','nuage'],['la pluie','pluie'],['la neige','neige'],['le vent','vent'],["l'orage",'orage'],['le brouillard','brouillard'],['il fait chaud','chaud'],['il fait froid','froid']],
@@ -2261,7 +2342,11 @@ const MOTS_DEMO={'Les repas':[['une pomme','pomme'],['une banane','banane'],['du
    puis occlusives, puis digrammes, puis nasales — les plus dures à discriminer. */
 const SONS_INIT=['a','i','o','u','é','l','m','r','s','f','v','p','t','ch','ou','on','an','in'];
 
-const ALPHA_IMG=[['a','ananas','ANANAS'],['b','ballon','BALLON'],['c','carotte','CAROTTE et CERISE','cerise'],['d','date','DATE'],['e','renard','RENARD'],['f','fantome','FANTÔME'],['g','gateau','GÂTEAU'],['h','',''],['i','gris','GRIS'],['j','jupe','JUPE'],['k','kangourou','KANGOUROU'],['l','lit','LIT'],['m','moto','MOTO'],['n','nuage','NUAGE'],['o','pot','POT et POMME','pomme'],['p','pied','PIED'],['q','cinq','CINQ'],['r','robot','ROBOT'],['s','salade','SALADE et ROSE','rose'],['t','table','TABLE'],['u','rue','RUE'],['v','velo','VÉLO'],['w','wagon','WAGON'],['x','xylophone','XYLOPHONE'],['y','pyjama','PYJAMA'],['z','zebre','ZÈBRE']];
+/* Table de LETTRES validée mot par mot avec elle (11 et 13/09). C'est le SON de la lettre,
+   pas l'initiale : d'où « melon » pour le e. Quatre lettres portent deux images dans la
+   même case (c, g, o, s). Le h reste VIDE — il n'a pas de son, et elle a tranché : on
+   n'écrit rien dans sa case, sinon c'est la seule où l'élève recopie au lieu de chercher. */
+const ALPHA_IMG=[['a','ananas','ANANAS'],['b','ballon','BALLON'],['c','carotte','CAROTTE et CERISE','cerise'],['d','deux','DEUX'],['e','melon','MELON'],['f','fenetre','FENÊTRE'],['g','gateau','GÂTEAU et GILET','gilet'],['h','',''],['i','immeuble','IMMEUBLE'],['j','jaune','JAUNE'],['k','kiwi','KIWI'],['l','lit','LIT'],['m','moto','MOTO'],['n','nuage','NUAGE'],['o','ordinateur','ORDINATEUR et POT','pot'],['p','pied','PIED'],['q','quatre','QUATRE'],['r','robot','ROBOT'],['s','salade','SALADE et ROSE','rose'],['t','table','TABLE'],['u','usine','USINE'],['v','velo','VÉLO'],['w','wagon','WAGON'],['x','xylophone','XYLOPHONE'],['y','yaourt','YAOURT'],['z','zero','ZÉRO']];
 
 const SRC_FICHES=()=>(window.FICHES_SRC||{collections:[],pages:[]});
 const OUTILS_COLL_FALLBACK=[
@@ -2278,18 +2363,54 @@ const COLL_VIDES=[
  ['ronds','Les ronds','#8a4b1e','à construire',true],
  ['courbes','Les courbes','#8a4b1e','à construire',true],
  ['boucles','Les boucles','#8a4b1e','à construire',true],
- ['ponts','Les ponts','#8a4b1e','à construire',true],
- ['cursive','Lettres cursive','#8a4b1e','à construire',true]
+ ['ponts','Les ponts','#8a4b1e','à construire',true]
 ];
+/* « Lettres cursive » ne tient pas des fiches de FICHES_SRC mais des DOCUMENTS entiers
+   (15/09). C'est ici que vivent les normes d'écriture et les étiquettes de graphisme —
+   elle l'a tranché : « ça va dans écriture, apprentissage, lettres cursives ». */
+const COLL_DOCS=[
+ ['cursive','Lettres cursive','#8a4b1e','les documents d\u2019écriture attachée'],
+ /* Les PLANCHES sont des documents entiers, pas des fiches de FICHES_SRC (15/09).
+    Format : grandes photos + version muette avec étiquettes-mots à manipuler. À ne pas
+    confondre avec la collection « Mes mots », qui sont les fiches de lexique (beaucoup
+    de mots par page, petites photos). Les deux séries coexistent volontairement. */
+ ['planches','Les planches en images','#c4479e','grandes photos, avec version muette']
+];
+const DOCS_COLL={
+ cursive:[
+  ["Les normes d\u2019écriture","Le ciel, l\u2019herbe, la terre : où monte et où descend chaque lettre en attaché. Un cadre en pointillés à la taille d\u2019une page de petit cahier — on découpe sur le trait et on colle.","FR - Les normes d'écriture (cursive).dc.html"],
+  /* Deux réglures, volontairement (15/09) : 3 mm = cahier Seyes agrandi, pour démarrer le
+     geste ; 2 mm = cahier ordinaire, celui de tous les autres cahiers du lycée. On bascule
+     de l'une à l'autre après une période ou deux. Ne pas en retirer une. */
+  ["Étiquettes de graphisme — réglure 3 mm","48 étiquettes cursives sur une A4 paysage, réglure ciel-herbe-terre, la lettre écrite deux fois. Corps de 3 mm : le cahier Seyes agrandi, pour démarrer le geste.","FR - Étiquettes de graphisme (cursive 3 mm).dc.html"],
+  ["Étiquettes de graphisme — réglure 2 mm","Les mêmes 48 étiquettes au corps de 2 mm : la réglure du cahier Seyes ordinaire, celle de tous les autres cahiers du lycée.","FR - Étiquettes de graphisme (cursive 2 mm).dc.html"]
+ ],
+ planches:[
+  ["Les métiers","17 métiers. Une version avec le mot sous la photo, une version muette avec les 17 étiquettes-mots à découper et à poser.","FR - Les métiers en images.dc.html"],
+  ["Le lycée","9 mots du lycée : professeur, salle, tableau, cantine, cour, bureau, chaise, cahier, porte. Avec la version muette et ses étiquettes.","FR - Le lycée en images.dc.html"],
+  ["Le matériel scolaire","9 mots de la trousse : stylo, crayon, gomme, règle, taille-crayon, ciseaux, feutre, colle, trousse. Avec la version muette et ses étiquettes.","FR - Le matériel scolaire en images.dc.html"],
+  /* Les flèches rouges sur cou, lèvre et joue sont voulues : sans elles la photo ne
+     désigne pas la bonne partie. Seule planche concernée. */
+  ["Le visage","10 mots : visage, cheveux, yeux, nez, joue, bouche, lèvre, dents, oreille, cou. Avec la version muette et ses étiquettes. Manquent encore la tête, le front, le menton.","FR - Le visage en images.dc.html"],
+  /* ⚠ Les photos de la radio n'existent pas encore (15/09) : la première page, la planche
+     de mots, s'imprime telle quelle ; les cases des autres pages portent le nom de fichier
+     attendu. Elle m'a demandé de lui rappeler d'envoyer les images. */
+  ["La radio — les mots","14 mots du studio : micro, casque, platine, enceinte, ordinateur, câble, silence, parler, écouter, enregistrer, couper, animateur, technicien, invité. La planche de mots s’imprime déjà ; les photos restent à envoyer.","FR - La radio en images.dc.html"],
+  /* Les étiquettes de mots outils se posent DEVANT les photos des planches pour fabriquer
+     une phrase. Ne pas confondre avec « FR - Utilisation des mots outils.dc.html », qui est
+     une fiche de consignes sur une scène de restaurant. */
+  ["Les mots outils — étiquettes pour le tableau","Format 170 × 71 mm, mot à 60 pt, trois par feuille : à découper, à coller sur carton et à aimanter au tableau. N’imprimer que les familles utiles. Les 14 mots de son affichage en première famille (un, une, le, la, c’est, ne … pas, il est, trop, et, avec, chez, de, elle, tout), puis huit autres familles.","FR - Les mots outils (étiquettes).dc.html"]
+ ]
+};
 const GROUPES_COLL={ecriture:[['gestes','Les gestes préparatoires',['ronds','courbes','boucles','ponts']]]};
 function collBloquee(id){ return COLL_VIDES.some(v=>v[0]===id); }
 function toutesCollections(){
   const base=(SRC_FICHES().collections.length?SRC_FICHES().collections:OUTILS_COLL_FALLBACK)
     .map(c=>{ const r=COLL_RENOM[c[0]]; return r?[c[0],r[0],c[2],r[1]]:c; });
-  return base.concat(COLL_VIDES);
+  return base.concat(COLL_DOCS, COLL_VIDES);
 }
 const DOMAINES={
-  lexique:['dico'], lecture:['sonsF'],
+  lexique:['dico','planches'], lecture:['sonsF'],
   ecriture:['ronds','courbes','boucles','ponts','lettres','cursive','chiffres'],
   maths:['nombres']
 };
@@ -2353,7 +2474,10 @@ const ENFANTS=(()=>{ const e={};
   return e; })();
 class Component extends DCLogic {
   state={
-    ecran:'themeAccueil', themeImpose:'', verrou:true, saisieMdp:'', mdpRef:'ecole', erreurMdp:'', groupes:GROUPES_INIT.map(g=>({...g,eleves:[...g.eleves]})),
+    /* Mot de passe de l'ESPACE ENSEIGNANT — « ecole76! » depuis le 15/09 (avant : « ecole »).
+       Sans rapport avec celui des étiquettes de session ENT, qui est celui des ÉLÈVES et vit
+       dans « ÉTIQUETTES - Codes de session.dc.html ». Ne pas confondre les deux. */
+    ecran:'themeAccueil', themeImpose:'', verrou:true, saisieMdp:'', mdpRef:'ecole76!', erreurMdp:'', groupes:GROUPES_INIT.map(g=>({...g,eleves:[...g.eleves]})),
     groupe:'Débutants', groupeSel:'Débutants', eleveSel:'Élève A', dest:'Intermédiaires',
     nouveauGroupe:'', nouvelEleve:'', infoTransfert:'', 
     champs:{"J'écoute":true,"Je lis":true,"Je parle":true,"J'écris":true},
@@ -3848,6 +3972,7 @@ class Component extends DCLogic {
       alpha:"L'alphabet",alphaEcrire:'Écris la lettre',resultatAlpha:'Résultat',
       disques:'Outils de manipulation en classe',
       docsUtiles:'Mes documents utiles — mes séances et mes références',
+      affichages:'Affichages de la classe — ce qui reste au mur ou sur la table',
       rituels:'Rituels — les documents du quotidien de la classe',
       accueilEleve:"Accueil d'un élève — la fiche, le test, les résultats, la préconisation",
       edt:'Mon emploi du temps — la semaine, le jour, les documents de chaque créneau',
@@ -3888,6 +4013,10 @@ class Component extends DCLogic {
         ['Rituels','rituels'],
         ['Découverte du monde et des sciences',''],
         ['Étude de la langue',''],
+        /* Affichages à part de « Mes documents utiles » (14/09, sa remarque) : celui-ci
+           a sa règle écrite à l'écran — séances entières et références. On lit une
+           séance, on accroche une affiche : mélanger les deux en ferait un fourre-tout. */
+        ['Affichages de la classe','affichages'],
         ['Mes documents utiles','docsUtiles']]]
     ];
     const ouvrirDom=(ec,dom)=>()=>{
@@ -3942,6 +4071,19 @@ class Component extends DCLogic {
         })
       };
     });
+
+    /* En étroit (< 760 px) le menu latéral est masqué — c'est voulu, pour que l'élève
+       avec la tablette ne le voie jamais. Mais rien ne le remplaçait côté enseignant :
+       plus de menu du tout (son signalement du 14/09). D'où ce même menu en panneau
+       par-dessus, ouvert par le bouton « Menu » de la barre. Toutes les rubriques sont
+       dépliées d'office : sur un panneau on fait défiler, on ne cherche pas à replier.
+       Choisir un écran referme le panneau. */
+    const menuRubTel=menuRub.map(r=>Object.assign({},r,{
+      items:r.items.map(m=>Object.assign({},m,{
+        aff:'flex',
+        ouvrir:()=>{ this.setState({menuTel:false}); if(m.ouvrir) m.ouvrir(); }
+      }))
+    }));
 
     const champsStd=[["J'écoute",'#6d5bd0','oreille'],['Je lis','#2a9d6e','livre'],['Je parle','#e8654f','bouche'],["J'écris",'#e59a2b','crayon']]
       .map(([nom,couleur,f])=>({nom,couleur,bg:"url('clean/mot-"+f+".png')",lettre:'',police:'Archivo',
@@ -4332,9 +4474,14 @@ class Component extends DCLogic {
       ouvrirVerrou:()=>this.setState({ecran:'verrou',saisieMdp:'',erreurMdp:''}),
       saisieMdp:s.saisieMdp||'', setSaisieMdp:e=>this.setState({saisieMdp:e.target.value}),
       erreurMdp:s.erreurMdp||'',
-      indiceMdp:s.mdpRef==='ecole'?'Premier accès : le mot de passe est ecole':'',
+      /* L'indice ne s'affiche que TANT QUE le mot de passe d'origine n'a pas été changé
+         dans les réglages : il doit disparaître dès qu'elle en choisit un autre. */
+      indiceMdp:s.mdpRef==='ecole76!'?'Premier accès : le mot de passe est ecole76!':'',
       validerAcces:()=>this.setState(p=>p.saisieMdp===p.mdpRef
-        ? {verrou:false,ecran:'groupes',saisieMdp:'',erreurMdp:''}
+        /* Le mot de passe dépose sur le MENU, pas sur un écran de travail (14/09).
+           « Organisation en premier » ne voulait dire qu'une chose : cette rubrique en
+           haut du menu. En étroit le menu est le panneau, donc on l'ouvre. */
+        ? {verrou:false,ecran:'groupes',menuReplie:false,menuTel:true,saisieMdp:'',erreurMdp:''}
         : {erreurMdp:'Mot de passe incorrect.'}),
       verrouille:!!s.verrou,
       libelleAcces:s.verrou?'Espace enseignant':'Élève',
@@ -4543,6 +4690,11 @@ class Component extends DCLogic {
         });
         return out;
       })(),
+      /* Une collection de DOCUMENTS remplace tout le panneau de droite : ni cases à cocher,
+         ni vignettes, ni bouton Imprimer — chaque document s'imprime depuis sa propre page. */
+      aDocsColl:!!DOCS_COLL[s.outilsColl],
+      pasDocsColl:!DOCS_COLL[s.outilsColl],
+      docsColl:(DOCS_COLL[s.outilsColl]||[]).map(([titre,detail,url])=>({titre,detail,url:encodeURI(url)})),
       aCasesOutils:['lettres','chiffres'].includes(s.outilsColl),
       libelleCasesOutils:s.outilsColl==='chiffres'?'Coche un chiffre — sa fiche apparaît, prête à imprimer':'Coche une lettre — sa fiche apparaît, prête à imprimer',
       casesOutils:(()=>{
@@ -4580,13 +4732,32 @@ class Component extends DCLogic {
       vrai:true,
       estDisques:s.ecran==='disques',
       estDocsUtiles:s.ecran==='docsUtiles',
+      estAffichages:s.ecran==='affichages',
+      /* Les cinq affichages déjà créés. Groupés par où ça se colle : au mur, ou sur la
+         table de l'élève — c'est ce qu'elle regarde quand elle cherche un affichage. */
+      affichagesGroupes:[
+        ['Sur la table de l\'élève','#2a9d6e',[
+          ["Abécédaire des mots repères","Demi-feuille à coller sur le bureau : capitale, script, cursive, et la photo du mot repère.","FR - Abécédaire des mots repères.dc.html"]]],
+        ['Au mur','#1d4e89',[
+          ["Frise de l'alphabet","Les trois écritures en bandes continues, à coller bout à bout sous le tableau. 6 feuilles A4 paysage, à imprimer en A3.","FR - Frise de l'alphabet (mur).dc.html"],
+          ["Je me connecte à l'ENT","La marche à suivre en images, à afficher près des ordinateurs.","AFFICHE - Je me connecte à l'ENT.dc.html"],
+          ["Planche de thème illustré","Le lexique d'un thème en images, à afficher pendant qu'on travaille le thème.","PLANCHE - thème illustré.dc.html"]]],
+        ['Cartes de référence','#6d5bd0',[
+          ["Se présenter","La carte de référence : prénom, métier, ville, âge.","CARTE - se présenter.dc.html"],
+          ["Se présenter — version visuelle","La même, tout en images, pour les élèves qui ne lisent pas encore.","CARTE - se présenter (visuelle).dc.html"]]]
+      ].map(([groupe,couleur,items])=>({groupe,couleur,
+        items:items.map(([titre,detail,url])=>({titre,detail,url:encodeURI(url)}))})),
       estRituels:s.ecran==='rituels',
       /* Le PDF ne s'ouvre PAS par un <a href> : son extension Chrome bloque l'affichage des
          PDF (« Cette page a été bloquée par Chrome », 09/09). On télécharge le fichier,
          comme partout ailleurs dans l'appli. */
+      /* Deux sortes de rituels : un PDF qu'on télécharge, et un document de l'appli qu'on
+         ouvre par un lien (jamais target="_blank" — l'onglet sort du cadre, 14/09). */
       rituels:[
+        ['J\u2019entends, j\u2019entoure — semaine du 15 septembre','Cinq minutes en début d\u2019heure : une feuille par jour, 12 syllabes à entourer. La difficulté change d\u2019axe chaque jour. La 5e page est la dictée de la professeure, à ne pas distribuer.','#2a9d6e','FR - Rituel - J\'entends, j\'entoure (semaine du 15 septembre).dc.html',null],
         ['Rituel — cartes de langage','Le paquet de 30 cartes d\u2019objectifs de Charivari à l\u2019école : l\u2019élève en tire une au hasard, on teste, puis on ouvre le thème dans l\u2019appli élève. Quatre pages à imprimer.','#c0392b','docs/charivari-cartes-rituel-langage.pdf','charivari-cartes-rituel-langage.pdf']
       ].map(([titre,detail,couleur,url,nom])=>({titre,detail,couleur,
+        estPdf:!!nom, estLien:!nom, url:encodeURI(url),
         telecharger:async()=>{
           try{
             const r=await fetch(url); const b=await r.blob();
@@ -5046,7 +5217,12 @@ class Component extends DCLogic {
         const n=this.cartesCodeActives().length;
         return n+' atelier'+(n>1?'s':'')+' · les lettres, les sons, j\u2019écris';
       })(),
-      menuRub, groupeHaut:!this.tel()&&!ECRANS_PROF.includes(s.ecran),
+      menuRub, menuRubTel,
+      montrerBoutonMenu:this.tel()&&ECRANS_PROF.includes(s.ecran),
+      menuTelOuvert:this.tel()&&ECRANS_PROF.includes(s.ecran)&&!!s.menuTel,
+      ouvrirMenuTel:()=>this.setState({menuTel:true}),
+      fermerMenuTel:()=>this.setState({menuTel:false}),
+      groupeHaut:!this.tel()&&!ECRANS_PROF.includes(s.ecran),
       montrerMenu:!this.tel()&&ECRANS_PROF.includes(s.ecran)&&!s.menuReplie,
       menuReplie:!this.tel()&&ECRANS_PROF.includes(s.ecran)&&!!s.menuReplie,
       replierMenu:()=>this.setState({menuReplie:true}),

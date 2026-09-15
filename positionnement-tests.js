@@ -458,6 +458,45 @@
        raison change, pour que l'écran dise ce qu'elle regarde. */
     const cheminDeLaClasse = () => {
       const cle = fiche.classeCle || 'cm2';
+      /* ⚠ CLASSE D'ÂGE LYCÉE, MOINS DE 16 ANS (10/09, cas Giorgi né en 2011 → 2de, 14 ans).
+         NIVEAUX s'arrête à la fin de 3e : aucun palier Canopé ne correspond au lycée, donc
+         `findIndex` rendait −1 et le `Math.max(0, …)` retombait EN SILENCE sur la fin de CP
+         — d'où un livret Sami en lecture et un fin de cycle 2 (CE2) en maths pour un élève
+         de seconde. Le chemin des plus de 16 ans ne le rattrapait pas (il a 14 ans).
+         Sa décision : le test de niveau lycée est le ROMAIN GARY (déjà sa règle du 07/09,
+         « il est en classe de première, tu devrais me proposer Romain Gary voyons »), les
+         maths au dernier cycle achevé (cycle 4), et SURTOUT PAS le +16 ans d'orientation
+         (« il a 14 ans, le + de 16 orientation n'est pas un bon choix »).
+         Replis sous la main dans l'ordre logique qu'elle a donné : fin de 3e, 4e, 5e. */
+      const LYCEE = ['2de', '1re', 'term'];
+      if (LYCEE.indexOf(cle) >= 0) {
+        etapes.push({ rang: 1,
+          pourquoi: "Classe d'âge : " + (fiche.classeDage || '?') + " (naissance "
+            + ((fiche.naissance || '').slice(-4) || '?') + ") — le test de maths porte sur le dernier cycle achevé, le cycle 4.",
+          test: par('canope-maths-c4') });
+        etapes.push({ rang: 2,
+          pourquoi: nsa
+            ? "Non ou peu scolarisé antérieurement : on donne quand même le test de son niveau de classe, et on observe — s'il ne lit pas, cela se voit tout de suite."
+            : "Niveau lycée, en français : vingt questions sur trois documents, puis une production écrite. Il n'existe pas de palier Canopé au-delà de la fin de 3e.",
+          bloc: 'lecture', test: par('creteil-lycee-gary') });
+        [['3e', 'Le palier de fin de 3e (Musset) : téléchargeable, mais elle ne le donne pas.'],
+         ['4e', 'Puis la fin de 4e (UNICEF).'],
+         ['5e', 'Puis la fin de 5e (Buck).']].forEach(([c, p]) => etapes.push({
+          rang: etapes.length + 1, pourquoi: p, test: par('canope-lecture-' + c), agrafe: true }));
+        etapes.push({ rang: etapes.length + 1,
+          pourquoi: 'À garder sous la main en maths : la fin de 4e.', test: par('canope-maths-4e'), agrafe: true });
+        etapes.push({ rang: etapes.length + 1,
+          pourquoi: 'Puis la fin de 5e.', test: par('canope-maths-5e'), agrafe: true });
+        etapes.push({ rang: etapes.length + 1,
+          pourquoi: 'Et si le cycle 4 est trop dur : la fin de cycle 3.', test: par('canope-maths-c3'), agrafe: true });
+        ['cm2', 'cm1', 'ce2', 'ce1', 'cp'].forEach(c2 => etapes.push({
+          rang: etapes.length + 1,
+          pourquoi: ['ce2', 'ce1', 'cp'].indexOf(c2) >= 0
+            ? 'Le livret du cycle 2 en entier : pour un élève qui lit à peine.'
+            : 'Le livret du cycle 3 en entier.',
+          test: par('canope-lecture-' + c2), agrafe: true }));
+        return;
+      }
       const i = Math.max(0, NIVEAUX.findIndex(n => n.cle === cle));
       /* On descend de DEUX crans, pas d'un seul : le cas vécu (Leila, 6e) est
          fin de 6e trop dur → fin de CM2 → fin de CM1. C'est elle qui juge sur pièce,

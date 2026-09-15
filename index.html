@@ -8,9 +8,14 @@
      s'ouvre déjà verrouillée côté élève, l'accès enseignant se fait par son bouton.
      Le sommaire des supports imprimables vit désormais dans sommaire.html.
      La requête est recopiée pour que les liens « Je continue chez moi » (?devoir=…)
-     continuent de marcher. -->
+     continuent de marcher.
+     Le ?v= ajouté à l'adresse force son téléphone à recharger le fichier au lieu de
+     ressortir l'ancienne version de son cache (14/09 : le menu restait périmé). À
+     incrémenter à chaque fois qu'elle ne voit pas une modification. -->
 <script>
-  location.replace('APPLI%20-%20Espace%20enseignant.dc.html' + (location.search || ''));
+  var q = location.search || '';
+  q = q ? q + '&v=4' : '?v=4';
+  location.replace('APPLI%20-%20Espace%20enseignant.dc.html' + q);
 </script>
 <style>
   body{margin:0;background:#eef2f7;font-family:Archivo,system-ui,sans-serif;color:#6b7386;
@@ -19,6 +24,6 @@
 </style>
 </head>
 <body>
-<p>Ouverture de l'application… <a href="APPLI%20-%20Espace%20enseignant.dc.html">entrer</a> · <a href="sommaire.html">tous les supports</a></p>
+<p>Ouverture de l'application… <a href="APPLI%20-%20Espace%20enseignant.dc.html?v=4">entrer</a> · <a href="sommaire.html">tous les supports</a></p>
 </body>
 </html>

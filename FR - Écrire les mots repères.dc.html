@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+doc-page:not(:defined){visibility:hidden}
+body{margin:0}
+a{color:#1d5c3a}
+a:hover{color:#14213d}
+</style>
+<script src="./doc-page.js"></script>
+</helmet>
+<doc-page size="a4">
+<sc-for list="{{ pages }}" as="p" hint-placeholder-count="2">
+<section class="page" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:12mm 12mm 12mm;box-sizing:border-box;font-family:Helvetica,'Helvetica Neue',Arial,sans-serif;color:#14213d">
+<div style="flex:0 0 auto;display:flex;align-items:flex-end;justify-content:space-between;gap:6mm;border-bottom:1.5px solid #1d5c3a;padding-bottom:3mm;margin-bottom:5mm">
+<div style="display:flex;flex-direction:column;gap:1.5mm">
+<span style="font-size:8.5pt;letter-spacing:0.18em;text-transform:uppercase;color:#8a91a3">Français &middot; UPE2A NSA</span>
+<span style="font-size:16pt;font-weight:700;letter-spacing:-0.01em">{{ titre }}</span>
+</div>
+<div style="display:flex;align-items:flex-end;gap:2.5mm;flex:0 0 auto">
+<span style="font-size:8.5pt;letter-spacing:0.12em;text-transform:uppercase;color:#8a91a3;padding-bottom:1mm">Nom</span>
+<span style="display:block;width:48mm;border-bottom:1.2px solid #b9bdc9;height:6.5mm"></span>
+</div>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:minmax(0,1fr);gap:4mm 5mm">
+<sc-for list="{{ p.cells }}" as="c" hint-placeholder-count="15">
+<div style="display:flex;flex-direction:column;gap:1.5mm;min-height:0;overflow:hidden">
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:3mm">
+<sc-for list="{{ c.images }}" as="im" hint-placeholder-count="1">
+<img src="{{ im.img }}" alt="{{ im.mot }}" style="max-height:100%;max-width:100%;width:auto;height:auto;object-fit:contain;display:block;min-width:0" />
+</sc-for>
+</div>
+<div style="flex:0 0 auto;height:11mm;border-bottom:1.5px solid #14213d"></div>
+</div>
+</sc-for>
+</div>
+<div style="position:absolute;bottom:4mm;left:0;right:0;display:flex;justify-content:center;font-size:9pt;color:#8a91a3">{{ p.num }}</div>
+</section>
+</sc-for>
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:794,&quot;height&quot;:1123},&quot;titre&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;J'écris les mots repères&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Feuille&quot;},&quot;parPage&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:15,&quot;min&quot;:9,&quot;max&quot;:18,&quot;step&quot;:3,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Feuille&quot;}}">
+/* Une case par son. Le c en a deux (carotte /k/ et cerise /s/) : les deux photos
+   partagent la même case et la même ligne d'écriture (demande du 11/09). */
+const MOTS = [
+  ['a','ananas'],['b','ballon'],['c','carotte','cerise'],['d','deux'],['e','melon'],
+  ['f','fenetre'],/* Le h n'a pas de son : case volontairement VIDE, l'élève n'écrit que la lettre (11/09). */
+  ['g','gateau','gilet'],['h'],['i','immeuble'],['j','jaune'],
+  ['k','kiwi'],['l','lit'],['m','moto'],['n','nuage'],['o','ordinateur','pot'],['p','pied'],
+  ['q','quatre'],['r','robot'],['s','salade','rose'],['t','table'],['u','usine'],
+  ['v','velo'],['w','wagon'],['x','xylophone'],['y','yaourt'],['z','zero']
+];
+
+class Component extends DCLogic {
+  renderVals() {
+    const parPage = Math.max(9, Math.min(18, this.props.parPage ?? 15));
+    /* Après la lettre, un ou DEUX noms de fichier : les deux images partagent la case. */
+    const cells = MOTS.map(m => ({
+      lettre: m[0],
+      images: m.slice(1).map(f => ({ mot: f, img: 'clean/mot-' + f + '.png' }))
+    }));
+    const pages = [];
+    for (let i = 0; i < cells.length; i += parPage)
+      pages.push({ num: pages.length + 1, cells: cells.slice(i, i + parPage) });
+    return { pages, titre: this.props.titre ?? "J'écris les mots repères" };
+  }
+}
+</script>
+</body>
+</html>
