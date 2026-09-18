@@ -293,7 +293,11 @@
         if (t[0] === 'lotoPlanche' || t[0] === 'lotoCartes') {
           // un loto jouable : chaque case d'une planche a sa carte
           if (items.length < 6) return;
-          var nbPl = Math.max(1, Math.min(10, o.planches || 4));
+          /* Huit planches par défaut, dix au maximum (18/09) : la classe compte cinq élèves
+             mais une UPE2A reçoit des arrivées toute l'année, et une planche imprimée
+             d'avance ne coûte rien. Le plafond de 10 est celui des graines de mélange
+             ci-dessous : le relever demande d'en vérifier la variété. */
+          var nbPl = Math.max(1, Math.min(10, o.planches || 8));
           var lots2 = [];
           for (var g = 0; g < nbPl; g++) {
             lots2.push(melangeSeed(items.slice(), g + 1).slice(0, 6));

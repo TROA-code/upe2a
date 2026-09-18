@@ -169,10 +169,10 @@ input,select,button{font-family:inherit}
 <div style="flex:1;min-width:0;display:flex;align-items:center;gap:9px;flex-wrap:nowrap;overflow-x:auto">
 <sc-for list="{{ etapesSerie }}" as="e" hint-placeholder-count="3">
 <span style="flex:0 0 auto;font-size:20px;color:#b0b7c2">{{ e.fleche }}</span>
-<span style="display:flex;align-items:center;gap:9px;border:2.5px solid {{ e.bord }};border-radius:12px;background:{{ e.fond }};color:{{ e.encre }};padding:7px 13px;white-space:nowrap;flex:0 0 auto">
+<button onClick="{{ e.aller }}" title="{{ e.infobulle }}" style="display:flex;align-items:center;gap:9px;border:2.5px solid {{ e.bord }};border-radius:12px;background:{{ e.fond }};color:{{ e.encre }};padding:7px 13px;white-space:nowrap;flex:0 0 auto;cursor:pointer;font:inherit" style-hover="border:2.5px solid #f08a24">
 <span style="width:24px;height:24px;border-radius:50%;background:{{ e.pastille }};color:{{ e.encrePastille }};display:flex;align-items:center;justify-content:center;font-family:Archivo Black, Archivo, sans-serif;font-size:13px">{{ e.numero }}</span>
 <span style="font-family:Archivo Black, Archivo, sans-serif;font-size:14px;letter-spacing:0.01em">{{ e.nom }}</span>
-</span>
+</button>
 </sc-for>
 </div>
 </div>
@@ -327,19 +327,19 @@ input,select,button{font-family:inherit}
 </div>
 <span style="flex:0 0 auto;font-size:12.5px;color:#6b7386;line-height:1.45">Clique sur un son pour ouvrir sa page. Pour changer l'ordre, <b>attrape une case et dépose-la</b> à sa place.</span>
 <div style="flex:1;min-height:0;background:#fff;border-radius:10px;box-shadow:0 1px 3px rgba(20,33,61,0.12);padding:12px;overflow:auto">
-<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:9px">
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:8px">
 <sc-for list="{{ listeSons }}" as="s" hint-placeholder-count="8">
-<div draggable="{{ vrai }}" onDragStart="{{ s.glisserDebut }}" onDragOver="{{ s.glisserSur }}" onDragLeave="{{ s.glisserSort }}" onDrop="{{ s.deposer }}" onDragEnd="{{ s.glisserFin }}" style="display:grid;grid-template-columns:20px 14px 1fr 30px 30px;align-items:center;gap:7px;border:1.5px solid {{ s.bord }};border-radius:9px;padding:8px 10px;background:{{ s.fond }};opacity:{{ s.opacite }};cursor:grab">
-<span style="font-size:11.5px;color:#8a91a3">{{ s.rang }}</span>
-<span title="Glisse la case pour changer l'ordre" style="font-size:13px;color:#b9c6d6;line-height:1;letter-spacing:-1px">&#8942;&#8942;</span>
-<button onClick="{{ s.ouvrir }}" title="Ouvrir la page de ce son" style="min-width:0;display:flex;align-items:baseline;gap:7px;border:none;background:none;padding:0;cursor:pointer;text-align:left">
-<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:19px;color:#12233b">{{ s.son }}</span>
-<span style="flex:1;min-width:0;font-size:11px;color:#8a91a3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ s.api }}</span>
-<span style="font-size:12px;color:#1d4e89;font-weight:700">&#8250;</span>
+<div draggable="{{ vrai }}" onDragStart="{{ s.glisserDebut }}" onDragOver="{{ s.glisserSur }}" onDragLeave="{{ s.glisserSort }}" onDrop="{{ s.deposer }}" onDragEnd="{{ s.glisserFin }}" style="position:relative;display:flex;flex-direction:column;align-items:stretch;border:1.5px solid {{ s.bord }};border-radius:10px;background:{{ s.fondFam }};opacity:{{ s.opacite }};cursor:grab;overflow:hidden">
+<div style="display:flex;align-items:center;justify-content:space-between;padding:4px 6px 0">
+<span style="font-size:10px;color:{{ s.encreFam }};font-weight:700">{{ s.rang }}</span>
+<span title="Glisse la case pour changer l'ordre" style="font-size:11px;color:{{ s.encreFam }};opacity:0.75;line-height:1;letter-spacing:-1px">&#8942;&#8942;</span>
+</div>
+<button onClick="{{ s.ouvrir }}" title="Ouvrir la page de ce son" style="min-width:0;display:flex;flex-direction:column;align-items:center;gap:1px;border:none;background:none;padding:2px 6px 9px;cursor:pointer">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:21px;color:{{ s.encreFam }};line-height:1.1">{{ s.son }}</span>
+<span style="font-size:10.5px;color:{{ s.encreFam }};white-space:nowrap">{{ s.api }}</span>
 </button>
-<button onClick="{{ s.dire }}" title="Écouter" style="width:30px;height:30px;border-radius:50%;border:none;background:#f08a24;color:#fff;font-size:12px;cursor:pointer;padding:0">&#9658;</button>
 <sc-if value="{{ s.retirable }}" hint-placeholder-val="{{ false }}">
-<button onClick="{{ s.retirer }}" title="Retirer ce son que tu as ajouté" style="width:30px;height:30px;border-radius:7px;border:1px solid #e8b3ac;background:#fff;color:#c0392b;font-size:15px;cursor:pointer;padding:0">&times;</button>
+<button onClick="{{ s.retirer }}" title="Retirer ce son que tu as ajouté" style="position:absolute;top:2px;right:2px;width:18px;height:18px;border-radius:5px;border:none;background:rgba(255,255,255,0.8);color:#c0392b;font-size:12px;cursor:pointer;padding:0;line-height:1">&times;</button>
 </sc-if>
 </div>
 </sc-for>
@@ -403,19 +403,20 @@ input,select,button{font-family:inherit}
 <sc-if value="{{ sonEstEleve }}" hint-placeholder-val="{{ true }}">
 <div style="display:flex;flex-direction:column;gap:7px;border-top:1px solid #eef1f5;padding-top:9px">
 <div style="display:flex;align-items:baseline;gap:8px">
-<span style="flex:1;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a91a3;font-weight:700">Les six mots</span>
-<button onClick="{{ sonAutreTirage }}" style="border:1px solid #c9cfd8;border-radius:7px;background:#fff;color:#12233b;padding:6px 10px;font-size:11px;cursor:pointer">Autre tirage</button>
+<span style="flex:1;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a91a3;font-weight:700">{{ sonMots6Titre }}</span>
+<button onClick="{{ sonAutreTirage }}" style="border:1px solid #c9cfd8;border-radius:7px;background:#fff;color:#12233b;padding:6px 10px;font-size:11px;cursor:pointer">{{ sonTirageNom }}</button>
 </div>
-<span style="font-size:11px;color:#8a91a3;line-height:1.4">Tirés au hasard parmi les mots illustrés qui portent ce son. La croix remplace un mot.</span>
+<span style="font-size:11px;color:#8a91a3;line-height:1.4">{{ sonMots6Aide }}</span>
 <div style="display:flex;gap:6px;flex-wrap:wrap">
 <sc-for list="{{ sonMots6 }}" as="m6" hint-placeholder-count="0">
-<span style="display:flex;align-items:center;gap:6px;border:1px solid #dde2e9;border-radius:7px;padding:4px 6px 4px 4px">
+<span style="display:flex;align-items:center;gap:6px;border:1px solid #dde2e9;border-radius:7px;padding:4px 6px 4px 4px;opacity:{{ m6.opacite }}">
 <span style="width:22px;height:22px;background-image:url({{ m6.img }});background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
 <span style="font-family:Verdana, Tahoma, sans-serif;font-size:11.5px;color:#12233b">{{ m6.txt }}</span>
-<button onClick="{{ m6.retirer }}" title="Remplacer ce mot" style="border:none;background:none;color:#c0392b;font-size:13px;line-height:1;cursor:pointer;padding:0 2px">&times;</button>
+<button onClick="{{ m6.retirer }}" title="Enlever ce mot de la fiche" style="border:none;background:none;color:#c0392b;font-size:13px;line-height:1;cursor:pointer;padding:0 2px">&times;</button>
 </span>
 </sc-for>
 </div>
+<span style="font-size:11px;color:#6b7386;line-height:1.45">{{ sonMots6Ou }}</span>
 <span style="font-size:11px;color:#8a91a3">{{ sonMots6Info }}</span>
 </div>
 </sc-if>
@@ -509,14 +510,15 @@ input,select,button{font-family:inherit}
 <span style="flex:1;font-size:14.5px;font-weight:700;color:#1d4e89">Les mots des thèmes où on entend ce son</span>
 <span style="font-size:12px;color:#8a91a3">{{ sonMotsResume }}</span>
 </div>
+<span style="font-size:11.5px;color:#6b7386;line-height:1.5">Clique un mot pour le prendre ou le rendre. Les mots retenus sont en vert, six au maximum. Les mots pâles n'ont pas encore de photo.</span>
 <sc-for list="{{ sonMotsThemes }}" as="t" hint-placeholder-count="3">
 <div style="display:flex;flex-direction:column;gap:7px">
 <span style="font-size:11.5px;letter-spacing:0.09em;text-transform:uppercase;color:#c4479e">{{ t.theme }}</span>
 <div style="display:flex;gap:7px;flex-wrap:wrap">
 <sc-for list="{{ t.mots }}" as="m" hint-placeholder-count="4">
-<button onClick="{{ m.dire }}" title="Écouter" style="display:flex;align-items:center;gap:7px;border:1px solid #dde2e9;border-radius:8px;background:#fff;padding:5px 9px;cursor:pointer">
-<span style="font-family:Verdana, Tahoma, sans-serif;font-size:13px;color:#12233b">{{ m.txt }}</span>
-<span style="font-size:9px;color:#f08a24">&#9658;</span>
+<button onClick="{{ m.basculer }}" title="{{ m.infobulle }}" style="display:flex;align-items:center;gap:7px;border:1.5px solid {{ m.bord }};border-radius:8px;background:{{ m.fond }};padding:5px 9px;cursor:{{ m.curseur }};opacity:{{ m.opacite }}">
+<span style="font-family:Verdana, Tahoma, sans-serif;font-size:13px;color:{{ m.encre }}">{{ m.txt }}</span>
+<span style="font-size:11px;font-weight:700;color:{{ m.encreMarque }};line-height:1">{{ m.marque }}</span>
 </button>
 </sc-for>
 </div>
@@ -694,7 +696,7 @@ Le trait d'union sépare les mots</label>
 <div style="flex:0 0 auto;height:3px;border-radius:2px;background:#14213d"></div>
 <div style="flex:1;min-height:0;display:grid;grid-template-columns:{{ alphaColImages }};gap:6px;align-content:start;overflow:auto">
 <sc-for list="{{ alphaImages }}" as="g" hint-placeholder-count="9">
-<button onClick="{{ g.choisir }}" style="border:{{ g.epaisseur }} solid {{ g.bord }};border-radius:10px;background:{{ g.fond }};height:{{ alphaTailleImage }};background-image:{{ g.bg }};background-size:{{ g.taille }};background-repeat:no-repeat;background-position:{{ g.position }};background-origin:content-box;padding:5px;opacity:{{ g.visible }};pointer-events:{{ g.clics }};animation:{{ g.anim }};cursor:pointer"></button>
+<button onClick="{{ g.choisir }}" style="border:{{ g.epaisseur }} solid {{ g.bord }};border-radius:10px;background:{{ g.fond }};height:{{ alphaTailleImage }};background-repeat:no-repeat;background-image:{{ g.bg }};background-size:{{ g.taille }};background-position:{{ g.position }};background-origin:content-box;padding:5px;opacity:{{ g.visible }};pointer-events:{{ g.clics }};animation:{{ g.anim }};cursor:pointer"></button>
 </sc-for>
 </div>
 <div style="flex:0 0 auto;display:flex;align-items:center;gap:26px;border-top:1px solid #e4dfc8;padding:10px 0 12px">
@@ -883,7 +885,10 @@ Le trait d'union sépare les mots</label>
 </div>
 <span style="flex:0 0 auto;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:#8a91a3">{{ compteur }}</span>
 <span style="flex:0 0 auto;font-size:17px;color:#14213d">{{ consigneQuiz }}</span>
-<button onClick="{{ rejouerSon }}" style="flex:0 0 auto;width:74px;height:74px;border-radius:50%;border:none;background:#1d4e89;color:#fff;font-size:30px;cursor:pointer">&#9654;</button>
+<button onClick="{{ rejouerSon }}" style="flex:0 0 auto;display:flex;align-items:center;gap:14px;border:none;border-radius:44px;background:#1682a0;color:#fff;padding:15px 30px 15px 20px;cursor:pointer;font:inherit" style-hover="background:#12697f">
+<span style="width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1">&#9654;</span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:17px;letter-spacing:0.01em">Écouter le mot</span>
+</button>
 <div style="flex:0 0 auto;display:grid;grid-template-columns:{{ colQuiz }};gap:18px;width:100%;max-width:760px">
 <sc-for list="{{ choixQuiz }}" as="c" hint-placeholder-count="4">
 <button onClick="{{ c.cliquer }}" style="border:3px solid {{ c.bord }};border-radius:11px;background:{{ c.fond }};padding:14px 10px;display:flex;align-items:center;justify-content:center;cursor:pointer;min-height:132px">
@@ -1330,6 +1335,7 @@ Le trait d'union sépare les mots</label>
 </sc-if>
 <sc-if value="{{ estFabAtelier }}" hint-placeholder-val="{{ false }}">
 <span style="flex:0 0 auto;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#8a91a3;font-weight:700">Planches de loto</span>
+<span style="flex:0 0 auto;font-size:10.5px;color:#8a91a3">une par joueur &middot; prévois les arrivées</span>
 <div style="flex:0 0 auto;display:flex;border:1.5px solid #c9cfd8;border-radius:8px;overflow:hidden">
 <sc-for list="{{ fabNbPlanches }}" as="n" hint-placeholder-count="4">
 <button onClick="{{ n.choisir }}" style="flex:1;border:none;background:{{ n.fond }};color:{{ n.encre }};padding:8px 4px;font-size:12px;font-weight:700;cursor:pointer">{{ n.nom }}</button>
@@ -1852,10 +1858,10 @@ Le trait d'union sépare les mots</label>
 <span style="flex:0 0 auto;font-size:12.5px;color:#6b7386;line-height:1.5;max-width:640px">Ces documents ne se composent pas page par page : chacun s'ouvre et s'imprime tel quel. À découper et à coller dans le cahier de l'élève.</span>
 <div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px">
 <sc-for list="{{ docsColl }}" as="d" hint-placeholder-count="2">
-<a href="{{ d.url }}" style="min-width:0;display:flex;flex-direction:column;gap:7px;background:#fff;border-radius:14px;box-shadow:0 2px 8px rgba(20,33,61,0.14);padding:16px 17px;text-decoration:none;border-top:5px solid #8a4b1e">
+<a href="{{ d.url }}" target="{{ d.cible }}" onClick="{{ d.ouvrir }}" style="min-width:0;display:flex;flex-direction:column;gap:7px;background:#fff;border-radius:14px;box-shadow:0 2px 8px rgba(20,33,61,0.14);padding:16px 17px;text-decoration:none;border-top:5px solid #8a4b1e">
 <span style="font-family:Archivo Black, Archivo, sans-serif;font-size:13.5px;color:#12233b;line-height:1.35">{{ d.titre }}</span>
 <span style="font-size:12px;color:#6b7386;line-height:1.5">{{ d.detail }}</span>
-<span style="margin-top:2px;font-size:11.5px;font-weight:700;color:#8a4b1e">Ouvrir le document &#8594;</span>
+<span style="margin-top:2px;font-size:11.5px;font-weight:700;color:#8a4b1e">{{ d.action }}</span>
 </a>
 </sc-for>
 </div>
@@ -2300,30 +2306,45 @@ const BANQUE={
  'Les jours':[['lundi','lundi'],['mardi','mardi'],['mercredi','mercredi'],['jeudi','jeudi'],['vendredi','vendredi'],['samedi','samedi'],['dimanche','dimanche']],
  'Les mois':[['janvier','janvier'],['février','fevrier'],['mars','mars'],['avril','avril'],['mai','mai'],['juin','juin'],['juillet','juillet'],['août','aout'],['septembre','septembre'],['octobre','octobre'],['novembre','novembre'],['décembre','decembre']],
  'La météo':[['le soleil','soleil'],['un nuage','nuage'],['la pluie','pluie'],['la neige','neige'],['le vent','vent'],["l'orage",'orage'],['le brouillard','brouillard'],['il fait chaud','chaud'],['il fait froid','froid']],
- 'La maison':[['une maison','maison'],['une porte','porte'],['une table','table'],['une chaise','chaise'],['un lit','lit'],['un livre','livre'],['un mur','mur'],['une lampe','lampe'],['un sac','sac']],
- 'Le lycée':[['un professeur','professeur'],['une salle','salle'],['un tableau','tableau'],['une cantine','cantine'],['une cour','cour'],['un bureau','bureau'],['une chaise','chaise'],['un cahier','cahier'],['une porte','porte']],
- 'Le matériel scolaire':[['un stylo','stylo'],['un crayon','crayon'],['une gomme','gomme'],['une règle','regle'],['un taille-crayon','taille-crayon'],['des ciseaux','ciseaux'],['un feutre','feutre'],['la colle','colle'],['une trousse','trousse']],
+ 'La maison':[['une maison','maison'],['une porte','porte'],['une table','table'],['une chaise','chaise'],['un lit','lit'],['un livre','livre'],['un mur','mur'],['une lampe','lampe'],['un sac','sac'],['une douche','douche'],['une fenêtre','fenetre'],['une assiette','assiette'],['un verre','verre']],
+ 'Le lycée':[['un professeur','professeur'],['une salle','salle'],['un tableau','tableau'],['une cantine','cantine'],['une cour','cour'],['un bureau','bureau'],['une chaise','chaise'],['un cahier','cahier'],['une porte','porte'],['un emploi du temps','emploidutemps'],['une note','note']],
+ 'Le matériel scolaire':[['un stylo','stylo'],['un crayon','crayon'],['une gomme','gomme'],['une règle','regle'],['un taille-crayon','taille-crayon'],['des ciseaux','ciseaux'],['un feutre','feutre'],['la colle','colle'],['une trousse','trousse'],['un surligneur','surligneur'],['un cartable','cartable'],['un classeur','classeur'],['une feuille','feuille'],['un cahier','cahier'],['un livre','livre'],['un tableau','tableau'],['un bureau','bureau'],['une chaise','chaise'],['un ordinateur','ordinateur'],['une poubelle','poubelle']],
  "Le vocabulaire de l'école":[["l'école",'ecole'],['la cour','cour'],['le couloir','couloir'],['la cantine','cantine'],["l'emploi du temps",'emploidutemps'],['un banc','banc'],['une note','note'],['une lettre','lettre'],['le prénom','prenom'],['le nom','nom'],['une question','question'],['une image','image']],
  'Le corps':[['la bouche','bouche'],["l'oreille",'oreille'],['les yeux','yeux'],['les cheveux','cheveux'],['le visage','visage'],['la jambe','jambe'],['la main','main'],['le nez','nez'],['le pied','pied'],['le bras','bras'],['le dos','dos'],['le genou','genou'],['les dents','dents']],
  'Les vêtements':[['un pantalon','pantalon'],['une chemise','chemise'],['une robe','robe'],['une veste','veste'],['un pull','pull'],['une jupe','jupe'],['un manteau','manteau'],['un tee-shirt','teeshirt'],['une chaussure','chaussure'],['une chaussette','chaussette'],['des lunettes','lunettes']],
- 'La ville':[['un magasin','magasin'],['la mairie','mairie'],["l'hôpital",'hopital'],['un hôtel','hotel'],['la pharmacie','pharmacie'],['la poste','poste'],['la banque','banque'],['la gare','gare'],['une usine','usine'],['la ville','ville'],['le marché','marche'],['une poubelle','poubelle']],
- 'Les actions':[['manger','manger'],['boire','boire'],['dormir','dormir'],['courir','courir'],['marcher','marcher'],['lire','lire'],['écrire','ecrire'],['écouter','ecouter'],['parler','parler']],
- 'Les positions':[['dans','dans'],['sur','sur'],['sous','sous'],['devant','devant'],['derrière','derriere'],['entre','entre'],['à gauche','gauche'],['à droite','droite'],['ici','ici']],
+ 'La ville':[['un magasin','magasin'],['la mairie','mairie'],["l'hôpital",'hopital'],['un hôtel','hotel'],['la pharmacie','pharmacie'],['la poste','poste'],['la banque','banque'],['la gare','gare'],['une usine','usine'],['la ville','ville'],['le marché','marche'],['une poubelle','poubelle'],['une rue','rue']],
+ 'Les actions':[['manger','manger'],['boire','boire'],['dormir','dormir'],['courir','courir'],['marcher','marcher'],['lire','lire'],['écrire','ecrire'],['écouter','ecouter'],['parler','parler'],['dessiner','dessiner']],
+ /* Thème créé le 16/09 à sa demande, avec trois photos qui dormaient dans clean/ sans
+    thème. Des NOMS, pas des verbes (« la course », pas « courir ») : le verbe courir est
+    déjà juste au-dessus dans « Les actions », et c'est le nom qu'on emploie pour dire ce
+    qu'on aime — « j'aime la musique ». Ne pas fusionner les deux thèmes.
+    La photo « dessiner » reste orpheline : c'est un verbe, sa place est dans les actions. */
+ 'Les loisirs':[['la course','course'],['la danse','danse'],['la musique','musique']],
+ 'Les positions':[['dans','dans'],['sur','sur'],['sous','sous'],['devant','devant'],['derrière','derriere'],['entre','entre'],['à gauche','gauche'],['à droite','droite'],['ici','ici'],['à côté de','cote']],
  'Les contraires':[['grand','grand'],['petit','petit'],['chaud','chaud'],['froid','froid'],['lourd','lourd'],['léger','leger'],['rapide','rapide'],['lent','lent'],['propre','propre'],['sale','sale']],
  'Les saisons':[['le printemps','printemps'],["l'été",'ete'],["l'automne",'automne'],["l'hiver",'hiver']],
- 'Les fruits':[['une fraise','fraise'],['un kiwi','kiwi'],['un melon','melon'],['une mangue','mangue'],['une figue','figue'],['un ananas','ananas'],['une pastèque','pasteque'],['une prune','prune'],['une pêche','peche'],['un abricot','abricot'],['une framboise','framboise'],['un raisin','raisin']],
- 'Les légumes':[['un poireau','poireau'],['un radis','radis'],['un oignon','oignon'],['une courgette','courgette'],['un haricot','haricot'],['un navet','navet'],['un poivron','poivron'],['un concombre','concombre'],['un chou','chou'],['une betterave','betterave'],['un avocat','avocat'],['un champignon','champignon'],['de la salade','salade']],
- 'Les féculents':[['du pain','pain'],['du riz','riz'],['une pomme de terre','pommedeterre']],
+ /* La banane manquait (16/09), alors que sa photo était là depuis le début. Placée en
+    tête : c'est le fruit le plus universel, celui par lequel on commence.
+    ⚠ Cinq autres fruits ont leur photo dans clean/ et ne sont dans AUCUN thème : pomme,
+    poire, orange, cerise, citron. À ajouter ici quand elle le décidera — ils ne sont pas
+    ajoutés d'office, « orange » est aussi une couleur et « cerise » sert de mot repère
+    du c dans l'alphabet, donc c'est un choix pédagogique, pas un oubli technique. */
+ 'Les fruits':[['une banane','banane'],['une fraise','fraise'],['un kiwi','kiwi'],['un melon','melon'],['une mangue','mangue'],['une figue','figue'],['un ananas','ananas'],['une pastèque','pasteque'],['une prune','prune'],['une pêche','peche'],['un abricot','abricot'],['une framboise','framboise'],['un raisin','raisin'],['une pomme','pomme'],['une poire','poire'],['un citron','citron'],['une orange','orange'],['une clémentine','clementine'],['une cerise','cerise']],
+ 'Les légumes':[['un poireau','poireau'],['un radis','radis'],['un oignon','oignon'],['une courgette','courgette'],['un haricot','haricot'],['un navet','navet'],['un poivron','poivron'],['un concombre','concombre'],['un chou','chou'],['une betterave','betterave'],['un avocat','avocat'],['un champignon','champignon'],['de la salade','salade'],['une tomate','tomate'],['un petit pois','petitpois'],['une aubergine','aubergine'],['un chou-fleur','choufleur'],['une carotte','carotte'],['une pomme de terre','pommedeterre']],
+ /* Pâtes et frites rattachées le 16/09 : leurs photos dormaient dans clean/ sans thème.
+    Les partitifs (du, des) sont voulus — c'est ainsi qu'on en parle à table, et c'est un
+    déterminant qu'ils ne croisent nulle part ailleurs dans les thèmes. */
+ 'Les féculents':[['du pain','pain'],['du riz','riz'],['une pomme de terre','pommedeterre'],['des pâtes','pates'],['des frites','frites']],
  'Les légumineuses':[],
  'La viande, le poisson, les œufs':[['de la viande','viande'],['du poisson','poisson'],['un œuf','oeuf']],
  'Les produits laitiers':[['du lait','lait'],['du fromage','fromage'],['un yaourt','yaourt']],
  'Les matières grasses':[["de l'huile",'huile']],
- 'Les produits sucrés':[['du sucre','sucre'],['un gâteau','gateau'],['un bonbon','bonbon']],
- 'Les boissons':[["de l'eau",'eau'],['du café','cafe']],
+ 'Les produits sucrés':[['du sucre','sucre'],['un gâteau','gateau'],['un bonbon','bonbon'],['du chocolat','chocolat']],
+ 'Les boissons':[["de l'eau",'eau'],['du café','cafe'],['du thé','the']],
  'Les moments du repas':[],
  'À table':[['la table','table'],['une assiette','assiette'],['un verre','verre']],
  'Les couleurs':[['rouge','rouge'],['jaune','jaune'],['bleu','bleu'],['vert','vert-peinture'],['noir','noir'],['blanc','blanc'],['gris','gris'],['orange','orange-peinture'],['marron','marron']],
- 'Les transports':[['un vélo','velo'],['une voiture','voiture'],['un bus','bus'],['un train','train'],['un avion','avion'],['un taxi','taxi'],['un wagon','wagon']],
+ 'Les transports':[['un vélo','velo'],['une voiture','voiture'],['un bus','bus'],['un train','train'],['un avion','avion'],['un taxi','taxi'],['un wagon','wagon'],['un tramway','tramway'],['un camion','camion'],['un bateau','bateau'],['le métro','metro'],['une moto','moto']],
 /* Thème publié le 05/09. 16 métiers de CAP / apprentissage — le coiffeur, le docteur et
    l'informatique réutilisent des images déjà là. Filles sur l'électricité et la soudure. */
  'Les métiers':[['un maçon','macon'],['un peintre','peintre'],['un électricien','electricien'],['un plombier','plombier'],['un menuisier','menuisier'],['un soudeur','soudeur'],['un mécanicien','mecanicien'],['un cuisinier','cuisinier'],['un serveur','serveur'],['un boulanger','boulanger'],['un pâtissier','patissier'],['un vendeur','vendeur'],['un caissier','caissier'],['un magasinier','magasinier'],['un aide-soignant','aidesoignant'],['un agent d\'entretien','agententretien'],['un coiffeur','coiffeur']]
@@ -2374,7 +2395,12 @@ const COLL_DOCS=[
     Format : grandes photos + version muette avec étiquettes-mots à manipuler. À ne pas
     confondre avec la collection « Mes mots », qui sont les fiches de lexique (beaucoup
     de mots par page, petites photos). Les deux séries coexistent volontairement. */
- ['planches','Les planches en images','#c4479e','grandes photos, avec version muette']
+ ['planches','Les planches en images','#c4479e','grandes photos, avec version muette'],
+ /* Les MATHS passent aux livrets (15/09, sa demande) : les feuilles volantes de la
+    collection « Les nombres » sont désormais présentées regroupées dans leur livret, et le
+    diaporama de l'étoile se range à côté. La collection « nombres » (FICHES_SRC) reste en
+    second onglet, pour rouvrir une feuille seule. */
+ ['mathsdocs','Les livrets','#e59a2b','les livrets complets et le diaporama']
 ];
 const DOCS_COLL={
  cursive:[
@@ -2383,7 +2409,12 @@ const DOCS_COLL={
      geste ; 2 mm = cahier ordinaire, celui de tous les autres cahiers du lycée. On bascule
      de l'une à l'autre après une période ou deux. Ne pas en retirer une. */
   ["Étiquettes de graphisme — réglure 3 mm","48 étiquettes cursives sur une A4 paysage, réglure ciel-herbe-terre, la lettre écrite deux fois. Corps de 3 mm : le cahier Seyes agrandi, pour démarrer le geste.","FR - Étiquettes de graphisme (cursive 3 mm).dc.html"],
-  ["Étiquettes de graphisme — réglure 2 mm","Les mêmes 48 étiquettes au corps de 2 mm : la réglure du cahier Seyes ordinaire, celle de tous les autres cahiers du lycée.","FR - Étiquettes de graphisme (cursive 2 mm).dc.html"]
+  ["Étiquettes de graphisme — réglure 2 mm","Les mêmes 48 étiquettes au corps de 2 mm : la réglure du cahier Seyes ordinaire, celle de tous les autres cahiers du lycée.","FR - Étiquettes de graphisme (cursive 2 mm).dc.html"],
+  /* Rangée ici sur sa demande du 17/09. La feuille existait depuis le 11/09 mais n'était
+     dans aucun menu, donc introuvable autrement qu'en ouvrant le fichier. Sa place est à la
+     suite des étiquettes de graphisme : on trace la lettre, puis on écrit le mot repère
+     qui la porte. */
+  ["J’écris les mots repères","Une case par son : la photo du mot repère et la ligne pour écrire le mot. Le c, le g, le o et le s ont leurs deux photos dans la même case ; le h n’en a aucune.","FR - Écrire les mots repères.dc.html"]
  ],
  planches:[
   ["Les métiers","17 métiers. Une version avec le mot sous la photo, une version muette avec les 17 étiquettes-mots à découper et à poser.","FR - Les métiers en images.dc.html"],
@@ -2400,6 +2431,20 @@ const DOCS_COLL={
      une phrase. Ne pas confondre avec « FR - Utilisation des mots outils.dc.html », qui est
      une fiche de consignes sur une scène de restaurant. */
   ["Les mots outils — étiquettes pour le tableau","Format 170 × 71 mm, mot à 60 pt, trois par feuille : à découper, à coller sur carton et à aimanter au tableau. N’imprimer que les familles utiles. Les 14 mots de son affichage en première famille (un, une, le, la, c’est, ne … pas, il est, trop, et, avec, chez, de, elle, tout), puis huit autres familles.","FR - Les mots outils (étiquettes).dc.html"]
+ ],
+ mathsdocs:[
+  ["Livret 1 — Les nombres de 0 à 10","Le livret complet : couverture, référentiel de 0 à 10, les fiches, le bilan et le mémo. C’est lui qui regroupe les feuilles de numération.","MATHS - Livret 1 - Les nombres de 0 à 10.dc.html"],
+  /* Le diaporama se range JUSTE À CÔTÉ du livret 1, sa demande du 15/09 : même domaine,
+     même série — le livret est sur la table, l'étoile est au tableau. */
+  ["L’étoile des nombres — diaporama","34 étoiles à projeter, de 12 à 150. Six branches autour du nombre : juste avant, juste après, la décomposition, les dizaines et les unités, le nombre en lettres, le dessin. Ce qui est donné change d’une étoile à l’autre.","MATHS - L'étoile des nombres (diaporama).dc.html"],
+  ["Livret 1 bis — Tracer les chiffres","Couverture et dix pages, un chiffre par page, de 0 à 9. Le geste du tracé.","MATHS - Livret 1 bis - Tracer les chiffres.dc.html"],
+  ["Livret 2 — Comparer et ranger","Cinq fiches : plus grand, plus petit, ranger du plus petit au plus grand.","MATHS - Livret 2 - Comparer et ranger.dc.html"],
+  /* Le lexique de maths A5 (15/09) : un PDF TROUVÉ PAR ELLE sur un site NSA, gardé TEL QUEL
+     à sa demande — « je garde le livret A5 fourni, insère-le ». J'avais proposé de le
+     refaire en A4 dans le style de l'appli (six cases au registre trop enfantin, deux images
+     filigranées, la « boîte de Fischer » incompréhensible hors école primaire) : elle a
+     tranché pour l'original. Ne pas le remplacer par une refabrication. */
+  ["Lexique de maths — livret A5","Le vocabulaire des consignes en images : partager, comparer, ordonner, encadrer, mesurer, peser. Le code couleur distingue les verbes, les adjectifs et les noms. Deux pages A5 à imprimer.","docs/lexique-maths-a5.pdf"]
  ]
 };
 const GROUPES_COLL={ecriture:[['gestes','Les gestes préparatoires',['ronds','courbes','boucles','ponts']]]};
@@ -2410,9 +2455,13 @@ function toutesCollections(){
   return base.concat(COLL_DOCS, COLL_VIDES);
 }
 const DOMAINES={
-  lexique:['dico','planches'], lecture:['sonsF'],
+  /* Plus de collection « Les sons » ici (16/09) : ses six pages étaient les séances figées
+     de A, I et O, désormais fabriquées depuis l'écran du son — les garder en doublon
+     ramenait les mots d'origine (ananas, banane…) alors que l'écran en propose d'autres.
+     Les fiches de lecture se prennent maintenant dans Lecture → le son → Séance. */
+  lexique:['dico','planches'], lecture:[],
   ecriture:['ronds','courbes','boucles','ponts','lettres','cursive','chiffres'],
-  maths:['nombres']
+  maths:['mathsdocs','nombres']
 };
 function toutesLesFeuilles(){ return SRC_FICHES().pages; }
 const COMPETENCES=[
@@ -2442,7 +2491,11 @@ const COMPETENCES=[
 ];
 const ETATS=[['','À travailler','#f4f6f9','#8a91a3'],['cours','En cours','#fff4e0','#c07a12'],['acquis','Acquis','#e8f7ef','#1c7a52']];
 const LOTS={
- alphabet:{nom:"L'alphabet",items:ALPHA_IMG,series:3},
+ /* ⚠ Le h est ÉCARTÉ DU JEU (15/09) : il n'a pas de mot repère — elle a tranché qu'il n'a
+    pas de son. Il reste dans ALPHA_IMG, donc sur la frise et les fiches où la lettre doit
+    figurer, mais ici il donnait une 9e case BLANCHE, cliquable, impossible à apparier :
+    l'élève cliquait dans le vide. Ne pas le réintroduire sans lui donner une image. */
+ alphabet:{nom:"L'alphabet",items:ALPHA_IMG.filter(x=>x[1]),series:3},
  gc1:{nom:'Graphèmes complexes 1',items:[['ou','chou','CHOU'],['é','epee','ÉPÉE'],['è','regle','RÈGLE'],['au','chaud','CHAUD'],['eu','feu','FEU'],['oi','oiseau','OISEAU'],['ai','lait','LAIT'],['eau','bateau','BATEAU'],['ui','pluie','PLUIE']]},
  gc2:{nom:'Graphèmes complexes 2',items:[['on','bonbon','BONBON'],['an','manteau','MANTEAU'],['in','requin','REQUIN'],['un','un','UN'],['ain','main','MAIN'],['ei','neige','NEIGE'],['ez','nez','NEZ'],['ille','fille','FILLE']]},
  gc3:{nom:'Graphèmes complexes 3',items:[['ch','chat','CHAT'],['ph','phoque','PHOQUE'],['gn','champignon','CHAMPIGNON'],['qu','quatre','QUATRE'],['x','taxi','TAXI'],['y','pyjama','PYJAMA']]},
@@ -2519,7 +2572,25 @@ class Component extends DCLogic {
   }
   motsEdit(){ return this.motsDe(this.state.themeEdit); }
   phrasesEdit(){ return this.phrasesDe(this.state.themeEdit); }
-  ecrireMots(liste){ const t=this.state.themeEdit; this.majPerso(p=>{ p.mots[t]=liste; }); }
+  /* Écrire la liste d'un thème, c'est aussi ENREGISTRER LES RETRAITS : tout mot présent
+     avant et absent après est inscrit dans motsRetires, pour que motsDe ne le rapporte
+     jamais depuis BANQUE. Sans ce registre, un mot qu'elle a écarté reviendrait au premier
+     ajout que je fais dans le thème. Un mot repris à la main ressort du registre. */
+  ecrireMots(liste){
+    const t=this.state.themeEdit;
+    const avant=this.motsDe(t);
+    const cle=m=>String(m[1]||m[0]).toLowerCase();
+    const reste={}; liste.forEach(m=>{ reste[cle(m)]=1; });
+    const partis=avant.filter(m=>!reste[cle(m)]).map(cle);
+    this.majPerso(p=>{
+      p.mots[t]=liste;
+      const r=new Set(((p.motsRetires||{})[t])||[]);
+      partis.forEach(k=>r.add(k));
+      liste.forEach(m=>r.delete(cle(m)));
+      p.motsRetires=Object.assign({}, p.motsRetires||{});
+      p.motsRetires[t]=[...r];
+    });
+  }
   ecrirePhrases(liste){ const t=this.state.themeEdit; this.majPerso(p=>{ p.phrases[t]=liste; }); }
   ajouterMotImage(fichier){
     const t=this.state.themeEdit, mot=(this.state.nvMot||'').trim();
@@ -2678,17 +2749,42 @@ class Component extends DCLogic {
   chargerPerso(){
     try{ const b=localStorage.getItem('upe2a-themes-perso');
       if(b){ const o=JSON.parse(b); if(o&&typeof o==='object')
-        return {themes:o.themes||[],mots:o.mots||{},phrases:o.phrases||{},imgs:o.imgs||{},jeux:o.jeux||{}}; } }catch(e){}
-    return {themes:[],mots:{},phrases:{},imgs:{},jeux:{}};
+        return {themes:o.themes||[],mots:o.mots||{},phrases:o.phrases||{},imgs:o.imgs||{},jeux:o.jeux||{},motsRetires:o.motsRetires||{}}; } }catch(e){}
+    return {themes:[],mots:{},phrases:{},imgs:{},jeux:{},motsRetires:{}};
   }
   majPerso(fn){
-    const base=this.state.perso||{themes:[],mots:{},phrases:{},imgs:{},jeux:{}};
-    const n={themes:[...base.themes],mots:{...base.mots},phrases:{...base.phrases},imgs:{...base.imgs},jeux:{...(base.jeux||{})}};
+    const base=this.state.perso||{themes:[],mots:{},phrases:{},imgs:{},jeux:{},motsRetires:{}};
+    const n={themes:[...base.themes],mots:{...base.mots},phrases:{...base.phrases},imgs:{...base.imgs},jeux:{...(base.jeux||{})},motsRetires:{...(base.motsRetires||{})}};
     fn(n);
     try{ localStorage.setItem('upe2a-themes-perso',JSON.stringify(n)); }catch(e){}
     this.setState({perso:n});
   }
-  motsDe(t){ const p=this.state.perso||{}; return (p.mots&&p.mots[t])||BANQUE[t]||[]; }
+  /* ⚠ SA LISTE + LES MOTS NOUVEAUX DU CODE (16/09). Avant, une liste personnalisée
+     REMPLAÇAIT celle du code : dès qu'elle avait touché un thème dans les réglages, ce
+     thème était gelé pour toujours et plus rien de ce que j'y ajoutais ne lui parvenait —
+     c'est ainsi que « une banane », ajoutée aux fruits, est restée invisible chez elle.
+     Désormais : SA liste d'abord, dans SON ordre, puis en queue les mots de BANQUE qu'elle
+     ne contient pas. Sa liste reste maîtresse, elle s'allonge par le bas.
+     Ce qu'elle a explicitement RETIRÉ ne revient pas : la croix des réglages inscrit le
+     mot dans perso.motsRetires (voir retirerMot). La distinction est tout l'enjeu — un mot
+     qu'elle a refusé n'est pas un mot qu'elle n'a jamais vu.
+     ⚠ Les suppressions faites AVANT le 16/09 n'ont pas été mémorisées (le registre
+     n'existait pas) : ces mots-là réapparaissent une fois, elle les retire à nouveau, et
+     c'est définitif. Prévenue. */
+  motsDe(t){
+    const p=this.state.perso||{};
+    const sienne=(p.mots&&p.mots[t])||null;
+    const code=BANQUE[t]||[];
+    if(!sienne) return code;
+    const retires=((p.motsRetires||{})[t])||[];
+    const vus={};
+    sienne.forEach(m=>{ vus[String(m[1]||m[0]).toLowerCase()]=1; });
+    const ajouts=code.filter(m=>{
+      const k=String(m[1]||m[0]).toLowerCase();
+      return !vus[k] && retires.indexOf(k)<0;
+    });
+    return ajouts.length?sienne.concat(ajouts):sienne;
+  }
   phrasesDe(t){ const p=this.state.perso||{}; return (p.phrases&&p.phrases[t])||PHRASES[t]||[]; }
   tousThemes(){ const p=this.state.perso||{}; return [...Object.keys(BANQUE),...((p.themes)||[]).filter(n=>!BANQUE[n])]; }
   srcImg(f){
@@ -2880,7 +2976,7 @@ class Component extends DCLogic {
     const items=brut.map(([txt,cle])=>[txt,this.srcImg(cle)]);
     const t={}; t[type]=true;
     const pages=G.build({theme, items, niveau:niv, types:t, interligne:inter,
-      planches:this.state.fabPlanches||4, modele:this.state.fabModele!==false});
+      planches:this.state.fabPlanches||8, modele:this.state.fabModele!==false});
     pages.forEach(pg=>{ this._genCache[pg.id]=pg; });
     return this._genCache[id]||null;
   }
@@ -2982,13 +3078,22 @@ class Component extends DCLogic {
     const brut=phrases?this.phrasesDe(theme):this.motsDe(theme);
     const items=brut.map(([txt,cle])=>[txt,this.srcImg(cle)]);
     return G.build({theme, items, niveau:phrases?'phrases':'mots',
-      planches:s.fabPlanches||4,
+      planches:s.fabPlanches||8,
       types:this.fabTypesActifs(),
       interligne:s.fabInterligne||'moyen', modele:s.fabModele!==false});
   }
   cleLot(f){
     const m=(f.id||'').match(/^gen-([^-]*)-([^-]*)/);
     if(m) return 'gen-'+m[1]+'-'+m[2];
+    /* ⚠ LES SÉANCES DE PHONOLOGIE RECOPIÉES FONT DEUX PAGES (16/09 : « pour les fiches de
+       sons, je t'avais demandé de voir les 2 pages »). Leurs noms — « Son A · J'entends »
+       puis « Son A · Je lis et syllabes » — n'ont aucun suffixe numérique commun, donc la
+       règle générale plus bas les séparait en deux fiches d'une page : l'aperçu n'en montrait
+       qu'une, et cocher la fiche n'en mettait qu'une au panier. On regroupe donc sur le son,
+       avant tout le reste. L'ORDRE DES PAGES vient de fiches-source.js, où « J'entends »
+       précède « Je lis et syllabes » — ne pas trier par nom, ça inverserait la séance. */
+    const so=String(f.nom||'').match(/^\s*(Son\s+\S+)\s*·/i);
+    if(so && f.coll==='sonsF') return 'sonsF|'+so[1];
     let b=String(f.nom||'').trim();
     b=b.replace(/\s*—\s*(tracé|mots)$/i,'');
     b=b.replace(/\s+(planches|cartes|étiquettes)\s+\d+$/i,' $1');
@@ -3079,6 +3184,19 @@ class Component extends DCLogic {
   /* Le mot de passe qu'elle choisit dans les réglages doit SURVIVRE AU RECHARGEMENT
      (15/09 : « j'ai changé le mot de passe et ça marche pas »). Il ne vivait qu'en état,
      donc l'appli reprenait « ecole76! » à chaque ouverture et le nouveau était refusé. */
+  /* Le jeton d'aperçu n'est pas toujours dans l'URL de CETTE page : l'appli tourne dans un
+     cadre, et c'est la page qui la contient qui le porte. On regarde donc la page courante,
+     puis la page parente, puis le sommet — le premier endroit où il y a une requête gagne.
+     Sans lui, un document ouvert dans un nouvel onglet affiche « preview token required ». */
+  jeton(){
+    try{
+      for(const w of [window, window.parent, window.top]){
+        const q = w && w.location && w.location.search;
+        if(q && q.length>1) return q;
+      }
+    }catch(e){}
+    return '';
+  }
   chargerMdp(){
     try{ const v=localStorage.getItem('upe2a-mdp-prof'); if(v) return v; }catch(e){}
     return 'ecole76!';
@@ -3177,7 +3295,7 @@ class Component extends DCLogic {
     this.setState({repondu:true,score:s.score+(bon?1:0),
       retour:bon?'Bravo !':'On dit : '+it.bonne,
       quiz:s.quiz.map((x,i)=>i===s.qi?{...x,reussi:bon}:x)});
-    setTimeout(()=>this.dire(bon?'Bravo. '+it.bonne:'On dit : '+it.bonne),250);
+    setTimeout(()=>this.dire(bon?'Bravo ! '+it.bonne:'Non. On dit : '+it.bonne),250);
   }
   suivanteSituation(){
     const s=this.state;
@@ -3330,9 +3448,15 @@ class Component extends DCLogic {
     const aff=it.affirmation||(it.phrase||'').replace(/\s*\?$/,'.');
     const nom=aff.replace(/^(C'est|Ce sont)\s+/i,'').replace(/[.?]$/,'');
     const pas=(/^Ce sont/i.test(aff)||/^(les|des)\s/i.test(nom)?'Ce ne sont pas ':'Ce n\u2019est pas ')+nom+'. ';
-    const dit = bon
-      ? (it.vrai ? 'Oui. '+aff : 'Non. '+pas+it.correct)
-      : (it.vrai ? 'Regarde bien. '+aff : 'Regarde bien. '+pas+it.correct);
+    /* Même retour oral que dans « Je trouve l'image » (15/09) : bravo si c'est juste, la
+       correction sinon — et dans les deux cas la bonne réponse derrière.
+       ⚠ Le préfixe dépend de la RÉUSSITE, jamais de la véracité de la phrase : quand
+       l'affirmation est fausse et que l'élève clique FAUX à raison, il a bon. La version
+       d'avant commençait alors par « Non. », donc félicitait à l'envers et contredisait le
+       « Bravo ! » affiché à l'écran sur la même ligne.
+       ⚠ Et pas « essaie encore » : la réponse est donnée dans la même phrase, il n'y a
+       rien à réessayer (sa remarque du 15/09). */
+    const dit = (bon ? 'Bravo ! ' : 'Non. ') + (it.vrai ? aff : pas+it.correct);
     setTimeout(()=>this.dire(dit),250);
   }
   suivanteVF(){
@@ -3346,6 +3470,14 @@ class Component extends DCLogic {
     const bon=mot===s.quiz[s.qi].cible[0];
     this.setState({repondu:true,score:s.score+(bon?1:0),retour:bon?'Bravo !':'La bonne réponse était : '+s.quiz[s.qi].cible[0],
       quiz:s.quiz.map((x,i)=>i===s.qi?{...x,reussi:bon}:x)});
+    /* Retour ORAL de la réponse (15/09) : « si je clique correctement, je veux entendre
+       bravo et sinon, essaie encore ». L'écrit seul ne sert à rien à un élève qui ne lit
+       pas encore.
+       ⚠ PAS « essaie encore » quand on donne la réponse dans la même phrase (sa remarque
+       du 15/09) : la réponse est révélée et l'exercice passe au mot suivant, il n'y a rien
+       à réessayer. On corrige — « Non. C'est le micro. » Si un vrai second essai est
+       ajouté un jour, alors seulement « essaie encore » redevient juste. */
+    setTimeout(()=>this.dire(bon?'Bravo !':'Non. C’est '+s.quiz[s.qi].cible[0]+'.'),250);
   }
   suivante(){
     const s=this.state;
@@ -3581,26 +3713,70 @@ class Component extends DCLogic {
     const suiv=(i>=0&&i<prog.length-1)?prog[i+1]:prog[0];
     const reperes=(f?f.reperes:[]).map(r=>({mot:r[0], img:'clean/mot-'+r[1]+'.png',
       aPhoto:LS?LS.aPhoto(r[1]):false, sansPhoto:LS?!LS.aPhoto(r[1]):true}));
-    const pagesS=LS?LS.pagesSeance(cle):[];
-    /* Fiches et jeux du son : même geste que dans Lexique — trois familles.
-       Les séances A, I et O recopiées à la main ne sont pas regénérées. */
+    /* ⚠ LES SÉANCES A, I ET O NE SONT PLUS FIGÉES (16/09, son choix explicite). Elles
+       étaient recopiées en dur dans fiches-source.js (ANANAS, BANANE, SALADE, CAROTTE,
+       AVOCAT, GÂTEAU pour le son A) et l'écran affichait ces pages telles quelles : le
+       choix des mots juste au-dessus ne les touchait pas, on lisait « gare, abricot,
+       wagon » dans le panneau et « ananas, banane, salade » sur la fiche. Trois sons sur
+       tous n'obéissaient pas aux réglages — c'est ce qui l'a fait tourner en rond.
+       On force donc la fabrication partout. `LS.pagesSeance` existe toujours (les pages
+       restent dans fiches-source.js) mais n'est plus consultée ici : ne pas la rebrancher
+       sans rétablir l'incohérence. La collection « Les sons » des documents est retirée
+       dans le même mouvement, sinon les anciennes fiches y traînaient en doublon. */
+    const pagesS=[];
     const G=window.FICHES_THEMES, SF=window.SONS_FICHES;
     const fam=(s.sonFamille==='lien')?'lien':'eleve';
     const coche=k=>(s.sonTypes||{})[k]!==false;
     const idxSon=LS?LS.SONS.findIndex(x=>x.cle===cle):-1;
     const slugSon='s'+(idxSon<0?0:idxSon);
     const banque=[], vusB={};
-    this.tousThemes().forEach(t=>(this.motsDe(t)||[]).forEach(m=>{
+    /* ⚠ « L'ALPHABET » SE PARCOURT EN DERNIER, ET SEULEMENT EN RECOURS (16/09).
+       Ce n'est pas un thème de lexique mais la table des mots repères : le libellé y est la
+       LETTRE et le fichier le mot (['a','ananas'], ['r','robot']). Deux erreurs successives
+       sont venues de là — la photo d'un robot légendée « R », puis, quand j'ai dérivé le
+       libellé du nom de fichier, « FENETRE » imprimé sans accent parce que ce libellé de
+       secours écrasait le « une fenêtre » du vrai thème.
+       La règle est donc d'ordre, pas d'arbitrage : les vrais thèmes d'abord, avec leur
+       libellé soigné ; l'alphabet ensuite, uniquement pour les photos qu'aucun thème ne
+       fournit (ballon, deux, immeuble, quatre, robot, xylophone, zéro), et alors le nom du
+       fichier sert de libellé — sans article, comme sur ses fiches (« ANANAS »).
+       Le dédoublonnage se fait sur la PHOTO : depuis qu'un mot figure dans deux thèmes, la
+       même image y porte parfois deux noms (« un emploi du temps » / « l'emploi du temps »),
+       et en garder deux ferait imprimer deux fois la même photo.
+       Le 3e élément garde le SLUG : srcImg() rend une URL (ou un blob pour une photo
+       importée), inutilisable comme identité. C'est lui, et lui seul, qui identifie un mot
+       dans toute la chaîne (sélection, liste par thèmes, fiches). */
+    const ALPHA="L'alphabet";
+    const tousT=this.tousThemes();
+    tousT.filter(t=>t!==ALPHA).concat(tousT.filter(t=>t===ALPHA))
+      .forEach(t=>(this.motsDe(t)||[]).forEach(m=>{
       if(!m||!m[1]) return;
-      const k=String(m[0]).toLowerCase();
+      const k=String(m[1]).toLowerCase();
       if(vusB[k]) return; vusB[k]=1;
-      banque.push([m[0], this.srcImg(m[1])]);
+      const lib=(t===ALPHA)?String(m[1]).replace(/-/g,' '):m[0];
+      banque.push([lib, this.srcImg(m[1]), m[1]]);
     }));
     const seed=(s.sonSeed||{})[cle]||0;
     const retires=(s.sonRetires||{})[cle]||[];
     const tir=SF?SF.tirer(cle, banque, seed, 6+retires.length+4, 4)
       :{mots:[],intrus:[],totalDispo:0};
-    const mots6=tir.mots.filter(m=>retires.indexOf(m[0])<0).slice(0,6);
+    /* ⚠ ELLE CHOISIT LES MOTS ELLE-MÊME (16/09 : « plutôt que autre tirage, offre-moi la
+       possibilité de choisir les mots. Je connais mes élèves, je sais ce qu'ils
+       connaissent »). Deux régimes :
+         · sonChoix[cle] VIDE   → tirage au hasard, comme avant (bon défaut : la fiche
+           existe sans rien régler) ;
+         · sonChoix[cle] REMPLI → sa liste, dans SON ordre d'ajout, et le hasard ne s'en
+           mêle plus. Le premier clic (croix ou +) fait basculer d'un régime à l'autre en
+           reprenant les mots affichés, pour ne jamais repartir de zéro.
+       La liste garde les mots EN TEXTE, pas les paires [mot, image] : la banque est
+       reconstruite à chaque rendu, une référence d'objet ne survivrait pas. */
+    /* ⚠ LA SÉLECTION EST UNE LISTE DE SLUGS, jamais de libellés (16/09) : deux thèmes
+       peuvent donner le même libellé à deux photos différentes (le « c » de carotte et
+       celui de cerise dans l'alphabet), et un libellé ne désigne donc rien de sûr. */
+    const choix=(s.sonChoix||{})[cle]||[];
+    const mots6=choix.length
+      ? choix.map(sl=>banque.find(m=>m[2]===sl)).filter(Boolean).slice(0,6)
+      : tir.mots.filter(m=>retires.indexOf(m[0])<0).slice(0,6);
     const motsSon=banque.filter(m=>LS&&LS.contient(cle, SF?SF.sansArticle(m[0]):m[0]))
       .filter(m=>!(LS.ecarte&&LS.ecarte(m[0])));
     const typesSonActifs={};
@@ -3631,10 +3807,57 @@ class Component extends DCLogic {
     if(LS && f){
       this.tousThemes().forEach(t=>{
         // même règle que le tirage : on écoute le mot, pas son déterminant
-        const mots=(this.motsDe(t)||[]).map(m=>m[0])
-          .filter(m=>LS.contient(cle, SF?SF.sansArticle(m):m))
-          .filter(m=>!(LS.ecarte&&LS.ecarte(m)));
-        if(mots.length) groupes.push({theme:t, mots:mots.map(m=>({txt:m, dire:()=>this.dire(m)}))});
+        /* ⚠ ON GARDE LES PAIRES [libellé, photo], pas seulement le libellé (16/09). Depuis
+           qu'un même mot figure dans deux thèmes (cerise dans l'alphabet ET dans les
+           fruits), deux libellés différents peuvent désigner LA MÊME PHOTO — « un emploi du
+           temps » dans Le lycée, « l'emploi du temps » dans Le vocabulaire de l'école. La
+           sélection se fait donc sur la PHOTO : cliquer l'un met les deux en vert, et la
+           séance fabriquée ne peut plus montrer deux fois la même image sous deux noms.
+           Chaque thème garde son libellé à l'affichage. */
+        const mots=(this.motsDe(t)||[])
+          .filter(m=>m&&m[0]&&m[1])
+          .filter(m=>LS.contient(cle, SF?SF.sansArticle(m[0]):m[0]))
+          .filter(m=>!(LS.ecarte&&LS.ecarte(m[0])));
+        /* ⚠ C'EST ICI QU'ELLE CHOISIT LES MOTS (16/09). Cette liste par thèmes était en
+           lecture seule (un ▶ pour écouter) et je lui avais ajouté au-dessus une seconde
+           liste à plat de 50 mots : « redondant ». Elle a tranché — une seule liste, celle
+           des thèmes, et « je me fiche totalement d'écouter ». Donc le ▶ a disparu et le
+           clic prend ou rend le mot ; les mots retenus sont EN VERT, dans la liste même.
+           Ne pas réintroduire une liste de choix séparée.
+           Un mot SANS PHOTO ne peut pas entrer dans une fiche (les exercices montrent des
+           images) : il reste affiché, grisé, non cliquable — le dire est plus utile que le
+           cacher, ça montre quelles photos manquent. */
+        /* ⚠ MÊME CONDITION DE GRISÉ QUE LE BLOC DU HAUT : quand les mots n'alimentent
+           aucune fiche (séance décochée, ou son dont la séance est une page recopiée), le
+           vert ne doit PAS clamer « ceci part sur le papier ». Elle a fait corriger deux
+           fois cette incohérence — les deux listes obéissent désormais à `sert`. */
+        const sert=coche('seance');
+        if(mots.length) groupes.push({theme:t, mots:mots.map(paireTheme=>{
+          const m=paireTheme[0], slug=paireTheme[1];
+          const paire=banque.find(b=>b[2]===slug);
+          const pris=mots6.some(x=>x[2]===slug);
+          const plein=mots6.length>=6;
+          const bloque=!paire || (plein && !pris);
+          return {
+            /* Le libellé vient de la banque quand elle en a un meilleur : dans le groupe
+               « L'alphabet », la puce montre « ananas » et non la lettre « a ». */
+            txt:(paire&&paire[0])||m,
+            marque:pris?'✓':(paire?'+':''),
+            bord:pris?'#2a9d6e':'#dde2e9',
+            fond:pris?'#e8f7ef':'#fff',
+            encre:pris?'#1c7a52':'#12233b',
+            encreMarque:pris?'#2a9d6e':'#b9c6d6',
+            opacite:(!paire)?'0.4':(!sert?'0.45':((plein&&!pris)?'0.55':'1')),
+            curseur:bloque?'not-allowed':'pointer',
+            infobulle:!paire?'Ce mot n’a pas encore de photo'
+              :(pris?'Enlever ce mot':(plein?'Six mots au maximum : enlève-en un d’abord':'Prendre ce mot')),
+            basculer: bloque ? null : ()=>this.setState(pr=>{
+              const c=Object.assign({},pr.sonChoix||{});
+              const base=(c[cle]&&c[cle].length)?c[cle]:mots6.map(x=>x[2]);
+              c[cle]=pris?base.filter(sl=>sl!==slug):(base.length<6?[...base,slug]:base);
+              return {sonChoix:c};
+            })};
+        })});
       });
     }
     const nbMots=groupes.reduce((n,g)=>n+g.mots.length,0);
@@ -3702,22 +3925,70 @@ class Component extends DCLogic {
               return {sonTypes:n};
             })};
         }),
+      /* ⚠ LES SIX PUCES SE GRISENT QUAND ELLES N'ALIMENTENT AUCUNE FICHE (16/09 : « ces mots
+         ne sont pas grisés, or ils ne se trouvent pas dans la fiche, ce n'est pas
+         cohérent »). Même code visuel que les boutons « + » inactifs juste en dessous : le
+         gris dit « ceci ne va pas sur le papier ». La condition est la même que
+         sonMots6Sert — les deux doivent rester d'accord. */
       sonMots6:mots6.map(m=>({txt:SF?SF.sansArticle(m[0]):m[0], img:m[1],
+        opacite:(coche('seance') && !pagesS.length)?'1':'0.45',
+        /* La croix ENLÈVE le mot, elle ne le remplace plus par un autre tiré au hasard :
+           elle veut décider, pas subir une substitution. */
         retirer:()=>this.setState(pr=>{
-          const r=Object.assign({},pr.sonRetires||{});
-          r[cle]=[...(r[cle]||[]), m[0]];
-          return {sonRetires:r};
+          const c=Object.assign({},pr.sonChoix||{});
+          const base=(c[cle]&&c[cle].length)?c[cle]:mots6.map(x=>x[2]);
+          c[cle]=base.filter(sl=>sl!==m[2]);
+          return {sonChoix:c};
         })})),
+      /* Les mots en plus s'affichent EN DESSOUS (sa consigne) : tous les mots illustrés qui
+         portent ce son et qui ne sont pas déjà dans la fiche. Un clic les ajoute. */
+      /* La liste à plat des « autres mots » a été SUPPRIMÉE le 16/09 (« redondant ») : on
+         choisit dans la liste par thèmes, plus bas, et nulle part ailleurs. Ce renvoi est
+         tout ce qui reste ici. Ne pas recréer une seconde liste de mots. */
+      sonMots6Ou:mots6.length>=6
+        ? 'Six mots au maximum. Pour en changer, enlève-en un ici puis prends-en un autre dans les thèmes, en bas de page.'
+        : 'Prends les mots dans la liste par thèmes, en bas de page.',
+      sonTirageNom:choix.length?'Revenir au hasard':'Autre tirage',
+      /* ⚠ CES MOTS NE VONT PAS TOUJOURS DANS UNE FICHE (16/09 : « c'est écrit les mots de la
+         fiche, or il ne s'agit pas du tout des mots de la fiche »). Ils n'alimentent QUE la
+         séance de phonologie fabriquée. Deux cas où ils ne servent à rien, et où le titre
+         mentait :
+           · sons A, I et O → la séance affichée est une page RECOPIÉE (fiches-source.js),
+             figée, que le tirage ne touche pas — voir `if(pagesS.length) t2.seance=false` ;
+           · seule « combinatoire » cochée → pageCombinatoire() ne prend aucun mot.
+         D'où un titre neutre (« Mes mots pour ce son ») et une aide qui dit franchement où
+         ils atterrissent. Ne pas revenir à « les mots de la fiche ». */
+      /* Depuis le 16/09 la séance est fabriquée pour TOUS les sons : la seule raison pour
+         que ces mots ne servent à rien est la case « Séance de phonologie » décochée. */
+      sonMots6Sert:coche('seance'),
+      sonMots6Titre:'Mes mots pour ce son',
+      sonMots6Aide:(()=>{
+        const sert=coche('seance');
+        if(!sert) return 'Coche « Séance de phonologie » pour que ces mots entrent dans une fiche. Pour l’instant ils servent au jeu de la maison des sons et à l’oral.';
+        /* Ne parler NI d'une « liste en dessous » (supprimée le 16/09) ni d'un choix qui se
+           ferait ici : la phrase suivante, sonMots6Ou, renvoie déjà aux thèmes. */
+        return choix.length
+          ? 'Ta sélection, reprise dans la séance de phonologie. La croix enlève un mot.'
+          : 'Tirés au hasard parmi les mots illustrés qui portent ce son, et repris dans la séance de phonologie.';
+      })(),
       sonMots6Info:(()=>{
         const n=tir.totalDispo||0;
         if(!n) return 'Aucun mot illustré ne porte ce son : il faut d’abord des photos.';
+        /* En manuel le compte n'est pas un manque mais un choix : ne pas dire « seulement ». */
+        if(choix.length) return mots6.length+' mot'+(mots6.length>1?'s':'')+' sur la fiche · '
+          +n+' mot'+(n>1?'s':'')+' illustré'+(n>1?'s':'')+' portent ce son.';
         if(mots6.length<6) return 'Seulement '+mots6.length+' mot'+(mots6.length>1?'s':'')+' disponible'+(mots6.length>1?'s':'')+' sur 6.';
         return n+' mots illustrés portent ce son.';
       })(),
+      /* Le bouton fait les deux : s'il y a une sélection à la main, il l'efface et rend la
+         main au hasard ; sinon il relance le tirage. Sans cette porte de sortie, une fois
+         passée en manuel elle ne pourrait plus revenir. */
       sonAutreTirage:()=>this.setState(pr=>{
+        const c=Object.assign({},pr.sonChoix||{});
+        if((c[cle]||[]).length){ c[cle]=[]; return {sonChoix:c}; }
         const sd=Object.assign({},pr.sonSeed||{}), r=Object.assign({},pr.sonRetires||{});
         sd[cle]=((sd[cle]||0)+1)%97; r[cle]=[];
-        return {sonSeed:sd, sonRetires:r};
+        return {sonSeed:sd, sonRetires:r, sonChoix:c};
       }),
       sonVignettes:lotsSon.map(l=>{
         const ids=l.pages.map(p=>p.id);
@@ -4326,6 +4597,13 @@ class Component extends DCLogic {
           :(/^Trouve|^Remets|^Compl/.test(t)?('Je '+t.charAt(0).toLowerCase()+t.slice(1))
           :(/^Écris|^Écoute/.test(t)?("J'"+t.charAt(0).toLowerCase()+t.slice(1)):t));
         return {
+          /* Le fil des étapes est CLIQUABLE (15/09) : « je voudrais passer directement sur
+             le 2, je connais déjà tous les mots ». On saute à n'importe quelle étape, en
+             avant comme en arrière — l'exercice sauté ne compte simplement pas dans le
+             score de la série. Ne pas remettre un simple <span> : l'élève qui connaît le
+             lexique était obligé de traverser « J'explore les mots » à chaque fois. */
+          aller:()=>{ if(i!==idx) this.lancerEtape(i); },
+          infobulle:i===idx?'Tu y es':(fait?'Revenir à cette étape':'Aller directement à cette étape'),
           nom, fleche:(!this.tel()&&i)?'→':'', numero:fait?'✓':String(i+1),
           fond:encours?'#1d4e89':(fait?'#e8f7ef':'#fff'),
           bord:encours?'#1d4e89':(fait?'#2a9d6e':'#ccd4de'),
@@ -4338,6 +4616,23 @@ class Component extends DCLogic {
       listeSons:(s.sons||SONS_INIT).map((son,i)=>({
         son, rang:i+1,
         api:(()=>{const LS=window.LECTURE_SONS, f=LS&&LS.sonDe(son); return f?f.api:'';})(),
+        /* ⚠ UNE COULEUR PAR FAMILLE DE SON (16/09 : « pourquoi les cases sont si grandes ?
+           petite case colorée »). Les cases s'étaient vidées quand le bouton d'écoute a été
+           retiré : plus rien ne remplissait la largeur. Elles sont donc resserrées ET
+           colorées — voyelle bleu, nasale violet, consonne orange brûlé. La couleur porte
+           une information, elle n'est pas décorative : on voit d'un coup d'œil la nature du
+           son dans la progression. Les trois familles viennent de lecture-sons.js. */
+        ...(()=>{
+          const LS=window.LECTURE_SONS, f=LS&&LS.sonDe(son);
+          const T={voyelle:['#eaf1f9','#1d4e89'], nasale:['#f1ecf8','#6d5bd0'], consonne:['#fdeee6','#c1440e']};
+          const c=T[(f&&f.famille)||'']||['#f4f6f9','#8a91a3'];
+          return {fondFam:c[0], encreFam:c[1]};
+        })(),
+        /* Plus de bouton « écouter le son » sur cette ligne (16/09 : « je me contre-fiche
+           d'écouter le son, je les connais »). Ce gros rond orange occupait la place la
+           plus visible de la ligne pour la fonction la moins utile de l'écran, et redoublait
+           le rond orange d'écoute d'ailleurs. La ligne sert à OUVRIR le son : c'est le seul
+           geste qui reste. `dire` existe toujours sur l'écran du son lui-même. */
         ouvrir:()=>this.setState({ecran:'son',sonCle:son}),
         // un son de la progression de départ ne se retire pas : il se déplace
         retirable:!SONS_INIT.includes(son),
@@ -4427,12 +4722,30 @@ class Component extends DCLogic {
       alphaImages:(()=>{
         const lot=this.lotAlpha(), tr=s.trouves||[];
         const err=(s.errParLettre||{})[s.lettreSel]||0;
-        const melange=this._ordreAlpha&&this._ordreAlpha.length===lot.length&&this._ordreCle===(s.alphaMode+s.alphaSerie)
+        /* ⚠ LA CLÉ DU MÉLANGE DOIT DÉCRIRE LE LOT, PAS SEULEMENT LE MODE ET LA SÉRIE
+           (18/09 : « je suis dans alphabet 1 élève, il manque l'image pour le A »). Elle
+           était `alphaMode + alphaSerie` : deux lots DIFFÉRENTS de même longueur — la
+           série 1 de l'alphabet et « Graphèmes complexes 1 » font neuf items chacune —
+           partageaient le même ordre en cache. On affichait alors les images d'un lot avec
+           les lettres de l'autre : une case impossible à apparier, et une lettre sans image
+           nulle part. Le symptôme vu était l'ananas absent et une case blanche à la place.
+           La clé inclut donc les lettres elles-mêmes : tout changement de contenu, de lot,
+           de série ou de filtrage refait le mélange. Ne pas la raccourcir. */
+        const cleOrdre=(s.alphaLot||'alphabet')+'|'+s.alphaMode+'|'+(s.alphaSerie||0)
+          +'|'+lot.map(x=>x[0]).join(',');
+        const melange=(this._ordreAlpha&&this._ordreCle===cleOrdre)
           ? this._ordreAlpha
-          : (this._ordreCle=s.alphaMode+s.alphaSerie, this._ordreAlpha=this.melange(lot));
+          : (this._ordreCle=cleOrdre, this._ordreAlpha=this.melange(lot));
         return melange.map(([l,f,mot,f2])=>({
           l,
           bg:!f?'none':(f2?"url('clean/mot-"+f+".png'), url('clean/mot-"+f2+".png')":"url('clean/mot-"+f+".png')"),
+          /* Ces deux valeurs sont TOUJOURS définies : c'est ici, et nulle part ailleurs, que
+             le cadrage des images est garanti. Ne pas essayer de doubler `background-size`
+             dans le gabarit « au cas où » : le style d'un DC devient un objet, deux clés
+             identiques ne coexistent pas et la seconde écrase la première — le prétendu
+             repli disparaît à la construction de l'objet. (Tentative faite le 15/09 après
+             qu'elle a vu, sur le site en ligne, des images en mosaïque et rognées ; la
+             cause de CE symptôme reste à établir, il ne se reproduit pas ici.) */
           taille:f2?'48% auto, 48% auto':'contain',
           position:f2?'left center, right center':'center',
           visible:tr.includes(l)?'0':'1',
@@ -4516,8 +4829,14 @@ class Component extends DCLogic {
       }),
       estFabLien:(s.fabFamille||'eleve')==='lien',
       estFabAtelier:(s.fabFamille||'eleve')==='atelier',
-      fabNbPlanches:[2,4,6,8].map(k=>{
-        const on=(s.fabPlanches||4)===k;
+      /* ⚠ HUIT PAR DÉFAUT, JUSQU'À 10 (18/09 : « ne mets pas 5 par défaut car d'autres
+         élèves vont arriver — je pense que je vais en faire directement 8, mais laisse-moi la
+         possibilité de choisir, y compris 10 »). Cinq est le nombre d'élèves d'AUJOURD'HUI ;
+         une UPE2A reçoit des arrivées toute l'année, et une planche imprimée d'avance ne coûte
+         rien alors qu'un loto à refaire en cours d'année, si. `build` plafonne à 10 (dix
+         graines de mélange) : ne pas proposer plus ici sans relever ce plafond. */
+      fabNbPlanches:[4,5,6,8,10].map(k=>{
+        const on=(s.fabPlanches||8)===k;
         return {nom:String(k), fond:on?'#1d4e89':'#fff', encre:on?'#fff':'#6b7386',
           choisir:()=>this.setState({fabPlanches:k})};
       }),
@@ -4701,7 +5020,36 @@ class Component extends DCLogic {
          ni vignettes, ni bouton Imprimer — chaque document s'imprime depuis sa propre page. */
       aDocsColl:!!DOCS_COLL[s.outilsColl],
       pasDocsColl:!DOCS_COLL[s.outilsColl],
-      docsColl:(DOCS_COLL[s.outilsColl]||[]).map(([titre,detail,url])=>({titre,detail,url:encodeURI(url)})),
+      /* La requête de la page courante est recopiée sur chaque lien : sans elle, un document
+         ouvert depuis l'aperçu n'a pas le jeton et n'affiche que « preview token required ».
+         Indispensable depuis qu'un PDF figure dans une collection (le lexique de maths). */
+      /* ⚠ UN PDF S'OUVRE DANS UN NOUVEL ONGLET, pas dans l'aperçu (15/09) : Chrome refuse
+         d'afficher un PDF dans un cadre et rend la page « bloquée par Chrome ». C'est ce
+         qu'elle a vu sur le lexique de maths. Les documents .dc.html, eux, restent dans
+         l'onglet courant. */
+      docsColl:(DOCS_COLL[s.outilsColl]||[]).map(([titre,detail,url])=>{
+        const pdf=/\.pdf$/i.test(url);
+        return {titre,detail,cible:pdf?'_blank':'_self',url:encodeURI(url)+this.jeton(),
+          action: pdf?'Télécharger le PDF \u2193':'Ouvrir le document \u2192',
+          /* ⚠ UN PDF SE TÉLÉCHARGE, IL NE S'AFFICHE PAS (15/09, après trois essais) : Chrome
+             refuse un PDF dans un cadre, un nouvel onglet n'emporte pas le jeton d'aperçu
+             (« preview token required », page porteuse d'une autre origine), et l'ouverture
+             d'une adresse blob: depuis un cadre est bloquée (ERR_BLOCKED_BY_CLIENT). Seul le
+             téléchargement passe : on récupère le fichier là où l'accès est valide, puis on
+             le remet à l'utilisatrice. Elle l'ouvre ensuite dans son lecteur, qui imprime
+             mieux que le navigateur. Ne pas « simplifier » en un <a href> nu. */
+          ouvrir: pdf ? async (ev)=>{
+            ev.preventDefault();
+            try{
+              const r=await fetch(encodeURI(url)); if(!r.ok) throw 0;
+              const u=URL.createObjectURL(await r.blob());
+              const a=document.createElement('a');
+              a.href=u; a.download=url.split('/').pop();
+              document.body.appendChild(a); a.click(); a.remove();
+              setTimeout(()=>URL.revokeObjectURL(u),60000);
+            }catch(e){ window.open(encodeURI(url)+this.jeton(),'_blank'); }
+          } : null};
+      }),
       aCasesOutils:['lettres','chiffres'].includes(s.outilsColl),
       libelleCasesOutils:s.outilsColl==='chiffres'?'Coche un chiffre — sa fiche apparaît, prête à imprimer':'Coche une lettre — sa fiche apparaît, prête à imprimer',
       casesOutils:(()=>{

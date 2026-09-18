@@ -388,7 +388,8 @@
          temps la grille prend toute la largeur. Elle défile en interne : la grille ne doit
          jamais bouger, et un panneau ouvert dépasse forcément la hauteur de l'écran. -->
     <sc-if value="{{ coteVisible }}" hint-placeholder-val="{{ false }}">
-    <div class="edt-ecran" style="display:flex;flex-direction:column;gap:14px;min-width:0;min-height:{{ minPapier }};height:{{ hauteurCote }};overflow:{{ defileCote }}">
+    <div onClick="{{ fermerVoile }}" class="edt-ecran" style="display:flex;flex-direction:column;justify-content:{{ centreCote }};align-items:{{ centreCote }};gap:14px;min-width:0;min-height:{{ minPapier }};height:{{ hauteurCote }};overflow:{{ defileCote }};position:{{ posCote }};inset:{{ insetCote }};z-index:{{ zCote }};background:{{ voileCote }};padding:{{ padCote }};box-sizing:border-box">
+      <div onClick="{{ rienCote }}" style="display:flex;flex-direction:column;gap:14px;width:100%;max-width:{{ maxCote }};min-width:0;max-height:100%;overflow:{{ defileDedans }}">
       <sc-if value="{{ p }}" hint-placeholder-val="{{ false }}">
         <div style="background:#fff;border:2px solid {{ p.trait }};border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:14px;min-width:0">
           <div style="display:flex;gap:12px;align-items:flex-start;justify-content:space-between">
@@ -517,6 +518,7 @@
       </div>
       </sc-if>
 
+      </div>
     </div>
     </sc-if>
   </div>
@@ -909,8 +911,28 @@ class Component extends DCLogic {
     v.minPapier = s.large ? '0' : 'auto';
     v.hauteurPapier = s.large ? '100%' : 'none';
     v.defilePapier = s.large ? 'auto' : 'visible';
-    v.hauteurCote = s.large ? '100%' : 'auto';
-    v.defileCote = s.large ? 'auto' : 'visible';
+    v.hauteurCote = s.large ? '100%' : '100%';
+    v.defileCote = s.large ? 'auto' : 'auto';
+    /* ⚠ SOUS 1080 px, LE PANNEAU S'AFFICHE EN SURIMPRESSION (18/09 : « j'ai cliqué sur le
+       document et il ne se passe rien »). Il passait alors sous la grille, dans une colonne
+       unique : en plein écran — la racine est `position:fixed; overflow:hidden` — il était
+       simplement hors de l'écran, et le bouton « Documents » paraissait mort. Il ÉTAIT rendu,
+       avec le bon contenu ; personne ne pouvait le voir.
+       À côté de la grille dès qu'il y a la place (≥ 1080 px), en fiche flottante sinon :
+       ne pas revenir à un panneau empilé sous la grille, il est inatteignable en projection. */
+    const flot = !s.large;
+    v.posCote = flot ? 'fixed' : 'static';
+    v.insetCote = flot ? '0' : 'auto';
+    v.zCote = flot ? '110' : 'auto';
+    v.voileCote = flot ? 'rgba(28,36,48,.45)' : 'transparent';
+    v.padCote = flot ? '18px' : '0';
+    v.centreCote = flot ? 'center' : 'stretch';
+    v.maxCote = flot ? '520px' : 'none';
+    v.defileDedans = flot ? 'auto' : 'visible';
+    /* Cliquer le voile referme, comme la fenêtre de modification ; le clic sur la fiche
+       elle-même ne doit pas remonter jusque-là. */
+    v.fermerVoile = flot ? (() => this.setState({ sel: '', edition: false, reglages: false })) : (() => {});
+    v.rienCote = (ev) => { ev.stopPropagation(); };
     v.defileCorps = s.large ? 'hidden' : 'auto';
 
     const dateCourte = (jour) => {
@@ -1180,7 +1202,10 @@ class Component extends DCLogic {
     v.ferieDuJour = ferie(jourOuvert) ? jourOuvert + ' : ' + ferie(jourOuvert) + ' — pas de classe.' : '';
     v.journee = liste.filter(c => c.jour === jourOuvert).map(c => {
       const dom = DOM[c.domaine] || {};
-      const r = E.ressourcesDe(c).length + ((base.liens || {})[c.id] || []).length;
+      /* La date réelle du créneau, pour que le compteur ne promette pas un document daté
+         d'un autre jour (18/09). */
+      const r = E.ressourcesDe(c, E.iso(E.dateDuJour(lundi, c.jour))).length
+        + ((base.liens || {})[c.id] || []).length;
       return {
         id: c.id, debut: c.debut, fin: c.fin, titre: c.titre, detail: c.detail || '',
         pied: (dom.nom || '') + (r ? ' · ' + r + (r > 1 ? ' documents' : ' document') : ''),
@@ -1577,8 +1602,13 @@ class Component extends DCLogic {
         : '',
       fermer: () => this.setState({ sel: '', edition: false }),
 
-      ressources: E.ressourcesDe(c).map(r => ({
-        nom: r.nom, href: r.f, cible: '_blank', retirable: false, icone: '\uD83D\uDCC4',
+      /* ⚠ JAMAIS target="_blank" POUR UN DOCUMENT DE L'APPLI (déjà noté le 14/09 ailleurs,
+         revu ici le 18/09 : « je clique sur les repas et je vois required »). Un fichier du
+         projet ouvert dans un nouvel onglet sort du cadre de l'application et l'hôte refuse
+         la navigation. On reste dans le même cadre ; seuls les liens externes qu'elle colle
+         elle-même gardent `_blank`, juste en dessous. */
+      ressources: E.ressourcesDe(c, E.iso(d)).map(r => ({
+        nom: r.nom, href: r.f, cible: '', retirable: false, icone: '\uD83D\uDCC4',
         retirer: () => {}
       })).concat(propres.map((r, i) => ({
         nom: r.nom || r.url, href: r.url, cible: '_blank', retirable: true,
@@ -1588,7 +1618,7 @@ class Component extends DCLogic {
           b.liens[c.id] = (b.liens[c.id] || []).filter((x, k) => k !== i);
         })
       }))),
-      sansRessource: !E.ressourcesDe(c).length && !propres.length,
+      sansRessource: !E.ressourcesDe(c, E.iso(d)).length && !propres.length,
       nvNom: s.nvNom, nvLien: s.nvLien,
       setNvNom: (e) => this.setState({ nvNom: e.target.value }),
       setNvLien: (e) => this.setState({ nvLien: e.target.value }),

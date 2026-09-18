@@ -195,7 +195,11 @@
       { nom: 'Les repas — livret 3', f: 'FR - Livret 3 - Les repas.dc.html' }
     ],
     'vendredi-litteracie': [
-      { nom: 'Les repas — livret 3', f: 'FR - Livret 3 - Les repas.dc.html' }
+      { nom: 'Les repas — livret 3', f: 'FR - Livret 3 - Les repas.dc.html' },
+      /* Accroché au 18/09/2026 à sa demande, et à CETTE date seule : le diaporama « Au
+         restaurant » qu'elle a envoyé ce jour-là. `date` en ISO — voir ressourcesDe(). */
+      { nom: 'Diaporama — Au restaurant', f: 'FR - Diaporama - Au restaurant.dc.html',
+        date: '2026-09-18' }
     ],
     'lundi-rituel': [
       { nom: 'Se présenter — cartes', f: 'CARTE - se présenter.dc.html' }
@@ -232,9 +236,16 @@
   }
 
   /* Les ressources d'un créneau : celles rattachées au jour précis d'abord
-     (`lundi-litteracie`), sinon celles du créneau commun (`atelier-lecture`). */
-  function ressourcesDe(c) {
-    return (RESSOURCES[c.id] || RESSOURCES[c.cle] || []).slice();
+     (`lundi-litteracie`), sinon celles du créneau commun (`atelier-lecture`).
+     ⚠ UNE RESSOURCE PEUT ÊTRE DATÉE (18/09/2026 : « tu l'accroches sur mon emploi du temps
+     d'aujourd'hui en date du 18 septembre »). Sans cela, un document rattaché à un créneau
+     y apparaît TOUTES les semaines — le diaporama d'une séance précise se serait affiché
+     les 36 vendredis de l'année. Une entrée qui porte `date` (ISO) ne sort donc que ce
+     jour-là. `iso` est la date réelle du créneau affiché ; quand l'appelant ne la donne pas
+     (compteurs, vues sans calendrier), on garde tout plutôt que de cacher un document. */
+  function ressourcesDe(c, iso) {
+    return (RESSOURCES[c.id] || RESSOURCES[c.cle] || [])
+      .filter(r => !r.date || !iso || r.date === iso);
   }
 
   const minutes = (h) => {
