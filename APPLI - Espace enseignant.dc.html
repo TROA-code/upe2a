@@ -211,7 +211,7 @@ input,select,button{font-family:inherit}
 <img src="clean/fenetre.png" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;top:18px;left:24px;width:250px;height:auto;z-index:0;filter:drop-shadow(0 6px 14px rgba(0,0,0,0.2))" />
 <img src="clean/plante.png" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;bottom:0;left:8px;width:190px;height:auto;z-index:1" />
 </sc-if>
-<div style="position:relative;z-index:2;flex:0 0 auto;width:100%;max-width:{{ largeurAccueil }};margin:auto {{ margeAccueil }} auto auto;box-sizing:border-box;display:grid;grid-template-columns:{{ colAccueil }};gap:18px">
+<div style="position:relative;z-index:2;flex:0 0 auto;width:100%;max-width:{{ largeurAccueil }};margin:0 {{ margeAccueil }} auto auto;box-sizing:border-box;display:grid;grid-template-columns:{{ colAccueil }};gap:18px">
 <button onClick="{{ ouvrirSemaine }}" style="box-shadow:0 12px 28px rgba(0,0,0,0.3);background-image:url('clean/liege.png');background-size:100% 100%;background-repeat:no-repeat;border:none;padding:15px 15px 18px;display:flex;flex-direction:column;align-items:center;gap:11px;cursor:pointer" style-hover="transform:translateY(-3px)">
 <span style="position:relative;background:#fdf3c4;padding:8px 16px;transform:rotate(-0.7deg);box-shadow:0 4px 10px rgba(0,0,0,0.3);display:block">
 <span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:block"></span>
@@ -5929,8 +5929,14 @@ class Component extends DCLogic {
       /* 4 tuiles : une seule ligne quand il y a vraiment la place, sinon 2×2.
          ⚠ Jamais 3 + 1 — le quatrième tableau restait seul sur une deuxième ligne
          (sa capture du 19/09). L'auto-fit le faisait dès qu'il y avait 3 colonnes. */
-      colAccueil:this.tel()?'minmax(0,1fr)':((this.state.largeur||1200)>=1320?'repeat(4,minmax(0,1fr))':'repeat(2,minmax(0,1fr))'),
-      largeurAccueil:this.tel()?'100%':((this.state.largeur||1200)>=1320?'min(1000px, 100% - 300px)':'min(620px, 100% - 300px)'),
+      /* ⚠ LES QUATRE TABLEAUX DOIVENT TENIR SUR LEUR LIGNE (20/09 : « pourquoi je n'ai que
+         2 tableaux au lieu de 4 !! »). Un tableau ne descend pas en dessous de ~277 px :
+         quatre colonnes réclament donc ~1200 px de grille, et la largeur était plafonnée à
+         1000 px — la ligne débordait à droite et les tableaux des deux bords sortaient de
+         l'écran. Le seuil passe à 1400 px et la grille à 1200 px.
+         ⚠ Jamais 3 + 1 — le quatrième restait seul sur une deuxième ligne (19/09). */
+      colAccueil:this.tel()?'minmax(0,1fr)':((this.state.largeur||1200)>=1400?'repeat(4,minmax(0,1fr))':'repeat(2,minmax(0,1fr))'),
+      largeurAccueil:this.tel()?'100%':((this.state.largeur||1200)>=1400?'min(1200px, 100% - 260px)':'min(620px, 100% - 300px)'),
       margeAccueil:this.tel()?'0':'40px',
       colApercu:'repeat(3,minmax(0,1fr))',
       colThemes:this.tel()?'repeat(2,minmax(0,1fr))':'repeat(5,minmax(0,1fr))',

@@ -22,6 +22,13 @@ sur la carte (alternance), le descriptif officiel du CAP au clic, le circuit du 
 ⚠ **Le curseur violet dans ses images vient de la capture d'écran, pas de Gemini.** Lui
 rappeler le bouton de téléchargement plutôt que de rattraper après coup.
 
+⚠ **LES QUATRE TABLEAUX DE L'ACCUEIL ÉLÈVE** (20/09, « pourquoi je n'ai que 2 tableaux au
+lieu de 4 !! ») : une tuile ne descend pas sous ~277 px, donc **quatre de front seulement
+à partir de 1400 px** (grille 1200 px) ; en dessous, 2 × 2 ; sur téléphone, une colonne.
+La grille est **calée en haut** et non centrée : en `margin:auto` vertical, le débordement
+passait au-dessus dans une zone qui défile et devenait inatteignable. Vérifié à 420, 820,
+924 px.
+
 ## ✅ LES 21 FICHES MÉTIER ONT TOUTES LEUR PHOTO (19/09)
 
 Les cinq dernières cases vides de `ORIENTATION - Mon avenir au Havre.html` sont remplies :
