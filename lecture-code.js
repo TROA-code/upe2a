@@ -243,7 +243,7 @@ function motHTML(brut, opt){
     if(!p.rep) return txt;
     return '<span style="position:relative;display:inline-block">'+
       '<span style="position:absolute;left:50%;bottom:100%;transform:translateX(-50%);width:7mm;height:7mm;'+
-      'background-image:url(\'clean/mot-'+p.rep[2]+'.png\');background-size:contain;background-repeat:no-repeat;'+
+      'background-image:url(\'clean/mot-'+p.rep[2]+'.webp\');background-size:contain;background-repeat:no-repeat;'+
       'background-position:bottom center;display:block"></span>'+txt+'</span>';
   });
   // regroupement par syllabe : l'arc épouse exactement la largeur de sa syllabe
@@ -298,5 +298,5 @@ function doutesTexte(texte){
 }
 
 window.LECTURE_CODE={REPERES, GRAPHIES, COUL_A, COUL_B, COUL_MUET, analyser, motHTML, texteHTML, doutesTexte,
-  imageDe:g=>{const r=repereDe(g)[0]; return r?'clean/mot-'+r[2]+'.png':'';}};
+  imageDe:g=>{const r=repereDe(g)[0]; return r?'clean/mot-'+r[2]+'.webp':'';}};
 })();

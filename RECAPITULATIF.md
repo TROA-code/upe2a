@@ -21,7 +21,7 @@ Couverture rouge brique pour le français, vert forêt pour les maths.
 - **Espace enseignant** — `APPLI - Espace enseignant.dc.html` — application : 4 champs, exercices, paramétrage, bilans, alphabet en 3 volets, progression des sons
 
 ## Images
-Dossier `clean/` — environ 290 fichiers `mot-<mot>.png`, largeur max 1000 px, fond blanc.
+Dossier `clean/` — environ 290 fichiers `mot-<mot>.webp`, largeur max 1000 px, fond blanc.
 
 ## Comment ouvrir
 Décompresse le dossier entier, garde `clean/` à côté des fichiers HTML, puis double-clique sur un `.html`.

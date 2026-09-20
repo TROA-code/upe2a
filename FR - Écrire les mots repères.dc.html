@@ -64,7 +64,7 @@ class Component extends DCLogic {
     /* Après la lettre, un ou DEUX noms de fichier : les deux images partagent la case. */
     const cells = MOTS.map(m => ({
       lettre: m[0],
-      images: m.slice(1).map(f => ({ mot: f, img: 'clean/mot-' + f + '.png' }))
+      images: m.slice(1).map(f => ({ mot: f, img: 'clean/mot-' + f + '.webp' }))
     }));
     const pages = [];
     for (let i = 0; i < cells.length; i += parPage)

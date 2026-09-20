@@ -49,7 +49,7 @@ const T=[
 ];
 
 const SONS=T.map(r=>({cle:r[0], api:r[1], graphies:r[2], reperes:r[3],
-  geste:r[4]?'clean/geste-son-'+r[4]+'.png':'', seance:r[5], famille:r[6]}));
+  geste:r[4]?'clean/geste-son-'+r[4]+'.webp':'', seance:r[5], famille:r[6]}));
 const MAP={}; SONS.forEach(x=>{ MAP[x.cle]=x; });
 
 // toutes les graphies connues, du plus long au plus court : « eau » gagne sur « e »
@@ -346,5 +346,5 @@ function pageFluence(opts){
 window.LECTURE_SONS={SONS, MAP, sonDe:c=>MAP[c]||null, contient, decouper,
   pagesSeance, pageTexte, pageFluence, ecarte,
   aPhoto:f=>PRESENTES.has(f),
-  imageRepere:f=>'clean/mot-'+f+'.png'};
+  imageRepere:f=>'clean/mot-'+f+'.webp'};
 })();

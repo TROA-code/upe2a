@@ -156,7 +156,7 @@ class Component extends DCLogic {
     const son=(u.son||'on').toLowerCase();
     const LS=window.LECTURE_SONS, f=LS?LS.sonDe(son):null;
     const lire=t=>String(t||'').split(',').map(x=>x.split('|')).filter(x=>x[0]&&x[1])
-      .map(x=>[x[0], x[1].indexOf('/')>=0?x[1]:('clean/mot-'+x[1]+'.png')]);
+      .map(x=>[x[0], x[1].indexOf('/')>=0?x[1]:('clean/mot-'+x[1]+'.webp')]);
     const mots=lire(u.mots), intrus=lire(u.intrus);
     return {son, api:f?f.api:'['+son+']',
       graphies:f?f.graphies:[son],
@@ -179,7 +179,7 @@ class Component extends DCLogic {
   estRepere(it){
     const LS=window.LECTURE_SONS, f=LS&&LS.sonDe(this.state.son);
     const reps=(f&&f.reperes)||[];
-    return reps.some(r=>String(it[1]).indexOf('mot-'+r[1]+'.png')>=0
+    return reps.some(r=>String(it[1]).indexOf('mot-'+r[1]+'.webp')>=0
       || this.sansArticle(it[0]).toLowerCase()===this.sansArticle(r[0]).toLowerCase());
   }
   /* Banque vraiment mêlée : tirage au sort une seule fois, à l'ouverture et à chaque
@@ -278,7 +278,7 @@ class Component extends DCLogic {
       score:dansMaison.length+' / '+aTrouver,
       repereImg:(()=>{ const LS=window.LECTURE_SONS, f=LS&&LS.sonDe(s.son);
         const r=f&&(f.reperes||[])[0];
-        return (r&&LS.aPhoto(r[1]))?('clean/mot-'+r[1]+'.png'):''; })(),
+        return (r&&LS.aPhoto(r[1]))?('clean/mot-'+r[1]+'.webp'):''; })(),
       repereMot:(()=>{ const LS=window.LECTURE_SONS, f=LS&&LS.sonDe(s.son);
         const r=f&&(f.reperes||[])[0]; return r?r[0]:''; })(),
       aRepere:(()=>{ const LS=window.LECTURE_SONS, f=LS&&LS.sonDe(s.son);
@@ -330,13 +330,13 @@ class Component extends DCLogic {
 }
 // [ON] par défaut : uniquement des mots dont la photo existe dans clean/
 // neuf mots : la maison a neuf emplacements
-const DEFAUT_ON=[['un violon','clean/mot-violon.png'],['un ballon','clean/mot-ballon.png'],
- ['un pantalon','clean/mot-pantalon.png'],['un melon','clean/mot-melon.png'],
- ['un citron','clean/mot-citron.png'],['un poisson','clean/mot-poisson.png'],
- ['une maison','clean/mot-maison.png'],['un garçon','clean/mot-garcon.png'],
- ['un camion','clean/mot-camion.png']];
-const DEFAUT_INTRUS=[['une pomme','clean/mot-pomme.png'],['un lit','clean/mot-lit.png'],
- ['une table','clean/mot-table.png'],['un chat','clean/mot-chat.png']];
+const DEFAUT_ON=[['un violon','clean/mot-violon.webp'],['un ballon','clean/mot-ballon.webp'],
+ ['un pantalon','clean/mot-pantalon.webp'],['un melon','clean/mot-melon.webp'],
+ ['un citron','clean/mot-citron.webp'],['un poisson','clean/mot-poisson.webp'],
+ ['une maison','clean/mot-maison.webp'],['un garçon','clean/mot-garcon.webp'],
+ ['un camion','clean/mot-camion.webp']];
+const DEFAUT_INTRUS=[['une pomme','clean/mot-pomme.webp'],['un lit','clean/mot-lit.webp'],
+ ['une table','clean/mot-table.webp'],['un chat','clean/mot-chat.webp']];
 </script>
 </body>
 </html>

@@ -163,7 +163,7 @@ button{font-family:inherit;cursor:pointer;color:inherit}
    plan de rues n'apprend rien à un élève qui ne lit pas encore une carte, et elle se
    répétait sur les 20 fiches. La géographie reste sur la grande carte du premier écran,
    qui a l'échelle, les cinq lycées et la mer. Ne pas la remettre. */
-/* « Où je travaille » : les lieux de la banque clean/lieu-*.png, photo + mot.
+/* « Où je travaille » : les lieux de la banque clean/lieu-*.webp, photo + mot.
    Cases fixes : la photo ne dicte pas la hauteur de la ligne. */
 .bloc-titre{font-family:'Archivo Black',Verdana,sans-serif;font-size:14px;letter-spacing:0.04em;text-transform:uppercase;color:var(--ink);margin-bottom:7px}
 /* ⚠ CASES BORNÉES À 170 px : sans le plafond, une case seule prenait toute la largeur et
@@ -382,39 +382,39 @@ const LYCEES = [
   { id:'lavoisier', nom:'Lycée Lavoisier', court:'Lavoisier', couleur:'var(--lavoisier)',
     lat:49.526143, lon:0.098575, adresse:'51 rue des Moteaux', quartier:'Bléville',
     metiers:[
-      { nom:'MÉCANICIEN\nVOITURES', photo:P+'mot-mecanicien.png', phrase:"Je répare les voitures. Je regarde le moteur, les freins et les pneus.", diplome:'CAP', officiel:'Maintenance des véhicules, option A voitures particulières (VP)', trajet:'En bus' },
-      { nom:'MÉCANICIEN\nCAMIONS', photo:P+'mot-mecaniciencamion.png', phrase:"Je répare les camions. Je travaille sur des gros moteurs.", diplome:'CAP', officiel:'Maintenance des véhicules, option C véhicules de transport routier (VTR)', trajet:'En bus' },
-      { nom:'CHAUDRONNIER\nSOUDEUR', photo:P+'mot-soudeur.png', phrase:"Je coupe, je plie et je soude le métal.", diplome:'CAP', officiel:'Réalisations industrielles en chaudronnerie ou soudage (RICS)', trajet:'En bus' }
+      { nom:'MÉCANICIEN\nVOITURES', photo:P+'mot-mecanicien.webp', phrase:"Je répare les voitures. Je regarde le moteur, les freins et les pneus.", diplome:'CAP', officiel:'Maintenance des véhicules, option A voitures particulières (VP)', trajet:'En bus' },
+      { nom:'MÉCANICIEN\nCAMIONS', photo:P+'mot-mecaniciencamion.webp', phrase:"Je répare les camions. Je travaille sur des gros moteurs.", diplome:'CAP', officiel:'Maintenance des véhicules, option C véhicules de transport routier (VTR)', trajet:'En bus' },
+      { nom:'CHAUDRONNIER\nSOUDEUR', photo:P+'mot-soudeur.webp', phrase:"Je coupe, je plie et je soude le métal.", diplome:'CAP', officiel:'Réalisations industrielles en chaudronnerie ou soudage (RICS)', trajet:'En bus' }
     ] },
   { id:'erea', nom:'EREA Maurice Genevoix', court:'EREA Genevoix', couleur:'var(--erea)',
     lat:49.514209, lon:0.10071, adresse:'94 rue Colette', quartier:'Mont-Gaillard',
     metiers:[
-      { nom:'MAÇON', photo:P+'mot-macon.png', phrase:"Je construis des murs. Je pose des briques et du béton.", diplome:'CAP', officiel:'Maçon (MAC)', trajet:'En bus',
+      { nom:'MAÇON', photo:P+'mot-macon.webp', phrase:"Je construis des murs. Je pose des briques et du béton.", diplome:'CAP', officiel:'Maçon (MAC)', trajet:'En bus',
         officielTexte:"Le titulaire du CAP maçon réalise des maçonneries brutes ou apparentes en blocs de béton, briques et moellons et conçoit des coffrages. Il réalise aussi des enduits horizontaux, verticaux et chapes." },
-      { nom:'PEINTRE', photo:P+'mot-peintre.png', phrase:"Je peins les murs. Je pose aussi du papier peint.", diplome:'CAP', officiel:'Peintre et applicateur de revêtements (PAR)', trajet:'En bus' },
-      { nom:'MÉTALLIER', photo:P+'mot-soudeur.png', phrase:"Je soude le métal. Je fabrique des portails et des grilles.", diplome:'CAP', officiel:'Métallerie (MET)', trajet:'En bus' },
-      { nom:'AGENT DE\nMAINTENANCE', photo:P+'mot-maintenancebatiment.png', phrase:"Je répare dans les bâtiments : l’eau, l’électricité, les petits travaux.", diplome:'CAP', officiel:'Intervention en maintenance technique des bâtiments (IMTB)', trajet:'En bus' },
-      { nom:'AGENT DE\nPROPRETÉ', photo:P+'mot-agententretien.png', phrase:"Je nettoie les locaux avec des machines professionnelles.", diplome:'CAP', officiel:'Agent de propreté et d’hygiène (APH)', trajet:'En bus' }
+      { nom:'PEINTRE', photo:P+'mot-peintre.webp', phrase:"Je peins les murs. Je pose aussi du papier peint.", diplome:'CAP', officiel:'Peintre et applicateur de revêtements (PAR)', trajet:'En bus' },
+      { nom:'MÉTALLIER', photo:P+'mot-soudeur.webp', phrase:"Je soude le métal. Je fabrique des portails et des grilles.", diplome:'CAP', officiel:'Métallerie (MET)', trajet:'En bus' },
+      { nom:'AGENT DE\nMAINTENANCE', photo:P+'mot-maintenancebatiment.webp', phrase:"Je répare dans les bâtiments : l’eau, l’électricité, les petits travaux.", diplome:'CAP', officiel:'Intervention en maintenance technique des bâtiments (IMTB)', trajet:'En bus' },
+      { nom:'AGENT DE\nPROPRETÉ', photo:P+'mot-agententretien.webp', phrase:"Je nettoie les locaux avec des machines professionnelles.", diplome:'CAP', officiel:'Agent de propreté et d’hygiène (APH)', trajet:'En bus' }
     ] },
   { id:'schuman', nom:'Lycée Schuman-Perret', court:'Schuman-Perret', couleur:'var(--schuman)',
     lat:49.515993, lon:0.166039, adresse:'51 avenue du 8 Mai 1945', quartier:'Caucriauville',
     metiers:[
-      { nom:'ÉLECTRICIEN', photo:P+'mot-electricien.png', phrase:"J’installe l’électricité. Je répare les prises et les câbles.", diplome:'CAP', officiel:'Électricien', trajet:'En tramway' },
-      { nom:'PLOMBIER', photo:P+'mot-plombier.png', phrase:"J’installe les tuyaux d’eau : l’évier, la douche, les toilettes.", diplome:'CAP', officiel:'Monteur en installations sanitaires (MIS)', trajet:'En tramway' },
-      { nom:'PEINTRE', photo:P+'mot-peintre.png', phrase:"Je peins les murs et je pose les sols.", diplome:'CAP', officiel:'Peintre et applicateur de revêtements (PAR)', trajet:'En tramway' },
-      { nom:'MENUISIER', photo:P+'mot-menuisier.png', phrase:"Je fabrique et je pose les portes et les fenêtres en bois.", diplome:'CAP', officiel:'Menuisier installateur (MI)', trajet:'En tramway' },
-      { nom:'CHAUFFAGISTE', photo:P+'mot-chauffagiste.png', phrase:"J’installe le chauffage : la chaudière et les radiateurs.", diplome:'CAP', officiel:'Monteur en installations thermiques (MIT)', trajet:'En tramway' }
+      { nom:'ÉLECTRICIEN', photo:P+'mot-electricien.webp', phrase:"J’installe l’électricité. Je répare les prises et les câbles.", diplome:'CAP', officiel:'Électricien', trajet:'En tramway' },
+      { nom:'PLOMBIER', photo:P+'mot-plombier.webp', phrase:"J’installe les tuyaux d’eau : l’évier, la douche, les toilettes.", diplome:'CAP', officiel:'Monteur en installations sanitaires (MIS)', trajet:'En tramway' },
+      { nom:'PEINTRE', photo:P+'mot-peintre.webp', phrase:"Je peins les murs et je pose les sols.", diplome:'CAP', officiel:'Peintre et applicateur de revêtements (PAR)', trajet:'En tramway' },
+      { nom:'MENUISIER', photo:P+'mot-menuisier.webp', phrase:"Je fabrique et je pose les portes et les fenêtres en bois.", diplome:'CAP', officiel:'Menuisier installateur (MI)', trajet:'En tramway' },
+      { nom:'CHAUFFAGISTE', photo:P+'mot-chauffagiste.webp', phrase:"J’installe le chauffage : la chaudière et les radiateurs.", diplome:'CAP', officiel:'Monteur en installations thermiques (MIT)', trajet:'En tramway' }
     ] },
   { id:'lecesne', nom:'Lycée Jules Le Cesne', court:'Jules Le Cesne', couleur:'var(--lecesne)',
     lat:49.491205, lon:0.13866, adresse:'33 rue de Fleurus', quartier:'Graville',
     decalage:'translate(calc(-100% + 10px), -32px)',
     metiers:[
-      { nom:'CUISINIER', photo:P+'mot-cuisinier.png', phrase:"Je prépare les plats en cuisine, avec le chef.", diplome:'CAP', officiel:'Cuisine', trajet:'En tramway' },
+      { nom:'CUISINIER', photo:P+'mot-cuisinier.webp', phrase:"Je prépare les plats en cuisine, avec le chef.", diplome:'CAP', officiel:'Cuisine', trajet:'En tramway' },
       /* ⚠ UNE SEULE CASE (19/09) : serveur et barman, c'est le MÊME CAP. Deux tuiles avec
          le même diplôme, c'était la confusion qu'un support d'appariement doit éviter. */
-      { nom:'SERVEUR\nBARMAN', photo:P+'mot-serveur.png', phrase:"Je sers les clients à table. Au comptoir, je sers les boissons.", diplome:'CAP', officiel:'Commercialisation et services en hôtel-café-restaurant (HCR)', trajet:'En tramway',
+      { nom:'SERVEUR\nBARMAN', photo:P+'mot-serveur.webp', phrase:"Je sers les clients à table. Au comptoir, je sers les boissons.", diplome:'CAP', officiel:'Commercialisation et services en hôtel-café-restaurant (HCR)', trajet:'En tramway',
         lieux:[['le restaurant','lieu-salle-restaurant'],['le café','lieu-cafe'],["l’hôtel",'lieu-hotel']] },
-      { nom:'AGENT DE PRESSING', photo:P+'mot-pressing.png',
+      { nom:'AGENT DE PRESSING', photo:P+'mot-pressing.webp',
         etapes:[
           ['La réception','le ticket|les ciseaux','etape-1-reception',"Le client arrive. Je prends son vêtement. Je fais le ticket.","Ce poste est le plus important de tous. Il permet d’éviter les problèmes et d’organiser le travail. Nous y accueillons le client et les articles à entretenir."],
           ['Le triage','les gants','etape-2-triage',"Je sépare les vêtements : les couleurs, les tissus, les plus sales.","Les articles sont répartis en lots selon leur nature textile, leur couleur, leur degré de salissure."],
@@ -426,7 +426,7 @@ const LYCEES = [
           ['La livraison','le ticket','etape-8-livraison',"Le client revient avec son ticket. Je cherche son vêtement. Je lui rends.","À partir du ticket, le responsable recherche le ou les articles correspondant afin de les redonner au client."]
         ], phrase:"Je lave, je repasse et je répare les vêtements.", diplome:'CAP', officiel:'Métiers de l’entretien des textiles', trajet:'En tramway',
         /* « Où je travaille » et « Attention » (19/09) : deux lignes au maximum, en première
-           personne. Les lieux piochent dans la banque `clean/lieu-*.png`. */
+           personne. Les lieux piochent dans la banque `clean/lieu-*.webp`. */
         lieux:[['le pressing','lieu-pressing'],['la blanchisserie','lieu-blanchisserie'],["l’hôpital",'lieu-hopital'],['la maison de retraite','lieu-maison-retraite']],
         attention:"On travaille debout toute la journée. C’est chaud, il y a de la vapeur." }
     ] },
@@ -434,9 +434,9 @@ const LYCEES = [
     lat:49.492809, lon:0.14955, adresse:'16 rue de la Vallée', quartier:'Vallée Béreult',
     decalage:'translate(-10px, 32px)',
     metiers:[
-      { nom:'ACCOMPAGNANT\nGRAND ÂGE', photo:P+'mot-aidesoignant.png', phrase:"J’aide les personnes âgées, chaque jour.", diplome:'CAP', officiel:'Agent accompagnant au grand âge', trajet:'En bus' },
-      { nom:'ÉQUIPIER DE\nCOMMERCE', photo:P+'mot-caissier.png', phrase:"Je range les rayons du magasin. J’aide les clients.", diplome:'CAP', officiel:'Équipier polyvalent du commerce', trajet:'En bus' },
-      { nom:'CUISINIER DE\nCOLLECTIVITÉ', photo:P+'mot-cuisinier.png', phrase:"Je prépare beaucoup de repas, à la cantine.", diplome:'CAP', officiel:'Production et service en restaurations (rapide, collective, cafétéria)', trajet:'En bus' }
+      { nom:'ACCOMPAGNANT\nGRAND ÂGE', photo:P+'mot-aidesoignant.webp', phrase:"J’aide les personnes âgées, chaque jour.", diplome:'CAP', officiel:'Agent accompagnant au grand âge', trajet:'En bus' },
+      { nom:'ÉQUIPIER DE\nCOMMERCE', photo:P+'mot-caissier.webp', phrase:"Je range les rayons du magasin. J’aide les clients.", diplome:'CAP', officiel:'Équipier polyvalent du commerce', trajet:'En bus' },
+      { nom:'CUISINIER DE\nCOLLECTIVITÉ', photo:P+'mot-cuisinier.webp', phrase:"Je prépare beaucoup de repas, à la cantine.", diplome:'CAP', officiel:'Production et service en restaurations (rapide, collective, cafétéria)', trajet:'En bus' }
     ] },
   /* ⚠ LES DEUX DERNIERS POINTS NE SONT PAS DES LYCÉES, CE SONT DES CFA (19/09).
      L'élève y est APPRENTI : salarié, payé, avec un patron — pas élève. C'est la
@@ -449,14 +449,14 @@ const LYCEES = [
     decalage:'translate(calc(-100% + 10px), 34px)',
     adresse:'32 rue Philippe Lebon', quartier:'Campus Lebon',
     metiers:[
-      { nom:'BOULANGER', photo:P+'mot-boulanger.png', phrase:"Je fais le pain, tôt le matin.", diplome:'CAP en apprentissage', officiel:'Boulanger', trajet:'En tramway',
+      { nom:'BOULANGER', photo:P+'mot-boulanger.webp', phrase:"Je fais le pain, tôt le matin.", diplome:'CAP en apprentissage', officiel:'Boulanger', trajet:'En tramway',
         lieux:[['la boulangerie','lieu-boulangerie']],
         attention:"On commence très tôt le matin. On travaille debout." },
-      { nom:'PÂTISSIER', photo:P+'mot-patissier.png', phrase:"Je fais les gâteaux et les desserts.", diplome:'CAP en apprentissage', officiel:'Pâtissier', trajet:'En tramway' },
-      { nom:'BOUCHER', photo:P+'mot-boucher.png', phrase:"Je coupe et je prépare la viande.", diplome:'CAP en apprentissage', officiel:'Boucher', trajet:'En tramway' },
-      { nom:'CHARCUTIER', photo:P+'mot-charcutier.png', phrase:"Je prépare la charcuterie et les plats à emporter.", diplome:'CAP en apprentissage', officiel:'Charcutier-traiteur', trajet:'En tramway' },
-      { nom:'FLEURISTE', photo:P+'mot-fleuriste.png', phrase:"Je fais des bouquets. Je vends des fleurs.", diplome:'CAP en apprentissage', officiel:'Fleuriste', trajet:'En tramway' },
-      { nom:'VENDEUR', photo:P+'mot-vendeur.png', phrase:"Je vends. J’aide les clients dans le magasin.", diplome:'CAP en apprentissage', officiel:'Équipier polyvalent du commerce', trajet:'En tramway',
+      { nom:'PÂTISSIER', photo:P+'mot-patissier.webp', phrase:"Je fais les gâteaux et les desserts.", diplome:'CAP en apprentissage', officiel:'Pâtissier', trajet:'En tramway' },
+      { nom:'BOUCHER', photo:P+'mot-boucher.webp', phrase:"Je coupe et je prépare la viande.", diplome:'CAP en apprentissage', officiel:'Boucher', trajet:'En tramway' },
+      { nom:'CHARCUTIER', photo:P+'mot-charcutier.webp', phrase:"Je prépare la charcuterie et les plats à emporter.", diplome:'CAP en apprentissage', officiel:'Charcutier-traiteur', trajet:'En tramway' },
+      { nom:'FLEURISTE', photo:P+'mot-fleuriste.webp', phrase:"Je fais des bouquets. Je vends des fleurs.", diplome:'CAP en apprentissage', officiel:'Fleuriste', trajet:'En tramway' },
+      { nom:'VENDEUR', photo:P+'mot-vendeur.webp', phrase:"Je vends. J’aide les clients dans le magasin.", diplome:'CAP en apprentissage', officiel:'Équipier polyvalent du commerce', trajet:'En tramway',
         lieux:[['le supermarché','lieu-supermarche']] }
     ] },
   { id:'batcfa', nom:'Bâtiment CFA Le Havre Baie de Seine', court:'CFA du bâtiment',
@@ -465,7 +465,7 @@ const LYCEES = [
     metiers:[
       /* ⚠ UNE SEULE CASE (19/09) : la pose et l'atelier, c'est le même métier vu de deux
          côtés, et les deux tuiles partageaient la même photo. Les deux CAP sont cités. */
-      { nom:'MENUISIER', photo:P+'mot-menuisier.png', phrase:"Je fabrique les fenêtres et les meubles en bois. Je les pose.", diplome:'CAP en apprentissage', officiel:'Menuisier installateur (MI) ou Menuisier fabricant', trajet:'En bus',
+      { nom:'MENUISIER', photo:P+'mot-menuisier.webp', phrase:"Je fabrique les fenêtres et les meubles en bois. Je les pose.", diplome:'CAP en apprentissage', officiel:'Menuisier installateur (MI) ou Menuisier fabricant', trajet:'En bus',
         lieux:[["l’atelier",'lieu-atelier-bois'],['le chantier','lieu-chantier'],["l’appartement en travaux",'lieu-maison-travaux']] }
     ] }
 ];
@@ -562,13 +562,13 @@ const MATERIEL = {
 function ouvrirEtapes(m){
   etiqueter(document.getElementById('et-etapes'), lyceeActif);
   document.getElementById('circuit').innerHTML = m.etapes.map(([titre, mat, img, simple, officielle], i) =>
-    '<div class="etape"><img class="vue" src="' + P + img + '.png" alt="">' +
+    '<div class="etape"><img class="vue" src="' + P + img + '.webp" alt="">' +
     '<div class="texte"><div class="rang"><span class="num">' + (i + 1) + '</span>' +
     '<span class="titre">' + titre + '</span></div>' +
     '<p class="simple">' + simple + '</p>' +
     '<p class="officielle">' + officielle + '</p>' +
     '<div class="mat">' + mat.split('|').map(o =>
-      '<span>' + (MATERIEL[o] ? '<img src="' + P + MATERIEL[o] + '.png" alt="">' : '') + o + '</span>').join('') + '</div>' +
+      '<span>' + (MATERIEL[o] ? '<img src="' + P + MATERIEL[o] + '.webp" alt="">' : '') + o + '</span>').join('') + '</div>' +
     '</div></div>').join('');
   aller('page-etapes');
 }
@@ -583,7 +583,7 @@ function ouvrirJeu(m){
   const zone = document.getElementById('jeu');
   zone.innerHTML = melange.map(o =>
     '<button type="button" class="carte-jeu" data-rang="' + o.i + '">' +
-    '<img src="' + P + o.e[2] + '.png" alt=""><span class="place">' + (o.i + 1) + '</span></button>').join('');
+    '<img src="' + P + o.e[2] + '.webp" alt=""><span class="place">' + (o.i + 1) + '</span></button>').join('');
   zone.querySelectorAll('.carte-jeu').forEach(b => b.addEventListener('click', () => {
     if (b.classList.contains('trouve')) return;
     if (+b.dataset.rang === jeuRang) {
@@ -657,7 +657,7 @@ function ouvrirFiche(m){
   const ou = document.getElementById('fiche-ou');
   ou.hidden = !(m.lieux && m.lieux.length);
   document.getElementById('fiche-lieux').innerHTML = (m.lieux || [])
-    .map(([mot, f]) => '<div class="lieu"><img src="' + P + f + '.png" alt=""><span>' + mot + '</span></div>').join('');
+    .map(([mot, f]) => '<div class="lieu"><img src="' + P + f + '.webp" alt=""><span>' + mot + '</span></div>').join('');
   const att = document.getElementById('fiche-attention');
   att.hidden = !m.attention;
   document.getElementById('fiche-attention-txt').textContent = m.attention || '';

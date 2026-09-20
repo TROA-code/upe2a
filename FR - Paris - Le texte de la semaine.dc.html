@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Atkinson+Hyperlegible:wght@400;700&display=swap" />
+<style>
+  doc-page:not(:defined) { visibility: hidden; }
+  @media print { .ecran-seul { display: none !important; } }
+  a { color: #1d5c3a; }
+  a:hover { color: #14213d; }
+</style>
+<script src="doc-page.js"></script>
+</helmet>
+
+<div class="ecran-seul" style="font-family:Verdana,Tahoma,sans-serif;padding:16px 18px 6px;display:flex;flex-direction:column;gap:10px">
+  <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:16px;letter-spacing:.02em">PARIS — LE TEXTE DE LA SEMAINE</div>
+  <div style="font-size:11.5px;color:#6b7386;line-height:1.5;max-width:74ch">
+    Ses trois textes, au mot près, rangés du plus fragile au plus solide : A1.1, A1, A2. Le même texte toute la semaine, relu chaque
+    soir — l'élève coche le jour où il l'a lu. Trois pages : on imprime celle du niveau de
+    chacun.
+  </div>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+    <button onClick="{{ imprimer }}" style="border:none;background:#2a9d6e;color:#fff;border-radius:9px;padding:10px 18px;font-family:'Archivo Black',Verdana,sans-serif;font-size:12px;letter-spacing:.04em;cursor:pointer">IMPRIMER</button>
+    <span style="font-size:11.5px;color:#8595a8">À coller dans le cahier le lundi.</span>
+  </div>
+</div>
+
+<doc-page size="a4" margin="2cm">
+
+  <section class="page" style="padding:2cm;box-sizing:border-box;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;color:#14213d;display:flex;flex-direction:column;gap:7mm">
+    <div style="flex:0 0 auto;display:flex;align-items:flex-end;justify-content:space-between;gap:6mm;font-size:12pt">
+      <span>Prénom : <span style="display:inline-block;width:52mm;border-bottom:1.2px solid #b9bdc9"></span></span>
+      <span>Semaine du <span style="display:inline-block;width:14mm;border-bottom:1.2px solid #b9bdc9"></span> / <span style="display:inline-block;width:14mm;border-bottom:1.2px solid #b9bdc9"></span></span>
+    </div>
+    <div style="flex:0 0 auto;display:flex;align-items:baseline;gap:5mm;border-bottom:2px solid #1d5c3a;padding-bottom:3mm">
+      <span style="font-size:17pt;font-weight:700">Le texte de la semaine : Paris</span>
+      <span style="font-size:12pt;color:#1d5c3a;font-weight:700">niveau A1.1</span>
+    </div>
+    <div style="flex:1;min-height:0;display:flex;flex-direction:column;gap:9mm;font-size:22pt;line-height:1.4">
+      <span>C’est Paris.</span>
+      <span>C’est la tour Eiffel.</span>
+      <span>C’est la Seine.</span>
+      <span>Il y a un bateau.</span>
+      <span>Il y a le soleil.</span>
+    </div>
+    <div style="flex:0 0 auto;display:flex;flex-direction:column;gap:4mm;border-top:2.5px solid #14213d;padding-top:5mm">
+      <span style="font-size:13pt;font-weight:700">J’ai lu le texte :</span>
+      <div style="display:flex;flex-wrap:wrap;gap:5mm 8mm">
+        <span style="display:flex;align-items:center;gap:3mm;font-size:13pt"><span style="flex:0 0 auto;width:7mm;height:7mm;border:1.5px solid #14213d;display:block"></span>lundi</span>
+        <span style="display:flex;align-items:center;gap:3mm;font-size:13pt"><span style="flex:0 0 auto;width:7mm;height:7mm;border:1.5px solid #14213d;display:block"></span>mardi</span>
+        <span style="display:flex;align-items:center;gap:3mm;font-size:13pt"><span style="flex:0 0 auto;width:7mm;height:7mm;border:1.5px solid #14213d;display:block"></span>mercredi</span>
+        <span style="display:flex;align-items:center;gap:3mm;font-size:13pt"><span style="flex:0 0 auto;width:7mm;height:7mm;border:1.5px solid #14213d;display:block"></span>jeudi</span>
+        <span style="display:flex;align-items:center;gap:3mm;font-size:13pt"><span style="flex:0 0 auto;width:7mm;height:7mm;border:1.5px solid #14213d;display:block"></span>vendredi</span>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="page" style="padding:2cm;box-sizing:border-box;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;color:#14213d;display:flex;flex-direction:column;gap:7mm">
+    <div style="flex:0 0 auto;display:flex;align-items:flex-end;justify-content:space-between;gap:6mm;font-size:12pt">
+      <span>Prénom : <span style="display:inline-block;width:52mm;border-bottom:1.2px solid #b9bdc9"></span></span>
+      <span>Semaine du <span style="display:inline-block;width:14mm;border-bottom:1.2px solid #b9bdc9"></span> / <span style="display:inline-block;width:14mm;border-bottom:1.2px solid #b9bdc9"></span></span>
+    </div>
+    <div style="flex:0 0 auto;display:flex;align-items:baseline;gap:5mm;border-bottom:2px solid #1d5c3a;padding-bottom:3mm">
+      <span style="font-size:17pt;font-weight:700">Le texte de la semaine : Paris</span>
+      <span style="font-size:12pt;color:#1d5c3a;font-weight:700">niveau A1</span>
+    </div>
+    <div style="flex:1;min-height:0;display:flex;flex-direction:column;gap:7mm;font-size:17pt;line-height:1.55">
+      <span><span style="color:#1d4e89">Pa</span><span style="color:#c0392b">ris</span> <span style="color:#1d4e89">est</span> <span style="color:#c0392b">la</span> <span style="color:#1d4e89">ca</span><span style="color:#c0392b">pi</span><span style="color:#1d4e89">ta</span><span style="color:#c0392b">le</span> <span style="color:#1d4e89">de</span> <span style="color:#c0392b">la</span> <span style="color:#1d4e89">Fran</span><span style="color:#c0392b">ce</span><span style="color:#14213d">.</span></span>
+      <span><span style="color:#1d4e89">C’est</span> <span style="color:#c0392b">u</span><span style="color:#1d4e89">ne</span> <span style="color:#c0392b">gran</span><span style="color:#1d4e89">de</span> <span style="color:#c0392b">vil</span><span style="color:#1d4e89">le</span><span style="color:#14213d">.</span></span>
+      <span><span style="color:#1d4e89">À</span> <span style="color:#c0392b">Pa</span><span style="color:#1d4e89">ris</span><span style="color:#14213d">,</span> <span style="color:#c0392b">il</span> <span style="color:#1d4e89">y</span> <span style="color:#c0392b">a</span> <span style="color:#1d4e89">la</span> <span style="color:#c0392b">tour</span> <span style="color:#1d4e89">Eif</span><span style="color:#c0392b">fel</span><span style="color:#14213d">.</span></span>
+      <span><span style="color:#1d4e89">El</span><span style="color:#c0392b">le</span> <span style="color:#1d4e89">est</span> <span style="color:#c0392b">très</span> <span style="color:#1d4e89">hau</span><span style="color:#c0392b">te</span><span style="color:#14213d">.</span></span>
+      <span><span style="color:#1d4e89">Il</span> <span style="color:#c0392b">y</span> <span style="color:#1d4e89">a</span> <span style="color:#c0392b">aus</span><span style="color:#1d4e89">si</span> <span style="color:#c0392b">un</span> <span style="color:#1d4e89">fleu</span><span style="color:#c0392b">ve</span> <span style="color:#14213d">:</span> <span style="color:#1d4e89">la</span> <span style="color:#c0392b">Sei</span><span style="color:#1d4e89">ne</span><span style="color:#14213d">.</span></span>
+      <span><span style="color:#1d4e89">Sur</span> <span style="color:#c0392b">la</span> <span style="color:#1d4e89">Sei</span><span style="color:#c0392b">ne</span><span style="color:#14213d">,</span> <span style="color:#1d4e89">il</span> <span style="color:#c0392b">y</span> <span style="color:#1d4e89">a</span> <span style="color:#c0392b">des</span> <span style="color:#1d4e89">ponts</span> <span style="color:#c0392b">et</span> <span style="color:#1d4e89">des</span> <span style="color:#c0392b">ba</span><span style="color:#1d4e89">teaux</span><span style="color:#14213d">.</span></span>
+    </div>
+    <div style="flex:0 0 auto;display:flex;flex-direction:column;gap:4mm;border-top:2.5px solid #14213d;padding-top:5mm">
+      <span style="font-size:13pt;font-weight:700">J’ai lu le texte :</span>
+      <div style="display:flex;flex-wrap:wrap;gap:5mm 8mm">
+        <span style="display:flex;align-items:center;gap:3mm;font-size:13pt"><span style="flex:0 0 auto;width:7mm;height:7mm;border:1.5px solid #14213d;display:block"></span>lundi</span>
+        <span style="display:flex;align-items:center;gap:3mm;font-size:13pt"><span style="flex:0 0 auto;width:7mm;height:7mm;border:1.5px solid #14213d;display:block"></span>mardi</span>
+        <span style="display:flex;align-items:center;gap:3mm;font-size:13pt"><span style="flex:0 0 auto;width:7mm;height:7mm;border:1.5px solid #14213d;display:block"></span>mercredi</span>
+        <span style="display:flex;align-items:center;gap:3mm;font-size:13pt"><span style="flex:0 0 auto;width:7mm;height:7mm;border:1.5px solid #14213d;display:block"></span>jeudi</span>
+        <span style="display:flex;align-items:center;gap:3mm;font-size:13pt"><span style="flex:0 0 auto;width:7mm;height:7mm;border:1.5px solid #14213d;display:block"></span>vendredi</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="page" style="padding:2cm;box-sizing:border-box;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;color:#14213d;display:flex;flex-direction:column;gap:7mm">
+    <div style="flex:0 0 auto;display:flex;align-items:flex-end;justify-content:space-between;gap:6mm;font-size:12pt">
+      <span>Prénom : <span style="display:inline-block;width:52mm;border-bottom:1.2px solid #b9bdc9"></span></span>
+      <span>Semaine du <span style="display:inline-block;width:14mm;border-bottom:1.2px solid #b9bdc9"></span> / <span style="display:inline-block;width:14mm;border-bottom:1.2px solid #b9bdc9"></span></span>
+    </div>
+    <div style="flex:0 0 auto;display:flex;align-items:baseline;gap:5mm;border-bottom:2px solid #1d5c3a;padding-bottom:3mm">
+      <span style="font-size:17pt;font-weight:700">Le texte de la semaine : Paris</span>
+      <span style="font-size:12pt;color:#1d5c3a;font-weight:700">niveau A2</span>
+    </div>
+    <div style="flex:1;min-height:0;display:flex;flex-direction:column;gap:4.5mm;font-size:14pt;line-height:1.35">
+      <div style="display:flex;align-items:baseline;gap:6mm"><span style="flex:1">Paris est la capitale de la France. C’est une très grande ville :</span><span style="flex:0 0 auto;width:12mm;text-align:right;color:#5b6273;font-size:11pt">13</span></div>
+      <div style="display:flex;align-items:baseline;gap:6mm"><span style="flex:1">environ deux millions de personnes y habitent, et beaucoup de</span><span style="flex:0 0 auto;width:12mm;text-align:right;color:#5b6273;font-size:11pt">23</span></div>
+      <div style="display:flex;align-items:baseline;gap:6mm"><span style="flex:1">touristes viennent la visiter chaque année.</span><span style="flex:0 0 auto;width:12mm;text-align:right;color:#5b6273;font-size:11pt">29</span></div>
+      <div style="display:flex;align-items:baseline;gap:6mm"><span style="flex:1">La Seine traverse la ville et on peut la découvrir en bateau.</span><span style="flex:0 0 auto;width:12mm;text-align:right;color:#5b6273;font-size:11pt">41</span></div>
+      <div style="display:flex;align-items:baseline;gap:6mm"><span style="flex:1">Le monument le plus célèbre de Paris est la tour Eiffel. Gustave Eiffel</span><span style="flex:0 0 auto;width:12mm;text-align:right;color:#5b6273;font-size:11pt">54</span></div>
+      <div style="display:flex;align-items:baseline;gap:6mm"><span style="flex:1">l’a construite en 1889 pour l’Exposition universelle.</span><span style="flex:0 0 auto;width:12mm;text-align:right;color:#5b6273;font-size:11pt">61</span></div>
+      <div style="display:flex;align-items:baseline;gap:6mm"><span style="flex:1">Elle mesure 330 mètres et elle a trois étages.</span><span style="flex:0 0 auto;width:12mm;text-align:right;color:#5b6273;font-size:11pt">70</span></div>
+      <div style="display:flex;align-items:baseline;gap:6mm"><span style="flex:1">Pour monter, on peut prendre l’ascenseur, mais les sportifs préfèrent</span><span style="flex:0 0 auto;width:12mm;text-align:right;color:#5b6273;font-size:11pt">80</span></div>
+      <div style="display:flex;align-items:baseline;gap:6mm"><span style="flex:1">l’escalier : il y a plus de 600 marches jusqu’au deuxième étage !</span><span style="flex:0 0 auto;width:12mm;text-align:right;color:#5b6273;font-size:11pt">93</span></div>
+      <div style="display:flex;align-items:baseline;gap:6mm"><span style="flex:1">Pour se déplacer dans Paris, les habitants prennent le métro, le bus</span><span style="flex:0 0 auto;width:12mm;text-align:right;color:#5b6273;font-size:11pt">105</span></div>
+      <div style="display:flex;align-items:baseline;gap:6mm"><span style="flex:1">ou le vélo, parce que la voiture est difficile à garer.</span><span style="flex:0 0 auto;width:12mm;text-align:right;color:#5b6273;font-size:11pt">116</span></div>
+      <span style="font-size:11pt;color:#5b6273;margin-top:1mm">Nombre de mots du texte : <b style="color:#14213d">116</b></span>
+    </div>
+    <div style="flex:0 0 auto;display:flex;flex-direction:column;gap:4mm;border-top:2.5px solid #14213d;padding-top:5mm">
+      <span style="font-size:13pt;font-weight:700">J’ai lu le texte :</span>
+      <div style="display:flex;flex-wrap:wrap;gap:5mm 8mm">
+        <span style="display:flex;align-items:center;gap:3mm;font-size:13pt"><span style="flex:0 0 auto;width:7mm;height:7mm;border:1.5px solid #14213d;display:block"></span>lundi</span>
+        <span style="display:flex;align-items:center;gap:3mm;font-size:13pt"><span style="flex:0 0 auto;width:7mm;height:7mm;border:1.5px solid #14213d;display:block"></span>mardi</span>
+        <span style="display:flex;align-items:center;gap:3mm;font-size:13pt"><span style="flex:0 0 auto;width:7mm;height:7mm;border:1.5px solid #14213d;display:block"></span>mercredi</span>
+        <span style="display:flex;align-items:center;gap:3mm;font-size:13pt"><span style="flex:0 0 auto;width:7mm;height:7mm;border:1.5px solid #14213d;display:block"></span>jeudi</span>
+        <span style="display:flex;align-items:center;gap:3mm;font-size:13pt"><span style="flex:0 0 auto;width:7mm;height:7mm;border:1.5px solid #14213d;display:block"></span>vendredi</span>
+      </div>
+    </div>
+  </section>
+</doc-page>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* PARIS — LE TEXTE DE LA SEMAINE (20/09). SES trois textes, repris au mot près de son Word :
+   ⚠ Ne rien réécrire, ne rien simplifier, ne pas fusionner les niveaux.
+   ⚠ ORDRE : A1.1, puis A1, puis A2 — du plus fragile au plus solide (20/09, sa remarque),
+     le même ordre que dans « Je lis, je fais — Paris ».
+   Le A1 et le A1.1 sont écrits UNE PHRASE PAR LIGNE dans son document — c'est volontaire
+   (un non-lecteur suit la ligne du doigt), et la taille monte quand le niveau baisse :
+   14 pt en A2, 17 pt en A1, 22 pt en A1.1.
+   ⚠ A1 — ALTERNANCE PAR SYLLABE, « comme dans l'appli dédiée » (20/09). Pas une alternance
+     de LIGNES (première version, écartée) : chaque SYLLABE change de couleur, pour que
+     l'élève découpe le mot des yeux avant de le dire.
+     Les deux couleurs sont celles de « Glisse et lis », à ne pas changer : bleu nuit
+     #1d4e89 et rouge #c0392b. La ponctuation reste en encre #14213d — elle ne se lit pas.
+     Chaque ligne REPART en bleu. Découpe : Pa·ris, ca·pi·ta·le, Fran·ce, u·ne, gran·de,
+     vil·le, Eif·fel, El·le, hau·te, aus·si, fleu·ve, Sei·ne, ba·teaux.
+     ⚠ Les syllabes sont écrites À LA MAIN, une par une. Ne JAMAIS les refaire par
+       expression régulière : la règle du projet, et trois pannes bloquantes derrière elle.
+   ⚠ A2 — MISE EN PAGE DE FLUENCE (sa demande du 20/09) : une ligne par ligne de lecture,
+     avec en marge le TOTAL CUMULÉ de mots, exactement les nombres de son PDF (13, 23, 29,
+     41, 54, 61, 70, 80, 93, 105, 116). Ne pas recompter, ne pas recouper les lignes :
+     les nombres ne vaudraient plus rien.
+   La ligne « J'ai lu le texte : lundi … vendredi » est la TRACE du devoir du soir : l'élève
+   coche, rien à corriger, aucune note.
+   ⚠ Ne pas confondre avec `FR - Fluence A2 - Paris.dc.html` : même texte A2, mais l'autre
+     porte les totaux de mots en marge et les trois essais chronométrés. */
+class Component extends DCLogic {
+  renderVals() {
+    return { imprimer: () => window.print() };
+  }
+}
+
+</script>
+</body>
+</html>

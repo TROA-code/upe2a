@@ -9,7 +9,7 @@
   function img(fichier) {
     var f = String(fichier || '');
     if (/^(data:|https?:|clean\/)/.test(f)) return f;
-    return 'clean/' + (/^(geste|phrase|son)-/.test(f) ? f : 'mot-' + f) + '.png';
+    return 'clean/' + (/^(geste|phrase|son)-/.test(f) ? f : 'mot-' + f) + '.webp';
   }
 
   // un disque : trait de coupe + contenu centré, jamais rogné

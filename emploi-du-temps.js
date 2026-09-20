@@ -170,32 +170,34 @@
     ]
   };
 
-  /* Les documents DÉJÀ dans l'appli, rattachés au créneau où ils servent. Rien d'inventé :
-     chaque entrée est un fichier existant. Elle en ajoutera d'autres, et ses vidéos, depuis
-     le panneau du créneau. */
+  /* ⚠ SEULS LES DOCUMENTS QU'ELLE A ELLE-MÊME ACCROCHÉS FIGURENT ICI (19/09).
+     La liste précédente — une douzaine de documents répartis sur les créneaux — était MON
+     hypothèse sur l'endroit où chacun servait, jamais la sienne : « j'ai absolument pas fait
+     ça bien sûr ». Retirée. Ne rien remettre ici sans qu'elle l'ait demandé explicitement :
+     elle accroche ses documents depuis le panneau du créneau (ils vont dans `liens`), et le
+     panneau « Cette semaine » côté élève les reprend tels quels. */
   const RESSOURCES = {
-    'atelier-lecture': [
-      { nom: 'Maison des sons', f: 'FR - Maison des sons.dc.html' },
-      { nom: 'Mes mots — volume 1', f: 'FR - Livret 2 - Mes mots - Volume 1.dc.html' },
-      { nom: 'Mes mots — volume 2', f: 'FR - Livret 2 - Mes mots - Volume 2.dc.html' }
+    /* LUNDI 21 SEPTEMBRE 2026 — sa demande du 20/09, à CETTE date seule.
+       Le puzzle est son ACCROCHE du lundi matin : une photo de Paris cachée sous 100 cases.
+       Il ouvre la semaine 1 « Paris / Dans Paris de Paul Éluard ». */
+    'lundi-rituel': [
+      { nom: 'Le puzzle à retourner — Paris', f: 'JEU - Le puzzle à retourner.dc.html',
+        date: '2026-09-21' }
     ],
-    'atelier-maths': [
-      { nom: 'Les nombres de 0 à 10', f: 'MATHS - Livret 1 - Les nombres de 0 à 10.dc.html' },
-      { nom: 'Comparer et ranger', f: 'MATHS - Livret 2 - Comparer et ranger.dc.html' }
-    ],
+    /* Le texte de fluence A2 : le MÊME toute la semaine, relu chaque jour (essai 1, 2, 3).
+       Accroché au lundi, mais c'est le texte de la semaine entière. */
     'lundi-litteracie': [
-      { nom: 'Séance type — le son A', f: 'FR - Séance type - Le son A.dc.html' },
-      { nom: 'Cahier d\'écriture — tracer les lettres', f: 'FR - Cahier d\'écriture - Tracer les lettres.dc.html' }
-    ],
-    'jeudi-litteracie': [
-      { nom: 'Séance type — le son I', f: 'FR - Séance type - Le son I.dc.html' },
-      { nom: 'Séance type — le son O', f: 'FR - Séance type - Le son O.dc.html' }
-    ],
-    'mardi-litteracie': [
-      { nom: 'Les repas — livret 3', f: 'FR - Livret 3 - Les repas.dc.html' }
+      { nom: 'Fluence A2 — Paris', f: 'FR - Fluence A2 - Paris.dc.html',
+        date: '2026-09-21' },
+      /* Les trois textes de la semaine (A2, A1, A1.1) : le même texte relu tous les soirs,
+         avec la ligne « J'ai lu le texte » à cocher. Sa différenciation, ne pas fusionner. */
+      { nom: 'Paris — le texte de la semaine', f: 'FR - Paris - Le texte de la semaine.dc.html',
+        date: '2026-09-21' },
+      /* Les trois fiches « je lis, je fais » sur la scène de Paris au trait. */
+      { nom: 'Je lis, je fais — Paris', f: 'FR - Je lis, je fais - Paris.dc.html',
+        date: '2026-09-21' }
     ],
     'vendredi-litteracie': [
-      { nom: 'Les repas — livret 3', f: 'FR - Livret 3 - Les repas.dc.html' },
       /* Accroché au 18/09/2026 à sa demande, et à CETTE date seule : le diaporama « Au
          restaurant » qu'elle a envoyé ce jour-là. `date` en ISO — voir ressourcesDe(). */
       { nom: 'Diaporama — Au restaurant', f: 'FR - Diaporama - Au restaurant.dc.html',
@@ -205,25 +207,6 @@
          et non une page — le panneau du créneau l'ouvre comme n'importe quel fichier. */
       { nom: 'Planning UNSS 2026-2027', f: 'docs/planning-unss-2026-2027.png',
         date: '2026-09-18' }
-    ],
-    'lundi-rituel': [
-      { nom: 'Se présenter — cartes', f: 'CARTE - se présenter.dc.html' }
-    ],
-    'mardi-rituel': [
-      { nom: 'Planche des thèmes', f: 'PLANCHE - thème illustré.dc.html' },
-      { nom: 'Feuille de route des thèmes', f: 'FEUILLE DE ROUTE - thèmes.dc.html' }
-    ],
-    'jeudi-rituel': [
-      { nom: 'Planche des thèmes', f: 'PLANCHE - thème illustré.dc.html' }
-    ],
-    'lundi-vivre': [
-      { nom: 'Me présenter (Ratatouille)', f: 'SÉANCES - Me présenter (Ratatouille).dc.html' }
-    ],
-    flsco: [
-      { nom: 'Tracer les chiffres', f: 'MATHS - Livret 1 bis - Tracer les chiffres.dc.html' }
-    ],
-    'jeudi-projet': [
-      { nom: 'Mon avenir au Havre', f: 'ORIENTATION - Mon avenir au Havre.html' }
     ]
   };
 

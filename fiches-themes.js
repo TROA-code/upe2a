@@ -21,7 +21,7 @@
   function img(fichier) {
     var f = String(fichier || '');
     if (/^(data:|https?:|clean\/)/.test(f)) return f;
-    return "clean/" + (/^(geste|phrase)-/.test(f) ? f : 'mot-' + f) + ".png";
+    return "clean/" + (/^(geste|phrase)-/.test(f) ? f : 'mot-' + f) + ".webp";
   }
   function bande(interligne) {
     var pas = PAS[interligne] || PAS.moyen, m = pas / 2, h = pas * 4 + m * 2;
@@ -45,10 +45,10 @@
   }
   function consigne(lignes, pictos, note) {
     var PICTO = { oeil: 'clean/icone-oeil.svg', oreille: 'clean/icone-oreille.svg',
-      crayon: 'clean/mot-crayon.png', ciseaux: 'clean/mot-ciseaux.png', colle: 'clean/mot-colle.png' };
+      crayon: 'clean/mot-crayon.webp', ciseaux: 'clean/mot-ciseaux.webp', colle: 'clean/mot-colle.webp' };
     var ico = (pictos || []).map(function (p, i) {
       return (i ? '<span style="flex:0 0 auto;font-size:15pt;color:#8a91a3">&#8594;</span>' : '') +
-        '<span style="flex:0 0 auto;width:13mm;height:11mm;background-image:url(\'' + (PICTO[p] || ('clean/mot-' + p + '.png')) + '\');background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>';
+        '<span style="flex:0 0 auto;width:13mm;height:11mm;background-image:url(\'' + (PICTO[p] || ('clean/mot-' + p + '.webp')) + '\');background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>';
     }).join('');
     return '<div style="flex:0 0 auto;display:flex;align-items:center;gap:5mm;background:#f4f6f9;border:1.5px solid #dde2e9;border-radius:2mm;padding:3mm 4mm;margin:5mm 0 5mm">' + ico +
       '<span style="flex:1;min-width:0;font-size:12pt;font-weight:700;color:#14213d;line-height:1.45">' +

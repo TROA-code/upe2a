@@ -310,7 +310,7 @@ class Component extends DCLogic {
   renderVals() {
     const leg = false, dev = false;
     const q = (avec, sans) => leg ? avec : sans;
-    const vign = (n) => 'clean/' + n + '.png';
+    const vign = (n) => 'clean/' + n + '.webp';
     /* Les quatre cases, marquées par une vignette en coin : c'est elle qui dit de quoi
        parle la case, puisqu'il n'y a pas de mot. */
     /* Plus de famille ni d'animal (sujets délicats, 04/09) : le pays d'origine, puis le
@@ -364,7 +364,7 @@ class Component extends DCLogic {
          marges blanches). Les \`<img>\` sont volontaires : Chrome n'imprime pas les
          \`background-image\` si « Graphiques d'arrière-plan » est décoché. */
       modelePages: Array.from({ length: 12 }, (_, i) => ({
-        src: 'docs/modele/p' + String(i + 1).padStart(2, '0') + '.png',
+        src: 'docs/modele/p' + String(i + 1).padStart(2, '0') + '.webp',
         nom: 'page ' + (i + 1) + ' / 12'
       })),
       /* Écran « Le modèle CASNAV » **retiré le 04/09/26**. Le PDF est bien rangé dans

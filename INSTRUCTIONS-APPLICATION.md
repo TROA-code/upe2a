@@ -1,5 +1,169 @@
 # INSTRUCTIONS — UPE2A NSA (fichier unique)
 
+📋 **`A-FAIRE.md` (20/09) = la liste complète de tout ce qui reste ouvert**, rangée par
+sujet, avec ce qui attend une image ou une décision d'elle. Ce fichier-ci garde le détail,
+les décisions prises et les pièges ; la liste de travail est là-bas. **À tenir à jour tous
+les deux.**
+
+## ✅ LE PUZZLE À RETOURNER + « JEUX DE CLASSE » (20/09)
+
+`JEU - Le puzzle à retourner.dc.html`. **Son accroche du lundi matin** : une photo cachée sous
+des cases numérotées, un élève dit un nombre, on touche la case. Qui devine l'image ?
+Reçu de l'extérieur sous forme de page autonome, **refait aux règles de l'appli** :
+
+- ⚠ **L'image ne se choisit plus dans l'explorateur de fichiers** (elle se rechargeait à
+  chaque cours et se perdait sur le téléphone) — elle se prend dans la **liste** des images
+  de `clean/`. Accepte aussi `?img=` et `?n=` dans l'adresse.
+- ⚠ Bouton **« ← L'accueil »** : sans lui l'écran est un cul-de-sac.
+- **100 cases par défaut**, sa demande explicite (« normalement je peux choisir le nombre
+  de cases et là je veux 100 »). Le vrai gain pédagogique est là : ils **lisent les nombres
+  jusqu'à 100 à voix haute** pour demander leur case.
+- **« Ouvrir 10 cases »** existe parce qu'à 100 cases la fin de partie traîne.
+- Pas de score, pas de chrono, on touche — on ne glisse pas.
+
+⚠ **La rubrique s'appelle désormais « Jeux de classe »** et non plus « Outils de manipulation
+en classe » (« bof bof », 20/09) : le point commun des trois onglets est le **jeu collectif
+sans trace écrite et sans note**, pas le matériel. Troisième onglet à côté des disques des
+dés et des cartes du symbole commun.
+
+**Les deux images de Paris** (sa photo du 20/09, Trocadéro au soleil couchant) :
+`clean/lieu-paris.webp` (1000 × 1000, entre dans la banque de lieux) et
+`clean/puzzle-paris.webp` (1200 × 900, **recadré sur la moitié centrale**). ⚠ Le recadrage
+n'est pas cosmétique : sur la photo entière, le tiers du bas est une esplanade vide et le
+haut du ciel — à 100 cases, une trentaine de cases n'auraient rien montré.
+
+## ✅ LES VIGNETTES DES DEVOIRS (20/09)
+
+`AFFICHE - Les devoirs (vignettes).dc.html`, rangé dans *Affichages de la classe → Au mur*.
+Quatre étiquettes **en rouge** (`#b3283c`, sa demande) à découper et aimanter au tableau :
+**1 LIRE · 2 ÉCRIRE · 3 PARLER · 4 ÉCOUTER**. Deux A4 **paysage**, deux vignettes par page,
+verbe à 112 pt, chiffre dans un disque de 40 mm.
+
+L'idée vient d'**une photo du tableau d'une collègue de primaire** qu'elle m'a montrée :
+le tableau porte les quatre verbes **en permanence**, on n'écrit plus la consigne, **on
+accroche le document à côté du verbe**. ⚠ Ne pas transposer le contenu de cette photo
+(Tchoupi, Petit bleu et petit jaune) : c'est du CP, ses élèves ont 16-18 ans.
+⚠ **112 pt, et 92 pt pour ÉCOUTER** : mesuré, au-delà les mots les plus longs touchent la marge.
+
+⚠ **Pas de cinquième vignette « À LA MAISON »** : elle n'en a pas demandé. Proposée, en attente.
+
+## 🗓 CE QUI EST DÉCIDÉ POUR LA PÉRIODE 1 (20/09, discuté avec elle)
+
+**Une semaine = un thème**, et on **alterne littérature / métier** jusqu'aux vacances de la
+Toussaint (environ quatre semaines). Sa décision, contre le fait de mélanger deux univers
+dans la même semaine : « ça permet de bien consolider sur la semaine ».
+
+- **S1 — Paris**, autour de **« Dans Paris » de Paul Éluard** (le poème qui s'emboîte : la rue
+  dans la ville, la maison dans la rue, la chambre dans la maison).
+  ⚠ **Le poème est sous droits : ne jamais le recopier dans l'appli.** Elle l'apporte sur
+  papier ; nos documents tournent autour, ils ne le citent pas.
+- **S2 — le maçon**, **son** choix, et c'est le bon pont : le poème emboîte des espaces, le
+  maçon les fabrique (la rue, la maison, le mur, l'escalier). ⚠ Lui rappeler qu'un maçon ne
+  construit pas « une chambre » — il fait un mur, une dalle, un escalier.
+- **La radio attend S3 ou S4** : elle est prête, mais elle n'a aucun lien avec Paris.
+
+⚠ **Le texte de Paris (A1 et A2) n'est pas écrit** : les trois questions sont restées sans
+réponse (un document ou deux ? le contexte historique écrit ou à l'oral ? des images ?).
+
+## 🏠 LES DEVOIRS DU SOIR — ce qui est décidé et ce qui ne l'est pas (20/09)
+
+Sa demande : **10-15 minutes**, une trace, et **de la lecture**. Mon conseil retenu :
+commencer par **le tableau de la classe**, pas par l'appli — ça ne coûte rien et on saura en
+trois semaines si le rituel tient. Les vignettes ci-dessus sont la première brique.
+
+Principes posés ensemble : un devoir **ne fait jamais découvrir**, il fait revenir ; il ne
+doit **jamais avoir besoin d'un adulte** (beaucoup n'ont personne qui parle français à la
+maison) ; il est **ramassé le lendemain**, une minute par élève, sinon il meurt en quinze
+jours.
+
+⚠ **La feuille de lecture du soir n'est pas faite** — trois questions en attente : papier,
+appli, ou les deux ? avec le son ? même feuille pour l'élève non lecteur ?
+Structure proposée et non validée : une seule feuille par semaine, relue tous les soirs,
+en quatre bandes (les sons · les syllabes · les mots · une phrase), avec une ligne de cases
+à cocher, une par jour.
+
+**Les vidéos — ce que la recherche a donné (20/09).** ⚠ La quasi-totalité des chaînes « FLE »
+sont des cours de grammaire pour des gens **qui lisent déjà** : inutilisables en NSA. Ce qui
+tient : **RFI — Les Voisins du 12 bis** (fiction audio A1/A2, explications bilingues en
+arabe, persan, ukrainien…, des adultes et des situations d'adultes), **Je filme le métier qui
+me plaît** (des jeunes de leur âge parlent de leur métier — tombe pile sur la semaine
+métier), **TV5MONDE Apprendre le français**, **Onisep en 10 langues**. Mon avis donné : la
+vidéo est le format le plus fragile pour un devoir quotidien — **bonus du week-end**, pas
+devoir du soir.
+
+## ⚠ « GLISSE ET LIS » SUR L'ACCUEIL — UNE FAUTE DE MA PART (20/09)
+
+J'ai **ajouté de moi-même** le cinquième tableau de liège (« Glisse et lis ») en réparant
+l'affichage des tableaux. Elle ne l'avait pas demandé : « c'est dingue que tu fasses ce qui
+te plaît alors que c'est explicitement écrit en md ». **La règle est : on discute, on ne
+code rien sans son accord.** Aucune exception, même quand l'ajout paraît logique.
+
+Deux raisons de fond, relevées par elle, qui restent ouvertes :
+- **L'activité n'est pas finie** — un tableau sur l'accueil est une promesse faite à l'élève.
+- **Elle ne s'adresse qu'à UN élève**, celui qui ne lit pas encore. Les autres n'en ont pas
+  besoin : pour eux c'est du bruit, pour lui c'est une étiquette.
+
+⚠ **Décision du 20/09 : ON NE DÉCROCHE PAS**, on y réfléchit plus tard. Ne rien toucher.
+La piste à creuser avec elle : **un accueil personnalisé par élève** (les codes de session
+existent déjà) — chacun verrait ce qui le concerne. C'est une décision de fond, pas un
+réglage : à ne pas prendre en passant.
+
+## ✅ LE THÈME « LA RADIO » EST PUBLIÉ (20/09)
+
+Les **15 photos sont arrivées** et le thème est dans les **deux** `BANQUE` (`banque-mots.js` et
+`APPLI - Espace enseignant.dc.html`) : micro, casque, platine, enceinte, ordinateur, câble,
+silence, parler, écouter, enregistrer, couper, **pause**, animateur, technicien, invité.
+
+⚠ **« la pause » a été ajoutée le 20/09** — c'est le **T du temps mort**, main droite
+verticale et main gauche à l'horizontale par-dessus : le geste que le technicien fait
+derrière la vitre quand l'élève bafouille. Les deux barres verticales de l'icône ont été
+écartées (un élève non lecteur ne lit pas une icône), de même que la variante « main qui
+appuie sur le bouton pause » que j'avais proposée.
+
+⚠ **Trois mots étaient déjà illustrés ailleurs et sont réutilisés tels quels** : `mot-parler`
+et `mot-ecouter` (thème Les actions — c'est elle qui l'a repéré), `mot-ordinateur` (Le
+lycée). Ne jamais les écraser en croyant toucher à la radio.
+⚠ **Quatre photos sont des GESTES, pas des objets** : silence (doigt sur la bouche),
+enregistrer (main sur le bouton rouge), couper (main sur le curseur), pause (les deux mains
+en T). C'était sa demande dès le 15/09.
+⚠ **Le câble est ROUGE**, volontairement gardé : casque et micro sont noirs, il s'en détache.
+⚠ **La platine est un rendu de synthèse** et non une photo — signalé, elle l'a gardée.
+
+`FR - La radio en images.dc.html` : les cases en pointillés qui portaient le nom de fichier
+attendu sont **remplacées par les photos** (`object-fit:contain`, la photo ne dicte pas la
+hauteur de la case). La planche d'étiquettes est passée à 15 mots, la pause a sa carte sur
+« Radio 2 » et sur « Muette 4 ».
+
+## 🟢 TOUTES LES IMAGES SONT PASSÉES EN WEBP (20/09, sa demande)
+
+« Le téléchargement des photos sur un téléphone est très loin. » Mesure faite avant de
+toucher à quoi que ce soit : **518 images, ~400 Mo**, dont des photos de lieux à 2 Mo pièce.
+Le coupable était le **PNG**, format fait pour les dessins et les captures, pas pour la
+photographie.
+
+**Tout `clean/` est désormais en `.webp`** (qualité 0.85, 1000 px max) : **~400 Mo → ~18 Mo,
+environ 24 fois plus léger**, sans différence visible à l'écran ni à l'impression.
+
+⚠ **Pourquoi TOUT et pas seulement les photos lourdes** : une vingtaine d'endroits
+*fabriquent* le nom du fichier (`'clean/mot-' + mot + '.webp'`). Deux extensions
+cohabitant dans `clean/`, ces lignes n'auraient plus su laquelle demander. La règle est
+donc sans exception : **dans `clean/`, tout est `.webp`**. Une photo reçue se convertit à
+la réception — c'est écrit dans `CLAUDE.md`.
+
+Ce qui a été touché : ~1 000 références dans le code (racine + `export-github/` +
+`github/`), les sous-dossiers `clean/ent`, `clean/eleves`, `clean/pictos`,
+`clean/seances/me-presenter`, et `docs/modele/p01…p12`.
+⚠ **Une seule exception conservée en PNG** : `docs/planning-unss-2026-2027.png`, qui n'est
+pas une image de l'appli mais un document du lycée accroché à un créneau.
+⚠ `clean/apercu/*.jpg` (vignettes des Livrets 2) n'ont pas bougé : déjà légères.
+
+✅ **Les PNG sont gardés en archive dans `github/clean/`** (les 57 qui manquaient y ont été
+ajoutés). Ils ne servent ni à la qualité ni à l'impression — uniquement à revenir en
+arrière et à sortir une image vers un vieux logiciel. **À supprimer une fois qu'elle aura
+vérifié sur son téléphone et sur une impression** (voir `A-FAIRE.md`).
+⚠ Le `?v=` d'`index.html` est passé à **5** : sans ça son téléphone aurait redemandé les
+anciens PNG et affiché des cases vides.
+
 ## 🟢 À LIRE EN PREMIER — où on en est au 20/09/2026 (soir)
 
 Journée entièrement consacrée à **`ORIENTATION - Mon avenir au Havre.html`** : les deux CFA
@@ -23,11 +187,117 @@ sur la carte (alternance), le descriptif officiel du CAP au clic, le circuit du 
 rappeler le bouton de téléchargement plutôt que de rattraper après coup.
 
 ⚠ **LES QUATRE TABLEAUX DE L'ACCUEIL ÉLÈVE** (20/09, « pourquoi je n'ai que 2 tableaux au
-lieu de 4 !! ») : une tuile ne descend pas sous ~277 px, donc **quatre de front seulement
-à partir de 1400 px** (grille 1200 px) ; en dessous, 2 × 2 ; sur téléphone, une colonne.
+lieu de 4 !! ») : une tuile ne descend pas sous ~277 px. **Ils sont CINQ depuis le 20/09**
+— Cette semaine · Les thèmes · Les lettres et les sons · **Glisse et lis** · Mon avenir au
+Havre. Trois colonnes dès 1180 px (3 + 2, aucun orphelin), deux en dessous, une sur
+téléphone. ⚠ **Ne pas remettre quatre colonnes** : à cinq tableaux, ça donne 4 + 1.
 La grille est **calée en haut** et non centrée : en `margin:auto` vertical, le débordement
 passait au-dessus dans une zone qui défile et devenait inatteignable. Vérifié à 420, 820,
 924 px.
+
+## ✅ GLISSE ET LIS — TROIS NIVEAUX (20/09, sa décision)
+
+**Niveau 1 = les sons continus** (m f ch s l v r z n j) · **Niveau 2 = les sons explosifs**
+(p b t d c k g) · **Niveau 3 = les graphèmes complexes** (ou, on, an… en vert).
+⚠ **Pas de titre pédagogique dans le bandeau** : « Niveau 1 / 2 / 3 », point. Les trois
+formules proposées (« les sons longs / les sons courts », « je tire / je coupe le son »,
+« deux lettres, un son ») ont été écartées — c'est ce que les élèves lisent déjà.
+La coupure n'est pas nouvelle : c'était **Partie A / Partie B** dans la liste du niveau 1.
+Le code la **découpe** (`_NIV_1_2`, `_sansPartie`, `_iExpl`) au lieu de recopier les mots —
+une seule source, et les lignes « ## Partie » ont disparu, le niveau dit ce qu'elles
+disaient.
+⚠ Réglages enseignant : **trois zones de texte** (`taWords1` / `taWords2` / `taWords`).
+⚠ **Clé `localStorage` = `glisse-et-lis-9`** : sans le changement, une liste enregistrée
+en deux niveaux masquait le niveau 3.
+
+## ✅ « GLISSE ET LIS » — OÙ ON EN EST AU 20/09 (à lire en premier)
+
+`FR - Glisse et lis.html`. Ce qui est **fait et validé avec elle** :
+
+- **Niveau 1 = une syllabe d'attaque par case**, consonne × voyelle, dans SON ordre de
+  consonnes (continus M F CH S L V R Z N J, puis explosifs P B T D C K G). Clé
+  `localStorage` : `glisse-et-lis-6`.
+- **Le paysage appartient à la CONSONNE**, pas au rang du mot (« c'est toujours le même
+  paysage ») : table `PAYSAGE`. Rampe de skate = R J CH · vallée verte = V F S L M ·
+  zigzag terre = Z N G · escalier = K C T D · toboggan = B P. ⚠ Aucune consonne ne doit
+  pointer une forme sans `deco` : la route flottait dans du blanc.
+- **Les décors sont DESSINÉS en SVG, jamais générés par Gemini** : la courbe du dessin doit
+  être celle du chemin que le doigt suit, au pixel près. Gemini ne sert qu'aux images de
+  mots (voir la règle des préfixes `mot-` / `illu-`).
+- **La fin du mot est en lettres pointillées** (VA en couleur, CHE en tracé), squelettes du
+  cahier d'écriture, largeur **mesurée dans Andika au canvas** — quatre essais ratés avant,
+  tous consignés dans le fichier : ne pas les refaire.
+- **Le son** : la syllabe se dit à l'instant où l'étiquette arrive sur la 2e bulle (« ma »),
+  le mot à la découverte (« mare »), le bouton 🔊 redit les deux.
+
+✅ **Le tunnel du P est dessiné** (20/09 au soir) : colline à l'ARC (une quadratique
+n'atteint que la moitié de son point de contrôle — la première colline faisait une bosse
+plate), bouche sombre cerclée de clair, la route la traverse et reste dessinée PAR-DESSUS
+le décor. `PAYSAGE` : p:5, le B garde le toboggan seul.
+✅ **L'escalier (K C T D) a été redessiné** : trois marches seulement — la route fait 62
+d'épais (CSS `.road`), une marche de 40 disparaît dessous et l'escalier devient une suite
+de boudins. Bande d'escalier en contour **miter** (jamais `round` : ce sont les angles
+droits qui font les marches) + masse orange foncé dessous + bande de sol. ⚠ Quatre essais
+écartés, ne pas les refaire : cinq petites marches (boudins) · filets clairs sous les nez
+de marche (invisibles sous la route) · masse pleine décalée de 31 seule (la route s'y
+perd) · masse pleine + bande de même couleur (tout l'écran en orange).
+⏳ **À lui montrer** : l'escalier, le toboggan et le tunnel n'ont pas encore été vus par
+elle. Restent trois images de mots en emoji (zip 🧥, pull 🧶, notamment).
+
+## ✅ « GLISSE ET LIS » — habillée aux couleurs de l'appli (20/09)
+
+`FR - Glisse et lis.html` : son appli de **fusion syllabique** (on attrape un son et on le
+traîne jusqu'au suivant le long d'une route). Reçue de l'extérieur, elle avait ses propres
+couleurs, ses polices et un mode sombre. Reprise telle quelle **côté logique** — aucun
+changement de comportement — et rhabillée : mur de briques, bandeau bleu nuit, cartes
+blanches à bord épais, Archivo Black pour les titres, Atkinson Hyperlegible pour le texte.
+
+⚠ **DEUX BULLES, JAMAIS PLUS — JAMAIS UN MOT ENTIER SUR LA ROUTE** (20/09 : « je ne veux
+jamais un mot complet. Exemple BON comme bonbon »). L'élève ne fusionne que la **syllabe
+d'attaque**, consonne + voyelle ; le mot entier et son image n'arrivent qu'à la page
+réponse. Dans les données : `road` = les deux premiers sons, `units` garde le découpage
+complet qui sert à colorer le mot révélé.
+⚠ Un mot dont les deux premiers sons ne forment pas consonne + voyelle est **écarté**
+(`au-t-o`, mots commençant par une voyelle) : sa syllabe d'attaque n'existe pas. Ne pas le
+« rattraper » en prenant une paire au milieu du mot — la syllabe doit être le DÉBUT du mot
+qu'on découvre.
+✅ **La bande latérale montre le DÉCOR, pas seulement le mot** (20/09, sa capture de l'appli
+d'origine : « regarde sur le côté »). Chaque vignette est la **miniature de la scène** — la
+même route, les deux mêmes bulles, les mêmes couleurs que l'écran qu'elle ouvre. Un élève
+non lecteur se repère au dessin, pas au mot. Le décor vient de `SHAPES[i % 4]`, exactement
+comme la scène : si l'un change, l'autre suit. Sur téléphone la bande passe à l'horizontale
+et la miniature disparaît — plus la hauteur pour elle, la syllabe suffit.
+✅ **AUCUN MOT ÉCRIT DANS LA BANDE** (20/09 : « c'est pour l'élève ce jeu »). La vignette ne
+montre que la **route** et l'**image** — un élève non lecteur choisit ce qu'il reconnaît, il
+ne déchiffre pas une liste. ⚠ **Le mot écrit est la récompense de la page réponse** :
+l'afficher dans la bande le donnerait avant l'effort. Il reste en `aria-label` pour la prof
+et les lecteurs d'écran. Le mot réussi se marque d'un **trait vert** sous la vignette : un
+repère de progression sans note et sans texte.
+⚠ Les lettres des miniatures sont volontairement plus grosses qu'à l'échelle de la scène :
+à 74 px de haut, une lettre proportionnelle est illisible.
+
+⚠ **LISTE DU NIVEAU 1 RÉÉCRITE PAR CONSONNE × VOYELLE** (20/09, d'après ses captures de
+l'appli d'origine : BU bus · BO bol · BA balle · PA papa · PO pot · PI pile · PU pull ·
+KO koala · KA kayak · RO robe · MI miel · MA mare · RA rat · ZI zip). **Une syllabe
+d'attaque par case**, et un mot qui commence par elle. ⚠ L'ordre des consonnes est LE SIEN
+— continus d'abord (M F CH S L V R Z N J), puis explosifs (P B T D C K G) : ne pas le
+réarranger par ordre alphabétique.
+⚠ La clé `localStorage` est passée à **`glisse-et-lis-6`** : sans ça, une liste enregistrée
+dans le navigateur masquait les nouveaux mots.
+
+⚠ **Andika est gardée, et seulement, pour les lettres et les mots à lire** : police conçue
+pour l'apprentissage de la lecture (a et g d'imprimerie, l et I distincts). Ne pas
+l'étendre à l'interface, ne pas la retirer des bulles.
+⚠ **Le mode sombre a été retiré** : aucun autre écran n'en a, et il renversait le code de
+couleurs des sons.
+⚠ **Les trois couleurs de sons sont celles de l'appli** : consonne bleu nuit #1d4e89,
+voyelle simple rouge brique #c0392b, graphème complexe vert #2f6b46 — identiques sur les
+bulles, l'étiquette traînée, le mot révélé et le tableau des sons. C'est le code que
+l'élève apprend.
+✅ Bouton « ← L'accueil » dans le bandeau (même mécanique que la carte des lyées :
+`history.back()` sinon lien vers l'appli).
+✅ Les listes de mots et le paramétrage enseignant (⚙︎) sont **inchangés**, et toujours
+stockés dans `localStorage` sous `glisse-et-lis-5`.
 
 ## ✅ LES 21 FICHES MÉTIER ONT TOUTES LEUR PHOTO (19/09)
 
@@ -431,6 +701,20 @@ déjà. Les cases des pages suivantes portent le nom de fichier attendu, à dép
 `mot-invite.png` (`mot-ordinateur.png` existe déjà).
 ⚠ Quatre mots ne se photographient pas comme un objet — **le silence, parler, écouter,
 enregistrer, couper** : prévoir une photo de situation ou de geste, pas un objet posé.
+
+## ⚠ DEUX PRÉFIXES D'IMAGES, NE JAMAIS LES MÉLANGER (20/09)
+
+- `clean/mot-<mot>.png` — **ses photos réalistes**, la banque de référence, utilisée par les
+  mots repères et les fiches métier. **C'est la source de vérité.**
+- `clean/illu-<mot>.png` — les illustrations plates découpées des planches Gemini, réservées
+  à « Glisse et lis ».
+
+⚠ **Incident du 20/09 à ne pas reproduire** : en découpant une planche de quatre
+illustrations, `mot-moto.png` et `mot-mur.png` ont été écrasés — or **moto est un mot
+repère**. Récupérés depuis `github/clean/`, qui garde l'état du dernier export. **Avant
+d'écrire un `clean/mot-*.png`, vérifier qu'il n'existe pas déjà** ; une illustration ne
+prend jamais un nom `mot-`.
+⚠ Et `github/clean/` sert de filet : ne pas le supprimer.
 
 ## ✅ LES PLANCHES EN IMAGES — nouvelle collection (15/09)
 

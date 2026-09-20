@@ -81,13 +81,13 @@ const PAGE=(label,corps)=>'<section class="page" data-screen-label="'+esc(label)
 const CORPS=c=>'<div style="flex:1;min-height:0;display:flex;flex-direction:column;gap:12px;'
  +'padding:16px 24px 20px">'+c+'</div>';
 
-const OREILLE='clean/icone-oreille.svg', OEIL='clean/icone-oeil.svg', CRAYON='clean/mot-crayon.png';
+const OREILLE='clean/icone-oreille.svg', OEIL='clean/icone-oeil.svg', CRAYON='clean/mot-crayon.webp';
 
 // en-tête de la page 1 : mot repère · le son · le geste, puis les cinq écritures
 function enTete(f){
   const rep=(f.reperes||[])[0];
   const photoRep=rep && f.aPhoto(rep[1])
-    ? '<div style="width:126px;height:118px;background:url(\'clean/mot-'+rep[1]+'.png\') center/contain no-repeat"></div>'
+    ? '<div style="width:126px;height:118px;background:url(\'clean/mot-'+rep[1]+'.webp\') center/contain no-repeat"></div>'
     : '<div style="width:126px;height:118px;border:2px dashed #c9b98f;border-radius:7px;display:flex;'
       +'align-items:center;justify-content:center;font-size:11px;color:#8a7c55;text-align:center">photo<br />à venir</div>';
   const geste=f.geste

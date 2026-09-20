@@ -52,7 +52,7 @@ input,select,button{font-family:inherit}
 <div class="om-nonprint" style="height:100vh;min-height:0;overflow:hidden;display:flex;flex-direction:column;font-family:Archivo, Arial, sans-serif;color:#12233b;background:#f4f6f9">
 
 <div style="flex:0 0 auto;background:#12233b;color:#fff;display:flex;align-items:center;gap:{{ gapBarre }};padding:{{ padBarre }};flex-wrap:nowrap">
-<button onClick="{{ goHome }}" style="flex:0 0 auto;width:42px;height:42px;border-radius:12px;border:none;background:#fff;background-image:url('clean/ico-accueil.png');background-size:74%;background-repeat:no-repeat;background-position:center;cursor:pointer"></button>
+<button onClick="{{ goHome }}" style="flex:0 0 auto;width:42px;height:42px;border-radius:12px;border:none;background:#fff;background-image:url('clean/ico-accueil.webp');background-size:74%;background-repeat:no-repeat;background-position:center;cursor:pointer"></button>
 <sc-if value="{{ montrerRetour }}" hint-placeholder-val="{{ true }}">
 <button onClick="{{ retourUn }}" title="{{ libelleRetour }}" style="flex:0 0 auto;border:2px solid rgba(255,255,255,0.5);border-radius:12px;background:none;color:#fff;padding:{{ padRetour }};font-family:Archivo Black, Archivo, sans-serif;font-size:{{ tailleRetour }};letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;white-space:nowrap">{{ texteRetour }}</button>
 </sc-if>
@@ -190,11 +190,11 @@ input,select,button{font-family:inherit}
 </sc-if>
 
 <sc-if value="{{ estVerrou }}" hint-placeholder-val="{{ false }}">
-<div style="flex:1;min-height:0;position:relative;display:flex;align-items:center;justify-content:center;padding:40px 26px;background:url('clean/mur-briques.png') repeat;overflow-y:{{ debord }};overflow-x:hidden">
-<img src="clean/fenetre.png" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;top:14px;left:100px;width:420px;height:auto;z-index:0;filter:drop-shadow(0 6px 14px rgba(0,0,0,0.2))" />
-<img src="clean/plante.png" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;bottom:0;left:max(0px, calc(50% - 700px));width:340px;height:auto;z-index:1" />
+<div style="flex:1;min-height:0;position:relative;display:flex;align-items:center;justify-content:center;padding:40px 26px;background:url('clean/mur-briques.webp') repeat;overflow-y:{{ debord }};overflow-x:hidden">
+<img src="clean/fenetre.webp" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;top:14px;left:100px;width:420px;height:auto;z-index:0;filter:drop-shadow(0 6px 14px rgba(0,0,0,0.2))" />
+<img src="clean/plante.webp" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;bottom:0;left:max(0px, calc(50% - 700px));width:340px;height:auto;z-index:1" />
 <div style="position:relative;z-index:2;width:100%;max-width:400px;background:#fff;border-radius:18px;box-shadow:0 8px 24px rgba(0,0,0,0.2);padding:30px;display:flex;flex-direction:column;align-items:center;gap:18px">
-<span style="width:74px;height:74px;border-radius:20px;background-color:#1682a0;background-image:url('clean/tuile-mdp.png');background-size:cover;background-position:center"></span>
+<span style="width:74px;height:74px;border-radius:20px;background-color:#1682a0;background-image:url('clean/tuile-mdp.webp');background-size:cover;background-position:center"></span>
 <span style="font-family:Archivo Black, Archivo, sans-serif;font-size:19px;color:#12233b;text-align:center">Espace enseignant</span>
 <span style="font-size:13px;color:#6b7386;text-align:center;line-height:1.45">Saisis ton mot de passe pour accéder aux réglages et aux bilans.</span>
 <input type="password" value="{{ saisieMdp }}" onChange="{{ setSaisieMdp }}" placeholder="Mot de passe" style="width:100%;box-sizing:border-box;border:2px solid #c9cfd8;border-radius:11px;padding:12px 14px;font-size:16px;text-align:center" />
@@ -206,13 +206,13 @@ input,select,button{font-family:inherit}
 </sc-if>
 
 <sc-if value="{{ estThemeAccueil }}" hint-placeholder-val="{{ true }}">
-<div style="flex:1;min-height:0;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:{{ alignVert }};gap:18px;padding:{{ padDecor }};background:url('clean/mur-briques.png') repeat;overflow:auto">
+<div style="flex:1;min-height:0;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:{{ alignVert }};gap:18px;padding:{{ padDecor }};background:url('clean/mur-briques.webp') repeat;overflow:auto">
 <sc-if value="{{ pasTel }}" hint-placeholder-val="{{ true }}">
-<img src="clean/fenetre.png" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;top:18px;left:24px;width:250px;height:auto;z-index:0;filter:drop-shadow(0 6px 14px rgba(0,0,0,0.2))" />
-<img src="clean/plante.png" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;bottom:0;left:8px;width:190px;height:auto;z-index:1" />
+<img src="clean/fenetre.webp" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;top:18px;left:24px;width:250px;height:auto;z-index:0;filter:drop-shadow(0 6px 14px rgba(0,0,0,0.2))" />
+<img src="clean/plante.webp" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;bottom:0;left:8px;width:190px;height:auto;z-index:1" />
 </sc-if>
 <div style="position:relative;z-index:2;flex:0 0 auto;width:100%;max-width:{{ largeurAccueil }};margin:0 {{ margeAccueil }} auto auto;box-sizing:border-box;display:grid;grid-template-columns:{{ colAccueil }};gap:18px">
-<button onClick="{{ ouvrirSemaine }}" style="box-shadow:0 12px 28px rgba(0,0,0,0.3);background-image:url('clean/liege.png');background-size:100% 100%;background-repeat:no-repeat;border:none;padding:15px 15px 18px;display:flex;flex-direction:column;align-items:center;gap:11px;cursor:pointer" style-hover="transform:translateY(-3px)">
+<button onClick="{{ ouvrirSemaine }}" style="box-shadow:0 12px 28px rgba(0,0,0,0.3);background-image:url('clean/liege.webp');background-size:100% 100%;background-repeat:no-repeat;border:none;padding:15px 15px 18px;display:flex;flex-direction:column;align-items:center;gap:11px;cursor:pointer" style-hover="transform:translateY(-3px)">
 <span style="position:relative;background:#fdf3c4;padding:8px 16px;transform:rotate(-0.7deg);box-shadow:0 4px 10px rgba(0,0,0,0.3);display:block">
 <span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:block"></span>
 <span style="font-family:Archivo Black, Archivo, sans-serif;font-size:13px;letter-spacing:0.02em;text-transform:uppercase;color:#8a4b1e;text-align:center;line-height:1.2;display:block">Cette semaine</span>
@@ -223,7 +223,7 @@ input,select,button{font-family:inherit}
 </span>
 <span style="font-size:11.5px;color:#fdf3c4;text-shadow:0 1px 3px rgba(0,0,0,0.5)">mes documents de la semaine</span>
 </button>
-<button onClick="{{ ouvrirTableauThemes }}" style="box-shadow:0 12px 28px rgba(0,0,0,0.3);background-image:url('clean/liege.png');background-size:100% 100%;background-repeat:no-repeat;border:none;padding:15px 15px 18px;display:flex;flex-direction:column;align-items:center;gap:11px;cursor:pointer" style-hover="transform:translateY(-3px)">
+<button onClick="{{ ouvrirTableauThemes }}" style="box-shadow:0 12px 28px rgba(0,0,0,0.3);background-image:url('clean/liege.webp');background-size:100% 100%;background-repeat:no-repeat;border:none;padding:15px 15px 18px;display:flex;flex-direction:column;align-items:center;gap:11px;cursor:pointer" style-hover="transform:translateY(-3px)">
 <span style="position:relative;background:#fdf3c4;padding:8px 16px;transform:rotate(-1.2deg);box-shadow:0 4px 10px rgba(0,0,0,0.3)">
 <span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:block"></span>
 <span style="font-family:Archivo Black, Archivo, sans-serif;font-size:17px;letter-spacing:0.02em;text-transform:uppercase;color:#8a4b1e;text-align:center;line-height:1.2;display:block;font-size:13px">Les thèmes</span>
@@ -235,7 +235,7 @@ input,select,button{font-family:inherit}
 </span>
 <span style="font-size:11.5px;color:#fdf3c4;text-shadow:0 1px 3px rgba(0,0,0,0.5)">{{ apercuThemesTexte }}</span>
 </button>
-<button onClick="{{ ouvrirTableauCode }}" style="box-shadow:0 12px 28px rgba(0,0,0,0.3);background-image:url('clean/liege.png');background-size:100% 100%;background-repeat:no-repeat;border:none;padding:15px 15px 18px;display:flex;flex-direction:column;align-items:center;gap:11px;cursor:pointer" style-hover="transform:translateY(-3px)">
+<button onClick="{{ ouvrirTableauCode }}" style="box-shadow:0 12px 28px rgba(0,0,0,0.3);background-image:url('clean/liege.webp');background-size:100% 100%;background-repeat:no-repeat;border:none;padding:15px 15px 18px;display:flex;flex-direction:column;align-items:center;gap:11px;cursor:pointer" style-hover="transform:translateY(-3px)">
 <span style="position:relative;background:#fdf3c4;padding:8px 16px;transform:rotate(0.9deg);box-shadow:0 4px 10px rgba(0,0,0,0.3);display:block">
 <span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:block"></span>
 <span style="font-family:Archivo Black, Archivo, sans-serif;font-size:17px;letter-spacing:0.02em;text-transform:uppercase;color:#8a4b1e;text-align:center;line-height:1.2;display:block;font-size:13px">Les lettres<br />et les sons</span>
@@ -247,15 +247,15 @@ input,select,button{font-family:inherit}
 </span>
 <span style="font-size:11.5px;color:#fdf3c4;text-shadow:0 1px 3px rgba(0,0,0,0.5)">{{ apercuCodeTexte }}</span>
 </button>
-<a href="ORIENTATION - Mon avenir au Havre.html" style="box-shadow:0 12px 28px rgba(0,0,0,0.3);background-image:url('clean/liege.png');background-size:100% 100%;background-repeat:no-repeat;border:none;padding:15px 15px 18px;display:flex;flex-direction:column;align-items:center;gap:11px;cursor:pointer;text-decoration:none" style-hover="transform:translateY(-3px)">
+<a href="ORIENTATION - Mon avenir au Havre.html" style="box-shadow:0 12px 28px rgba(0,0,0,0.3);background-image:url('clean/liege.webp');background-size:100% 100%;background-repeat:no-repeat;border:none;padding:15px 15px 18px;display:flex;flex-direction:column;align-items:center;gap:11px;cursor:pointer;text-decoration:none" style-hover="transform:translateY(-3px)">
 <span style="position:relative;background:#fdf3c4;padding:8px 16px;transform:rotate(1deg);box-shadow:0 4px 10px rgba(0,0,0,0.3);display:block">
 <span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:block"></span>
 <span style="font-family:Archivo Black, Archivo, sans-serif;font-size:13px;letter-spacing:0.02em;text-transform:uppercase;color:#8a4b1e;text-align:center;line-height:1.2;display:block">Mon avenir<br />au Havre</span>
 </span>
 <span style="width:100%;display:grid;grid-template-columns:{{ colApercu }};gap:7px">
-<span style="background:#fff;border:3px solid #e8654f;border-radius:8px;box-shadow:0 3px 10px rgba(0,0,0,0.18);aspect-ratio:1;align-self:start;overflow:hidden;background-image:url('clean/mot-macon.png');background-size:contain;background-repeat:no-repeat;background-position:center;background-origin:content-box;padding:6px;display:block"></span>
-<span style="background:#fff;border:3px solid #e59a2b;border-radius:8px;box-shadow:0 3px 10px rgba(0,0,0,0.18);aspect-ratio:1;align-self:start;overflow:hidden;background-image:url('clean/mot-cuisinier.png');background-size:contain;background-repeat:no-repeat;background-position:center;background-origin:content-box;padding:6px;display:block"></span>
-<span style="background:#fff;border:3px solid #1682a0;border-radius:8px;box-shadow:0 3px 10px rgba(0,0,0,0.18);aspect-ratio:1;align-self:start;overflow:hidden;background-image:url('clean/mot-electricien.png');background-size:contain;background-repeat:no-repeat;background-position:center;background-origin:content-box;padding:6px;display:block"></span>
+<span style="background:#fff;border:3px solid #e8654f;border-radius:8px;box-shadow:0 3px 10px rgba(0,0,0,0.18);aspect-ratio:1;align-self:start;overflow:hidden;background-image:url('clean/mot-macon.webp');background-size:contain;background-repeat:no-repeat;background-position:center;background-origin:content-box;padding:6px;display:block"></span>
+<span style="background:#fff;border:3px solid #e59a2b;border-radius:8px;box-shadow:0 3px 10px rgba(0,0,0,0.18);aspect-ratio:1;align-self:start;overflow:hidden;background-image:url('clean/mot-cuisinier.webp');background-size:contain;background-repeat:no-repeat;background-position:center;background-origin:content-box;padding:6px;display:block"></span>
+<span style="background:#fff;border:3px solid #1682a0;border-radius:8px;box-shadow:0 3px 10px rgba(0,0,0,0.18);aspect-ratio:1;align-self:start;overflow:hidden;background-image:url('clean/mot-electricien.webp');background-size:contain;background-repeat:no-repeat;background-position:center;background-origin:content-box;padding:6px;display:block"></span>
 </span>
 <span style="font-size:11.5px;color:#fdf3c4;text-shadow:0 1px 3px rgba(0,0,0,0.5)">les lycées et les métiers</span>
 </a>
@@ -264,10 +264,10 @@ input,select,button{font-family:inherit}
 </sc-if>
 
 <sc-if value="{{ estTableauThemes }}" hint-placeholder-val="{{ false }}">
-<div style="flex:1;min-height:0;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:stretch;gap:18px;padding:20px 26px 22px;background:url('clean/mur-briques.png') repeat;overflow-y:{{ debord }};overflow-x:hidden">
-<img src="clean/fenetre.png" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;top:14px;left:100px;width:300px;height:auto;z-index:0;filter:drop-shadow(0 6px 14px rgba(0,0,0,0.2))" />
-<img src="clean/plante.png" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;bottom:0;left:max(0px, calc(50% - 700px));width:210px;height:auto;z-index:1" />
-<div style="position:relative;z-index:2;flex:1;min-height:0;width:100%;max-width:{{ largeurPanneau }};margin-left:auto;margin-right:{{ margePanneau }};box-sizing:border-box;box-shadow:0 12px 28px rgba(0,0,0,0.28);background-image:url('clean/liege.png');background-size:100% 100%;background-repeat:no-repeat;padding:16px 20px 18px;display:flex;flex-direction:column;align-items:center;gap:12px">
+<div style="flex:1;min-height:0;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:stretch;gap:18px;padding:20px 26px 22px;background:url('clean/mur-briques.webp') repeat;overflow-y:{{ debord }};overflow-x:hidden">
+<img src="clean/fenetre.webp" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;top:14px;left:100px;width:300px;height:auto;z-index:0;filter:drop-shadow(0 6px 14px rgba(0,0,0,0.2))" />
+<img src="clean/plante.webp" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;bottom:0;left:max(0px, calc(50% - 700px));width:210px;height:auto;z-index:1" />
+<div style="position:relative;z-index:2;flex:1;min-height:0;width:100%;max-width:{{ largeurPanneau }};margin-left:auto;margin-right:{{ margePanneau }};box-sizing:border-box;box-shadow:0 12px 28px rgba(0,0,0,0.28);background-image:url('clean/liege.webp');background-size:100% 100%;background-repeat:no-repeat;padding:16px 20px 18px;display:flex;flex-direction:column;align-items:center;gap:12px">
 <div style="position:relative;background:#fdf3c4;padding:12px 38px;transform:rotate(-1.2deg);box-shadow:0 4px 10px rgba(0,0,0,0.3)">
 <span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4)"></span>
 <span style="font-family:Archivo Black, Archivo, sans-serif;font-size:19px;letter-spacing:0.03em;text-transform:uppercase;color:#8a4b1e;white-space:nowrap">Choisis ton thème</span>
@@ -286,10 +286,10 @@ input,select,button{font-family:inherit}
 </sc-if>
 
 <sc-if value="{{ estTableauCode }}" hint-placeholder-val="{{ false }}">
-<div style="flex:1;min-height:0;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:stretch;gap:18px;padding:20px 26px 22px;background:url('clean/mur-briques.png') repeat;overflow-y:{{ debord }};overflow-x:hidden">
-<img src="clean/fenetre.png" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;top:14px;left:100px;width:300px;height:auto;z-index:0;filter:drop-shadow(0 6px 14px rgba(0,0,0,0.2))" />
-<img src="clean/plante.png" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;bottom:0;left:max(0px, calc(50% - 700px));width:210px;height:auto;z-index:1" />
-<div style="position:relative;z-index:2;flex:1;min-height:0;width:100%;max-width:{{ largeurPanneau }};margin-left:auto;margin-right:{{ margePanneau }};box-sizing:border-box;box-shadow:0 12px 28px rgba(0,0,0,0.28);background-image:url('clean/liege.png');background-size:100% 100%;background-repeat:no-repeat;padding:16px 20px 18px;display:flex;flex-direction:column;align-items:center;gap:12px">
+<div style="flex:1;min-height:0;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:stretch;gap:18px;padding:20px 26px 22px;background:url('clean/mur-briques.webp') repeat;overflow-y:{{ debord }};overflow-x:hidden">
+<img src="clean/fenetre.webp" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;top:14px;left:100px;width:300px;height:auto;z-index:0;filter:drop-shadow(0 6px 14px rgba(0,0,0,0.2))" />
+<img src="clean/plante.webp" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;bottom:0;left:max(0px, calc(50% - 700px));width:210px;height:auto;z-index:1" />
+<div style="position:relative;z-index:2;flex:1;min-height:0;width:100%;max-width:{{ largeurPanneau }};margin-left:auto;margin-right:{{ margePanneau }};box-sizing:border-box;box-shadow:0 12px 28px rgba(0,0,0,0.28);background-image:url('clean/liege.webp');background-size:100% 100%;background-repeat:no-repeat;padding:16px 20px 18px;display:flex;flex-direction:column;align-items:center;gap:12px">
 <div style="position:relative;background:#fdf3c4;padding:10px 34px;transform:rotate(0.9deg);box-shadow:0 4px 10px rgba(0,0,0,0.3)">
 <span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4)"></span>
 <span style="font-family:Archivo Black, Archivo, sans-serif;font-size:18px;letter-spacing:0.03em;text-transform:uppercase;color:#8a4b1e;white-space:nowrap">Les lettres et les sons</span>
@@ -315,10 +315,10 @@ input,select,button{font-family:inherit}
 </sc-if>
 
 <sc-if value="{{ estSousTheme }}" hint-placeholder-val="{{ false }}">
-<div style="flex:1;min-height:0;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:{{ alignVert }};padding:{{ padDecor }};background:url('clean/mur-briques.png') repeat;overflow-y:{{ debord }};overflow-x:hidden">
-<img src="clean/fenetre.png" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;top:14px;left:100px;width:420px;height:auto;z-index:0;filter:drop-shadow(0 6px 14px rgba(0,0,0,0.2))" />
-<img src="clean/plante.png" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;bottom:0;left:max(0px, calc(50% - 700px));width:340px;height:auto;z-index:1" />
-<div style="position:relative;z-index:2;width:100%;max-width:{{ largeurPanneau }};max-height:{{ hMaxPanneau }};margin-left:auto;margin-right:{{ margePanneau }};box-sizing:border-box;box-shadow:0 12px 28px rgba(0,0,0,0.28);background-image:url('clean/liege.png');background-size:100% 100%;background-repeat:no-repeat;padding:16px 20px 18px;display:flex;flex-direction:column;align-items:center;gap:12px">
+<div style="flex:1;min-height:0;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:{{ alignVert }};padding:{{ padDecor }};background:url('clean/mur-briques.webp') repeat;overflow-y:{{ debord }};overflow-x:hidden">
+<img src="clean/fenetre.webp" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;top:14px;left:100px;width:420px;height:auto;z-index:0;filter:drop-shadow(0 6px 14px rgba(0,0,0,0.2))" />
+<img src="clean/plante.webp" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;bottom:0;left:max(0px, calc(50% - 700px));width:340px;height:auto;z-index:1" />
+<div style="position:relative;z-index:2;width:100%;max-width:{{ largeurPanneau }};max-height:{{ hMaxPanneau }};margin-left:auto;margin-right:{{ margePanneau }};box-sizing:border-box;box-shadow:0 12px 28px rgba(0,0,0,0.28);background-image:url('clean/liege.webp');background-size:100% 100%;background-repeat:no-repeat;padding:16px 20px 18px;display:flex;flex-direction:column;align-items:center;gap:12px">
 <div style="position:relative;background:#fdf3c4;padding:12px 38px;transform:rotate(-1.2deg);box-shadow:0 4px 10px rgba(0,0,0,0.3)">
 <span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4)"></span>
 <span style="font-family:Archivo Black, Archivo, sans-serif;font-size:20px;letter-spacing:0.03em;text-transform:uppercase;color:#8a4b1e">{{ themeParent }}</span>
@@ -787,10 +787,10 @@ Le trait d'union sépare les mots</label>
 </sc-if>
 
 <sc-if value="{{ estEleve }}" hint-placeholder-val="{{ false }}">
-<div style="flex:1;min-height:0;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:{{ alignVert }};padding:{{ padDecor }};background:url('clean/mur-briques.png') repeat;overflow-y:{{ debord }};overflow-x:hidden">
-<img src="clean/fenetre.png" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;top:14px;left:100px;width:420px;height:auto;z-index:0;filter:drop-shadow(0 6px 14px rgba(0,0,0,0.2))" />
-<img src="clean/plante.png" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;bottom:0;left:max(0px, calc(50% - 700px));width:340px;height:auto;z-index:1" />
-<div style="position:relative;z-index:2;width:100%;max-width:{{ largeurPanneau }};max-height:{{ hMaxPanneau }};margin-left:auto;margin-right:{{ margePanneau }};box-sizing:border-box;box-shadow:0 12px 28px rgba(0,0,0,0.28);background-image:url('clean/liege.png');background-size:100% 100%;background-repeat:no-repeat;padding:16px 20px 18px;display:flex;flex-direction:column;align-items:center;gap:12px">
+<div style="flex:1;min-height:0;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:{{ alignVert }};padding:{{ padDecor }};background:url('clean/mur-briques.webp') repeat;overflow-y:{{ debord }};overflow-x:hidden">
+<img src="clean/fenetre.webp" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;top:14px;left:100px;width:420px;height:auto;z-index:0;filter:drop-shadow(0 6px 14px rgba(0,0,0,0.2))" />
+<img src="clean/plante.webp" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;bottom:0;left:max(0px, calc(50% - 700px));width:340px;height:auto;z-index:1" />
+<div style="position:relative;z-index:2;width:100%;max-width:{{ largeurPanneau }};max-height:{{ hMaxPanneau }};margin-left:auto;margin-right:{{ margePanneau }};box-sizing:border-box;box-shadow:0 12px 28px rgba(0,0,0,0.28);background-image:url('clean/liege.webp');background-size:100% 100%;background-repeat:no-repeat;padding:16px 20px 18px;display:flex;flex-direction:column;align-items:center;gap:12px">
 <div style="position:relative;background:#fdf3c4;padding:12px 38px;transform:rotate(-1.2deg);box-shadow:0 4px 10px rgba(0,0,0,0.3)">
 <span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4)"></span>
 <span style="font-family:Archivo Black, Archivo, sans-serif;font-size:{{ tEtiquette }};letter-spacing:0.03em;text-transform:uppercase;color:#8a4b1e">{{ themeEleve }}</span>
@@ -827,10 +827,10 @@ Le trait d'union sépare les mots</label>
 </sc-if>
 
 <sc-if value="{{ estSemaine }}" hint-placeholder-val="{{ false }}">
-<div style="flex:1;min-height:0;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:{{ alignVert }};padding:{{ padDecor }};background:url('clean/mur-briques.png') repeat;overflow-y:{{ debord }};overflow-x:hidden">
-<img src="clean/fenetre.png" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;top:14px;left:100px;width:300px;height:auto;z-index:0;filter:drop-shadow(0 6px 14px rgba(0,0,0,0.2))" />
-<img src="clean/plante.png" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;bottom:0;left:max(0px, calc(50% - 700px));width:210px;height:auto;z-index:1" />
-<div style="position:relative;z-index:2;width:100%;max-width:{{ largeurPanneau }};margin-left:auto;margin-right:{{ margePanneau }};box-sizing:border-box;box-shadow:0 12px 28px rgba(0,0,0,0.28);background-image:url('clean/liege.png');background-size:100% 100%;background-repeat:no-repeat;padding:16px 20px 20px;display:flex;flex-direction:column;align-items:center;gap:14px">
+<div style="flex:1;min-height:0;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:{{ alignVert }};padding:{{ padDecor }};background:url('clean/mur-briques.webp') repeat;overflow-y:{{ debord }};overflow-x:hidden">
+<img src="clean/fenetre.webp" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;top:14px;left:100px;width:300px;height:auto;z-index:0;filter:drop-shadow(0 6px 14px rgba(0,0,0,0.2))" />
+<img src="clean/plante.webp" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;bottom:0;left:max(0px, calc(50% - 700px));width:210px;height:auto;z-index:1" />
+<div style="position:relative;z-index:2;width:100%;max-width:{{ largeurPanneau }};margin-left:auto;margin-right:{{ margePanneau }};box-sizing:border-box;box-shadow:0 12px 28px rgba(0,0,0,0.28);background-image:url('clean/liege.webp');background-size:100% 100%;background-repeat:no-repeat;padding:16px 20px 20px;display:flex;flex-direction:column;align-items:center;gap:14px">
 <div style="display:flex;align-items:center;gap:14px">
 <button onClick="{{ semainePrec }}" title="La semaine d'avant" style="flex:0 0 auto;width:46px;height:46px;border:none;border-radius:50%;background:#fff;color:#12233b;font-size:20px;line-height:1;cursor:pointer;box-shadow:0 3px 9px rgba(0,0,0,0.3);opacity:{{ opPrec }};padding:0">&#8592;</button>
 <div style="position:relative;background:#fdf3c4;padding:11px 30px;transform:rotate(-1deg);box-shadow:0 4px 10px rgba(0,0,0,0.3);display:flex;flex-direction:column;align-items:center;gap:2px">
@@ -888,8 +888,8 @@ Le trait d'union sépare les mots</label>
 </sc-if>
 
 <sc-if value="{{ estNiveau }}" hint-placeholder-val="{{ false }}">
-<div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:{{ alignVert }};padding:{{ padDecor }};background:url('clean/mur-briques.png') repeat;overflow-y:{{ debord }};overflow-x:hidden">
-<div style="width:100%;max-width:1000px;box-sizing:border-box;box-shadow:0 12px 28px rgba(0,0,0,0.28);background-image:url('clean/liege.png');background-size:100% 100%;background-repeat:no-repeat;padding:16px 20px 18px;display:flex;flex-direction:column;align-items:center;gap:12px">
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:{{ alignVert }};padding:{{ padDecor }};background:url('clean/mur-briques.webp') repeat;overflow-y:{{ debord }};overflow-x:hidden">
+<div style="width:100%;max-width:1000px;box-sizing:border-box;box-shadow:0 12px 28px rgba(0,0,0,0.28);background-image:url('clean/liege.webp');background-size:100% 100%;background-repeat:no-repeat;padding:16px 20px 18px;display:flex;flex-direction:column;align-items:center;gap:12px">
 <div style="position:relative;background:#fdf3c4;padding:11px 34px;transform:rotate(-1deg);box-shadow:0 4px 10px rgba(0,0,0,0.3)">
 <span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:block"></span>
 <span style="font-family:Archivo Black, Archivo, sans-serif;font-size:18px;letter-spacing:0.03em;text-transform:uppercase;color:#8a4b1e;white-space:nowrap">Choisis ton niveau</span>
@@ -910,8 +910,8 @@ Le trait d'union sépare les mots</label>
 </sc-if>
 
 <sc-if value="{{ estThemeEleve }}" hint-placeholder-val="{{ false }}">
-<div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:{{ alignVert }};padding:{{ padDecor }};background:url('clean/mur-briques.png') repeat;overflow-y:{{ debord }};overflow-x:hidden">
-<div style="width:100%;max-width:1000px;box-sizing:border-box;box-shadow:0 12px 28px rgba(0,0,0,0.28);background-image:url('clean/liege.png');background-size:100% 100%;background-repeat:no-repeat;padding:16px 20px 18px;display:flex;flex-direction:column;align-items:center;gap:12px">
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:{{ alignVert }};padding:{{ padDecor }};background:url('clean/mur-briques.webp') repeat;overflow-y:{{ debord }};overflow-x:hidden">
+<div style="width:100%;max-width:1000px;box-sizing:border-box;box-shadow:0 12px 28px rgba(0,0,0,0.28);background-image:url('clean/liege.webp');background-size:100% 100%;background-repeat:no-repeat;padding:16px 20px 18px;display:flex;flex-direction:column;align-items:center;gap:12px">
 <div style="position:relative;background:#fdf3c4;padding:11px 34px;transform:rotate(-1deg);box-shadow:0 4px 10px rgba(0,0,0,0.3)">
 <span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:block"></span>
 <span style="font-family:Archivo Black, Archivo, sans-serif;font-size:18px;letter-spacing:0.03em;text-transform:uppercase;color:#8a4b1e">Choisis un thème</span>
@@ -2146,6 +2146,15 @@ Le trait d'union sépare les mots</label>
 </div>
 </sc-if>
 
+<sc-if value="{{ dsqOutilPuzzle }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;overflow-y:auto;padding:22px 24px;display:flex;flex-direction:column;gap:14px;max-width:660px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:17px;color:#12233b">Le puzzle à retourner</span>
+<span style="font-size:12.5px;color:#5d6879;line-height:1.6">Une photo est cachée sous des cases numérotées. Un élève dit un nombre, on touche la case, elle s'ouvre. <b>Qui devine l'image le premier ?</b></span>
+<span style="font-size:12.5px;color:#5d6879;line-height:1.6">À <b>100 cases</b>, ils lisent les nombres jusqu'à 100 à voix haute pour demander leur case — la numération se travaille sans qu'on la nomme. L'image et le nombre de cases se choisissent dans le jeu lui-même.</span>
+<a href="{{ urlPuzzle }}" style="align-self:flex-start;background:#6d5bd0;color:#fff;text-decoration:none;border-radius:10px;padding:11px 16px;font-family:Archivo Black, Archivo, sans-serif;font-size:12px;letter-spacing:0.05em;text-transform:uppercase">Ouvrir le puzzle</a>
+</div>
+</sc-if>
+
 <sc-if value="{{ dsqOutilAttente }}" hint-placeholder-val="{{ false }}">
 <div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:30px">
 <span style="font-size:15px;font-weight:700;color:#8a91a3">{{ dsqOutilNom }}</span>
@@ -2379,7 +2388,7 @@ const PHRASES={
    sans erreur console, puisque ce sont des background-image CSS et non des <img>. Le filtre
    de `tirer()` protège les fiches, pas les écrans d'exploration.
    Les slugs listés ici sont donc retirés de TOUT ce que voit l'élève (liste des thèmes,
-   compteur, exploration, jeux) tant que le fichier clean/mot-<slug>.png n'existe pas. Côté
+   compteur, exploration, jeux) tant que le fichier clean/mot-<slug>.webp n'existe pas. Côté
    enseignante, ils restent visibles dans les réglages : c'est là qu'elle suit ce qui manque.
    À FAIRE À CHAQUE PHOTO REÇUE : enlever le slug de cette liste, sinon le mot reste caché
    aux élèves alors que son image est là. Une photo qu'elle importe elle-même (perso.imgs)
@@ -2420,7 +2429,7 @@ const BANQUE={
  'Les loisirs':[['la course','course'],['la danse','danse'],['la musique','musique']],
  /* ⚠ THÈME OUVERT LE 18/09, LES PHOTOS ARRIVENT ENSUITE : ce sont les cinq sports du
     planning UNSS du lycée (créneaux du midi), qu'elle veut montrer en images. Les fichiers
-    clean/mot-basket.png, -flechettes, -boxe-francaise, -badminton, -foot N'EXISTENT PAS
+    clean/mot-basket.webp, -flechettes, -boxe-francaise, -badminton, -foot N'EXISTENT PAS
     ENCORE — elle les fabrique depuis les prompts donnés ce jour-là. En attendant, les mots
     apparaissent dans les réglages mais pas dans les fiches ni les jeux : tirer() écarte les
     mots sans photo. C'est voulu, ne pas les retirer d'ici pour autant.
@@ -2458,7 +2467,15 @@ const BANQUE={
    ce sont les mêmes images que la ligne « Où je travaille » des fiches métier.
    ⚠ Leurs fichiers sont préfixés `lieu-` et non `mot-` — voir PREF juste en dessous.
    ⚠ « un café » (le lieu) coexiste avec « du café » (la boisson) : deux mots, deux images. */
- 'Les lieux de travail':[['un chantier','lieu-chantier'],['un garage','lieu-garage'],['un atelier','lieu-atelier-metal'],['une cuisine','lieu-cuisine-pro'],['un restaurant','lieu-salle-restaurant'],['un café','lieu-cafe'],['une cantine','lieu-cantine'],['un hôpital','lieu-hopital'],['une maison de retraite','lieu-maison-retraite'],['un supermarché','lieu-supermarche'],['un pressing','lieu-pressing'],['une blanchisserie','lieu-blanchisserie'],['des bureaux','lieu-bureaux'],['un hôtel','lieu-hotel']]
+ 'Les lieux de travail':[['un chantier','lieu-chantier'],['un garage','lieu-garage'],['un atelier','lieu-atelier-metal'],['une cuisine','lieu-cuisine-pro'],['un restaurant','lieu-salle-restaurant'],['un café','lieu-cafe'],['une cantine','lieu-cantine'],['un hôpital','lieu-hopital'],['une maison de retraite','lieu-maison-retraite'],['un supermarché','lieu-supermarche'],['un pressing','lieu-pressing'],['une blanchisserie','lieu-blanchisserie'],['des bureaux','lieu-bureaux'],['un hôtel','lieu-hotel']],
+/* Thème publié le 20/09. Les 15 mots du studio, dans SON ordre (donné le 15/09, + « la
+   pause » ajoutée le 20/09). Quatre mots sont des photos de GESTE et non d'objet :
+   le silence (doigt sur la bouche), enregistrer (main sur le bouton rouge), couper (main
+   sur le curseur), la pause (les deux mains en T — le geste du technicien derrière la
+   vitre quand l'élève bafouille).
+   ⚠ parler, écouter et l'ordinateur sont DÉJÀ pris ailleurs (les actions, le lycée) :
+   même image, ne jamais l'écraser en croyant toucher à la radio. */
+ 'La radio':[['le micro','micro'],['le casque','casque'],['la platine','platine'],["l'enceinte",'enceinte'],["l'ordinateur",'ordinateur'],['le câble','cable'],['le silence','silence'],['parler','parler'],['écouter','ecouter'],['enregistrer','enregistrer'],['couper','couper'],['la pause','pause'],["l'animateur",'animateur'],['le technicien','technicien'],["l'invité",'invite']]
 };
 const VF={
  'Les anciens repas':[['pomme',"C'est une pomme.",true],['pomme',"C'est une banane.",false],['pain',"C'est du pain.",true],['riz',"C'est du café.",false],['carotte',"C'est une carotte.",true],['tomate',"C'est une pomme.",false],['cafe',"C'est un café.",true],['yaourt',"C'est un yaourt.",true]],
@@ -2764,7 +2781,7 @@ class Component extends DCLogic {
       ].filter(([nom])=>(s.codeOn||{})[nom]!==false)
        .map(([nom,couleur,lettre,police,taille,chips,lot,casse],i)=>({
         nom,couleur,lettre,police,taille,chips,rang:i+1,
-        bg:casse==='ecrire'?"url('clean/mot-crayon.png')":'none',
+        bg:casse==='ecrire'?"url('clean/mot-crayon.webp')":'none',
         explorer:()=>{ if(casse==='ecrire') this.lancerAlphaEcrire('Exploration',lot); else this.lancerAlpha(casse,'Exploration',lot); },
         evaluer:()=>{ if(casse==='ecrire') this.lancerAlphaEcrire('Évaluation',lot); else this.lancerAlpha(casse,'Évaluation',lot); }
     }));
@@ -2907,7 +2924,7 @@ class Component extends DCLogic {
   themeMontrable(t){ return this.motsIllustres(t).length>0; }
   srcImg(f){
     const p=this.state.perso||{}, d=p.imgs&&p.imgs[f];
-    if(!d) return 'clean/'+PREF(f)+'.png';
+    if(!d) return 'clean/'+PREF(f)+'.webp';
     this._blobs=this._blobs||{};
     if(!this._blobs[f]){
       try{
@@ -3915,7 +3932,7 @@ class Component extends DCLogic {
     const i=prog.indexOf(cle);
     const prec=i>0?prog[i-1]:prog[prog.length-1];
     const suiv=(i>=0&&i<prog.length-1)?prog[i+1]:prog[0];
-    const reperes=(f?f.reperes:[]).map(r=>({mot:r[0], img:'clean/mot-'+r[1]+'.png',
+    const reperes=(f?f.reperes:[]).map(r=>({mot:r[0], img:'clean/mot-'+r[1]+'.webp',
       aPhoto:LS?LS.aPhoto(r[1]):false, sansPhoto:LS?!LS.aPhoto(r[1]):true}));
     /* ⚠ LES SÉANCES A, I ET O NE SONT PLUS FIGÉES (16/09, son choix explicite). Elles
        étaient recopiées en dur dans fiches-source.js (ANANAS, BANANE, SALADE, CAROTTE,
@@ -4452,7 +4469,7 @@ class Component extends DCLogic {
     const TITRES={accueil:'Espace enseignant',eleve:'Espace élève',groupes:'Gestion des groupes et des élèves',reglages:'Réglages des thèmes',reglagesCode:'Réglages lettres et sons',fabrique:'Fiches et jeux — à fabriquer et à imprimer',bilan:'Bilan des exercices',oral:'Productions orales des thèmes',themes:'Création de thèmes',mdp:'Mot de passe sécurisé',
       sons:'Les sons — la progression de la classe', son:'Le son « '+(s.sonCle||'')+' »', texte:'Lire des textes — les aides à la lecture', creer:'Créer une fiche', outils:TITRES_DOM[s.outilsDomaine]||'Fiches à imprimer', competences:'Bilan des compétences', devoirs:'Je continue chez moi — préparer le travail du soir',
       alpha:"L'alphabet",alphaEcrire:'Écris la lettre',resultatAlpha:'Résultat',
-      disques:'Outils de manipulation en classe',
+      disques:'Jeux de classe — on joue ensemble, rien à écrire, rien à noter',
       docsUtiles:'Mes documents utiles — mes séances et mes références',
       affichages:'Affichages de la classe — ce qui reste au mur ou sur la table',
       rituels:'Rituels — les documents du quotidien de la classe',
@@ -4488,7 +4505,7 @@ class Component extends DCLogic {
         ['Tous les élèves testés','posTable']]],
       ['Ressources enseignantes','#6d5bd0',[
         ['Je continue chez moi','devoirs'],
-        ['Outils de manipulation en classe','disques'],
+        ['Jeux de classe','disques'],
         ['Moment littéraire',''],
         /* Rituels n'est plus « à venir » (09/09) : le rituel des cartes de langage de
            Charivari est le premier, l'écran existe. */
@@ -4568,7 +4585,7 @@ class Component extends DCLogic {
     }));
 
     const champsStd=[["J'écoute",'#6d5bd0','oreille'],['Je lis','#2a9d6e','livre'],['Je parle','#e8654f','bouche'],["J'écris",'#e59a2b','crayon']]
-      .map(([nom,couleur,f])=>({nom,couleur,bg:"url('clean/mot-"+f+".png')",lettre:'',police:'Archivo',
+      .map(([nom,couleur,f])=>({nom,couleur,bg:"url('clean/mot-"+f+".webp')",lettre:'',police:'Archivo',
         explorer:()=>this.setState({ecran:'niveau',champEleve:nom,modeEleve:'Exploration'}),
         evaluer:()=>this.setState({ecran:'niveau',champEleve:nom,modeEleve:'Évaluation'})}));
     const champsAlpha=[
@@ -4774,7 +4791,7 @@ class Component extends DCLogic {
     }));
     const motsTheme=(MOTS_DEMO[s.themeSel]||[]).map(([mot,f])=>{
       const on=s.selection.indexOf(mot)>=0;
-      return {mot, bg:"url('clean/mot-"+f+".png')", bord:on?'#1d4e89':'#dde2e9', fond:on?'#eaf2fb':'#fff',
+      return {mot, bg:"url('clean/mot-"+f+".webp')", bord:on?'#1d4e89':'#dde2e9', fond:on?'#eaf2fb':'#fff',
         basculer:()=>this.setState(p=>({selection:on?p.selection.filter(x=>x!==mot):[...p.selection,mot]}))};
     });
     const selection=s.selection.map(mot=>({mot,retirer:()=>this.setState(p=>({selection:p.selection.filter(x=>x!==mot)}))}));
@@ -4887,7 +4904,7 @@ class Component extends DCLogic {
         const lot=this.lotAlpha(), tr=s.trouves||[], sa=s.saisies||{};
         return lot.map(([l,f,mot,f2])=>({
           l,
-          images:!f?[]:(f2?["url('clean/mot-"+f+".png')","url('clean/mot-"+f2+".png')"]:["url('clean/mot-"+f+".png')"]),
+          images:!f?[]:(f2?["url('clean/mot-"+f+".webp')","url('clean/mot-"+f2+".webp')"]:["url('clean/mot-"+f+".webp')"]),
           valeur:sa[l]||'',
           bord:tr.includes(l)?'#2a9d6e':'#c9cfd8',
           fond:tr.includes(l)?'#e8f7ef':'#fff',
@@ -4948,7 +4965,7 @@ class Component extends DCLogic {
           : (this._ordreCle=cleOrdre, this._ordreAlpha=this.melange(lot));
         return melange.map(([l,f,mot,f2])=>({
           l,
-          bg:!f?'none':(f2?"url('clean/mot-"+f+".png'), url('clean/mot-"+f2+".png')":"url('clean/mot-"+f+".png')"),
+          bg:!f?'none':(f2?"url('clean/mot-"+f+".webp'), url('clean/mot-"+f2+".webp')":"url('clean/mot-"+f+".webp')"),
           /* Ces deux valeurs sont TOUJOURS définies : c'est ici, et nulle part ailleurs, que
              le cadrage des images est garanti. Ne pas essayer de doubler `background-size`
              dans le gabarit « au cas où » : le style d'un DC devient un objet, deux clés
@@ -5306,7 +5323,14 @@ class Component extends DCLogic {
         ['Au mur','#1d4e89',[
           ["Frise de l'alphabet","Les trois écritures en bandes continues, à coller bout à bout sous le tableau. 6 feuilles A4 paysage, à imprimer en A3.","FR - Frise de l'alphabet (mur).dc.html"],
           ["Je me connecte à l'ENT","La marche à suivre en images, à afficher près des ordinateurs.","AFFICHE - Je me connecte à l'ENT.dc.html"],
-          ["Planche de thème illustré","Le lexique d'un thème en images, à afficher pendant qu'on travaille le thème.","PLANCHE - thème illustré.dc.html"]]],
+          ["Planche de thème illustré","Le lexique d'un thème en images, à afficher pendant qu'on travaille le thème.","PLANCHE - thème illustré.dc.html"],
+          /* Les vignettes des devoirs (20/09, sa demande, d'après le tableau d'une collègue
+             de primaire) : le tableau porte les QUATRE VERBES en permanence, on n'écrit plus
+             la consigne, on accroche le document à côté du verbe. En rouge, à sa demande. */
+          /* Le nom de la classe (20/09) : U P E 2 A à colorier, une lettre par A4, à coller
+             bout à bout au-dessus du tableau. Les images viennent de SES deux Word. */
+          ["Le nom de la classe — U P E 2 A","Cinq lettres à colorier, une par page A4, à coller bout à bout au-dessus du tableau. Cinq lettres, cinq élèves.","AFFICHE - Le nom de la classe.dc.html"],
+          ["Les devoirs — vignettes pour le tableau","1 LIRE · 2 ÉCRIRE · 3 PARLER · 4 ÉCOUTER, en rouge, deux par page A4 paysage. À découper et à aimanter au tableau, toujours au même endroit.","AFFICHE - Les devoirs (vignettes).dc.html"]]],
         ['Cartes de référence','#6d5bd0',[
           ["Se présenter","La carte de référence : prénom, métier, ville, âge.","CARTE - se présenter.dc.html"],
           ["Se présenter — version visuelle","La même, tout en images, pour les élèves qui ne lisent pas encore.","CARTE - se présenter (visuelle).dc.html"]]]
@@ -5364,7 +5388,14 @@ class Component extends DCLogic {
         url:url+(typeof location!=='undefined'?location.search:'')})),
       estAccueilEleve:s.ecran==='accueilEleve',
       estEdt:s.ecran==='edt',
+      /* ⚠ « Outils de manipulation en classe » s'appelle « JEUX DE CLASSE » depuis le 20/09
+         (« bof bof » : le titre sonnait catalogue de matériel). Ce que les trois partagent :
+         un jeu collectif, sans trace écrite et sans note. */
       dsqOutils:[['des','Les disques des dés','à scratcher sur les faces',false],
+        /* Le puzzle à retourner (20/09) : son accroche du lundi matin. Une photo cachée
+           sous 100 cases, un élève dit un nombre, la case s'ouvre. Les nombres jusqu'à
+           100 se lisent à voix haute pour rien — c'est le but. */
+        ['puzzle','Le puzzle à retourner','une photo sous les nombres',false],
         /* Le jeu du symbole commun (09/09) : deux cartes ont toujours une image commune,
            et une seule. Le paquet se fabrique depuis ses photos, dans son propre document. */
         ['cartes','Le jeu du symbole commun','deux cartes, une seule image en commun',false],
@@ -5380,8 +5411,10 @@ class Component extends DCLogic {
         }),
       dsqOutilDes:(s.dsqOutil||'des')==='des',
       dsqOutilCartes:(s.dsqOutil||'des')==='cartes',
+      dsqOutilPuzzle:(s.dsqOutil||'des')==='puzzle',
+      urlPuzzle:'JEU - Le puzzle à retourner.dc.html'+(typeof location!=='undefined'?location.search:''),
       urlCartes:'JEU - Le symbole commun (cartes).dc.html'+(typeof location!=='undefined'?location.search:''),
-      dsqOutilAttente:['des','cartes'].indexOf(s.dsqOutil||'des')<0,
+      dsqOutilAttente:['des','cartes','puzzle'].indexOf(s.dsqOutil||'des')<0,
       dsqOutilNom:s.dsqOutilNom||'',
       dsqOutilNote:s.dsqOutilNote||'',
       dsqSources:[['theme',"Mots et images d'un thème",'les mots vivants du thème',false],
@@ -5823,10 +5856,10 @@ class Component extends DCLogic {
       estRepete:s.ecran==='repete', estEcrire:s.ecran==='ecrire',
       estSituation:s.ecran==='situation',
       situation:q&&q.sit?q.sit:'',
-      sitBg:(q&&q.img&&SIT_IMG[q.img])?"url('clean/"+SIT_IMG[q.img]+".png')":'none',
+      sitBg:(q&&q.img&&SIT_IMG[q.img])?"url('clean/"+SIT_IMG[q.img]+".webp')":'none',
       direSituation:()=>{ if(q&&q.sit) this.dire(q.sit); },
       choixSituation:(q&&q.choix)?q.choix.map(r=>({
-        rep:r, bg:"url('clean/"+(POLITESSE_IMG[r]||'geste-bonjour')+".png')",
+        rep:r, bg:"url('clean/"+(POLITESSE_IMG[r]||'geste-bonjour')+".webp')",
         bord:!s.repondu?'#c9d6e4':(r===q.bonne?'#2a9d6e':'#c9d6e4'),
         fond:!s.repondu?'#fff':(r===q.bonne?'#e8f5ee':'#fff'),
         cliquer:()=>this.repondreSituation(r)

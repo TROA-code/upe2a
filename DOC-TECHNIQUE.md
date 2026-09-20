@@ -187,10 +187,10 @@ Une clé d'API Claude a été explicitement écartée : sur un site statique ell
 
 ```
 clean/            465 images — vignettes des mots et supports
-  mot-<mot>.png     un mot du lexique (sans accent, sans article)
-  geste-<mot>.png   geste de politesse
-  lycee-*.png       lieux du lycée
-  carte-*.png       cartes des lieux
+  mot-<mot>.webp     un mot du lexique (sans accent, sans article)
+  geste-<mot>.webp   geste de politesse
+  lycee-*.webp       lieux du lycée
+  carte-*.webp       cartes des lieux
   eleves/ ent/ pictos/ seances/
   apercu/           410 aperçus de fiches
 docs/             modèles et PDF sources
@@ -200,7 +200,7 @@ uploads/          dépôts bruts de l'enseignante — à NE PAS publier
 ```
 
 **Convention de nommage** (contraignante, le code la déduit) :
-`clean/mot-<mot>.png`, sans accent, sans article ; `clean/geste-<mot>.png`.
+`clean/mot-<mot>.webp`, sans accent, sans article ; `clean/geste-<mot>.webp`.
 Toute image > 1000 px de large est réduite à 1000 px ; fond blanc uni, sujet centré,
 photographie réaliste (public 16-18 ans).
 
@@ -237,7 +237,7 @@ photographie réaliste (public 16-18 ans).
 
 ## 10. Ajouter du contenu
 
-**Un mot** → l'image dans `clean/mot-<mot>.png`, l'entrée dans le thème de
+**Un mot** → l'image dans `clean/mot-<mot>.webp`, l'entrée dans le thème de
 `banque-mots.js` *et* dans la banque de l'espace enseignant.
 
 **Un son** → une entrée dans le tableau `T` de `lecture-sons.js`

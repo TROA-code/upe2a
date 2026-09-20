@@ -75,7 +75,7 @@ class Component extends DCLogic {
       lettre: DEUX_GRAPHIES[m[0]] || m[0],
       cursive: m[0],
       capitale: m[0].toUpperCase(),
-      images: m.slice(1).map(f => ({ mot: ECRIT[f] || f, img: 'clean/mot-' + f + '.png' }))
+      images: m.slice(1).map(f => ({ mot: ECRIT[f] || f, img: 'clean/mot-' + f + '.webp' }))
     }));
     const deux = this.props.deuxCopies ?? true;
     return {

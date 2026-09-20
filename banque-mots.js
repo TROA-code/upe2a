@@ -2,8 +2,8 @@
    L'espace enseignant garde sa propre copie (on n'y touche pas) ; ce fichier existe pour
    que les documents imprimables (planches, feuilles de route) puissent lister les mots
    d'un thème sans charger toute l'application. Relevé le 03/09.
-   Les noms de fichiers suivent la convention du projet : clean/mot-<mot>.png, et
-   clean/geste-<mot>.png pour les gestes de politesse. window.BANQUE_MOTS */
+   Les noms de fichiers suivent la convention du projet : clean/mot-<mot>.webp, et
+   clean/geste-<mot>.webp pour les gestes de politesse. window.BANQUE_MOTS */
 (function () {
   const BANQUE = {
  'Les pays, les langues':[['le Portugal','portugal'],['l\'Espagne','espagne'],['l\'Italie','italie'],['le Maroc','maroc'],['l\'Algérie','algerie'],['la Turquie','turquie'],['la Pologne','pologne'],['le Brésil','bresil'],['le Vietnam','vietnam'],['les langues','langues'],['un drapeau','drapeau']],
@@ -48,9 +48,22 @@
  /* Thème publié le 05/09 : 16 métiers accessibles en CAP / apprentissage, plus le
     coiffeur, le docteur et l'informatique qui existaient déjà. Les images sont dans
     clean/. Livreur, esthéticienne, jardinier, agriculteur et couturier ont été écartés. */
- 'Les métiers':[['un maçon','macon'],['un peintre','peintre'],['un électricien','electricien'],['un plombier','plombier'],['un menuisier','menuisier'],['un soudeur','soudeur'],['un mécanicien','mecanicien'],['un cuisinier','cuisinier'],['un serveur','serveur'],['un boulanger','boulanger'],['un pâtissier','patissier'],['un vendeur','vendeur'],['un caissier','caissier'],['un magasinier','magasinier'],['un aide-soignant','aidesoignant'],['un agent d\'entretien','agententretien'],['un coiffeur','coiffeur']]
+ 'Les métiers':[['un maçon','macon'],['un peintre','peintre'],['un électricien','electricien'],['un plombier','plombier'],['un menuisier','menuisier'],['un soudeur','soudeur'],['un mécanicien','mecanicien'],['un cuisinier','cuisinier'],['un serveur','serveur'],['un boulanger','boulanger'],['un pâtissier','patissier'],['un vendeur','vendeur'],['un caissier','caissier'],['un magasinier','magasinier'],['un aide-soignant','aidesoignant'],['un agent d\'entretien','agententretien'],['un coiffeur','coiffeur']],
+/* Thème publié le 19/09. Les lieux où l'on travaille, en appui du projet d'orientation :
+   ce sont les mêmes images que la ligne « Où je travaille » des fiches métier.
+   ⚠ Leurs fichiers sont préfixés `lieu-` et non `mot-` — voir PREF juste en dessous.
+   ⚠ « un café » (le lieu) coexiste avec « du café » (la boisson) : deux mots, deux images. */
+ 'Les lieux de travail':[['un chantier','lieu-chantier'],['un garage','lieu-garage'],['un atelier','lieu-atelier-metal'],['une cuisine','lieu-cuisine-pro'],['un restaurant','lieu-salle-restaurant'],['un café','lieu-cafe'],['une cantine','lieu-cantine'],['un hôpital','lieu-hopital'],['une maison de retraite','lieu-maison-retraite'],['un supermarché','lieu-supermarche'],['un pressing','lieu-pressing'],['une blanchisserie','lieu-blanchisserie'],['des bureaux','lieu-bureaux'],['un hôtel','lieu-hotel']],
+/* Thème publié le 20/09. Les 15 mots du studio, dans SON ordre (donné le 15/09, + « la
+   pause » ajoutée le 20/09). Quatre mots sont des photos de GESTE et non d'objet :
+   le silence (doigt sur la bouche), enregistrer (main sur le bouton rouge), couper (main
+   sur le curseur), la pause (les deux mains en T — le geste du technicien derrière la
+   vitre quand l'élève bafouille).
+   ⚠ parler, écouter et l'ordinateur sont DÉJÀ pris ailleurs (les actions, le lycée) :
+   même image, ne jamais l'écraser en croyant toucher à la radio. */
+ 'La radio':[['le micro','micro'],['le casque','casque'],['la platine','platine'],["l'enceinte",'enceinte'],["l'ordinateur",'ordinateur'],['le câble','cable'],['le silence','silence'],['parler','parler'],['écouter','ecouter'],['enregistrer','enregistrer'],['couper','couper'],['la pause','pause'],["l'animateur",'animateur'],['le technicien','technicien'],["l'invité",'invite']]
 };
-  const PREF = f => (/^(geste|phrase)-/.test(f) ? f : 'mot-' + f);
+  const PREF = f => (/^(geste|phrase|lieu)-/.test(f) ? f : 'mot-' + f);
   /* Ses mots à elle, ajoutés dans l'espace enseignant, viennent se ranger à la suite. */
   function perso() {
     try {
@@ -68,7 +81,7 @@
     const l = (BANQUE[theme] || []).concat(p);
     const vus = {};
     return l.filter(x => x && x[0] && !vus[x[0]] && (vus[x[0]] = true))
-      .map(x => ({ mot: x[0], image: 'clean/' + PREF(x[1]) + '.png' }));
+      .map(x => ({ mot: x[0], image: 'clean/' + PREF(x[1]) + '.webp' }));
   }
   window.BANQUE_MOTS = { BANQUE, PREF, themes, mots };
 })();
