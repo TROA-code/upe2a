@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+doc-page:not(:defined){visibility:hidden}
+body{margin:0}
+a{color:#1d4e89}
+a:hover{color:#14213d}
+@media print{.om-noprint{display:none !important}}
+</style>
+<script src="./doc-page.js"></script>
+</helmet>
+<button class="om-noprint" onClick="{{ imprimer }}" style="position:fixed;top:14px;right:14px;z-index:60;border:none;border-radius:11px;background:#2a9d6e;color:#fff;padding:13px 22px;font-family:Arial,Helvetica,sans-serif;font-size:13.5px;font-weight:700;cursor:pointer;box-shadow:0 3px 0 #217d57">Imprimer</button>
+<doc-page size="a4">
+
+<!-- Les cinq sports du planning UNSS du lycée, dans le gabarit des autres planches (métiers,
+     lycée, visage, radio) : une page photo + mot, une page muette, une page d'étiquettes.
+     ⚠ LA CASE MUETTE EST UN PEU PLUS GRANDE QUE L'ÉTIQUETTE, jamais l'inverse : étiquette
+     70 × 15 mm, case 74 × 16,5 mm. Même règle que le jeu des syllabes le même jour — à taille
+     égale, le moindre écart de ciseaux fait dépasser l'étiquette, et une pièce plus large que
+     sa case ne peut pas être posée du tout.
+     Pas d'A3 dans son lycée — tout tient en A4, et les photos restent grandes (deux colonnes,
+     pas trois). Les étiquettes se rangent en DEUX colonnes de cinq : en une seule, la moitié
+     droite de la feuille partait à la poubelle. -->
+<section class="page" data-screen-label="Les sports" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:18mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#14213d">
+<div style="flex:0 0 auto;padding-bottom:2.5mm;border-bottom:2.5px solid #1d4e89">
+<span style="display:block;font-size:19pt;font-weight:700;line-height:1.05">Les sports du midi</span>
+<span style="display:block;margin-top:1mm;font-size:10.5pt;color:#5a6270">Photo et mot. Les cinq activités de l&rsquo;UNSS, entre 12h20 et 13h15.</span>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:1fr;align-content:stretch;gap:6mm;padding-top:6mm">
+
+<div style="min-width:0;display:flex;flex-direction:column;gap:2mm;border:1.2px solid #c9cfd8;border-radius:2mm;padding:3mm 2mm 2.5mm;box-sizing:border-box;overflow:hidden">
+<div style="flex:1;min-height:0;background:url('clean/mot-basket.png') center/contain no-repeat"></div>
+<span style="flex:0 0 auto;text-align:center;font-size:16pt;font-weight:700;color:#14213d;line-height:1.15">le basket</span>
+</div>
+<div style="min-width:0;display:flex;flex-direction:column;gap:2mm;border:1.2px solid #c9cfd8;border-radius:2mm;padding:3mm 2mm 2.5mm;box-sizing:border-box;overflow:hidden">
+<div style="flex:1;min-height:0;background:url('clean/mot-flechettes.png') center/contain no-repeat"></div>
+<span style="flex:0 0 auto;text-align:center;font-size:16pt;font-weight:700;color:#14213d;line-height:1.15">les fl&eacute;chettes</span>
+</div>
+<div style="min-width:0;display:flex;flex-direction:column;gap:2mm;border:1.2px solid #c9cfd8;border-radius:2mm;padding:3mm 2mm 2.5mm;box-sizing:border-box;overflow:hidden">
+<div style="flex:1;min-height:0;background:url('clean/mot-boxe-francaise.png') center/contain no-repeat"></div>
+<span style="flex:0 0 auto;text-align:center;font-size:16pt;font-weight:700;color:#14213d;line-height:1.15">la boxe fran&ccedil;aise</span>
+</div>
+<div style="min-width:0;display:flex;flex-direction:column;gap:2mm;border:1.2px solid #c9cfd8;border-radius:2mm;padding:3mm 2mm 2.5mm;box-sizing:border-box;overflow:hidden">
+<div style="flex:1;min-height:0;background:url('clean/mot-badminton.png') center/contain no-repeat"></div>
+<span style="flex:0 0 auto;text-align:center;font-size:16pt;font-weight:700;color:#14213d;line-height:1.15">le badminton</span>
+</div>
+<div style="min-width:0;display:flex;flex-direction:column;gap:2mm;border:1.2px solid #c9cfd8;border-radius:2mm;padding:3mm 2mm 2.5mm;box-sizing:border-box;overflow:hidden">
+<div style="flex:1;min-height:0;background:url('clean/mot-foot.png') center/contain no-repeat"></div>
+<span style="flex:0 0 auto;text-align:center;font-size:16pt;font-weight:700;color:#14213d;line-height:1.15">le foot</span>
+</div>
+
+</div>
+</section>
+
+<section class="page" data-screen-label="Muette" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:18mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#14213d">
+<div style="flex:0 0 auto;padding-bottom:2.5mm;border-bottom:2.5px solid #1d4e89">
+<span style="display:block;font-size:19pt;font-weight:700;line-height:1.05">Les sports du midi <span style="font-size:12pt;font-weight:400;color:#5a6270">(sans les mots)</span></span>
+<span style="display:block;margin-top:1mm;font-size:10.5pt;color:#5a6270">Je pose l&rsquo;&eacute;tiquette du bon mot sous chaque photo, puis je la colle.</span>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:1fr;align-content:stretch;gap:6mm;padding-top:6mm">
+
+<div style="min-width:0;display:flex;flex-direction:column;gap:2.5mm;border:1.2px solid #c9cfd8;border-radius:2mm;padding:3mm 2mm 3mm;box-sizing:border-box;overflow:hidden;align-items:center">
+<div style="flex:1;min-height:0;width:100%;background:url('clean/mot-basket.png') center/contain no-repeat"></div>
+<span style="flex:0 0 auto;width:74mm;height:16.5mm;border:1.5px dashed #14213d;border-radius:2mm;display:block"></span>
+</div>
+<div style="min-width:0;display:flex;flex-direction:column;gap:2.5mm;border:1.2px solid #c9cfd8;border-radius:2mm;padding:3mm 2mm 3mm;box-sizing:border-box;overflow:hidden;align-items:center">
+<div style="flex:1;min-height:0;width:100%;background:url('clean/mot-flechettes.png') center/contain no-repeat"></div>
+<span style="flex:0 0 auto;width:74mm;height:16.5mm;border:1.5px dashed #14213d;border-radius:2mm;display:block"></span>
+</div>
+<div style="min-width:0;display:flex;flex-direction:column;gap:2.5mm;border:1.2px solid #c9cfd8;border-radius:2mm;padding:3mm 2mm 3mm;box-sizing:border-box;overflow:hidden;align-items:center">
+<div style="flex:1;min-height:0;width:100%;background:url('clean/mot-boxe-francaise.png') center/contain no-repeat"></div>
+<span style="flex:0 0 auto;width:74mm;height:16.5mm;border:1.5px dashed #14213d;border-radius:2mm;display:block"></span>
+</div>
+<div style="min-width:0;display:flex;flex-direction:column;gap:2.5mm;border:1.2px solid #c9cfd8;border-radius:2mm;padding:3mm 2mm 3mm;box-sizing:border-box;overflow:hidden;align-items:center">
+<div style="flex:1;min-height:0;width:100%;background:url('clean/mot-badminton.png') center/contain no-repeat"></div>
+<span style="flex:0 0 auto;width:74mm;height:16.5mm;border:1.5px dashed #14213d;border-radius:2mm;display:block"></span>
+</div>
+<div style="min-width:0;display:flex;flex-direction:column;gap:2.5mm;border:1.2px solid #c9cfd8;border-radius:2mm;padding:3mm 2mm 3mm;box-sizing:border-box;overflow:hidden;align-items:center">
+<div style="flex:1;min-height:0;width:100%;background:url('clean/mot-foot.png') center/contain no-repeat"></div>
+<span style="flex:0 0 auto;width:74mm;height:16.5mm;border:1.5px dashed #14213d;border-radius:2mm;display:block"></span>
+</div>
+
+</div>
+</section>
+
+<section class="page" data-screen-label="Étiquettes" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:18mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#14213d">
+<div style="flex:0 0 auto;padding-bottom:2.5mm;border-bottom:2.5px solid #1d4e89">
+<span style="display:block;font-size:19pt;font-weight:700;line-height:1.05">Les &eacute;tiquettes &agrave; d&eacute;couper</span>
+<span style="display:block;margin-top:1mm;font-size:10.5pt;color:#5a6270">Deux exemplaires de chaque mot : un pour l&rsquo;&eacute;l&egrave;ve, un pour le professeur. Un peu plus petites que les cases de la page pr&eacute;c&eacute;dente, pour qu&rsquo;elles rentrent m&ecirc;me si la d&eacute;coupe n&rsquo;est pas parfaite.</span>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:min-content;justify-items:center;align-content:space-between;gap:5mm 6mm;padding-top:7mm">
+
+<span style="flex:0 0 auto;width:70mm;height:15mm;border:1.5px dashed #14213d;border-radius:2mm;display:flex;align-items:center;justify-content:center;font-size:16pt;font-weight:700">le basket</span>
+<span style="flex:0 0 auto;width:70mm;height:15mm;border:1.5px dashed #14213d;border-radius:2mm;display:flex;align-items:center;justify-content:center;font-size:16pt;font-weight:700">les fl&eacute;chettes</span>
+<span style="flex:0 0 auto;width:70mm;height:15mm;border:1.5px dashed #14213d;border-radius:2mm;display:flex;align-items:center;justify-content:center;font-size:16pt;font-weight:700">la boxe fran&ccedil;aise</span>
+<span style="flex:0 0 auto;width:70mm;height:15mm;border:1.5px dashed #14213d;border-radius:2mm;display:flex;align-items:center;justify-content:center;font-size:16pt;font-weight:700">le badminton</span>
+<span style="flex:0 0 auto;width:70mm;height:15mm;border:1.5px dashed #14213d;border-radius:2mm;display:flex;align-items:center;justify-content:center;font-size:16pt;font-weight:700">le foot</span>
+
+<span style="flex:0 0 auto;width:70mm;height:15mm;border:1.5px dashed #14213d;border-radius:2mm;display:flex;align-items:center;justify-content:center;font-size:16pt;font-weight:700">le basket</span>
+<span style="flex:0 0 auto;width:70mm;height:15mm;border:1.5px dashed #14213d;border-radius:2mm;display:flex;align-items:center;justify-content:center;font-size:16pt;font-weight:700">les fl&eacute;chettes</span>
+<span style="flex:0 0 auto;width:70mm;height:15mm;border:1.5px dashed #14213d;border-radius:2mm;display:flex;align-items:center;justify-content:center;font-size:16pt;font-weight:700">la boxe fran&ccedil;aise</span>
+<span style="flex:0 0 auto;width:70mm;height:15mm;border:1.5px dashed #14213d;border-radius:2mm;display:flex;align-items:center;justify-content:center;font-size:16pt;font-weight:700">le badminton</span>
+<span style="flex:0 0 auto;width:70mm;height:15mm;border:1.5px dashed #14213d;border-radius:2mm;display:flex;align-items:center;justify-content:center;font-size:16pt;font-weight:700">le foot</span>
+
+</div>
+</section>
+
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals(){
+    return { imprimer: () => window.print() };
+  }
+}
+</script>
+</body>
+</html>

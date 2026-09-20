@@ -199,6 +199,11 @@
       /* Accroché au 18/09/2026 à sa demande, et à CETTE date seule : le diaporama « Au
          restaurant » qu'elle a envoyé ce jour-là. `date` en ISO — voir ressourcesDe(). */
       { nom: 'Diaporama — Au restaurant', f: 'FR - Diaporama - Au restaurant.dc.html',
+        date: '2026-09-18' },
+      /* Le planning UNSS de l'année, accroché au 18/09/2026 comme le diaporama : un document
+         authentique du lycée, à lire en littéracie (jours, horaires, lieux). C'est une IMAGE
+         et non une page — le panneau du créneau l'ouvre comme n'importe quel fichier. */
+      { nom: 'Planning UNSS 2026-2027', f: 'docs/planning-unss-2026-2027.png',
         date: '2026-09-18' }
     ],
     'lundi-rituel': [

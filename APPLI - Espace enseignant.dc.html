@@ -212,6 +212,17 @@ input,select,button{font-family:inherit}
 <img src="clean/plante.png" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;bottom:0;left:8px;width:190px;height:auto;z-index:1" />
 </sc-if>
 <div style="position:relative;z-index:2;flex:0 0 auto;width:100%;max-width:{{ largeurAccueil }};margin:auto {{ margeAccueil }} auto auto;box-sizing:border-box;display:grid;grid-template-columns:{{ colAccueil }};gap:18px">
+<button onClick="{{ ouvrirSemaine }}" style="box-shadow:0 12px 28px rgba(0,0,0,0.3);background-image:url('clean/liege.png');background-size:100% 100%;background-repeat:no-repeat;border:none;padding:15px 15px 18px;display:flex;flex-direction:column;align-items:center;gap:11px;cursor:pointer" style-hover="transform:translateY(-3px)">
+<span style="position:relative;background:#fdf3c4;padding:8px 16px;transform:rotate(-0.7deg);box-shadow:0 4px 10px rgba(0,0,0,0.3);display:block">
+<span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:block"></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:13px;letter-spacing:0.02em;text-transform:uppercase;color:#8a4b1e;text-align:center;line-height:1.2;display:block">Cette semaine</span>
+</span>
+<span style="width:100%;box-sizing:border-box;background:#fff;border-radius:9px;box-shadow:0 3px 10px rgba(0,0,0,0.18);padding:12px;display:flex;flex-direction:column;align-items:center;gap:5px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:13.5px;color:#12233b;text-align:center;line-height:1.25">{{ libelleSemaineCourte }}</span>
+<span style="font-size:12px;color:#6b7386">{{ compteSemaine }}</span>
+</span>
+<span style="font-size:11.5px;color:#fdf3c4;text-shadow:0 1px 3px rgba(0,0,0,0.5)">mes documents de la semaine</span>
+</button>
 <button onClick="{{ ouvrirTableauThemes }}" style="box-shadow:0 12px 28px rgba(0,0,0,0.3);background-image:url('clean/liege.png');background-size:100% 100%;background-repeat:no-repeat;border:none;padding:15px 15px 18px;display:flex;flex-direction:column;align-items:center;gap:11px;cursor:pointer" style-hover="transform:translateY(-3px)">
 <span style="position:relative;background:#fdf3c4;padding:8px 16px;transform:rotate(-1.2deg);box-shadow:0 4px 10px rgba(0,0,0,0.3)">
 <span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:block"></span>
@@ -236,6 +247,18 @@ input,select,button{font-family:inherit}
 </span>
 <span style="font-size:11.5px;color:#fdf3c4;text-shadow:0 1px 3px rgba(0,0,0,0.5)">{{ apercuCodeTexte }}</span>
 </button>
+<a href="ORIENTATION - Mon avenir au Havre.html" style="box-shadow:0 12px 28px rgba(0,0,0,0.3);background-image:url('clean/liege.png');background-size:100% 100%;background-repeat:no-repeat;border:none;padding:15px 15px 18px;display:flex;flex-direction:column;align-items:center;gap:11px;cursor:pointer;text-decoration:none" style-hover="transform:translateY(-3px)">
+<span style="position:relative;background:#fdf3c4;padding:8px 16px;transform:rotate(1deg);box-shadow:0 4px 10px rgba(0,0,0,0.3);display:block">
+<span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:block"></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:13px;letter-spacing:0.02em;text-transform:uppercase;color:#8a4b1e;text-align:center;line-height:1.2;display:block">Mon avenir<br />au Havre</span>
+</span>
+<span style="width:100%;display:grid;grid-template-columns:{{ colApercu }};gap:7px">
+<span style="background:#fff;border:3px solid #e8654f;border-radius:8px;box-shadow:0 3px 10px rgba(0,0,0,0.18);aspect-ratio:1;align-self:start;overflow:hidden;background-image:url('clean/mot-macon.png');background-size:contain;background-repeat:no-repeat;background-position:center;background-origin:content-box;padding:6px;display:block"></span>
+<span style="background:#fff;border:3px solid #e59a2b;border-radius:8px;box-shadow:0 3px 10px rgba(0,0,0,0.18);aspect-ratio:1;align-self:start;overflow:hidden;background-image:url('clean/mot-cuisinier.png');background-size:contain;background-repeat:no-repeat;background-position:center;background-origin:content-box;padding:6px;display:block"></span>
+<span style="background:#fff;border:3px solid #1682a0;border-radius:8px;box-shadow:0 3px 10px rgba(0,0,0,0.18);aspect-ratio:1;align-self:start;overflow:hidden;background-image:url('clean/mot-electricien.png');background-size:contain;background-repeat:no-repeat;background-position:center;background-origin:content-box;padding:6px;display:block"></span>
+</span>
+<span style="font-size:11.5px;color:#fdf3c4;text-shadow:0 1px 3px rgba(0,0,0,0.5)">les lycées et les métiers</span>
+</a>
 </div>
 </div>
 </sc-if>
@@ -799,6 +822,67 @@ Le trait d'union sépare les mots</label>
 </div>
 </sc-if>
 <span style="font-size:13px;color:#5d4630;min-height:19px">{{ msgEleve }}</span>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ estSemaine }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:{{ alignVert }};padding:{{ padDecor }};background:url('clean/mur-briques.png') repeat;overflow-y:{{ debord }};overflow-x:hidden">
+<img src="clean/fenetre.png" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;top:14px;left:100px;width:300px;height:auto;z-index:0;filter:drop-shadow(0 6px 14px rgba(0,0,0,0.2))" />
+<img src="clean/plante.png" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;bottom:0;left:max(0px, calc(50% - 700px));width:210px;height:auto;z-index:1" />
+<div style="position:relative;z-index:2;width:100%;max-width:{{ largeurPanneau }};margin-left:auto;margin-right:{{ margePanneau }};box-sizing:border-box;box-shadow:0 12px 28px rgba(0,0,0,0.28);background-image:url('clean/liege.png');background-size:100% 100%;background-repeat:no-repeat;padding:16px 20px 20px;display:flex;flex-direction:column;align-items:center;gap:14px">
+<div style="display:flex;align-items:center;gap:14px">
+<button onClick="{{ semainePrec }}" title="La semaine d'avant" style="flex:0 0 auto;width:46px;height:46px;border:none;border-radius:50%;background:#fff;color:#12233b;font-size:20px;line-height:1;cursor:pointer;box-shadow:0 3px 9px rgba(0,0,0,0.3);opacity:{{ opPrec }};padding:0">&#8592;</button>
+<div style="position:relative;background:#fdf3c4;padding:11px 30px;transform:rotate(-1deg);box-shadow:0 4px 10px rgba(0,0,0,0.3);display:flex;flex-direction:column;align-items:center;gap:2px">
+<span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:block"></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:17px;letter-spacing:0.03em;text-transform:uppercase;color:#8a4b1e">{{ titreSemaineEleve }}</span>
+<span style="font-size:13.5px;color:#8a4b1e">{{ libelleSemaineEleve }}</span>
+</div>
+<button onClick="{{ semaineSuiv }}" title="La semaine d'après" style="flex:0 0 auto;width:46px;height:46px;border:none;border-radius:50%;background:#fff;color:#12233b;font-size:20px;line-height:1;cursor:pointer;box-shadow:0 3px 9px rgba(0,0,0,0.3);opacity:{{ opSuiv }};padding:0">&#8594;</button>
+</div>
+<sc-if value="{{ enVacances }}" hint-placeholder-val="{{ false }}">
+<div style="background:#fff;border-radius:13px;box-shadow:0 4px 12px rgba(0,0,0,0.22);padding:14px 20px">
+<span style="font-size:15.5px;color:#12233b">{{ texteVacances }}</span>
+</div>
+</sc-if>
+<div style="width:100%;display:grid;grid-template-columns:{{ colSemaine }};gap:12px;align-items:start">
+<sc-for list="{{ joursSemaineEleve }}" as="j" hint-placeholder-count="4">
+<div style="min-width:0;display:flex;flex-direction:column;align-items:stretch;gap:10px">
+<div style="position:relative;align-self:center;background:#fdf3c4;padding:7px 18px;transform:rotate({{ j.pivot }});box-shadow:0 3px 8px rgba(0,0,0,0.28);display:flex;flex-direction:column;align-items:center">
+<span style="position:absolute;top:-6px;left:calc(50% - 5px);width:11px;height:11px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:block"></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:14px;text-transform:uppercase;letter-spacing:0.03em;color:#8a4b1e">{{ j.nom }}</span>
+<span style="font-size:11.5px;color:#8a4b1e">{{ j.quantieme }}</span>
+</div>
+<sc-for list="{{ j.docs }}" as="d" hint-placeholder-count="2">
+<a href="{{ d.href }}" target="{{ d.cible }}" rel="noopener" style="display:flex;align-items:center;gap:10px;background:#fff;border-radius:13px;box-shadow:0 4px 12px rgba(0,0,0,0.2);padding:11px 12px;text-decoration:none">
+<span style="flex:0 0 auto;width:40px;height:40px;border-radius:11px;background:{{ d.couleur }};color:#fff;font-size:18px;line-height:1;display:flex;align-items:center;justify-content:center">{{ d.glyphe }}</span>
+<span style="flex:1;min-width:0;font-family:Archivo Black, Archivo, sans-serif;font-size:13px;color:#12233b;line-height:1.25">{{ d.titre }}</span>
+</a>
+</sc-for>
+</div>
+</sc-for>
+</div>
+<sc-if value="{{ rienCetteSemaine }}" hint-placeholder-val="{{ false }}">
+<div style="background:#fff;border-radius:13px;box-shadow:0 4px 12px rgba(0,0,0,0.22);padding:14px 20px">
+<span style="font-size:15.5px;color:#12233b">Rien d'accroché cette semaine.</span>
+</div>
+</sc-if>
+<sc-if value="{{ aDesToujours }}" hint-placeholder-val="{{ false }}">
+<div style="width:100%;display:flex;flex-direction:column;align-items:center;gap:10px;border-top:2px dashed rgba(255,255,255,0.4);padding-top:14px">
+<div style="position:relative;background:#fdf3c4;padding:7px 22px;transform:rotate(0.8deg);box-shadow:0 3px 8px rgba(0,0,0,0.28)">
+<span style="position:absolute;top:-6px;left:calc(50% - 5px);width:11px;height:11px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:block"></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:13.5px;text-transform:uppercase;letter-spacing:0.03em;color:#8a4b1e">Toujours là</span>
+</div>
+<div style="width:100%;display:grid;grid-template-columns:{{ colToujours }};gap:12px">
+<sc-for list="{{ docsToujours }}" as="d" hint-placeholder-count="1">
+<a href="{{ d.href }}" target="{{ d.cible }}" rel="noopener" style="display:flex;align-items:center;gap:10px;background:#fff;border-radius:13px;box-shadow:0 4px 12px rgba(0,0,0,0.2);padding:11px 12px;text-decoration:none">
+<span style="flex:0 0 auto;width:40px;height:40px;border-radius:11px;background:{{ d.couleur }};color:#fff;font-size:18px;line-height:1;display:flex;align-items:center;justify-content:center">{{ d.glyphe }}</span>
+<span style="flex:1;min-width:0;font-family:Archivo Black, Archivo, sans-serif;font-size:13px;color:#12233b;line-height:1.25">{{ d.titre }}</span>
+</a>
+</sc-for>
+</div>
+</div>
+</sc-if>
 </div>
 </div>
 </sc-if>
@@ -2267,7 +2351,7 @@ Le trait d'union sépare les mots</label>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:840}}">
 const GROUPES_INIT=[{nom:'Débutants',eleves:['Anita','Ahmed','Josephina','Sania','Yasir']},{nom:'Intermédiaires',eleves:[]},{nom:'Avancés',eleves:[]}];
 const THEMES=['Le corps','Les animaux','L\'école','Les repas','Les mathématiques','La maison','La famille, les métiers','L\'heure, le calendrier','Les actions courantes','Les vêtements, les couleurs','La ville, les transports','Se présenter','Les pays, les langues'];
-const PREF=f=>(/^(geste|phrase)-/.test(f)?f:'mot-'+f);
+const PREF=f=>(/^(geste|phrase|lieu)-/.test(f)?f:'mot-'+f);
 // phrases illustrées, par thème : [phrase, image]
 const PHRASES={
  'Le corps':[
@@ -2290,6 +2374,20 @@ const PHRASES={
   ['La grand-mère embrasse sa petite-fille.','phrase-surlajoue'],
   ['Elle porte un sac sur le dos.','phrase-sacsurledos']
  ]};
+/* ⚠ MOTS DÉCLARÉS DONT LA PHOTO N'EST PAS ENCORE ARRIVÉE (18/09). Le thème « Les sports »
+   a été ouvert avant ses images : côté élève, les cinq cartes s'affichaient BLANCHES — et
+   sans erreur console, puisque ce sont des background-image CSS et non des <img>. Le filtre
+   de `tirer()` protège les fiches, pas les écrans d'exploration.
+   Les slugs listés ici sont donc retirés de TOUT ce que voit l'élève (liste des thèmes,
+   compteur, exploration, jeux) tant que le fichier clean/mot-<slug>.png n'existe pas. Côté
+   enseignante, ils restent visibles dans les réglages : c'est là qu'elle suit ce qui manque.
+   À FAIRE À CHAQUE PHOTO REÇUE : enlever le slug de cette liste, sinon le mot reste caché
+   aux élèves alors que son image est là. Une photo qu'elle importe elle-même (perso.imgs)
+   lève la restriction sans toucher au code.
+   Les cinq sports ont reçu leurs photos le 18/09 au soir : la liste est donc VIDE, et
+   `themeMontrable` laisse tout passer. Le mécanisme reste en place pour le prochain thème
+   ouvert avant ses images. */
+const PHOTOS_ATTENDUES=new Set([]);
 const BANQUE={
 /* Thème publié le 04/09. « un drapeau » (vignette neutre, sans pays) est arrivée le
    05/09 : le mot est donc dans la liste, et c'est elle qui sert de repère pour le cadre
@@ -2320,6 +2418,14 @@ const BANQUE={
     qu'on aime — « j'aime la musique ». Ne pas fusionner les deux thèmes.
     La photo « dessiner » reste orpheline : c'est un verbe, sa place est dans les actions. */
  'Les loisirs':[['la course','course'],['la danse','danse'],['la musique','musique']],
+ /* ⚠ THÈME OUVERT LE 18/09, LES PHOTOS ARRIVENT ENSUITE : ce sont les cinq sports du
+    planning UNSS du lycée (créneaux du midi), qu'elle veut montrer en images. Les fichiers
+    clean/mot-basket.png, -flechettes, -boxe-francaise, -badminton, -foot N'EXISTENT PAS
+    ENCORE — elle les fabrique depuis les prompts donnés ce jour-là. En attendant, les mots
+    apparaissent dans les réglages mais pas dans les fiches ni les jeux : tirer() écarte les
+    mots sans photo. C'est voulu, ne pas les retirer d'ici pour autant.
+    Séparé des loisirs : on parle des activités du midi au lycée, pas de ce qu'on aime. */
+ 'Les sports':[['le basket','basket'],['les fléchettes','flechettes'],['la boxe française','boxe-francaise'],['le badminton','badminton'],['le foot','foot']],
  'Les positions':[['dans','dans'],['sur','sur'],['sous','sous'],['devant','devant'],['derrière','derriere'],['entre','entre'],['à gauche','gauche'],['à droite','droite'],['ici','ici'],['à côté de','cote']],
  'Les contraires':[['grand','grand'],['petit','petit'],['chaud','chaud'],['froid','froid'],['lourd','lourd'],['léger','leger'],['rapide','rapide'],['lent','lent'],['propre','propre'],['sale','sale']],
  'Les saisons':[['le printemps','printemps'],["l'été",'ete'],["l'automne",'automne'],["l'hiver",'hiver']],
@@ -2347,7 +2453,12 @@ const BANQUE={
  'Les transports':[['un vélo','velo'],['une voiture','voiture'],['un bus','bus'],['un train','train'],['un avion','avion'],['un taxi','taxi'],['un wagon','wagon'],['un tramway','tramway'],['un camion','camion'],['un bateau','bateau'],['le métro','metro'],['une moto','moto']],
 /* Thème publié le 05/09. 16 métiers de CAP / apprentissage — le coiffeur, le docteur et
    l'informatique réutilisent des images déjà là. Filles sur l'électricité et la soudure. */
- 'Les métiers':[['un maçon','macon'],['un peintre','peintre'],['un électricien','electricien'],['un plombier','plombier'],['un menuisier','menuisier'],['un soudeur','soudeur'],['un mécanicien','mecanicien'],['un cuisinier','cuisinier'],['un serveur','serveur'],['un boulanger','boulanger'],['un pâtissier','patissier'],['un vendeur','vendeur'],['un caissier','caissier'],['un magasinier','magasinier'],['un aide-soignant','aidesoignant'],['un agent d\'entretien','agententretien'],['un coiffeur','coiffeur']]
+ 'Les métiers':[['un maçon','macon'],['un peintre','peintre'],['un électricien','electricien'],['un plombier','plombier'],['un menuisier','menuisier'],['un soudeur','soudeur'],['un mécanicien','mecanicien'],['un cuisinier','cuisinier'],['un serveur','serveur'],['un boulanger','boulanger'],['un pâtissier','patissier'],['un vendeur','vendeur'],['un caissier','caissier'],['un magasinier','magasinier'],['un aide-soignant','aidesoignant'],['un agent d\'entretien','agententretien'],['un coiffeur','coiffeur']],
+/* Thème publié le 19/09. Les lieux où l'on travaille, en appui du projet d'orientation :
+   ce sont les mêmes images que la ligne « Où je travaille » des fiches métier.
+   ⚠ Leurs fichiers sont préfixés `lieu-` et non `mot-` — voir PREF juste en dessous.
+   ⚠ « un café » (le lieu) coexiste avec « du café » (la boisson) : deux mots, deux images. */
+ 'Les lieux de travail':[['un chantier','lieu-chantier'],['un garage','lieu-garage'],['un atelier','lieu-atelier-metal'],['une cuisine','lieu-cuisine-pro'],['un restaurant','lieu-salle-restaurant'],['un café','lieu-cafe'],['une cantine','lieu-cantine'],['un hôpital','lieu-hopital'],['une maison de retraite','lieu-maison-retraite'],['un supermarché','lieu-supermarche'],['un pressing','lieu-pressing'],['une blanchisserie','lieu-blanchisserie'],['des bureaux','lieu-bureaux'],['un hôtel','lieu-hotel']]
 };
 const VF={
  'Les anciens repas':[['pomme',"C'est une pomme.",true],['pomme',"C'est une banane.",false],['pain',"C'est du pain.",true],['riz',"C'est du café.",false],['carotte',"C'est une carotte.",true],['tomate',"C'est une pomme.",false],['cafe',"C'est un café.",true],['yaourt',"C'est un yaourt.",true]],
@@ -2787,6 +2898,13 @@ class Component extends DCLogic {
   }
   phrasesDe(t){ const p=this.state.perso||{}; return (p.phrases&&p.phrases[t])||PHRASES[t]||[]; }
   tousThemes(){ const p=this.state.perso||{}; return [...Object.keys(BANQUE),...((p.themes)||[]).filter(n=>!BANQUE[n])]; }
+  /* Les mots réellement illustrés d'un thème : ceux dont la photo est dans clean/, ou qu'elle
+     a importée elle-même. Sert à n'exposer à l'élève que des thèmes montrables. */
+  motsIllustres(t){
+    const p=this.state.perso||{}, d=p.imgs||{};
+    return (this.motsDe(t)||[]).filter(m=>m&&m[1]&&(!PHOTOS_ATTENDUES.has(m[1])||d[m[1]]));
+  }
+  themeMontrable(t){ return this.motsIllustres(t).length>0; }
   srcImg(f){
     const p=this.state.perso||{}, d=p.imgs&&p.imgs[f];
     if(!d) return 'clean/'+PREF(f)+'.png';
@@ -3683,7 +3801,7 @@ class Component extends DCLogic {
           ? ['sousTheme',s.themeParent] : ['tableauThemes','Les thèmes'];
       }
       if(s.ecran==='sousTheme') return ['tableauThemes','Les thèmes'];
-      if(s.ecran==='tableauThemes'||s.ecran==='tableauCode') return ['themeAccueil','Le choix'];
+      if(s.ecran==='tableauThemes'||s.ecran==='tableauCode'||s.ecran==='semaine') return ['themeAccueil','Le choix'];
       return null;
     }
     return null;
@@ -3696,6 +3814,92 @@ class Component extends DCLogic {
     this.setState((p[0]==='themeAccueil'||p[0]==='tableauThemes')
       ? {ecran:p[0],themeParent:'',msgEleve:'',retour:'',repondu:false}
       : {ecran:p[0],msgEleve:'',retour:'',repondu:false});
+  }
+  /* ---- LE PANNEAU DE LA SEMAINE (côté élève) ----
+     Aucune donnée nouvelle : on relit l'emploi du temps. Tout ce qu'elle accroche à un
+     créneau depuis le panneau du créneau (RESSOURCES datées ou non, et ses propres liens
+     dans `liens`) apparaît ici, groupé PAR JOUR. Pas de double saisie.
+     ⚠ Les documents de l'appli n'ont JAMAIS target="_blank" (l'hôte refuse de sortir du
+     cadre) ; seuls ses liens externes, qu'elle colle elle-même, le gardent. */
+  punaiseSemaine(nom, url, externe){
+    const u=String(url||'');
+    let couleur='#2a9d6e', glyphe='\uD83D\uDCD6';                  /* à lire */
+    if(/youtu|vimeo|\.mp4|\.webm/i.test(u)){ couleur='#e8654f'; glyphe='\u25B6'; }
+    else if(/diaporama/i.test(u+' '+nom)){ couleur='#6d5bd0'; glyphe='\uD83D\uDDBC'; }
+    else if(/\.(png|jpe?g|gif|webp)$/i.test(u)){ couleur='#f08a24'; glyphe='\uD83D\uDCF7'; }
+    else if(externe){ couleur='#1682a0'; glyphe='\uD83D\uDD17'; }
+    return {titre:nom||u, href:u, cible:externe?'_blank':'', couleur, glyphe};
+  }
+  panneauSemaine(){
+    const E=window.EDT;
+    const vide={estSemaine:this.state.ecran==='semaine', ouvrirSemaine:()=>this.setState({ecran:'semaine',semLundi:''}),
+      semainePrec:()=>{}, semaineSuiv:()=>{}, opPrec:'1', opSuiv:'1',
+      titreSemaineEleve:'Cette semaine', libelleSemaineEleve:'', libelleSemaineCourte:'',
+      compteSemaine:'', enVacances:false, texteVacances:'', rienCetteSemaine:false, joursSemaineEleve:[],
+      aDesToujours:false,
+      docsToujours:[], colSemaine:'minmax(0,1fr)', colToujours:'minmax(0,1fr)'};
+    if(!E) return vide;
+    const MOIS=['janvier','février','mars','avril','mai','juin','juillet','août',
+      'septembre','octobre','novembre','décembre'];
+    const base=E.charger();
+    const aujourd=E.lundiDe(new Date());
+    const lundi=E.dansAnnee(this.state.semLundi
+      ? E.lundiDe(new Date(this.state.semLundi+'T12:00:00')) : aujourd);
+    const cle=E.iso(lundi), b=E.bornes();
+    const bouge=(n)=>()=>{
+      const d=new Date(lundi.getFullYear(), lundi.getMonth(), lundi.getDate()+7*n);
+      this.setState({semLundi:E.iso(E.dansAnnee(d))});
+    };
+    const cr=E.semaine(base, cle);
+    const vac=E.semaineDeVacances(lundi);
+    /* ⚠ Ce qui est rattaché à la CLÉ d'un créneau (`atelier-lecture`) revient tous les jours
+       de toutes les semaines : ce n'est pas « cette semaine », c'est un outil permanent, et
+       le mettre dans chaque colonne donnait 38 punaises pour quatre jours. Ces documents-là
+       vont dans « Toujours là ». Les colonnes de jour ne gardent que ce qui est rattaché au
+       JOUR précis (`vendredi-litteracie`) ou à une DATE. */
+    const perm={}, permanents=[], vusSemaine={};
+    let total=0;
+    const jours=vac?[]:E.joursActifs(base).map(([j,nom],ij)=>{
+      const d=E.dateDuJour(lundi,j), is=E.iso(d), vus={}, docs=[];
+      cr.filter(c=>c.jour===j).forEach(c=>{
+        const propre=E.RESSOURCES[c.id];
+        (propre||E.RESSOURCES[c.cle]||[]).forEach(r=>{
+          if(!r.f) return;
+          if(r.date&&r.date!==is) return;
+          if(!propre&&!r.date){ if(!perm[r.f]){ perm[r.f]=1; permanents.push(this.punaiseSemaine(r.nom,r.f,false)); } return; }
+          if(!vus[r.f]){ vus[r.f]=1; vusSemaine[r.f]=1; docs.push(this.punaiseSemaine(r.nom,r.f,false)); }
+        });
+        ((base.liens||{})[c.id]||[]).forEach(r=>{
+          const u=r.url||'';
+          if(u&&!vus[u]){ vus[u]=1; docs.push(this.punaiseSemaine(r.nom||u,u,true)); }
+        });
+      });
+      total+=docs.length;
+      return {nom, quantieme:d.getDate()+' '+MOIS[d.getMonth()], docs,
+        vide:docs.length===0, pivot:(ij%2?0.7:-0.7)+'deg'};
+    /* Un jour sans document n'a pas de colonne : une colonne vide se lit comme un manque
+       (même raison que les thèmes sans photo, qui ne sortent pas côté élève). */
+    }).filter(j=>j.docs.length>0);
+    const memeSem=E.iso(aujourd)===cle;
+    return {estSemaine:this.state.ecran==='semaine',
+      ouvrirSemaine:()=>this.setState({ecran:'semaine',semLundi:''}),
+      semainePrec:bouge(-1), semaineSuiv:bouge(1),
+      opPrec:lundi<=b.premier?'0.35':'1', opSuiv:lundi>=b.dernier?'0.35':'1',
+      titreSemaineEleve:memeSem?'Cette semaine':(lundi<aujourd?'Une semaine passée':'La semaine à venir'),
+      libelleSemaineEleve:E.libelleSemaine(lundi),
+      libelleSemaineCourte:E.libelleSemaine(lundi),
+      compteSemaine:vac?'vacances':(total?(total+(total>1?' documents':' document')):'rien cette semaine'),
+      enVacances:!!vac, texteVacances:vac?('Cette semaine, il n\'y a pas cours — '+vac+'.'):'',
+      joursSemaineEleve:jours,
+      /* ⚠ « Mon avenir au Havre » N'EST PLUS ÉPINGLÉ ICI (19/09) : il a son propre tableau
+         de liège sur l'accueil élève, et elle a vu la redite — « tu décroches Toujours là ».
+         La rubrique ne sort donc que si un document est rattaché à la CLÉ d'un créneau, donc
+         présent toutes les semaines ; sinon elle disparaît. */
+      docsToujours:permanents.filter(d=>!vusSemaine[d.href]),
+      aDesToujours:permanents.filter(d=>!vusSemaine[d.href]).length>0,
+      rienCetteSemaine:!vac&&total===0,
+      colSemaine:this.tel()?'minmax(0,1fr)':'repeat(auto-fit,minmax(200px,1fr))',
+      colToujours:this.tel()?'minmax(0,1fr)':'repeat(auto-fit,minmax(240px,320px))'};
   }
   grp(){ return this.state.groupes.find(g=>g.nom===this.state.groupeSel)||this.state.groupes[0]; }
 
@@ -4255,7 +4459,7 @@ class Component extends DCLogic {
       accueilEleve:"Accueil d'un élève — la fiche, le test, les résultats, la préconisation",
       edt:'Mon emploi du temps — la semaine, le jour, les documents de chaque créneau',
       pos:'Positionnement — saisir et corriger un test', posTable:'Positionnement — tous les élèves testés',
-      themeAccueil:'Choisis ton tableau', tableauThemes:'Choisis ton thème', tableauCode:'Les lettres et les sons',sousTheme:s.themeParent||'Choisis',niveau:'Choisis ton niveau',themeEleve:'Choisis un thème',explore:s.themeEleve||'Exploration',trouve:'Trouve la bonne image',vf:'Vrai ou faux',lireDessin:'Trouve le bon dessin',lireMot:'Trouve le bon mot',repete:'Écoute et répète',situation:'Que dis-tu ?',ecrire:s.modeEcrire==='completer'?'Complète le mot':'Écris le mot',resultat:'Résultat'};
+      themeAccueil:'Choisis ton tableau', semaine:'Cette semaine', tableauThemes:'Choisis ton thème', tableauCode:'Les lettres et les sons',sousTheme:s.themeParent||'Choisis',niveau:'Choisis ton niveau',themeEleve:'Choisis un thème',explore:s.themeEleve||'Exploration',trouve:'Trouve la bonne image',vf:'Vrai ou faux',lireDessin:'Trouve le bon dessin',lireMot:'Trouve le bon mot',repete:'Écoute et répète',situation:'Que dis-tu ?',ecrire:s.modeEcrire==='completer'?'Complète le mot':'Écris le mot',resultat:'Résultat'};
     const ECRANS_PROF=['groupes','reglages','reglagesCode','fabrique','bilan','oral','themes','sons','son','texte','outils','creer','competences','devoirs','mdp','accueilEleve','pos','posTable','disques','edt','rituels'];
     const RUBRIQUES=[
       /* Organisation en premier (09/09, sa demande) : c'est l'écran qu'elle ouvre
@@ -4380,7 +4584,10 @@ class Component extends DCLogic {
           evaluer:()=>this.lancerAlphaEcrire('Évaluation')}]
       : champsStd;
 
-    const garni=n=>(this.motsDe(n)||[]).length>0;
+    /* « Garni » veut dire MONTRABLE : au moins un mot avec sa photo (18/09). Compter les mots
+       tout court laissait passer un thème entier de cases blanches — celui des sports, ouvert
+       avant ses images. Ce test commande la liste d'accueil, son compteur et les sous-thèmes. */
+    const garni=n=>this.themeMontrable(n);
     const actif=n=>s.themesOn[n]!==false && garni(n);
     const sousActifs=p=>(PARENTS[p]||[]).filter(actif);
     const racines=this.tousThemes().filter(n=>!ENFANTS[n]&&!PARENTS[n]).filter(actif);
@@ -4456,8 +4663,11 @@ class Component extends DCLogic {
       })()}));
     });
 
-    const themesEleve=this.tousThemes().map(n=>({
-      nom:n, bg:(()=>{const c=((this.motsDe(n)[0]||['',''])[1])||''; return c?this.urlImg(c):'none';})(),
+    /* Un thème dont AUCUN mot n'a de photo ne s'affiche pas côté élève (18/09) : les cartes
+       seraient blanches. La vignette prend le premier mot ILLUSTRÉ, pas le premier tout court,
+       pour la même raison. */
+    const themesEleve=this.tousThemes().filter(n=>this.themeMontrable(n)).map(n=>({
+      nom:n, bg:(()=>{const c=((this.motsIllustres(n)[0]||['',''])[1])||''; return c?this.urlImg(c):'none';})(),
       ouvrir:()=>{
         if(s.exoEleve==='trouve') this.lancerQuiz(n);
         else if(s.exoEleve==='vf') this.lancerVF(n);
@@ -5593,6 +5803,7 @@ class Component extends DCLogic {
       estTableauCode:s.ecran==='tableauCode',
       ouvrirTableauThemes:()=>this.setState({ecran:'tableauThemes',themeParent:''}),
       ouvrirTableauCode:()=>this.go('tableauCode'),
+      ...this.panneauSemaine(),
       apercuThemes:themesAccueil.filter(t=>t.nom!=="L'alphabet").slice(0,3),
       apercuThemesTexte:themesAccueil.filter(t=>t.nom!=="L'alphabet").length+' thèmes de vocabulaire',
       estSousTheme:s.ecran==='sousTheme', themeParent:s.themeParent||'',
@@ -5715,8 +5926,11 @@ class Component extends DCLogic {
       tailleTitre:this.tel()?'15px':'21px',
       padAcces:this.tel()?'9px 12px':'11px 20px',
       tailleAcces:this.tel()?'10px':'12px',
-      colAccueil:this.tel()?'minmax(0,1fr)':'repeat(2,minmax(0,1fr))',
-      largeurAccueil:this.tel()?'100%':'min(560px, 100% - 300px)',
+      /* 4 tuiles : une seule ligne quand il y a vraiment la place, sinon 2×2.
+         ⚠ Jamais 3 + 1 — le quatrième tableau restait seul sur une deuxième ligne
+         (sa capture du 19/09). L'auto-fit le faisait dès qu'il y avait 3 colonnes. */
+      colAccueil:this.tel()?'minmax(0,1fr)':((this.state.largeur||1200)>=1320?'repeat(4,minmax(0,1fr))':'repeat(2,minmax(0,1fr))'),
+      largeurAccueil:this.tel()?'100%':((this.state.largeur||1200)>=1320?'min(1000px, 100% - 300px)':'min(620px, 100% - 300px)'),
       margeAccueil:this.tel()?'0':'40px',
       colApercu:'repeat(3,minmax(0,1fr))',
       colThemes:this.tel()?'repeat(2,minmax(0,1fr))':'repeat(5,minmax(0,1fr))',

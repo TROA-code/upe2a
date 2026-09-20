@@ -1,5 +1,391 @@
 # INSTRUCTIONS — UPE2A NSA (fichier unique)
 
+## 🟢 À LIRE EN PREMIER — où on en est au 20/09/2026 (soir)
+
+Journée entièrement consacrée à **`ORIENTATION - Mon avenir au Havre.html`** : les deux CFA
+sur la carte (alternance), le descriptif officiel du CAP au clic, le circuit du vêtement en
+8 étapes avec ses photos, le jeu de remise en ordre, le matériel à deux niveaux, le retour
+à l'accueil. Chacun a sa section détaillée plus bas.
+
+**Ce qui reste ouvert, par ordre de ce qu'elle a demandé :**
+- ⏳ **Les 26 autres `officielTexte`** : seul MAÇON a son descriptif de référentiel. À
+  récupérer sur les fiches diplôme — **ne rien rédiger soi-même**.
+- ⏳ **La liste des CAP de l'UFA Jules Le Cesne** (page du CFA académique inaccessible) et,
+  une fois obtenue, la ligne « COMMENT ? à l'école / en alternance » sur les fiches.
+- ⏳ **Les autres formations du Bâtiment CFA** : 2 sur plus de 20 seulement.
+- ⏳ **Illustrer « Tout le matériel »** : en suspens, « je verrai plus tard ». Cinq images
+  reçues (mannequin de repassage, roll, convoyeur, cabine de détachage, chariot de
+  lingerie) **non intégrées** — curseur violet incrusté, fonds beiges, convoyeur sépia.
+- ⏳ **Les étapes des autres métiers** : seul le pressing en a. Elle les fera « au fur et à
+  mesure » — ce n'est pas un gabarit à remplir 26 fois dans l'urgence.
+
+⚠ **Le curseur violet dans ses images vient de la capture d'écran, pas de Gemini.** Lui
+rappeler le bouton de téléchargement plutôt que de rattraper après coup.
+
+## ✅ LES 21 FICHES MÉTIER ONT TOUTES LEUR PHOTO (19/09)
+
+Les cinq dernières cases vides de `ORIENTATION - Mon avenir au Havre.html` sont remplies :
+`mot-mecaniciencamion` · `mot-maintenancebatiment` · `mot-chauffagiste` · `mot-barman` ·
+`mot-pressing`. **Plus aucun `manque:` dans le fichier.**
+⚠ Ne pas confondre `mot-pressing` (la personne qui repasse) et `lieu-pressing` (la boutique).
+⏳ Restent ailleurs : `mot-docteur` (retirée le 05/09, basse résolution) et `mot-coiffure`
+(ciseaux + peigne, perdue).
+
+## ✅ LE THÈME « LES LIEUX DE TRAVAIL » (19/09)
+
+14 mots, publié dans les **deux** `BANQUE` (`banque-mots.js` et `APPLI - Espace
+enseignant.dc.html`) : un chantier · un garage · un atelier · une cuisine · un restaurant ·
+un café · une cantine · un hôpital · une maison de retraite · un supermarché · un pressing ·
+une blanchisserie · des bureaux · un hôtel. Tous les exercices marchent dessus.
+
+⚠ **`PREF` a été élargi** dans les deux fichiers : `/^(geste|phrase|lieu)-/`. Sans ça les
+fichiers `lieu-*.png` seraient allés chercher `mot-lieu-*.png`.
+⚠ **« un café » (le lieu) coexiste avec « du café » (la boisson)** — deux mots, deux images.
+C'est voulu, mais à ne pas confondre au jeu du symbole commun.
+⚠ `lieu-maison-travaux` n'est PAS dans le thème (c'est une variante du chantier, elle ne
+fait pas un mot) : elle sert aux fiches métier seulement.
+
+## ✅ LA BANQUE DE LIEUX — « Où je travaille » (19/09)
+
+Décidé avec elle : les fiches métier de `ORIENTATION - Mon avenir au Havre.html` gagneront
+**deux lignes au maximum**, en première personne — « Où je travaille : … » et
+« Attention : … ». ⚠ **Ne PAS reprendre les rubriques de son document source** (*prérequis ·
+modalités de travail · spécificités*) : vocabulaire d'adulte, et trois pavés de texte sur une
+fiche qui tient en une phrase. Et on jette les formules creuses du genre « il faut être
+dynamique et aimer le contact avec les clients » — inverifiable et abstrait. On garde ce qui
+est concret : **« on travaille debout toute la journée »**, et **la liste des lieux**.
+
+⚠ **UNE BANQUE DE LIEUX PARTAGÉE, pas une série par métier** : le chantier sert à 8 métiers,
+l'hôpital à 3. Nommage `clean/lieu-<mot>.png`, 1000 × 1000, pour ne pas les confondre avec
+les `mot-`.
+
+⚠ **Pour un LIEU, pas de fond blanc** (la règle vaut pour les objets) : plan large, le lieu
+remplit l'image, personne au premier plan, aucun texte ni enseigne. À ajouter au prompt :
+**« cadrage serré, le lieu remplit l'image »** — c'était le seul défaut de la première.
+
+**Reçues et rangées — 17 (19/09)** : `lieu-chantier` (recadrée, elle était trop
+large), `lieu-maison-travaux`, `lieu-garage`, `lieu-atelier-metal`, `lieu-cuisine-pro`,
+`lieu-salle-restaurant`, `lieu-cantine`, `lieu-hopital`, `lieu-maison-retraite`,
+`lieu-supermarche`, `lieu-pressing`, `lieu-blanchisserie`, `lieu-bureaux`, `lieu-hotel`,
+`lieu-cafe`.
+
+⚠ **`lieu-salle-restaurant` est volontairement chic** (nappes blanches, gastronomique) et
+`lieu-cafe` volontairement populaire (brasserie, zinc, nappes vichy) : les deux ensemble
+montrent l'éventail du métier de service. Elle a demandé s'il fallait refaire la première,
+la réponse a été non.
+
+⏳ Il reste à **lui faire dicter, métier par métier, les lieux et le point de vigilance**.
+**La première fiche est montée (19/09) : AGENT DE PRESSING** — quatre lieux (pressing,
+blanchisserie, hôpital, maison de retraite) + « On travaille debout toute la journée. C'est
+chaud, il y a de la vapeur. » Dans le code : deux champs facultatifs sur le métier,
+`lieux:[['le pressing','lieu-pressing'],…]` et `attention:'…'` ; les deux blocs sont
+`hidden` quand les champs manquent, donc les 19 autres fiches sont inchangées.
+⚠ Photos de lieu en **cases fixes de 96 px de haut** (`object-fit:cover`) : la photo ne
+dicte pas la hauteur de la ligne. Mot à 17 px, texte d'alerte à 18 px.
+
+## ✅ LE RETOUR À L'ACCUEIL DEPUIS LA CARTE (20/09)
+
+Ouverte depuis le tableau de liège, `ORIENTATION - Mon avenir au Havre.html` était un
+**cul-de-sac** — « j'ai aucun moyen de revenir à l'accueil ». Bouton « **← L'accueil** » en
+haut à gauche de la carte : `history.back()` quand il y a un historique (on retrouve
+l'écran exact d'où l'on vient, côté élève comme côté prof), sinon lien vers
+`APPLI - Espace enseignant.dc.html` en conservant `location.search`.
+⚠ Ne pas le remplacer par un simple lien : il perdrait l'écran élève et rouvrirait l'appli
+à son point de départ.
+⚠ **La classe `.retour` déclenche une navigation interne** (elle est câblée sur
+`data-vers`). Tout bouton qui n'est pas un retour de page utilise `.bouton` — même dessin,
+aucun câblage. L'oubli a déjà renvoyé deux fois à la carte sans raison.
+
+## ✅ LE MATÉRIEL — DEUX NIVEAUX, DEUX ENDROITS (20/09)
+
+**Les 10 mots pour tous** sont posés **sur les cartes d'étapes**, là où l'objet sert : le
+ticket, les ciseaux, les gants, la brosse, la machine à laver, le sèche-linge, la table à
+repasser, le fer, le cintre, la housse. Choisis parce qu'ils reviennent partout **et**
+servent dans la vie courante. ⚠ Ne pas y verser les 48 du catalogue.
+
+**Tout le catalogue** (24 grand matériel + 23 petit matériel, lycée Jules Le Cesne) est sur
+une page à part, bouton « Tout le matériel ▸ » en bas des étapes. ⚠ **Cette page n'est pas
+pour la classe** : c'est la préparation du CAP de Sumaya. D'où le texte seul, en petit, sans
+photo — une liste de référence, pas du vocabulaire à illustrer.
+
+✅ **Les « zones » de sa feuille d'exercice SONT nos étapes** (Réception/Livraison, Triage,
+Prétraitement-détachage, Lavage, Séchage, Repassage, Stockage) : rien à construire en plus.
+Seule différence assumée : **nous séparons Réception et Livraison** là où sa feuille les
+fusionne — déposer son vêtement et venir le rechercher sont deux moments distincts pour un
+élève non lecteur, même si c'est le même comptoir.
+⏳ Les 10 objets n'ont **pas encore de photo** : ce sont des mots pour l'instant.
+✅ **Les 10 photos sont arrivées** (20/09) : `clean/mot-ticket.png`, `mot-ciseaux`,
+`mot-gants`, `mot-brosse`, `mot-machine-a-laver`, `mot-seche-linge`,
+`mot-table-a-repasser`, `mot-fer`, `mot-cintre`, `mot-housse` — 1000×1000, fond blanc.
+Elles s'affichent en petite pastille ronde dans la puce, devant le mot. La table
+`MATERIEL` (mot → fichier) est en tête du bloc « circuit » : un mot absent s'affiche sans
+image sans rien casser, on peut donc nommer un objet avant de l'illustrer.
+⚠ La photo du ticket porte du texte imprimé (« TICKET DE PRESSING », un total en euros) —
+c'est la seule exception à la règle « aucun texte », et elle est assumée : un ticket sans
+écriture ne ressemble à rien.
+⚠ Le catalogue du lycée écrit « Brosse à chien dent » ; corrigé en « **brosse à chiendent** »
+(la fibre végétale). À lui confirmer.
+
+## ✅ LE JEU — REMETTRE LES 8 ÉTAPES DANS L'ORDRE (20/09)
+
+Bouton « **Remettre dans l'ordre ▸** » en bas de la page des étapes → page 5. Les 8 photos
+arrivent mélangées ; l'élève touche celle qui vient ensuite. Juste → la carte se fige avec
+son numéro en vert. Faux → la carte tremble en rouge, et on continue.
+
+⚠ **On TOUCHE, on ne glisse pas.** Le glisser-déposer est hors de portée : doigt sur
+tablette, souris peu assurée, et rien à l'écran ne dit qu'un objet est saisissable. Ne pas
+« moderniser » en drag-and-drop.
+⚠ **Pas de score, pas de compteur d'erreurs.** Ces élèves ont assez d'occasions d'être
+notés. Une erreur secoue la carte, c'est tout.
+✅ La consigne **nomme l'étape cherchée** dès la deuxième (« Étape 2 : touche le triage ») :
+l'élève apprend le mot en le cherchant. La première reste ouverte (« que se passe-t-il en
+premier ? ») pour qu'il raisonne, pas seulement qu'il lise.
+
+## ✅ LE CIRCUIT DU VÊTEMENT — 8 étapes, fiche AGENT DE PRESSING (20/09)
+
+Bouton « **Les étapes ▸** » à côté de « Le métier ▸ » → page 4. Réception, triage,
+prétraitement, passage en machine, détachage, repassage, stockage, livraison.
+Source : documents du **lycée Jules Le Cesne, CAP MET, S1-6 « Flux et activité »**.
+
+Chaque étape a **deux textes** : la phrase simple en gros (la seule que lit un élève non
+lecteur) et, en dessous en petit gris, **le texte du cours mot pour mot** (pour la prof et
+pour l'élève déjà en CAP). ⚠ Ne jamais supprimer la phrase simple pour gagner de la place.
+
+⚠ **Seul le pressing a ce circuit, et c'est assumé** — c'est le métier suivi par une élève
+de la classe. Les autres métiers l'auront au fur et à mesure ; ce n'est pas un gabarit à
+remplir 26 fois dans l'urgence.
+
+✅ **Les 8 photos sont là** (`clean/etape-1-reception.png` … `etape-8-livraison.png`,
+1000×1000) : même pressing, même équipe en polo bleu marine sur toute la série, ce qui rend
+la suite lisible d'une étape à l'autre. Le nom du fichier est le 2ᵉ élément de chaque
+étape dans `etapes:[...]`.
+⚠ Les clichés de ses classeurs (photocopies sous pochette plastique) ne sont PAS utilisés —
+ils ont servi de modèle pour la commande, rien de plus.
+⏳ **Le lexique du matériel n'est pas fait** (bouton « Les mots ▸ »). Décidé : les 10 mots
+courants en grand d'abord, le catalogue complet en dessous — **le niveau se règle DANS le
+lexique, pas par un choix « je découvre / j'approfondis »** : un élève ne sait pas
+s'auto-évaluer, et personne ne clique sur « j'approfondis ».
+⚠ Vocabulaire du CAP à doser : « flacon stilligoutte », « chevalet à linge », « bannette »
+ne sont pas du vocabulaire UPE2A.
+
+## ✅ LE DESCRIPTIF OFFICIEL DU CAP — AU CLIC (20/09)
+
+Sur la fiche métier, la photo se recouvre d'un **cadre turquoise (#3bb8b8, texte #0d2b2b)**
+portant le texte du référentiel. Champ `officielTexte` sur le métier ; sans lui, rien ne
+s'affiche.
+
+⚠ C'est un texte écrit pour des **adultes** — la prof, un parent, un partenaire. Il ne
+remplace jamais la phrase simple en gros à côté, qui reste ce que l'élève lit.
+⚠ Il **recouvre la photo** au lieu de prendre une place à lui : la fiche doit tenir sur un
+écran (voir plus bas).
+⚠ **Le clic est obligatoire, il n'y a plus de survol** (décidé avec elle le 20/09). Bouton
+« Le métier ▸ » / « Fermer ✕ », 44 px de haut, dans le coin de la photo. Trois raisons, à
+relire avant de remettre un `:hover` : sur tablette le survol n'existe pas et le contenu
+serait inaccessible à la moitié de la classe ; le survol s'ouvrait sans intention (en
+vidéoprojection, une souris qui traîne recouvrait la photo au mauvais moment) ; c'est du
+texte de référentiel, il mérite un geste délibéré.
+✅ **L'élève y a accès** — ce n'est pas un contenu réservé à l'adulte, même s'il est écrit
+pour un adulte.
+
+⏳ **Un seul métier est renseigné : MAÇON.** Les 26 autres textes sont à récupérer sur les
+référentiels (ONISEP / fiches diplôme). Ne rien rédiger soi-même : c'est du texte officiel,
+il se copie, il ne s'invente pas.
+
+## ✅ LES DEUX CFA SUR LA CARTE — l'alternance (19/09)
+
+Points **6 et 7**, à côté des cinq lycées, **en trait POINTILLÉ avec une pastille
+« ALTERNANCE »**. ⚠ Pas en gris : le gris se lit comme « fermé » ou « pas pour toi », alors
+que l'alternance est une voie ouverte — et il ferait perdre le code couleur. Le champ
+`alternance:true` sur l'établissement suffit à déclencher les deux marques.
+La carte s'appelle maintenant « Touche un lycée ou un CFA ». Ce que ça dit à l'élève :
+**au lycée je suis élève, au CFA je suis apprenti — salarié, payé, avec un patron**.
+
+- **6 · CMA Formation, campus Raphaël Mallard** (Chambre de métiers), 32 rue Philippe Lebon,
+  campus Lebon. Métiers de bouche, commerce, fleuristerie : boulanger, pâtissier, boucher,
+  charcutier-traiteur, fleuriste, équipier polyvalent du commerce.
+- **7 · Bâtiment CFA Le Havre Baie de Seine** (ex BTP CFA), 9 rue Henri Matisse,
+  **Montivilliers**. ⚠ Seules **deux** formations y figurent (menuisier installateur,
+  menuisier fabricant) : ce sont les seules vérifiées en ligne. Le centre annonce plus de
+  20 diplômes — **ne rien deviner**, attendre la liste officielle.
+
+⚠ **Les UFA** : Jules Le Cesne et Schuman-Perret en hébergent une, à la même adresse que le
+lycée (CFA académique de Normandie / IFPRA). Le Cesne couvre hôtellerie-restauration,
+coiffure, commerce — donc cuisinier, serveur, barman peuvent se faire en alternance dans le
+même bâtiment. Schuman-Perret part vers la chimie et le BTS : a priori hors sujet.
+⏳ **La liste exacte des CAP de l'UFA Le Cesne reste à obtenir** (page du CFA académique
+inaccessible). Et la ligne **« COMMENT ? à l'école / en alternance »** sur les fiches des
+lycées n'est pas encore faite.
+
+⚠ Coordonnées des deux CFA **estimées** — à vérifier d'un coup d'œil sur la carte.
+✅ Les trois photos de métier (`mot-boucher`, `mot-charcutier`, `mot-fleuriste`) et les deux
+lieux manquants (`lieu-boulangerie` = le fournil, `lieu-atelier-bois` = l'atelier de
+menuiserie) sont arrivés le 19/09 : **plus aucun `manque:` dans le fichier**, et les lignes
+« Où je travaille » du boulanger et du menuisier d'atelier sont rétablies avec les bonnes
+images.
+
+## ✅ LA CARTE DE « MON AVENIR AU HAVRE » — tuiles IGN (19/09)
+
+⚠ **LA MINI-CARTE DES FICHES MÉTIER A ÉTÉ RETIRÉE (19/09) — ne pas la remettre.** À son
+zoom, un point violet sur un plan de rues n'apprenait rien à un élève qui ne lit pas encore
+une carte, et elle se répétait sur les 20 fiches. Sa remarque : « je ne suis pas sûre que la
+carte soit hyper judicieuse ». La géographie reste sur **la grande carte du premier écran**,
+qui a l'échelle, les cinq lycées et la mer. La fiche garde l'adresse, le quartier et
+« Pour y aller ». Si un repère visuel manque un jour à cet endroit, ce sera **une photo du
+lycée**, pas une carte.
+
+⚠ **NE PAS REVENIR AUX TUILES D'OPENSTREETMAP.** Le 19/09 elle a envoyé une capture : la
+carte du Havre était remplacée par une mosaïque de « Access blocked / App is not following
+the tile usage policy of OpenStreetMap's volunteer-run servers » (403). OSM bloque les sites
+qu'il ne connaît pas ; ça ne se répare pas de notre côté.
+
+Le fond est désormais le **Plan IGN v2 de la Géoplateforme** (`data.geopf.fr/wmts`,
+`LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2`, `TILEMATRIXSET=PM`) : public, gratuit, sans clé,
+en français, et c'est la carte officielle française — plus juste pour un document scolaire.
+Les deux cartes du fichier (la grande et la mini de la fiche) l'utilisent.
+**Attribution « IGN — Géoplateforme » obligatoire**, en pied de page et sur la carte.
+
+Elle voulait la carte (« j'aurais bien aimé la carte du Havre.... ») : trois autres pistes
+avaient été proposées et écartées de fait — plan sans rues, suppression de la carte au
+profit de photos de façades, capture d'écran en fond.
+
+## ✅ LE PANNEAU « CETTE SEMAINE » — côté élève (19/09)
+
+Son idée : un panneau en liège côté élève avec **les diaporamas, les lectures et les vidéos
+de la semaine**. Décision prise ensemble : **groupé PAR JOUR**, avec une icône de type sur
+chaque punaise (mon avis retenu : « lundi, jeudi, vendredi », ils savent déjà les lire, pas
+« diaporama » ; et par type la colonne « vidéos » serait vide la plupart des semaines).
+
+⚠ **AUCUNE DONNÉE NOUVELLE — le panneau relit l'emploi du temps.** Tout ce qu'elle accroche
+à un créneau depuis le panneau du créneau apparaît côté élève. Pas de double saisie. C'est
+le mécanisme `date` du 18/09 qui fait le travail.
+
+Troisième tableau de liège sur l'accueil élève (`themeAccueil`) → écran `semaine`. ⚠ **Il est
+en PREMIER, en haut à gauche** (décidé le 19/09) : c'est ce qui change, et l'endroit où un
+élève absent revient. L'ordre des quatre tableaux va du plus proche au plus lointain dans le
+temps — **Cette semaine · Les thèmes · Les lettres et les sons · Mon avenir au Havre**.
+Flèches ← → pour la semaine d'avant et
+d'après (bornées à l'année scolaire) : un élève absent rattrape.
+
+⚠ **CE QUI ÉTAIT ACCROCHÉ AUX CRÉNEAUX A ÉTÉ RETIRÉ LE 19/09.** La liste `RESSOURCES` de
+`emploi-du-temps.js` contenait une douzaine de documents répartis sur les créneaux : c'était
+MON hypothèse sur l'endroit où chacun servait, jamais la sienne. Elle l'a vu tout de suite
+sur le panneau élève : « tu as mis n'importe quoi » / « j'ai absolument pas fait ça bien
+sûr ». **Ne rien remettre dans `RESSOURCES` sans sa demande explicite** — elle accroche ses
+documents elle-même depuis le panneau du créneau (ils vont dans `liens`). Il ne reste que
+les deux entrées du 18/09 qu'elle a réellement demandées (diaporama « Au restaurant » et
+planning UNSS, datées au 18/09).
+
+⚠ **CE QUI EST RATTACHÉ À LA CLÉ D'UN CRÉNEAU (`atelier-lecture`) NE VA PAS DANS LES
+COLONNES DE JOUR** — ça revient tous les jours de toutes les semaines, ça donnait
+**38 punaises pour quatre jours**. Ces documents-là sont épinglés sous **« Toujours là »**,
+avec l'orientation. Les colonnes ne gardent que ce qui porte un jour précis
+(`vendredi-litteracie`) ou une **date**.
+
+⚠ **Un jour sans document n'a pas de colonne** (même raison que les thèmes sans photo : une
+colonne vide se lit comme un manque). Semaine de vacances → un seul message. Semaine vide →
+« Rien d'accroché cette semaine. »
+
+**`ORIENTATION - Mon avenir au Havre.html` est enfin accessible** : **quatrième tableau de
+liège sur l'accueil élève** (sa demande du 19/09), avec un aperçu maçon · cuisinier ·
+électricien. ⚠ Il a été **décroché de « Toujours là »** le même soir — deux portes vers le
+même document faisaient redite (« tu décroches Toujours là !! »). La rubrique « Toujours là »
+existe toujours mais **ne s'affiche que si elle contient quelque chose**, c'est-à-dire si un
+document est rattaché à la CLÉ d'un créneau (présent toutes les semaines).
+
+Icônes de type : 📖 vert = à lire · 🖼 violet = diaporama · 📷 orange = image · ▶ rouge =
+vidéo · 🔗 bleu = lien externe. Détection sur le nom de fichier.
+
+⏳ **Deux points laissés en défaut, à confirmer avec elle** : (1) les **vidéos** — elle n'en a
+accroché aucune, le mécanisme est prêt (ses liens `liens[creneau]` sortent avec l'icône ▶ et
+gardent `target="_blank"` puisque ce sont des liens externes qu'elle colle elle-même) ;
+(2) l'emplacement — mis en **onglet/tableau sur l'accueil élève**, pas en affiche sur le mur
+de briques.
+
+## 🔴 LÀ OÙ ON S'EST ARRÊTÉS (18/09, 3e session) — À LIRE EN PREMIER
+
+Phrase pour démarrer : « Lis INSTRUCTIONS-APPLICATION.md, on reprend. »
+
+### ⏳ LA QUESTION LAISSÉE EN SUSPENS — le rangement
+
+Sa dernière phrase : « **bon y a plein de choses non accrochées je pense.** » Elle a raison,
+et c'est LE chantier à ouvrir en priorité. Deux documents finis attendent sa décision, je
+lui ai posé la question sans réponse :
+
+- `FR - Jeu des syllabes - Je colle et j'écris.dc.html` (moto · salade · lit · tomate) ;
+- `FR - Les sports en images.dc.html` (basket · fléchettes · boxe française · badminton · foot).
+
+Les deux options que je lui ai soumises :
+1. `Lexique → Fiches et jeux` → collection « Les planches en images » (avec les métiers, le
+   lycée, le matériel scolaire, le visage, la radio). Marche pour les sports ; discutable
+   pour les syllabes, qui relèvent de la lecture, pas du vocabulaire.
+2. Créer une collection de documents sous **Lecture** — elle n'existe pas aujourd'hui.
+
+⚠ **Ne rien ranger sans son accord explicite.** Le 17/09 elle a répondu à sa propre question
+« elle est rangée où ? » en me voyant modifier l'appli, et elle l'a très mal pris : « tu as
+mon accord ??? ». Répondre à une question par une modification est une faute.
+
+⚠ Profiter de ce chantier pour faire **l'inventaire complet des fichiers orphelins** : plusieurs
+documents existent à la racine sans être accessibles depuis aucun menu. Cas déjà connus :
+`FR - Écrire les mots repères.dc.html` (créé le 11/09, rangé seulement le 17/09 dans
+`Écriture → Apprentissage → Lettres cursives`) ; et surtout ⚠ **les planches en images ne sont
+atteignables depuis AUCUN menu** — la collection existe dans le code, mais aucune entrée
+« Fiches à imprimer » ne figure sous Lexique, alors qu'il y en a une sous Écriture et sous
+Mathématiques. Elle l'a constaté le 18/09, je lui ai proposé d'ajouter l'entrée, sans réponse.
+
+### ✅ Fait le 18/09
+
+**Le thème LES SPORTS, publié.** Cinq mots, cinq photos reçues et rangées (`clean/mot-basket.png`,
+`mot-flechettes.png`, `mot-boxe-francaise.png`, `mot-badminton.png`, `mot-foot.png`, toutes
+réduites à 1000 px). Ce sont les activités UNSS du midi de son lycée, entre 12h20 et 13h15.
+Planche à imprimer créée : `FR - Les sports en images.dc.html` (photo+mot · muette · étiquettes).
+
+**Le jeu des syllabes**, d'après un PDF qu'elle a déposé. Deux pages A4 : la planche (photo,
+cases à emboîter, ligne d'écriture) et les étiquettes en désordre, deux exemplaires.
+
+**Le diaporama « Au restaurant »** : 21 diapositives — l'image seule, puis la même avec la
+phrase. Accroché au créneau Littéracie du vendredi 18 septembre.
+
+### ⚠ RÈGLES ARRACHÉES LE 18/09 — ne pas les réapprendre
+
+**LA CASE EST TOUJOURS PLUS GRANDE QUE L'ÉTIQUETTE QU'ON Y COLLE.** Jamais l'inverse, jamais
+égale. Étiquette 70 × 15 mm → case 74 × 16,5 mm. À taille égale, le moindre écart de ciseaux
+fait dépasser. Elle l'a signalé deux fois le même jour, sur deux documents différents.
+
+**UN THÈME SANS PHOTOS NE DOIT PAS APPARAÎTRE CÔTÉ ÉLÈVE.** Le thème des sports, ouvert avant
+ses images, affichait cinq cartes BLANCHES — sans erreur console, puisque ce sont des
+`background-image` CSS. Mécanisme en place : `PHOTOS_ATTENDUES` (dans `APPLI - Espace
+enseignant.dc.html`) + `themeMontrable()`. ⚠ **À chaque photo reçue, retirer le slug de cette
+liste**, sinon le mot reste invisible aux élèves alors que son image est là. La liste est
+VIDE aujourd'hui.
+
+**JAMAIS `target="_blank"` POUR UN DOCUMENT DE L'APPLI.** L'hôte refuse de sortir du cadre :
+l'élève voit « required » et rien ne s'ouvre. Règle déjà notée le 14/09 pour les rituels,
+oubliée sur l'emploi du temps, re-corrigée le 18/09. Seuls les liens externes qu'elle colle
+elle-même gardent `_blank`.
+
+**LE PANNEAU DE CRÉNEAU DE L'EMPLOI DU TEMPS** passe en fiche flottante sous 1080 px de large.
+Il s'ouvrait dans une colonne sous la grille, donc hors écran en plein écran (`position:fixed;
+overflow:hidden`) : le bouton « Documents » paraissait mort alors qu'il fonctionnait.
+
+**LES PIÈCES DE PUZZLE** (jeu des syllabes) : proportion large et basse (ratio 1,9), pointe
+profonde (25 % de la largeur), trait fin noir pointillé, fond blanc. Une ligne de cases = UN
+SEUL SVG, sinon les pointillés se déphasent aux jointures et la couture est double. Trois
+essais avant d'y arriver — « c'est trop moche », « regarde l'exemple ».
+
+**LE LOTO** : 4/5/6/8/10 planches au choix, **8 par défaut**. « Ne mets pas 5 par défaut car
+d'autres élèves vont arriver. » Plafond de 10 = nombre de graines de mélange disponibles.
+
+### ⚠ Leçon de méthode du 18/09 — elle veut discuter AVANT
+
+Trois rappels à l'ordre dans la même journée : « NE FAIS RIEN DU TOUT !!! on discute avant
+stp », « je t'ai dit que tu pouvais programmer ? », « tu as mon accord ??? ». Le schéma est
+toujours le même : elle pose une question ou exprime une gêne, et je réponds en modifiant le
+code. **Une question appelle une réponse, pas une modification.** Attendre un « vas-y », un
+« OK », un « fais-le ».
+
+Ce qui marche, en revanche : lui proposer 2 ou 3 options nommées, avec leurs conséquences, et
+mon avis motivé. Elle tranche vite et bien (« le choix numéro 2 ! Tu peux coder »).
+
 ## ⚠⚠ LES MOTS REPÈRES DE L'ALPHABET VIVENT À TROIS ENDROITS (15/09)
 
 La table validée avec elle (11 et 13/09) :
@@ -86,6 +472,40 @@ Décidé avec elle : **deux sous-thèmes**, animaux domestiques et animaux sauva
   mouton, poule.
 - **Sauvages, incomplet** : seulement renard, girafe, zèbre. Il manque **lion, éléphant,
   ours, loup, singe (un macaque), serpent (enroulé)** — prompts déjà donnés.
+
+## ⏳ À RAPPELER — quatre photos pour le LEXIQUE DE MATHS (15/09)
+
+`MATHS - Lexique de mathématiques.dc.html` attend quatre photos dans `clean/` :
+`mot-piece.png` · `mot-billet.png` · `mot-monnaie.png` · `mot-balance.png`.
+Les cases sont en pointillés avec le nom de fichier attendu ; les 41 autres sont finies.
+⚠ Celles de son document source étaient **filigranées** (billet de 50 € et pièces au tampon
+de la banque d'images) : ne pas les récupérer.
+
+## ✅ LE LEXIQUE DE MATHÉMATIQUES (15/09)
+
+Refait d'après un document qu'elle a trouvé sur un site NSA (« lexique maths A5 »).
+**Sa pédagogie était bonne, son iconographie non.** Gardé : la structure, la progression
+(divise → une division → le quotient), et surtout le **code couleur par nature de mot** —
+rouge le verbe, vert ce qui décrit, bleu la chose. Expliqué en pied de page 1.
+
+⚠ **A4 et pas A5**, décidé avec elle : ses élèves ont un **classeur** de maths. Une feuille
+se perfore ; un carnet se plie et se colle. Et à A4 les schémas passent de 35 à 55 mm.
+5 pages au lieu de 2 — ne pas « regagner » des pages en repassant à l'A5 ou à 12 cases.
+
+⚠ **Aucun clipart.** Son document illustrait *lire, chercher, résoudre, mesurer, peser,
+rendre la monnaie* par du dessin pour enfants (l'ampoule qui sourit, le petit monstre sur la
+balance, une vignette façon Astérix) — infantilisant à 16-18 ans. Ici ces mots sont montrés
+par **la trace de l'action sur un énoncé** : le même énoncé (Léa et Tom, gardé d'elle)
+traité cinq fois — lu et souligné, données entourées, surlignées, schématisé, résolu.
+Tout le reste est **typographie et traits** (droite graduée, arcs de saut, barre
+tout/parties, opération en colonnes, règle, éprouvette). Ne pas remplacer par des images.
+
+Deux corrections sur son document : « **divise** » était en noir alors que tous les autres
+verbes étaient en rouge (corrigé) ; « **une boîte de Fischer** » supprimée — jargon
+d'école primaire, remplacée par « une consigne ». La case « des unités de mesure » était une
+capture d'écran illisible, refaite en liste.
+
+Rangé dans `Mathématiques → Les livrets`, avant le Livret 1 bis.
 
 ## ⚠⚠ RÈGLE ABSOLUE — LES MARGES D'IMPRESSION (07/09)
 

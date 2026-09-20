@@ -12,6 +12,7 @@
   --ink:#1c2430; --ink-soft:#5a6472; --bord:#c3d2e2; --fond:#f4f7fa;
   --navy:#1d4e89;
   --erea:#b4472a; --schuman:#8a6a12; --lavoisier:#1f6f6f; --lecesne:#6b3f7a; --degrace:#2f6b46;
+  --mallard:#a8423f; --batcfa:#31557f;
 }
 *{box-sizing:border-box}
 html,body{margin:0;height:100%}
@@ -29,12 +30,16 @@ button{font-family:inherit;cursor:pointer;color:inherit}
   display:flex;align-items:center;justify-content:space-between;gap:16px;
   padding:14px 20px;border-bottom:2px solid var(--ink);flex:0 0 auto;
 }
-.barre h1{font-family:'Archivo Black',Verdana,sans-serif;font-size:19px;letter-spacing:.02em;margin:0;font-weight:400}
-.retour{
+.barre h1{flex:1;font-family:'Archivo Black',Verdana,sans-serif;font-size:19px;letter-spacing:.02em;margin:0;font-weight:400}
+/* ⚠ `.retour` DÉCLENCHE UNE NAVIGATION : tout bouton qui la porte est câblé sur
+   son `data-vers`. Le bouton du jeu l'utilisait pour son allure et partait donc vers
+   `undefined` — l'écran revenait à la carte. Pour un bouton qui n'est PAS un retour,
+   utiliser `.bouton` (même dessin, aucun câblage). */
+.retour, .bouton{
   display:flex;align-items:center;gap:10px;background:#fff;border:2px solid var(--ink);
   border-radius:10px;padding:10px 18px;font-weight:700;font-size:15px;min-height:52px;
 }
-.retour:active{transform:scale(.98)}
+.retour:active, .bouton:active{transform:scale(.98)}
 .etiquette{
   display:inline-flex;align-items:center;gap:10px;border:2px solid var(--bord);
   border-radius:999px;padding:7px 16px;font-weight:700;font-size:14px;
@@ -44,6 +49,11 @@ button{font-family:inherit;cursor:pointer;color:inherit}
 /* ---------- carte ---------- */
 #carte{flex:1;min-height:0}
 .leaflet-container{font-family:'Atkinson Hyperlegible',Verdana,sans-serif}
+/* ⚠ LES CFA SE DISTINGUENT DES LYCÉES PAR LE TRAIT EN POINTILLÉS + la pastille
+   « ALTERNANCE » (19/09). Pas par un gris : le gris se lit comme « fermé » ou « pas pour
+   toi », alors que l'alternance est une voie ouverte — et il ferait perdre le code couleur. */
+.repere-cfa{border-style:dashed !important}
+.repere .tag{font-size:11px;font-weight:700;letter-spacing:.04em;background:var(--c);color:#fff;border-radius:999px;padding:3px 9px;white-space:nowrap}
 .repere{
   display:flex;align-items:center;gap:9px;background:#fff;border:3px solid var(--c);
   border-radius:12px;padding:8px 13px;font-weight:700;font-size:15px;white-space:nowrap;
@@ -67,6 +77,13 @@ button{font-family:inherit;cursor:pointer;color:inherit}
   display:flex;flex-direction:column;gap:0;background:#fff;border:2px solid var(--bord);
   border-radius:14px;overflow:hidden;padding:0;text-align:left;min-height:230px;
 }
+/* ⚠ SURVOL EXPLICITE (19/09) : elle voyait une tuile « se retourner » au survol. Il n'y a
+   jamais eu de rotation dans le code ; sans règle :hover déclarée, c'est l'habillage de
+   l'éditeur qui s'affiche par-dessus. On pose donc un survol sobre et prévisible —
+   la tuile monte de 2 px et le cadre prend la couleur du lycée. Aucune rotation, jamais :
+   une image de métier qui bascule casse la lecture chez des élèves non lecteurs. */
+.carte-metier{transition:transform .12s ease, border-color .12s ease}
+.carte-metier:hover{transform:translateY(-2px);border-color:var(--c)}
 .carte-metier:active{transform:scale(.985)}
 .carte-metier .vignette{
   height:150px;background:var(--fond);display:flex;align-items:center;justify-content:center;
@@ -82,33 +99,138 @@ button{font-family:inherit;cursor:pointer;color:inherit}
 }
 
 /* ---------- fiche ---------- */
-.fiche{max-width:940px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+/* ⚠ LA FICHE MÉTIER DOIT TENIR SUR UN ÉCRAN, SANS DÉFILEMENT (sa demande du 19/09).
+   Toutes les hauteurs ci-dessous sont serrées pour ça : photo plafonnée, interlignes
+   resserrés, cases de lieux à 80 px. Avant d'agrandir quoi que ce soit ici, vérifier que
+   la fiche du pressing (la plus chargée : 4 lieux + bandeau) tient encore d'un coup d'œil. */
+.fiche{max-width:940px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
 .fiche-tete{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
-.fiche-nom{font-family:'Archivo Black',Verdana,sans-serif;font-size:30px;line-height:1.15;white-space:pre-line}
+.fiche-nom{font-family:'Archivo Black',Verdana,sans-serif;font-size:26px;line-height:1.15;white-space:pre-line}
 .fiche-bloc{display:grid;grid-template-columns:minmax(240px,1fr) 1.3fr;gap:22px;align-items:start}
 .fiche-photo{
-  border:2px solid var(--bord);border-radius:14px;background:var(--fond);min-height:240px;
+  border:2px solid var(--bord);border-radius:14px;background:var(--fond);min-height:150px;max-height:225px;
   display:flex;align-items:center;justify-content:center;overflow:hidden;padding:10px;
 }
-.fiche-photo img{max-width:100%;max-height:320px;object-fit:contain}
+.fiche-photo img{max-width:100%;max-height:205px;object-fit:contain}
+/* ⚠ LE DESCRIPTIF OFFICIEL DU CAP — au survol de la photo (20/09).
+   C'est le texte du référentiel, écrit pour des ADULTES : la prof, un parent, un
+   partenaire. Il ne remplace pas la phrase simple en gros à côté, qui reste ce que
+   l'élève lit. D'où le recouvrement de la photo et pas une place fixe : ça n'ajoute
+   aucune hauteur à la fiche, qui doit tenir sur un écran.
+   ⚠ Il s'ouvre aussi au CLIC et au clavier : sur tablette il n'y a pas de survol, et
+   un contenu qu'on n'atteint qu'à la souris n'existe pas pour la moitié de la classe. */
+.fiche-photo{position:relative}
+.fiche-expli{
+  position:absolute;inset:0;background:#3bb8b8;color:#0d2b2b;
+  padding:14px 16px;font-size:15px;line-height:1.4;overflow:auto;
+  display:flex;align-items:center;text-align:left;
+  opacity:0;visibility:hidden;transition:opacity .14s ease;
+}
+/* ⚠ LE CLIC EST OBLIGATOIRE, IL N'Y A PLUS DE SURVOL (20/09, décidé avec elle).
+   Trois raisons, à relire avant de remettre un :hover ici :
+   1. sur tablette le survol n'existe pas — le contenu serait inaccessible à la moitié
+      de la classe ;
+   2. le survol s'ouvrait sans intention : en vidéoprojection, une souris qui traîne
+      recouvrait la photo du métier au mauvais moment ;
+   3. c'est du texte de référentiel, pour adultes — il mérite un geste délibéré. */
+.fiche-photo.ouvert .fiche-expli{opacity:1;visibility:visible}
+/* Les boutons restent DANS la photo (la fiche doit tenir sur un écran) mais ils sont
+   francs : 44 px de haut, le minimum pour un doigt. */
+.fiche-actions{position:absolute;right:10px;bottom:10px;z-index:2;display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.fiche-loupe{border:2px solid var(--ink);
+  background:#fff;color:var(--ink);border-radius:999px;padding:0 16px;min-height:44px;
+  font-size:15px;font-weight:700;cursor:pointer;white-space:nowrap;
+}
+.fiche-photo.ouvert .fiche-loupe{background:#0d2b2b;color:#fff;border-color:#0d2b2b}
 .phrase{
   display:flex;align-items:flex-start;gap:14px;border:2px solid var(--ink);border-radius:14px;
-  padding:16px 18px;font-size:23px;line-height:1.45;
+  padding:12px 15px;font-size:20px;line-height:1.35;
 }
 .hp{
-  flex:0 0 auto;width:56px;height:56px;border-radius:50%;border:none;background:var(--navy);
-  color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center;
+  flex:0 0 auto;width:46px;height:46px;border-radius:50%;border:none;background:var(--navy);
+  color:#fff;font-size:19px;display:flex;align-items:center;justify-content:center;
 }
 .hp.parle{animation:bat .9s ease-in-out infinite}
 @keyframes bat{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
-.lignes{display:flex;flex-direction:column;gap:12px}
-.ligne{display:flex;align-items:center;gap:12px;font-size:17px}
+.lignes{display:flex;flex-direction:column;gap:7px}
+.ligne{display:flex;align-items:center;gap:12px;font-size:16px}
 .ligne .cle{
   font-family:'Archivo Black',Verdana,sans-serif;font-size:12px;letter-spacing:.06em;
   color:var(--ink-soft);min-width:112px;
 }
 .ligne .val{font-weight:700}
-#fiche-mini{height:200px;border:2px solid var(--bord);border-radius:14px}
+/* ⚠ LA MINI-CARTE DE LA FICHE A ÉTÉ RETIRÉE LE 19/09. À ce zoom, un point violet sur un
+   plan de rues n'apprend rien à un élève qui ne lit pas encore une carte, et elle se
+   répétait sur les 20 fiches. La géographie reste sur la grande carte du premier écran,
+   qui a l'échelle, les cinq lycées et la mer. Ne pas la remettre. */
+/* « Où je travaille » : les lieux de la banque clean/lieu-*.png, photo + mot.
+   Cases fixes : la photo ne dicte pas la hauteur de la ligne. */
+.bloc-titre{font-family:'Archivo Black',Verdana,sans-serif;font-size:14px;letter-spacing:0.04em;text-transform:uppercase;color:var(--ink);margin-bottom:7px}
+/* ⚠ CASES BORNÉES À 170 px : sans le plafond, une case seule prenait toute la largeur et
+   la photo, figée à 80 px de haut, devenait un bandeau 11:1 où le lieu n'était plus
+   reconnaissable. La vignette doit rester à peu près 2:1, quel que soit le nombre de lieux. */
+.lieux{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,170px));gap:12px;justify-content:start}
+.lieu{display:flex;flex-direction:column;gap:7px}
+.lieu img{width:100%;height:80px;object-fit:cover;border:2px solid var(--bord);border-radius:12px;display:block}
+.lieu span{font-size:16px;font-weight:700;line-height:1.2}
+/* ⚠ `display:flex` écrase l'attribut `hidden` : sans la règle [hidden] ci-dessous, le
+   bandeau rouge s'affichait VIDE sur tous les métiers sans consigne — une alerte qui ne
+   dit rien, devant des élèves non lecteurs. */
+[hidden]{display:none !important}
+.attention{display:flex;align-items:flex-start;gap:12px;border:3px solid #c0392b;border-radius:14px;padding:11px 14px;background:#fdf1ef}
+.attention .pic{flex:0 0 auto;width:30px;height:30px;border-radius:50%;background:#c0392b;color:#fff;font-family:'Archivo Black',Verdana,sans-serif;font-size:18px;display:flex;align-items:center;justify-content:center}
+.attention p{margin:0;font-size:17px;line-height:1.3}
+
+/* ---------- le circuit du vêtement (pressing) ----------
+   ⚠ D'APRÈS LES DOCUMENTS DU LYCÉE JULES LE CESNE, CAP MET (S1-6, « Flux et activité »).
+   Les textes en petit sont ceux du cours, mot pour mot : ils servent à la prof et à
+   l'élève qui suit déjà le CAP. La phrase en gros au-dessus est la version simple, la
+   seule que lit un élève non lecteur. Ne jamais supprimer la phrase simple pour gagner
+   de la place : c'est elle, le contenu utile ici.
+   ⚠ Seul le pressing a ce circuit pour l'instant — c'est assumé (c'est le métier suivi
+   par une élève de la classe). Les autres métiers l'auront quand elle aura la matière. */
+.circuit{max-width:1040px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+.etape{border:2px solid var(--bord);border-radius:14px;background:#fff;display:flex;flex-direction:column;overflow:hidden}
+.etape .vue{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;border-bottom:2px solid var(--bord)}
+.etape .texte{padding:14px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
+.etape .rang{display:flex;align-items:center;gap:10px}
+.etape .num{flex:0 0 auto;width:38px;height:38px;border-radius:50%;background:var(--navy);color:#fff;
+  font-family:'Archivo Black',Verdana,sans-serif;font-size:18px;display:flex;align-items:center;justify-content:center}
+.etape .titre{font-family:'Archivo Black',Verdana,sans-serif;font-size:17px;line-height:1.15}
+.etape .simple{font-size:17px;line-height:1.35;margin:0}
+/* ---------- le jeu : remettre les étapes dans l'ordre ----------
+   ⚠ ON TOUCHE, ON NE GLISSE PAS (20/09). Le glisser-déposer est hors de portée : doigt sur
+   tablette, souris peu assurée, et rien à l'écran ne dit qu'un objet est saisissable. Ici
+   l'élève touche simplement la photo qu'il croit être la suivante. Ne pas « moderniser »
+   en drag-and-drop.
+   ⚠ PAS DE SCORE, PAS DE COMPTEUR D'ERREURS : une erreur secoue la carte en rouge et on
+   recommence, c'est tout. Ces élèves ont assez d'occasions d'être notés. */
+/* « Le matériel » sur chaque carte d'étape : les 10 objets courants seulement.
+   ⚠ NE PAS y verser les 48 du catalogue — ils sont sur la page « Tout le matériel »,
+   réservée à la préparation du CAP. Ici on nomme ce qui sert vraiment, là où ça sert. */
+.mat{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+.mat span{display:inline-flex;align-items:center;gap:7px;border:2px solid var(--bord);border-radius:999px;padding:3px 12px 3px 3px;font-size:14px;background:var(--fond)}
+.mat img{width:30px;height:30px;border-radius:50%;object-fit:cover;background:#fff}
+.catalogue{max-width:1040px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}
+.catalogue h3{font-family:'Archivo Black',Verdana,sans-serif;font-size:16px;margin:0 0 10px}
+.catalogue ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:5px;font-size:15px;line-height:1.3}
+.jeu{max-width:1040px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
+.jeu-consigne{display:flex;align-items:center;gap:14px;border:2px solid var(--ink);border-radius:14px;
+  padding:12px 16px;margin:0 auto 18px;max-width:1040px;font-size:19px;line-height:1.3}
+.jeu-consigne .cpt{flex:0 0 auto;width:46px;height:46px;border-radius:50%;background:var(--navy);color:#fff;
+  font-family:'Archivo Black',Verdana,sans-serif;font-size:20px;display:flex;align-items:center;justify-content:center}
+.carte-jeu{position:relative;border:3px solid var(--bord);border-radius:14px;overflow:hidden;background:#fff;padding:0;cursor:pointer;min-height:44px}
+.carte-jeu img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block}
+.carte-jeu.trouve{border-color:#2f6b46}
+.carte-jeu.trouve img{opacity:.45}
+.carte-jeu .place{position:absolute;inset:0;display:none;align-items:center;justify-content:center;
+  font-family:'Archivo Black',Verdana,sans-serif;font-size:46px;color:#2f6b46}
+.carte-jeu.trouve .place{display:flex}
+.carte-jeu.faux{animation:secousse .4s}
+@keyframes secousse{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+.carte-jeu.faux{border-color:#c0392b}
+.jeu-gagne{text-align:center;font-family:'Archivo Black',Verdana,sans-serif;font-size:24px;color:#2f6b46;margin:0 0 18px}
+.etape .officielle{font-size:13px;line-height:1.35;color:var(--ink-soft);margin:0;border-top:1px solid var(--bord);padding-top:8px}
 </style>
 </head>
 <body>
@@ -116,14 +238,20 @@ button{font-family:inherit;cursor:pointer;color:inherit}
 <!-- ================= PAGE 1 — LA CARTE ================= -->
 <section class="page actif" id="page-carte">
   <div class="barre">
+    <!-- ⚠ LE RETOUR À L'APPLI (20/09) : ouverte depuis le tableau de liège, la carte était
+         un cul-de-sac — « j'ai aucun moyen de revenir à l'accueil ». On revient par
+         l'historique quand il y en a un (on retrouve l'écran exact d'où l'on vient), sinon
+         par le lien vers l'appli. Ne pas remplacer par un simple lien : il perdrait
+         l'écran élève et rouvrirait l'appli à son point de départ. -->
+    <button class="bouton" id="btn-accueil">← L’accueil</button>
     <h1>MON AVENIR AU HAVRE</h1>
-    <span class="etiquette">Touche un lycée</span>
+    <span class="etiquette">Touche un lycée ou un CFA</span>
   </div>
   <div id="carte"></div>
   <div class="note-prof" id="note-prof">
-    Formations : « Présentation des ULIS lycées du Havre », version 1.5 — septembre 2025
+    Travail inspiré de « Présentation des ULIS lycées du Havre », version 1.5 — septembre 2025
     (N. Gay, S. Jolivet, N. Lassade, E. Meys, S. Maurice). Les CAP listés sont ceux
-    accessibles en ULIS lycée. Coordonnées : Base Adresse Nationale. Carte : OpenStreetMap.
+    accessibles en ULIS lycée. Coordonnées : Base Adresse Nationale. Carte : Plan IGN, Géoplateforme (IGN).
   </div>
 </section>
 
@@ -158,12 +286,89 @@ button{font-family:inherit;cursor:pointer;color:inherit}
           </div>
           <div class="ligne"><span class="cle">DIPLÔME</span><span class="val" id="fiche-diplome"></span></div>
           <div class="ligne"><span class="cle">SON NOM EXACT</span><span class="val" id="fiche-officiel"></span></div>
-          <div class="ligne"><span class="cle">LE LYCÉE</span><span class="val" id="fiche-lycee"></span></div>
+          <div class="ligne"><span class="cle" id="fiche-cle-lycee">LE LYCÉE</span><span class="val" id="fiche-lycee"></span></div>
           <div class="ligne"><span class="cle">L’ADRESSE</span><span class="val" id="fiche-adresse"></span></div>
           <div class="ligne"><span class="cle">POUR Y ALLER</span><span class="val" id="fiche-trajet"></span></div>
-          <div id="fiche-mini"></div>
         </div>
       </div>
+      <div id="fiche-ou" hidden>
+        <div class="bloc-titre">Où je travaille</div>
+        <div class="lieux" id="fiche-lieux"></div>
+      </div>
+      <div class="attention" id="fiche-attention" hidden>
+        <span class="pic" aria-hidden="true">!</span>
+        <p id="fiche-attention-txt"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PAGE 6 — TOUT LE MATÉRIEL (préparation du CAP) =================
+     ⚠ CETTE PAGE N'EST PAS POUR LA CLASSE. C'est le catalogue complet du lycée Jules
+     Le Cesne, pour Sumaya qui suit déjà le CAP MET et pour la prof. D'où le texte seul,
+     en petit, sans photo : ce n'est pas du vocabulaire à illustrer, c'est une liste de
+     référence. Les 10 mots utiles à tous sont sur les cartes d'étapes. -->
+<section class="page" id="page-materiel">
+  <div class="barre">
+    <button class="retour" data-vers="page-etapes">← Les étapes</button>
+    <span class="etiquette"><span class="rond" style="background:var(--lecesne)"></span><span>Préparation du CAP</span></span>
+  </div>
+  <div class="corps">
+    <h2 class="titre-section">Tout le matériel d’un pressing</h2>
+    <p class="sous-titre">Catalogue complet du lycée Jules Le Cesne — pour préparer le CAP.</p>
+    <div class="catalogue">
+      <div>
+        <h3>Grand matériel</h3>
+        <ul>
+          <li>Armoire séchante</li><li>Caisse</li><li>Machine à laver</li><li>Chariot à linge</li>
+          <li>Comptoir</li><li>Bannette</li><li>Étagère</li><li>Ordinateur</li>
+          <li>Sécheuse-repasseuse</li><li>Emballeuse</li><li>Chariot à plateau</li><li>Table à repasser</li>
+          <li>Chevalet à linge</li><li>Téléphone</li><li>Portant</li><li>Chariot de lingerie</li>
+          <li>Emballeuse sur cintre</li><li>Convoyeur</li><li>Cabine de détachage</li><li>Séchoir rotatif</li>
+          <li>Machine aqua clean</li><li>Mannequin de repassage</li><li>Sèche-linge</li><li>Roll</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Petit matériel</h3>
+        <ul>
+          <li>Agenda</li><li>Balle de tennis</li><li>Brosse à dents</li><li>Papier aluminium</li>
+          <li>Coton hydrophile</li><li>Agrafeuse</li><li>Lunettes de protection</li><li>Paire de ciseaux</li>
+          <li>Brosse collante</li><li>Mètre ruban</li><li>Stylos</li><li>Calendrier</li>
+          <li>Gants</li><li>Spatule</li><li>Ticket</li><li>Masque</li>
+          <li>Épingle à nourrice</li><li>Rouleaux plastique</li><li>Cintre</li><li>Brosse à chiendent</li>
+          <li>Flacon stilligoutte</li><li>Bassine, cuvette</li><li>Taloche</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PAGE 5 — LE JEU : REMETTRE DANS L'ORDRE ================= -->
+<section class="page" id="page-jeu">
+  <div class="barre">
+    <button class="retour" data-vers="page-etapes">← Les étapes</button>
+    <span class="etiquette" id="et-jeu"><span class="rond"></span><span></span></span>
+  </div>
+  <div class="corps">
+    <h2 class="titre-section">Remets les étapes dans l’ordre</h2>
+    <div class="jeu-consigne" id="jeu-consigne"><span class="cpt" id="jeu-cpt">1</span><span id="jeu-txt">Touche la <b>première</b> étape : que se passe-t-il en premier ?</span></div>
+    <div class="jeu" id="jeu"></div>
+  </div>
+</section>
+
+<!-- ================= PAGE 4 — LE CIRCUIT DU VÊTEMENT ================= -->
+<section class="page" id="page-etapes">
+  <div class="barre">
+    <button class="retour" data-vers="page-fiche">← La fiche</button>
+    <span class="etiquette" id="et-etapes"><span class="rond"></span><span></span></span>
+  </div>
+  <div class="corps">
+    <h2 class="titre-section">Le circuit du vêtement</h2>
+    <p class="sous-titre">Du client qui dépose son vêtement au client qui le récupère : 8 étapes, dans l’ordre.</p>
+    <div class="circuit" id="circuit"></div>
+    <div style="max-width:1040px;margin:22px auto 0;display:flex;justify-content:center;gap:12px;flex-wrap:wrap">
+      <button type="button" class="bouton" id="btn-jeu">Remettre dans l’ordre ▸</button>
+      <button type="button" class="retour" data-vers="page-materiel">Tout le matériel ▸</button>
     </div>
   </div>
 </section>
@@ -177,56 +382,105 @@ const LYCEES = [
   { id:'lavoisier', nom:'Lycée Lavoisier', court:'Lavoisier', couleur:'var(--lavoisier)',
     lat:49.526143, lon:0.098575, adresse:'51 rue des Moteaux', quartier:'Bléville',
     metiers:[
-      { nom:'MÉCANIQUE\nVOITURES', photo:P+'mot-mecanicien.png', phrase:"Je répare les voitures. Je regarde le moteur, les freins et les pneus.", diplome:'CAP', officiel:'Maintenance des véhicules, option voitures particulières (VP)', trajet:'En bus' },
-      { nom:'MÉCANIQUE\nCAMIONS', manque:'Un mécanicien devant un camion, capot ouvert.', phrase:"Je répare les camions. Je travaille sur des gros moteurs.", diplome:'CAP', officiel:'Maintenance des véhicules, option transport routier (VTR)', trajet:'En bus' },
-      { nom:'CHAUDRONNERIE\nSOUDURE', photo:P+'mot-soudeur.png', phrase:"Je coupe, je plie et je soude le métal.", diplome:'CAP', officiel:'Réalisations industrielles en chaudronnerie ou soudage (RICS)', trajet:'En bus' }
+      { nom:'MÉCANICIEN\nVOITURES', photo:P+'mot-mecanicien.png', phrase:"Je répare les voitures. Je regarde le moteur, les freins et les pneus.", diplome:'CAP', officiel:'Maintenance des véhicules, option A voitures particulières (VP)', trajet:'En bus' },
+      { nom:'MÉCANICIEN\nCAMIONS', photo:P+'mot-mecaniciencamion.png', phrase:"Je répare les camions. Je travaille sur des gros moteurs.", diplome:'CAP', officiel:'Maintenance des véhicules, option C véhicules de transport routier (VTR)', trajet:'En bus' },
+      { nom:'CHAUDRONNIER\nSOUDEUR', photo:P+'mot-soudeur.png', phrase:"Je coupe, je plie et je soude le métal.", diplome:'CAP', officiel:'Réalisations industrielles en chaudronnerie ou soudage (RICS)', trajet:'En bus' }
     ] },
   { id:'erea', nom:'EREA Maurice Genevoix', court:'EREA Genevoix', couleur:'var(--erea)',
     lat:49.514209, lon:0.10071, adresse:'94 rue Colette', quartier:'Mont-Gaillard',
     metiers:[
-      { nom:'MAÇONNERIE', photo:P+'mot-macon.png', phrase:"Je construis des murs. Je pose des briques et du béton.", diplome:'CAP', officiel:'Maçon', trajet:'En bus' },
-      { nom:'PEINTRE', photo:P+'mot-peintre.png', phrase:"Je peins les murs. Je pose aussi du papier peint.", diplome:'CAP', officiel:'Peintre applicateur de revêtements (PAR)', trajet:'En bus' },
-      { nom:'MÉTALLERIE', photo:P+'mot-soudeur.png', phrase:"Je soude le métal. Je fabrique des portails et des grilles.", diplome:'CAP', officiel:'Métallier (MET)', trajet:'En bus' },
-      { nom:'MAINTENANCE\nDES BÂTIMENTS', manque:'Un agent avec une caisse à outils dans un couloir.', phrase:"Je répare dans les bâtiments : l’eau, l’électricité, les petits travaux.", diplome:'CAP', officiel:'Intervention en maintenance technique des bâtiments (IMTB)', trajet:'En bus' },
-      { nom:'AGENT DE\nPROPRETÉ', photo:P+'mot-agententretien.png', phrase:"Je nettoie les locaux avec des machines professionnelles.", diplome:'CAP', officiel:'Agent de propreté et d’hygiène (APH)', trajet:'En bus' },
-      { nom:'SERVICE EN\nRESTAURANT', photo:P+'mot-serveur.png', phrase:"Je sers les clients à table, au restaurant.", diplome:'CAP', officiel:'Service en restaurant', trajet:'En bus' }
+      { nom:'MAÇON', photo:P+'mot-macon.png', phrase:"Je construis des murs. Je pose des briques et du béton.", diplome:'CAP', officiel:'Maçon (MAC)', trajet:'En bus',
+        officielTexte:"Le titulaire du CAP maçon réalise des maçonneries brutes ou apparentes en blocs de béton, briques et moellons et conçoit des coffrages. Il réalise aussi des enduits horizontaux, verticaux et chapes." },
+      { nom:'PEINTRE', photo:P+'mot-peintre.png', phrase:"Je peins les murs. Je pose aussi du papier peint.", diplome:'CAP', officiel:'Peintre et applicateur de revêtements (PAR)', trajet:'En bus' },
+      { nom:'MÉTALLIER', photo:P+'mot-soudeur.png', phrase:"Je soude le métal. Je fabrique des portails et des grilles.", diplome:'CAP', officiel:'Métallerie (MET)', trajet:'En bus' },
+      { nom:'AGENT DE\nMAINTENANCE', photo:P+'mot-maintenancebatiment.png', phrase:"Je répare dans les bâtiments : l’eau, l’électricité, les petits travaux.", diplome:'CAP', officiel:'Intervention en maintenance technique des bâtiments (IMTB)', trajet:'En bus' },
+      { nom:'AGENT DE\nPROPRETÉ', photo:P+'mot-agententretien.png', phrase:"Je nettoie les locaux avec des machines professionnelles.", diplome:'CAP', officiel:'Agent de propreté et d’hygiène (APH)', trajet:'En bus' }
     ] },
   { id:'schuman', nom:'Lycée Schuman-Perret', court:'Schuman-Perret', couleur:'var(--schuman)',
     lat:49.515993, lon:0.166039, adresse:'51 avenue du 8 Mai 1945', quartier:'Caucriauville',
     metiers:[
       { nom:'ÉLECTRICIEN', photo:P+'mot-electricien.png', phrase:"J’installe l’électricité. Je répare les prises et les câbles.", diplome:'CAP', officiel:'Électricien', trajet:'En tramway' },
-      { nom:'INSTALLATIONS\nSANITAIRES', photo:P+'mot-plombier.png', phrase:"J’installe les tuyaux d’eau : l’évier, la douche, les toilettes.", diplome:'CAP', officiel:'Monteur en installations sanitaires (MIS)', trajet:'En tramway' },
-      { nom:'PEINTRE\nAPPLICATEUR', photo:P+'mot-peintre.png', phrase:"Je peins les murs et je pose les sols.", diplome:'CAP', officiel:'Peintre applicateur de revêtements (PAR)', trajet:'En tramway' },
-      { nom:'MENUISIER\nINSTALLATEUR', photo:P+'mot-menuisier.png', phrase:"Je fabrique et je pose les portes et les fenêtres en bois.", diplome:'CAP', officiel:'Menuisier installateur (MI)', trajet:'En tramway' },
-      { nom:'INSTALLATIONS\nTHERMIQUES', manque:'Un chauffagiste devant une chaudière.', phrase:"J’installe le chauffage : la chaudière et les radiateurs.", diplome:'CAP', officiel:'Monteur en installations thermiques (MIT)', trajet:'En tramway' }
+      { nom:'PLOMBIER', photo:P+'mot-plombier.png', phrase:"J’installe les tuyaux d’eau : l’évier, la douche, les toilettes.", diplome:'CAP', officiel:'Monteur en installations sanitaires (MIS)', trajet:'En tramway' },
+      { nom:'PEINTRE', photo:P+'mot-peintre.png', phrase:"Je peins les murs et je pose les sols.", diplome:'CAP', officiel:'Peintre et applicateur de revêtements (PAR)', trajet:'En tramway' },
+      { nom:'MENUISIER', photo:P+'mot-menuisier.png', phrase:"Je fabrique et je pose les portes et les fenêtres en bois.", diplome:'CAP', officiel:'Menuisier installateur (MI)', trajet:'En tramway' },
+      { nom:'CHAUFFAGISTE', photo:P+'mot-chauffagiste.png', phrase:"J’installe le chauffage : la chaudière et les radiateurs.", diplome:'CAP', officiel:'Monteur en installations thermiques (MIT)', trajet:'En tramway' }
     ] },
   { id:'lecesne', nom:'Lycée Jules Le Cesne', court:'Jules Le Cesne', couleur:'var(--lecesne)',
     lat:49.491205, lon:0.13866, adresse:'33 rue de Fleurus', quartier:'Graville',
-    decalage:'translate(calc(-100% + 12px), -26px)',
+    decalage:'translate(calc(-100% + 10px), -32px)',
     metiers:[
-      { nom:'CUISINE', photo:P+'mot-cuisinier.png', phrase:"Je prépare les plats en cuisine, avec le chef.", diplome:'CAP', officiel:'Cuisine', trajet:'En tramway' },
-      { nom:'SERVICE EN\nRESTAURANT', photo:P+'mot-serveur.png', phrase:"Je sers les clients à table, au restaurant.", diplome:'CAP', officiel:'Service en restaurant', trajet:'En tramway' },
-      { nom:'CAFÉ - HÔTEL\nRESTAURANT', manque:'Une personne au comptoir d’un café, qui sert un client.', phrase:"J’accueille les clients. Je sers les boissons et je tiens la caisse.", diplome:'CAP', officiel:'Commercialisation et services en café-hôtel-restaurant', trajet:'En tramway' },
-      { nom:'ENTRETIEN\nDES TEXTILES', manque:'Une personne qui repasse du linge en pressing.', phrase:"Je lave, je repasse et je répare les vêtements.", diplome:'CAP', officiel:'Entretien des textiles', trajet:'En tramway' }
+      { nom:'CUISINIER', photo:P+'mot-cuisinier.png', phrase:"Je prépare les plats en cuisine, avec le chef.", diplome:'CAP', officiel:'Cuisine', trajet:'En tramway' },
+      /* ⚠ UNE SEULE CASE (19/09) : serveur et barman, c'est le MÊME CAP. Deux tuiles avec
+         le même diplôme, c'était la confusion qu'un support d'appariement doit éviter. */
+      { nom:'SERVEUR\nBARMAN', photo:P+'mot-serveur.png', phrase:"Je sers les clients à table. Au comptoir, je sers les boissons.", diplome:'CAP', officiel:'Commercialisation et services en hôtel-café-restaurant (HCR)', trajet:'En tramway',
+        lieux:[['le restaurant','lieu-salle-restaurant'],['le café','lieu-cafe'],["l’hôtel",'lieu-hotel']] },
+      { nom:'AGENT DE PRESSING', photo:P+'mot-pressing.png',
+        etapes:[
+          ['La réception','le ticket|les ciseaux','etape-1-reception',"Le client arrive. Je prends son vêtement. Je fais le ticket.","Ce poste est le plus important de tous. Il permet d’éviter les problèmes et d’organiser le travail. Nous y accueillons le client et les articles à entretenir."],
+          ['Le triage','les gants','etape-2-triage',"Je sépare les vêtements : les couleurs, les tissus, les plus sales.","Les articles sont répartis en lots selon leur nature textile, leur couleur, leur degré de salissure."],
+          ['Le prétraitement','la brosse|les gants','etape-3-pretraitement',"Je traite les taches avant la machine.","Les parties tachées, ou particulièrement sales des vêtements, sont traitées avant le passage en machine avec des détachants spécifiques."],
+          ['Le passage en machine','la machine à laver|le sèche-linge','etape-4-machine',"Je lave. Je choisis le bon programme.","On choisira le cycle de nettoyage en fonction de la nature et de l’état des vêtements à traiter puis le cycle de séchage."],
+          ['Le détachage','la brosse|les gants','etape-5-detachage',"Après la machine, il reste des taches. Je les enlève.","Élimination des taches avec un traitement plus poussé après le passage en machine."],
+          ['Le repassage','la table à repasser|le fer','etape-6-repassage',"Je repasse. Le vêtement devient propre et net.","Il permet de donner au linge un aspect soigné. Il est réalisé manuellement sur des tables à repasser."],
+          ['Le stockage','le cintre|la housse','etape-7-stockage',"Je mets le vêtement sur un cintre, sous une housse. J’attends le client.","Les articles sont conditionnés sur cintre, sous housse puis stockés avant d’être livré au client."],
+          ['La livraison','le ticket','etape-8-livraison',"Le client revient avec son ticket. Je cherche son vêtement. Je lui rends.","À partir du ticket, le responsable recherche le ou les articles correspondant afin de les redonner au client."]
+        ], phrase:"Je lave, je repasse et je répare les vêtements.", diplome:'CAP', officiel:'Métiers de l’entretien des textiles', trajet:'En tramway',
+        /* « Où je travaille » et « Attention » (19/09) : deux lignes au maximum, en première
+           personne. Les lieux piochent dans la banque `clean/lieu-*.png`. */
+        lieux:[['le pressing','lieu-pressing'],['la blanchisserie','lieu-blanchisserie'],["l’hôpital",'lieu-hopital'],['la maison de retraite','lieu-maison-retraite']],
+        attention:"On travaille debout toute la journée. C’est chaud, il y a de la vapeur." }
     ] },
   { id:'degrace', nom:'Lycée Françoise de Grâce', court:'Françoise de Grâce', couleur:'var(--degrace)',
     lat:49.492809, lon:0.14955, adresse:'16 rue de la Vallée', quartier:'Vallée Béreult',
-    decalage:'translate(-12px, 26px)',
+    decalage:'translate(-10px, 32px)',
     metiers:[
       { nom:'ACCOMPAGNANT\nGRAND ÂGE', photo:P+'mot-aidesoignant.png', phrase:"J’aide les personnes âgées, chaque jour.", diplome:'CAP', officiel:'Agent accompagnant au grand âge', trajet:'En bus' },
       { nom:'ÉQUIPIER DE\nCOMMERCE', photo:P+'mot-caissier.png', phrase:"Je range les rayons du magasin. J’aide les clients.", diplome:'CAP', officiel:'Équipier polyvalent du commerce', trajet:'En bus' },
-      { nom:'PRODUCTION EN\nRESTAURATION', photo:P+'mot-cuisinier.png', phrase:"Je prépare beaucoup de repas, à la cantine.", diplome:'CAP', officiel:'Production et service en restauration', trajet:'En bus' }
+      { nom:'CUISINIER DE\nCOLLECTIVITÉ', photo:P+'mot-cuisinier.png', phrase:"Je prépare beaucoup de repas, à la cantine.", diplome:'CAP', officiel:'Production et service en restaurations (rapide, collective, cafétéria)', trajet:'En bus' }
+    ] },
+  /* ⚠ LES DEUX DERNIERS POINTS NE SONT PAS DES LYCÉES, CE SONT DES CFA (19/09).
+     L'élève y est APPRENTI : salarié, payé, avec un patron — pas élève. C'est la
+     différence que la fiche doit dire, pas le nom de l'organisme.
+     ⚠ N'y figurent QUE des formations vérifiées en ligne. Le Bâtiment CFA annonce plus de
+     20 diplômes : les autres seront ajoutés quand elle aura la liste officielle. Ne rien
+     deviner ici — c'est l'erreur du 19/09 sur les ressources de l'emploi du temps. */
+  { id:'mallard', nom:'CMA Formation — campus Raphaël Mallard', court:'CFA Raphaël Mallard',
+    couleur:'var(--mallard)', alternance:true, lat:49.4893, lon:0.118,
+    decalage:'translate(calc(-100% + 10px), 34px)',
+    adresse:'32 rue Philippe Lebon', quartier:'Campus Lebon',
+    metiers:[
+      { nom:'BOULANGER', photo:P+'mot-boulanger.png', phrase:"Je fais le pain, tôt le matin.", diplome:'CAP en apprentissage', officiel:'Boulanger', trajet:'En tramway',
+        lieux:[['la boulangerie','lieu-boulangerie']],
+        attention:"On commence très tôt le matin. On travaille debout." },
+      { nom:'PÂTISSIER', photo:P+'mot-patissier.png', phrase:"Je fais les gâteaux et les desserts.", diplome:'CAP en apprentissage', officiel:'Pâtissier', trajet:'En tramway' },
+      { nom:'BOUCHER', photo:P+'mot-boucher.png', phrase:"Je coupe et je prépare la viande.", diplome:'CAP en apprentissage', officiel:'Boucher', trajet:'En tramway' },
+      { nom:'CHARCUTIER', photo:P+'mot-charcutier.png', phrase:"Je prépare la charcuterie et les plats à emporter.", diplome:'CAP en apprentissage', officiel:'Charcutier-traiteur', trajet:'En tramway' },
+      { nom:'FLEURISTE', photo:P+'mot-fleuriste.png', phrase:"Je fais des bouquets. Je vends des fleurs.", diplome:'CAP en apprentissage', officiel:'Fleuriste', trajet:'En tramway' },
+      { nom:'VENDEUR', photo:P+'mot-vendeur.png', phrase:"Je vends. J’aide les clients dans le magasin.", diplome:'CAP en apprentissage', officiel:'Équipier polyvalent du commerce', trajet:'En tramway',
+        lieux:[['le supermarché','lieu-supermarche']] }
+    ] },
+  { id:'batcfa', nom:'Bâtiment CFA Le Havre Baie de Seine', court:'CFA du bâtiment',
+    couleur:'var(--batcfa)', alternance:true, lat:49.5385, lon:0.1825,
+    adresse:'9 rue Henri Matisse', quartier:'Montivilliers',
+    metiers:[
+      /* ⚠ UNE SEULE CASE (19/09) : la pose et l'atelier, c'est le même métier vu de deux
+         côtés, et les deux tuiles partageaient la même photo. Les deux CAP sont cités. */
+      { nom:'MENUISIER', photo:P+'mot-menuisier.png', phrase:"Je fabrique les fenêtres et les meubles en bois. Je les pose.", diplome:'CAP en apprentissage', officiel:'Menuisier installateur (MI) ou Menuisier fabricant', trajet:'En bus',
+        lieux:[["l’atelier",'lieu-atelier-bois'],['le chantier','lieu-chantier'],["l’appartement en travaux",'lieu-maison-travaux']] }
     ] }
 ];
 
 /* ---------- navigation ---------- */
-let lyceeActif = null, metierActif = null, mini = null;
+let lyceeActif = null, metierActif = null;
 function aller(id){
   document.querySelectorAll('.page').forEach(p => p.classList.toggle('actif', p.id === id));
   window.scrollTo(0, 0);
-  if (id === 'page-fiche' && mini) setTimeout(() => mini.invalidateSize(), 60);
 }
 document.querySelectorAll('.retour').forEach(b => b.addEventListener('click', () => aller(b.dataset.vers)));
+document.getElementById('btn-accueil').addEventListener('click', () => {
+  if (document.referrer && history.length > 1) history.back();
+  else location.href = 'APPLI - Espace enseignant.dc.html' + location.search;
+});
 
 function etiqueter(el, lycee){
   el.querySelector('.rond').style.background = lycee.couleur;
@@ -235,23 +489,50 @@ function etiqueter(el, lycee){
 
 /* ---------- la carte ---------- */
 const carte = L.map('carte', { zoomControl:true }).setView([49.508, 0.132], 12);
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution:'© OpenStreetMap contributors', maxZoom:18
+/* ⚠ FOND DE CARTE : LES TUILES DE L'IGN, PAS CELLES D'OPENSTREETMAP (19/09).
+   OpenStreetMap renvoyait « Access blocked » (403) : ils bloquent les sites qu'ils ne
+   connaissent pas, et la carte du Havre était remplacée par des pavés d'avertissement.
+   La Géoplateforme de l'IGN (Plan IGN v2) est publique, gratuite, sans clé, en français —
+   et c'est la carte officielle française, ce qui convient mieux à un document scolaire.
+   Attribution IGN obligatoire, ne pas la retirer. */
+L.tileLayer('https://data.geopf.fr/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/png&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}', {
+  attribution:'IGN — Géoplateforme', maxZoom:18
 }).addTo(carte);
 
+/* ⚠ UN POINT EXACT SOUS CHAQUE ÉTIQUETTE (19/09).
+   Avant, l'étiquette ÉTAIT le marqueur, et deux d'entre elles sont décalées pour ne pas se
+   chevaucher : rien ne marquait plus la vraie position, et Jules Le Cesne et Françoise de
+   Grâce — 800 m l'un de l'autre — semblaient à plusieurs kilomètres. Sa remarque. Le disque
+   est désormais posé aux coordonnées réelles ; seule l'étiquette bouge, et de peu. */
 LYCEES.forEach((ly, i) => {
-  /* Jules Le Cesne et Françoise de Grâce sont à 800 m : leurs deux étiquettes ne tiennent
-     pas côte à côte au zoom de la ville. Chacune est donc décalée autour de son point —
-     l'une au-dessus à gauche, l'autre en dessous à droite — le point lui-même ne bouge pas. */
-  const html = '<div class="repere" style="--c:' + ly.couleur +
+  L.circleMarker([ly.lat, ly.lon], {
+    radius:7, color:'#fff', weight:3, opacity:1,
+    fillColor:getComputedStyle(document.documentElement).getPropertyValue('--' + ly.id).trim() || '#12233b',
+    fillOpacity:1, className:'point-lycee', keyboard:true
+  }).addTo(carte).on('click', () => ouvrirLycee(ly));
+  const html = '<div class="repere' + (ly.alternance ? ' repere-cfa' : '') + '" style="--c:' + ly.couleur +
                (ly.decalage ? ';transform:' + ly.decalage : '') + '">' +
-               '<span class="puce">' + (i + 1) + '</span>' + ly.court + '</div>';
+               '<span class="puce">' + (i + 1) + '</span>' + ly.court +
+               (ly.alternance ? '<span class="tag">ALTERNANCE</span>' : '') + '</div>';
   L.marker([ly.lat, ly.lon], {
     icon: L.divIcon({ html, className:'', iconSize:null, iconAnchor:[20, 22] }),
     keyboard:true, title:ly.nom
   }).addTo(carte).on('click', () => ouvrirLycee(ly));
 });
-carte.fitBounds(LYCEES.map(l => [l.lat, l.lon]), { padding:[70, 70] });
+/* L'échelle : la seule façon de répondre « c'est loin ? » sans savoir lire une carte. */
+L.control.scale({ metric:true, imperial:false, position:'bottomleft' }).addTo(carte);
+/* ⚠ LE RECADRAGE SUR LES CINQ LYCÉES DOIT ATTENDRE QUE LE CONTENEUR AIT SA HAUTEUR (19/09).
+   `#carte` est en flex:1 : appelé tout de suite, fitBounds calculait sur une taille nulle et
+   retombait sur maxZoom — la carte s'ouvrait au zoom 18 sur une rue quelconque, sans aucun
+   lycée à l'écran. On invalide la taille, on recadre après stabilisation, et on borne à
+   maxZoom 14 pour qu'aucun cas dégénéré ne puisse renvoyer au zoom maximum. */
+function cadrerLycees(){
+  carte.invalidateSize();
+  carte.fitBounds(LYCEES.map(l => [l.lat, l.lon]), { padding:[70, 70], maxZoom:14 });
+}
+carte.whenReady(() => requestAnimationFrame(() => requestAnimationFrame(cadrerLycees)));
+setTimeout(cadrerLycees, 300);
+window.addEventListener('resize', () => carte.invalidateSize());
 
 /* ---------- les métiers ---------- */
 function vignette(m){
@@ -269,6 +550,75 @@ function ouvrirLycee(ly){
   aller('page-metiers');
 }
 
+/* ---------- le circuit du vêtement ---------- */
+/* Les 10 objets courants et leur photo. ⚠ Un mot absent de cette table s'affiche sans
+   image, sans casser la puce : c'est voulu, on peut nommer un objet avant de l'illustrer. */
+const MATERIEL = {
+  'le ticket':'mot-ticket', 'les ciseaux':'mot-ciseaux', 'les gants':'mot-gants',
+  'la brosse':'mot-brosse', 'la machine à laver':'mot-machine-a-laver',
+  'le sèche-linge':'mot-seche-linge', 'la table à repasser':'mot-table-a-repasser',
+  'le fer':'mot-fer', 'le cintre':'mot-cintre', 'la housse':'mot-housse'
+};
+function ouvrirEtapes(m){
+  etiqueter(document.getElementById('et-etapes'), lyceeActif);
+  document.getElementById('circuit').innerHTML = m.etapes.map(([titre, mat, img, simple, officielle], i) =>
+    '<div class="etape"><img class="vue" src="' + P + img + '.png" alt="">' +
+    '<div class="texte"><div class="rang"><span class="num">' + (i + 1) + '</span>' +
+    '<span class="titre">' + titre + '</span></div>' +
+    '<p class="simple">' + simple + '</p>' +
+    '<p class="officielle">' + officielle + '</p>' +
+    '<div class="mat">' + mat.split('|').map(o =>
+      '<span>' + (MATERIEL[o] ? '<img src="' + P + MATERIEL[o] + '.png" alt="">' : '') + o + '</span>').join('') + '</div>' +
+    '</div></div>').join('');
+  aller('page-etapes');
+}
+
+/* ---------- le jeu : remettre les étapes dans l'ordre ---------- */
+let jeuRang = 0;
+function ouvrirJeu(m){
+  etiqueter(document.getElementById('et-jeu'), lyceeActif);
+  jeuRang = 0;
+  majConsigne(m);
+  const melange = m.etapes.map((e, i) => ({ e:e, i:i })).sort(() => Math.random() - 0.5);
+  const zone = document.getElementById('jeu');
+  zone.innerHTML = melange.map(o =>
+    '<button type="button" class="carte-jeu" data-rang="' + o.i + '">' +
+    '<img src="' + P + o.e[2] + '.png" alt=""><span class="place">' + (o.i + 1) + '</span></button>').join('');
+  zone.querySelectorAll('.carte-jeu').forEach(b => b.addEventListener('click', () => {
+    if (b.classList.contains('trouve')) return;
+    if (+b.dataset.rang === jeuRang) {
+      b.classList.add('trouve');
+      jeuRang++;
+      majConsigne(m);
+    } else {
+      /* ⚠ 'faux' est RETIRÉE dès la fin de la secousse : laissée en place, elle marquait
+         la carte d'un cadre rouge permanent — un compteur d'erreurs déguisé — et elle
+         l'emportait ensuite sur le vert de 'trouve', affichant une bonne réponse en rouge. */
+      b.classList.remove('faux');
+      void b.offsetWidth;
+      b.classList.add('faux');
+      b.addEventListener('animationend', () => b.classList.remove('faux'), { once:true });
+    }
+  }));
+  aller('page-jeu');
+}
+function majConsigne(m){
+  const n = jeuRang + 1;
+  const cpt = document.getElementById('jeu-cpt');
+  const txt = document.getElementById('jeu-txt');
+  if (jeuRang >= m.etapes.length) {
+    cpt.textContent = '✓';
+    txt.innerHTML = '<b>Bravo !</b> Les 8 étapes sont dans l’ordre.';
+    return;
+  }
+  cpt.textContent = n;
+  /* La consigne nomme l'étape cherchée dès la 2e : l'élève apprend le mot en le cherchant. */
+  txt.innerHTML = jeuRang === 0
+    ? 'Touche la <b>première</b> étape : que se passe-t-il en premier ?'
+    : 'Étape <b>' + n + '</b> : touche <b>' + m.etapes[jeuRang][0].toLowerCase() + '</b>.';
+}
+document.getElementById('btn-jeu').addEventListener('click', () => { if (metierActif) ouvrirJeu(metierActif); });
+
 /* ---------- la fiche ---------- */
 function ouvrirFiche(m){
   metierActif = m;
@@ -276,25 +626,42 @@ function ouvrirFiche(m){
   etiqueter(document.getElementById('et-fiche'), ly);
   document.getElementById('fiche-nom').textContent = m.nom;
   document.getElementById('fiche-nom').style.borderBottom = '5px solid ' + ly.couleur;
-  document.getElementById('fiche-photo').innerHTML = m.photo
+  const bloc = document.getElementById('fiche-photo');
+  bloc.classList.remove('ouvert');
+  bloc.innerHTML = (m.photo
     ? '<img src="' + m.photo + '" alt="">'
-    : '<div class="a-photographier">Photo à faire :<br>' + m.manque + '</div>';
+    : '<div class="a-photographier">Photo à faire :<br>' + m.manque + '</div>')
+    + (m.officielTexte ? '<div class="fiche-expli">' + m.officielTexte + '</div>' : '')
+    + '<div class="fiche-actions">'
+      + (m.officielTexte ? '<button type="button" class="fiche-loupe">Le métier ▸</button>' : '')
+      + (m.etapes ? /* « Les étapes DU MÉTIER » et pas « Les étapes » : seul, le mot ne dit pas
+         les étapes de quoi — et il voisine avec « Le métier ▸ », qui ouvre autre chose. */
+      '<button type="button" class="fiche-loupe" id="btn-etapes">Les étapes du métier ▸</button>' : '')
+    + '</div>';
+  const vers = bloc.querySelector('#btn-etapes');
+  if (vers) vers.addEventListener('click', () => ouvrirEtapes(m));
+  const loupe = bloc.querySelector('.fiche-loupe');
+  if (loupe) loupe.addEventListener('click', () => {
+    const ouvert = bloc.classList.toggle('ouvert');
+    loupe.textContent = ouvert ? 'Fermer ✕' : 'Le métier ▸';
+  });
   document.getElementById('fiche-phrase').textContent = m.phrase;
   document.getElementById('fiche-diplome').textContent = m.diplome;
   document.getElementById('fiche-officiel').textContent = m.officiel;
+  /* ⚠ « LE CFA » et non « LE LYCÉE » pour les deux centres d'apprentissage : écrire lycée
+     annulerait en toutes lettres la distinction que le pointillé vient d'installer. */
+  document.getElementById('fiche-cle-lycee').textContent = ly.alternance ? 'LE CFA' : 'LE LYCÉE';
   document.getElementById('fiche-lycee').textContent = ly.nom;
   document.getElementById('fiche-adresse').textContent = ly.adresse + ' — ' + ly.quartier;
   document.getElementById('fiche-trajet').textContent = m.trajet;
+  const ou = document.getElementById('fiche-ou');
+  ou.hidden = !(m.lieux && m.lieux.length);
+  document.getElementById('fiche-lieux').innerHTML = (m.lieux || [])
+    .map(([mot, f]) => '<div class="lieu"><img src="' + P + f + '.png" alt=""><span>' + mot + '</span></div>').join('');
+  const att = document.getElementById('fiche-attention');
+  att.hidden = !m.attention;
+  document.getElementById('fiche-attention-txt').textContent = m.attention || '';
   aller('page-fiche');
-  if (!mini) {
-    mini = L.map('fiche-mini', { zoomControl:false, dragging:false, scrollWheelZoom:false, doubleClickZoom:false, attributionControl:true });
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution:'© OpenStreetMap contributors', maxZoom:18 }).addTo(mini);
-    mini.repere = null;
-  }
-  mini.setView([ly.lat, ly.lon], 14);
-  if (mini.repere) mini.removeLayer(mini.repere);
-  mini.repere = L.circleMarker([ly.lat, ly.lon], { radius:11, color:'#fff', weight:3, fillColor:getComputedStyle(document.documentElement).getPropertyValue('--' + ly.id).trim(), fillOpacity:1 }).addTo(mini);
-  setTimeout(() => mini.invalidateSize(), 60);
 }
 
 /* ---------- la phrase lue ---------- */
