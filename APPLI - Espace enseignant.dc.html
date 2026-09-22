@@ -34,20 +34,20 @@ input,select,button{font-family:inherit}
   @page{size:A4;margin:0}
 }
 </style>
-<link rel="stylesheet" href="polices.css" />
-<script src="./fiches-source.js"></script>
-<script src="./fiches-themes.js"></script>
-<script src="./lecture-code.js"></script>
-<script src="./lecture-sons.js"></script>
-<script src="./sons-fiches.js"></script>
-<script src="./positionnement.js"></script>
-<script src="./positionnement-eana.js"></script>
-<script src="./positionnement-tests.js"></script>
-<script src="./positionnement-dossiers.js"></script>
-<script src="./disques.js"></script>
+<link rel="stylesheet" href="polices.css?v=9" />
+<script src="./fiches-source.js?v=9"></script>
+<script src="./fiches-themes.js?v=9"></script>
+<script src="./lecture-code.js?v=9"></script>
+<script src="./lecture-sons.js?v=9"></script>
+<script src="./sons-fiches.js?v=9"></script>
+<script src="./positionnement.js?v=9"></script>
+<script src="./positionnement-eana.js?v=9"></script>
+<script src="./positionnement-tests.js?v=9"></script>
+<script src="./positionnement-dossiers.js?v=9"></script>
+<script src="./disques.js?v=9"></script>
 <!-- L'emploi du temps est monté ici par dc-import : le helmet d'un enfant n'est pas
      chargé, donc window.EDT doit être fourni par CETTE page, sinon l'écran est vide. -->
-<script src="./emploi-du-temps.js"></script>
+<script src="./emploi-du-temps.js?v=9"></script>
 </helmet>
 <div class="om-nonprint" style="height:100vh;min-height:0;overflow:hidden;display:flex;flex-direction:column;font-family:Archivo, Arial, sans-serif;color:#12233b;background:#f4f6f9">
 
@@ -247,6 +247,35 @@ input,select,button{font-family:inherit}
 </span>
 <span style="font-size:11.5px;color:#fdf3c4;text-shadow:0 1px 3px rgba(0,0,0,0.5)">{{ apercuCodeTexte }}</span>
 </button>
+<!-- ⚠ LE PARCOURS DES SONS (22/09) : le plateau des 36 phonèmes, rangé JUSTE APRÈS
+     « Les lettres et les sons » — c'est la même matière, vue comme un chemin. Aperçu : la
+     case du a ouverte (rouge), les suivantes encore fermées. ⚠ Jamais target="_blank". -->
+<a href="JEU - Le parcours des sons.dc.html" style="box-shadow:0 12px 28px rgba(0,0,0,0.3);background-image:url('clean/liege.webp');background-size:100% 100%;background-repeat:no-repeat;border:none;padding:15px 15px 18px;display:flex;flex-direction:column;align-items:center;gap:11px;cursor:pointer;text-decoration:none" style-hover="transform:translateY(-3px)">
+<span style="position:relative;background:#fdf3c4;padding:8px 16px;transform:rotate(1.1deg);box-shadow:0 4px 10px rgba(0,0,0,0.3);display:block">
+<span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:block"></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:13px;letter-spacing:0.02em;text-transform:uppercase;color:#8a4b1e;text-align:center;line-height:1.2;display:block">Le parcours<br />des sons</span>
+</span>
+<span style="position:relative;width:100%;aspect-ratio:1600/893;background-image:url('clean/plateau-sons.webp');background-size:100% 100%;background-repeat:no-repeat;border:3px solid #fff;border-radius:8px;box-shadow:0 3px 10px rgba(0,0,0,0.25);overflow:hidden;display:block">
+<span style="position:absolute;left:5.75%;top:90.13%;transform:translate(-50%,-50%);width:13%;aspect-ratio:1;border-radius:50%;background:#c1440e;border:2px solid #fff;box-shadow:0 2px 5px rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center"><span style="font-family:Archivo Black, Archivo, sans-serif;font-size:11px;line-height:1;color:#fff">a</span></span>
+</span>
+<span style="font-size:11.5px;color:#fdf3c4;text-shadow:0 1px 3px rgba(0,0,0,0.5)">je touche un son, je joue</span>
+</a>
+<!-- ⚠ CINQUIÈME TABLEAU (20/09) : « Glisse et lis », l'appli de fusion syllabique.
+     Elle est rangée JUSTE APRÈS « Les lettres et les sons » — c'est le même travail, le
+     code, et un élève qui sort des sons la trouve là. Aperçu M · U · R aux trois couleurs
+     de l'appli : consonne bleu nuit, voyelle simple rouge. -->
+<a href="FR - Glisse et lis.html" style="box-shadow:0 12px 28px rgba(0,0,0,0.3);background-image:url('clean/liege.webp');background-size:100% 100%;background-repeat:no-repeat;border:none;padding:15px 15px 18px;display:flex;flex-direction:column;align-items:center;gap:11px;cursor:pointer;text-decoration:none" style-hover="transform:translateY(-3px)">
+<span style="position:relative;background:#fdf3c4;padding:8px 16px;transform:rotate(-1deg);box-shadow:0 4px 10px rgba(0,0,0,0.3);display:block">
+<span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:block"></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:13px;letter-spacing:0.02em;text-transform:uppercase;color:#8a4b1e;text-align:center;line-height:1.2;display:block">Glisse<br />et lis</span>
+</span>
+<span style="width:100%;display:grid;grid-template-columns:{{ colApercu }};gap:7px">
+<span style="background:#fff;border:3px solid #1d4e89;border-radius:8px;box-shadow:0 3px 10px rgba(0,0,0,0.18);aspect-ratio:1;align-self:start;display:flex;align-items:center;justify-content:center"><span style="font-family:Andika, Verdana, sans-serif;font-size:30px;font-weight:700;line-height:1;color:#1d4e89">M</span></span>
+<span style="background:#fff;border:3px solid #c0392b;border-radius:8px;box-shadow:0 3px 10px rgba(0,0,0,0.18);aspect-ratio:1;align-self:start;display:flex;align-items:center;justify-content:center"><span style="font-family:Andika, Verdana, sans-serif;font-size:30px;font-weight:700;line-height:1;color:#c0392b">U</span></span>
+<span style="background:#fff;border:3px solid #1d4e89;border-radius:8px;box-shadow:0 3px 10px rgba(0,0,0,0.18);aspect-ratio:1;align-self:start;display:flex;align-items:center;justify-content:center"><span style="font-family:Andika, Verdana, sans-serif;font-size:30px;font-weight:700;line-height:1;color:#1d4e89">R</span></span>
+</span>
+<span style="font-size:11.5px;color:#fdf3c4;text-shadow:0 1px 3px rgba(0,0,0,0.5)">je glisse les sons, je lis le mot</span>
+</a>
 <a href="ORIENTATION - Mon avenir au Havre.html" style="box-shadow:0 12px 28px rgba(0,0,0,0.3);background-image:url('clean/liege.webp');background-size:100% 100%;background-repeat:no-repeat;border:none;padding:15px 15px 18px;display:flex;flex-direction:column;align-items:center;gap:11px;cursor:pointer;text-decoration:none" style-hover="transform:translateY(-3px)">
 <span style="position:relative;background:#fdf3c4;padding:8px 16px;transform:rotate(1deg);box-shadow:0 4px 10px rgba(0,0,0,0.3);display:block">
 <span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:block"></span>
@@ -2015,6 +2044,36 @@ Le trait d'union sépare les mots</label>
 </div>
 </sc-if>
 
+<sc-if value="{{ estLitteraire }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;overflow-y:auto;padding:18px 20px;display:flex;flex-direction:column;gap:22px">
+<span style="font-size:12.5px;color:#6b7386;line-height:1.5;max-width:640px">Une séquence, un texte : le diaporama à projeter, les étiquettes à manipuler, la feuille d'écriture, et l'audio à écouter. Tout se lance d'ici.</span>
+<sc-for list="{{ sequences }}" as="q" hint-placeholder-count="1">
+<div style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;border-left:5px solid {{ q.couleur }};padding-left:11px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:15px;letter-spacing:.02em;color:#12233b">{{ q.nom }}</span>
+<span style="font-size:12.5px;color:{{ q.couleur }};font-weight:700">{{ q.auteur }}</span>
+</div>
+<sc-for list="{{ q.audios }}" as="a" hint-placeholder-count="1">
+<div style="display:flex;flex-direction:column;gap:9px;background:#12233b;border-radius:14px;padding:15px 17px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:13.5px;color:#fff;line-height:1.35">{{ a.titre }}</span>
+<span style="font-size:12px;color:#aebccd;line-height:1.5">{{ a.detail }}</span>
+<audio controls="{{ vrai }}" preload="none" src="{{ a.src }}" style="width:100%;max-width:520px;height:40px"></audio>
+</div>
+</sc-for>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px">
+<sc-for list="{{ q.docs }}" as="d" hint-placeholder-count="3">
+<a href="{{ d.url }}" style="min-width:0;display:flex;flex-direction:column;gap:7px;background:#fff;border-radius:14px;box-shadow:0 2px 8px rgba(20,33,61,0.14);padding:16px 17px;text-decoration:none;border-top:5px solid {{ q.couleur }}">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:13.5px;color:#12233b;line-height:1.35">{{ d.titre }}</span>
+<span style="font-size:12px;color:#6b7386;line-height:1.5">{{ d.detail }}</span>
+<span style="font-size:11.5px;color:#1d4e89;font-weight:700">Ouvrir →</span>
+</a>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
 <sc-if value="{{ estAffichages }}" hint-placeholder-val="{{ false }}">
 <div style="flex:1;min-height:0;overflow-y:auto;padding:18px 20px;display:flex;flex-direction:column;gap:18px">
 <span style="font-size:12.5px;color:#6b7386;line-height:1.5;max-width:640px">Ce qui s'imprime une fois et reste sous les yeux de l'élève : au mur, sur sa table, ou dans sa pochette. Chacun s'ouvre dans un onglet et s'imprime tout seul.</span>
@@ -2409,7 +2468,7 @@ const BANQUE={
     distracteurs exclut déjà les items portant la MÊME lettre (m[0]!==cible[0]), donc
     carotte et cerise ne se retrouvent jamais dans la même question. Le h n'a pas de son :
     il n'a PAS de case dans le thème, elle le dit à l'oral. */
- "L'alphabet":[['a','ananas'],['b','ballon'],['c','carotte'],['c','cerise'],['d','deux'],['e','melon'],['f','fenetre'],['g','gateau'],['g','gilet'],['i','immeuble'],['j','jaune'],['k','kiwi'],['l','lit'],['m','moto'],['n','nuage'],['o','ordinateur'],['o','pot'],['p','pied'],['q','quatre'],['r','robot'],['s','salade'],['s','rose'],['t','table'],['u','usine'],['v','velo'],['w','wagon'],['x','xylophone'],['y','yaourt'],['z','zero']],
+ "L'alphabet":[['a','ananas'],['b','ballon'],['c','carotte'],['c','cerise'],['d','deux'],['e','je'],['f','fenetre'],['g','gateau'],['g','gilet'],['i','immeuble'],['j','jaune'],['k','kiwi'],['l','lit'],['m','moto'],['n','nuage'],['o','ordinateur'],['o','pot'],['p','pied'],['q','quatre'],['r','robot'],['s','salade'],['s','rose'],['t','table'],['u','usine'],['v','velo'],['w','wagon'],['x','xylophone'],['y','pyjama'],['z','zero']],
  'Les jours':[['lundi','lundi'],['mardi','mardi'],['mercredi','mercredi'],['jeudi','jeudi'],['vendredi','vendredi'],['samedi','samedi'],['dimanche','dimanche']],
  'Les mois':[['janvier','janvier'],['février','fevrier'],['mars','mars'],['avril','avril'],['mai','mai'],['juin','juin'],['juillet','juillet'],['août','aout'],['septembre','septembre'],['octobre','octobre'],['novembre','novembre'],['décembre','decembre']],
  'La météo':[['le soleil','soleil'],['un nuage','nuage'],['la pluie','pluie'],['la neige','neige'],['le vent','vent'],["l'orage",'orage'],['le brouillard','brouillard'],['il fait chaud','chaud'],['il fait froid','froid']],
@@ -2495,7 +2554,7 @@ const SONS_INIT=['a','i','o','u','é','l','m','r','s','f','v','p','t','ch','ou',
    pas l'initiale : d'où « melon » pour le e. Quatre lettres portent deux images dans la
    même case (c, g, o, s). Le h reste VIDE — il n'a pas de son, et elle a tranché : on
    n'écrit rien dans sa case, sinon c'est la seule où l'élève recopie au lieu de chercher. */
-const ALPHA_IMG=[['a','ananas','ANANAS'],['b','ballon','BALLON'],['c','carotte','CAROTTE et CERISE','cerise'],['d','deux','DEUX'],['e','melon','MELON'],['f','fenetre','FENÊTRE'],['g','gateau','GÂTEAU et GILET','gilet'],['h','',''],['i','immeuble','IMMEUBLE'],['j','jaune','JAUNE'],['k','kiwi','KIWI'],['l','lit','LIT'],['m','moto','MOTO'],['n','nuage','NUAGE'],['o','ordinateur','ORDINATEUR et POT','pot'],['p','pied','PIED'],['q','quatre','QUATRE'],['r','robot','ROBOT'],['s','salade','SALADE et ROSE','rose'],['t','table','TABLE'],['u','usine','USINE'],['v','velo','VÉLO'],['w','wagon','WAGON'],['x','xylophone','XYLOPHONE'],['y','yaourt','YAOURT'],['z','zero','ZÉRO']];
+const ALPHA_IMG=[['a','ananas','ANANAS'],['b','ballon','BALLON'],['c','carotte','CAROTTE et CERISE','cerise'],['d','deux','DEUX'],['e','je','JE'],['f','fenetre','FENÊTRE'],['g','gateau','GÂTEAU et GILET','gilet'],['h','',''],['i','immeuble','IMMEUBLE'],['j','jaune','JAUNE'],['k','kiwi','KIWI'],['l','lit','LIT'],['m','moto','MOTO'],['n','nuage','NUAGE'],['o','ordinateur','ORDINATEUR et POT','pot'],['p','pied','PIED'],['q','quatre','QUATRE'],['r','robot','ROBOT'],['s','salade','SALADE et ROSE','rose'],['t','table','TABLE'],['u','usine','USINE'],['v','velo','VÉLO'],['w','wagon','WAGON'],['x','xylophone','XYLOPHONE'],['y','pyjama','PYJAMA'],['z','zero','ZÉRO']];
 
 const SRC_FICHES=()=>(window.FICHES_SRC||{collections:[],pages:[]});
 const OUTILS_COLL_FALLBACK=[
@@ -2528,7 +2587,14 @@ const COLL_DOCS=[
     collection « Les nombres » sont désormais présentées regroupées dans leur livret, et le
     diaporama de l'étoile se range à côté. La collection « nombres » (FICHES_SRC) reste en
     second onglet, pour rouvrir une feuille seule. */
- ['mathsdocs','Les livrets','#e59a2b','les livrets complets et le diaporama']
+ ['mathsdocs','Les livrets','#e59a2b','les livrets complets et le diaporama'],
+ /* LES MOTS REPÈRES (22/09, son accord) : les supports du 11-13/09 n'étaient rangés
+    NULLE PART depuis leur création, plus celui du 22/09. Réunis ici dans l'ordre de
+    difficulté : je regarde → j'associe → j'écris → je projette. Sous Écriture et non sous
+    Lexique parce que tous finissent par faire ÉCRIRE le mot.
+    ⚠ « J'écris les mots repères » a été DÉPLACÉE depuis « Lettres cursive » : ne pas la
+    remettre en double. */
+ ['motsreperes','Les mots repères','#1d4e89','la table de l’alphabet et ses supports']
 ];
 const DOCS_COLL={
  cursive:[
@@ -2538,11 +2604,8 @@ const DOCS_COLL={
      de l'une à l'autre après une période ou deux. Ne pas en retirer une. */
   ["Étiquettes de graphisme — réglure 3 mm","48 étiquettes cursives sur une A4 paysage, réglure ciel-herbe-terre, la lettre écrite deux fois. Corps de 3 mm : le cahier Seyes agrandi, pour démarrer le geste.","FR - Étiquettes de graphisme (cursive 3 mm).dc.html"],
   ["Étiquettes de graphisme — réglure 2 mm","Les mêmes 48 étiquettes au corps de 2 mm : la réglure du cahier Seyes ordinaire, celle de tous les autres cahiers du lycée.","FR - Étiquettes de graphisme (cursive 2 mm).dc.html"],
-  /* Rangée ici sur sa demande du 17/09. La feuille existait depuis le 11/09 mais n'était
-     dans aucun menu, donc introuvable autrement qu'en ouvrant le fichier. Sa place est à la
-     suite des étiquettes de graphisme : on trace la lettre, puis on écrit le mot repère
-     qui la porte. */
-  ["J’écris les mots repères","Une case par son : la photo du mot repère et la ligne pour écrire le mot. Le c, le g, le o et le s ont leurs deux photos dans la même case ; le h n’en a aucune.","FR - Écrire les mots repères.dc.html"]
+  /* ⚠ « J'écris les mots repères » vivait ici depuis le 17/09 ; elle est passée le 22/09
+     dans la collection « Les mots repères », avec les cinq autres supports. */
  ],
  planches:[
   ["Les métiers","17 métiers. Une version avec le mot sous la photo, une version muette avec les 17 étiquettes-mots à découper et à poser.","FR - Les métiers en images.dc.html"],
@@ -2560,6 +2623,17 @@ const DOCS_COLL={
      une fiche de consignes sur une scène de restaurant. */
   ["Les mots outils — étiquettes pour le tableau","Format 170 × 71 mm, mot à 60 pt, trois par feuille : à découper, à coller sur carton et à aimanter au tableau. N’imprimer que les familles utiles. Les 14 mots de son affichage en première famille (un, une, le, la, c’est, ne … pas, il est, trop, et, avec, chez, de, elle, tout), puis huit autres familles.","FR - Les mots outils (étiquettes).dc.html"]
  ],
+ motsreperes:[
+  ["L’abécédaire à coller sur le bureau","Demi-feuille A4 paysage : les 26 lettres en capitale, script et cursive, avec la photo du mot repère. Une par élève, collée sur la table.","FR - Abécédaire des mots repères.dc.html"],
+  ["J’associe et j’écris","Deux planches à découper — les 29 photos sans le mot, puis les 29 mots — et trois feuilles : l’élève colle la photo, colle le mot à côté, puis l’écrit sur la ligne.","FR - J'associe et j'écris (mots repères).dc.html"],
+  ["J’écris les mots repères","Une case par son : la photo du mot repère et la ligne pour écrire le mot. Le c, le g, le o et le s ont leurs deux photos dans la même case ; le h n’en a aucune.","FR - Écrire les mots repères.dc.html"],
+  ["L’image, j’écris","Neuf items : la syllabe manquante à entourer, puis à écrire. Avec les photos de la banque.","FR - L'image, j'écris.dc.html"],
+  ["Le diaporama des mots repères","51 diapos : la photo seule, puis la même avec le mot. Pas de lettre affichée — on nomme, puis on vérifie.","FR - Diaporama des mots repères.dc.html"],
+  /* Les deux fiches de la scène de restaurant sont ici parce qu'elles font AGIR sur les
+     mots repères et les mots outils ; elles n'étaient rangées nulle part depuis le 13/09. */
+  ["Utilisation des mots outils","Dix consignes « je lis, je fais » sur la scène de restaurant : un seul mot outil par consigne, en gras, et c’est lui qui dit où agir.","FR - Utilisation des mots outils.dc.html"],
+  ["Je lis, je fais — le restaurant","Douze consignes sur la même scène, mais c’est le mot de lexique qui est en gras. Les trois dernières font écrire le mot.","FR - Je lis, je fais - Le restaurant (2).dc.html"]
+ ],
  mathsdocs:[
   ["Livret 1 — Les nombres de 0 à 10","Le livret complet : couverture, référentiel de 0 à 10, les fiches, le bilan et le mémo. C’est lui qui regroupe les feuilles de numération.","MATHS - Livret 1 - Les nombres de 0 à 10.dc.html"],
   /* Le diaporama se range JUSTE À CÔTÉ du livret 1, sa demande du 15/09 : même domaine,
@@ -2572,7 +2646,13 @@ const DOCS_COLL={
      refaire en A4 dans le style de l'appli (six cases au registre trop enfantin, deux images
      filigranées, la « boîte de Fischer » incompréhensible hors école primaire) : elle a
      tranché pour l'original. Ne pas le remplacer par une refabrication. */
-  ["Lexique de maths — livret A5","Le vocabulaire des consignes en images : partager, comparer, ordonner, encadrer, mesurer, peser. Le code couleur distingue les verbes, les adjectifs et les noms. Deux pages A5 à imprimer.","docs/lexique-maths-a5.pdf"]
+  ["Lexique de maths — livret A5","Le vocabulaire des consignes en images : partager, comparer, ordonner, encadrer, mesurer, peser. Le code couleur distingue les verbes, les adjectifs et les noms. Deux pages A5 à imprimer.","docs/lexique-maths-a5.pdf"],
+  /* Le jeu de la marchande (22/09) : PDF trouvé par elle (mimiclass.fr, partagé par
+     Coralie), gardé TEL QUEL — ne pas le refabriquer. 30 pages : 11 planches d'articles
+     étiquetés en euros, les panneaux de rayons, les listes de course, six recettes, les
+     paniers à chiffrer (petit déjeuner, déjeuner, dîner, goûter, trousse de toilette,
+     j'adopte un chat), les étiquettes de promotion et le bon de commande. */
+  ["Le jeu de la marchande — 30 pages","Les articles avec leur prix à ranger dans les rayons, les listes de course, les recettes, les paniers à chiffrer, les promotions et le bon de commande. Pour aller chercher les articles, calculer un total, rendre la monnaie. Source : mimiclass.fr, partagé par Coralie.","docs/jeu-marchande.pdf"]
  ]
 };
 const GROUPES_COLL={ecriture:[['gestes','Les gestes préparatoires',['ronds','courbes','boucles','ponts']]]};
@@ -2588,7 +2668,7 @@ const DOMAINES={
      ramenait les mots d'origine (ananas, banane…) alors que l'écran en propose d'autres.
      Les fiches de lecture se prennent maintenant dans Lecture → le son → Séance. */
   lexique:['dico','planches'], lecture:[],
-  ecriture:['ronds','courbes','boucles','ponts','lettres','cursive','chiffres'],
+  ecriture:['ronds','courbes','boucles','ponts','lettres','cursive','motsreperes','chiffres'],
   maths:['mathsdocs','nombres']
 };
 function toutesLesFeuilles(){ return SRC_FICHES().pages; }
@@ -4472,6 +4552,7 @@ class Component extends DCLogic {
       disques:'Jeux de classe — on joue ensemble, rien à écrire, rien à noter',
       docsUtiles:'Mes documents utiles — mes séances et mes références',
       affichages:'Affichages de la classe — ce qui reste au mur ou sur la table',
+      litteraire:'Moment littéraire — les séquences, leurs documents et leurs audios',
       rituels:'Rituels — les documents du quotidien de la classe',
       accueilEleve:"Accueil d'un élève — la fiche, le test, les résultats, la préconisation",
       edt:'Mon emploi du temps — la semaine, le jour, les documents de chaque créneau',
@@ -4506,7 +4587,9 @@ class Component extends DCLogic {
       ['Ressources enseignantes','#6d5bd0',[
         ['Je continue chez moi','devoirs'],
         ['Jeux de classe','disques'],
-        ['Moment littéraire',''],
+        /* Moment littéraire n'est plus « à venir » (22/09, sa demande) : l'écran existe et
+           porte ses SÉQUENCES — la première est « Dans Paris » de Paul Éluard. */
+        ['Moment littéraire','litteraire'],
         /* Rituels n'est plus « à venir » (09/09) : le rituel des cartes de langage de
            Charivari est le premier, l'écran existe. */
         ['Rituels','rituels'],
@@ -5314,6 +5397,23 @@ class Component extends DCLogic {
       vrai:true,
       estDisques:s.ecran==='disques',
       estDocsUtiles:s.ecran==='docsUtiles',
+      estLitteraire:s.ecran==='litteraire',
+      /* LES SÉQUENCES DU MOMENT LITTÉRAIRE (22/09). Une séquence = un texte et TOUT ce qui
+         tourne autour : les documents de l'appli, le diaporama à projeter, l'audio à
+         écouter. ⚠ Le texte du poème n'est recopié NULLE PART : il est sous droits.
+         ⚠ Les liens sont des <a href> internes, jamais target="_blank". L'audio passe par
+           un lecteur <audio> et non par un téléchargement : elle le lance en classe. */
+      sequences:[
+        ['Dans Paris','Paul Éluard','#c4479e',
+          [["Le diaporama — les onze images","Les étiquettes du poème dans l'ordre, une par vue, à projeter au tableau pendant l'écoute et la récitation.","FR - Diaporama - Dans Paris.dc.html"],
+           ["Les étiquettes — les images","Les onze illustrations à découper, pour reconstituer le poème sur la table ou au tableau.","FR - Étiquettes - Dans Paris.dc.html"],
+           ["Les étiquettes — les mots","Les mêmes, en mots : Paris, la rue, la maison… à associer aux images.","FR - Étiquettes mots - Dans Paris.dc.html"],
+           ["Écris les mots","Les onze images sans les mots, un trait sous chacune. Une page A4 par élève.","FR - Écris les mots - Dans Paris.dc.html"],
+           ["Le texte de la semaine","Les trois niveaux A1.1 · A1 · A2 sur Paris.","FR - Paris - Le texte de la semaine.dc.html"]],
+          [["Le poème lu par Paul Éluard","L'enregistrement de l'auteur. On écoute avant de montrer quoi que ce soit.","docs/dans-paris-paul-eluard.mp3"]]]
+      ].map(([nom,auteur,couleur,docs,audios])=>({nom,auteur,couleur,
+        docs:docs.map(([titre,detail,url])=>({titre,detail,url:encodeURI(url)})),
+        audios:audios.map(([titre,detail,src])=>({titre,detail,src:encodeURI(src)}))})),
       estAffichages:s.ecran==='affichages',
       /* Les cinq affichages déjà créés. Groupés par où ça se colle : au mur, ou sur la
          table de l'élève — c'est ce qu'elle regarde quand elle cherche un affichage. */
@@ -5330,7 +5430,11 @@ class Component extends DCLogic {
           /* Le nom de la classe (20/09) : U P E 2 A à colorier, une lettre par A4, à coller
              bout à bout au-dessus du tableau. Les images viennent de SES deux Word. */
           ["Le nom de la classe — U P E 2 A","Cinq lettres à colorier, une par page A4, à coller bout à bout au-dessus du tableau. Cinq lettres, cinq élèves.","AFFICHE - Le nom de la classe.dc.html"],
-          ["Les devoirs — vignettes pour le tableau","1 LIRE · 2 ÉCRIRE · 3 PARLER · 4 ÉCOUTER, en rouge, deux par page A4 paysage. À découper et à aimanter au tableau, toujours au même endroit.","AFFICHE - Les devoirs (vignettes).dc.html"]]],
+          ["Les devoirs — vignettes pour le tableau","1 LIRE · 2 ÉCRIRE · 3 PARLER · 4 ÉCOUTER, en rouge, deux par page A4 paysage. À découper et à aimanter au tableau, toujours au même endroit.","AFFICHE - Les devoirs (vignettes).dc.html"],
+          /* Le dictionnaire spatial (22/09) : refait d'après son PDF mimiclass, avec
+             EXACTEMENT les mêmes symboles (un disque orange cerclé de noir, une barre
+             noire), redessinés en formes CSS. La cursive est gardée, sa demande. */
+          ["Dictionnaire spatial","Les huit mots des consignes : à gauche, à droite, au-dessus, en-dessous, sur, sous, entre, dans. Une page A4 par mot, le symbole en grand et le mot en capitale, script et cursive. Le disque et la barre sont les mêmes partout : seule la position change.","AFFICHE - Dictionnaire spatial.dc.html"]]],
         ['Cartes de référence','#6d5bd0',[
           ["Se présenter","La carte de référence : prénom, métier, ville, âge.","CARTE - se présenter.dc.html"],
           ["Se présenter — version visuelle","La même, tout en images, pour les élèves qui ne lisent pas encore.","CARTE - se présenter (visuelle).dc.html"]]]
@@ -5968,8 +6072,12 @@ class Component extends DCLogic {
          1000 px — la ligne débordait à droite et les tableaux des deux bords sortaient de
          l'écran. Le seuil passe à 1400 px et la grille à 1200 px.
          ⚠ Jamais 3 + 1 — le quatrième restait seul sur une deuxième ligne (19/09). */
-      colAccueil:this.tel()?'minmax(0,1fr)':((this.state.largeur||1200)>=1400?'repeat(4,minmax(0,1fr))':'repeat(2,minmax(0,1fr))'),
-      largeurAccueil:this.tel()?'100%':((this.state.largeur||1200)>=1400?'min(1200px, 100% - 260px)':'min(620px, 100% - 300px)'),
+      /* ⚠ CINQ TABLEAUX DEPUIS LE 20/09 : trois colonnes dès 1180 px (3 + 2, aucun tableau
+         orphelin), deux en dessous, une seule sur téléphone. Une tuile ne descend pas sous
+         ~277 px : quatre colonnes réclamaient 1200 px de grille et la ligne débordait.
+         ⚠ Ne pas remettre quatre colonnes : à cinq tableaux, ça donne 4 + 1. */
+      colAccueil:this.tel()?'minmax(0,1fr)':((this.state.largeur||1200)>=1180?'repeat(3,minmax(0,1fr))':'repeat(2,minmax(0,1fr))'),
+      largeurAccueil:this.tel()?'100%':((this.state.largeur||1200)>=1180?'min(900px, 100% - 260px)':'min(620px, 100% - 300px)'),
       margeAccueil:this.tel()?'0':'40px',
       colApercu:'repeat(3,minmax(0,1fr))',
       colThemes:this.tel()?'repeat(2,minmax(0,1fr))':'repeat(5,minmax(0,1fr))',

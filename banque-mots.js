@@ -17,7 +17,7 @@
     exercices élèves affichaient donc des dessins enfantins et deux cases vides — signalé
     le 15/09. Toute correction de l'alphabet doit se faire AUX DEUX ENDROITS.
     Le h n'a volontairement pas de case : elle a tranché qu'il n'a pas de son. */
- "L'alphabet":[['a','ananas'],['b','ballon'],['c','carotte'],['d','deux'],['e','melon'],['f','fenetre'],['g','gateau'],['i','immeuble'],['j','jaune'],['k','kiwi'],['l','lit'],['m','moto'],['n','nuage'],['o','ordinateur'],['p','pied'],['q','quatre'],['r','robot'],['s','salade'],['t','table'],['u','usine'],['v','velo'],['w','wagon'],['x','xylophone'],['y','yaourt'],['z','zero']],
+ "L'alphabet":[['a','ananas'],['b','ballon'],['c','carotte'],['d','deux'],['e','je'],['f','fenetre'],['g','gateau'],['i','immeuble'],['j','jaune'],['k','kiwi'],['l','lit'],['m','moto'],['n','nuage'],['o','ordinateur'],['p','pied'],['q','quatre'],['r','robot'],['s','salade'],['t','table'],['u','usine'],['v','velo'],['w','wagon'],['x','xylophone'],['y','pyjama'],['z','zero']],
  'Les jours':[['lundi','lundi'],['mardi','mardi'],['mercredi','mercredi'],['jeudi','jeudi'],['vendredi','vendredi'],['samedi','samedi'],['dimanche','dimanche']],
  'Les mois':[['janvier','janvier'],['février','fevrier'],['mars','mars'],['avril','avril'],['mai','mai'],['juin','juin'],['juillet','juillet'],['août','aout'],['septembre','septembre'],['octobre','octobre'],['novembre','novembre'],['décembre','decembre']],
  'La météo':[['le soleil','soleil'],['un nuage','nuage'],['la pluie','pluie'],['la neige','neige'],['le vent','vent'],["l'orage",'orage'],['le brouillard','brouillard'],['il fait chaud','chaud'],['il fait froid','froid']],

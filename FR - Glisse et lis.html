@@ -1,0 +1,872 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Glisse et lis</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Atkinson+Hyperlegible:wght@400;700&family=Andika:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ⚠ HABILLAGE REPRIS DE L'APPLI (20/09) — l'application venait d'ailleurs, avec ses
+   propres couleurs, ses polices et un mode sombre. Elle est maintenant dans la maison :
+   mur de briques, bandeau bleu nuit, cartes blanches à bord épais, Archivo Black pour les
+   titres, Atkinson Hyperlegible pour le texte.
+   ⚠ ANDIKA EST GARDÉE — et seulement — pour les LETTRES et les MOTS À LIRE : c'est une
+   police conçue pour l'apprentissage de la lecture (a et g d'imprimerie, l et I
+   distincts). Ne pas l'étendre à l'interface, ne pas la retirer des bulles.
+   ⚠ LE MODE SOMBRE A ÉTÉ RETIRÉ : aucun autre écran de l'appli n'en a, et il renversait
+   le code de couleurs des sons.
+   ⚠ LES TROIS COULEURS DE SONS SONT CELLES DE L'APPLI : consonne = bleu nuit #1d4e89,
+   voyelle simple = rouge brique #c0392b, graphème complexe = vert #2f6b46. Elles doivent
+   rester identiques sur les bulles, l'étiquette, le mot révélé et le tableau des sons :
+   c'est le même code que l'élève apprend. */
+[hidden]{display:none!important} img{max-width:100%}
+:root{
+  --bg:#f4f7fa; --paper:#fff; --ink:#1c2430; --muted:#5a6472; --line:#c3d2e2; --navy:#1d4e89;
+  --cons:#1d4e89; --voy1:#c0392b; --voy:#2f6b46;
+  --road:#e3ddd2; --road-line:#fff; --trail:#8a6a52; --bubble:#fff; --sel:#eef4fb;
+}
+html,body{height:100%}
+*{box-sizing:border-box}
+body{margin:0;background:#f4f7fa url('clean/mur-briques.webp') repeat;color:var(--ink);
+  font-family:'Atkinson Hyperlegible',Verdana,sans-serif;
+  padding:0;display:flex;flex-direction:column;gap:0;
+  -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation}
+a{color:var(--navy)} a:hover{color:#163c6b}
+
+button{font:inherit;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;color:var(--ink);
+  background:var(--paper);border:2px solid var(--line);border-radius:12px;padding:10px 16px;
+  cursor:pointer;min-height:48px;font-size:15px;font-weight:700}
+button:hover{border-color:var(--navy)}
+button:active{transform:scale(.985)}
+button:focus-visible{outline:3px solid var(--navy);outline-offset:2px}
+button.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+button.primary:hover{background:#163c6b}
+button.quiet{border-color:transparent;background:transparent;color:var(--muted)}
+
+/* le bandeau : le même que sur la carte des lycées */
+header{display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  background:var(--ink);color:#fff;padding:11px 18px;box-shadow:0 2px 10px rgba(0,0,0,.25)}
+header h1{font-family:'Archivo Black',Verdana,sans-serif;font-size:19px;letter-spacing:.02em;
+  margin:0;font-weight:400;text-transform:uppercase}
+header .spacer{flex:1}
+header button{background:#fff;color:var(--ink);border-color:#fff;min-height:44px;padding:8px 14px;font-size:14px}
+header button.quiet{background:transparent;color:#cfe0f2;border-color:transparent}
+.seg{display:inline-flex;border:2px solid #fff;border-radius:12px;overflow:hidden;background:#fff}
+.seg button{border:0;border-radius:0;min-height:44px;padding:8px 14px;background:#fff;color:var(--ink)}
+.seg button.on{background:var(--navy);color:#fff}
+
+main{flex:1;display:grid;grid-template-columns:186px minmax(0,1fr);gap:16px;min-height:0;padding:16px 18px 18px}
+@media (max-width:760px){ main{grid-template-columns:minmax(0,1fr);grid-template-rows:96px minmax(0,1fr);padding:12px} }
+
+/* la liste des mots */
+aside{background:var(--paper);border:2px solid var(--line);border-radius:14px;padding:10px;
+  overflow:auto;display:flex;flex-direction:column;gap:4px;box-shadow:0 6px 18px rgba(0,0,0,.10)}
+/* Sur téléphone la bande passe à l'horizontale : la miniature disparaît, il n'y a plus la
+   hauteur pour elle, et la syllabe suffit à se repérer. */
+@media (max-width:760px){
+  aside{flex-direction:row;align-items:center;height:96px;max-height:none;gap:8px}
+  /* Sur téléphone, la bande horizontale ne garde QUE la miniature de la route : l'image
+     est trop grande pour 96 px de haut, et la route suffit à reconnaître la scène. */
+  .chip{flex-direction:row;align-items:center;padding:5px}
+  .chip .mini svg{width:72px;height:72px}
+  .chip .grand{display:none}
+}
+aside h3{font-family:'Archivo Black',Verdana,sans-serif;font-size:12px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--navy);margin:10px 4px 2px;font-weight:400}
+aside h3:first-child{margin-top:2px}
+aside h2{font-family:'Archivo Black',Verdana,sans-serif;font-size:11.5px;letter-spacing:.06em;
+  color:var(--ink);margin:12px 4px 0;padding-top:10px;border-top:2px solid var(--line);font-weight:400;text-transform:uppercase}
+aside h2:first-child{border-top:0;padding-top:0;margin-top:2px}
+@media (max-width:760px){
+  aside h3,aside h2{writing-mode:vertical-rl;transform:rotate(180deg);margin:0;padding:0 4px;border-top:0;border-left:2px solid var(--line)}
+}
+header h1,.seg{white-space:nowrap}
+header button{white-space:nowrap}
+.chip{display:flex;flex-direction:column;align-items:stretch;gap:6px;border:2px solid var(--line);
+  border-radius:12px;padding:7px;min-height:48px;background:var(--paper);text-align:left;flex:0 0 auto;font-weight:400}
+.chip .grand{display:flex;align-items:center;justify-content:center;font-size:2.6rem;line-height:1;min-height:58px}
+.chip .grand img{height:54px;width:auto;border-radius:8px}
+.chip .mini{display:block;background:var(--bg);border-radius:9px;overflow:hidden}
+.chip .mini svg{display:block;width:100%;height:128px}
+.chip .mini .r{fill:none;stroke:var(--road);stroke-width:58;stroke-linecap:round;stroke-linejoin:round}
+.chip .mini .rl{fill:none;stroke:#fff;stroke-width:4;stroke-dasharray:16 16;stroke-linecap:round}
+.chip .mini circle{fill:#fff;stroke:var(--ink);stroke-width:7}
+/* Lettres et bulles volontairement plus grosses qu'à l'échelle de la scène : réduites
+   d'un tiers, des proportions justes deviennent illisibles. */
+.chip .mini text{font-family:Andika,Verdana,sans-serif;font-size:82px;font-weight:700;text-anchor:middle;dominant-baseline:central}
+.chip .mini text.c{fill:var(--cons)} .chip .mini text.v{fill:var(--voy)} .chip .mini text.v1{fill:var(--voy1)}
+.chip:hover{border-color:var(--line)}
+.chip .pic{font-size:1.5rem;width:1.7em;text-align:center;line-height:1}
+/* Le trait vert du mot réussi : un repère de progression sans note et sans mot écrit. */
+.chip.done{position:relative}
+.chip.done::after{content:"";position:absolute;left:7px;right:7px;bottom:4px;height:5px;border-radius:3px;background:#2f6b46}
+.chip.done{background:#eef6f0;border-color:#2f6b46}
+.chip.cur{border-color:var(--ink);background:var(--sel)}
+.chip.cur.done{background:var(--navy)}
+
+/* la scène : le chemin */
+.scene{position:relative;background:var(--paper);border:2px solid var(--line);border-radius:14px;
+  overflow:hidden;display:flex;flex-direction:column;min-height:460px;box-shadow:0 8px 24px rgba(0,0,0,.12)}
+.scene svg{flex:1;width:100%;height:100%;touch-action:none;display:block;cursor:grab}
+.bubble{cursor:grab}
+.road{fill:none;stroke:var(--road);stroke-width:62;stroke-linecap:round;stroke-linejoin:round}
+.road-line{fill:none;stroke:var(--road-line);stroke-width:4;stroke-dasharray:16 16;stroke-linecap:round}
+/* Clignotement rouge quand on quitte la route. */
+.road.hors{stroke:#c0392b!important;animation:horsRoute .5s ease}
+@keyframes horsRoute{0%,100%{opacity:1}50%{opacity:.35}}
+.trail{fill:none;stroke:var(--trail);stroke-width:13;stroke-linecap:round;stroke-linejoin:round;opacity:.75}
+.bubble circle{fill:var(--bubble);stroke:var(--ink);stroke-width:3.5}
+.bubble text{font-family:Andika,Verdana,sans-serif;font-size:44px;font-weight:700;text-anchor:middle;dominant-baseline:central;text-transform:uppercase}
+.bubble.c text{fill:var(--cons)} .bubble.v text{fill:var(--voy)} .bubble.v1 text{fill:var(--voy1)}
+.bubble.hit circle{stroke-width:6}
+.bubble.c.hit circle{stroke:var(--cons)} .bubble.v.hit circle{stroke:var(--voy)} .bubble.v1.hit circle{stroke:var(--voy1)}
+/* La bulle à atteindre respire : c'est la seule consigne que comprend un élève non lecteur. */
+.bubble.next circle{stroke-dasharray:9 7;stroke-width:5;animation:respire 1.6s ease-in-out infinite}
+@keyframes respire{0%,100%{opacity:1}50%{opacity:.45}}
+.bubble.taken{opacity:.16}
+#token{cursor:grab} #token rect{fill:var(--bubble);stroke:var(--ink);stroke-width:3.5;filter:drop-shadow(0 6px 10px rgba(0,0,0,.25))}
+#token text{font-family:Andika,Verdana,sans-serif;font-size:44px;font-weight:700;text-anchor:middle;dominant-baseline:central;text-transform:uppercase}
+#token tspan.c{fill:var(--cons)} #token tspan.v{fill:var(--voy)} #token tspan.v1{fill:var(--voy1)}
+.hint{font-size:16px;fill:var(--muted);text-anchor:middle;font-family:'Atkinson Hyperlegible',Verdana,sans-serif}
+
+.bar button{white-space:nowrap}
+.bar{display:flex;align-items:center;justify-content:center;gap:14px;padding:12px 16px;
+  border-top:2px solid var(--line);min-height:76px;flex-wrap:wrap;background:var(--bg)}
+
+/* la réponse */
+.answer{position:absolute;inset:0;background:var(--paper);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:22px;padding:24px}
+.answer .pic{font-size:clamp(5rem,22vmin,9rem);line-height:1}
+.answer .pic img,.answer .pic svg{height:clamp(5rem,26vmin,11rem);width:auto;max-width:80vw;border-radius:12px}
+.answer .word{font-family:Andika,Verdana,sans-serif;font-size:clamp(2.6rem,10vmin,4.5rem);font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;display:block;text-align:center;white-space:nowrap}
+.answer .word .c{color:var(--cons)} .answer .word .v{color:var(--voy)} .answer .word .v1{color:var(--voy1)}
+/* ⚠ LA FIN DU MOT EST EN LETTRES CREUSES (20/09, ses captures : VA en couleur, CHE en
+   pointillé) : l'élève voit qu'il a lu le DÉBUT, et que le reste lui est donné. Du gris
+   plein se lisait comme une couleur de plus dans le code des sons. */
+/* ⚠ LA FIN DU MOT EST EN LETTRES POINTILLÉES, TRACÉES AU TRAIT UNIQUE (20/09).
+   ⚠ TROIS essais ratés avant, à ne pas refaire : (1) -webkit-text-stroke = contour plein,
+   refusé ; (2) ce contour découpé par un masque en points = carré criblé ; (3) le contour
+   d'un <text> en tirets = DEUX traits par lettre (le dedans et le dehors du glyphe), qui
+   se croisent, et une lettre trop haute.
+   La solution est celle du CAHIER D'ÉCRITURE : le SQUELETTE de la lettre, un seul trait,
+   en tirets. Les tracés viennent de « FR - Cahier d'écriture - Tracer les lettres »
+   (constante SKEL) — mêmes lettres que celles que les élèves repassent au crayon.
+   Boîte de dessin commune : 60 × 96, la ligne de base est en bas. */
+/* ⚠ align-self:baseline ET une hauteur de .78em : le squelette doit poser sur la MÊME
+   ligne que les lettres en couleur et faire la même taille de capitale. Sans align-self,
+   la boîte s'étirait sur toute la hauteur de ligne et la lettre flottait au-dessus. */
+/* ⚠ ALIGNEMENT — LA SOLUTION, APRÈS TROIS ÉCHECS (20/09) : le mot est en flux INLINE
+   (.word en display:block, plus de flex). Un flex n'a pas de ligne de base utilisable :
+   avec align-items:baseline le tracé flottait au-dessus de MA, avec flex-end + décalage
+   il tombait trop bas — deux réglages au pifomètre. En inline, la ligne de base d'un
+   inline-block est son BORD INFÉRIEUR : il suffit donc que le bas du dessin soit la ligne
+   d'écriture, et ça tombe juste tout seul, à toutes les tailles d'écran.
+   ⚠ Ne pas remettre .word en display:flex. */
+.word .m{display:inline}
+/* ⚠ HAUTEUR RÉGLÉE SUR LA CAPITALE D'ANDIKA (20/09, « regarde les deux O ») : la boîte
+   de dessin fait 96 de haut pour une lettre qui en occupe 92, et la capitale d'Andika vaut
+   ~0,68 em. D'où .69em de boîte. Ne pas confondre avec la hauteur de la lettre. */
+.word .m svg{display:inline-block;vertical-align:baseline;height:.79em;width:auto;overflow:visible}
+/* ⚠ TRAIT FIN, elle y tient (20/09) : ne pas l'épaissir « pour équilibrer » avec Andika
+   en gras — c'est un tracé à repasser, pas une lettre à lire. */
+.word .m svg g{fill:none;stroke:#8c9aab;stroke-width:4;stroke-dasharray:8 6.5;
+  stroke-linecap:round;stroke-linejoin:round}
+.answer .row{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+
+/* le tableau des sons et les réglages */
+dialog{border:3px solid var(--ink);border-radius:16px;background:var(--paper);color:var(--ink);width:min(760px,94vw);padding:0}
+dialog::backdrop{background:rgba(14,22,34,.55)}
+.panel{padding:20px;display:flex;flex-direction:column;gap:16px;max-height:88vh;overflow:auto}
+.panel h2{margin:0;font-family:'Archivo Black',Verdana,sans-serif;font-size:19px;font-weight:400;text-transform:uppercase}
+.panel h4{margin:8px 0 0;font-family:'Archivo Black',Verdana,sans-serif;font-size:12px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--navy);font-weight:400}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:10px}
+.son{font-family:Andika,Verdana,sans-serif;font-size:1.6rem;font-weight:700;min-height:68px;
+  border-radius:12px;border:3px solid;background:var(--paper);text-transform:uppercase;transition:transform .15s}
+.son.c{color:var(--cons);border-color:var(--cons)} .son.v{color:var(--voy);border-color:var(--voy)} .son.v1{color:var(--voy1);border-color:var(--voy1)}
+.son.lit{transform:scale(1.1)}
+.son.c.lit{background:var(--cons);color:#fff} .son.v.lit{background:var(--voy);color:#fff} .son.v1.lit{background:var(--voy1);color:#fff}
+.panel label{display:flex;flex-direction:column;gap:7px;font-weight:700;font-size:14px}
+.panel textarea{font-family:ui-monospace,Menlo,monospace;font-size:14px;padding:12px;border:2px solid var(--line);
+  border-radius:12px;background:var(--bg);color:var(--ink);min-height:120px;resize:vertical;user-select:text;-webkit-user-select:text}
+.panel p{margin:0;color:var(--muted);font-size:13.5px;line-height:1.5;font-weight:400}
+.panel .row{display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-end}
+.jeu .word{font-family:Andika,Verdana,sans-serif;font-size:clamp(2.4rem,9vmin,4rem);font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;display:block;text-align:center;white-space:nowrap}
+.jeu .word .c{color:var(--cons)} .jeu .word .v{color:var(--voy)} .jeu .word .v1{color:var(--voy1)}
+/* ⚠ PAS de `color` sur `.jeu .word .m` : cette règle écrasait les lettres creuses et le
+   même mot n'avait pas le même rendu selon l'écran. Les creux se règlent en UN endroit,
+   `.word .m`. */
+.choices{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.choice{font-size:clamp(2.6rem,10vmin,4.5rem);min-height:120px;border-radius:14px;line-height:1;transition:transform .15s,background .15s}
+.choice img{height:1em;width:auto}
+.choice.ok{background:var(--voy);border-color:var(--voy);transform:scale(1.06)}
+.choice.ko{background:var(--line);opacity:.5}
+.jeu .row{align-items:center}
+.score{color:var(--muted);font-variant-numeric:tabular-nums;font-weight:700}
+@media (prefers-reduced-motion: reduce){ *{transition:none!important;animation:none!important} }
+</style>
+</head>
+<body>
+<header>
+  <!-- ⚠ RETOUR À L'ACCUEIL (20/09) : l'appli s'ouvre depuis le tableau de liège de
+       l'accueil élève. Sans ce bouton elle est un cul-de-sac — la même erreur que la
+       carte des lycées. On revient par l'historique, sinon par le lien vers l'appli. -->
+  <button id="btnAccueil">← L’accueil</button>
+  <h1>Glisse et lis</h1>
+  <span class="seg" role="group" aria-label="Niveau"><button id="lv1" class="on">Niveau 1</button><button id="lv2">Niveau 2</button><button id="lv3">Niveau 3</button></span>
+  <span class="spacer"></span>
+  <button id="btnJeu">Jeu</button>
+  <button id="btnSons">Sons</button>
+  <button id="btnTeacher" class="quiet" aria-label="Réglages enseignant">⚙︎</button>
+</header>
+
+<main>
+  <aside id="side" aria-label="Liste des mots"></aside>
+
+  <section class="scene" id="scene">
+    <svg id="svg" viewBox="0 0 400 520" preserveAspectRatio="xMidYMid meet" aria-label="Chemin à suivre avec le doigt">
+      <!-- ⚠ Le décor est DERRIÈRE la route : c'est le béton de la rampe, l'herbe, les
+           cailloux. Il ne porte jamais le chemin — le chemin, c'est #road, et c'est lui
+           que le doigt suit. -->
+      <g id="deco"></g>
+      <path id="road" class="road" d=""/><path id="roadLine" class="road-line" d=""/>
+      <polyline id="trail" class="trail" points=""/>
+      <g id="bubbles"></g>
+      <g id="token" hidden><rect rx="22"/><text></text></g>
+      <text id="hint" class="hint" x="200" y="26">Attrape le premier son et emmène-le jusqu’au second</text>
+    </svg>
+    <div class="bar">
+      <button id="btnAgain">↺ Encore</button>
+      <button id="btnCheck" class="primary" hidden>Vérifier ✓</button>
+    </div>
+    <div class="answer" id="answer" hidden>
+      <div class="pic" id="pic"></div>
+      <div class="word" id="word"></div>
+      <button id="btnSay" type="button" style="min-height:56px;font-size:1.15rem">🔊 Écouter</button>
+      <div class="row">
+        <button id="btnBack">← Le chemin</button>
+        <button id="btnNext" class="primary">Mot suivant →</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<dialog id="dlgSons"><form method="dialog" class="panel">
+  <h2>Tableau des sons</h2>
+  <h4>Voyelles</h4><div class="sgrid" id="gridV"></div>
+  <h4>Consonnes</h4><div class="sgrid" id="gridC"></div>
+  <div class="row"><button type="submit" class="primary">Fermer</button></div>
+</form></dialog>
+
+<dialog id="dlgJeu"><form method="dialog" class="panel jeu">
+  <h2>Trouve l'image</h2>
+  <div class="word" id="jeuWord"></div>
+  <div class="choices" id="jeuChoices"></div>
+  <div class="row"><span id="jeuScore" class="score"></span><span style="flex:1"></span><button type="button" id="jeuNext" class="primary">Suivant →</button><button type="submit">Fermer</button></div>
+</form></dialog>
+
+<dialog id="dlg"><form method="dialog" class="panel">
+  <h2>Réglages enseignant</h2>
+  <label>Niveau 1 — sons continus (m f ch s l v r z n j)
+    <textarea id="taWords1" spellcheck="false"></textarea>
+  </label>
+  <label>Niveau 2 — sons explosifs (p b t d c k g)
+    <textarea id="taWords2" spellcheck="false"></textarea>
+  </label>
+  <label>Niveau 3 — graphèmes complexes (en vert)
+    <textarea id="taWords" spellcheck="false"></textarea>
+  </label>
+  <p>Une ligne <code>## Partie A</code> ouvre une partie, <code># OU</code> un groupe. Puis un mot par ligne : <code>l-ou = loup | 🐺</code> (sons séparés par des tirets, puis « = » le mot écrit, puis « | » une image : un emoji ou l'adresse d'une image). Consonnes en bleu, voyelles simples en rouge, graphèmes complexes en vert, lettres muettes en gris. <strong>Seuls les deux premiers sons vont sur la route</strong> — l’élève fusionne la syllabe d’attaque (BON pour bonbon), le mot entier n’apparaît qu’à la page réponse. Un mot dont les deux premiers sons ne font pas consonne + voyelle est écarté.</p>
+  <label>Voyelles : simples (rouge) puis, après « / », complexes (vert)
+    <textarea id="taVoy" style="min-height:52px" spellcheck="false"></textarea>
+  </label>
+  <div class="row">
+    <button type="button" id="btnReset" class="quiet">Liste d'origine</button>
+    <button type="button" id="btnCancel">Annuler</button>
+    <button type="submit" class="primary">Enregistrer</button>
+  </div>
+</form></dialog>
+
+<script>
+(function(){
+  /* ⚠ LISTE DU NIVEAU 1 RÉÉCRITE PAR CONSONNE × VOYELLE (20/09, ses captures de
+     l'appli d'origine : BU bus · BO bol · BA balle · PA papa · PO pot · PI pile ·
+     PU pull · KO koala · KA kayak · RO robe · MI miel · MA mare · RA rat · ZI zip).
+     Le principe : UNE syllabe d'attaque par case, et un mot qui commence par elle.
+     L'ordre des consonnes est LE SIEN — continus d'abord (M F CH S L V R Z N J), puis
+     explosifs (P B T D C K G) : ne pas le réarranger par ordre alphabétique.
+     ⚠ Chaque mot doit commencer par consonne + voyelle, sinon l'appli l'écarte. */
+  const _NIV_1_2 = `## Partie A · sons continus
+# M
+m-a-r-e = mare | illu-mare
+m-i-e-l = miel | illu-miel
+m-o-t-o = moto | mot-moto
+m-u-r = mur | mot-mur
+# F
+f-é-e = fée | 🧚
+f-i-l = fil | 🧵
+f-u-s-é-e = fusée | 🚀
+# CH
+ch-a-t = chat | 🐈
+ch-e-v-a-l = cheval | 🐴
+ch-o-c-o-l-a-t = chocolat | 🍫
+# S
+s-a-c = sac | 🎒
+s-e-l = sel | 🧂
+s-i-r-o-p = sirop | 🍯
+# L
+l-a-c = lac | 🏞️
+l-i-t = lit | 🛏️
+l-u-n-e = lune | 🌙
+# V
+v-a-ch-e = vache | 🐄
+v-é-l-o = vélo | 🚲
+v-i-s = vis | 🔩
+# R
+r-a-t = rat | 🐀
+r-i-z = riz | 🍚
+r-o-b-e = robe | 👗
+r-u-e = rue | 🛣️
+# Z
+z-è-b-r-e = zèbre | 🦓
+z-i-p = zip | 🧥
+z-o-o = zoo | 🦁
+z-é-r-o = zéro | 0️⃣
+# N
+n-a-p-p-e = nappe | 🧺
+n-e-z = nez | 👃
+n-i-d = nid | 🪺
+# J
+j-u-s = jus | 🧃
+j-o-l-i = joli | 🌸
+## Partie B · sons explosifs
+# P
+p-a-p-a = papa | 👨
+p-i-l-e = pile | 🔋
+p-o-t = pot | 🫙
+p-u-l-l = pull | 🧶
+# B
+b-a-l-l-e = balle | 🎾
+b-é-b-é = bébé | 👶
+b-o-l = bol | 🥣
+b-u-s = bus | 🚌
+# T
+t-é-l-é = télé | 📺
+t-i-g-r-e = tigre | 🐅
+t-o-m-a-t-e = tomate | 🍅
+# D
+d-é = dé | 🎲
+d-o-s = dos | 🔙
+d-i-v-a-n = divan | 🛋️
+# C · K
+c-a-f-é = café | ☕
+c-o-q = coq | 🐓
+c-u-b-e = cube | 🧊
+k-a-y-a-k = kayak | 🛶
+k-o-a-l-a = koala | 🐨
+# G
+g-a-r-e = gare | 🚉
+g-o-r-i-l-l-e = gorille | 🦍`;
+  /* ⚠ TROIS NIVEAUX (20/09, sa décision) : niveau 1 = les sons continus, niveau 2 = les
+     sons explosifs, niveau 3 = les graphèmes complexes. Pas de titre pédagogique dans le
+     bandeau — « Niveau 1/2/3 », c'est ce que les élèves lisent déjà.
+     La coupure est celle qui existait DÉJÀ dans la liste (Partie A / Partie B) : on la
+     découpe ici plutôt que de recopier les mots, pour qu'il n'y ait qu'une seule source.
+     ⚠ Les lignes « ## Partie » sont retirées : le niveau dit maintenant ce qu'elles
+     disaient, et une section unique en tête de liste n'apporte plus rien. */
+  const _sansPartie = s => s.split("\n").filter(l => !l.trim().startsWith("##")).join("\n").trim();
+  const _iExpl = _NIV_1_2.indexOf("## Partie B");
+  const DEFAULT_WORDS1 = _sansPartie(_NIV_1_2.slice(0, _iExpl));
+  const DEFAULT_WORDS2 = _sansPartie(_NIV_1_2.slice(_iExpl));
+  const DEFAULT_WORDS3 = `# OU
+l-ou = loup | 🐺
+ch-ou = chou | 🥬
+r-ou = roue | 🛞
+# ON
+b-on-b-on = bonbon | 🍬
+p-on = pont | 🌉
+r-on = rond | ⭕
+# AN
+b-an = banc | 🪑
+g-an = gant | 🧤
+r-u-b-an = ruban | 🎀
+# EN
+d-en = dent | 🦷
+v-en = vent | 💨
+# OI
+r-oi = roi | 👑
+n-oi = noix | 🌰
+p-oi-r-e = poire | 🍐
+# IN
+v-in = vingt | 2️⃣0️⃣
+p-in = pin | 🌲
+c-in = cinq | 5️⃣
+# AIN
+p-ain = pain | 🍞
+m-ain = main | ✋
+# EU
+f-eu = feu | 🔥
+j-eu = jeu | 🎲
+bl-eu = bleu | 🟦
+# AU · EAU
+au-t-o = auto | 🚗
+b-a-t-eau = bateau | 🚤
+g-â-t-eau = gâteau | 🍰
+# AI
+l-ai = lait | 🥛
+m-ai-s-on = maison | 🏠
+# PH
+ph-o-t-o = photo | 📷
+ph-a-r-e = phare | 🗼`;
+  const DEFAULT_VOY = "a e i o u é è ê â y / ou on an en in ain ein un oi oin eu au eau ai ei";
+
+  let level=1, groups=[], flat=[], cur=0, voy1=new Set(), voy2=new Set(), done={1:new Set(),2:new Set(),3:new Set()};
+  let units=[], target=0, dragging=false, trailPts=[], pos=[];
+  let raw={words1:DEFAULT_WORDS1, words2:DEFAULT_WORDS2, words3:DEFAULT_WORDS3, voy:DEFAULT_VOY};
+
+  function load(){ try{ const s=JSON.parse(localStorage.getItem("glisse-et-lis-9")||"null"); if(s) raw=Object.assign(raw,s); }catch(e){} parse(); }
+  function save(){ try{ localStorage.setItem("glisse-et-lis-9", JSON.stringify(raw)); }catch(e){} }
+  function parse(){
+    const [a="",b=""] = raw.voy.toLowerCase().split("/");
+    voy1=new Set(a.split(/\s+/).filter(Boolean)); voy2=new Set(b.split(/\s+/).filter(Boolean));
+    groups=[]; flat=[]; let g=null;
+    (level===1?raw.words1:level===2?raw.words2:raw.words3).split("\n").map(s=>s.trim()).filter(Boolean).forEach(line=>{
+      if(line.startsWith("##")){ groups.push({section:line.slice(2).trim(), words:[]}); g=null; return; }
+      if(line.startsWith("#")){ g={name:line.slice(1).trim(), words:[]}; groups.push(g); return; }
+      if(!g){ g={name:"", words:[]}; groups.push(g); }
+      const [left, rest=""] = line.split("=").map(s=>s.trim());
+      const [word, pic=""] = rest.split("|").map(s=>s.trim());
+      const u = left.split("-").map(s=>s.trim().toLowerCase()).filter(Boolean);
+      if(!u.length) return;
+      /* ⚠ DEUX BULLES, JAMAIS PLUS — JAMAIS UN MOT ENTIER SUR LA ROUTE (20/09 :
+         « je ne veux jamais un mot complet. Exemple BON comme bonbon »). L'élève ne
+         fusionne QUE la syllabe d'attaque : consonne + voyelle. Le mot entier et son image
+         n'arrivent qu'après, sur la page réponse.
+         `road` = les deux premiers sons ; `units` reste le découpage complet, qui sert à
+         colorer le mot révélé graphème par graphème.
+         ⚠ Un mot dont les deux premiers sons ne forment pas consonne + voyelle est ÉCARTÉ
+         (`au-t-o`, `ou-i`…) : sa syllabe d'attaque n'existe pas, et la route afficherait
+         un assemblage que personne ne peut lire. Ne pas « rattraper » ces mots en prenant
+         une paire au milieu : la syllabe doit être le DÉBUT du mot qu'on découvre. */
+      if(u.length < 2) return;
+      if(cls(u[0]) !== "c" || cls(u[1]) === "c") return;
+      const w={units:u, road:[u[0],u[1]], word: word || u.join(""), pic, group:g.name, i:flat.length};
+      g.words.push(w); flat.push(w);
+    });
+    cur=0;
+  }
+  const cls = u => voy1.has(u) ? "v1" : voy2.has(u) ? "v" : "c";
+
+
+  // niveau
+  function setLevel(n){ level=n; [1,2,3].forEach(k=>document.getElementById("lv"+k).classList.toggle("on",n===k)); parse(); buildSide(); buildSons(); show(0); }
+  [1,2,3].forEach(k=>document.getElementById("lv"+k).addEventListener("click",()=>setLevel(k)));
+
+  // bande latérale
+  const side=document.getElementById("side");
+  function buildSide(){
+    side.innerHTML="";
+    groups.forEach(g=>{
+      if(g.section){ const h=document.createElement("h2"); h.textContent=g.section; side.appendChild(h); return; }
+      if(g.name){ const h=document.createElement("h3"); h.textContent=g.name; side.appendChild(h); }
+      g.words.forEach(w=>{
+        const b=document.createElement("button"); b.className="chip"; b.dataset.i=w.i;
+        /* ⚠ LA BANDE LATÉRALE MONTRE LE DÉCOR, PAS SEULEMENT LE MOT (20/09, sa capture de
+           l'appli d'origine : « regarde sur le côté »). Chaque vignette est la MINIATURE
+           de la scène — la même route, les deux mêmes bulles, dans la même couleur que
+           l'écran qu'elle ouvre. Un élève non lecteur se repère au dessin, pas au mot.
+           Le décor est celui de `SHAPES[i % 4]`, exactement comme la scène : si l'un
+           change, l'autre suit. */
+        /* ⚠ AUCUN MOT ÉCRIT DANS LA BANDE (20/09 : « c'est pour l'élève ce jeu »).
+           La vignette ne montre que la ROUTE et l'IMAGE : un élève non lecteur choisit ce
+           qu'il reconnaît, il ne déchiffre pas une liste. Le mot écrit est la RÉCOMPENSE
+           de la page réponse — l'afficher ici la donnerait avant l'effort.
+           Il reste en `aria-label` pour la prof et les lecteurs d'écran. */
+        b.innerHTML=`<span class="mini">${miniSVG(w)}</span><span class="grand">${picHTML(w.pic,false)}</span>`;
+        b.setAttribute("aria-label", w.word);
+        b.addEventListener("click",()=>show(w.i));
+        side.appendChild(b);
+      });
+    });
+  }
+  /* ⚠ LA MINIATURE A SON PROPRE CADRAGE (20/09) : recopier le viewBox de la scène
+     (400 × 520, portrait) dans une vignette large et basse écrasait le dessin à 14 % —
+     lettres de 10 px, bulles de 8 px de rayon, et la moitié de la vignette en blanc.
+     On cadre donc sur la boîte réelle des quatre décors (60 70 → 350 470) et la vignette
+     est HAUTE (128 px), comme sur la bande de l'appli d'origine.
+     ⚠ Le rayon est écrit dans l'ATTRIBUT r, pas en CSS : la propriété géométrique CSS est
+     ignorée par les vieux Safari, et les bulles retombaient à leur taille de scène. */
+  function miniSVG(w){
+    const sh=formePour(w);
+    const b=sh.p.map((q,k)=>`<circle cx="${q.x}" cy="${q.y}" r="62"/><text x="${q.x}" y="${q.y}" class="${cls(w.road[k])}">${esc(w.road[k]).toUpperCase()}</text>`).join("");
+    return `<svg viewBox="40 55 320 415" preserveAspectRatio="xMidYMid meet" aria-hidden="true">`+
+      (sh.deco||"")+`<path class="r" d="${sh.d}"/><path class="rl" d="${sh.d}"/><g class="b">${b}</g></svg>`;
+  }
+  function picHTML(p, small){
+    if(!p) return "";
+    /* ⚠ UN NOM DE FICHIER VAUT UNE IMAGE (20/09) : « clean/mot-mare.webp » ou juste
+       « mot-mare » sont acceptés, en plus des emojis et des URL. Les illustrations
+       remplacent les emojis au fil de ses envois — ne pas retirer le repli emoji, toute
+       la liste n'est pas illustrée. */
+    if(/^https?:|^data:/.test(p)) return `<img src="${p}" alt="" style="${small?'height:1.6em;width:auto':''}">`;
+    if(/^[a-z0-9_\-\/]+(\.webp|\.jpg|\.webp)?$/i.test(p) && /[a-z]-|\//i.test(p)){
+      const f = /\.(png|jpg|webp)$/i.test(p) ? p : "clean/"+p+".webp";
+      return `<img src="${f}" alt="" style="${small?'height:1.6em;width:auto':''}">`;
+    }
+    return p;
+  }
+  function markSide(){
+    side.querySelectorAll(".chip").forEach(c=>{ const i=+c.dataset.i; c.classList.toggle("cur",i===cur); c.classList.toggle("done",done[level].has(i)); });
+    const c=side.querySelector(".chip.cur"); if(c) c.scrollIntoView({block:"nearest",inline:"nearest"});
+  }
+
+  // scène — quatre décors pour deux bulles, serpentin au-delà
+  const svg=document.getElementById("svg"), road=document.getElementById("road"), roadLine=document.getElementById("roadLine");
+  const trail=document.getElementById("trail"), bubblesG=document.getElementById("bubbles"), hint=document.getElementById("hint");
+  const answer=document.getElementById("answer"), btnCheck=document.getElementById("btnCheck");
+  const token=document.getElementById("token"), tokRect=token.querySelector("rect"), tokText=token.querySelector("text");
+  let carried=[];
+  /* ⚠ ON DOIT ENTENDRE LA SYLLABE PUIS LE MOT (20/09) : d'abord « ma », ensuite « mare ».
+     L'ordre compte — c'est le geste de lecture qu'on vient de faire, pas le mot d'abord.
+     Voix française du navigateur, débit ralenti ; si aucune voix n'est installée, l'appli
+     fonctionne sans le son (ne pas bloquer l'affichage sur la synthèse vocale). */
+  function dire(txt, apres){
+    if(!("speechSynthesis" in window)) return;
+    const u=new SpeechSynthesisUtterance(txt);
+    u.lang="fr-FR"; u.rate=.72; u.pitch=1;
+    const v=speechSynthesis.getVoices().find(x=>/^fr/i.test(x.lang));
+    if(v) u.voice=v;
+    if(apres) u.addEventListener("end",()=>setTimeout(apres,260));
+    speechSynthesis.speak(u);
+  }
+
+  function paintToken(x,y){
+    tokText.innerHTML=carried.map(u=>`<tspan class="${cls(u)}">${esc(u)}</tspan>`).join("");
+    const w=Math.max(92, carried.join("").length*30+40), h=92;
+    tokRect.setAttribute("width",w); tokRect.setAttribute("height",h); tokRect.setAttribute("x",-w/2); tokRect.setAttribute("y",-h/2);
+    token.setAttribute("transform",`translate(${x.toFixed(1)} ${y.toFixed(1)})`); token.removeAttribute("hidden");
+  }
+  const W=400,H=520,R=46;
+  const SHAPES=[
+    /* ⚠ RAMPE DE SKATE (20/09, sa capture) : le béton est un décor dessiné, pas une image
+       générée — la courbe du dessin DOIT être celle du chemin, au pixel près. */
+    {p:[{x:95,y:130},{x:305,y:130}], d:"M 95 130 L 95 260 A 105 105 0 0 0 305 260 L 305 130",
+     /* ⚠ Le béton est un BLOC PLEIN derrière la rampe (sa capture) : le creux, c'est la
+        route claire posée par-dessus. Ne pas dessiner le creux dans le décor — on se
+        retrouve avec une masse grise DANS le U. */
+     /* ⚠ Le béton est le tracé de la route lui-même, en trait très épais : un rectangle
+        plein donnait « une boîte grise avec une route dessus », pas une rampe. */
+     deco:'<path d="M 95 130 L 95 260 A 105 105 0 0 0 305 260 L 305 130" fill="none" stroke="#b9bcc0" stroke-width="104"/>'+
+          '<path d="M 43 118 L 147 118 L 147 131 L 43 131 Z" fill="#cfd2d6"/>'+
+          '<path d="M 253 118 L 357 118 L 357 131 L 253 131 Z" fill="#cfd2d6"/>'+
+          /* ⚠ L'herbe et les galets sont POSÉS AU PIED du béton (base à y=404) et à sa
+             GAUCHE (x < 58) : dessinés plus bas, ils flottaient dans le blanc ; dessinés
+             par-dessus la dalle, ils passeraient devant le béton. */
+          '<g fill="#8fa86b"><path d="M 18 404 q 6 -34 14 -50 q -2 30 2 50 z"/><path d="M 28 404 q 2 -40 12 -54 q -4 32 -2 54 z"/><path d="M 40 404 q 10 -30 18 -42 q -8 26 -8 42 z"/></g>'+
+          '<ellipse cx="34" cy="402" rx="20" ry="8" fill="#c9c3b4"/><ellipse cx="14" cy="404" rx="12" ry="6" fill="#b8b2a3"/>'},
+    {p:[{x:80,y:150},{x:320,y:150}], d:"M 80 150 C 80 380, 320 380, 320 150",
+     deco:'<path d="M 0 150 C 0 150, 40 140, 80 150 C 80 380, 320 380, 320 150 C 360 140, 400 150, 400 150 L 400 470 L 0 470 Z" fill="#cfd6bd"/>'+
+          '<path d="M 0 250 C 60 210, 120 300, 180 330 C 250 366, 330 300, 400 250 L 400 470 L 0 470 Z" fill="#b9c4a2" opacity=".85"/>'+
+          '<path d="M 0 360 C 80 330, 150 400, 240 390 C 320 382, 360 410, 400 396 L 400 470 L 0 470 Z" fill="#a7b58e"/>'+
+          '<g fill="#8fa06b"><circle cx="352" cy="196" r="20"/><rect x="349" y="205" width="6" height="26" fill="#9a8f76"/>'+
+          '<circle cx="42" cy="214" r="16"/><rect x="39" y="222" width="5" height="22" fill="#9a8f76"/></g>'},                     // vallée verte
+    /* Route en zigzag : terre battue, deux arbres — c'est le paysage du Z et du N. */
+    {p:[{x:95,y:110},{x:305,y:400}], d:"M 95 110 C 340 110, 340 250, 200 255 C 60 260, 60 400, 305 400",
+     deco:'<path d="M 30 70 L 370 70 L 370 470 L 30 470 Z" fill="#dccbb2"/>'+
+          '<path d="M 30 300 C 120 280, 240 330, 370 300 L 370 470 L 30 470 Z" fill="#cdb998"/>'+
+          '<g><circle cx="52" cy="330" r="22" fill="#9aa87a"/><rect x="49" y="340" width="6" height="30" fill="#9a8f76"/>'+
+          '<circle cx="348" cy="180" r="20" fill="#a8b287"/><rect x="345" y="189" width="6" height="28" fill="#9a8f76"/></g>'},   // zigzag
+    /* ⚠ ESCALIER (sa capture du K) : la route suit le nez des marches, le corps orange est
+       dessous. Cette forme a REMPLACÉ l'équerre, qui n'avait aucun paysage. */
+    /* ⚠ TROIS marches, pas cinq : la route fait 62 d'épais (CSS .road), une marche de 40
+       disparaît dessous et l'escalier devient une suite de boudins. Giron 70, hauteur 85. */
+    {p:[{x:85,y:150},{x:315,y:400}],
+     d:"M 85 150 L 145 150 L 145 235 L 215 235 L 215 320 L 285 320 L 285 400 L 315 400",
+     /* Le corps orange est le tracé DÉCALÉ de 31 (la demi-épaisseur de .road) vers le bas
+        et vers la droite : la route se pose alors exactement sur le nez des marches, et la
+        masse orange reste dessous. Un contour centré débordait au-dessus des marches. */
+     /* Une BANDE d'escalier (contour miter, jamais round) posée sur un sol, sans masse
+        pleine dessous : la masse pleine essayée le 20/09 mangeait tout l'écran en orange
+        et la route s'y perdait. Les angles droits de la bande FONT les marches. */
+     deco:'<rect x="0" y="436" width="400" height="34" fill="#cbd6b0"/>'+
+          /* La masse démarre à l'aplomb du début de la bande (x=85) : plus à gauche, elle
+             déborde sous le vide et le viewBox des miniatures (qui commence à 40) la coupe. */
+          '<path d="M 85 202 L 197 202 L 197 287 L 267 287 L 267 372 L 337 372 L 337 436 L 85 436 Z" fill="#c9866a"/>'+
+          '<path d="M 85 150 L 145 150 L 145 235 L 215 235 L 215 320 L 285 320 L 285 400 L 315 400" fill="none" stroke="#e2a184" stroke-width="104" stroke-linejoin="miter" stroke-miterlimit="10"/>'},
+    /* ⚠ TOBOGGAN (sa capture du B) : l'échelle à gauche, la glissière qui descend à droite. */
+    {p:[{x:110,y:140},{x:310,y:395}],
+     d:"M 110 140 C 110 300, 190 370, 310 395",
+     deco:'<path d="M 110 140 C 110 300, 190 370, 310 395" fill="none" stroke="#e8b27e" stroke-width="96" stroke-linecap="round"/>'+
+          '<path d="M 110 140 C 110 300, 190 370, 310 395" fill="none" stroke="#f3cba4" stroke-width="70" stroke-linecap="round"/>'+
+          '<g stroke="#c98f5c" stroke-width="9" stroke-linecap="round"><path d="M 62 170 L 62 430"/><path d="M 104 170 L 104 430"/>'+
+          '<path d="M 62 210 L 104 210"/><path d="M 62 260 L 104 260"/><path d="M 62 310 L 104 310"/><path d="M 62 360 L 104 360"/><path d="M 62 410 L 104 410"/></g>'},
+    /* ⚠ TUNNEL (elle l'a nommé pour le P) : la colline au milieu, la bouche noire dessous,
+       la route qui la traverse de part en part. La route reste dessinée PAR-DESSUS le
+       décor (ordre du SVG) : c'est elle que le doigt suit, elle ne doit jamais passer
+       derrière la colline. Les deux bulles (r=62) sont posées à 85 et 315 : la colline
+       s'arrête à 120 et reprend à 280 pour ne pas les manger. */
+    {p:[{x:85,y:330},{x:315,y:330}],
+     d:"M 85 330 C 140 330, 260 330, 315 330",
+     /* ⚠ Colline dessinée à l'ARC, pas au Q : une quadratique n'atteint que la moitié de
+        la hauteur de son point de contrôle — la première colline faisait une bosse plate. */
+     /* ⚠ Le sol part du bord SUPÉRIEUR de la route (330 − 31 = la demi-épaisseur de
+        .road), pas de son axe : à y=330 la moitié haute de la route et la bulle du P
+        flottaient dans le blanc de chaque côté de la colline. */
+     deco:'<rect x="0" y="294" width="400" height="176" fill="#cbd6b0"/>'+
+          '<path d="M 96 334 A 104 168 0 0 1 304 334 Z" fill="#9aa87a"/>'+
+          '<path d="M 124 334 A 76 124 0 0 1 276 334 Z" fill="#8b9a6c"/>'+
+          '<path d="M 152 336 A 48 86 0 0 1 248 336 Z" fill="#3d4450"/>'+
+          '<path d="M 152 336 A 48 86 0 0 1 248 336" fill="none" stroke="#e6e3d8" stroke-width="10"/>'+
+          '<g fill="#7f8f62"><circle cx="52" cy="300" r="20"/><rect x="49" y="309" width="6" height="28" fill="#9a8f76"/>'+
+          '<circle cx="346" cy="288" r="17"/><rect x="343" y="296" width="5" height="24" fill="#9a8f76"/></g>'+
+          '<ellipse cx="110" cy="420" rx="22" ry="8" fill="#c1ccA6"/><ellipse cx="296" cy="436" rx="18" ry="7" fill="#c1ccA6"/>'}
+  ];
+  /* ⚠ LE PAYSAGE EST ATTACHÉ À LA CONSONNE, PAS AU RANG DU MOT (20/09 : « c'est toujours
+     le même paysage » — le V a sa vallée verte, le R sa rampe de skate, le K son escalier,
+     le B son toboggan). Un élève reconnaît le décor AVANT de lire la lettre : si MA et MI
+     n'avaient pas le même paysage, ce repère disparaîtrait.
+     Les six décors sont dessinés : rampe, vallée, zigzag, escalier, toboggan, tunnel. */
+  /* ⚠ AUCUNE consonne ne doit tomber sur une forme sans décor : la route flottait dans du
+     blanc, sans sol ni horizon. Chaque valeur ci-dessous pointe une forme qui A un
+     paysage. Escalier = 3 (K, C, T, D) · toboggan = 4 (B) · tunnel = 5 (P). */
+  const PAYSAGE={r:0,j:0,ch:0,v:1,f:1,s:1,l:1,m:1,z:2,n:2,g:2,k:3,c:3,t:3,d:3,b:4,p:5};
+  function formePour(w){
+    const c=(w&&w.road&&w.road[0]||"").toLowerCase();
+    const i=(c in PAYSAGE)?PAYSAGE[c]:(c.charCodeAt(0)||0)%SHAPES.length;
+    return SHAPES[i];
+  }
+  function layout(){
+    const n=units.length; let d;
+    if(n===2){ const sh=formePour(flat[cur]); pos=sh.p.map(q=>({...q})); d=sh.d; }
+    else{
+      pos=[]; const top=90, bottom=H-90, step=n>1?(bottom-top)/(n-1):0;
+      for(let i=0;i<n;i++) pos.push({x:n===1?W/2:(i%2===0?105:295), y:n>1?top+step*i:(top+bottom)/2});
+      d=`M ${pos[0].x} ${pos[0].y}`;
+      for(let i=1;i<n;i++){ const a=pos[i-1], b=pos[i], my=(a.y+b.y)/2; d+=` C ${a.x} ${my}, ${b.x} ${my}, ${b.x} ${b.y}`; }
+    }
+    road.setAttribute("d",d); roadLine.setAttribute("d",d);
+    /* ⚠ Le décor se prend sur LA MÊME forme que la route (formePour) : lu ailleurs, on se
+       retrouvait avec le béton de la rampe derrière la courbe de la vallée. */
+    const shDeco = (units.length===2) ? formePour(flat[cur]).deco : null;
+    document.getElementById("deco").innerHTML = shDeco || "";
+    bubblesG.innerHTML="";
+    pos.forEach((p,i)=>{
+      const g=document.createElementNS("http://www.w3.org/2000/svg","g");
+      g.setAttribute("class","bubble "+cls(units[i]));
+      g.innerHTML=`<circle cx="${p.x}" cy="${p.y}" r="${R}"/><text x="${p.x}" y="${p.y}">${units[i]}</text>`;
+      bubblesG.appendChild(g);
+    });
+  }
+  function show(i){
+    if(!flat.length) return;
+    cur=i; const w=flat[i]; units=w.road; target=0; dragging=false; trailPts=[];
+    trail.setAttribute("points",""); hint.style.opacity=1; token.setAttribute("hidden",""); carried=[]; tokPos=null;
+    answer.hidden=true; btnCheck.hidden=true;
+    layout(); markNext(); markSide();
+  }
+  function markNext(){ bubblesG.querySelectorAll(".bubble").forEach((b,i)=>{ b.classList.toggle("taken",i<target); b.classList.toggle("next",i===target&&target<units.length); }); }
+  function reset(){ target=0; trailPts=[]; carried=[]; tokPos=null; token.setAttribute("hidden",""); trail.setAttribute("points",""); btnCheck.hidden=true; markNext(); }
+  function svgPoint(ev){ const pt=svg.createSVGPoint(); pt.x=ev.clientX; pt.y=ev.clientY; return pt.matrixTransform(svg.getScreenCTM().inverse()); }
+  const inB=(p,i)=>Math.hypot(p.x-pos[i].x,p.y-pos[i].y)<=R+16;
+
+  const GRAB=R+40;
+  let tokPos=null; // position actuelle de l'étiquette quand elle est posée
+  svg.addEventListener("pointerdown",ev=>{
+    ev.preventDefault();
+    const p=svgPoint(ev);
+    if(target>=units.length) return;                       // mot fini : on passe par Encore
+    const from = target===0 ? pos[0] : tokPos;             // on attrape la lettre, ou l'étiquette déjà posée
+    if(from && Math.hypot(p.x-from.x,p.y-from.y)<=GRAB){
+      dragging=true; hint.style.opacity=0; trailPts=[p];
+      if(target===0) hit(0); else paintToken(p.x,p.y);
+      try{ svg.setPointerCapture(ev.pointerId); }catch(e){}
+    }
+  });
+  /* ⚠ ON NE DOIT PAS SORTIR DE LA ROUTE (20/09, sa demande) : l'étiquette est PROJETÉE
+     sur le tracé — elle glisse le long de la route même si le doigt dévie un peu. Au-delà
+     de HORS px de la route, on lâche : l'étiquette revient à la dernière bulle atteinte et
+     la route clignote. C'est le geste que le support papier impose naturellement ; sans
+     contrainte, l'élève traversait la page en diagonale et « réussissait » sans tracer. */
+  const HORS=46;   // ⚠ `road` est déjà déclaré plus haut — ne pas le redéclarer ici.
+  function surRoute(p){
+    const L=road.getTotalLength();
+    let best=null, bd=1e9;
+    for(let pas=L/24, l=0; l<=L; l+=pas){                  // balayage grossier
+      const q=road.getPointAtLength(l), d=Math.hypot(q.x-p.x,q.y-p.y);
+      if(d<bd){ bd=d; best=l; }
+    }
+    for(let pas=L/24/8, l=Math.max(0,best-L/24); l<=Math.min(L,best+L/24); l+=pas){
+      const q=road.getPointAtLength(l), d=Math.hypot(q.x-p.x,q.y-p.y);
+      if(d<bd){ bd=d; best=l; }
+    }
+    const q=road.getPointAtLength(best);
+    return { x:q.x, y:q.y, ecart:bd };
+  }
+  function sortie(){
+    dragging=false;
+    if(tokPos) paintToken(tokPos.x,tokPos.y);
+    trailPts=[]; trail.setAttribute("points","");
+    road.classList.add("hors");
+    setTimeout(()=>road.classList.remove("hors"),520);
+  }
+  function onMove(ev){
+    if(!dragging) return; ev.preventDefault();
+    const brut=svgPoint(ev);
+    const s=surRoute(brut);
+    if(s.ecart>HORS){ sortie(); return; }
+    const p={x:s.x, y:s.y};
+    trailPts.push(p); if(trailPts.length>400) trailPts.shift();
+    trail.setAttribute("points",trailPts.map(q=>`${q.x.toFixed(1)},${q.y.toFixed(1)}`).join(" "));
+    paintToken(p.x,p.y);
+    if(target<units.length&&inB(p,target)) hit(target);
+  }
+  function endDrag(){ if(!dragging) return; dragging=false; if(tokPos) paintToken(tokPos.x,tokPos.y); } // l'étiquette revient sur la dernière bulle atteinte
+  window.addEventListener("pointermove",onMove,{passive:false});
+  window.addEventListener("pointerup",endDrag); window.addEventListener("pointercancel",endDrag);
+  // repli tactile si les pointer events manquent
+  svg.addEventListener("touchmove",ev=>{ if(dragging) ev.preventDefault(); },{passive:false});
+  function hit(i){
+    target=i+1; carried.push(units[i]); tokPos={x:pos[i].x,y:pos[i].y}; markNext(); paintToken(tokPos.x,tokPos.y);
+    if(target===units.length){
+      btnCheck.hidden=false; dragging=false;
+      /* ⚠ LA SYLLABE SE DIT ICI (20/09) : à l'instant où l'étiquette arrive sur la 2e
+         bulle et que « MA » existe — pas à la découverte du mot. C'est la récompense du
+         geste : j'ai glissé, j'entends ce que j'ai fabriqué. */
+      speechSynthesis.cancel(); dire(carried.join(""));
+    }
+  }
+
+  // réponse : mot coloré graphème par graphème, lettres muettes en gris
+  const wordEl=document.getElementById("word"), picEl=document.getElementById("pic");
+  const esc=s=>s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+  function reveal(){
+    const w=flat[cur]; done[level].add(cur);
+    picEl.innerHTML=picHTML(w.pic,false);
+    wordEl.innerHTML=motHTML(w);
+    answer.hidden=false; markSide(); direMot(w);
+  }
+  /* À la découverte, seul le MOT est dit : la syllabe a déjà été entendue au moment de
+     l'assemblage. Le bouton 🔊 redit la syllabe puis le mot. */
+  function direMot(w){ speechSynthesis.cancel(); dire(w.word); }
+  document.getElementById("btnSay").addEventListener("click",()=>{ const w=flat[cur]; if(!w) return;
+    speechSynthesis.cancel(); dire(w.road.join(""), ()=>dire(w.word)); });
+  btnCheck.addEventListener("click",reveal);
+  document.getElementById("btnAgain").addEventListener("click",reset);
+  document.getElementById("btnBack").addEventListener("click",()=>{ answer.hidden=true; });
+  document.getElementById("btnNext").addEventListener("click",()=>show((cur+1)%flat.length));
+
+  // tableau des sons : les graphèmes du niveau en cours
+  const gridV=document.getElementById("gridV"), gridC=document.getElementById("gridC");
+  function buildSons(){
+    const used=new Set(); flat.forEach(w=>w.units.forEach(u=>used.add(u)));
+    gridV.innerHTML=""; gridC.innerHTML="";
+    [...voy1,...voy2].filter(v=>used.has(v)).forEach(v=>gridV.appendChild(sonBtn(v)));
+    [...used].filter(u=>cls(u)==="c").sort().forEach(c=>gridC.appendChild(sonBtn(c)));
+  }
+  function sonBtn(s){ const b=document.createElement("button"); b.type="button"; b.className="son "+cls(s); b.textContent=s;
+    b.addEventListener("pointerdown",()=>{ b.classList.add("lit"); setTimeout(()=>b.classList.remove("lit"),800); }); return b; }
+  document.getElementById("btnSons").addEventListener("click",()=>document.getElementById("dlgSons").showModal());
+
+  // enseignant
+  const dlg=document.getElementById("dlg"), taW1=document.getElementById("taWords1"), taW2=document.getElementById("taWords2"), taW=document.getElementById("taWords"), taV=document.getElementById("taVoy");
+  document.getElementById("btnTeacher").addEventListener("click",()=>{ taW1.value=raw.words1; taW2.value=raw.words2; taW.value=raw.words3; taV.value=raw.voy; dlg.showModal(); });
+  document.getElementById("btnCancel").addEventListener("click",()=>dlg.close());
+  document.getElementById("btnReset").addEventListener("click",()=>{ taW1.value=DEFAULT_WORDS1; taW2.value=DEFAULT_WORDS2; taW.value=DEFAULT_WORDS3; taV.value=DEFAULT_VOY; });
+  dlg.querySelector("form").addEventListener("submit",()=>{ raw={words1:taW1.value, words2:taW2.value, words3:taW.value, voy:taV.value}; save(); done={1:new Set(),2:new Set(),3:new Set()}; setLevel(level); });
+
+  // jeu : associer le mot lu à son image (autocorrection)
+  const dlgJeu=document.getElementById("dlgJeu"), jeuWord=document.getElementById("jeuWord"), jeuChoices=document.getElementById("jeuChoices"), jeuScore=document.getElementById("jeuScore");
+  let jeuPool=[], jeuOk=0, jeuN=0, jeuLocked=false;
+  /* ⚠ SEULE LA SYLLABE LUE EST EN COULEUR — TOUT LE RESTE EST EN LETTRES CREUSES
+     (20/09, « regarde pour bus, tu vois bien que le S est en pointillé »). Donc B et U
+     en couleur, le S creux : même les lettres qui se prononcent. L'élève voit ce qu'il a
+     DÉCHIFFRÉ, pas ce que le mot contient — ne pas recolorier le reste par cohérence
+     phonétique, c'était l'erreur d'avant. */
+  function motHTML(w){
+    let rest=w.word.toLowerCase(), html="";
+    w.units.forEach((u,i)=>{ const k=rest.indexOf(u); if(k<0) return;
+      if(k>0) html+=`<span class="m">${creuse(rest.slice(0,k))}</span>`;
+      html+= i<2 ? `<span class="${cls(u)}">${esc(u)}</span>` : `<span class="m">${creuse(u)}</span>`;
+      rest=rest.slice(k+u.length); });
+    if(rest) html+=`<span class="m">${creuse(rest)}</span>`; return html;
+  }
+  /* ⚠ NE PAS remettre vector-effect="non-scaling-stroke" sur ces tracés (essayé le 20/09) :
+     l'épaisseur cesse de suivre la boîte de dessin et le trait devient énorme — la lettre
+     n'est plus un pointillé mais un boudin. L'épaisseur se règle dans le CSS, stroke-width.
+     ⚠ Squelettes repris du cahier d'écriture : ne pas les redessiner à la main. */
+  const SKEL={"A":["M6 96L30 6l24 90","M16 58h28"],"B":["M8 6v90","M8 6h26c11 0 18 8 18 19s-7 19-18 19H8","M8 44h30c12 0 20 9 20 26s-8 26-20 26H8"],"C":["M52 24c-6-11-16-18-28-18C8 6 6 24 6 51c0 27 2 45 18 45 12 0 22-7 28-18"],"D":["M8 6v90","M8 6h20c18 0 28 18 28 45s-10 45-28 45H8"],"E":["M8 4V96","M8 4h40","M8 50h32","M8 96h40"],"F":["M54 6H8v90","M8 50h32"],"G":["M52 24c-6-11-16-18-28-18C8 6 6 24 6 51c0 27 2 45 20 45 14 0 24-10 24-25V60H30"],"H":["M8 6v90","M52 6v90","M8 50h44"],"I":["M30 6v90"],"J":["M40 6v66c0 15-8 24-20 24-9 0-16-5-19-13"],"K":["M8 6v90","M52 6L8 50","M20 38l34 58"],"L":["M10 6v90h42"],"M":["M8 96V6l22 62L52 6v90"],"N":["M8 96V6l44 90V6"],"O":["M30 6C14 6 6 24 6 51c0 27 8 45 24 45s24-18 24-45C54 24 46 6 30 6"],"P":["M8 96V6h24c12 0 20 10 20 23s-8 23-20 23H8"],"Q":["M30 6C14 6 6 24 6 51c0 27 8 45 24 45s24-18 24-45C54 24 46 6 30 6","M36 74l20 26"],"R":["M8 96V6h24c12 0 20 10 20 23s-8 23-20 23H8","M30 52l24 44"],"S":["M52 22c-5-10-13-16-23-16-12 0-20 7-20 18 0 24 44 16 44 44 0 17-10 28-24 28-11 0-20-6-25-16"],"T":["M6 6h48","M30 6v90"],"U":["M8 6v58c0 20 9 32 22 32s22-12 22-32V6"],"V":["M6 6l24 90L54 6"],"W":["M2 6l14 90 14-66 14 66 14-90"],"X":["M6 6l48 90","M54 6L6 96"],"Y":["M6 6l24 42 24-42","M30 48v48"],"Z":["M6 6h48L6 96h50"]};
+  const SANS={"É":"E","È":"E","Ê":"E","À":"A","Â":"A","Î":"I","Ï":"I","Ô":"O","Û":"U","Ù":"U","Ü":"U","Ç":"C"};
+  /* ⚠ LARGEUR PROPRE À CHAQUE LETTRE (20/09) : avec une boîte fixe de 60, un I occupait la
+     place d'un L et la fin du mot était nettement plus lâche que le début. Ces bornes sont
+     l'étendue horizontale réelle de chaque tracé ; la boîte se calcule dessus. */
+  /* Les bornes ne servent plus qu'à CENTRER le tracé dans sa boîte. */
+  const BORNES={A:[6,54],B:[8,58],C:[6,52],D:[8,56],E:[8,48],F:[8,54],G:[6,52],H:[8,52],
+    I:[30,30],J:[21,40],K:[8,54],L:[10,52],M:[8,52],N:[8,52],O:[6,54],P:[8,52],Q:[6,56],
+    R:[8,54],S:[8,52],T:[6,54],U:[8,52],V:[6,54],W:[2,58],X:[6,54],Y:[6,54],Z:[6,56]};
+  /* ⚠ LA LARGEUR EST MESURÉE SUR ANDIKA, PAS DEVINÉE (20/09). Deux essais faux avant :
+     boîte fixe de 60 (un I prenait la place d'un L), puis bornes du tracé + marge fixe
+     (le I, tracé sans largeur, devenait trois fois trop étroit). On mesure donc l'avance
+     réelle de chaque capitale dans la police, une fois pour toutes, et on en déduit la
+     boîte : la largeur suit la police à toutes les tailles, sans table à maintenir. */
+  let AVANCE=null, ENCRE=null;
+  function mesurerAndika(){
+    const c=document.createElement("canvas").getContext("2d");
+    c.font='700 100px Andika,Verdana,sans-serif';
+    const cap=c.measureText("H").actualBoundingBoxAscent||70;
+    AVANCE={}; ENCRE={};
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").forEach(ch=>{
+      const m=c.measureText(ch);
+      AVANCE[ch]=m.width/cap*96;
+      /* ⚠ ENCRE = largeur du DESSIN de la lettre, hors espaces latéraux. C'est elle qui
+         dit la forme : un O d'Andika est presque rond, le squelette du cahier est un
+         ovale étroit. Sans la mise à l'échelle qui suit, les deux O restaient différents
+         même dans une boîte de la bonne largeur — c'est sa remarque, trois fois. */
+      ENCRE[ch]=((m.actualBoundingBoxRight||0)+(m.actualBoundingBoxLeft||0))/cap*96;
+    });
+  }
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(()=>{ mesurerAndika(); if(typeof rafraichirMots==="function") rafraichirMots(); });
+  function creuse(txt){
+    if(!AVANCE) mesurerAndika();
+    return [...txt].map(ch=>{
+      const U=ch.toUpperCase(), K=SKEL[U]?U:SANS[U];
+      if(!K||!SKEL[K]) return "&nbsp;";
+      const b=BORNES[K]||[6,54], w=AVANCE[K]||((b[1]-b[0])+18), x0=(b[0]+b[1])/2-w/2;
+      const large=b[1]-b[0], cx=(b[0]+b[1])/2;
+      const sx=(ENCRE&&ENCRE[K]&&large>2) ? Math.min(1.6,Math.max(.7,ENCRE[K]/large)) : 1;
+      const tr=sx===1 ? "" : ` transform="translate(${cx.toFixed(1)} 0) scale(${sx.toFixed(3)} 1) translate(${(-cx).toFixed(1)} 0)"`;
+      return `<svg viewBox="${x0.toFixed(1)} 0 ${w.toFixed(1)} 96" preserveAspectRatio="xMidYMax meet" aria-hidden="true"><g${tr}>`+
+        SKEL[K].map(d=>`<path d="${d}"/>`).join("")+`</g></svg>`;
+    }).join("");
+  }
+  function colorWord(w){ return motHTML(w); }
+  function jeuRound(){
+    const withPic=flat.filter(w=>w.pic);
+    if(withPic.length<3){ jeuWord.textContent="Il faut au moins trois mots avec image."; jeuChoices.innerHTML=""; return; }
+    if(!jeuPool.length) jeuPool=withPic.map(w=>w.i).sort(()=>Math.random()-.5);
+    const w=flat[jeuPool.pop()]; jeuLocked=false;
+    // distracteurs : de préférence le même groupe
+    const same=withPic.filter(x=>x.i!==w.i&&x.group===w.group), others=withPic.filter(x=>x.i!==w.i&&x.group!==w.group);
+    const pool=[...same.sort(()=>Math.random()-.5),...others.sort(()=>Math.random()-.5)].slice(0,2);
+    const opts=[w,...pool].sort(()=>Math.random()-.5);
+    jeuWord.innerHTML=colorWord(w); jeuChoices.innerHTML="";
+    opts.forEach(o=>{ const b=document.createElement("button"); b.type="button"; b.className="choice"; b.innerHTML=picHTML(o.pic,true); b.setAttribute("aria-label",o.word);
+      b.addEventListener("click",()=>{ if(jeuLocked) return; if(o.i===w.i){ jeuLocked=true; b.classList.add("ok"); jeuOk++; jeuN++; jeuScore.textContent=`${jeuOk} / ${jeuN}`; setTimeout(jeuRound,900); } else { b.classList.add("ko"); if(!b.dataset.err){ b.dataset.err=1; jeuN++; jeuScore.textContent=`${jeuOk} / ${jeuN}`; } } });
+      jeuChoices.appendChild(b); });
+  }
+  document.getElementById("btnJeu").addEventListener("click",()=>{ jeuPool=[]; jeuOk=0; jeuN=0; jeuScore.textContent=""; jeuRound(); dlgJeu.showModal(); });
+  document.getElementById("jeuNext").addEventListener("click",jeuRound);
+
+  document.getElementById("btnAccueil").addEventListener("click",()=>{
+    if(document.referrer && history.length>1) history.back();
+    else location.href = "APPLI - Espace enseignant.dc.html" + location.search;
+  });
+
+  load(); buildSide(); buildSons(); show(0);
+})();
+</script>
+
+</body>
+</html>

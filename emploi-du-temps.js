@@ -180,6 +180,11 @@
     /* LUNDI 21 SEPTEMBRE 2026 — sa demande du 20/09, à CETTE date seule.
        Le puzzle est son ACCROCHE du lundi matin : une photo de Paris cachée sous 100 cases.
        Il ouvre la semaine 1 « Paris / Dans Paris de Paul Éluard ». */
+    /* Mercredi 23/09 — sa demande du 21/09. Différenciation A2 de la séance du son A :
+       les A2 entendent déjà le [a], il leur reste à l'écrire (a / à). */
+    'mercredi-litteracie': [
+      { nom: 'A2 — a ou à ?', f: 'FR - A2 - a ou à.dc.html', date: '2026-09-23' }
+    ],
     'lundi-rituel': [
       { nom: 'Le puzzle à retourner — Paris', f: 'JEU - Le puzzle à retourner.dc.html',
         date: '2026-09-21' }
@@ -196,6 +201,27 @@
       /* Les trois fiches « je lis, je fais » sur la scène de Paris au trait. */
       { nom: 'Je lis, je fais — Paris', f: 'FR - Je lis, je fais - Paris.dc.html',
         date: '2026-09-21' }
+    ],
+    /* MARDI 22 SEPTEMBRE 2026 — sa demande du 22/09, sur le créneau « moment littéraire ».
+       La séquence « Dans Paris » de Paul Éluard : on projette, on manipule, on écrit. */
+    'mardi-litteracie': [
+      { nom: 'Diaporama — Dans Paris', f: 'FR - Diaporama - Dans Paris.dc.html',
+        date: '2026-09-22' },
+      { nom: 'Étiquettes — les images', f: 'FR - Étiquettes - Dans Paris.dc.html',
+        date: '2026-09-22' },
+      { nom: 'Étiquettes — les mots', f: 'FR - Étiquettes mots - Dans Paris.dc.html',
+        date: '2026-09-22' },
+      { nom: 'Écris les mots', f: 'FR - Écris les mots - Dans Paris.dc.html',
+        date: '2026-09-22' },
+      /* Ajouté le 22/09 à sa demande, sur la séance du jour : les mots repères, la photo
+         sans le mot, l'élève associe puis écrit. D'après la photo du cahier de Farhad. */
+      { nom: 'J’associe et j’écris — les mots repères', f: 'FR - J\'associe et j\'écris (mots repères).dc.html',
+        date: '2026-09-22' }
+    ],
+    /* MERCREDI 23 SEPTEMBRE 2026 — l'enregistrement du poème par Paul Éluard. */
+    'mercredi-litteracie': [
+      { nom: 'Le poème lu par Paul Éluard (audio)', f: 'docs/dans-paris-paul-eluard.mp3',
+        date: '2026-09-23' }
     ],
     'vendredi-litteracie': [
       /* Accroché au 18/09/2026 à sa demande, et à CETTE date seule : le diaporama « Au

@@ -8,7 +8,7 @@
 <body>
 <x-dc>
 <helmet>
-<link rel="stylesheet" href="polices.css" />
+<link rel="stylesheet" href="polices.css?v=9" />
 <style>
   /* La coquille prend la hauteur de la fenêtre : c'est ce qui garantit qu'il n'y a pas
      d'ascenseur de page, par construction et non par mesure. */
@@ -40,7 +40,7 @@
     .edt-racine { height: auto !important; overflow: visible !important; }
   }
 </style>
-<script src="./emploi-du-temps.js"></script>
+<script src="./emploi-du-temps.js?v=9"></script>
 </helmet>
 
 <div class="edt-racine" ref="{{ racine }}" style="font-family:Verdana,sans-serif;color:#1c2430;background:#f4f6f9;height:100%;overflow:hidden;display:flex;flex-direction:column;position:{{ posRacine }};inset:0;z-index:{{ zRacine }}">

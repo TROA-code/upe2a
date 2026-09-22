@@ -5,6 +5,48 @@ sujet, avec ce qui attend une image ou une décision d'elle. Ce fichier-ci garde
 les décisions prises et les pièges ; la liste de travail est là-bas. **À tenir à jour tous
 les deux.**
 
+## ✅ LE DICTIONNAIRE SPATIAL — affiche au mur (22/09)
+
+`AFFICHE - Dictionnaire spatial.dc.html`, rangé dans **Affichages de la classe → Au mur**.
+Le PDF source (mimiclass, « Dictionnaire spatial ») est en `docs/dico-spatial.pdf`.
+
+Huit mots des consignes, **une page A4 portrait par mot** : à gauche · à droite · au-dessus ·
+en-dessous · sur · sous · entre · **dans** (ajouté à sa demande le 22/09, il n'est pas dans
+son PDF : boîte ouverte en trois barres, le disque à l'intérieur — c'est l'enfermement qui
+dit « dans », pas un rond posé dans un carré fermé). Les trois écritures empilées comme dans son PDF —
+**la cursive est gardée, sa demande explicite**.
+
+⚠ **« Je veux exactement les mêmes symboles »** (sa phrase). Les visuels du PDF ne sont PAS
+des dessins : un **disque orange cerclé de noir** et une **barre noire**. Ils sont redessinés
+en formes CSS — nets à n'importe quelle taille, aucune image à fabriquer, aucun prompt à
+écrire. La convention, à ne pas casser :
+- à gauche / à droite — barre **verticale**, le disque d'un côté
+- au-dessus / en-dessous — barre **horizontale**, disque **détaché**
+- sur / sous — disque **en contact** avec la barre
+- entre — **deux** barres, disque au milieu
+
+⚠ C'est le **contact** qui distingue sur/sous de au-dessus/en-dessous : ne pas « aligner
+proprement » les positions, l'écart et le contact portent le sens.
+
+## ✅ LE JEU DE LA MARCHANDE — rangé côté enseignant (22/09)
+
+PDF qu'elle a trouvé (mimiclass.fr, partagé par Coralie), déposé en `docs/jeu-marchande.pdf`
+et accroché dans **Espace enseignant → Mathématiques → Les livrets**, juste après le lexique
+A5. ⚠ **Gardé TEL QUEL**, comme le lexique : ne pas le refabriquer.
+
+Les 30 pages : 11 planches d'articles étiquetés en euros (de 0€60 à 11€39), les panneaux de
+rayons (fruits et légumes, surgelés, produits frais, épicerie sucrée et salée, boissons,
+soins, entretien, hygiène, animaux), les listes de course, six recettes (carbonara, croque
+monsieur, gâteau au chocolat, tarte aux pommes, burgers, quiche), les paniers à chiffrer
+(petit déjeuner adulte et enfant, déjeuner, dîner, goûter, j'adopte un chat, trousse de
+toilette homme et femme), les étiquettes de promotion (1 acheté = 1 offert, −50 %, −30 %,
+−20 %) et le bon de commande des articles manquants.
+
+⚠ Deux réserves à lui dire : le registre des dessins est **primaire** (elle a tranché pareil
+pour le lexique A5 : on garde l'original), et le jeu suppose de **lire les noms d'articles** —
+les pages utilisables sans lecture sont les planches de prix, les paniers à chiffrer et la
+monnaie. Rien n'est accroché à une date de l'emploi du temps pour l'instant.
+
 ## ✅ LE PUZZLE À RETOURNER + « JEUX DE CLASSE » (20/09)
 
 `JEU - Le puzzle à retourner.dc.html`. **Son accroche du lundi matin** : une photo cachée sous
@@ -670,7 +712,7 @@ a ananas · b ballon · c carotte · d deux · **e melon** · **f fenêtre** · 
 **h : AUCUNE case** (elle a tranché : le h n'a pas de son) · **i immeuble** · **j jaune** ·
 **k kiwi** · l lit · m moto · n nuage · **o ordinateur** · p pied · **q quatre** ·
 **r robot** · s salade · t table · **u usine** · v vélo · w wagon · x xylophone ·
-**y yaourt** · **z zéro**
+**y pyjama** · **z zéro**
 
 Elle est recopiée dans **trois fichiers** qu'il faut corriger ENSEMBLE :
 1. `APPLI - Espace enseignant.dc.html` → `const ALPHA_IMG` ;
@@ -1080,7 +1122,7 @@ rien donc ») — ne rien modifier dans `lecture-sons.js` sans son accord.**
 | m moto | n nuage | **o ordinateur · pot** | p pied |
 | q quatre | r robot | **s salade · rose** | t table |
 | u usine | v vélo | w wagon | x xylophone |
-| y yaourt | z zéro | | |
+| y pyjama | z zéro | | |
 
 Les quatre lettres en gras ont **deux images dans la même case, un seul trait** (deux
 sons pour le c et le g, deux timbres pour le o, le s qui fait /z/ dans *rose*).
@@ -1092,7 +1134,7 @@ ou l'intérieur des mots) et le **h volontairement vide** (« le h n'a pas de so
 c'est la seule case où l'élève recopie au lieu de chercher. Elle le dit à l'oral.
 
 **Remplacés** (leur photo RESTE dans `clean/`, elle sert dans les thèmes) : cinq→quatre,
-date→deux, fantôme→fenêtre, gris→immeuble, jupe→jaune, pomme→pot seul, pyjama→yaourt,
+date→deux, fantôme→fenêtre, gris→immeuble, jupe→jaune, pomme→pot seul,
 rue→usine, zèbre→zéro. *fille* reste repère mais pour le son `ill` seulement.
 
 **Photos** : `clean/mot-gilet.png` et `clean/mot-immeuble.png` créées ; **robot,
@@ -4967,3 +5009,28 @@ utiliser les liens de devoirs.
   bouton « Télécharger le test » pour ces deux-là.
 - Les **livrets dans les autres langues** (arabe, portugais, ukrainien…) : seul l'anglais est
   rangé dans `tests/`.
+
+### Le y est revenu à PYJAMA (21/09)
+
+Elle a tranché : le mot repère du **y** redevient **pyjama**, il n'est plus *yaourt*.
+La photo de pyjama d'origine était un dessin enfantin sur fond orange en 350 px — c'était
+la raison du remplacement du 13/09 ; elle en a envoyé une **vraie photo** le 21/09
+(pyjama gris plié, fond blanc, 1000 × 1000). `clean/mot-pyjama.webp` est écrasée.
+⚠ `mot-yaourt.webp` RESTE : elle sert dans le thème « Les produits laitiers ».
+⚠ `lecture-code.js` garde `['y','yaourt','yaourt']` : là, le y est la semi-voyelle de
+  *yaourt*, pas le [i] de *pyjama*. Ce sont deux choses différentes, ne pas l'aligner.
+Corrigé dans SIX fichiers (les trois habituels + les trois supports imprimés) :
+`ALPHA_IMG` et la `BANQUE` d'« Espace enseignant », `banque-mots.js`,
+« Mes mots - livre interactif », « Abécédaire des mots repères »,
+« Écrire les mots repères », « Frise de l'alphabet (mur) ».
+
+### Le e est passé à JE (21/09)
+
+Le mot repère du **e** n'est plus *melon* mais **je** — sa demande. Un pronom ne se
+photographie pas : l'image est donc un **geste**, un jeune adulte qui pose l'index sur sa
+poitrine pour se désigner (photo à elle, fond blanc, 1000 × 1000, `clean/mot-je.webp`).
+⚠ `mot-melon.webp` RESTE : elle sert dans le thème des fruits.
+⚠ C'est le premier mot repère qui n'est pas un objet. Si d'autres pronoms suivent
+  (*tu, il, elle, nous, vous, ils*), garder la MÊME personne et le MÊME cadrage, sinon
+  l'élève lit le visage au lieu du geste.
+Corrigé dans les six mêmes fichiers que le y.
