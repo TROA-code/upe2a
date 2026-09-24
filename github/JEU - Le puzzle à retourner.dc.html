@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Atkinson+Hyperlegible:wght@400;700&display=swap" />
+<style>
+  html, body { height: 100%; margin: 0; }
+  a { color: #1d4e89; }
+  a:hover { color: #123a6b; }
+</style>
+</helmet>
+
+<div style="height:100vh;display:flex;flex-direction:column;background:#eef1f6;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;color:#12233b;overflow:hidden">
+
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:#12233b;color:#fff;padding:11px 18px;box-shadow:0 2px 10px rgba(0,0,0,.25)">
+  <button onClick="{{ accueil }}" style="flex:0 0 auto;border:2px solid #fff;border-radius:11px;background:transparent;color:#fff;min-height:44px;padding:9px 16px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:14px;font-weight:700;cursor:pointer">&#8592; L'accueil</button>
+  <span style="font-family:'Archivo Black',Verdana,sans-serif;font-size:18px;text-transform:uppercase;letter-spacing:.02em">Le puzzle</span>
+  <span style="flex:1"></span>
+  <select onChange="{{ changerImage }}" value="{{ image }}" style="min-height:44px;border:2px solid #fff;border-radius:11px;background:#fff;color:#12233b;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:14px;font-weight:700;padding:8px 12px;cursor:pointer">
+    <sc-for list="{{ images }}" as="i" hint-placeholder-count="6">
+      <option value="{{ i.cle }}">{{ i.nom }}</option>
+    </sc-for>
+  </select>
+  <select onChange="{{ changerNombre }}" value="{{ nombre }}" style="min-height:44px;border:2px solid #fff;border-radius:11px;background:#fff;color:#12233b;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:14px;font-weight:700;padding:8px 12px;cursor:pointer">
+    <sc-for list="{{ nombres }}" as="n" hint-placeholder-count="6">
+      <option value="{{ n.v }}">{{ n.nom }}</option>
+    </sc-for>
+  </select>
+</div>
+
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:16px">
+  <div style="position:relative;max-width:100%;max-height:100%;aspect-ratio:{{ ratio }};background-color:#fff;background-image:{{ fond }};background-size:cover;background-position:center;border:3px solid #12233b;border-radius:8px;overflow:hidden;display:grid;grid-template-columns:repeat({{ colonnes }},1fr);grid-template-rows:repeat({{ lignes }},1fr);width:{{ largeur }}">
+    <sc-for list="{{ cases }}" as="c" hint-placeholder-count="100">
+      <sc-if value="{{ c.cachee }}" hint-placeholder-val="{{ true }}">
+        <button onClick="{{ c.ouvrir }}" style="border:none;padding:0;margin:0;background:#2b3a55;color:#f6f4ee;box-shadow:inset 0 0 0 2px #eef1f6;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:'Archivo Black',Verdana,sans-serif;font-variant-numeric:tabular-nums;font-size:{{ tailleChiffre }}" style-hover="background:#3b4d70">{{ c.n }}</button>
+      </sc-if>
+      <sc-if value="{{ c.ouverte }}" hint-placeholder-val="{{ false }}">
+        <span style="display:block"></span>
+      </sc-if>
+    </sc-for>
+  </div>
+</div>
+
+<div style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;padding:12px 18px;background:#fff;border-top:2px solid #d8dde6">
+  <button onClick="{{ melanger }}" style="min-height:48px;border:2px solid #c9cfd8;border-radius:12px;background:#fff;color:#12233b;padding:10px 18px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:15px;font-weight:700;cursor:pointer">{{ texteMelange }}</button>
+  <button onClick="{{ ouvrirDix }}" style="min-height:48px;border:2px solid #1d4e89;border-radius:12px;background:#1d4e89;color:#fff;padding:10px 18px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:15px;font-weight:700;cursor:pointer">Ouvrir 10 cases</button>
+  <button onClick="{{ toutMontrer }}" style="min-height:48px;border:2px solid #c9cfd8;border-radius:12px;background:#fff;color:#12233b;padding:10px 18px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:15px;font-weight:700;cursor:pointer">Tout montrer</button>
+  <button onClick="{{ toutCacher }}" style="min-height:48px;border:2px solid #c9cfd8;border-radius:12px;background:#fff;color:#12233b;padding:10px 18px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:15px;font-weight:700;cursor:pointer">Tout cacher</button>
+  <span style="font-size:13px;color:#6b7386;line-height:1.4;max-width:34ch">Un élève dit un nombre, on touche la case. On peut aussi taper le nombre au clavier.</span>
+</div>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:800}}">
+/* LE PUZZLE À RETOURNER (20/09, sa demande) — son accroche du lundi matin.
+   Reçu de l'extérieur sous forme d'une page autonome, refait ici aux règles de l'appli :
+   ⚠ l'image ne se choisit PLUS dans l'explorateur de fichiers (elle se rechargeait à chaque
+     cours et se perdait sur le téléphone) — elle se prend dans la LISTE des images de
+     `clean/`, comme partout ailleurs.
+   ⚠ bouton « ← L'accueil » : sans lui l'écran est un cul-de-sac.
+   ⚠ on TOUCHE, on ne glisse pas ; aucun score, aucun compteur d'erreurs.
+   100 cases par défaut (sa demande du 20/09) : les élèves lisent les nombres jusqu'à 100 à
+   voix haute pour demander leur case — la numération se travaille gratuitement.
+   « Ouvrir 10 cases » existe parce qu'à 100 cases la fin de partie traîne. */
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    const p = typeof location !== 'undefined' ? new URLSearchParams(location.search) : new URLSearchParams();
+    const img = p.get('img') || 'puzzle-paris';
+    const n = parseInt(p.get('n'), 10);
+    this.state = {
+      image: img,
+      nombre: [6, 9, 12, 16, 20, 30, 50, 100].indexOf(n) >= 0 ? n : 100,
+      ouvertes: {},
+      melange: false,
+      ordre: null,
+      ratio: 4 / 3
+    };
+    this.tape = '';
+  }
+
+  componentDidMount() {
+    this.mesurer();
+    this.surTouche = (e) => {
+      const a = document.activeElement;
+      if (a && (a.tagName === 'SELECT' || a.tagName === 'INPUT')) return;
+      if (/^[0-9]$/.test(e.key)) {
+        this.tape += e.key;
+        clearTimeout(this.minuteur);
+        this.minuteur = setTimeout(() => this.ouvrirTapee(), 700);
+      } else if (e.key === 'Enter') {
+        clearTimeout(this.minuteur);
+        this.ouvrirTapee();
+      }
+    };
+    document.addEventListener('keydown', this.surTouche);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.surTouche);
+    clearTimeout(this.minuteur);
+  }
+
+  componentDidUpdate(_, prev) {
+    if (prev.image !== this.state.image) this.mesurer();
+  }
+
+  /* Le format du plateau suit celui de la photo : une image carrée ne doit pas être
+     étirée en 4/3. On le mesure à l'ouverture et à chaque changement d'image. */
+  mesurer() {
+    const im = new Image();
+    const cle = this.state.image;
+    im.onload = () => {
+      if (this.state.image === cle && im.width && im.height) {
+        this.setState({ ratio: im.width / im.height });
+      }
+    };
+    im.src = 'clean/' + cle + '.webp';
+  }
+
+  ouvrirTapee() {
+    const n = parseInt(this.tape, 10);
+    this.tape = '';
+    if (n >= 1 && n <= this.state.nombre) this.ouvrir(n);
+  }
+
+  ouvrir(n) {
+    this.setState((s) => ({ ouvertes: Object.assign({}, s.ouvertes, { [n]: true }) }));
+  }
+
+  grille(n) {
+    return { 6: 3, 9: 3, 12: 4, 16: 4, 20: 5, 30: 6, 50: 10, 100: 10 }[n] || 10;
+  }
+
+  numeros() {
+    const n = this.state.nombre;
+    if (!this.state.melange) return Array.from({ length: n }, (_, i) => i + 1);
+    if (this.state.ordre && this.state.ordre.length === n) return this.state.ordre;
+    return Array.from({ length: n }, (_, i) => i + 1);
+  }
+
+  renderVals() {
+    const s = this.state;
+    const cols = this.grille(s.nombre);
+    const images = [
+      ['puzzle-paris', 'Paris'], ['lieu-chantier', 'Un chantier'], ['lieu-boulangerie', 'Une boulangerie'],
+      ['lieu-cuisine-pro', 'Une cuisine'], ['lieu-salle-restaurant', 'Une salle de restaurant'],
+      ['lieu-garage', 'Un garage'], ['lieu-hopital', 'Un hôpital'], ['lieu-supermarche', 'Un supermarché'],
+      ['lieu-cafe', 'Un café'], ['lieu-hotel', 'Un hôtel'], ['lieu-atelier-bois', 'Un atelier de bois'],
+      ['lieu-atelier-metal', 'Un atelier de métal'], ['lieu-blanchisserie', 'Une blanchisserie'],
+      ['lieu-pressing', 'Un pressing'], ['lieu-bureaux', 'Des bureaux'], ['lieu-cantine', 'Une cantine'],
+      ['lieu-maison-retraite', 'Une maison de retraite'], ['lieu-maison-travaux', 'Une maison en travaux']
+    ];
+    const cases = this.numeros().map((n) => ({
+      n, cachee: !s.ouvertes[n], ouverte: !!s.ouvertes[n], ouvrir: () => this.ouvrir(n)
+    }));
+    return {
+      images: images.map(([cle, nom]) => ({ cle, nom })),
+      nombres: [6, 9, 12, 16, 20, 30, 50, 100].map((v) => ({ v: String(v), nom: v + ' cases' })),
+      image: s.image,
+      nombre: String(s.nombre),
+      lignes: String(Math.ceil(s.nombre / cols)),
+      fond: "url('clean/" + s.image + ".webp')",
+      ratio: String(s.ratio),
+      colonnes: String(cols),
+      /* Le plateau est borné par la HAUTEUR disponible : sans ça, une photo large déborde
+         sous la barre de boutons et les dernières cases sortent de l'écran. */
+      largeur: 'min(100%, calc((100vh - 205px) * ' + s.ratio + '))',
+      tailleChiffre: 'clamp(13px, ' + (46 / cols).toFixed(2) + 'vmin, 64px)',
+      cases,
+      texteMelange: s.melange ? 'Remettre dans l\u2019ordre' : 'M\u00e9langer les nombres',
+      changerImage: (e) => this.setState({ image: e.target.value, ouvertes: {} }),
+      changerNombre: (e) => this.setState({ nombre: +e.target.value, ouvertes: {}, ordre: null }),
+      melanger: () => this.setState((st) => {
+        if (st.melange) return { melange: false, ouvertes: {}, ordre: null };
+        const a = Array.from({ length: st.nombre }, (_, i) => i + 1);
+        for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const t = a[i]; a[i] = a[j]; a[j] = t; }
+        return { melange: true, ordre: a, ouvertes: {} };
+      }),
+      ouvrirDix: () => this.setState((st) => {
+        const reste = [];
+        for (let i = 1; i <= st.nombre; i++) if (!st.ouvertes[i]) reste.push(i);
+        for (let i = reste.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const t = reste[i]; reste[i] = reste[j]; reste[j] = t; }
+        const o = Object.assign({}, st.ouvertes);
+        reste.slice(0, 10).forEach((n) => { o[n] = true; });
+        return { ouvertes: o };
+      }),
+      toutMontrer: () => this.setState((st) => {
+        const o = {};
+        for (let i = 1; i <= st.nombre; i++) o[i] = true;
+        return { ouvertes: o };
+      }),
+      toutCacher: () => this.setState({ ouvertes: {} }),
+      /* Retour à l'accueil : l'historique d'abord (on retrouve l'écran exact d'où l'on
+         vient), sinon l'appli en conservant la session dans `location.search`. */
+      accueil: () => {
+        if (typeof history !== 'undefined' && history.length > 1) history.back();
+        else location.href = 'APPLI - Espace enseignant.dc.html' + location.search;
+      }
+    };
+  }
+}
+
+</script>
+</body>
+</html>

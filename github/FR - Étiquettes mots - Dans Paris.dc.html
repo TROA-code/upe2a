@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Atkinson+Hyperlegible:wght@400;700&display=swap" />
+<style>
+  doc-page:not(:defined) { visibility: hidden; }
+  @media print { .ecran-seul { display: none !important; } }
+  a { color: #1d4e89; }
+  a:hover { color: #123a6b; }
+</style>
+<script src="doc-page.js"></script>
+</helmet>
+
+<div class="ecran-seul" style="font-family:Verdana,Tahoma,sans-serif;padding:16px 18px 6px;display:flex;flex-direction:column;gap:10px">
+  <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:16px;letter-spacing:.02em">ÉTIQUETTES MOTS — DANS PARIS</div>
+  <div style="font-size:11.5px;color:#6b7386;line-height:1.5;max-width:74ch">
+    Une page par mot, dix étiquettes par page : c'est la page entière qui passe dans
+    l'imprimante sur une seule couleur de papier. Page 1 « il y a » sur du jaune,
+    page 2 « Dans » sur du vert, page 3 « Sur » sur du bleu.
+    Le texte est noir, jamais coloré : c'est le papier qui porte la couleur.
+  </div>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+    <button onClick="{{ imprimer }}" style="border:none;background:#2a9d6e;color:#fff;border-radius:9px;padding:10px 18px;font-family:'Archivo Black',Verdana,sans-serif;font-size:12px;letter-spacing:.04em;cursor:pointer">IMPRIMER</button>
+    <span style="font-size:11.5px;color:#8595a8">Le poème demande 10 « il y a », 8 « Dans » et 2 « Sur ». Le reste est en réserve.</span>
+  </div>
+</div>
+
+<doc-page size="a4" margin="2cm">
+
+  <section class="page" style="padding:2cm;box-sizing:border-box;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;color:#000;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(5,1fr);gap:3mm">
+    <div style="border:1.2px dashed #9aa3b0;border-radius:2mm;display:flex;align-items:center;justify-content:center;min-height:0"><span style="font-size:64pt;font-weight:700">il y a</span></div>
+    <div style="border:1.2px dashed #9aa3b0;border-radius:2mm;display:flex;align-items:center;justify-content:center;min-height:0"><span style="font-size:64pt;font-weight:700">il y a</span></div>
+    <div style="border:1.2px dashed #9aa3b0;border-radius:2mm;display:flex;align-items:center;justify-content:center;min-height:0"><span style="font-size:64pt;font-weight:700">il y a</span></div>
+    <div style="border:1.2px dashed #9aa3b0;border-radius:2mm;display:flex;align-items:center;justify-content:center;min-height:0"><span style="font-size:64pt;font-weight:700">il y a</span></div>
+    <div style="border:1.2px dashed #9aa3b0;border-radius:2mm;display:flex;align-items:center;justify-content:center;min-height:0"><span style="font-size:64pt;font-weight:700">il y a</span></div>
+    <div style="border:1.2px dashed #9aa3b0;border-radius:2mm;display:flex;align-items:center;justify-content:center;min-height:0"><span style="font-size:64pt;font-weight:700">il y a</span></div>
+    <div style="border:1.2px dashed #9aa3b0;border-radius:2mm;display:flex;align-items:center;justify-content:center;min-height:0"><span style="font-size:64pt;font-weight:700">il y a</span></div>
+    <div style="border:1.2px dashed #9aa3b0;border-radius:2mm;display:flex;align-items:center;justify-content:center;min-height:0"><span style="font-size:64pt;font-weight:700">il y a</span></div>
+    <div style="border:1.2px dashed #9aa3b0;border-radius:2mm;display:flex;align-items:center;justify-content:center;min-height:0"><span style="font-size:64pt;font-weight:700">il y a</span></div>
+    <div style="border:1.2px dashed #9aa3b0;border-radius:2mm;display:flex;align-items:center;justify-content:center;min-height:0"><span style="font-size:64pt;font-weight:700">il y a</span></div>
+  </section>
+
+  <section class="page" style="padding:2cm;box-sizing:border-box;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;color:#000;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(5,1fr);gap:3mm">
+    <div style="border:1.2px dashed #9aa3b0;border-radius:2mm;display:flex;align-items:center;justify-content:center;min-height:0"><span style="font-size:64pt;font-weight:700">Dans</span></div>
+    <div style="border:1.2px dashed #9aa3b0;border-radius:2mm;display:flex;align-items:center;justify-content:center;min-height:0"><span style="font-size:64pt;font-weight:700">Dans</span></div>
+    <div style="border:1.2px dashed #9aa3b0;border-radius:2mm;display:flex;align-items:center;justify-content:center;min-height:0"><span style="font-size:64pt;font-weight:700">Dans</span></div>
+    <div style="border:1.2px dashed #9aa3b0;border-radius:2mm;display:flex;align-items:center;justify-content:center;min-height:0"><span style="font-size:64pt;font-weight:700">Dans</span></div>
+    <div style="border:1.2px dashed #9aa3b0;border-radius:2mm;display:flex;align-items:center;justify-content:center;min-height:0"><span style="font-size:64pt;font-weight:700">Dans</span></div>
+    <div style="border:1.2px dashed #9aa3b0;border-radius:2mm;display:flex;align-items:center;justify-content:center;min-height:0"><span style="font-size:64pt;font-weight:700">Dans</span></div>
+    <div style="border:1.2px dashed #9aa3b0;border-radius:2mm;display:flex;align-items:center;justify-content:center;min-height:0"><span style="font-size:64pt;font-weight:700">Dans</span></div>
+    <div style="border:1.2px dashed #9aa3b0;border-radius:2mm;display:flex;align-items:center;justify-content:center;min-height:0"><span style="font-size:64pt;font-weight:700">Dans</span></div>
+    <div style="border:1.2px dashed #9aa3b0;border-radius:2mm;display:flex;align-items:center;justify-content:center;min-height:0"><span style="font-size:64pt;font-weight:700">Dans</span></div>
+    <div style="border:1.2px dashed #9aa3b0;border-radius:2mm;display:flex;align-items:center;justify-content:center;min-height:0"><span style="font-size:64pt;font-weight:700">Dans</span></div>
+  </section>
+
+  <section class="page" style="padding:2cm;box-sizing:border-box;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;color:#000;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(5,1fr);gap:3mm">
+    <div style="border:1.2px dashed #9aa3b0;border-radius:2mm;display:flex;align-items:center;justify-content:center;min-height:0"><span style="font-size:64pt;font-weight:700">Sur</span></div>
+    <div style="border:1.2px dashed #9aa3b0;border-radius:2mm;display:flex;align-items:center;justify-content:center;min-height:0"><span style="font-size:64pt;font-weight:700">Sur</span></div>
+    <div style="border:1.2px dashed #9aa3b0;border-radius:2mm;display:flex;align-items:center;justify-content:center;min-height:0"><span style="font-size:64pt;font-weight:700">Sur</span></div>
+    <div style="border:1.2px dashed #9aa3b0;border-radius:2mm;display:flex;align-items:center;justify-content:center;min-height:0"><span style="font-size:64pt;font-weight:700">Sur</span></div>
+    <div style="border:1.2px dashed #9aa3b0;border-radius:2mm;display:flex;align-items:center;justify-content:center;min-height:0"><span style="font-size:64pt;font-weight:700">Sur</span></div>
+    <div style="border:1.2px dashed #9aa3b0;border-radius:2mm;display:flex;align-items:center;justify-content:center;min-height:0"><span style="font-size:64pt;font-weight:700">Sur</span></div>
+    <div style="border:1.2px dashed #9aa3b0;border-radius:2mm;display:flex;align-items:center;justify-content:center;min-height:0"><span style="font-size:64pt;font-weight:700">Sur</span></div>
+    <div style="border:1.2px dashed #9aa3b0;border-radius:2mm;display:flex;align-items:center;justify-content:center;min-height:0"><span style="font-size:64pt;font-weight:700">Sur</span></div>
+    <div style="border:1.2px dashed #9aa3b0;border-radius:2mm;display:flex;align-items:center;justify-content:center;min-height:0"><span style="font-size:64pt;font-weight:700">Sur</span></div>
+    <div style="border:1.2px dashed #9aa3b0;border-radius:2mm;display:flex;align-items:center;justify-content:center;min-height:0"><span style="font-size:64pt;font-weight:700">Sur</span></div>
+  </section>
+
+</doc-page>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* ÉTIQUETTES MOTS — DANS PARIS (21/09, sa demande). Les mots-outils du poème, à coller au
+   tableau entre les étiquettes-images (`FR - Étiquettes - Dans Paris.dc.html`).
+   Contenu repris de SON document `etiquettes mots tableau.docx` : « il y a », « Dans »,
+   « sur » — rien d'autre, aucun déterminant ajouté (son document n'en a pas).
+   ⚠ UNE PAGE = UN MOT = UNE COULEUR DE PAPIER. C'est toute la raison de cette mise en
+     page : elle imprime page par page sur du papier de couleur. Ne JAMAIS mélanger deux
+     mots sur une même page, et ne JAMAIS colorer le texte ou le fond — le papier porte la
+     couleur, l'encre reste noire (et le noir sur papier de couleur garde son contraste).
+   Le poème demande 10 « il y a », 8 « Dans » et 2 « Sur » ; 10 par page, le reste est en
+   réserve (les étiquettes se perdent).
+   Taille : 8,2 × 4,9 cm, texte à 64 pt (sa demande du 21/09, monté de 40 à 64) — lisible depuis le fond de la classe, et à la même
+   échelle que les étiquettes-images de 8 cm.
+   ⚠ Le poème de Paul Éluard est sous droits : ne jamais le recopier dans un document. */
+class Component extends DCLogic {
+  renderVals() {
+    return { imprimer: () => window.print() };
+  }
+}
+
+</script>
+</body>
+</html>

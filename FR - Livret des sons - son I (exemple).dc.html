@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#8c1c13}
+a:hover{color:#5e120c}
+</style>
+<link rel="preload" href="fonts/BelleAllureScript2i-Gros.otf" as="font" type="font/otf" crossorigin="" />
+<link rel="preload" href="fonts/BelleAllureCE-Gros.otf" as="font" type="font/otf" crossorigin="" />
+<link rel="stylesheet" href="polices.css" />
+<script src="./doc-page.js"></script>
+</helmet>
+<doc-page size="a4">
+
+<section class="page" data-screen-label="Couverture" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:6mm">
+<div style="flex:0 0 auto;background:#8c1c13;color:#fff;padding:8mm 8mm 7mm;display:flex;flex-direction:column;gap:2mm">
+<span style="font-size:13pt;letter-spacing:0.3em">L I V R E T &nbsp; D E &nbsp; L E C T U R E</span>
+<span style="font-size:44pt;font-weight:700;letter-spacing:0.03em;line-height:1">LE SON [i]</span>
+</div>
+<div style="flex:0 0 auto;height:1.5mm;background:#c1440e;margin-top:-6mm"></div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;gap:6mm;align-items:center">
+<div style="display:flex;flex-direction:column;align-items:center;gap:3mm;background:#faf6ec;border:2px solid #e4dfc8;padding:6mm">
+<div style="width:62mm;height:62mm;background:url('clean/mot-gris.webp') center/contain no-repeat"></div>
+<span style="font-size:22pt;font-weight:700;letter-spacing:0.05em">GRIS</span>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:3mm">
+<div style="width:62mm;height:62mm;background:url('clean/geste-son-i.webp') center/contain no-repeat"></div>
+<span style="font-size:12pt;color:#6b7386">le geste du son</span>
+</div>
+</div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(5,1fr);border:2px solid #14213d">
+<span style="display:flex;align-items:center;justify-content:center;height:22mm;font-size:40pt;font-weight:700">I</span>
+<span style="display:flex;align-items:center;justify-content:center;height:22mm;font-size:40pt;border-left:1px solid #dde2e9">i</span>
+<span style="display:flex;align-items:center;justify-content:center;height:22mm;font-size:40pt;border-left:1px solid #dde2e9;font-family:'BA Script'">i</span>
+<span style="display:flex;align-items:center;justify-content:center;height:22mm;font-size:40pt;border-left:1px solid #dde2e9;font-family:'BA Cursive'">i</span>
+<span style="display:flex;align-items:center;justify-content:center;height:22mm;font-size:40pt;border-left:1px solid #dde2e9;font-family:'BA Cursive'">I</span>
+</div>
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:5mm;font-size:14pt">
+<div style="display:flex;align-items:flex-end;gap:3mm"><span style="font-weight:700">Prénom :</span><span style="flex:1;border-bottom:1.5px solid #14213d;height:7mm"></span></div>
+<div style="display:flex;align-items:flex-end;gap:3mm"><span style="font-weight:700">Classe :</span><span style="flex:1;border-bottom:1.5px solid #14213d;height:7mm"></span></div>
+</div>
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:2mm">
+<span style="font-size:12pt;font-weight:700">Mes fiches terminées</span>
+<div style="display:flex;gap:2.5mm;flex-wrap:wrap">
+<sc-for list="{{ numeros }}" as="n" hint-placeholder-count="12">
+<span style="width:11mm;height:11mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;display:flex;align-items:center;justify-content:center;font-size:13pt;font-weight:700">{{ n }}</span>
+</sc-for>
+</div>
+</div>
+</section>
+
+<section class="page" data-screen-label="01 J'écoute, je répète" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto"><div style="background:#8c1c13;color:#fff;padding:3mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:4mm"><span style="font-size:20pt;font-weight:700;letter-spacing:0.04em">LE SON [i]</span><span style="font-size:12pt;letter-spacing:0.1em">FICHE 1</span></div><div style="height:1.5mm;background:#c1440e"></div></div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(7,1fr);border:1px solid #8a91a3"><sc-for list="{{ jours }}" as="j" hint-placeholder-count="7"><span style="height:8mm;display:flex;align-items:center;justify-content:center;font-size:12pt;border-left:1px solid #c9cfd8">{{ j }}</span></sc-for></div>
+<div style="flex:0 0 auto;display:flex;align-items:stretch;border:2px solid #14213d">
+<div style="flex:0 0 auto;width:36mm;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1mm;background:#faf6ec;border-right:2px solid #e4dfc8;padding:2mm">
+<div style="width:28mm;height:26mm;background:url('clean/mot-gris.webp') center/contain no-repeat"></div>
+<span style="font-size:14pt;font-weight:700;letter-spacing:0.05em">GRIS</span>
+</div>
+<div style="flex:1;min-width:0;display:flex;flex-direction:column">
+<div style="flex:1;display:flex;align-items:center;border-bottom:1px solid #dde2e9">
+<span style="flex:1;font-size:36pt;font-weight:700;text-align:center;line-height:1">[i]</span>
+<div style="flex:0 0 auto;width:28mm;height:24mm;border-left:1px dashed #c9cfd8;background:url('clean/geste-son-i.webp') center/contain no-repeat"></div>
+</div>
+<div style="flex:1;display:grid;grid-template-columns:repeat(5,1fr)">
+<span style="display:flex;align-items:center;justify-content:center;font-size:28pt;font-weight:700">I</span>
+<span style="display:flex;align-items:center;justify-content:center;font-size:28pt;border-left:1px solid #eef1f5">i</span>
+<span style="display:flex;align-items:center;justify-content:center;font-size:28pt;border-left:1px solid #eef1f5;font-family:'BA Script'">i</span>
+<span style="display:flex;align-items:center;justify-content:center;font-size:28pt;border-left:1px solid #eef1f5;font-family:'BA Cursive'">i</span>
+<span style="display:flex;align-items:center;justify-content:center;font-size:28pt;border-left:1px solid #eef1f5;font-family:'BA Cursive'">I</span>
+</div>
+</div>
+</div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm">
+<span style="width:8mm;height:8mm;flex:0 0 auto;border-radius:50%;background:#14213d;color:#fff;font-size:13pt;font-weight:700;display:flex;align-items:center;justify-content:center">1</span>
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/ecoute.webp') center/contain no-repeat"></span>
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/mot-parler.webp') center/contain no-repeat"></span>
+<span style="font-size:16pt;font-weight:700">J'écoute. Je répète.</span>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:1fr;gap:4mm">
+<sc-for list="{{ f1 }}" as="m" hint-placeholder-count="6">
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5mm;border:2px solid #14213d;border-radius:3mm;padding:3mm">
+<div style="{{ m.photo }}"></div>
+<span style="font-size:15pt;font-weight:700;letter-spacing:0.04em">{{ m.cap }}</span>
+<span style="font-family:'BA Script';font-size:16pt;color:#4a5262">{{ m.min }}</span>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;border-top:1px solid #c9cfd8;padding-top:2mm;font-size:12pt;color:#4a5262">Compétence : reconnaître le son [i] et le répéter.</div>
+<div style="flex:0 0 auto;display:flex;justify-content:flex-end;margin-top:-1mm"><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12pt;font-weight:700">2</span></div>
+</section>
+
+<section class="page" data-screen-label="02 J'entends ? je coche" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto"><div style="background:#8c1c13;color:#fff;padding:3mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:4mm"><span style="font-size:20pt;font-weight:700;letter-spacing:0.04em">LE SON [i]</span><span style="font-size:12pt;letter-spacing:0.1em">FICHE 2</span></div><div style="height:1.5mm;background:#c1440e"></div></div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(7,1fr);border:1px solid #8a91a3"><sc-for list="{{ jours }}" as="j" hint-placeholder-count="7"><span style="height:8mm;display:flex;align-items:center;justify-content:center;font-size:12pt;border-left:1px solid #c9cfd8">{{ j }}</span></sc-for></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm">
+<span style="width:8mm;height:8mm;flex:0 0 auto;border-radius:50%;background:#14213d;color:#fff;font-size:13pt;font-weight:700;display:flex;align-items:center;justify-content:center">1</span>
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/ecoute.webp') center/contain no-repeat"></span>
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff;display:flex;align-items:center;justify-content:center"><span style="width:6.5mm;height:6.5mm;box-sizing:border-box;border:2px solid #14213d;border-radius:1mm;display:flex;align-items:center;justify-content:center;font-size:14pt;font-weight:700;line-height:1">✓</span></span>
+<span style="font-size:16pt;font-weight:700">J'entends [i] ? Je coche la case.</span>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:1fr;gap:5mm">
+<sc-for list="{{ f2 }}" as="m" hint-placeholder-count="9">
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:2mm;border:2px solid #14213d;border-radius:3mm;padding:3mm">
+<div style="{{ m.photo }}"></div>
+<span style="width:12mm;height:12mm;box-sizing:border-box;border:2.5px solid #14213d;border-radius:1.5mm;display:block"></span>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;border-top:1px solid #c9cfd8;padding-top:2mm;font-size:12pt;color:#4a5262">Compétence : entendre si le son [i] est dans le mot.</div>
+<div style="flex:0 0 auto;display:flex;justify-content:flex-end;margin-top:-1mm"><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12pt;font-weight:700">3</span></div>
+</section>
+
+<section class="page" data-screen-label="03 Où est le son ?" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto"><div style="background:#8c1c13;color:#fff;padding:3mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:4mm"><span style="font-size:20pt;font-weight:700;letter-spacing:0.04em">LE SON [i]</span><span style="font-size:12pt;letter-spacing:0.1em">FICHE 3</span></div><div style="height:1.5mm;background:#c1440e"></div></div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(7,1fr);border:1px solid #8a91a3"><sc-for list="{{ jours }}" as="j" hint-placeholder-count="7"><span style="height:8mm;display:flex;align-items:center;justify-content:center;font-size:12pt;border-left:1px solid #c9cfd8">{{ j }}</span></sc-for></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm">
+<span style="width:8mm;height:8mm;flex:0 0 auto;border-radius:50%;background:#14213d;color:#fff;font-size:13pt;font-weight:700;display:flex;align-items:center;justify-content:center">1</span>
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/ecoute.webp') center/contain no-repeat"></span>
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff;display:flex;align-items:center;justify-content:center;font-size:18pt;font-weight:700">✗</span>
+<span style="font-size:16pt;font-weight:700">Où est le [i] ? Je fais une croix dans la case.</span>
+</div>
+<div style="flex:0 0 auto;font-size:12pt;color:#4a5262;padding-left:11mm">Une case = un morceau du mot.</div>
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:space-around">
+<sc-for list="{{ f3 }}" as="m" hint-placeholder-count="5">
+<div style="display:flex;align-items:center;gap:8mm">
+<div style="flex:0 0 auto;width:30mm;height:30mm;box-sizing:border-box;border:2px solid #14213d;border-radius:3mm;{{ m.fond }}"></div>
+<div style="display:flex;gap:3mm">
+<sc-for list="{{ m.cases }}" as="c" hint-placeholder-count="3">
+<span style="width:20mm;height:20mm;box-sizing:border-box;border:2.5px solid #14213d;border-radius:2mm;display:block"></span>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;border-top:1px solid #c9cfd8;padding-top:2mm;font-size:12pt;color:#4a5262">Compétence : trouver où on entend le son [i] dans le mot.</div>
+<div style="flex:0 0 auto;display:flex;justify-content:flex-end;margin-top:-1mm"><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12pt;font-weight:700">4</span></div>
+</section>
+
+<section class="page" data-screen-label="04 Je trie" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto"><div style="background:#8c1c13;color:#fff;padding:3mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:4mm"><span style="font-size:20pt;font-weight:700;letter-spacing:0.04em">LE SON [i]</span><span style="font-size:12pt;letter-spacing:0.1em">FICHE 4</span></div><div style="height:1.5mm;background:#c1440e"></div></div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(7,1fr);border:1px solid #8a91a3"><sc-for list="{{ jours }}" as="j" hint-placeholder-count="7"><span style="height:8mm;display:flex;align-items:center;justify-content:center;font-size:12pt;border-left:1px solid #c9cfd8">{{ j }}</span></sc-for></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm">
+<span style="width:8mm;height:8mm;flex:0 0 auto;border-radius:50%;background:#14213d;color:#fff;font-size:13pt;font-weight:700;display:flex;align-items:center;justify-content:center">1</span>
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/ecoute.webp') center/contain no-repeat"></span>
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/mot-colle.webp') center/contain no-repeat"></span>
+<span style="font-size:16pt;font-weight:700">Je trie. Je colle les images dans la bonne maison.</span>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;gap:6mm">
+<div style="display:flex;flex-direction:column;border:2.5px solid #1f7553;border-radius:3mm;overflow:hidden;background:#eaf6f0">
+<div style="flex:0 0 auto;height:12mm;background:#1f7553;clip-path:polygon(50% 0,100% 100%,0 100%)"></div>
+<div style="flex:0 0 auto;background:#1f7553;color:#fff;padding:2mm;display:flex;align-items:center;justify-content:center;gap:3mm">
+<span style="width:10mm;height:10mm;border-radius:2mm;background:#fff url('clean/pictos/ecoute.webp') center/contain no-repeat;display:block"></span>
+<span style="font-size:15pt;font-weight:700">J'ENTENDS [i]</span>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:34mm 34mm;justify-content:center;align-content:space-evenly;gap:4mm;padding:4mm">
+<sc-for list="{{ cinq }}" as="c" hint-placeholder-count="5"><span style="width:34mm;height:34mm;box-sizing:border-box;border:2px dashed #1f7553;border-radius:2mm;background:#fff;display:block"></span></sc-for>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;border:2.5px solid #c1440e;border-radius:3mm;overflow:hidden;background:#fbeeea">
+<div style="flex:0 0 auto;height:12mm;background:#c1440e;clip-path:polygon(50% 0,100% 100%,0 100%)"></div>
+<div style="flex:0 0 auto;background:#c1440e;color:#fff;padding:2mm;display:flex;align-items:center;justify-content:center;gap:3mm">
+<span style="position:relative;width:10mm;height:10mm;border-radius:2mm;background:#fff url('clean/pictos/ecoute.webp') center/contain no-repeat;display:block"><span style="position:absolute;left:0;right:0;top:50%;height:1.2mm;margin-top:-0.6mm;background:#c1440e;transform:rotate(-40deg)"></span></span>
+<span style="font-size:15pt;font-weight:700">JE N'ENTENDS PAS</span>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:34mm 34mm;justify-content:center;align-content:space-evenly;gap:4mm;padding:4mm">
+<sc-for list="{{ cinq }}" as="c" hint-placeholder-count="5"><span style="width:34mm;height:34mm;box-sizing:border-box;border:2px dashed #c1440e;border-radius:2mm;background:#fff;display:block"></span></sc-for>
+</div>
+</div>
+</div>
+<div style="flex:0 0 auto;border-top:1px solid #c9cfd8;padding-top:2mm;font-size:12pt;color:#4a5262">Compétence : trier les mots selon qu'on entend [i] ou non. Les images sont sur la feuille à découper.</div>
+<div style="flex:0 0 auto;display:flex;justify-content:flex-end;margin-top:-1mm"><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12pt;font-weight:700">5</span></div>
+</section>
+
+
+<section class="page" data-screen-label="05 Je lis, j'entoure" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto"><div style="background:#8c1c13;color:#fff;padding:3mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:4mm"><span style="font-size:20pt;font-weight:700;letter-spacing:0.04em">LE SON [i]</span><span style="font-size:12pt;letter-spacing:0.1em">FICHE 5</span></div><div style="height:1.5mm;background:#c1440e"></div></div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(7,1fr);border:1px solid #8a91a3"><sc-for list="{{ jours }}" as="j" hint-placeholder-count="7"><span style="height:8mm;display:flex;align-items:center;justify-content:center;font-size:12pt;border-left:1px solid #c9cfd8">{{ j }}</span></sc-for></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm">
+<span style="width:8mm;height:8mm;flex:0 0 auto;border-radius:50%;background:#14213d;color:#fff;font-size:13pt;font-weight:700;display:flex;align-items:center;justify-content:center">1</span>
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/icone-oeil.svg') center/70% no-repeat"></span>
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/entoure.webp') center/contain no-repeat"></span>
+<span style="font-size:16pt;font-weight:700">Je lis. J'entoure les I et les i.</span>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:repeat(8,1fr);grid-auto-rows:1fr;gap:3mm">
+<sc-for list="{{ f6 }}" as="l" hint-placeholder-count="48">
+<span style="display:flex;align-items:center;justify-content:center;border:1.5px solid #dde2e9;border-radius:2mm;font-size:28pt;{{ l.police }}">{{ l.t }}</span>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;border-top:1px solid #c9cfd8;padding-top:2mm;font-size:12pt;color:#4a5262">Compétence : reconnaître la lettre i dans toutes ses écritures.</div>
+<div style="flex:0 0 auto;display:flex;justify-content:flex-end;margin-top:-1mm"><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12pt;font-weight:700">6</span></div>
+</section>
+
+
+<section class="page" data-screen-label="06 Je lis les syllabes" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto"><div style="background:#8c1c13;color:#fff;padding:3mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:4mm"><span style="font-size:20pt;font-weight:700;letter-spacing:0.04em">LE SON [i]</span><span style="font-size:12pt;letter-spacing:0.1em">FICHE 6</span></div><div style="height:1.5mm;background:#c1440e"></div></div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(7,1fr);border:1px solid #8a91a3"><sc-for list="{{ jours }}" as="j" hint-placeholder-count="7"><span style="height:8mm;display:flex;align-items:center;justify-content:center;font-size:12pt;border-left:1px solid #c9cfd8">{{ j }}</span></sc-for></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm">
+<span style="width:8mm;height:8mm;flex:0 0 auto;border-radius:50%;background:#14213d;color:#fff;font-size:13pt;font-weight:700;display:flex;align-items:center;justify-content:center">1</span>
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/icone-oeil.svg') center/70% no-repeat"></span>
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/mot-parler.webp') center/contain no-repeat"></span>
+<span style="font-size:16pt;font-weight:700">Je lis les syllabes à voix haute.</span>
+</div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:4mm">
+<sc-for list="{{ f8a }}" as="s" hint-placeholder-count="8">
+<span style="height:26mm;display:flex;align-items:center;justify-content:center;border:2px solid #14213d;border-radius:3mm;font-size:34pt;font-weight:700">{{ s }}</span>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm;margin-top:4mm">
+<span style="width:8mm;height:8mm;flex:0 0 auto;border-radius:50%;background:#14213d;color:#fff;font-size:13pt;font-weight:700;display:flex;align-items:center;justify-content:center">2</span>
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/icone-oeil.svg') center/70% no-repeat"></span>
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px dashed #8a91a3;border-radius:2mm;background:#fff url('clean/pictos/montre.webp') center/contain no-repeat"></span>
+<span style="font-size:16pt;font-weight:700">Je lis. Je montre la syllabe que le professeur dit.</span>
+</div>
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:space-around">
+<sc-for list="{{ f8b }}" as="r" hint-placeholder-count="4">
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4mm">
+<sc-for list="{{ r.s }}" as="s" hint-placeholder-count="4"><span style="height:16mm;display:flex;align-items:center;justify-content:center;border-bottom:2px solid #c9cfd8;font-size:24pt">{{ s }}</span></sc-for>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;border-top:1px solid #c9cfd8;padding-top:2mm;font-size:12pt;color:#4a5262">Compétence : lire une syllabe (consonne + i).</div>
+<div style="flex:0 0 auto;display:flex;justify-content:flex-end;margin-top:-1mm"><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12pt;font-weight:700">7</span></div>
+</section>
+
+<section class="page" data-screen-label="07 J'écris le mot" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto"><div style="background:#8c1c13;color:#fff;padding:3mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:4mm"><span style="font-size:20pt;font-weight:700;letter-spacing:0.04em">LE SON [i]</span><span style="font-size:12pt;letter-spacing:0.1em">FICHE 7</span></div><div style="height:1.5mm;background:#c1440e"></div></div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(7,1fr);border:1px solid #8a91a3"><sc-for list="{{ jours }}" as="j" hint-placeholder-count="7"><span style="height:8mm;display:flex;align-items:center;justify-content:center;font-size:12pt;border-left:1px solid #c9cfd8">{{ j }}</span></sc-for></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm">
+<span style="width:8mm;height:8mm;flex:0 0 auto;border-radius:50%;background:#14213d;color:#fff;font-size:13pt;font-weight:700;display:flex;align-items:center;justify-content:center">1</span>
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/icone-oeil.svg') center/70% no-repeat"></span>
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/ecris.webp') center/contain no-repeat"></span>
+<span style="font-size:16pt;font-weight:700">Je regarde le mot. Je repasse. J'écris seul.</span>
+</div>
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:space-around">
+<sc-for list="{{ f9 }}" as="m" hint-placeholder-count="4">
+<div style="display:flex;align-items:center;gap:6mm">
+<div style="flex:0 0 auto;width:30mm;height:30mm;box-sizing:border-box;border:2px solid #14213d;border-radius:3mm;{{ m.fond }}"></div>
+<div style="flex:1;min-width:0;display:flex;flex-direction:column">
+<sc-for list="{{ m.lignes }}" as="l" hint-placeholder-count="3">
+<div style="flex:0 0 auto;height:14.8mm">{{ l.svg }}</div>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;border-top:1px solid #c9cfd8;padding-top:2mm;font-size:12pt;color:#4a5262">Compétence : écrire un mot avec le son [i].</div>
+<div style="flex:0 0 auto;display:flex;justify-content:flex-end;margin-top:-1mm"><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12pt;font-weight:700">8</span></div>
+</section>
+
+<section class="page" data-screen-label="10 Bilan" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto"><div style="background:#8c1c13;color:#fff;padding:3mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:4mm"><span style="font-size:20pt;font-weight:700;letter-spacing:0.04em">LE SON [i]</span><span style="font-size:12pt;letter-spacing:0.1em">BILAN</span></div><div style="height:1.5mm;background:#c1440e"></div></div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(7,1fr);border:1px solid #8a91a3"><sc-for list="{{ jours }}" as="j" hint-placeholder-count="7"><span style="height:8mm;display:flex;align-items:center;justify-content:center;font-size:12pt;border-left:1px solid #c9cfd8">{{ j }}</span></sc-for></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm">
+<span style="width:8mm;height:8mm;flex:0 0 auto;border-radius:50%;background:#14213d;color:#fff;font-size:13pt;font-weight:700;display:flex;align-items:center;justify-content:center">1</span>
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/ecoute.webp') center/contain no-repeat"></span>
+<span style="font-size:16pt;font-weight:700">J'entends [i] ? Je coche.</span>
+</div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:4mm">
+<sc-for list="{{ f10a }}" as="m" hint-placeholder-count="4">
+<div style="display:flex;flex-direction:column;align-items:center;gap:2mm;border:2px solid #14213d;border-radius:3mm;padding:2mm">
+<div style="width:100%;height:28mm;{{ m.fond }}"></div>
+<span style="width:11mm;height:11mm;box-sizing:border-box;border:2.5px solid #14213d;border-radius:1.5mm;display:block"></span>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm;margin-top:3mm">
+<span style="width:8mm;height:8mm;flex:0 0 auto;border-radius:50%;background:#14213d;color:#fff;font-size:13pt;font-weight:700;display:flex;align-items:center;justify-content:center">2</span>
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/ecoute.webp') center/contain no-repeat"></span>
+<span style="font-size:16pt;font-weight:700">Où est le [i] ? Je fais une croix.</span>
+</div>
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:5mm">
+<sc-for list="{{ f10b }}" as="m" hint-placeholder-count="2">
+<div style="display:flex;align-items:center;gap:8mm">
+<div style="flex:0 0 auto;width:28mm;height:28mm;box-sizing:border-box;border:2px solid #14213d;border-radius:3mm;{{ m.fond }}"></div>
+<div style="display:flex;gap:3mm"><sc-for list="{{ m.cases }}" as="c" hint-placeholder-count="3"><span style="width:18mm;height:18mm;box-sizing:border-box;border:2.5px solid #14213d;border-radius:2mm;display:block"></span></sc-for></div>
+</div>
+</sc-for>
+</div>
+<div style="flex:1;min-height:0"></div>
+<div style="flex:0 0 auto;border-top:1px solid #c9cfd8;padding-top:2mm;font-size:12pt;color:#4a5262">Bilan : les fiches 2 et 3, avec d'autres mots.</div>
+<div style="flex:0 0 auto;display:flex;justify-content:flex-end;margin-top:-1mm"><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12pt;font-weight:700">9</span></div>
+</section>
+
+
+<section class="page" data-screen-label="11 Les consignes" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:5mm">
+<div style="flex:0 0 auto"><div style="background:#8c1c13;color:#fff;padding:3mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:4mm"><span style="font-size:20pt;font-weight:700;letter-spacing:0.04em">LES CONSIGNES</span><span style="font-size:12pt;letter-spacing:0.1em">les pictos du livret</span></div><div style="height:1.5mm;background:#c1440e"></div></div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:5mm">
+<sc-for list="{{ f12 }}" as="c" hint-placeholder-count="10">
+<div style="display:flex;align-items:center;gap:5mm;border:2px solid #14213d;border-radius:3mm;padding:3mm 5mm">
+<span style="{{ c.style }}">{{ c.glyphe }}</span>
+<span style="font-size:18pt;font-weight:700">{{ c.verbe }}</span>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;display:flex;justify-content:flex-end;margin-top:-1mm"><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12pt;font-weight:700">10</span></div>
+</section>
+
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;ecriture&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;cursive&quot;,&quot;script&quot;],&quot;default&quot;:&quot;cursive&quot;,&quot;tsType&quot;:&quot;'cursive'|'script'&quot;,&quot;section&quot;:&quot;Fiche 8 — J'écris le mot&quot;}}">
+/* LIVRET DES SONS — EXEMPLE SON I (23/09), copie de l'exemple du son A, pour
+   qu'elle choisisse. La version dynamique (mots choisis dans l'écran du son, tous les
+   sons) viendra ensuite, avec SES pages seulement.
+   ⚠ 2 cm de marge partout, 12 pt minimum. ⚠ Aucun mot écrit sur les pages d'écoute
+   (2, 3, 4, 5, 7, bilan). ⚠ Photos vérifiées une à une : pas de dessin (arbre, abricot,
+   tableau, lunettes, sac, porte, livre écartés). */
+const ph = m => "background:#fff url('clean/mot-" + m + ".webp') center/contain no-repeat";
+/* Fiche 7 : AUTANT DE CASES QUE DE SYLLABES, comme sa séance d'origine (23/09 : « pourquoi
+   4 cases ? »). L'élève tape et coche une case à chaque syllabe dite. */
+const SYL = { chemise:3, cerise:3, pyjama:3, radis:2, citron:2, litchi:2, riz:1, lit:1, stylo:2, ciseaux:2, figue:2, frites:2 };
+const ECRIT = { gateau:'gâteau', pasteque:'pastèque', cafe:'café', velo:'vélo' };
+/* ⚠ La réglure se construit ICI et pas dans le gabarit : un trou {{ }} dans un <text> SVG
+   devient un <span> HTML, que le SVG ne peint pas — le mot restait invisible (23/09).
+   Géométrie copiée de ses étiquettes de graphisme 3 mm : texte à y 88, corps 69. */
+const REGL = (t, c, police) => React.createElement('svg',
+  { viewBox: '0 0 1340 148', style: { width: '134mm', height: '14.8mm', display: 'block', overflow: 'visible' } },
+  React.createElement('rect', { x: 2, y: 3, width: 108, height: 55, fill: '#cfe6f8' }),
+  React.createElement('rect', { x: 2, y: 58, width: 108, height: 30, fill: '#93c45f' }),
+  React.createElement('rect', { x: 2, y: 88, width: 108, height: 57, fill: '#c08f61' }),
+  ...[[3,'#2f5fd0',2],[30,'#b9bfc8',1.6],[58,'#3aa03a',2.2],[88,'#8a5a2b',2.6],[116,'#b9bfc8',1.6],[145,'#d94a3d',1.6]]
+    .map(([y, s, w]) => React.createElement('line', { key: y, x1: 0, y1: y, x2: 1340, y2: y, stroke: s, strokeWidth: w })),
+  React.createElement('text', { x: 140, y: 88, fontFamily: police, fontSize: 69, fill: c }, t));
+const mot = m => ({ m, min: ECRIT[m] || m, cap: (ECRIT[m] || m).toLocaleUpperCase('fr-FR'),
+  fond: ph(m), photo: 'width:100%;flex:1;min-height:0;' + ph(m),
+  cases: Array.from({ length: SYL[m] || 2 }, (_, k) => k) });
+const PB = 'width:16mm;height:16mm;flex:0 0 auto;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;';
+const picto = (img, verbe, extra) => ({ verbe, glyphe: '', style: PB + "background:#fff url('" + img + "') center/" + (extra || 'contain') + ' no-repeat;display:block' });
+
+class Component extends DCLogic {
+  renderVals() {
+    /* ⚠ LES MAJUSCULES AUSSI (23/09, sa remarque : « dans le truc de base, il y avait les
+       majuscules ») : I et i, en script, Belle Allure et cursive, mêlés à des lettres proches
+       (j, t, f, r, L, J, T). */
+    /* ⚠ PAS DE « l » MINUSCULE ici : en Arial, I majuscule et l minuscule sont la même barre
+       — l'élève ne peut pas savoir s'il doit entourer (vérifié le 23/09). */
+    const lettres = 'i t I j f I r i L J i T I f i j t i r I j i T I L i f i j I t i r J i f I T i L I j i t i r I'.split(' ');
+    const polices = ['', "font-family:'BA Script'", "font-family:'BA Cursive'", ''];
+    return {
+      numeros: [1,2,3,4,5,6,7,8],
+      jours: ['lundi','mardi','mercredi','jeudi','vendredi','samedi','dimanche'],
+      cinq: [0,1,2,3,4], quatre: [0,1,2,3],
+      f1: ['riz','stylo','chemise','citron','cerise','radis'].map(mot),
+      f2: ['lit','pomme','frites','velo','figue','chat','pyjama','moto','litchi'].map(mot),
+      f3: ['chemise','cerise','pyjama','radis','citron'].map(mot),
+      f5: ['ciseaux','table','figue','banane','lit','poire','stylo','train'].map(mot),
+      f6: lettres.map((t, k) => ({ t, police: polices[k % 4] })),
+      f8a: ['li','mi','ri','si','vi','fi','ni','chi'],
+      f8b: [{ s:['mi','li','ri','si'] }, { s:['ni','vi','chi','fi'] }, { s:['li','ni','mi','vi'] }, { s:['si','chi','ri','fi'] }],
+      /* Fiche 8 : la RÉGLURE ciel · herbe · terre avec son repère de couleur en tête de ligne
+         (23/09, sa demande), proportions de ses étiquettes de graphisme 3 mm. Trois lignes par
+         mot : le modèle, le mot à repasser, la ligne vide. Écriture au choix (prop). */
+      /* ⚠ RÉGLURE COPIÉE DE SES ÉTIQUETTES DE GRAPHISME 3 mm, À L'UNITÉ PRÈS (23/09 : « c'est
+         pas rigoureux, ils doivent apprendre à écrire ») : viewBox 148 de haut = 14,8 mm,
+         lignes à 3 · 30 · 58 · 88 · 116 · 145, texte posé à y = 88 (ligne marron) en corps 69
+         → le corps des minuscules remplit EXACTEMENT l'herbe (58–88 = 3 mm). Ne rien
+         recalculer à la main : c'est ce couple (y 88, corps 69) qu'elle a validé. */
+      f9: ['lit','riz','stylo','citron'].map(m => {
+        const o = mot(m);
+        const police = (this.props.ecriture ?? 'cursive') === 'script' ? 'BA Script, sans-serif' : 'BA Cursive, cursive';
+        o.lignes = [{ svg: REGL(o.min, '#14213d', police) }, { svg: REGL(o.min, '#b8c7dc', police) }, { svg: REGL('', '#fff', police) }];
+        return o;
+      }),
+      f10a: ['frites','pomme','riz','gateau'].map(mot),
+      f10b: ['litchi','cerise'].map(mot),
+      f12: [
+        picto('clean/pictos/ecoute.webp', "J'écoute"),
+        picto('clean/mot-parler.webp', 'Je répète'),
+        picto('clean/icone-oeil.svg', 'Je lis, je regarde', '70%'),
+        { verbe: 'Je coche', glyphe: '✓', style: PB + 'display:flex;align-items:center;justify-content:center;font-size:22pt;font-weight:700' },
+        { verbe: 'Je fais une croix', glyphe: '✗', style: PB + 'display:flex;align-items:center;justify-content:center;font-size:22pt;font-weight:700' },
+        picto('clean/pictos/entoure.webp', "J'entoure"),
+        picto('clean/pictos/taper.webp', 'Je tape dans mes mains'),
+        picto('clean/pictos/montre.webp', 'Je montre'),
+        picto('clean/mot-ciseaux.webp', 'Je découpe'),
+        picto('clean/mot-colle.webp', 'Je colle'),
+        picto('clean/pictos/ecris.webp', "J'écris")
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

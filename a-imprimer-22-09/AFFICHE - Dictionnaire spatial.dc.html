@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+doc-page:not(:defined){visibility:hidden}
+body{margin:0}
+a{color:#1d5c3a}
+a:hover{color:#14213d}
+@media print{.ecran-seul{display:none !important}}
+</style>
+<link rel="stylesheet" href="polices.css" />
+<script src="./doc-page.js"></script>
+</helmet>
+
+<div class="ecran-seul" style="font-family:Helvetica,Arial,sans-serif;padding:16px 18px 6px;display:flex;flex-direction:column;gap:10px">
+  <div style="font-size:16px;font-weight:700;letter-spacing:.02em;color:#14213d">AFFICHE — DICTIONNAIRE SPATIAL</div>
+  <div style="font-size:11.5px;color:#6b7386;line-height:1.5;max-width:74ch">
+    Huit mots des consignes : à gauche, à droite, au-dessus, en-dessous, sur, sous, entre, dans.
+    Une page A4 par mot, le symbole en grand et le mot en capitale, en script et en cursive.
+    Le disque et la barre sont les mêmes sur les huit pages : seule la position change.
+  </div>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+    <button onClick="{{ imprimer }}" style="border:none;background:#2a9d6e;color:#fff;border-radius:9px;padding:10px 18px;font-family:Helvetica,Arial,sans-serif;font-weight:700;font-size:12px;letter-spacing:.04em;cursor:pointer">IMPRIMER</button>
+    <span style="font-size:11.5px;color:#8595a8">À afficher en bande au-dessus du tableau, dans cet ordre.</span>
+  </div>
+</div>
+
+<doc-page size="a4" margin="2cm">
+
+<section class="page" data-screen-label="à gauche" style="padding:2cm;box-sizing:border-box;background:#fff;font-family:Helvetica,'Helvetica Neue',Arial,sans-serif;color:#14213d;display:flex;flex-direction:column">
+  <div style="flex:0 0 auto;display:flex;justify-content:flex-end;font-size:9pt;letter-spacing:.18em;text-transform:uppercase;color:#8a91a3">Dictionnaire spatial</div>
+  <div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center">
+    <div style="position:relative;width:110mm;height:80mm">
+      <div style="position:absolute;left:62mm;top:0;width:12mm;height:80mm;background:#111"></div>
+      <div style="position:absolute;left:20mm;top:27mm;width:26mm;height:26mm;border-radius:50%;background:#ff6701;border:0.8mm solid #111;box-sizing:border-box"></div>
+    </div>
+  </div>
+  <div style="flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:6mm;padding-top:4mm;border-top:1.2px solid #1d5c3a">
+    <span style="font-size:64pt;font-weight:700;line-height:1;letter-spacing:.01em">À GAUCHE</span>
+    <span style="font-family:'BA Script',Helvetica,sans-serif;font-size:48pt;line-height:1">à gauche</span>
+    <span style="font-family:'BA Cursive','BA Script',cursive;font-size:48pt;line-height:1.1;color:#1d5c3a">à gauche</span>
+  </div>
+</section>
+
+<section class="page" data-screen-label="à droite" style="padding:2cm;box-sizing:border-box;background:#fff;font-family:Helvetica,'Helvetica Neue',Arial,sans-serif;color:#14213d;display:flex;flex-direction:column">
+  <div style="flex:0 0 auto;display:flex;justify-content:flex-end;font-size:9pt;letter-spacing:.18em;text-transform:uppercase;color:#8a91a3">Dictionnaire spatial</div>
+  <div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center">
+    <div style="position:relative;width:110mm;height:80mm">
+      <div style="position:absolute;left:36mm;top:0;width:12mm;height:80mm;background:#111"></div>
+      <div style="position:absolute;left:64mm;top:27mm;width:26mm;height:26mm;border-radius:50%;background:#ff6701;border:0.8mm solid #111;box-sizing:border-box"></div>
+    </div>
+  </div>
+  <div style="flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:6mm;padding-top:4mm;border-top:1.2px solid #1d5c3a">
+    <span style="font-size:64pt;font-weight:700;line-height:1;letter-spacing:.01em">À DROITE</span>
+    <span style="font-family:'BA Script',Helvetica,sans-serif;font-size:48pt;line-height:1">à droite</span>
+    <span style="font-family:'BA Cursive','BA Script',cursive;font-size:48pt;line-height:1.1;color:#1d5c3a">à droite</span>
+  </div>
+</section>
+
+<section class="page" data-screen-label="au-dessus" style="padding:2cm;box-sizing:border-box;background:#fff;font-family:Helvetica,'Helvetica Neue',Arial,sans-serif;color:#14213d;display:flex;flex-direction:column">
+  <div style="flex:0 0 auto;display:flex;justify-content:flex-end;font-size:9pt;letter-spacing:.18em;text-transform:uppercase;color:#8a91a3">Dictionnaire spatial</div>
+  <div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center">
+    <div style="position:relative;width:110mm;height:80mm">
+      <div style="position:absolute;left:5mm;top:56mm;width:100mm;height:12mm;background:#111"></div>
+      <div style="position:absolute;left:42mm;top:16mm;width:26mm;height:26mm;border-radius:50%;background:#ff6701;border:0.8mm solid #111;box-sizing:border-box"></div>
+    </div>
+  </div>
+  <div style="flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:6mm;padding-top:4mm;border-top:1.2px solid #1d5c3a">
+    <span style="font-size:64pt;font-weight:700;line-height:1;letter-spacing:.01em">AU-DESSUS</span>
+    <span style="font-family:'BA Script',Helvetica,sans-serif;font-size:48pt;line-height:1">au-dessus</span>
+    <span style="font-family:'BA Cursive','BA Script',cursive;font-size:48pt;line-height:1.1;color:#1d5c3a">au-dessus</span>
+  </div>
+</section>
+
+<section class="page" data-screen-label="en-dessous" style="padding:2cm;box-sizing:border-box;background:#fff;font-family:Helvetica,'Helvetica Neue',Arial,sans-serif;color:#14213d;display:flex;flex-direction:column">
+  <div style="flex:0 0 auto;display:flex;justify-content:flex-end;font-size:9pt;letter-spacing:.18em;text-transform:uppercase;color:#8a91a3">Dictionnaire spatial</div>
+  <div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center">
+    <div style="position:relative;width:110mm;height:80mm">
+      <div style="position:absolute;left:5mm;top:12mm;width:100mm;height:12mm;background:#111"></div>
+      <div style="position:absolute;left:42mm;top:40mm;width:26mm;height:26mm;border-radius:50%;background:#ff6701;border:0.8mm solid #111;box-sizing:border-box"></div>
+    </div>
+  </div>
+  <div style="flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:6mm;padding-top:4mm;border-top:1.2px solid #1d5c3a">
+    <span style="font-size:64pt;font-weight:700;line-height:1;letter-spacing:.01em">EN-DESSOUS</span>
+    <span style="font-family:'BA Script',Helvetica,sans-serif;font-size:48pt;line-height:1">en-dessous</span>
+    <span style="font-family:'BA Cursive','BA Script',cursive;font-size:48pt;line-height:1.1;color:#1d5c3a">en-dessous</span>
+  </div>
+</section>
+
+<section class="page" data-screen-label="sur" style="padding:2cm;box-sizing:border-box;background:#fff;font-family:Helvetica,'Helvetica Neue',Arial,sans-serif;color:#14213d;display:flex;flex-direction:column">
+  <div style="flex:0 0 auto;display:flex;justify-content:flex-end;font-size:9pt;letter-spacing:.18em;text-transform:uppercase;color:#8a91a3">Dictionnaire spatial</div>
+  <div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center">
+    <div style="position:relative;width:110mm;height:80mm">
+      <div style="position:absolute;left:5mm;top:50mm;width:100mm;height:12mm;background:#111"></div>
+      <div style="position:absolute;left:42mm;top:24mm;width:26mm;height:26mm;border-radius:50%;background:#ff6701;border:0.8mm solid #111;box-sizing:border-box"></div>
+    </div>
+  </div>
+  <div style="flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:6mm;padding-top:4mm;border-top:1.2px solid #1d5c3a">
+    <span style="font-size:64pt;font-weight:700;line-height:1;letter-spacing:.01em">SUR</span>
+    <span style="font-family:'BA Script',Helvetica,sans-serif;font-size:48pt;line-height:1">sur</span>
+    <span style="font-family:'BA Cursive','BA Script',cursive;font-size:48pt;line-height:1.1;color:#1d5c3a">sur</span>
+  </div>
+</section>
+
+<section class="page" data-screen-label="sous" style="padding:2cm;box-sizing:border-box;background:#fff;font-family:Helvetica,'Helvetica Neue',Arial,sans-serif;color:#14213d;display:flex;flex-direction:column">
+  <div style="flex:0 0 auto;display:flex;justify-content:flex-end;font-size:9pt;letter-spacing:.18em;text-transform:uppercase;color:#8a91a3">Dictionnaire spatial</div>
+  <div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center">
+    <div style="position:relative;width:110mm;height:80mm">
+      <div style="position:absolute;left:5mm;top:24mm;width:100mm;height:12mm;background:#111"></div>
+      <div style="position:absolute;left:42mm;top:36mm;width:26mm;height:26mm;border-radius:50%;background:#ff6701;border:0.8mm solid #111;box-sizing:border-box"></div>
+    </div>
+  </div>
+  <div style="flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:6mm;padding-top:4mm;border-top:1.2px solid #1d5c3a">
+    <span style="font-size:64pt;font-weight:700;line-height:1;letter-spacing:.01em">SOUS</span>
+    <span style="font-family:'BA Script',Helvetica,sans-serif;font-size:48pt;line-height:1">sous</span>
+    <span style="font-family:'BA Cursive','BA Script',cursive;font-size:48pt;line-height:1.1;color:#1d5c3a">sous</span>
+  </div>
+</section>
+
+<section class="page" data-screen-label="entre" style="padding:2cm;box-sizing:border-box;background:#fff;font-family:Helvetica,'Helvetica Neue',Arial,sans-serif;color:#14213d;display:flex;flex-direction:column">
+  <div style="flex:0 0 auto;display:flex;justify-content:flex-end;font-size:9pt;letter-spacing:.18em;text-transform:uppercase;color:#8a91a3">Dictionnaire spatial</div>
+  <div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center">
+    <div style="position:relative;width:110mm;height:80mm">
+      <div style="position:absolute;left:5mm;top:8mm;width:100mm;height:12mm;background:#111"></div>
+      <div style="position:absolute;left:5mm;top:60mm;width:100mm;height:12mm;background:#111"></div>
+      <div style="position:absolute;left:42mm;top:27mm;width:26mm;height:26mm;border-radius:50%;background:#ff6701;border:0.8mm solid #111;box-sizing:border-box"></div>
+    </div>
+  </div>
+  <div style="flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:6mm;padding-top:4mm;border-top:1.2px solid #1d5c3a">
+    <span style="font-size:64pt;font-weight:700;line-height:1;letter-spacing:.01em">ENTRE</span>
+    <span style="font-family:'BA Script',Helvetica,sans-serif;font-size:48pt;line-height:1">entre</span>
+    <span style="font-family:'BA Cursive','BA Script',cursive;font-size:48pt;line-height:1.1;color:#1d5c3a">entre</span>
+  </div>
+</section>
+
+<section class="page" data-screen-label="dans" style="padding:2cm;box-sizing:border-box;background:#fff;font-family:Helvetica,'Helvetica Neue',Arial,sans-serif;color:#14213d;display:flex;flex-direction:column">
+  <div style="flex:0 0 auto;display:flex;justify-content:flex-end;font-size:9pt;letter-spacing:.18em;text-transform:uppercase;color:#8a91a3">Dictionnaire spatial</div>
+  <div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center">
+    <div style="position:relative;width:110mm;height:80mm">
+      <div style="position:absolute;left:25mm;top:16mm;width:12mm;height:56mm;background:#111"></div>
+      <div style="position:absolute;left:73mm;top:16mm;width:12mm;height:56mm;background:#111"></div>
+      <div style="position:absolute;left:25mm;top:60mm;width:60mm;height:12mm;background:#111"></div>
+      <div style="position:absolute;left:42mm;top:25mm;width:26mm;height:26mm;border-radius:50%;background:#ff6701;border:0.8mm solid #111;box-sizing:border-box"></div>
+    </div>
+  </div>
+  <div style="flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:6mm;padding-top:4mm;border-top:1.2px solid #1d5c3a">
+    <span style="font-size:64pt;font-weight:700;line-height:1;letter-spacing:.01em">DANS</span>
+    <span style="font-family:'BA Script',Helvetica,sans-serif;font-size:48pt;line-height:1">dans</span>
+    <span style="font-family:'BA Cursive','BA Script',cursive;font-size:48pt;line-height:1.1;color:#1d5c3a">dans</span>
+  </div>
+</section>
+
+</doc-page>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* AFFICHE — DICTIONNAIRE SPATIAL (22/09, d'après son PDF mimiclass « Dictionnaire spatial »).
+   Elle a demandé EXACTEMENT les mêmes symboles : ce ne sont pas des dessins mais un disque
+   orange cerclé de noir et une barre noire — redessinés ici en formes CSS, donc nets à
+   n'importe quelle taille, sans image à fabriquer.
+   La convention du document, à ne pas casser :
+     à gauche / à droite  — barre VERTICALE, le disque d'un côté
+     au-dessus / en-dessous — barre HORIZONTALE, disque DÉTACHÉ (pas de contact)
+     sur / sous            — disque EN CONTACT avec la barre
+     entre                 — DEUX barres, disque au milieu
+   ⚠ C'est le contact (sur/sous) qui distingue de au-dessus/en-dessous : ne pas « aligner
+   proprement » les positions, l'écart et le contact portent le sens.
+   Une page A4 portrait par mot, marges 2 cm, les trois écritures empilées comme dans son
+   PDF (la cursive est gardée à sa demande). Rangé dans Affichages de la classe → Au mur. */
+class Component extends DCLogic {
+  renderVals() {
+    return { imprimer: () => window.print() };
+  }
+}
+
+</script>
+</body>
+</html>

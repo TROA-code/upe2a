@@ -180,11 +180,6 @@
     /* LUNDI 21 SEPTEMBRE 2026 — sa demande du 20/09, à CETTE date seule.
        Le puzzle est son ACCROCHE du lundi matin : une photo de Paris cachée sous 100 cases.
        Il ouvre la semaine 1 « Paris / Dans Paris de Paul Éluard ». */
-    /* Mercredi 23/09 — sa demande du 21/09. Différenciation A2 de la séance du son A :
-       les A2 entendent déjà le [a], il leur reste à l'écrire (a / à). */
-    'mercredi-litteracie': [
-      { nom: 'A2 — a ou à ?', f: 'FR - A2 - a ou à.dc.html', date: '2026-09-23' }
-    ],
     'lundi-rituel': [
       { nom: 'Le puzzle à retourner — Paris', f: 'JEU - Le puzzle à retourner.dc.html',
         date: '2026-09-21' }
@@ -211,17 +206,43 @@
         date: '2026-09-22' },
       { nom: 'Étiquettes — les mots', f: 'FR - Étiquettes mots - Dans Paris.dc.html',
         date: '2026-09-22' },
-      { nom: 'Écris les mots', f: 'FR - Écris les mots - Dans Paris.dc.html',
-        date: '2026-09-22' },
-      /* Ajouté le 22/09 à sa demande, sur la séance du jour : les mots repères, la photo
-         sans le mot, l'élève associe puis écrit. D'après la photo du cahier de Farhad. */
-      { nom: 'J’associe et j’écris — les mots repères', f: 'FR - J\'associe et j\'écris (mots repères).dc.html',
-        date: '2026-09-22' }
+      /* Accrochés le 24/09 à sa demande (« tout le livret, les traductions… »), sur le mardi
+         22, premier jour de la séquence — son oui à ma proposition. */
+      { nom: 'Le livret — Dans Paris', f: 'FR - Livret - Dans Paris.dc.html', date: '2026-09-22' },
+      { nom: 'Étiquettes — l’ordre du poème', f: 'FR - Étiquettes ordre - Dans Paris.dc.html', date: '2026-09-22' },
+      { nom: 'Les traductions — Dans Paris', f: 'FR - Dans Paris - Traductions.dc.html', date: '2026-09-22' },
+      { nom: 'Écoute — en arabe égyptien', f: 'FR - Dans Paris - en arabe égyptien.dc.html', date: '2026-09-22' },
+      /* « Écris les mots » et « J'associe et j'écris » étaient ici : REPORTÉS au mercredi
+         23/09 à sa demande du 22/09 (pas eu le temps). */
     ],
-    /* MERCREDI 23 SEPTEMBRE 2026 — l'enregistrement du poème par Paul Éluard. */
+    /* MERCREDI 23 SEPTEMBRE 2026.
+       ⚠ Il y avait DEUX clés 'mercredi-litteracie' dans cet objet : la seconde écrasait la
+       première, et « A2 — a ou à ? » (sa demande du 21/09) ne s'affichait pas. Fusionnées
+       le 22/09 — une seule clé par créneau. */
     'mercredi-litteracie': [
-      { nom: 'Le poème lu par Paul Éluard (audio)', f: 'docs/dans-paris-paul-eluard.mp3',
+      /* Différenciation A2 de la séance du son A (sa demande du 21/09) : les A2 entendent
+         déjà le [a], il leur reste à l'écrire (a / à). */
+      { nom: 'A2 — a ou à ?', f: 'FR - A2 - a ou à.dc.html', date: '2026-09-23' },
+      { nom: 'Le poème — l\'audio', f: 'docs/dans-paris-paul-eluard.mp3',
+        date: '2026-09-23' },
+      /* Le diaporama reste AUSSI sur mardi : sa demande du 22/09, projeté les deux jours. */
+      { nom: 'Diaporama — Dans Paris', f: 'FR - Diaporama - Dans Paris.dc.html',
+        date: '2026-09-23' },
+      /* Reportés du mardi 22/09, sa demande. */
+      { nom: 'Écris les mots — Dans Paris', f: 'FR - Écris les mots - Dans Paris.dc.html',
+        date: '2026-09-23' },
+      { nom: 'J’associe et j’écris — les mots repères', f: 'FR - J\'associe et j\'écris (mots repères).dc.html',
         date: '2026-09-23' }
+    ],
+    /* JEUDI 24 SEPTEMBRE 2026 — sa demande du 24/09 : « on va voir la fin du poème ». */
+    'jeudi-litteracie': [
+      { nom: 'Le livre — Dans Paris (PDF)', f: 'docs/livre-dans-paris.pdf', date: '2026-09-24' },
+      /* 24/09 en classe : « tu me colles la vidéo ». Un .mp4 se lit dans le cadre. */
+      { nom: 'Vidéo — Dans Paris à Valmy', f: 'docs/dans-paris-valmy.mp4', date: '2026-09-24' },
+      /* 24/09, sa demande : « insère sur la date d'aujourd'hui, que je puisse imprimer ». */
+      { nom: 'Je lis, je fais — Dans Paris (A1.1 · A1 · A2)', f: 'FR - Je lis, je fais - Dans Paris.dc.html', date: '2026-09-24' },
+      /* 24/09 : son premier quiz A1.1, « sur cette semaine, on réfléchira ce week-end ». */
+      { nom: 'Quiz — moto, salade, tomate, lit', f: 'QUIZ - Moto, salade, tomate, lit.dc.html', date: '2026-09-24' }
     ],
     'vendredi-litteracie': [
       /* Accroché au 18/09/2026 à sa demande, et à CETTE date seule : le diaporama « Au

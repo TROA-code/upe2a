@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" />
+<style>
+doc-page:not(:defined){visibility:hidden}
+body{margin:0}
+a{color:#b3283c}
+a:hover{color:#8c1f2f}
+@media print{.ecran-seul{display:none !important}}
+</style>
+<script src="./doc-page.js"></script>
+</helmet>
+
+<div class="ecran-seul" style="font-family:Verdana,Tahoma,sans-serif;padding:16px 18px 6px;display:flex;flex-direction:column;gap:10px">
+  <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:16px;letter-spacing:.02em;color:#b3283c">TABLEAU — LECTURE ET DICTÉE</div>
+  <div style="font-size:11.5px;color:#6b7386;line-height:1.5;max-width:74ch">
+    Une A4 à imprimer en A3 : en haut les deux étiquettes LECTURE et DICTÉE, à gauche six
+    cases vides pour les étiquettes-prénoms. La deuxième page porte les six prénoms à
+    découper (80 × 30 mm), même rouge et même lettrage que les vignettes des devoirs, avec
+    une bande de couleur qui dit le groupe d'un coup d'œil — une couleur, aucun mot. Les
+    cases sont plus grandes que les étiquettes : elles se déplacent autant de fois qu'on veut.
+    La troisième page porte 24 étiquettes ✓ pour les cases LECTURE et DICTÉE.
+  </div>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+    <button onClick="{{ imprimer }}" style="border:none;background:#2a9d6e;color:#fff;border-radius:9px;padding:10px 18px;font-family:'Archivo Black',Verdana,sans-serif;font-size:12px;letter-spacing:.04em;cursor:pointer">IMPRIMER</button>
+    <span style="font-size:11.5px;color:#8595a8">Agrandir à 141 % pour le A3. Les prénoms sur papier épais, aimantés ou en pâte adhésive.</span>
+  </div>
+</div>
+
+<doc-page size="a4" margin="2cm">
+
+<section class="page" data-screen-label="Le tableau" style="padding:2cm;box-sizing:border-box;background:#fff;font-family:Verdana,Tahoma,sans-serif;color:#b3283c;display:flex;flex-direction:column;gap:5mm">
+  <div style="flex:0 0 auto;display:flex;align-items:stretch;gap:4mm">
+    <div style="flex:0 0 auto;width:86mm"></div>
+    <div style="flex:1;min-width:0;height:26mm;border:1.2mm solid #b3283c;border-radius:3mm;display:flex;align-items:center;justify-content:center;padding:0 3mm">
+      <span style="font-family:'Archivo Black',Verdana,sans-serif;font-size:17pt;line-height:1;letter-spacing:.01em">LECTURE</span>
+    </div>
+    <div style="flex:1;min-width:0;height:26mm;border:1.2mm solid #b3283c;border-radius:3mm;display:flex;align-items:center;justify-content:center;padding:0 3mm">
+      <span style="font-family:'Archivo Black',Verdana,sans-serif;font-size:17pt;line-height:1;letter-spacing:.01em">DICTÉE</span>
+    </div>
+  </div>
+  <div style="flex:1;min-height:0;display:flex;flex-direction:column;gap:4mm">
+    <sc-for list="{{ rangs }}" as="r" hint-placeholder-count="6">
+    <div style="flex:1;min-height:0;display:flex;align-items:stretch;gap:4mm">
+      <div style="flex:0 0 auto;width:86mm;border:0.5mm dashed #b3283c;border-radius:2mm;box-sizing:border-box"></div>
+      <div style="flex:1;min-width:0;border:0.5mm solid #c9ccd6;border-radius:2mm;box-sizing:border-box"></div>
+      <div style="flex:1;min-width:0;border:0.5mm solid #c9ccd6;border-radius:2mm;box-sizing:border-box"></div>
+    </div>
+    </sc-for>
+  </div>
+</section>
+
+<section class="page" data-screen-label="Les prénoms" style="padding:2cm;box-sizing:border-box;background:#fff;font-family:Verdana,Tahoma,sans-serif;color:#b3283c;display:flex;flex-direction:column;gap:8mm">
+  <div style="flex:0 0 auto;font-size:11pt;color:#4a5262;line-height:1.4">Les six prénoms à découper. La bande de couleur dit le groupe : une couleur, aucun mot.</div>
+  <div style="flex:1;min-height:0;display:flex;flex-wrap:wrap;gap:10mm;align-content:flex-start">
+    <sc-for list="{{ eleves }}" as="e" hint-placeholder-count="6">
+    <div style="width:80mm;height:30mm;border:1.2mm solid #b3283c;border-radius:3mm;box-sizing:border-box;display:flex;align-items:stretch;overflow:hidden">
+      <div style="flex:0 0 auto;width:9mm;background:{{ e.couleur }}"></div>
+      <div style="flex:1;min-width:0;display:flex;align-items:center;justify-content:center;padding:0 3mm">
+        <span style="font-family:'Archivo Black',Verdana,sans-serif;font-size:26pt;line-height:1;letter-spacing:.01em;white-space:nowrap">{{ e.nom }}</span>
+      </div>
+    </div>
+    </sc-for>
+  </div>
+</section>
+
+<section class="page" data-screen-label="Les checks" style="padding:2cm;box-sizing:border-box;background:#fff;font-family:Verdana,Tahoma,sans-serif;color:#2a9d6e;display:flex;flex-direction:column;gap:8mm">
+  <div style="flex:0 0 auto;font-size:11pt;color:#4a5262;line-height:1.4">Les étiquettes ✓ à découper, à poser dans les cases LECTURE et DICTÉE. Vingt-quatre par feuille.</div>
+  <div style="flex:1;min-height:0;display:flex;flex-wrap:wrap;gap:8mm;align-content:flex-start">
+    <sc-for list="{{ checks }}" as="c" hint-placeholder-count="24">
+    <div style="width:30mm;height:28mm;border:1mm solid #2a9d6e;border-radius:3mm;box-sizing:border-box;display:flex;align-items:center;justify-content:center">
+      <span style="font-family:Verdana,Tahoma,sans-serif;font-weight:700;font-size:44pt;line-height:1">✓</span>
+    </div>
+    </sc-for>
+  </div>
+</section>
+
+</doc-page>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* TABLEAU — LECTURE ET DICTÉE (22/09, sa demande).
+   Une A4 qu'elle imprime en A3 : en haut LECTURE et DICTÉE au format des vignettes des
+   devoirs (même rouge #b3283c, même lettrage Archivo Black, même cadre épais), à gauche
+   SIX cases vides où elle pose les étiquettes-prénoms — les cinq élèves + BILAL, qu'elle a
+   ajouté ce jour-là.
+   ⚠ La case (54 × 34 mm) est plus grande que l'étiquette (48 × 24 mm) : la règle de la
+   maison, et ici c'est ce qui permet de déplacer un prénom sans le déchirer.
+   ⚠ Les prénoms viennent de `ELEVES` (emploi-du-temps.js) ; BILAL n'y est pas encore —
+   il est écrit en dur ici, à ajouter à la liste des élèves quand elle le confirmera. */
+/* La BANDE DE COULEUR (22/09, sa demande : « comment je peux les reconnaître aussitôt »).
+   Trois groupes de niveau, repérés par une couleur et RIEN D'AUTRE : pas de mot, pas de
+   chiffre, pas de « groupe 1 » — l'étiquette est affichée au mur, les élèves la voient.
+   Elle les lit d'un coup d'œil, eux n'y lisent pas un classement.
+     bleu   #1d4e89 — Ahmed, Bilal
+     orange #e59a2b — Anita (entre les deux)
+     vert   #2a9d6e — Josefina, Sania, Yasir
+   ⚠ 22/09 : elle a demandé de doubler la TAILLE de l'étiquette, pas le nombre (un seul
+   exemplaire de chaque prénom). Les étiquettes passent de 48 × 24 à 64 × 30 mm, donc la
+   colonne des prénoms du tableau passe de 54 à 70 mm et les deux colonnes de travail
+   tombent à 44 mm : c'est le maximum qui garde SIX rangs sur une A4 et la case plus
+   grande que l'étiquette. En-têtes descendues à 20 pt en conséquence. */
+const ELEVES = [
+  ['Anita', '#e59a2b'], ['Ahmed', '#1d4e89'], ['Josefina', '#2a9d6e'],
+  ['Sania', '#2a9d6e'], ['Yasir', '#2a9d6e'], ['Bilal', '#1d4e89']
+];
+
+class Component extends DCLogic {
+  renderVals() {
+    /* Les étiquettes ✓ (22/09, sa demande) : 24 par feuille, 24 × 24 mm dans des cases de
+       38 × 34 mm. En vert, et SANS croix : on marque ce qui est fait, on ne marque pas
+       l'échec — pas de compteur au mur. */
+    const checks = Array.from({ length: 24 }, (_, i) => ({ n: i + 1 }));
+    return {
+      checks,
+      eleves: ELEVES.map(([nom, couleur]) => ({ nom, couleur })),
+      rangs: ELEVES.map((e, i) => ({ n: i + 1 })),
+      imprimer: () => window.print()
+    };
+  }
+}
+
+</script>
+</body>
+</html>

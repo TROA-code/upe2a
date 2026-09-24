@@ -417,7 +417,7 @@
             <sc-for list="{{ p.ressources }}" as="r" hint-placeholder-count="2">
               <div style="display:flex;gap:9px;align-items:center;border:1.5px solid #e0e7f0;background:#fbfcfe;border-radius:9px;padding:9px 11px;min-width:0">
                 <span style="flex:0 0 auto">{{ r.icone }}</span>
-                <a href="{{ r.href }}" target="{{ r.cible }}" rel="noopener" style="flex:1;min-width:0;font-size:12.5px;font-weight:bold;color:#1d4e89;text-decoration:none;overflow-wrap:anywhere" style-hover="text-decoration:underline">{{ r.nom }}</a>
+                <a href="{{ r.href }}" target="{{ r.cible }}" onClick="{{ r.clic }}" rel="noopener" style="flex:1;min-width:0;font-size:12.5px;font-weight:bold;color:#1d4e89;text-decoration:none;overflow-wrap:anywhere" style-hover="text-decoration:underline">{{ r.nom }}</a>
                 <sc-if value="{{ r.retirable }}" hint-placeholder-val="{{ false }}">
                   <button onClick="{{ r.retirer }}" title="Retirer ce lien" style="flex:0 0 auto;border:0;background:none;color:#b3283c;font-size:12px;font-weight:bold;cursor:pointer;padding:0">retirer</button>
                 </sc-if>
@@ -525,6 +525,20 @@
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:860}}">
+/* Clic sur un PDF de l'appli : téléchargement (Chrome bloque le PDF dans le cadre). Les
+   autres liens gardent leur comportement normal. */
+const pdfClic = (url, nom) => (!url || !/\.pdf(\?|$)/i.test(url) || /^https?:/i.test(url)) ? undefined : async (e) => {
+  e.preventDefault();
+  try {
+    const r = await fetch(url); if (!r.ok) throw new Error(r.status);
+    const b = await r.blob();
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(b);
+    a.download = (url.split('/').pop() || (nom || 'document') + '.pdf');
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  } catch (err) { alert("Le PDF n'a pas pu être téléchargé."); }
+};
 class Component extends DCLogic {
   state = {
     base: null, vue: 'semaine', jour: '', decalage: 0, sel: '',
@@ -1205,7 +1219,8 @@ class Component extends DCLogic {
       /* La date réelle du créneau, pour que le compteur ne promette pas un document daté
          d'un autre jour (18/09). */
       const r = E.ressourcesDe(c, E.iso(E.dateDuJour(lundi, c.jour))).length
-        + ((base.liens || {})[c.id] || []).length;
+        + ((base.liens || {})[c.id] || []).filter(x => !x.date
+          || x.date === E.iso(E.dateDuJour(lundi, c.jour))).length;
       return {
         id: c.id, debut: c.debut, fin: c.fin, titre: c.titre, detail: c.detail || '',
         pied: (dom.nom || '') + (r ? ' · ' + r + (r > 1 ? ' documents' : ' document') : ''),
@@ -1581,9 +1596,14 @@ class Component extends DCLogic {
     const E = window.EDT, s = this.state;
     /* `DOM` est local à renderVals : ici on le recalcule, sinon ReferenceError. */
     const dom = E.domaines(base)[c.domaine] || {};
-    const propres = (base.liens || {})[c.id] || [];
     const jourNom = (E.TOUS_JOURS.find(j => j[0] === c.jour) || [])[1] || c.jour;
     const d = E.dateDuJour(lundi, c.jour);
+    /* 23/09 : un lien peut porter une `date` (ISO) — il ne vaut alors QUE ce jour-là, comme
+       les RESSOURCES datées. Sans date, il revient chaque semaine (ses liens à elle).
+       `_i` garde l'indice d'origine pour que « retirer » vise le bon lien. */
+    const isoJ = E.iso(d);
+    const propres = ((base.liens || {})[c.id] || []).map((r, i) => Object.assign({}, r, { _i: i }))
+      .filter(r => !r.date || r.date === isoJ);
     const eleves = this.elevesConnus();
     const differ = (base.differ || {})[c.id] || {};
 
@@ -1607,15 +1627,22 @@ class Component extends DCLogic {
          projet ouvert dans un nouvel onglet sort du cadre de l'application et l'hôte refuse
          la navigation. On reste dans le même cadre ; seuls les liens externes qu'elle colle
          elle-même gardent `_blank`, juste en dessous. */
+      /* ⚠ UN PDF NE S'OUVRE PAS DANS LE CADRE (24/09, en pleine classe : « Cette page a été
+         bloquée par Chrome »). Chrome refuse d'afficher un PDF dans le cadre de l'appli :
+         on le TÉLÉCHARGE (même méthode que les rituels), sans quitter le cadre. */
       ressources: E.ressourcesDe(c, E.iso(d)).map(r => ({
-        nom: r.nom, href: r.f, cible: '', retirable: false, icone: '\uD83D\uDCC4',
+        nom: r.nom + (/\.pdf$/i.test(r.f) ? ' ↓' : ''), href: r.f, cible: '', retirable: false,
+        icone: '\uD83D\uDCC4', clic: pdfClic(r.f, r.nom),
         retirer: () => {}
       })).concat(propres.map((r, i) => ({
-        nom: r.nom || r.url, href: r.url, cible: '_blank', retirable: true,
+        clic: pdfClic(r.url, r.nom),
+        /* 23/09 : un lien qui pointe vers un fichier de l'appli (pas http) reste dans le
+           cadre, sinon « preview token required ». */
+        nom: r.nom || r.url, href: r.url, cible: /^https?:/i.test(r.url || '') ? '_blank' : '', retirable: true,
         icone: /youtu|vimeo|\.mp4/i.test(r.url || '') ? '\u25B6\uFE0F' : '\uD83D\uDD17',
         retirer: () => this.maj(b => {
           b.liens = b.liens || {};
-          b.liens[c.id] = (b.liens[c.id] || []).filter((x, k) => k !== i);
+          b.liens[c.id] = (b.liens[c.id] || []).filter((x, k) => k !== r._i);
         })
       }))),
       sansRessource: !E.ressourcesDe(c, E.iso(d)).length && !propres.length,

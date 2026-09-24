@@ -732,7 +732,7 @@ Le trait d'union sépare les mots</label>
 </sc-if>
 
 <sc-if value="{{ estAlpha }}" hint-placeholder-val="{{ false }}">
-<div style="flex:1;min-height:0;display:flex;flex-direction:column;gap:10px;padding:14px 22px 0;background:#fdfbef">
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;gap:10px;padding:14px 22px 0;background:#fdfbef;overflow-y:auto;overflow-x:hidden">
 <div style="flex:0 0 auto;display:flex;align-items:center;gap:16px">
 <span style="font-family:Archivo Black, Archivo, sans-serif;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#8a4b1e">{{ alphaSerieTexte }}</span>
 <button onClick="{{ direConsigne }}" title="Écouter la consigne" style="flex:0 0 auto;width:38px;height:38px;border-radius:50%;border:none;background:#f08a24;color:#fff;font-size:17px;line-height:1;cursor:pointer;box-shadow:0 2px 0 #c96f14">&#9658;</button>
@@ -746,7 +746,7 @@ Le trait d'union sépare les mots</label>
 </sc-for>
 </div>
 <div style="flex:0 0 auto;height:3px;border-radius:2px;background:#14213d"></div>
-<div style="flex:1;min-height:0;display:grid;grid-template-columns:{{ alphaColImages }};gap:6px;align-content:start;overflow:auto">
+<div style="flex:0 0 auto;display:grid;grid-template-columns:{{ alphaColImages }};gap:6px;align-content:start;padding-bottom:18px">
 <sc-for list="{{ alphaImages }}" as="g" hint-placeholder-count="9">
 <button onClick="{{ g.choisir }}" style="border:{{ g.epaisseur }} solid {{ g.bord }};border-radius:10px;background:{{ g.fond }};height:{{ alphaTailleImage }};background-repeat:no-repeat;background-image:{{ g.bg }};background-size:{{ g.taille }};background-position:{{ g.position }};background-origin:content-box;padding:5px;opacity:{{ g.visible }};pointer-events:{{ g.clics }};animation:{{ g.anim }};cursor:pointer"></button>
 </sc-for>
@@ -883,7 +883,7 @@ Le trait d'union sépare les mots</label>
 <span style="font-size:11.5px;color:#8a4b1e">{{ j.quantieme }}</span>
 </div>
 <sc-for list="{{ j.docs }}" as="d" hint-placeholder-count="2">
-<a href="{{ d.href }}" target="{{ d.cible }}" rel="noopener" style="display:flex;align-items:center;gap:10px;background:#fff;border-radius:13px;box-shadow:0 4px 12px rgba(0,0,0,0.2);padding:11px 12px;text-decoration:none">
+<a href="{{ d.href }}" target="{{ d.cible }}" onClick="{{ d.clic }}" rel="noopener" style="display:flex;align-items:center;gap:10px;background:#fff;border-radius:13px;box-shadow:0 4px 12px rgba(0,0,0,0.2);padding:11px 12px;text-decoration:none">
 <span style="flex:0 0 auto;width:40px;height:40px;border-radius:11px;background:{{ d.couleur }};color:#fff;font-size:18px;line-height:1;display:flex;align-items:center;justify-content:center">{{ d.glyphe }}</span>
 <span style="flex:1;min-width:0;font-family:Archivo Black, Archivo, sans-serif;font-size:13px;color:#12233b;line-height:1.25">{{ d.titre }}</span>
 </a>
@@ -904,7 +904,7 @@ Le trait d'union sépare les mots</label>
 </div>
 <div style="width:100%;display:grid;grid-template-columns:{{ colToujours }};gap:12px">
 <sc-for list="{{ docsToujours }}" as="d" hint-placeholder-count="1">
-<a href="{{ d.href }}" target="{{ d.cible }}" rel="noopener" style="display:flex;align-items:center;gap:10px;background:#fff;border-radius:13px;box-shadow:0 4px 12px rgba(0,0,0,0.2);padding:11px 12px;text-decoration:none">
+<a href="{{ d.href }}" target="{{ d.cible }}" onClick="{{ d.clic }}" rel="noopener" style="display:flex;align-items:center;gap:10px;background:#fff;border-radius:13px;box-shadow:0 4px 12px rgba(0,0,0,0.2);padding:11px 12px;text-decoration:none">
 <span style="flex:0 0 auto;width:40px;height:40px;border-radius:11px;background:{{ d.couleur }};color:#fff;font-size:18px;line-height:1;display:flex;align-items:center;justify-content:center">{{ d.glyphe }}</span>
 <span style="flex:1;min-width:0;font-family:Archivo Black, Archivo, sans-serif;font-size:13px;color:#12233b;line-height:1.25">{{ d.titre }}</span>
 </a>
@@ -2062,7 +2062,7 @@ Le trait d'union sépare les mots</label>
 </sc-for>
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px">
 <sc-for list="{{ q.docs }}" as="d" hint-placeholder-count="3">
-<a href="{{ d.url }}" style="min-width:0;display:flex;flex-direction:column;gap:7px;background:#fff;border-radius:14px;box-shadow:0 2px 8px rgba(20,33,61,0.14);padding:16px 17px;text-decoration:none;border-top:5px solid {{ q.couleur }}">
+<a href="{{ d.url }}" onClick="{{ d.clic }}" style="min-width:0;display:flex;flex-direction:column;gap:7px;background:#fff;border-radius:14px;box-shadow:0 2px 8px rgba(20,33,61,0.14);padding:16px 17px;text-decoration:none;border-top:5px solid {{ q.couleur }}">
 <span style="font-family:Archivo Black, Archivo, sans-serif;font-size:13.5px;color:#12233b;line-height:1.35">{{ d.titre }}</span>
 <span style="font-size:12px;color:#6b7386;line-height:1.5">{{ d.detail }}</span>
 <span style="font-size:11.5px;color:#1d4e89;font-weight:700">Ouvrir →</span>
@@ -2571,7 +2571,9 @@ const COLL_VIDES=[
  ['ronds','Les ronds','#8a4b1e','à construire',true],
  ['courbes','Les courbes','#8a4b1e','à construire',true],
  ['boucles','Les boucles','#8a4b1e','à construire',true],
- ['ponts','Les ponts','#8a4b1e','à construire',true]
+ ['ponts','Les ponts','#8a4b1e','à construire',true],
+ /* Grandeurs et mesures : « à venir » (23/09, sa décision) — l'onglet se voit, vide. */
+ ['mathsgm','Grandeurs et mesures','#c1440e','à venir',true]
 ];
 /* « Lettres cursive » ne tient pas des fiches de FICHES_SRC mais des DOCUMENTS entiers
    (15/09). C'est ici que vivent les normes d'écriture et les étiquettes de graphisme —
@@ -2587,14 +2589,25 @@ const COLL_DOCS=[
     collection « Les nombres » sont désormais présentées regroupées dans leur livret, et le
     diaporama de l'étoile se range à côté. La collection « nombres » (FICHES_SRC) reste en
     second onglet, pour rouvrir une feuille seule. */
- ['mathsdocs','Les livrets','#e59a2b','les livrets complets et le diaporama'],
+ /* LES MATHS EN TROIS RUBRIQUES + OUTILS (23/09, son accord) : Numération · Géométrie ·
+    Grandeurs et mesures · Outils. Ses livrets PDF (faits par elle, même gabarit : fiches,
+    bilan, J'ai appris, consignes) remplacent mes Livrets 1 et 2, retirés des menus mais
+    fichiers GARDÉS. « Les nombres » (feuilles seules) reste en dernier onglet. */
+ ['mathsnum','Numération','#e59a2b','ses livrets de 0 à 9 999, le tracé, l’étoile'],
+ ['mathsgeo','Géométrie','#2a9d6e','droites, polygones, quadrilatères'],
+ ['mathsoutils','Outils','#6d5bd0','le lexique A5 et le jeu de la marchande'],
  /* LES MOTS REPÈRES (22/09, son accord) : les supports du 11-13/09 n'étaient rangés
     NULLE PART depuis leur création, plus celui du 22/09. Réunis ici dans l'ordre de
     difficulté : je regarde → j'associe → j'écris → je projette. Sous Écriture et non sous
     Lexique parce que tous finissent par faire ÉCRIRE le mot.
     ⚠ « J'écris les mots repères » a été DÉPLACÉE depuis « Lettres cursive » : ne pas la
     remettre en double. */
- ['motsreperes','Les mots repères','#1d4e89','la table de l’alphabet et ses supports']
+ ['motsreperes','Les mots repères','#1d4e89','la table de l’alphabet et ses supports'],
+ /* LES LIVRETS DES SONS (23/09, son accord) : un livret imprimable par son, au gabarit de
+    ses livrets de maths (couverture, fiches avec jours et compétence, bilan, consignes).
+    Pour l'instant A et I, mots fixés ; la version qui lit le choix de mots de l'écran du
+    son reste à faire. */
+ ['livretssons','Les livrets des sons','#8c1c13','un livret à imprimer par son']
 ];
 const DOCS_COLL={
  cursive:[
@@ -2623,6 +2636,11 @@ const DOCS_COLL={
      une fiche de consignes sur une scène de restaurant. */
   ["Les mots outils — étiquettes pour le tableau","Format 170 × 71 mm, mot à 60 pt, trois par feuille : à découper, à coller sur carton et à aimanter au tableau. N’imprimer que les familles utiles. Les 14 mots de son affichage en première famille (un, une, le, la, c’est, ne … pas, il est, trop, et, avec, chez, de, elle, tout), puis huit autres familles.","FR - Les mots outils (étiquettes).dc.html"]
  ],
+ livretssons:[
+  ["Le son A — livret","Couverture, 7 fiches (j’écoute · j’entends ? · où est le [a] ? · je trie · j’entoure · je lis les syllabes · j’écris), bilan, consignes. A4 recto-verso.","FR - Livret des sons (exemple).dc.html"],
+  ["Le son I — livret","Les mêmes pages, avec les mots du son [i].","FR - Livret des sons - son I (exemple).dc.html"],
+  ["Les étiquettes à trier — A et I","Feuille à part, pour la fiche 4 « Je trie » : 3 jeux par page, une page par son.","FR - Étiquettes à trier - Livret des sons.dc.html"]
+ ],
  motsreperes:[
   ["L’abécédaire à coller sur le bureau","Demi-feuille A4 paysage : les 26 lettres en capitale, script et cursive, avec la photo du mot repère. Une par élève, collée sur la table.","FR - Abécédaire des mots repères.dc.html"],
   ["J’associe et j’écris","Deux planches à découper — les 29 photos sans le mot, puis les 29 mots — et trois feuilles : l’élève colle la photo, colle le mot à côté, puis l’écrit sur la ligne.","FR - J'associe et j'écris (mots repères).dc.html"],
@@ -2634,13 +2652,23 @@ const DOCS_COLL={
   ["Utilisation des mots outils","Dix consignes « je lis, je fais » sur la scène de restaurant : un seul mot outil par consigne, en gras, et c’est lui qui dit où agir.","FR - Utilisation des mots outils.dc.html"],
   ["Je lis, je fais — le restaurant","Douze consignes sur la même scène, mais c’est le mot de lexique qui est en gras. Les trois dernières font écrire le mot.","FR - Je lis, je fais - Le restaurant (2).dc.html"]
  ],
- mathsdocs:[
-  ["Livret 1 — Les nombres de 0 à 10","Le livret complet : couverture, référentiel de 0 à 10, les fiches, le bilan et le mémo. C’est lui qui regroupe les feuilles de numération.","MATHS - Livret 1 - Les nombres de 0 à 10.dc.html"],
-  /* Le diaporama se range JUSTE À CÔTÉ du livret 1, sa demande du 15/09 : même domaine,
+ mathsnum:[
+  ["Numération 1 — De 0 à 10","13 pages : associer quantités et nombres, compter et écrire, comparer, ranger, reconnaître vite. Bilan, J’ai appris, consignes.","docs/numeration-1.pdf"],
+  ["Numération 1.1 — Jusqu’à 20","10 pages : les nombres de 11 à 20, le plus, le moins, ranger, compléter une collection. Bilan, J’ai appris, consignes.","docs/numeration-1-1.pdf"],
+  ["Numération 2 — De 0 à 99","24 pages, 18 fiches : chiffres et lettres, compter par 1, 2, 5 et 10, billets de 10 € et pièces, dizaines et unités, comparer, ranger, faire 10 € et 20 €.","docs/numeration-2.pdf"],
+  ["Numération 3 — De 0 à 999","21 pages, 15 fiches : même trame avec les centaines et les billets de 100 €.","docs/numeration-3.pdf"],
+  ["Numération 4 — De 0 à 9 999","17 pages, 11 fiches : tableau m c d u, l’espace entre les milliers, comparer, ranger, la droite graduée, juste avant et juste après.","docs/numeration-4.pdf"],
+  ["Tracer les chiffres","Couverture et dix pages, un chiffre par page, de 0 à 9. Le geste du tracé.","MATHS - Livret 1 bis - Tracer les chiffres.dc.html"],
+  /* Le diaporama se range en Numération (placé le 15/09 à côté du livret 1), sa demande du 15/09 : même domaine,
      même série — le livret est sur la table, l'étoile est au tableau. */
   ["L’étoile des nombres — diaporama","34 étoiles à projeter, de 12 à 150. Six branches autour du nombre : juste avant, juste après, la décomposition, les dizaines et les unités, le nombre en lettres, le dessin. Ce qui est donné change d’une étoile à l’autre.","MATHS - L'étoile des nombres (diaporama).dc.html"],
-  ["Livret 1 bis — Tracer les chiffres","Couverture et dix pages, un chiffre par page, de 0 à 9. Le geste du tracé.","MATHS - Livret 1 bis - Tracer les chiffres.dc.html"],
-  ["Livret 2 — Comparer et ranger","Cinq fiches : plus grand, plus petit, ranger du plus petit au plus grand.","MATHS - Livret 2 - Comparer et ranger.dc.html"],
+ ],
+ mathsgeo:[
+  ["Géométrie 1 — Le vocabulaire de base","15 pages : droite, segment, angle droit, alignement, programme de construction. Règle et équerre.","docs/geometrie-1.pdf"],
+  ["Géométrie 2 — Les polygones","11 pages : polygone ou pas, côtés et sommets, triangle rectangle.","docs/geometrie-2.pdf"],
+  ["Géométrie 3 — Les quadrilatères","17 pages : carré, rectangle, losange — reconnaître, vérifier, tracer.","docs/geometrie-3.pdf"]
+ ],
+ mathsoutils:[
   /* Le lexique de maths A5 (15/09) : un PDF TROUVÉ PAR ELLE sur un site NSA, gardé TEL QUEL
      à sa demande — « je garde le livret A5 fourni, insère-le ». J'avais proposé de le
      refaire en A4 dans le style de l'appli (six cases au registre trop enfantin, deux images
@@ -2667,9 +2695,9 @@ const DOMAINES={
      de A, I et O, désormais fabriquées depuis l'écran du son — les garder en doublon
      ramenait les mots d'origine (ananas, banane…) alors que l'écran en propose d'autres.
      Les fiches de lecture se prennent maintenant dans Lecture → le son → Séance. */
-  lexique:['dico','planches'], lecture:[],
+  lexique:['dico','planches'], lecture:['livretssons'],
   ecriture:['ronds','courbes','boucles','ponts','lettres','cursive','motsreperes','chiffres'],
-  maths:['mathsdocs','nombres']
+  maths:['mathsnum','mathsgeo','mathsgm','mathsoutils','nombres']
 };
 function toutesLesFeuilles(){ return SRC_FICHES().pages; }
 const COMPETENCES=[
@@ -2733,6 +2761,20 @@ const POLITESSE_IMG={'Bonjour !':'geste-bonjour','Bonsoir !':'geste-bonsoir','Me
 const ENFANTS=(()=>{ const e={};
   Object.keys(PARENTS).forEach(p=>PARENTS[p].forEach(n=>{ e[n]=p; }));
   return e; })();
+/* ⚠ UN PDF NE S'OUVRE PAS DANS LE CADRE (24/09, en pleine classe : « Cette page a été
+   bloquée par Chrome »). On le TÉLÉCHARGE, sans quitter le cadre (même méthode que les
+   rituels). Les autres liens gardent leur comportement. */
+const pdfClic = (url) => (!url || !/\.pdf(\?|$)/i.test(url) || /^https?:/i.test(url)) ? undefined : async (e) => {
+  e.preventDefault();
+  try {
+    const r = await fetch(url); if (!r.ok) throw new Error(r.status);
+    const b = await r.blob();
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(b); a.download = decodeURI(url.split('/').pop().split('?')[0]);
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  } catch (err) { alert("Le PDF n'a pas pu être téléchargé."); }
+};
 class Component extends DCLogic {
   state={
     /* Mot de passe de l'ESPACE ENSEIGNANT — « ecole76! » depuis le 15/09 (avant : « ecole »).
@@ -3925,7 +3967,7 @@ class Component extends DCLogic {
     else if(/diaporama/i.test(u+' '+nom)){ couleur='#6d5bd0'; glyphe='\uD83D\uDDBC'; }
     else if(/\.(png|jpe?g|gif|webp)$/i.test(u)){ couleur='#f08a24'; glyphe='\uD83D\uDCF7'; }
     else if(externe){ couleur='#1682a0'; glyphe='\uD83D\uDD17'; }
-    return {titre:nom||u, href:u, cible:externe?'_blank':'', couleur, glyphe};
+    return {titre:(nom||u)+(/\.pdf$/i.test(u)&&!externe?' ↓':''), href:u, cible:externe?'_blank':'', couleur, glyphe, clic:pdfClic(u)};
   }
   panneauSemaine(){
     const E=window.EDT;
@@ -3968,7 +4010,10 @@ class Component extends DCLogic {
         });
         ((base.liens||{})[c.id]||[]).forEach(r=>{
           const u=r.url||'';
-          if(u&&!vus[u]){ vus[u]=1; docs.push(this.punaiseSemaine(r.nom||u,u,true)); }
+          /* 23/09 : un lien daté ne vaut que ce jour-là (sinon il revient chaque semaine). */
+          if(r.date&&r.date!==is) return;
+          /* 23/09 : seul un lien http est externe ; un fichier de l'appli reste dans le cadre. */
+          if(u&&!vus[u]){ vus[u]=1; docs.push(this.punaiseSemaine(r.nom||u,u,/^https?:/i.test(u))); }
         });
       });
       total+=docs.length;
@@ -4544,7 +4589,7 @@ class Component extends DCLogic {
   renderVals(){
     const s=this.state;
     const TITRES_DOM={lexique:'Lexique — fiches à imprimer', jeux:'Lexique — jeux et ateliers',
-      lecture:'Lecture — séances de phonologie', ecriture:'Écriture — apprentissage',
+      lecture:'Lecture — les livrets des sons', ecriture:'Écriture — apprentissage',
       maths:'Mathématiques — fiches à imprimer'};
     const TITRES={accueil:'Espace enseignant',eleve:'Espace élève',groupes:'Gestion des groupes et des élèves',reglages:'Réglages des thèmes',reglagesCode:'Réglages lettres et sons',fabrique:'Fiches et jeux — à fabriquer et à imprimer',bilan:'Bilan des exercices',oral:'Productions orales des thèmes',themes:'Création de thèmes',mdp:'Mot de passe sécurisé',
       sons:'Les sons — la progression de la classe', son:'Le son « '+(s.sonCle||'')+' »', texte:'Lire des textes — les aides à la lecture', creer:'Créer une fiche', outils:TITRES_DOM[s.outilsDomaine]||'Fiches à imprimer', competences:'Bilan des compétences', devoirs:'Je continue chez moi — préparer le travail du soir',
@@ -4575,7 +4620,8 @@ class Component extends DCLogic {
         ['Fiches et jeux','fabrique']]],
       ['Lecture','#4fc3d9',[
         ["L'apprentissage du code",'sons'],
-        ['Lire des textes','texte']]],
+        ['Lire des textes','texte'],
+        ['Les livrets des sons','outils','lecture']]],
       ['Écriture','#8a4b1e',[
         ['Apprentissage','outils','ecriture'],
         ['Créer une fiche','creer']]],
@@ -4613,7 +4659,7 @@ class Component extends DCLogic {
     /* La page d'un son et les réglages des ateliers appartiennent à l'entrée
        « L'apprentissage du code » ; les séances de phonologie vivent dans la page du son. */
     const ecMenu=(s.ecran==='son'||s.ecran==='reglagesCode')?'sons'
-      :((s.ecran==='outils'&&s.outilsDomaine==='lecture')?'sons':s.ecran);
+      :s.ecran;
     const rubCourante=(()=>{
       for(const [rub,,items] of RUBRIQUES)
         for(const [,ec,dom] of items)
@@ -5009,12 +5055,16 @@ class Component extends DCLogic {
       alphaSerieTexte:this.jeu().series
         ? (s.alphaMode==='Évaluation'?'Tout l\u2019alphabet':'Série '+((s.alphaSerie||0)+1)+' / 3')
         : this.jeu().nom,
+      /* 24/09, au lycée : « je ne vois pas toutes les images » en série 2. Les images étaient
+         dans une zone à ascenseur interne (flex:1 + overflow:auto) : sur un écran bas, la 2e
+         rangée restait cachée sous le bord. C'est maintenant tout l'écran du jeu qui défile, et
+         les colonnes ne débordent plus en largeur (minmax(0,1fr)). */
       alphaColLettres:this.jeu().series
-        ? (s.alphaMode==='Évaluation'?'repeat(13,1fr)':'repeat(9,1fr)')
-        : 'repeat('+Math.min(9,this.lotAlpha().length)+',1fr)',
+        ? (s.alphaMode==='Évaluation'?'repeat(13,minmax(0,1fr))':'repeat(9,minmax(0,1fr))')
+        : 'repeat('+Math.min(9,this.lotAlpha().length)+',minmax(0,1fr))',
       alphaColImages:this.jeu().series
-        ? (s.alphaMode==='Évaluation'?'repeat(9,1fr)':'repeat(5,1fr)')
-        : 'repeat('+Math.min(5,this.lotAlpha().length)+',1fr)',
+        ? (s.alphaMode==='Évaluation'?'repeat(9,minmax(0,1fr))':'repeat(5,minmax(0,1fr))')
+        : 'repeat('+Math.min(5,this.lotAlpha().length)+',minmax(0,1fr))',
       alphaTailleLettre:this.jeu().series?(s.alphaMode==='Évaluation'?'26px':'38px'):'30px',
       alphaTailleImage:(this.jeu().series&&s.alphaMode==='Évaluation')?'70px':'112px',
       alphaLettres:(()=>{
@@ -5406,13 +5456,18 @@ class Component extends DCLogic {
       sequences:[
         ['Dans Paris','Paul Éluard','#c4479e',
           [["Le diaporama — les onze images","Les étiquettes du poème dans l'ordre, une par vue, à projeter au tableau pendant l'écoute et la récitation.","FR - Diaporama - Dans Paris.dc.html"],
+           ["Le livret — Dans Paris","Couverture, le poème en images (2 pages), puis 6 fiches : les mots · je complète · masculin/féminin · ce, cet, cette · j'écris (2 pages).","FR - Livret - Dans Paris.dc.html"],
+           ["Le livre — Dans Paris","Ton livre illustré du poème, en PDF. Jeudi 24/09 : la fin du poème.","docs/livre-dans-paris.pdf"],
+           ["Je lis, je fais — Dans Paris","Trois niveaux A1.1 · A1 · A2, deux pages chacun : la chambre au trait à colorier, dessiner, entourer, relier. Pictos au A1.1.","FR - Je lis, je fais - Dans Paris.dc.html"],
+           ["Les traductions","Le début du poème en pachto, arabe égyptien (avec QR pour écouter) et portugais. À découper, à coller hors du livret.","FR - Dans Paris - Traductions.dc.html"],
+           ["Les étiquettes — l'ordre du poème","Quatre jeux de onze étiquettes mélangées par feuille, à coller sur la frise du livret (fiche 1). À imprimer à part.","FR - Étiquettes ordre - Dans Paris.dc.html"],
            ["Les étiquettes — les images","Les onze illustrations à découper, pour reconstituer le poème sur la table ou au tableau.","FR - Étiquettes - Dans Paris.dc.html"],
            ["Les étiquettes — les mots","Les mêmes, en mots : Paris, la rue, la maison… à associer aux images.","FR - Étiquettes mots - Dans Paris.dc.html"],
            ["Écris les mots","Les onze images sans les mots, un trait sous chacune. Une page A4 par élève.","FR - Écris les mots - Dans Paris.dc.html"],
            ["Le texte de la semaine","Les trois niveaux A1.1 · A1 · A2 sur Paris.","FR - Paris - Le texte de la semaine.dc.html"]],
-          [["Le poème lu par Paul Éluard","L'enregistrement de l'auteur. On écoute avant de montrer quoi que ce soit.","docs/dans-paris-paul-eluard.mp3"]]]
+          [["Le poème — l'audio","On écoute avant de montrer quoi que ce soit.","docs/dans-paris-paul-eluard.mp3"]]]
       ].map(([nom,auteur,couleur,docs,audios])=>({nom,auteur,couleur,
-        docs:docs.map(([titre,detail,url])=>({titre,detail,url:encodeURI(url)})),
+        docs:docs.map(([titre,detail,url])=>({titre,detail,url:encodeURI(url),clic:pdfClic(encodeURI(url))})),
         audios:audios.map(([titre,detail,src])=>({titre,detail,src:encodeURI(src)}))})),
       estAffichages:s.ecran==='affichages',
       /* Les cinq affichages déjà créés. Groupés par où ça se colle : au mur, ou sur la

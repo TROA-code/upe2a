@@ -93,8 +93,11 @@ const POSITIONS = [[5.75,90.13],[10.35,81.8],[14.94,73.43],[18.69,63.57],[13.81,
    n'affiche rien. */
 const PROG_DEFAUT = ['a','i','o','u','é','l','m','r','s','f','v','p','t','ch','ou','on','an','in'];
 
-/* Les jeux DE L'APPLI, en plus de ses liens. Un seul aujourd'hui. */
-const JEUX_APPLI = { a: [['Les jeux du son A', 'JEU - Le son A.dc.html']] };
+/* Les jeux DE L'APPLI, en plus de ses liens. Le son I ajouté le 23/09. */
+const JEUX_APPLI = {
+  a: [['Les jeux du son A', 'JEU - Le son A.dc.html']],
+  i: [['Les jeux du son I', 'JEU - Le son I.dc.html']]
+};
 
 class Component extends DCLogic {
   state = { prog: PROG_DEFAUT, jeuxSons: {}, ouvert: '' };

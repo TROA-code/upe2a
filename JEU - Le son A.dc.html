@@ -70,7 +70,7 @@
             </div>
             <div style="flex:1;min-height:132px;display:flex;gap:10px;flex-wrap:wrap;align-content:flex-start;justify-content:center;padding:12px">
               <sc-for list="{{ boiteOui }}" as="v" hint-placeholder-count="0">
-                <span style="{{ v.style }}"></span>
+                <span style="{{ v.style }}"><sc-if value="{{ v.faux }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;left:8%;right:8%;top:50%;height:10px;margin-top:-5px;background:#c1440e;border-radius:5px;transform:rotate(45deg);box-shadow:0 0 0 3px #fff"></span><span style="position:absolute;left:8%;right:8%;top:50%;height:10px;margin-top:-5px;background:#c1440e;border-radius:5px;transform:rotate(-45deg);box-shadow:0 0 0 3px #fff"></span></sc-if></span>
               </sc-for>
             </div>
           </div>
@@ -86,7 +86,7 @@
             </div>
             <div style="flex:1;min-height:132px;display:flex;gap:10px;flex-wrap:wrap;align-content:flex-start;justify-content:center;padding:12px">
               <sc-for list="{{ boiteNon }}" as="v" hint-placeholder-count="0">
-                <span style="{{ v.style }}"></span>
+                <span style="{{ v.style }}"><sc-if value="{{ v.faux }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;left:8%;right:8%;top:50%;height:10px;margin-top:-5px;background:#c1440e;border-radius:5px;transform:rotate(45deg);box-shadow:0 0 0 3px #fff"></span><span style="position:absolute;left:8%;right:8%;top:50%;height:10px;margin-top:-5px;background:#c1440e;border-radius:5px;transform:rotate(-45deg);box-shadow:0 0 0 3px #fff"></span></sc-if></span>
               </sc-for>
             </div>
           </div>
@@ -224,20 +224,31 @@ class Component extends DCLogic {
     /* Seul le jeu 2 (« où est le a ? ») exige des mots QUI contiennent [a] ; les jeux 1,
        3 et 4 ont besoin des deux sortes. */
     let pool = MOTS.map((x, k) => k).filter(k => jeu === 2 ? MOTS[k].a.length > 0 : true);
+    /* « ↻ Cinq autres images » = D'AUTRES images (sa remarque du 23/09 : elle retombait sur
+       les mêmes). Les mots de la manche qu'on vient de finir sont écartés du tirage
+       suivant ; ils reviendront plus tard. Repli sans exclusion si la banque est trop courte. */
+    const avant = (this.state.jeu === jeu && this.state.ordre) || [];
+    const neufs = pool.filter(k => avant.indexOf(k) < 0);
+    const assez = (m) => neufs.filter(k => MOTS[k].a.length > 0).length >= m && neufs.filter(k => MOTS[k].a.length === 0).length >= m;
+    if (jeu === 2 ? neufs.length >= 5 : assez(jeu === 4 ? 4 : 3)) pool = neufs;
+    /* ⚠ LE PARTAGE AVEC / SANS EST TIRÉ AU SORT (sa décision du 23/09) : toujours 3 et 3,
+       l'élève comptait au lieu d'écouter. Règle : AU MOINS 2 de chaque côté.
+       Tri (6 images) : 2, 3 ou 4 avec le son. Jeu 1 (5 images) : 2 ou 3 OUI. */
+    const nbAvec = jeu === 4 ? 2 + Math.floor(Math.random() * 3) : 2 + Math.floor(Math.random() * 2);
     for (let n = pool.length - 1; n > 0; n--) { const r = Math.floor(Math.random() * (n + 1)); [pool[n], pool[r]] = [pool[r], pool[n]]; }
     /* Une manche = CINQ images (sa demande du 21/09 : 44 d'affilée, « ça me saoule »).
        On finit, on voit qu'on a fini, et on choisit de recommencer. */
     if (jeu === 1) {
-      const avec = pool.filter(k => MOTS[k].a.length > 0).slice(0, 3);
-      const sans = pool.filter(k => MOTS[k].a.length === 0).slice(0, 2);
+      const avec = pool.filter(k => MOTS[k].a.length > 0).slice(0, nbAvec);
+      const sans = pool.filter(k => MOTS[k].a.length === 0).slice(0, 5 - nbAvec);
       pool = avec.concat(sans);
       for (let n = pool.length - 1; n > 0; n--) { const r = Math.floor(Math.random() * (n + 1)); [pool[n], pool[r]] = [pool[r], pool[n]]; }
     } else if (jeu === 4) {
       /* Le TRI (sa demande du 21/09, d'après un jeu du commerce en glisser-déposer) :
          SIX images, trois avec [a] et trois sans, pour que les deux boîtes se remplissent
          pareil — sinon l'élève déduit la réponse du nombre de places restantes. */
-      const avec = pool.filter(k => MOTS[k].a.length > 0).slice(0, 3);
-      const sans = pool.filter(k => MOTS[k].a.length === 0).slice(0, 3);
+      const avec = pool.filter(k => MOTS[k].a.length > 0).slice(0, nbAvec);
+      const sans = pool.filter(k => MOTS[k].a.length === 0).slice(0, 6 - nbAvec);
       pool = avec.concat(sans);
       for (let n = pool.length - 1; n > 0; n--) { const r = Math.floor(Math.random() * (n + 1)); [pool[n], pool[r]] = [pool[r], pool[n]]; }
     } else pool = pool.slice(0, 5);
@@ -253,7 +264,7 @@ class Component extends DCLogic {
     if (k === null || k === undefined) return;
     const bon = MOTS[k].a.length > 0;
     const posees = Object.assign({}, this.state.posees);
-    posees[k] = { boite: veutA, juste: veutA === bon };
+    posees[k] = { boite: veutA, juste: veutA === bon, n: Object.keys(posees).length };
     if (veutA !== bon) this.sonRate();
     this.dire(MOTS[k].ecrit || MOTS[k].m);
     this.setState({ posees, choisie: null, zut: veutA !== bon, bravo: veutA === bon });
@@ -382,13 +393,17 @@ class Component extends DCLogic {
       const vignette = (k, ph) => ({
         photo: 'clean/mot-' + MOTS[k].m + '.webp',
         mot: MOTS[k].ecrit || MOTS[k].m,
+        /* ⚠ UNE IMAGE MAL RANGÉE EST BARRÉE d'une grande croix rouge (sa demande du 23/09 :
+           le cadre rouge seul « c'est chelou » — on croyait que le jeu classait raisin dans
+           J'ENTENDS I). La croix dit « pas ici », sans un mot écrit. */
+        faux: !!(ph && !ph.juste),
         /* 132 px : sa demande du 21/09 (« augmente la taille des étiquettes »).
            Aussi la taille minimale confortable au doigt sur tablette. */
         style: 'width:132px;height:132px;box-sizing:border-box;border:4px solid ' +
           (ph ? (ph.juste ? '#2a9d6e' : '#c1440e') : (s.choisie === k ? '#1d4e89' : '#c9cfd8')) +
           ';border-radius:12px;background-color:#fff;background-image:url(clean/mot-' + MOTS[k].m +
           '.webp);background-size:contain;background-repeat:no-repeat;background-position:center' +
-          ';padding:0;overflow:hidden;cursor:pointer;display:block;' +
+          ';padding:0;overflow:hidden;cursor:pointer;display:block;position:relative;' +
           (s.choisie === k ? 'box-shadow:0 0 0 6px rgba(29,78,137,.3);' : ''),
         toucher: () => { this.dire(MOTS[k].ecrit || MOTS[k].m); this.setState({ choisie: k, zut: false, bravo: false }); },
         prendre: (e) => { try { e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text/plain', String(k)); } catch (err) {} this.setState({ choisie: k, zut: false, bravo: false }); }
@@ -404,7 +419,10 @@ class Component extends DCLogic {
       return {
         tri: true, enCours: false, fini: false, gagne: false, rate: false, repondu: false,
         consigne: tout ? "C'est fini." : "Je touche une image, puis je touche la maison. (Je peux aussi la glisser.)",
-        position: '', pastilles: this.pastilles(ordre.length, ordre.length - reste.length),
+        /* ⚠ Les carrés suivent l'ORDRE DES COUPS et passent au ROUGE sur une erreur, comme aux
+           jeux 1 et 2 (23/09 : tout restait vert malgré quatre croix — « c'est bizarre »). */
+        position: '', pastilles: this.pastilles(ordre.length, ordre.length - reste.length,
+          ordre.filter(k => s.posees[k]).sort((x, y) => s.posees[x].n - s.posees[y].n).map(k => s.posees[k].juste)),
         photo: '', cadrePhoto: 'display:none', motAffiche: '', montreMot: false, choix: [], bilan: '', couleurBilan: '#1f7553',
         valider: false, jaiFini: () => {},
         montreSuivant: false, montreRepere: false, styleRepere: 'display:none',
@@ -421,7 +439,9 @@ class Component extends DCLogic {
         lacherOui: (e) => { try { e.preventDefault(); } catch (err) {} this.poser(true); },
         lacherNon: (e) => { try { e.preventDefault(); } catch (err) {} this.poser(false); },
         vrai: true,
-        triZut: s.zut, triBravo: !!s.bravo, triFini: tout,
+        /* À la fin de la manche, plus de BRAVO ni d'OH ZUT : il saluait le DERNIER coup et
+           s'affichait à côté de quatre croix (23/09). Les carrés et les croix disent le reste. */
+        triZut: s.zut && !tout, triBravo: !!s.bravo && !tout, triFini: tout,
         ecouter: () => {}, suivant: () => {},
         rejouer: () => this.melanger(4),
         jeu1: () => this.melanger(1), jeu2: () => this.melanger(2), jeu4: () => this.melanger(4),

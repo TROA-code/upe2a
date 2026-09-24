@@ -15,6 +15,10 @@ le sens avant le texte.
   Rien ne se code sans son accord explicite.
 - Quand une discussion est en cours, ne rien modifier.
 - Proposer, donner un avis motivé, puis attendre qu'elle tranche.
+- ⚠ **Une réponse à UNE question n'est pas un accord sur toute la proposition** (24/09 : elle
+  a répondu « recto verso » au format, j'ai sorti la planche du livret sans son oui — « tu
+  agis sans attendre ma réponse », « arrête d'agir sans me demander »). Chaque changement
+  proposé attend son « oui » à lui.
 - Ne jamais insérer de texte français par expression régulière (trois pannes bloquantes).
 
 ## Impression
@@ -25,7 +29,12 @@ le sens avant le texte.
 - Texte d'un document imprimé : 12 pt minimum.
 
 ## Navigation dans l'appli
-- **Jamais `target="_blank"`** sur un document de l'appli.
+- **Jamais `target="_blank"`** sur un document de l'appli. Sinon : « preview token
+  required » (déjà corrigé le 14/09, le 18/09 et le 23/09). **Le test est l'adresse, pas la
+  provenance** : un lien s'ouvre en `_blank` seulement s'il commence par `http`. Tout
+  fichier du projet (`.dc.html`, `.html`, `.mp3`, `.pdf`, `docs/…`, `clean/…`) reste dans
+  le cadre, même s'il est rangé dans ses `liens` ou arrive par un chemin « externe ». Vaut
+  pour tout nouveau code qui ouvre un document.
 - La classe **`.retour`** déclenche une navigation interne (câblée sur `data-vers`). Tout
   bouton qui n'est pas un retour de page utilise **`.bouton`** — même dessin, aucun
   câblage. L'oubli a déjà renvoyé deux fois à la carte sans raison.
@@ -91,9 +100,11 @@ le sens avant le texte.
 - **Ne rien inventer** : un texte officiel (référentiel, ONISEP, catalogue du lycée) se
   copie, il ne se rédige pas. Pas de formule creuse type « il faut être dynamique » — du
   concret, vérifiable.
-- **Un texte littéraire sous droits ne se recopie JAMAIS** dans l'appli (22/09, « Dans
-  Paris » de Paul Éluard) : on travaille sur les images, les mots isolés et l'audio, pas sur
-  les vers. Et les déterminants suivent le texte — « une maison », « un escalier » : dans ce
+- **Texte littéraire : c'est elle qui tranche.** Le 22/09 j'avais posé « jamais de vers
+  d'Éluard » ; le 23/09 elle a levé l'interdit (« c'est pour un cours, je me suis
+  renseignée, je peux le prendre ») : le texte de « Dans Paris » entre dans le livret. Ne
+  plus le lui rediscuter. Pour un AUTRE texte, lui signaler une fois, puis suivre son choix.
+  Et les déterminants suivent le texte — « une maison », « un escalier » : dans ce
   poème chaque chose est découverte, pas désignée.
 - **Pas de score, pas de compteur d'erreurs** dans les jeux. Ces élèves ont assez
   d'occasions d'être notés.

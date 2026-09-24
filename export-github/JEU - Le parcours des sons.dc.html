@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Atkinson+Hyperlegible:wght@400;700&display=swap" />
+<style>
+  html, body { margin: 0; background: #0d1b2e; }
+  a { color: #7fb2e5; }
+  a:hover { color: #a8ccf0; }
+</style>
+</helmet>
+
+<div style="height:100vh;overflow:hidden;display:flex;flex-direction:column;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;background:#0d1b2e">
+
+  <div style="flex:0 0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:#12233b;color:#fff;padding:11px 18px">
+    <button onClick="{{ accueil }}" style="flex:0 0 auto;border:2px solid #fff;border-radius:11px;background:transparent;color:#fff;min-height:44px;padding:9px 16px;font-family:inherit;font-size:16px;cursor:pointer">← L'accueil</button>
+    <span style="font-family:'Archivo Black',Verdana,sans-serif;font-size:18px;text-transform:uppercase;letter-spacing:.02em">Le parcours des sons</span>
+    <span style="flex:1"></span>
+    <span style="font-size:15px;opacity:.8">{{ compte }}</span>
+  </div>
+
+  <div ref="{{ zone }}" style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:14px;overflow:auto">
+    <div style="{{ stylePlateau }}">
+      <sc-for list="{{ cases }}" as="k" hint-placeholder-count="0">
+        <button onClick="{{ k.toucher }}" title="{{ k.titre }}" style="{{ k.style }}">{{ k.texte }}</button>
+      </sc-for>
+    </div>
+  </div>
+
+  <sc-if value="{{ panneau }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ fermer }}" style="position:fixed;inset:0;z-index:20;background:rgba(9,20,34,.72);display:flex;align-items:center;justify-content:center;padding:20px">
+      <div style="width:100%;max-width:560px;background:#f4f1ea;border-radius:18px;box-shadow:0 18px 50px rgba(0,0,0,.5);padding:22px;display:flex;flex-direction:column;gap:16px">
+        <div style="display:flex;align-items:center;gap:14px">
+          <span style="flex:0 0 auto;width:66px;height:66px;border-radius:999px;background:#c1440e;color:#fff;font-family:'Archivo Black',Verdana,sans-serif;font-size:32px;display:flex;align-items:center;justify-content:center">{{ sonOuvert }}</span>
+          <span style="flex:1;min-width:0;font-family:'Archivo Black',Verdana,sans-serif;font-size:20px;color:#12233b;line-height:1.2">Les jeux du son {{ sonOuvert }}</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:11px">
+          <sc-for list="{{ jeux }}" as="j" hint-placeholder-count="1">
+            <a href="{{ j.url }}" target="{{ j.cible }}" style="display:flex;align-items:center;gap:13px;background:#fff;border:3px solid #12233b;border-radius:14px;padding:14px 16px;text-decoration:none;color:#12233b;min-height:44px" style-hover="background:#eaf1f9">
+              <span style="flex:0 0 auto;width:40px;height:40px;border-radius:11px;background:#1d4e89;color:#fff;font-size:19px;display:flex;align-items:center;justify-content:center">▶</span>
+              <span style="flex:1;min-width:0;font-size:19px;font-weight:700">{{ j.titre }}</span>
+            </a>
+          </sc-for>
+        </div>
+        <button onClick="{{ fermer }}" style="align-self:flex-start;border:3px solid #8a93a1;border-radius:12px;background:#fff;color:#3c4758;min-height:48px;padding:11px 22px;font-family:inherit;font-size:17px;font-weight:700;cursor:pointer">Fermer</button>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* LE PARCOURS DES SONS (22/09, sa demande, d'après un plateau Genially qu'elle m'a montré).
+   Un chemin, 36 cases, un phonème par case. On touche une case, ses jeux en ligne s'ouvrent.
+
+   ⚠ LE PLATEAU NE DÉCIDE RIEN : il LIT son espace enseignant (sa décision du 22/09, pour
+     qu'il n'y ait pas deux listes de sons qui se contredisent).
+       · `upe2a-sons` — SA progression, dans SON ordre (le tableau « Apprentissage du code »,
+         cases qu'elle réarrange en glissant). C'est lui qui donne la place sur le chemin.
+       · `upe2a-themes-perso`.jeuxSons[son] — SES liens de jeux en ligne, son par son.
+     Aucun réglage propre au plateau, aucun panneau « Enseignant » : il en avait un le
+     22/09 au matin, retiré le même jour parce qu'il faisait doublon.
+
+   ⚠ UNE CASE NE S'ALLUME QUE QUAND LE SON A DES JEUX. Elle prépare ses jeux en ligne dans
+     l'espace enseignant — c'est son travail normal — et la case s'ouvre toute seule. Pas de
+     curseur « où en est la classe », pas d'interrupteurs : rien à tenir à jour deux fois.
+
+   ⚠ LES CASES À VENIR RESTENT VIDES, sans lettre (sa demande explicite du 22/09 : « je peux
+     changer d'avis sur ma progression »). Ne JAMAIS pré-remplir le chemin avec l'ordre par
+     défaut : le plateau n'annonce pas ce qui vient, il montre ce qui est prêt.
+
+   ⚠ LE DÉCOR EST SON IMAGE (Gemini, `clean/plateau-sons.webp`, 1600 × 893), chemin VIDE :
+     les 36 cases sont posées dessus en %, calculées sur le masque de la route (distance
+     géodésique le long du ruban, 36 points à intervalle égal). Si elle change l'image,
+     POSITIONS est à recalculer — ne pas y toucher à la main.
+   ⚠ Pas de perspective dans l'image : une route qui rétrécit vers l'horizon rendait les
+     dernières cases minuscules (premier essai du 22/09, jeté).
+   ⚠ Les positions sont en %, donc la taille des pastilles AUSSI (4,9 % / 3,7 %) : en px
+     fixes elles se chevauchaient dès 900 px de large. Écart minimal 6,56 % de la largeur. */
+
+const POSITIONS = [[5.75,90.13],[10.35,81.8],[14.94,73.43],[18.69,63.57],[13.81,49.22],[8.85,41.52],[8.27,26.47],[14.83,15.62],[24.06,16.82],[29.02,28.89],[29.88,43.95],[30.06,60.2],[31,75.11],[34.92,84.68],[42.57,87.63],[50.29,78.1],[51.44,63.8],[46.23,50.26],[42.02,41.22],[41.92,25.48],[48.46,15.17],[57.63,16.07],[63.1,27.84],[64.48,41.96],[66.77,54.45],[69.31,66.48],[72.15,77.99],[77.52,84.94],[86.68,84.01],[91.42,71.15],[88.46,53.89],[82.06,48.32],[78.46,38.19],[82.98,22.83],[87.88,15.02],[92.77,7.21]];
+
+/* L'ordre de départ du tableau « Apprentissage du code » — le même que SONS_INIT dans
+   l'espace enseignant. Il ne sert qu'à placer les sons sur le chemin ; un son sans jeux
+   n'affiche rien. */
+const PROG_DEFAUT = ['a','i','o','u','é','l','m','r','s','f','v','p','t','ch','ou','on','an','in'];
+
+/* Les jeux DE L'APPLI, en plus de ses liens. Un seul aujourd'hui. */
+const JEUX_APPLI = { a: [['Les jeux du son A', 'JEU - Le son A.dc.html']] };
+
+class Component extends DCLogic {
+  state = { prog: PROG_DEFAUT, jeuxSons: {}, ouvert: '' };
+  zone = React.createRef();
+
+  componentDidMount() {
+    let prog = PROG_DEFAUT, jeuxSons = {};
+    try {
+      const a = localStorage.getItem('upe2a-sons');
+      if (a) { const t = JSON.parse(a); if (Array.isArray(t) && t.length) prog = t; }
+    } catch (e) {}
+    try {
+      const b = localStorage.getItem('upe2a-themes-perso');
+      if (b) { const o = JSON.parse(b); if (o && o.jeuxSons) jeuxSons = o.jeuxSons; }
+    } catch (e) {}
+    this.setState({ prog, jeuxSons });
+    this.centrer(prog, jeuxSons);
+  }
+
+  jeuxDe(son, jeuxSons) {
+    const siens = ((jeuxSons || {})[son] || []).map(j => [j[0], j[1], '_blank']);
+    const notres = (JEUX_APPLI[son] || []).map(j => [j[0], j[1], '']);
+    return notres.concat(siens);
+  }
+
+  /* Sur téléphone le plateau est plus large que l'écran (920 px mini pour garder les cases
+     touchables) : on l'ouvre CENTRÉ sur la première case prête. ⚠ Jamais scrollIntoView.
+     ⚠ C'EST LA ZONE QUI DÉFILE, PAS LE DOCUMENT : la racine est en `height:100vh` +
+       `overflow:hidden`. En `min-height:100vh` le plateau (hauteur incompressible de
+       513 px) poussait la racine hors de la fenêtre, le débordement partait sur le
+       document, `scrollTop` n'avait plus aucun effet et la case du a était coupée sous le
+       bas de l'écran. Ne pas revenir à min-height. */
+  centrer(prog, jeuxSons) {
+    let k = prog.findIndex(son => this.jeuxDe(son, jeuxSons).length > 0);
+    if (k < 0) k = 0;
+    const p = POSITIONS[k];
+    requestAnimationFrame(() => {
+      const z = this.zone.current;
+      if (!z || !p) return;
+      z.scrollLeft = Math.max(0, p[0] / 100 * z.scrollWidth - z.clientWidth / 2);
+      z.scrollTop = Math.max(0, p[1] / 100 * z.scrollHeight - z.clientHeight / 2);
+    });
+  }
+
+  renderVals() {
+    const s = this.state;
+
+    const cases = POSITIONS.map((p, k) => {
+      const son = s.prog[k] || '';
+      const jeux = son ? this.jeuxDe(son, s.jeuxSons) : [];
+      const prete = jeux.length > 0;
+      const taille = prete ? 4.9 : 3.7;
+      return {
+        texte: prete ? son : '',
+        titre: prete ? 'Les jeux du son ' + son : '',
+        style: 'position:absolute;box-sizing:border-box;left:' + p[0] + '%;top:' + p[1] + '%' +
+          ';transform:translate(-50%,-50%);width:' + taille + '%;height:auto;aspect-ratio:1' +
+          ';border-radius:999px;border:4px solid ' + (prete ? '#fff' : 'rgba(255,255,255,.55)') +
+          ';background:' + (prete ? '#c1440e' : 'rgba(244,241,234,.55)') + ';color:#fff' +
+          ';font-family:' + (prete ? "'Archivo Black',Verdana,sans-serif" : 'inherit') +
+          ';font-size:clamp(17px,1.9vw,30px);line-height:1;padding:0;display:flex' +
+          ';align-items:center;justify-content:center;cursor:' + (prete ? 'pointer' : 'default') +
+          (prete ? ';box-shadow:0 4px 0 rgba(0,0,0,.28)' : ''),
+        toucher: () => { if (prete) this.setState({ ouvert: son }); }
+      };
+    });
+
+    const pretes = s.prog.filter(son => this.jeuxDe(son, s.jeuxSons).length > 0).length;
+    const jeuxOuverts = s.ouvert ? this.jeuxDe(s.ouvert, s.jeuxSons) : [];
+
+    return {
+      cases, zone: this.zone,
+      compte: pretes + (pretes > 1 ? ' sons à jouer' : ' son à jouer'),
+      panneau: !!s.ouvert,
+      sonOuvert: s.ouvert,
+      jeux: jeuxOuverts.map(j => ({
+        titre: j[0],
+        url: j[1] + (j[2] ? '' : (typeof location !== 'undefined' ? location.search : '')),
+        cible: j[2] || '_self'
+      })),
+      fermer: () => this.setState({ ouvert: '' }),
+      stylePlateau: 'position:relative;width:100%;min-width:920px;max-width:1600px;aspect-ratio:1600/893' +
+        ';background-image:url(clean/plateau-sons.webp);background-size:100% 100%' +
+        ';border-radius:14px;overflow:hidden;box-shadow:0 8px 28px rgba(0,0,0,.4)',
+      accueil: () => {
+        if (typeof history !== 'undefined' && history.length > 1) history.back();
+        else location.href = 'APPLI - Espace enseignant.dc.html' + location.search;
+      }
+    };
+  }
+}
+
+</script>
+</body>
+</html>

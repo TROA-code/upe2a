@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Atkinson+Hyperlegible:wght@400;700&display=swap" />
+<style>
+  html, body { margin: 0; height: 100%; background: #0d1b2e; }
+  @media print { .barre-diapo { display: none !important; } }
+  a { color: #7fb2e5; }
+  a:hover { color: #a8ccf0; }
+</style>
+</helmet>
+
+<!-- ⚠ UN DIAPORAMA A TOUJOURS UN BOUTON DE RETOUR (sa règle du 22/09) : sans lui l'écran
+     est un cul-de-sac, on ne peut sortir qu'avec la flèche du navigateur. Il est POSÉ
+     PAR-DESSUS la scène (`position:fixed`), parce que deck-stage occupe tout l'écran, et
+     il s'effacé à l'impression. Ne jamais le retirer. -->
+<!-- ⚠ LA BARRE EST À DROITE, PAS À GAUCHE : à gauche elle se posait sur la colonne de
+     vignettes (elle fait 298 px pour un rail de 188) et recouvrait la première diapositive,
+     qui devenait inclicable. À droite elle ne rencontre jamais le rail. -->
+<div class="barre-diapo" style="position:fixed;top:14px;right:14px;z-index:50;display:flex;gap:9px;align-items:center">
+  <button onClick="{{ accueil }}" style="border:2px solid rgba(255,255,255,.55);border-radius:11px;background:rgba(18,35,59,.72);color:#fff;min-height:44px;padding:9px 16px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:15px;cursor:pointer;backdrop-filter:blur(3px)" style-hover="background:#12233b">← L'accueil</button>
+  <button onClick="{{ basculeVignettes }}" style="border:2px solid rgba(255,255,255,.35);border-radius:11px;background:rgba(18,35,59,.5);color:#fff;min-height:44px;padding:9px 16px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:15px;cursor:pointer;backdrop-filter:blur(3px)" style-hover="background:#12233b">{{ libelleVignettes }}</button>
+</div>
+
+<x-import component-from-global-scope="deck-stage" from="./deck-stage.js" width="1920" height="1080" hint-size="100%,100%">
+
+  <section data-label="Titre" data-screen-label="01" data-speaker-notes="On écoute le poème une première fois, sans rien montrer. Puis on ouvre le diaporama." style="width:100%;height:100%;box-sizing:border-box;background:#f4f1ea;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:40px;padding:120px">
+    <span style="font-family:'Archivo Black',Verdana,sans-serif;font-size:130px;line-height:1.05;color:#12233b;text-align:center;letter-spacing:.01em">Dans Paris</span>
+    <span style="font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:54px;color:#c1440e;text-align:center">Paul Éluard</span>
+  </section>
+
+  <section data-label="paris" data-screen-label="02" data-speaker-notes="Paris. On montre, on dit, ils répètent." style="width:100%;height:100%;box-sizing:border-box;background:#f4f1ea;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;padding:70px">
+    <span style="flex:1;min-height:0;width:100%;background-image:url(clean/poeme-paris-paris.webp);background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+    <span style="flex:0 0 auto;font-family:'Archivo Black',Verdana,sans-serif;font-size:96px;line-height:1;color:#12233b">Paris</span>
+  </section>
+
+  <section data-label="une rue" data-screen-label="03" data-speaker-notes="Une rue." style="width:100%;height:100%;box-sizing:border-box;background:#f4f1ea;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;padding:70px">
+    <span style="flex:1;min-height:0;width:100%;background-image:url(clean/poeme-paris-rue.webp);background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+    <span style="flex:0 0 auto;font-family:'Archivo Black',Verdana,sans-serif;font-size:96px;line-height:1;color:#12233b">une rue</span>
+  </section>
+
+  <section data-label="une maison" data-screen-label="04" data-speaker-notes="Une maison." style="width:100%;height:100%;box-sizing:border-box;background:#f4f1ea;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;padding:70px">
+    <span style="flex:1;min-height:0;width:100%;background-image:url(clean/poeme-paris-maison.webp);background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+    <span style="flex:0 0 auto;font-family:'Archivo Black',Verdana,sans-serif;font-size:96px;line-height:1;color:#12233b">une maison</span>
+  </section>
+
+  <section data-label="un escalier" data-screen-label="05" data-speaker-notes="Un escalier." style="width:100%;height:100%;box-sizing:border-box;background:#f4f1ea;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;padding:70px">
+    <span style="flex:1;min-height:0;width:100%;background-image:url(clean/poeme-paris-escalier.webp);background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+    <span style="flex:0 0 auto;font-family:'Archivo Black',Verdana,sans-serif;font-size:96px;line-height:1;color:#12233b">un escalier</span>
+  </section>
+
+  <section data-label="une chambre" data-screen-label="06" data-speaker-notes="Une chambre." style="width:100%;height:100%;box-sizing:border-box;background:#f4f1ea;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;padding:70px">
+    <span style="flex:1;min-height:0;width:100%;background-image:url(clean/diapo-paris-chambre.webp);background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+    <span style="flex:0 0 auto;font-family:'Archivo Black',Verdana,sans-serif;font-size:96px;line-height:1;color:#12233b">une chambre</span>
+  </section>
+
+  <section data-label="une table" data-screen-label="07" data-speaker-notes="Une table." style="width:100%;height:100%;box-sizing:border-box;background:#f4f1ea;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;padding:70px">
+    <span style="flex:1;min-height:0;width:100%;background-image:url(clean/diapo-paris-table.webp);background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+    <span style="flex:0 0 auto;font-family:'Archivo Black',Verdana,sans-serif;font-size:96px;line-height:1;color:#12233b">une table</span>
+  </section>
+
+  <section data-label="un tapis" data-screen-label="08" data-speaker-notes="Un tapis." style="width:100%;height:100%;box-sizing:border-box;background:#f4f1ea;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;padding:70px">
+    <span style="flex:1;min-height:0;width:100%;background-image:url(clean/diapo-paris-tapis.webp);background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+    <span style="flex:0 0 auto;font-family:'Archivo Black',Verdana,sans-serif;font-size:96px;line-height:1;color:#12233b">un tapis</span>
+  </section>
+
+  <section data-label="une cage" data-screen-label="09" data-speaker-notes="Une cage." style="width:100%;height:100%;box-sizing:border-box;background:#f4f1ea;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;padding:70px">
+    <span style="flex:1;min-height:0;width:100%;background-image:url(clean/diapo-paris-cage.webp);background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+    <span style="flex:0 0 auto;font-family:'Archivo Black',Verdana,sans-serif;font-size:96px;line-height:1;color:#12233b">une cage</span>
+  </section>
+
+  <section data-label="un nid" data-screen-label="10" data-speaker-notes="Un nid." style="width:100%;height:100%;box-sizing:border-box;background:#f4f1ea;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;padding:70px">
+    <span style="flex:1;min-height:0;width:100%;background-image:url(clean/diapo-paris-nid.webp);background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+    <span style="flex:0 0 auto;font-family:'Archivo Black',Verdana,sans-serif;font-size:96px;line-height:1;color:#12233b">un nid</span>
+  </section>
+
+  <section data-label="un œuf" data-screen-label="11" data-speaker-notes="Un œuf." style="width:100%;height:100%;box-sizing:border-box;background:#f4f1ea;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;padding:70px">
+    <span style="flex:1;min-height:0;width:100%;background-image:url(clean/diapo-paris-oeuf.webp);background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+    <span style="flex:0 0 auto;font-family:'Archivo Black',Verdana,sans-serif;font-size:96px;line-height:1;color:#12233b">un œuf</span>
+  </section>
+
+  <section data-label="un oiseau" data-screen-label="12" data-speaker-notes="Un oiseau. Puis on remonte le poème à l'envers, de l'oiseau jusqu'à Paris." style="width:100%;height:100%;box-sizing:border-box;background:#f4f1ea;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;padding:70px">
+    <span style="flex:1;min-height:0;width:100%;background-image:url(clean/diapo-paris-oiseau.webp);background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+    <span style="flex:0 0 auto;font-family:'Archivo Black',Verdana,sans-serif;font-size:96px;line-height:1;color:#12233b">un oiseau</span>
+  </section>
+
+</x-import>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* DIAPORAMA — DANS PARIS (22/09, sa demande) : les étiquettes du poème, une par vue, dans
+   l'ordre du texte. Pour projeter au tableau pendant qu'on écoute et qu'on récite.
+
+   ⚠ L'ORDRE EST CELUI DU POÈME et il ne se mélange pas : paris, rue, maison, escalier,
+     chambre, table, tapis, cage, nid, œuf, oiseau. Le texte s'emboîte — c'est l'ordre qui
+     fait comprendre, chaque chose est DANS la précédente.
+   ⚠ LE POÈME LUI-MÊME N'EST PAS RECOPIÉ ICI : il est sous droits. Seuls les noms des onze
+     images sont écrits, avec leur article. Ne jamais ajouter les vers.
+   ⚠ TROIS PRÉFIXES, À NE PAS MÉLANGER :
+       · `diapo-paris-` — SA SÉRIE CUMULATIVE du 22/09 (Gemini) : la MÊME chambre, où l'on
+         ajoute une chose à chaque vue — la table, la nappe, la cage, le nid, l'œuf, puis
+         l'oiseau. C'est ce qui fait comprendre que chaque chose est DANS la précédente.
+         Ces sept-là ne servent QU'ICI.
+         ⚠ La chambre EST CELLE DE LA SÉRIE, vide (22/09) : l'illustration isolée du PDF
+           montrait une AUTRE chambre, et le diaporama en affichait donc deux différentes —
+           l'emboîtement se cassait, on ne voyait plus que la table est dans CETTE chambre.
+           Ne pas repasser `une chambre` sur `poeme-paris-chambre`.
+       · `poeme-paris-` — les illustrations isolées (son PDF), pour les étiquettes à
+         découper et « Écris les mots ». ⚠ NE PAS y mettre les scènes cumulatives : une
+         étiquette doit montrer UN objet, pas une chambre entière.
+       · `mot-` — ses photos réalistes (mot-maison, mot-table, mot-oiseau), rien à voir.
+   Les quatre premières vues (paris, une rue, une maison, un escalier) sont encore dans
+   l'ancien style : elle n'a pas tranché le 22/09 s'il faut les refaire dans ce décor.
+   ⚠ LES DÉTERMINANTS SONT INDÉFINIS — une maison, un escalier, une chambre (sa correction
+   du 22/09) : c'est ce que dit le texte, chaque chose est découverte, pas désignée. Ne pas
+   les repasser en « la / le ».
+   Le mot est écrit sous l'image : c'est ce qui sert à la lecture collective. S'il faut une
+   version muette pour faire deviner, dupliquer le fichier plutôt que retirer les mots. */
+/* ⚠ LES DEUX BOUTONS S'EFFACENT À L'IMPRESSION : `deck-stage` masque déjà son propre
+   habillage, mais le nôtre est posé par-dessus, hors du composant. */
+const CLE_VIGNETTES = 'upe2a-diapo-paris-vignettes';
+
+class Component extends DCLogic {
+  state = { vignettes: true };
+
+  componentDidMount() {
+    let v = true;
+    try { v = localStorage.getItem(CLE_VIGNETTES) !== 'non'; } catch (e) {}
+    this.setState({ vignettes: v });
+    this.appliquer(v);
+
+    /* ⚠ ON AVANCE AU CLIC SUR L'IMAGE (sa demande du 22/09) : les petites flèches de la
+       barre du bas sont trop fines pour une classe, et au tableau on clique, on ne visse
+       pas. On ignore les clics sur nos boutons, sur la colonne de vignettes et sur la barre
+       du composant — sinon « Masquer les vignettes » ferait aussi avancer d'une vue.
+       Le clic n'avance jamais au-delà de la dernière : on ne veut pas sortir par erreur. */
+    this._clic = (e) => {
+      const chemin = e.composedPath ? e.composedPath() : [];
+      for (const n of chemin) {
+        const c = n && n.classList;
+        if (c && (c.contains('barre-diapo') || c.contains('rail') || c.contains('rail-resize') || c.contains('overlay'))) return;
+      }
+      const d = document.querySelector('deck-stage');
+      if (!d || typeof d.goTo !== 'function') return;
+      const vues = Array.prototype.slice.call(d.querySelectorAll('section'));
+      let i = vues.findIndex(s => s.hasAttribute('data-deck-active'));
+      if (i < 0) i = 0;
+      if (i < vues.length - 1) d.goTo(i + 1);
+    };
+    document.addEventListener('click', this._clic);
+  }
+
+  componentWillUnmount() {
+    if (this._clic) document.removeEventListener('click', this._clic);
+  }
+
+  /* La colonne de vignettes est l'outil de l'enseignante, pas de la classe : projetée, elle
+     mange l'écran et montre la suite du poème avant l'heure (sa demande du 22/09).
+     `no-rail` est un attribut observé de deck-stage : la scène se recadre toute seule. */
+  appliquer(v) {
+    const d = document.querySelector('deck-stage');
+    if (!d) return;
+    if (v) d.removeAttribute('no-rail'); else d.setAttribute('no-rail', '');
+  }
+
+  renderVals() {
+    const v = this.state.vignettes;
+    return {
+      libelleVignettes: v ? 'Masquer les vignettes' : 'Voir les vignettes',
+      basculeVignettes: () => {
+        const n = !v;
+        this.setState({ vignettes: n });
+        try { localStorage.setItem(CLE_VIGNETTES, n ? 'oui' : 'non'); } catch (e) {}
+        this.appliquer(n);
+      },
+      accueil: () => {
+        if (typeof history !== 'undefined' && history.length > 1) history.back();
+        else location.href = 'APPLI - Espace enseignant.dc.html' + location.search;
+      }
+    };
+  }
+}
+
+</script>
+</body>
+</html>

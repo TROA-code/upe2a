@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#1d4e89}
+a:hover{color:#123560}
+</style>
+<link rel="preload" href="fonts/BelleAllureScript2i-Gros.otf" as="font" type="font/otf" crossorigin="" />
+<link rel="preload" href="fonts/BelleAllureCE-Gros.otf" as="font" type="font/otf" crossorigin="" />
+<link rel="stylesheet" href="polices.css" />
+<script src="./doc-page.js"></script>
+</helmet>
+<doc-page size="a4">
+
+<section class="page" data-screen-label="Couverture" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:6mm">
+<div style="flex:0 0 auto;background:#1d4e89;color:#fff;padding:8mm 8mm 7mm;display:flex;flex-direction:column;gap:2mm">
+<span style="font-size:13pt;letter-spacing:0.3em">M O M E N T &nbsp; L I T T É R A I R E</span>
+<span style="font-size:48pt;font-weight:700;letter-spacing:0.03em;line-height:1">DANS PARIS</span>
+<span style="font-size:18pt">Paul Éluard (1895-1952)</span>
+</div>
+<div style="flex:0 0 auto;height:1.5mm;background:#e0a526;margin-top:-6mm"></div>
+<div style="flex:1;min-height:0;background:#fff url('clean/poeme-paris-paris.webp') center/contain no-repeat"></div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(11,1fr);gap:1.5mm">
+<sc-for list="{{ mots }}" as="m" hint-placeholder-count="11">
+<div style="aspect-ratio:1;border:1.5px solid #c9cfd8;border-radius:1.5mm;{{ m.fond }}"></div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:5mm;font-size:14pt">
+<div style="display:flex;align-items:flex-end;gap:3mm"><span style="font-weight:700">Prénom :</span><span style="flex:1;border-bottom:1.5px solid #14213d;height:7mm"></span></div>
+<div style="display:flex;align-items:flex-end;gap:3mm"><span style="font-weight:700">Classe :</span><span style="flex:1;border-bottom:1.5px solid #14213d;height:7mm"></span></div>
+</div>
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:2mm">
+<span style="font-size:12pt;font-weight:700">Mes fiches terminées</span>
+<div style="display:flex;gap:2.5mm">
+<sc-for list="{{ numeros }}" as="n" hint-placeholder-count="6">
+<span style="width:11mm;height:11mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;display:flex;align-items:center;justify-content:center;font-size:13pt;font-weight:700">{{ n }}</span>
+</sc-for>
+</div>
+</div>
+</section>
+
+<section class="page" data-screen-label="Le poème — début" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto"><div style="background:#1d4e89;color:#fff;padding:3mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:4mm"><span style="font-size:20pt;font-weight:700;letter-spacing:0.04em">LE POÈME</span><span style="font-size:12pt;letter-spacing:0.05em">Dans Paris — Paul Éluard</span></div><div style="height:1.5mm;background:#e0a526"></div></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm">
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/ecoute.webp') center/contain no-repeat"></span>
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/icone-oeil.svg') center/70% no-repeat"></span>
+<span style="font-size:16pt;font-weight:700">J'écoute. Je lis.</span>
+</div>
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:space-between">
+<sc-for list="{{ p1 }}" as="v" hint-placeholder-count="10">
+<div style="display:flex;align-items:center;gap:3mm;border-bottom:1px solid #eef1f5;padding-bottom:1mm">
+<div style="flex:0 0 auto;width:17mm;height:17mm;{{ v.fa }}"></div>
+<span style="flex:0 0 auto;font-size:14pt;color:#8a91a3">→</span>
+<div style="flex:0 0 auto;width:17mm;height:17mm;{{ v.fb }}"></div>
+<span style="flex:1;min-width:0;font-size:15pt;padding-left:3mm">{{ v.t }}</span>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;display:flex;justify-content:flex-end;margin-top:-1mm"><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12pt;font-weight:700">2</span></div>
+</section>
+
+<section class="page" data-screen-label="01 Dans l'ordre" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto"><div style="background:#1d4e89;color:#fff;padding:3mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:4mm"><span style="font-size:20pt;font-weight:700;letter-spacing:0.04em">DANS PARIS</span><span style="font-size:12pt;letter-spacing:0.1em">FICHE 1</span></div><div style="height:1.5mm;background:#e0a526"></div></div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(7,1fr);border:1px solid #8a91a3"><sc-for list="{{ jours }}" as="j" hint-placeholder-count="7"><span style="height:8mm;display:flex;align-items:center;justify-content:center;font-size:12pt;border-left:1px solid #c9cfd8">{{ j }}</span></sc-for></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm">
+<span style="width:8mm;height:8mm;flex:0 0 auto;border-radius:50%;background:#14213d;color:#fff;font-size:13pt;font-weight:700;display:flex;align-items:center;justify-content:center">1</span>
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/ecoute.webp') center/contain no-repeat"></span>
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/mot-colle.webp') center/contain no-repeat"></span>
+<span style="font-size:16pt;font-weight:700">J'écoute le poème. Je colle les images dans l'ordre.</span>
+</div>
+<div style="flex:0 0 auto;font-size:12pt;color:#4a5262;padding-left:11mm">Les images sont sur la feuille à découper.</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));align-content:space-evenly;row-gap:6mm">
+<sc-for list="{{ frise }}" as="c" hint-placeholder-count="11">
+<div style="display:flex;align-items:center;gap:1.5mm">
+<div style="flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:1.5mm">
+<span style="width:8mm;height:8mm;border-radius:50%;border:2px solid #14213d;display:flex;align-items:center;justify-content:center;font-size:13pt;font-weight:700">{{ c.n }}</span>
+<span style="width:30mm;height:30mm;box-sizing:border-box;border:2px dashed #14213d;border-radius:2mm;display:block"></span>
+</div>
+<span style="flex:0 0 auto;font-size:20pt;font-weight:700;color:#e0a526;padding-top:9mm">{{ c.fleche }}</span>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;border-top:1px solid #c9cfd8;padding-top:2mm;font-size:12pt;color:#4a5262">Compétence : remettre dans l'ordre les images du poème.</div>
+<div style="flex:0 0 auto;display:flex;justify-content:flex-end;margin-top:-1mm"><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12pt;font-weight:700">3</span></div>
+</section>
+
+
+<section class="page" data-screen-label="02 Les mots" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto"><div style="background:#1d4e89;color:#fff;padding:3mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:4mm"><span style="font-size:20pt;font-weight:700;letter-spacing:0.04em">DANS PARIS</span><span style="font-size:12pt;letter-spacing:0.1em">FICHE 2</span></div><div style="height:1.5mm;background:#e0a526"></div></div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(7,1fr);border:1px solid #8a91a3"><sc-for list="{{ jours }}" as="j" hint-placeholder-count="7"><span style="height:8mm;display:flex;align-items:center;justify-content:center;font-size:12pt;border-left:1px solid #c9cfd8">{{ j }}</span></sc-for></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm">
+<span style="width:8mm;height:8mm;flex:0 0 auto;border-radius:50%;background:#14213d;color:#fff;font-size:13pt;font-weight:700;display:flex;align-items:center;justify-content:center">1</span>
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/ecoute.webp') center/contain no-repeat"></span>
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/mot-parler.webp') center/contain no-repeat"></span>
+<span style="font-size:16pt;font-weight:700">J'écoute. Je répète.</span>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:1fr;gap:4mm">
+<sc-for list="{{ mots }}" as="m" hint-placeholder-count="11">
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1mm;border:2px solid #14213d;border-radius:3mm;padding:2mm;min-height:0">
+<div style="width:100%;flex:1;min-height:0;{{ m.fond }}"></div>
+<span style="font-size:14pt;font-weight:700">{{ m.det }}</span>
+<span style="font-family:'BA Script';font-size:14pt;color:#4a5262">{{ m.detMin }}</span>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;border-top:1px solid #c9cfd8;padding-top:2mm;font-size:12pt;color:#4a5262">Compétence : nommer les onze mots du poème avec leur déterminant.</div>
+<div style="flex:0 0 auto;display:flex;justify-content:flex-end;margin-top:-1mm"><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12pt;font-weight:700">4</span></div>
+</section>
+
+<section class="page" data-screen-label="03 Je complète" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto"><div style="background:#1d4e89;color:#fff;padding:3mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:4mm"><span style="font-size:20pt;font-weight:700;letter-spacing:0.04em">DANS PARIS</span><span style="font-size:12pt;letter-spacing:0.1em">FICHE 3</span></div><div style="height:1.5mm;background:#e0a526"></div></div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(7,1fr);border:1px solid #8a91a3"><sc-for list="{{ jours }}" as="j" hint-placeholder-count="7"><span style="height:8mm;display:flex;align-items:center;justify-content:center;font-size:12pt;border-left:1px solid #c9cfd8">{{ j }}</span></sc-for></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm">
+<span style="width:8mm;height:8mm;flex:0 0 auto;border-radius:50%;background:#14213d;color:#fff;font-size:13pt;font-weight:700;display:flex;align-items:center;justify-content:center">1</span>
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/icone-oeil.svg') center/70% no-repeat"></span>
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/ecris.webp') center/contain no-repeat"></span>
+<span style="font-size:16pt;font-weight:700">Je regarde l'image. J'écris le bon mot.</span>
+</div>
+<div style="flex:0 0 auto;display:flex;flex-wrap:wrap;justify-content:center;gap:2mm 4mm;border:2px dashed #1d4e89;border-radius:3mm;padding:2.5mm 4mm">
+<sc-for list="{{ banque }}" as="b" hint-placeholder-count="10"><span style="font-size:14pt;font-weight:700">{{ b }}</span></sc-for>
+</div>
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:space-between">
+<sc-for list="{{ comp }}" as="c" hint-placeholder-count="10">
+<div style="display:flex;align-items:flex-end;gap:2mm">
+<span style="flex:0 0 auto;font-size:14pt;padding-bottom:1mm">{{ c.pre }}</span>
+<span style="flex:0 0 auto;width:40mm;border-bottom:1.5px solid #14213d;height:9mm"></span>
+<span style="flex:0 0 auto;font-size:14pt;padding-bottom:1mm">.</span>
+<span style="flex:1"></span>
+<div style="flex:0 0 auto;width:15mm;height:15mm;border:1.5px solid #c9cfd8;border-radius:2mm;{{ c.fond }}"></div>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;border-top:1px solid #c9cfd8;padding-top:2mm;font-size:12pt;color:#4a5262">Compétence : retrouver le mot du poème à partir de l'image.</div>
+<div style="flex:0 0 auto;display:flex;justify-content:flex-end;margin-top:-1mm"><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12pt;font-weight:700">5</span></div>
+</section>
+
+<section class="page" data-screen-label="04 Masculin, féminin" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto"><div style="background:#1d4e89;color:#fff;padding:3mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:4mm"><span style="font-size:20pt;font-weight:700;letter-spacing:0.04em">DANS PARIS</span><span style="font-size:12pt;letter-spacing:0.1em">FICHE 4</span></div><div style="height:1.5mm;background:#e0a526"></div></div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(7,1fr);border:1px solid #8a91a3"><sc-for list="{{ jours }}" as="j" hint-placeholder-count="7"><span style="height:8mm;display:flex;align-items:center;justify-content:center;font-size:12pt;border-left:1px solid #c9cfd8">{{ j }}</span></sc-for></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm">
+<span style="width:8mm;height:8mm;flex:0 0 auto;border-radius:50%;background:#14213d;color:#fff;font-size:13pt;font-weight:700;display:flex;align-items:center;justify-content:center">1</span>
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/icone-oeil.svg') center/70% no-repeat"></span>
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/entoure.webp') center/contain no-repeat"></span>
+<span style="font-size:16pt;font-weight:700">J'entoure le mot en bleu ou en rouge.</span>
+</div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5mm">
+<div style="display:flex;align-items:center;gap:3mm;border:2.5px solid #1f5fbf;border-radius:3mm;padding:3mm 4mm">
+<span style="flex:0 0 auto;width:12mm;height:12mm;border-radius:50%;border:3px solid #1f5fbf;display:block"></span>
+<div style="display:flex;flex-direction:column;gap:1mm"><span style="font-size:15pt;font-weight:700;color:#1f5fbf">MASCULIN</span><span style="font-size:13pt;color:#1f5fbf">un · le · ce · cet</span></div>
+</div>
+<div style="display:flex;align-items:center;gap:3mm;border:2.5px solid #c21f1f;border-radius:3mm;padding:3mm 4mm">
+<span style="flex:0 0 auto;width:12mm;height:12mm;border-radius:50%;border:3px solid #c21f1f;display:block"></span>
+<div style="display:flex;flex-direction:column;gap:1mm"><span style="font-size:15pt;font-weight:700;color:#c21f1f">FÉMININ</span><span style="font-size:13pt;color:#c21f1f">une · la · cette</span></div>
+</div>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));align-content:space-evenly;gap:5mm 4mm">
+<sc-for list="{{ genre }}" as="m" hint-placeholder-count="10">
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3mm;border:2px solid #14213d;border-radius:3mm;padding:3mm;min-width:0">
+<div style="width:100%;height:36mm;flex:0 0 auto;{{ m.fond }}"></div>
+<span style="font-size:15pt;font-weight:700;padding:2mm 3mm">{{ m.min }}</span>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;border-top:1px solid #c9cfd8;padding-top:2mm;font-size:12pt;color:#4a5262">Compétence : savoir si un nom est masculin ou féminin.</div>
+<div style="flex:0 0 auto;display:flex;justify-content:flex-end;margin-top:-1mm"><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12pt;font-weight:700">6</span></div>
+</section>
+
+<section class="page" data-screen-label="05 Ce, cet, cette" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto"><div style="background:#1d4e89;color:#fff;padding:3mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:4mm"><span style="font-size:20pt;font-weight:700;letter-spacing:0.04em">DANS PARIS</span><span style="font-size:12pt;letter-spacing:0.1em">FICHE 5</span></div><div style="height:1.5mm;background:#e0a526"></div></div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(7,1fr);border:1px solid #8a91a3"><sc-for list="{{ jours }}" as="j" hint-placeholder-count="7"><span style="height:8mm;display:flex;align-items:center;justify-content:center;font-size:12pt;border-left:1px solid #c9cfd8">{{ j }}</span></sc-for></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm">
+<span style="width:8mm;height:8mm;flex:0 0 auto;border-radius:50%;background:#14213d;color:#fff;font-size:13pt;font-weight:700;display:flex;align-items:center;justify-content:center">1</span>
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/icone-oeil.svg') center/70% no-repeat"></span>
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/ecris.webp') center/contain no-repeat"></span>
+<span style="font-size:16pt;font-weight:700">J'écris ce, cet ou cette.</span>
+</div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(3,1fr);border:2px solid #14213d;border-radius:3mm;overflow:hidden">
+<div style="display:flex;flex-direction:column;align-items:center;gap:1mm;padding:3mm;background:#fdeeee">
+<span style="font-size:12pt;color:#c21f1f;font-weight:700">féminin · la · une</span>
+<span style="font-size:24pt;font-weight:700;color:#c21f1f">CETTE</span>
+<span style="font-size:12pt">cette rue</span>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:1mm;padding:3mm;background:#eaf1fb;border-left:2px solid #14213d">
+<span style="font-size:12pt;color:#1f5fbf;font-weight:700">masculin + consonne</span>
+<span style="font-size:24pt;font-weight:700;color:#1f5fbf">CE</span>
+<span style="font-size:12pt">ce nid</span>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:1mm;padding:3mm;background:#eaf1fb;border-left:2px solid #14213d">
+<span style="font-size:12pt;color:#1f5fbf;font-weight:700">masculin + a e i o u y</span>
+<span style="font-size:24pt;font-weight:700;color:#1f5fbf">CET</span>
+<span style="font-size:12pt">cet œuf</span>
+</div>
+</div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm;color:#4a5262">
+<span style="font-size:14pt">Dans Paris, il y a une rue.</span>
+</div>
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:space-between">
+<sc-for list="{{ demo }}" as="c" hint-placeholder-count="9">
+<div style="display:flex;align-items:flex-end;gap:2mm">
+<span style="flex:0 0 auto;font-size:14pt;padding-bottom:1mm">{{ c.pre }}</span>
+<span style="flex:0 0 auto;width:26mm;border-bottom:1.5px solid #14213d;height:9mm"></span>
+<span style="flex:1;min-width:0;font-size:14pt;padding-bottom:1mm">{{ c.post }}</span>
+<div style="flex:0 0 auto;width:14mm;height:14mm;border:1.5px solid #c9cfd8;border-radius:2mm;{{ c.fond }}"></div>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;border-top:1px solid #c9cfd8;padding-top:2mm;font-size:12pt;color:#4a5262">Compétence : choisir le déterminant démonstratif ce, cet, cette.</div>
+<div style="flex:0 0 auto;display:flex;justify-content:flex-end;margin-top:-1mm"><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12pt;font-weight:700">7</span></div>
+</section>
+
+<sc-for list="{{ ecrire }}" as="pg" hint-placeholder-count="2">
+<section class="page" data-screen-label="06-07 J'écris les mots" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto"><div style="background:#1d4e89;color:#fff;padding:3mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:4mm"><span style="font-size:20pt;font-weight:700;letter-spacing:0.04em">DANS PARIS</span><span style="font-size:12pt;letter-spacing:0.1em">{{ pg.titre }}</span></div><div style="height:1.5mm;background:#e0a526"></div></div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(7,1fr);border:1px solid #8a91a3"><sc-for list="{{ jours }}" as="j" hint-placeholder-count="7"><span style="height:8mm;display:flex;align-items:center;justify-content:center;font-size:12pt;border-left:1px solid #c9cfd8">{{ j }}</span></sc-for></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm">
+<span style="width:8mm;height:8mm;flex:0 0 auto;border-radius:50%;background:#14213d;color:#fff;font-size:13pt;font-weight:700;display:flex;align-items:center;justify-content:center">1</span>
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/icone-oeil.svg') center/70% no-repeat"></span>
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/ecris.webp') center/contain no-repeat"></span>
+<span style="font-size:16pt;font-weight:700">Je repasse. J'écris seul.</span>
+</div>
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:space-around">
+<sc-for list="{{ pg.mots }}" as="m" hint-placeholder-count="5">
+<div style="display:flex;align-items:center;gap:5mm">
+<div style="flex:0 0 auto;width:28mm;height:28mm;box-sizing:border-box;border:2px solid #14213d;border-radius:3mm;{{ m.fond }}"></div>
+<div style="flex:1;min-width:0;display:flex;flex-direction:column">
+<sc-for list="{{ m.lignes }}" as="l" hint-placeholder-count="2">
+<div style="flex:0 0 auto;height:14.8mm">{{ l.svg }}</div>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;border-top:1px solid #c9cfd8;padding-top:2mm;font-size:12pt;color:#4a5262">Compétence : écrire les mots du poème avec leur déterminant.</div>
+<div style="flex:0 0 auto;display:flex;justify-content:flex-end;margin-top:-1mm"><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12pt;font-weight:700">{{ pg.num }}</span></div>
+</section>
+</sc-for>
+
+<section class="page" data-screen-label="08 Où est l'oiseau ?" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto"><div style="background:#1d4e89;color:#fff;padding:3mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:4mm"><span style="font-size:20pt;font-weight:700;letter-spacing:0.04em">DANS PARIS</span><span style="font-size:12pt;letter-spacing:0.1em">FICHE 8</span></div><div style="height:1.5mm;background:#e0a526"></div></div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(7,1fr);border:1px solid #8a91a3"><sc-for list="{{ jours }}" as="j" hint-placeholder-count="7"><span style="height:8mm;display:flex;align-items:center;justify-content:center;font-size:12pt;border-left:1px solid #c9cfd8">{{ j }}</span></sc-for></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm">
+<span style="width:8mm;height:8mm;flex:0 0 auto;border-radius:50%;background:#14213d;color:#fff;font-size:13pt;font-weight:700;display:flex;align-items:center;justify-content:center">1</span>
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/icone-oeil.svg') center/70% no-repeat"></span>
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/ecris.webp') center/contain no-repeat"></span>
+<span style="font-size:16pt;font-weight:700">Où est l'oiseau ? J'écris le bon mot.</span>
+</div>
+<div style="flex:0 0 auto;display:flex;flex-wrap:wrap;justify-content:center;gap:2mm 6mm;border:2px dashed #1d4e89;border-radius:3mm;padding:2.5mm 4mm">
+<sc-for list="{{ prepBanque }}" as="b" hint-placeholder-count="7"><span style="font-size:15pt;font-weight:700">{{ b }}</span></sc-for>
+</div>
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:space-between">
+<sc-for list="{{ preps }}" as="p" hint-placeholder-count="7">
+<div style="display:flex;align-items:center;gap:5mm;border-bottom:1px solid #eef1f5;padding-bottom:1mm">
+<div style="flex:0 0 auto;width:30mm;height:22mm;box-sizing:border-box;border:1.5px solid #c9cfd8;border-radius:2mm;{{ p.fond }}"></div>
+<span style="flex:0 0 auto;font-size:15pt">L'oiseau est</span>
+<span style="flex:0 0 auto;width:34mm;border-bottom:1.5px solid #14213d;height:9mm"></span>
+<span style="flex:0 0 auto;font-size:15pt">{{ p.post }}</span>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;border-top:1px solid #c9cfd8;padding-top:2mm;font-size:12pt;color:#4a5262">Compétence : dire où est une chose avec dans, sur, sous, devant, derrière, à côté de, entre.</div>
+<div style="flex:0 0 auto;display:flex;justify-content:flex-end;margin-top:-1mm"><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12pt;font-weight:700">12</span></div>
+</section>
+
+<section class="page" data-screen-label="Le poème en entier — dans ma langue" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:3mm">
+<div style="flex:0 0 auto"><div style="background:#1d4e89;color:#fff;padding:3mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:4mm"><span style="font-size:20pt;font-weight:700;letter-spacing:0.04em">LE POÈME EN ENTIER</span><span style="font-size:12pt;letter-spacing:0.05em">Dans Paris — Paul Éluard</span></div><div style="height:1.5mm;background:#e0a526"></div></div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:96mm minmax(0,1fr);gap:4mm;align-items:center">
+<div style="display:flex;align-items:center;gap:3mm"><span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/ecoute.webp') center/contain no-repeat"></span><span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/icone-oeil.svg') center/70% no-repeat"></span><span style="font-size:15pt;font-weight:700">J'écoute. Je lis.</span></div>
+<div style="display:flex;align-items:center;gap:3mm"><span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/ecris.webp') center/contain no-repeat"></span><span style="font-size:15pt;font-weight:700">J'écris dans ma langue.</span></div>
+</div>
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:space-between">
+<sc-for list="{{ p1 }}" as="v" hint-placeholder-count="10">
+<div style="display:grid;grid-template-columns:96mm minmax(0,1fr);align-items:end;gap:4mm">
+<div style="display:flex;align-items:center;gap:3mm;min-width:0"><div style="flex:0 0 auto;width:7mm;height:7mm;{{ v.fb }}"></div><span style="font-size:12pt">{{ v.t }}</span></div>
+<span style="display:block;height:7mm;border-bottom:1.5px solid #8a91a3"></span>
+</div>
+</sc-for>
+<div style="flex:0 0 auto;border-top:1.5px dashed #c1440e;margin:1mm 0"></div>
+<sc-for list="{{ p2 }}" as="v" hint-placeholder-count="10">
+<div style="display:grid;grid-template-columns:96mm minmax(0,1fr);align-items:end;gap:4mm">
+<div style="display:flex;align-items:center;gap:3mm;min-width:0"><div style="flex:0 0 auto;width:7mm;height:7mm;{{ v.fa }}"></div><span style="font-size:12pt">{{ v.t }}</span></div>
+<span style="display:block;height:7mm;border-bottom:1.5px solid #8a91a3"></span>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;display:flex;justify-content:flex-end"><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12pt;font-weight:700">13</span></div>
+</section>
+
+<section class="page" data-screen-label="Mon poème" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto"><div style="background:#1d4e89;color:#fff;padding:3mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:4mm"><span style="font-size:20pt;font-weight:700;letter-spacing:0.04em">MON POÈME</span><span style="font-size:12pt;letter-spacing:0.05em">comme Paul Éluard</span></div><div style="height:1.5mm;background:#e0a526"></div></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm"><span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/ecris.webp') center/contain no-repeat"></span><span style="font-size:16pt;font-weight:700">J'écris mon poème.</span></div>
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:space-evenly">
+<sc-for list="{{ monPoeme }}" as="l" hint-placeholder-count="10">
+<div style="display:flex;align-items:flex-end;gap:2mm;font-size:14pt">
+<span style="flex:0 0 auto;padding-bottom:1mm">Dans</span>
+<span style="flex:0 0 auto;width:{{ l.det }};border-bottom:1.5px solid #14213d;height:9mm"></span>
+<span style="flex:1;min-width:0;border-bottom:1.5px solid #14213d;height:9mm"></span>
+<span style="flex:0 0 auto;padding-bottom:1mm">, il y a</span>
+<span style="flex:1;min-width:0;border-bottom:1.5px solid #14213d;height:9mm"></span>
+<span style="flex:0 0 auto;padding-bottom:1mm">.</span>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:5mm;border-top:1px solid #c9cfd8;padding-top:3mm">
+<div style="flex:0 0 auto;width:28mm;height:28mm;background:#fff url('docs/qr-dans-paris-audio.png') center/contain no-repeat"></div>
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/ecoute.webp') center/contain no-repeat"></span>
+<span style="flex:1;min-width:0;font-size:15pt;font-weight:700">Je scanne. J'écoute.</span>
+<div style="flex:0 0 auto;width:28mm;height:28mm;background:#fff url('docs/qr-dans-paris-livre.png') center/contain no-repeat"></div>
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/icone-oeil.svg') center/70% no-repeat"></span>
+<span style="flex:1;min-width:0;font-size:15pt;font-weight:700">Je scanne. Je regarde.</span>
+<span style="flex:0 0 auto;min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12pt;font-weight:700;align-self:flex-end">14</span>
+</div>
+</section>
+
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* LIVRET « DANS PARIS » (23/09). Le texte d'Éluard est dans le livret : elle a levé
+   l'interdit le 23/09 (voir CLAUDE.md). Le texte est celui de SON document « texte.docx »,
+   ponctuation comprise — ne pas le retoucher.
+   ⚠ Déterminants du poème : « une maison », « un escalier » (on découvre, on ne désigne pas).
+   Images : clean/poeme-paris-*.webp (isolées), jamais les diapo- (scènes). */
+const ph = m => "background:#fff url('clean/poeme-paris-" + m + ".webp') center/contain no-repeat";
+const MOTS = [
+  ['paris','Paris','',''], ['rue','rue','une','f'], ['maison','maison','une','f'], ['escalier','escalier','un','m'],
+  ['chambre','chambre','une','f'], ['table','table','une','f'], ['tapis','tapis','un','m'], ['cage','cage','une','f'],
+  ['nid','nid','un','m'], ['oeuf','œuf','un','m'], ['oiseau','oiseau','un','m']];
+const P1 = [
+  ['paris','rue','Dans Paris, il y a une rue.'],
+  ['rue','maison','Dans cette rue, il y a une maison.'],
+  ['maison','escalier','Dans cette maison, il y a un escalier.'],
+  ['escalier','chambre','Dans cet escalier, il y a une chambre.'],
+  ['chambre','table','Dans cette chambre, il y a une table.'],
+  ['table','tapis','Sur cette table, il y a un tapis.'],
+  ['tapis','cage','Sur ce tapis, il y a une cage.'],
+  ['cage','nid','Dans cette cage, il y a un nid.'],
+  ['nid','oeuf','Dans ce nid, il y a un œuf.'],
+  ['oeuf','oiseau','Dans cet œuf, il y a un oiseau.']];
+const P2 = [
+  ['oiseau','oeuf',"L'oiseau renversa l'œuf."],
+  ['oeuf','nid',"L'œuf renversa le nid."],
+  ['nid','cage','Le nid renversa la cage.'],
+  ['cage','tapis','La cage renversa le tapis.'],
+  ['tapis','table','Le tapis renversa la table.'],
+  ['table','chambre','La table renversa la chambre.'],
+  ['chambre','escalier',"La chambre renversa l'escalier."],
+  ['escalier','maison',"L'escalier renversa la maison."],
+  ['maison','rue','La maison renversa la rue.'],
+  ['rue','paris','La rue renversa la ville de Paris.']];
+/* QR de la dernière page → https://troa-code.github.io/upe2a/docs/dans-paris-paul-eluard.mp3
+   (docs/qr-dans-paris-audio.png, 24/09) et le livre → …/docs/livre-dans-paris.pdf
+   (docs/qr-dans-paris-livre.png). Ne marche qu'une fois l'appli publiée sur GitHub. */
+const vers = ([a, b, t]) => ({ fa: ph(a), fb: ph(b), t });
+/* ⚠ La réglure se construit ICI et pas dans le gabarit : un trou {{ }} dans un <text> SVG
+   devient un <span> HTML, que le SVG ne peint pas — le mot restait invisible (23/09).
+   Géométrie copiée de ses étiquettes de graphisme 3 mm : texte à y 88, corps 69. */
+const REGL = (t, c, police) => React.createElement('svg',
+  { viewBox: '0 0 1340 148', style: { width: '134mm', height: '14.8mm', display: 'block', overflow: 'visible' } },
+  React.createElement('rect', { x: 2, y: 3, width: 108, height: 55, fill: '#cfe6f8' }),
+  React.createElement('rect', { x: 2, y: 58, width: 108, height: 30, fill: '#93c45f' }),
+  React.createElement('rect', { x: 2, y: 88, width: 108, height: 57, fill: '#c08f61' }),
+  ...[[3,'#2f5fd0',2],[30,'#b9bfc8',1.6],[58,'#3aa03a',2.2],[88,'#8a5a2b',2.6],[116,'#b9bfc8',1.6],[145,'#d94a3d',1.6]]
+    .map(([y, s, w]) => React.createElement('line', { key: y, x1: 0, y1: y, x2: 1340, y2: y, stroke: s, strokeWidth: w })),
+  React.createElement('text', { x: 140, y: 88, fontFamily: police, fontSize: 69, fill: c }, t));
+
+class Component extends DCLogic {
+  renderVals() {
+    const mots = MOTS.map(([k, w, d, g]) => ({ k, g, fond: ph(k), min: w,
+      det: (d ? d + ' ' : '') + w.toLocaleUpperCase('fr-FR'), detMin: d ? d + ' ' + w : w }));
+    const sansParis = mots.filter(m => m.k !== 'paris');
+    /* Fiches 5 et 6 en DEUX écritures (24/09, sa demande : « j'ai des élèves qui écrivent en
+       script, les deux ») : chaque fiche existe en cursive puis en script. */
+    const CURS = 'BA Cursive, cursive', SCRI = 'BA Script, sans-serif';
+    const ligne = (m, police) => [{ svg: REGL(m.detMin, '#b8c7dc', police) }, { svg: REGL('', '#fff', police) }];
+    const pageEcr = (titre, liste, num, police) => ({ titre, num, mots: liste.map(m => ({ fond: m.fond, lignes: ligne(m, police) })) });
+    return {
+      numeros: [1, 2, 3, 4, 5, 6, 7, 8],
+      /* Page 14 « Mon poème » (24/09, son oui) : 10 lignes sur le modèle d'Éluard, sans cadre
+         de dessin (retiré à sa demande). 1re ligne « Dans ___ » ; les suivantes ont une case
+         courte pour ce / cet / cette. */
+      monPoeme: Array.from({ length: 10 }, (_, i) => ({ det: i === 0 ? '0mm' : '16mm' })),
+      /* Fiche 1 — l'ordre du poème (24/09, sa demande : « ils ont apprécié de coller les
+         étiquettes par ordre chronologique »). Cases 30 mm > étiquettes 26 mm. La planche
+         à découper est une FEUILLE À PART (« FR - Étiquettes ordre - Dans Paris ») : le livret
+         s'imprime en A4 recto-verso agrafé, découper une page trouerait la frise au dos (24/09). */
+      frise: MOTS.map((m, i) => ({ n: i + 1, fleche: i < MOTS.length - 1 ? '→' : '' })),
+      /* Fiche 7 — les prépositions (24/09, SES images de « etiquettes_prépositions de lieux »,
+         recadrées pour ôter les mots ENTRE et SOUS écrits dedans). Ordre mélangé exprès :
+         jamais celui de la banque. ⚠ « derrière » = l'oiseau vu à travers les barreaux. */
+      prepBanque: ['dans', 'sur', 'sous', 'devant', 'derrière', 'à côté de', 'entre'],
+      preps: [['sur','la cage.'], ['a-cote','la cage.'], ['dans','la cage.'], ['entre','les deux cages.'],
+              ['derriere','la cage.'], ['sous','la cage.'], ['devant','la cage.']]
+        .map(([k, post]) => ({ post, fond: "background:#fff url('clean/poeme-paris-prep-" + k + ".webp') center/contain no-repeat" })),
+      jours: ['lundi','mardi','mercredi','jeudi','vendredi','samedi','dimanche'],
+      mots,
+      p1: P1.map(vers), p2: P2.map(vers),
+      banque: ['cage','escalier','oiseau','rue','tapis','chambre','nid','maison','œuf','table'],
+      comp: P1.map(([a, b, t]) => ({ pre: t.slice(0, t.lastIndexOf(' ')), fond: ph(b) })),
+      genre: sansParis,
+      demo: P1.slice(1).map(([a, b, t]) => { const w = t.split(' '); return { pre: w[0], post: w.slice(2).join(' '), fond: ph(a) }; }),
+      ecrire: [pageEcr('FICHE 6 · CURSIVE', sansParis.slice(0, 5), 8, CURS), pageEcr('FICHE 6 · SCRIPT', sansParis.slice(0, 5), 9, SCRI),
+               pageEcr('FICHE 7 · CURSIVE', sansParis.slice(5), 10, CURS), pageEcr('FICHE 7 · SCRIPT', sansParis.slice(5), 11, SCRI)]
+    };
+  }
+}
+</script>
+</body>
+</html>

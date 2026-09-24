@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0;background:#14213d}
+a{color:#fbfaf7}
+a:hover{color:#fff}
+</style>
+<meta name="ext-resource-dependency" content="clean/mot-ananas.webp" />
+<meta name="ext-resource-dependency" content="clean/mot-ballon.webp" />
+<meta name="ext-resource-dependency" content="clean/mot-carotte.webp" />
+<meta name="ext-resource-dependency" content="clean/mot-cerise.webp" />
+<meta name="ext-resource-dependency" content="clean/mot-deux.webp" />
+<meta name="ext-resource-dependency" content="clean/mot-melon.webp" />
+<meta name="ext-resource-dependency" content="clean/mot-fenetre.webp" />
+<meta name="ext-resource-dependency" content="clean/mot-gateau.webp" />
+<meta name="ext-resource-dependency" content="clean/mot-gilet.webp" />
+<meta name="ext-resource-dependency" content="clean/mot-immeuble.webp" />
+<meta name="ext-resource-dependency" content="clean/mot-jaune.webp" />
+<meta name="ext-resource-dependency" content="clean/mot-kiwi.webp" />
+<meta name="ext-resource-dependency" content="clean/mot-lit.webp" />
+<meta name="ext-resource-dependency" content="clean/mot-moto.webp" />
+<meta name="ext-resource-dependency" content="clean/mot-nuage.webp" />
+<meta name="ext-resource-dependency" content="clean/mot-ordinateur.webp" />
+<meta name="ext-resource-dependency" content="clean/mot-pot.webp" />
+<meta name="ext-resource-dependency" content="clean/mot-pied.webp" />
+<meta name="ext-resource-dependency" content="clean/mot-quatre.webp" />
+<meta name="ext-resource-dependency" content="clean/mot-robot.webp" />
+<meta name="ext-resource-dependency" content="clean/mot-salade.webp" />
+<meta name="ext-resource-dependency" content="clean/mot-rose.webp" />
+<meta name="ext-resource-dependency" content="clean/mot-table.webp" />
+<meta name="ext-resource-dependency" content="clean/mot-usine.webp" />
+<meta name="ext-resource-dependency" content="clean/mot-velo.webp" />
+<meta name="ext-resource-dependency" content="clean/mot-wagon.webp" />
+<meta name="ext-resource-dependency" content="clean/mot-xylophone.webp" />
+<meta name="ext-resource-dependency" content="clean/mot-yaourt.webp" />
+<meta name="ext-resource-dependency" content="clean/mot-zero.webp" />
+<template id="__bundler_thumbnail">
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#1d5c3a"></rect><text x="100" y="128" font-family="Helvetica,Arial,sans-serif" font-size="96" font-weight="700" fill="#fbfaf7" text-anchor="middle">Mr</text></svg>
+</template>
+</helmet>
+<x-import component-from-global-scope="deck-stage" from="./deck-stage.js" width="1920" height="1080" hint-size="100%,100%">
+<section data-label="Titre" data-screen-label="Titre" data-speaker-notes="On regarde la photo, on dit le mot, puis on l'écrit." style="display:flex;flex-direction:column;justify-content:center;gap:40px;background:#1d5c3a;color:#fbfaf7;padding:120px 140px;box-sizing:border-box;font-family:Helvetica,'Helvetica Neue',Arial,sans-serif">
+<div style="display:flex;align-items:center;gap:28px">
+<span style="width:120px;height:4px;background:#c1440e"></span>
+<span style="font-size:30px;letter-spacing:0.2em;text-transform:uppercase;color:#c9d3e2">Français &middot; UPE2A NSA</span>
+</div>
+<div style="font-size:132px;font-weight:700;line-height:1.02;letter-spacing:-0.02em">Les mots repères</div>
+<div style="font-size:44px;color:#c9d3e2;max-width:1100px;text-wrap:pretty">Je regarde la photo. Je dis le mot. J'écris le mot.</div>
+</section>
+<sc-for list="{{ cases }}" as="c" hint-placeholder-count="3">
+<section data-label="{{ c.label }}" data-screen-label="{{ c.label }}" data-speaker-notes="{{ c.note }}" style="display:flex;align-items:center;justify-content:center;gap:100px;background:#fbfaf7;color:#14213d;padding:90px 120px;box-sizing:border-box;font-family:Helvetica,'Helvetica Neue',Arial,sans-serif">
+<sc-for list="{{ c.images }}" as="im" hint-placeholder-count="1">
+<div style="flex:1 1 0;min-width:0;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:44px">
+<div style="flex:1;min-height:0;width:100%;display:flex;align-items:center;justify-content:center;background:#fff;border:2px solid #e2e0da;border-radius:24px;padding:40px;box-sizing:border-box">
+<img src="{{ im.img }}" alt="{{ im.mot }}" style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block" />
+</div>
+<sc-if value="{{ c.avecMot }}" hint-placeholder-val="{{ true }}">
+<span style="flex:0 0 auto;font-size:96px;font-weight:700;line-height:1;letter-spacing:-0.02em">{{ im.mot }}</span>
+</sc-if>
+</div>
+</sc-for>
+</section>
+</sc-for>
+</x-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+/* Une diapo = une case de la feuille : les mots qui partagent une case (c, g, o, s)
+   sont sur la MÊME diapo (sa demande du 11/09). Le h n'a pas de son, il n'a pas de
+   diapo. Les lettres ne sont plus affichées : seules les photos et les mots. */
+const CASES = [
+  ['ananas'],['ballon'],['carotte','cerise'],['deux'],['melon'],['fenetre'],
+  ['gateau','gilet'],['immeuble'],['jaune'],['kiwi'],['lit'],['moto'],['nuage'],
+  ['ordinateur','pot'],['pied'],['quatre'],['robot'],['salade','rose'],['table'],
+  ['usine'],['velo'],['wagon'],['xylophone'],['yaourt'],['zero']
+];
+const ACCENTS = { fenetre:'fenêtre', gateau:'gâteau', velo:'vélo', zero:'zéro' };
+
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      /* DEUX diapos par case (11/09) : la photo seule — on cherche le mot à l'oral —
+         puis la même photo AVEC le mot écrit, pour la vérification. */
+      cases: CASES.flatMap(g => {
+        const mots = g.map(f => ACCENTS[f] || f);
+        const images = g.map((f, i) => ({ mot: mots[i], img: 'clean/mot-' + f + '.webp' }));
+        const nom = mots.join(' · ');
+        return [
+          { label: nom, avecMot: false, images,
+            note: mots.join(' et ') + '. Faire nommer, faire répéter. Le mot vient après.' },
+          { label: nom + ' ✓', avecMot: true, images,
+            note: 'On vérifie : ' + mots.join(' et ') + '. Faire lire, puis faire écrire.' }
+        ];
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>

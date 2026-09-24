@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Atkinson+Hyperlegible:wght@400;700&display=swap" />
+<style>
+  doc-page:not(:defined) { visibility: hidden; }
+  @media print { .ecran-seul { display: none !important; } }
+  a { color: #1d4e89; }
+  a:hover { color: #123a6b; }
+</style>
+<script src="doc-page.js"></script>
+</helmet>
+
+<div class="ecran-seul" style="font-family:Verdana,Tahoma,sans-serif;padding:16px 18px 6px;display:flex;flex-direction:column;gap:10px">
+  <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:16px;letter-spacing:.02em">ÉCRIS LES MOTS — DANS PARIS</div>
+  <div style="font-size:11.5px;color:#6b7386;line-height:1.5;max-width:74ch">
+    Les onze images du poème, sans les mots : un trait sous chacune, l'élève écrit.
+    Dans l'ordre du texte, de Paris jusqu'à l'oiseau.
+  </div>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+    <button onClick="{{ imprimer }}" style="border:none;background:#2a9d6e;color:#fff;border-radius:9px;padding:10px 18px;font-family:'Archivo Black',Verdana,sans-serif;font-size:12px;letter-spacing:.04em;cursor:pointer">IMPRIMER</button>
+    <span style="font-size:11.5px;color:#8595a8">Une feuille par élève.</span>
+  </div>
+</div>
+
+<doc-page size="a4" margin="2cm">
+  <section class="page" style="padding:2cm;box-sizing:border-box;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;color:#12233b;display:flex;flex-direction:column;gap:6mm">
+
+    <div style="flex:0 0 auto;display:flex;align-items:flex-end;gap:8mm;border-bottom:3px solid #12233b;padding-bottom:3mm">
+      <span style="flex:1;font-family:'Archivo Black',Verdana,sans-serif;font-size:18pt;letter-spacing:.02em;line-height:1.1">Dans Paris — j'écris les mots</span>
+      <span style="flex:0 0 auto;font-size:11pt;color:#5d6879">Nom :</span>
+    </div>
+
+    <span style="flex:0 0 auto;font-size:13pt;line-height:1.4">Je regarde l'image. Je dis le mot. J'écris le mot sur le trait.</span>
+
+    <!-- ⚠ LA GRILLE NE DOIT PAS DÉPASSER 227 mm DE HAUT : en-tête 12 mm + consigne 7 mm +
+         deux gaps de 6 mm laissent 226 mm sur les 257 mm utiles d'un A4 à 2 cm de marge.
+         À 40 mm d'image et 7 mm de gap, la 4e rangée de traits tombait 2 mm DANS la marge
+         basse — invisible au contrôle, `overflow:hidden` masquant le débordement. Images
+         ramenées à 36 mm, gap à 5 mm. Le trait garde ses 10 mm : c'est la hauteur d'une
+         écriture d'adulte débutant, il ne cède jamais. -->
+    <div style="flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,50mm);grid-auto-rows:min-content;gap:5mm 10mm;justify-content:center;align-content:start">
+
+      <div style="display:flex;flex-direction:column;gap:2mm">
+        <span style="width:50mm;height:36mm;background-color:#fff;background-image:url(clean/poeme-paris-paris.webp);background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+        <span style="width:50mm;height:10mm;border-bottom:1.5px solid #12233b;display:block"></span>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:2mm">
+        <span style="width:50mm;height:36mm;background-color:#fff;background-image:url(clean/poeme-paris-rue.webp);background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+        <span style="width:50mm;height:10mm;border-bottom:1.5px solid #12233b;display:block"></span>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:2mm">
+        <span style="width:50mm;height:36mm;background-color:#fff;background-image:url(clean/poeme-paris-maison.webp);background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+        <span style="width:50mm;height:10mm;border-bottom:1.5px solid #12233b;display:block"></span>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:2mm">
+        <span style="width:50mm;height:36mm;background-color:#fff;background-image:url(clean/poeme-paris-escalier.webp);background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+        <span style="width:50mm;height:10mm;border-bottom:1.5px solid #12233b;display:block"></span>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:2mm">
+        <span style="width:50mm;height:36mm;background-color:#fff;background-image:url(clean/poeme-paris-chambre.webp);background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+        <span style="width:50mm;height:10mm;border-bottom:1.5px solid #12233b;display:block"></span>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:2mm">
+        <span style="width:50mm;height:36mm;background-color:#fff;background-image:url(clean/poeme-paris-table.webp);background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+        <span style="width:50mm;height:10mm;border-bottom:1.5px solid #12233b;display:block"></span>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:2mm">
+        <span style="width:50mm;height:36mm;background-color:#fff;background-image:url(clean/poeme-paris-tapis.webp);background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+        <span style="width:50mm;height:10mm;border-bottom:1.5px solid #12233b;display:block"></span>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:2mm">
+        <span style="width:50mm;height:36mm;background-color:#fff;background-image:url(clean/poeme-paris-cage.webp);background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+        <span style="width:50mm;height:10mm;border-bottom:1.5px solid #12233b;display:block"></span>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:2mm">
+        <span style="width:50mm;height:36mm;background-color:#fff;background-image:url(clean/poeme-paris-nid.webp);background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+        <span style="width:50mm;height:10mm;border-bottom:1.5px solid #12233b;display:block"></span>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:2mm">
+        <span style="width:50mm;height:36mm;background-color:#fff;background-image:url(clean/poeme-paris-oeuf.webp);background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+        <span style="width:50mm;height:10mm;border-bottom:1.5px solid #12233b;display:block"></span>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:2mm">
+        <span style="width:50mm;height:36mm;background-color:#fff;background-image:url(clean/poeme-paris-oiseau.webp);background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+        <span style="width:50mm;height:10mm;border-bottom:1.5px solid #12233b;display:block"></span>
+      </div>
+
+    </div>
+  </section>
+</doc-page>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* ÉCRIS LES MOTS — DANS PARIS (22/09, sa demande) : les onze images du poème, SANS les
+   mots, un trait sous chacune. L'élève écrit.
+   ⚠ AUCUN MOT SOUS LES IMAGES : c'est tout l'exercice. Ne pas « aider » en remettant les
+     étiquettes, ni une liste de mots en bas de page — elle ne l'a pas demandée.
+   ⚠ Les images sont en `poeme-paris-`, les ILLUSTRATIONS du poème (son PDF), jamais les
+     photos réalistes `mot-maison` / `mot-table` / `mot-oiseau` qui existent à côté.
+   L'ordre est celui du texte : paris, rue, maison, escalier, chambre, table, tapis, cage,
+   nid, œuf, oiseau. Ne pas le mélanger — le poème s'emboîte, et c'est l'ordre qui le dit.
+   ⚠ Le trait fait 10 mm de haut : c'est la hauteur d'une écriture d'adulte débutant. Ne
+     pas le rétrécir pour gagner de la place.
+   Une seule page A4, marges de 2 cm, texte à 13 pt. */
+class Component extends DCLogic {
+  renderVals() {
+    return { imprimer: () => window.print() };
+  }
+}
+
+</script>
+</body>
+</html>

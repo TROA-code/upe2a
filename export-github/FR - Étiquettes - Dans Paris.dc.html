@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Atkinson+Hyperlegible:wght@400;700&display=swap" />
+<style>
+  doc-page:not(:defined) { visibility: hidden; }
+  @media print { .ecran-seul { display: none !important; } }
+  a { color: #1d4e89; }
+  a:hover { color: #123a6b; }
+</style>
+<script src="doc-page.js"></script>
+</helmet>
+
+<div class="ecran-seul" style="font-family:Verdana,Tahoma,sans-serif;padding:16px 18px 6px;display:flex;flex-direction:column;gap:10px">
+  <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:16px;letter-spacing:.02em">ÉTIQUETTES — DANS PARIS</div>
+  <div style="font-size:11.5px;color:#6b7386;line-height:1.5;max-width:74ch">
+    Les onze images du poème, dans l'ordre d'emboîtement : Paris, la rue, la maison,
+    l'escalier, la chambre, la table, le tapis, la cage, le nid, l'œuf, l'oiseau.
+    Six par page A4, environ 8 cm de côté. À découper sur les pointillés.
+  </div>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+    <button onClick="{{ imprimer }}" style="border:none;background:#2a9d6e;color:#fff;border-radius:9px;padding:10px 18px;font-family:'Archivo Black',Verdana,sans-serif;font-size:12px;letter-spacing:.04em;cursor:pointer">IMPRIMER</button>
+    <span style="font-size:11.5px;color:#8595a8">En couleur. Sur papier épais si les étiquettes doivent durer.</span>
+  </div>
+</div>
+
+<doc-page size="a4" margin="2cm">
+
+  <section class="page" style="padding:2cm;box-sizing:border-box;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;color:#1c2430;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr 1fr;gap:4mm">
+
+    <div style="border:1.2px dashed #9aa3b0;border-radius:2mm;padding:4mm;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3mm;min-height:0">
+      <img src="clean/poeme-paris-paris.webp" alt="" style="flex:1 1 auto;min-height:0;width:auto;max-width:100%;object-fit:contain;border-radius:1.5mm" />
+      <span style="flex:0 0 auto;font-size:20pt;font-weight:700;letter-spacing:.01em">Paris</span>
+    </div>
+
+    <div style="border:1.2px dashed #9aa3b0;border-radius:2mm;padding:4mm;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3mm;min-height:0">
+      <img src="clean/poeme-paris-rue.webp" alt="" style="flex:1 1 auto;min-height:0;width:auto;max-width:100%;object-fit:contain;border-radius:1.5mm" />
+      <span style="flex:0 0 auto;font-size:20pt;font-weight:700;letter-spacing:.01em">la rue</span>
+    </div>
+
+    <div style="border:1.2px dashed #9aa3b0;border-radius:2mm;padding:4mm;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3mm;min-height:0">
+      <img src="clean/poeme-paris-maison.webp" alt="" style="flex:1 1 auto;min-height:0;width:auto;max-width:100%;object-fit:contain;border-radius:1.5mm" />
+      <span style="flex:0 0 auto;font-size:20pt;font-weight:700;letter-spacing:.01em">la maison</span>
+    </div>
+
+    <div style="border:1.2px dashed #9aa3b0;border-radius:2mm;padding:4mm;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3mm;min-height:0">
+      <img src="clean/poeme-paris-escalier.webp" alt="" style="flex:1 1 auto;min-height:0;width:auto;max-width:100%;object-fit:contain;border-radius:1.5mm" />
+      <span style="flex:0 0 auto;font-size:20pt;font-weight:700;letter-spacing:.01em">l'escalier</span>
+    </div>
+
+    <div style="border:1.2px dashed #9aa3b0;border-radius:2mm;padding:4mm;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3mm;min-height:0">
+      <img src="clean/poeme-paris-chambre.webp" alt="" style="flex:1 1 auto;min-height:0;width:auto;max-width:100%;object-fit:contain;border-radius:1.5mm" />
+      <span style="flex:0 0 auto;font-size:20pt;font-weight:700;letter-spacing:.01em">la chambre</span>
+    </div>
+
+    <div style="border:1.2px dashed #9aa3b0;border-radius:2mm;padding:4mm;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3mm;min-height:0">
+      <img src="clean/poeme-paris-table.webp" alt="" style="flex:1 1 auto;min-height:0;width:auto;max-width:100%;object-fit:contain;border-radius:1.5mm" />
+      <span style="flex:0 0 auto;font-size:20pt;font-weight:700;letter-spacing:.01em">la table</span>
+    </div>
+
+  </section>
+
+  <section class="page" style="padding:2cm;box-sizing:border-box;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;color:#1c2430;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr 1fr;gap:4mm">
+
+    <div style="border:1.2px dashed #9aa3b0;border-radius:2mm;padding:4mm;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3mm;min-height:0">
+      <img src="clean/poeme-paris-tapis.webp" alt="" style="flex:1 1 auto;min-height:0;width:auto;max-width:100%;object-fit:contain;border-radius:1.5mm" />
+      <span style="flex:0 0 auto;font-size:20pt;font-weight:700;letter-spacing:.01em">le tapis</span>
+    </div>
+
+    <div style="border:1.2px dashed #9aa3b0;border-radius:2mm;padding:4mm;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3mm;min-height:0">
+      <img src="clean/poeme-paris-cage.webp" alt="" style="flex:1 1 auto;min-height:0;width:auto;max-width:100%;object-fit:contain;border-radius:1.5mm" />
+      <span style="flex:0 0 auto;font-size:20pt;font-weight:700;letter-spacing:.01em">la cage</span>
+    </div>
+
+    <div style="border:1.2px dashed #9aa3b0;border-radius:2mm;padding:4mm;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3mm;min-height:0">
+      <img src="clean/poeme-paris-nid.webp" alt="" style="flex:1 1 auto;min-height:0;width:auto;max-width:100%;object-fit:contain;border-radius:1.5mm" />
+      <span style="flex:0 0 auto;font-size:20pt;font-weight:700;letter-spacing:.01em">le nid</span>
+    </div>
+
+    <div style="border:1.2px dashed #9aa3b0;border-radius:2mm;padding:4mm;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3mm;min-height:0">
+      <img src="clean/poeme-paris-oeuf.webp" alt="" style="flex:1 1 auto;min-height:0;width:auto;max-width:100%;object-fit:contain;border-radius:1.5mm" />
+      <span style="flex:0 0 auto;font-size:20pt;font-weight:700;letter-spacing:.01em">l'œuf</span>
+    </div>
+
+    <div style="border:1.2px dashed #9aa3b0;border-radius:2mm;padding:4mm;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3mm;min-height:0">
+      <img src="clean/poeme-paris-oiseau.webp" alt="" style="flex:1 1 auto;min-height:0;width:auto;max-width:100%;object-fit:contain;border-radius:1.5mm" />
+      <span style="flex:0 0 auto;font-size:20pt;font-weight:700;letter-spacing:.01em">l'oiseau</span>
+    </div>
+
+  </section>
+
+</doc-page>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* ÉTIQUETTES — DANS PARIS (21/09, sa demande). Onze étiquettes image + mot, six par page.
+   Les onze images viennent de SON PDF `composition_images-poeme2 (3).pdf`.
+   ⚠ PRÉFIXE `poeme-paris-`, surtout PAS `mot-` : ce sont des ILLUSTRATIONS, pas ses photos
+     réalistes. `clean/mot-maison.webp`, `mot-table.webp`, `mot-oiseau.webp` existent déjà
+     et sont de vraies photos — ne jamais les écraser avec celles-ci.
+   Préparation des images (déjà faite) : recadrage carré à 5 % des bords pour retirer le
+   petit losange de l'outil de génération, et 12 % en bas sur `rue` et `maison` où le texte
+   « PARIS - DÉBUT DU POÈME » était incrusté.
+   ⚠ `oiseau` ne fait que 289 px (l'originale était en 326) : elle sortira plus molle que
+     les autres à l'impression. À remplacer si elle la régénère en grand.
+   L'ORDRE EST CELUI DU POÈME et ne se change pas : Paris, rue, maison, escalier, chambre,
+   table, tapis, cage, nid, œuf, oiseau.
+   ⚠ Le poème de Paul Éluard est sous droits : ne jamais le recopier dans un document. */
+class Component extends DCLogic {
+  renderVals() {
+    return { imprimer: () => window.print() };
+  }
+}
+
+</script>
+</body>
+</html>

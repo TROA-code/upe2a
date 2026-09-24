@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+doc-page:not(:defined){visibility:hidden}
+body{margin:0}
+a{color:#1d4e89}
+a:hover{color:#14213d}
+@media print{.om-noprint{display:none !important}}
+</style>
+<script src="./doc-page.js"></script>
+</helmet>
+<button class="om-noprint" onClick="{{ imprimer }}" style="position:fixed;top:14px;right:14px;z-index:60;border:none;border-radius:11px;background:#2a9d6e;color:#fff;padding:13px 22px;font-family:Arial,Helvetica,sans-serif;font-size:13.5px;font-weight:700;cursor:pointer;box-shadow:0 3px 0 #217d57">Imprimer</button>
+<doc-page size="a4">
+<section class="page" data-screen-label="Mots outils 1" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:20mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#14213d">
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:stretch;gap:4mm">
+<div style="height:8mm;display:flex;align-items:flex-end;padding-bottom:1mm;border-bottom:1.5px solid #c4479e;box-sizing:border-box">
+<span style="font-size:8.5pt;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#c4479e">En priorité — les mots de son mur</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">un</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">une</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">le</span>
+</div>
+</div>
+<div style="flex:0 0 auto;padding-top:3mm;display:flex;justify-content:space-between;font-size:8pt;color:#aeb6c2">
+<span>Les mots outils — à découper, à coller sur carton, à aimanter</span>
+<span>1 / 23</span>
+</div>
+</section>
+<section class="page" data-screen-label="Mots outils 2" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:20mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#14213d">
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:stretch;gap:4mm">
+<div style="height:8mm;display:flex;align-items:flex-end;padding-bottom:1mm;border-bottom:1.5px solid #c4479e;box-sizing:border-box">
+<span style="font-size:8.5pt;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#c4479e">En priorité — les mots de son mur (suite)</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">la</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">c&#39;est</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">ne … pas</span>
+</div>
+</div>
+<div style="flex:0 0 auto;padding-top:3mm;display:flex;justify-content:space-between;font-size:8pt;color:#aeb6c2">
+<span>Les mots outils — à découper, à coller sur carton, à aimanter</span>
+<span>2 / 23</span>
+</div>
+</section>
+<section class="page" data-screen-label="Mots outils 3" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:20mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#14213d">
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:stretch;gap:4mm">
+<div style="height:8mm;display:flex;align-items:flex-end;padding-bottom:1mm;border-bottom:1.5px solid #c4479e;box-sizing:border-box">
+<span style="font-size:8.5pt;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#c4479e">En priorité — les mots de son mur (suite)</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">il est</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">trop</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">et</span>
+</div>
+</div>
+<div style="flex:0 0 auto;padding-top:3mm;display:flex;justify-content:space-between;font-size:8pt;color:#aeb6c2">
+<span>Les mots outils — à découper, à coller sur carton, à aimanter</span>
+<span>3 / 23</span>
+</div>
+</section>
+<section class="page" data-screen-label="Mots outils 4" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:20mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#14213d">
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:stretch;gap:4mm">
+<div style="height:8mm;display:flex;align-items:flex-end;padding-bottom:1mm;border-bottom:1.5px solid #c4479e;box-sizing:border-box">
+<span style="font-size:8.5pt;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#c4479e">En priorité — les mots de son mur (suite)</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">avec</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">chez</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">de</span>
+</div>
+</div>
+<div style="flex:0 0 auto;padding-top:3mm;display:flex;justify-content:space-between;font-size:8pt;color:#aeb6c2">
+<span>Les mots outils — à découper, à coller sur carton, à aimanter</span>
+<span>4 / 23</span>
+</div>
+</section>
+<section class="page" data-screen-label="Mots outils 5" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:20mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#14213d">
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:stretch;gap:4mm">
+<div style="height:8mm;display:flex;align-items:flex-end;padding-bottom:1mm;border-bottom:1.5px solid #c4479e;box-sizing:border-box">
+<span style="font-size:8.5pt;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#c4479e">En priorité — les mots de son mur (suite)</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">elle</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">tout</span>
+</div>
+</div>
+<div style="flex:0 0 auto;padding-top:3mm;display:flex;justify-content:space-between;font-size:8pt;color:#aeb6c2">
+<span>Les mots outils — à découper, à coller sur carton, à aimanter</span>
+<span>5 / 23</span>
+</div>
+</section>
+<section class="page" data-screen-label="Mots outils 6" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:20mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#14213d">
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:stretch;gap:4mm">
+<div style="height:8mm;display:flex;align-items:flex-end;padding-bottom:1mm;border-bottom:1.5px solid #c4479e;box-sizing:border-box">
+<span style="font-size:8.5pt;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#c4479e">Les autres déterminants</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">des</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">les</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">l&#39;</span>
+</div>
+</div>
+<div style="flex:0 0 auto;padding-top:3mm;display:flex;justify-content:space-between;font-size:8pt;color:#aeb6c2">
+<span>Les mots outils — à découper, à coller sur carton, à aimanter</span>
+<span>6 / 23</span>
+</div>
+</section>
+<section class="page" data-screen-label="Mots outils 7" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:20mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#14213d">
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:stretch;gap:4mm">
+<div style="height:8mm;display:flex;align-items:flex-end;padding-bottom:1mm;border-bottom:1.5px solid #c4479e;box-sizing:border-box">
+<span style="font-size:8.5pt;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#c4479e">Les autres déterminants (suite)</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">mon</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">ma</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">mes</span>
+</div>
+</div>
+<div style="flex:0 0 auto;padding-top:3mm;display:flex;justify-content:space-between;font-size:8pt;color:#aeb6c2">
+<span>Les mots outils — à découper, à coller sur carton, à aimanter</span>
+<span>7 / 23</span>
+</div>
+</section>
+<section class="page" data-screen-label="Mots outils 8" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:20mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#14213d">
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:stretch;gap:4mm">
+<div style="height:8mm;display:flex;align-items:flex-end;padding-bottom:1mm;border-bottom:1.5px solid #c4479e;box-sizing:border-box">
+<span style="font-size:8.5pt;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#c4479e">Pour montrer</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">ce sont</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">il y a</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">voilà</span>
+</div>
+</div>
+<div style="flex:0 0 auto;padding-top:3mm;display:flex;justify-content:space-between;font-size:8pt;color:#aeb6c2">
+<span>Les mots outils — à découper, à coller sur carton, à aimanter</span>
+<span>8 / 23</span>
+</div>
+</section>
+<section class="page" data-screen-label="Mots outils 9" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:20mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#14213d">
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:stretch;gap:4mm">
+<div style="height:8mm;display:flex;align-items:flex-end;padding-bottom:1mm;border-bottom:1.5px solid #c4479e;box-sizing:border-box">
+<span style="font-size:8.5pt;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#c4479e">Pour montrer (suite)</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">ce n&#39;est pas</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">il n&#39;y a pas</span>
+</div>
+</div>
+<div style="flex:0 0 auto;padding-top:3mm;display:flex;justify-content:space-between;font-size:8pt;color:#aeb6c2">
+<span>Les mots outils — à découper, à coller sur carton, à aimanter</span>
+<span>9 / 23</span>
+</div>
+</section>
+<section class="page" data-screen-label="Mots outils 10" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:20mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#14213d">
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:stretch;gap:4mm">
+<div style="height:8mm;display:flex;align-items:flex-end;padding-bottom:1mm;border-bottom:1.5px solid #c4479e;box-sizing:border-box">
+<span style="font-size:8.5pt;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#c4479e">Les personnes</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">je</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">tu</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">il</span>
+</div>
+</div>
+<div style="flex:0 0 auto;padding-top:3mm;display:flex;justify-content:space-between;font-size:8pt;color:#aeb6c2">
+<span>Les mots outils — à découper, à coller sur carton, à aimanter</span>
+<span>10 / 23</span>
+</div>
+</section>
+<section class="page" data-screen-label="Mots outils 11" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:20mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#14213d">
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:stretch;gap:4mm">
+<div style="height:8mm;display:flex;align-items:flex-end;padding-bottom:1mm;border-bottom:1.5px solid #c4479e;box-sizing:border-box">
+<span style="font-size:8.5pt;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#c4479e">Les personnes (suite)</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">nous</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">vous</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">ils</span>
+</div>
+</div>
+<div style="flex:0 0 auto;padding-top:3mm;display:flex;justify-content:space-between;font-size:8pt;color:#aeb6c2">
+<span>Les mots outils — à découper, à coller sur carton, à aimanter</span>
+<span>11 / 23</span>
+</div>
+</section>
+<section class="page" data-screen-label="Mots outils 12" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:20mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#14213d">
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:stretch;gap:4mm">
+<div style="height:8mm;display:flex;align-items:flex-end;padding-bottom:1mm;border-bottom:1.5px solid #c4479e;box-sizing:border-box">
+<span style="font-size:8.5pt;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#c4479e">Les personnes (suite)</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">elles</span>
+</div>
+<div style="height:8mm;display:flex;align-items:flex-end;padding-bottom:1mm;border-bottom:1.5px solid #c4479e;box-sizing:border-box">
+<span style="font-size:8.5pt;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#c4479e">Être et avoir</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">je suis</span>
+</div>
+</div>
+<div style="flex:0 0 auto;padding-top:3mm;display:flex;justify-content:space-between;font-size:8pt;color:#aeb6c2">
+<span>Les mots outils — à découper, à coller sur carton, à aimanter</span>
+<span>12 / 23</span>
+</div>
+</section>
+<section class="page" data-screen-label="Mots outils 13" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:20mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#14213d">
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:stretch;gap:4mm">
+<div style="height:8mm;display:flex;align-items:flex-end;padding-bottom:1mm;border-bottom:1.5px solid #c4479e;box-sizing:border-box">
+<span style="font-size:8.5pt;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#c4479e">Être et avoir (suite)</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">tu es</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">elle est</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">j&#39;ai</span>
+</div>
+</div>
+<div style="flex:0 0 auto;padding-top:3mm;display:flex;justify-content:space-between;font-size:8pt;color:#aeb6c2">
+<span>Les mots outils — à découper, à coller sur carton, à aimanter</span>
+<span>13 / 23</span>
+</div>
+</section>
+<section class="page" data-screen-label="Mots outils 14" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:20mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#14213d">
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:stretch;gap:4mm">
+<div style="height:8mm;display:flex;align-items:flex-end;padding-bottom:1mm;border-bottom:1.5px solid #c4479e;box-sizing:border-box">
+<span style="font-size:8.5pt;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#c4479e">Être et avoir (suite)</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">tu as</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">il a</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">elle a</span>
+</div>
+</div>
+<div style="flex:0 0 auto;padding-top:3mm;display:flex;justify-content:space-between;font-size:8pt;color:#aeb6c2">
+<span>Les mots outils — à découper, à coller sur carton, à aimanter</span>
+<span>14 / 23</span>
+</div>
+</section>
+<section class="page" data-screen-label="Mots outils 15" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:20mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#14213d">
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:stretch;gap:4mm">
+<div style="height:8mm;display:flex;align-items:flex-end;padding-bottom:1mm;border-bottom:1.5px solid #c4479e;box-sizing:border-box">
+<span style="font-size:8.5pt;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#c4479e">Où ?</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">dans</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">sur</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">sous</span>
+</div>
+</div>
+<div style="flex:0 0 auto;padding-top:3mm;display:flex;justify-content:space-between;font-size:8pt;color:#aeb6c2">
+<span>Les mots outils — à découper, à coller sur carton, à aimanter</span>
+<span>15 / 23</span>
+</div>
+</section>
+<section class="page" data-screen-label="Mots outils 16" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:20mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#14213d">
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:stretch;gap:4mm">
+<div style="height:8mm;display:flex;align-items:flex-end;padding-bottom:1mm;border-bottom:1.5px solid #c4479e;box-sizing:border-box">
+<span style="font-size:8.5pt;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#c4479e">Où ? (suite)</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">devant</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">derrière</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">à côté de</span>
+</div>
+</div>
+<div style="flex:0 0 auto;padding-top:3mm;display:flex;justify-content:space-between;font-size:8pt;color:#aeb6c2">
+<span>Les mots outils — à découper, à coller sur carton, à aimanter</span>
+<span>16 / 23</span>
+</div>
+</section>
+<section class="page" data-screen-label="Mots outils 17" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:20mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#14213d">
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:stretch;gap:4mm">
+<div style="height:8mm;display:flex;align-items:flex-end;padding-bottom:1mm;border-bottom:1.5px solid #c4479e;box-sizing:border-box">
+<span style="font-size:8.5pt;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#c4479e">Où ? (suite)</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">entre</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">à</span>
+</div>
+</div>
+<div style="flex:0 0 auto;padding-top:3mm;display:flex;justify-content:space-between;font-size:8pt;color:#aeb6c2">
+<span>Les mots outils — à découper, à coller sur carton, à aimanter</span>
+<span>17 / 23</span>
+</div>
+</section>
+<section class="page" data-screen-label="Mots outils 18" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:20mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#14213d">
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:stretch;gap:4mm">
+<div style="height:8mm;display:flex;align-items:flex-end;padding-bottom:1mm;border-bottom:1.5px solid #c4479e;box-sizing:border-box">
+<span style="font-size:8.5pt;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#c4479e">Les questions</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">qui</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">où</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">quoi</span>
+</div>
+</div>
+<div style="flex:0 0 auto;padding-top:3mm;display:flex;justify-content:space-between;font-size:8pt;color:#aeb6c2">
+<span>Les mots outils — à découper, à coller sur carton, à aimanter</span>
+<span>18 / 23</span>
+</div>
+</section>
+<section class="page" data-screen-label="Mots outils 19" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:20mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#14213d">
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:stretch;gap:4mm">
+<div style="height:8mm;display:flex;align-items:flex-end;padding-bottom:1mm;border-bottom:1.5px solid #c4479e;box-sizing:border-box">
+<span style="font-size:8.5pt;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#c4479e">Les questions (suite)</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">combien</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">pourquoi</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">comment</span>
+</div>
+</div>
+<div style="flex:0 0 auto;padding-top:3mm;display:flex;justify-content:space-between;font-size:8pt;color:#aeb6c2">
+<span>Les mots outils — à découper, à coller sur carton, à aimanter</span>
+<span>19 / 23</span>
+</div>
+</section>
+<section class="page" data-screen-label="Mots outils 20" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:20mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#14213d">
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:stretch;gap:4mm">
+<div style="height:8mm;display:flex;align-items:flex-end;padding-bottom:1mm;border-bottom:1.5px solid #c4479e;box-sizing:border-box">
+<span style="font-size:8.5pt;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#c4479e">Les questions (suite)</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">est-ce que</span>
+</div>
+<div style="height:8mm;display:flex;align-items:flex-end;padding-bottom:1mm;border-bottom:1.5px solid #c4479e;box-sizing:border-box">
+<span style="font-size:8.5pt;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#c4479e">Pour relier</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">ou</span>
+</div>
+</div>
+<div style="flex:0 0 auto;padding-top:3mm;display:flex;justify-content:space-between;font-size:8pt;color:#aeb6c2">
+<span>Les mots outils — à découper, à coller sur carton, à aimanter</span>
+<span>20 / 23</span>
+</div>
+</section>
+<section class="page" data-screen-label="Mots outils 21" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:20mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#14213d">
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:stretch;gap:4mm">
+<div style="height:8mm;display:flex;align-items:flex-end;padding-bottom:1mm;border-bottom:1.5px solid #c4479e;box-sizing:border-box">
+<span style="font-size:8.5pt;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#c4479e">Pour relier (suite)</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">mais</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">parce que</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">aussi</span>
+</div>
+</div>
+<div style="flex:0 0 auto;padding-top:3mm;display:flex;justify-content:space-between;font-size:8pt;color:#aeb6c2">
+<span>Les mots outils — à découper, à coller sur carton, à aimanter</span>
+<span>21 / 23</span>
+</div>
+</section>
+<section class="page" data-screen-label="Mots outils 22" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:20mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#14213d">
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:stretch;gap:4mm">
+<div style="height:8mm;display:flex;align-items:flex-end;padding-bottom:1mm;border-bottom:1.5px solid #c4479e;box-sizing:border-box">
+<span style="font-size:8.5pt;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#c4479e">La quantité</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">pas de</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">beaucoup</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">un peu</span>
+</div>
+</div>
+<div style="flex:0 0 auto;padding-top:3mm;display:flex;justify-content:space-between;font-size:8pt;color:#aeb6c2">
+<span>Les mots outils — à découper, à coller sur carton, à aimanter</span>
+<span>22 / 23</span>
+</div>
+</section>
+<section class="page" data-screen-label="Mots outils 23" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:20mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#14213d">
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:stretch;gap:4mm">
+<div style="height:8mm;display:flex;align-items:flex-end;padding-bottom:1mm;border-bottom:1.5px solid #c4479e;box-sizing:border-box">
+<span style="font-size:8.5pt;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#c4479e">La quantité (suite)</span>
+</div>
+<div style="min-width:0;height:71mm;display:flex;align-items:center;justify-content:center;border:2.5px dashed #14213d;border-radius:4mm;padding:4mm;box-sizing:border-box;overflow:hidden">
+<span style="text-align:center;font-size:84pt;font-weight:700;color:#14213d;line-height:1.05">très</span>
+</div>
+</div>
+<div style="flex:0 0 auto;padding-top:3mm;display:flex;justify-content:space-between;font-size:8pt;color:#aeb6c2">
+<span>Les mots outils — à découper, à coller sur carton, à aimanter</span>
+<span>23 / 23</span>
+</div>
+</section>
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:794,&quot;height&quot;:1123}}">
+/* LES MOTS OUTILS À AIMANTER AU TABLEAU (15/09) — étiquettes à MANIPULER, aimantées au
+   tableau : « c'est un micro », « il est trop petit ».
+
+   ⚠⚠ FORMAT ARRÊTÉ EN TROIS TEMPS le 15/09, sa dernière consigne prime :
+   1. « augmente la taille, tu quadruples, je veux les aimanter » → 96 × 44 mm, 38 pt ;
+   2. « double » → 170 × 88 mm, 72 pt, mais DEUX par feuille = 31 feuilles ;
+   3. « je voudrais 3 étiquettes par feuille » → **170 × 71 mm, mot à 84 pt**, TROIS par
+      feuille. C'est le format actuel. Le nombre par feuille est la contrainte qui commande :
+      si on retouche la hauteur ou le corps du texte, il faut rester à trois.
+   Repères : 239 mm utiles en hauteur (A4 moins 2 × 2 cm), 3 × (71 + 4) = 225, plus 12 mm
+   pour le titre de famille = 237. Il ne reste que 2 mm de battement.
+   ⚠ 170 mm de large, PAS 192 : doubler exactement aurait débordé, la largeur utile d'une A4
+   avec 2 cm de marge de chaque côté est 170 mm.
+   ⚠ CORPS DU TEXTE : 84 pt, soit des lettres d'environ 30 mm (« augmente la police », puis
+   « encore un peu », 15/09). C'EST LE PLAFOND, ne pas monter plus haut : les mots longs
+   (« ce n'est pas », « il n'y a pas », « est-ce que ») passent sur DEUX lignes, et deux
+   lignes à 84 pt font 62 mm pour 63 mm utiles dans la case (71 mm moins 2 × 4 mm de
+   padding). Au-delà, ils seraient rognés en silence — overflow:hidden. Pour grossir encore,
+   il faut d'abord grandir la case, donc renoncer aux trois par feuille.
+   ⚠ Ces étiquettes ne rentrent pas dans les cadres des planches en images (78 × 22 mm) :
+   deux usages distincts, la table et le mur. Pour la petite taille, faire un SECOND
+   fichier, ne pas rapetisser celui-ci.
+
+   ⚠ LA HAUTEUR EST SUR L'ÉTIQUETTE, PAS SUR UNE PISTE DE GRILLE. Première version en
+   `display:grid; grid-auto-rows` : le titre de famille occupait lui aussi une piste pleine
+   hauteur (`align-self:start` ne rétrécit que l'élément, jamais la piste) et la page
+   débordait de 21 mm en silence, overflow:hidden — c'est le débordement qu'elle a vu sur
+   « une ». D'où une simple colonne flex : chaque enfant porte sa hauteur.
+
+   ⚠ LA PREMIÈRE FAMILLE EST LA SIENNE, dans SON ordre — son affichage de classe,
+   photographié, « en priorité » :
+     un · une · le · la · c'est · ne … pas · il est · trop · et · avec · chez · de ·
+     elle · tout
+   Ne pas la réordonner ni la fondre dans les autres groupes. Les familles suivantes sont
+   mes propositions, elle peut les retirer. Aucun doublon d'une famille à l'autre.
+
+   ⚠ NE PAS CONFONDRE avec « FR - Utilisation des mots outils.dc.html » : une fiche de
+   consignes sur une scène de restaurant, où le mot outil dit OÙ agir. Les deux coexistent.
+
+   ⚠ PAS D'A3 : tout en A4, 2 cm de marge.
+
+   La pagination est CALCULÉE, jamais écrite à la main : une famille trop longue pour la
+   page restante est coupée et reprise sous « (suite) » — c'est le `while` de la boucle, ne
+   pas le simplifier. Changer H, FS ou HT repagine tout seul. */
+class Component extends DCLogic {
+  renderVals() { return { imprimer: () => window.print() }; }
+}
+</script>
+</body>
+</html>

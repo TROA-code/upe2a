@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" />
+<style>
+  doc-page:not(:defined) { visibility: hidden; }
+  @media print { .ecran-seul { display: none !important; } }
+  a { color: #b3283c; }
+  a:hover { color: #8c1f2f; }
+</style>
+<script src="doc-page.js"></script>
+</helmet>
+
+<div class="ecran-seul" style="font-family:Verdana,Tahoma,sans-serif;padding:16px 18px 6px;display:flex;flex-direction:column;gap:10px">
+  <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:16px;letter-spacing:.02em">AFFICHE — LES DEVOIRS (VIGNETTES)</div>
+  <div style="font-size:11.5px;color:#6b7386;line-height:1.5;max-width:74ch">
+    Quatre vignettes à découper et à aimanter au tableau, dans l'ordre, toujours au même
+    endroit : on n'écrit plus la consigne, on accroche le document à côté du verbe. Une A4
+    paysage, deux vignettes par page, le verbe à 112 pt — lisible du fond de la classe.
+  </div>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+    <button onClick="{{ imprimer }}" style="border:none;background:#2a9d6e;color:#fff;border-radius:9px;padding:10px 18px;font-family:'Archivo Black',Verdana,sans-serif;font-size:12px;letter-spacing:.04em;cursor:pointer">IMPRIMER</button>
+    <span style="font-size:11.5px;color:#8595a8">Sur papier épais, ou collées sur du carton avec un aimant au dos.</span>
+  </div>
+</div>
+
+<doc-page size="a4" orientation="landscape" margin="2cm">
+
+  <section class="page" style="padding:2cm;box-sizing:border-box;font-family:Verdana,Tahoma,sans-serif;color:#b3283c;display:flex;flex-direction:column;justify-content:space-around;gap:10mm">
+
+    <div style="flex:1;min-height:0;border:5px solid #b3283c;border-radius:4mm;padding:6mm 10mm;display:flex;align-items:center;gap:10mm">
+      <span style="flex:0 0 auto;width:40mm;height:40mm;border-radius:50%;background:#b3283c;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Archivo Black',Verdana,sans-serif;font-size:70pt;line-height:1">1</span>
+      <span style="font-family:'Archivo Black',Verdana,sans-serif;font-size:112pt;line-height:1;letter-spacing:.01em">LIRE</span>
+    </div>
+
+    <div style="flex:1;min-height:0;border:5px solid #b3283c;border-radius:4mm;padding:6mm 10mm;display:flex;align-items:center;gap:10mm">
+      <span style="flex:0 0 auto;width:40mm;height:40mm;border-radius:50%;background:#b3283c;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Archivo Black',Verdana,sans-serif;font-size:70pt;line-height:1">2</span>
+      <span style="font-family:'Archivo Black',Verdana,sans-serif;font-size:112pt;line-height:1;letter-spacing:.01em">ÉCRIRE</span>
+    </div>
+
+  </section>
+
+  <section class="page" style="padding:2cm;box-sizing:border-box;font-family:Verdana,Tahoma,sans-serif;color:#b3283c;display:flex;flex-direction:column;justify-content:space-around;gap:10mm">
+
+    <div style="flex:1;min-height:0;border:5px solid #b3283c;border-radius:4mm;padding:6mm 10mm;display:flex;align-items:center;gap:10mm">
+      <span style="flex:0 0 auto;width:40mm;height:40mm;border-radius:50%;background:#b3283c;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Archivo Black',Verdana,sans-serif;font-size:70pt;line-height:1">3</span>
+      <span style="font-family:'Archivo Black',Verdana,sans-serif;font-size:112pt;line-height:1;letter-spacing:.01em">PARLER</span>
+    </div>
+
+    <div style="flex:1;min-height:0;border:5px solid #b3283c;border-radius:4mm;padding:6mm 10mm;display:flex;align-items:center;gap:10mm">
+      <span style="flex:0 0 auto;width:40mm;height:40mm;border-radius:50%;background:#b3283c;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Archivo Black',Verdana,sans-serif;font-size:70pt;line-height:1">4</span>
+      <span style="font-family:'Archivo Black',Verdana,sans-serif;font-size:92pt;line-height:1;letter-spacing:.01em">ÉCOUTER</span>
+    </div>
+
+  </section>
+
+</doc-page>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return { imprimer: () => window.print() };
+  }
+}
+
+</script>
+</body>
+</html>

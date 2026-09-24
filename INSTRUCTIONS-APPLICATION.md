@@ -5,6 +5,72 @@ sujet, avec ce qui attend une image ou une décision d'elle. Ce fichier-ci garde
 les décisions prises et les pièges ; la liste de travail est là-bas. **À tenir à jour tous
 les deux.**
 
+## ✅ CE QUI S'EST DÉCIDÉ LE 24/09 (à lire avant tout)
+
+- ⚠ **Méthode** : « arrête d'agir sans me demander ». Une réponse à UNE question n'est pas un
+  oui à toute la proposition (règle ajoutée à `CLAUDE.md`).
+- **Un PDF de l'appli se TÉLÉCHARGE** (`pdfClic`, dans l'Espace enseignant ET l'Emploi du
+  temps) : ouvert dans le cadre, Chrome affichait « Cette page a été bloquée par Chrome »
+  en pleine classe. Les PDF portent « ↓ » dans leur nom.
+- **Livret « Dans Paris »** (`FR - Livret - Dans Paris.dc.html`, 14 p., A4 recto-verso
+  agrafé) : couverture · début du poème SEUL (elle travaille sur la moitié) · frise « dans
+  l'ordre » · 8 fiches (dont ce/cet/cette, « Où est l'oiseau ? » avec SES images de
+  prépositions `clean/poeme-paris-prep-*`, j'écris en cursive ET en script) · p. 13 le poème
+  entier + une ligne de traduction par vers · p. 14 « Mon poème » (10 lignes, SANS cadre de
+  dessin) + 2 QR (audio, livre PDF). ⚠ **Rien à découper dans un livret recto-verso** : les
+  étiquettes sont des feuilles à part (`FR - Étiquettes ordre - Dans Paris`).
+- **Traductions** (`FR - Dans Paris - Traductions`, feuille à part, collée hors du livret) :
+  pachto et portugais = SES textes ; arabe en ÉGYPTIEN (son élève ne parle pas l'arabe
+  standard) + QR vers `FR - Dans Paris - en arabe égyptien` (voix du téléphone, ar-EG si
+  présente). Première moitié seulement.
+- ⚠ **L'audio n'est PAS lu par Éluard** : ne jamais écrire « lu par Paul Éluard ».
+- **Livrets des sons A et I** : la page à découper sortie → `FR - Étiquettes à trier -
+  Livret des sons`. Pages numérotées. Fiche 7 = réglure 3 mm exacte (SVG construit dans
+  `renderVals`, sinon le mot est invisible).
+- **`FR - Je lis, je fais - Dans Paris`** : A1.1 · A1 · A2, son dessin au trait
+  `clean/dessin-dans-paris-chambre.webp` au centre ; pictos qui PORTENT la consigne au A1.1
+  (geste + pastille couleur + objet) ; A2 par les prépositions.
+- **`QUIZ - Moto, salade, tomate, lit`** : SES 8 questions, page élève « Cette semaine »
+  (jeudi 24). Où ranger les quiz : à décider (A-FAIRE §6).
+- **Jeu de l'alphabet** : la zone d'images ne défile plus seule (2e rangée cachée sur l'écran
+  du lycée) — à confirmer par elle au lycée.
+- Accrochés : mardi 22 (livret, étiquettes ordre, traductions, écoute arabe) · jeudi 24
+  (livre PDF, vidéo Valmy, Je lis je fais, quiz).
+
+## ✅ CE QUI S'EST DÉCIDÉ LES 22 ET 23/09 (à lire avant tout)
+
+- **Maths rangées en rubriques** (23/09, son accord) : `mathsnum` Numération · `mathsgeo`
+  Géométrie · `mathsgm` Grandeurs et mesures (vide, « à venir », dans `COLL_VIDES`) ·
+  `mathsoutils` Outils · `nombres`. ⚠ **Ses livrets PDF sont gardés TELS QUELS** (`docs/`) :
+  sa Numération 1 remplace mon Livret 1, sa 1.1 (11 à 20) remplace mon Livret 2 — mes
+  fichiers restent sur le disque mais ne sont plus dans aucun menu. « Livret 1 bis » est
+  devenu « Tracer les chiffres », sans numéro (sinon 1 bis et 1.1 se confondent).
+- **`JEU - Le son I.dc.html`** (23/09) : copie du son A, accroché au parcours des sons.
+  Chaque photo regardée : 17 écartées (dessins, calendrier écrit, casque pour « musique »).
+
+- **Collection « Les mots repères »** sous *Écriture* (22/09, son accord) : 7 supports, dont
+  « J'associe et j'écris » (photos sans le mot + mots à découper + feuille élève). « J'écris
+  les mots repères » a QUITTÉ « Lettres cursive » : pas de doublon.
+- **`TABLEAU - Lecture et dictée.dc.html`** : A4 qu'elle imprime en A3. LECTURE / DICTÉE au
+  format des vignettes des devoirs (rouge #b3283c, Archivo Black), 6 cases prénoms, page des
+  6 prénoms (**80 × 30 mm**, sa demande « doubler la taille, pas le nombre »), page de 24 ✓
+  verts (pas de croix). **Bande de couleur = groupe de niveau**, aucun mot : bleu Ahmed + Bilal,
+  orange Anita, vert Josefina + Sania + Yasir. Rangé nulle part pour l'instant.
+- **Bilal** : nouvel élève, pas encore dans `ELEVES` (il manque son nom de famille).
+- **Étiquettes « Dans Paris »** : elle a demandé le 23/09 de **retirer TOUS les déterminants**
+  (rue, maison, escalier…). ⚠ Ça remplace, pour CES étiquettes, la règle « les déterminants
+  suivent le texte ».
+- **Photos recadrées** `mot-ananas` et `mot-cerise` (trop de blanc autour). La cerise
+  d'origine faisait 350 px : molle à l'impression, à remplacer si elle en a une meilleure.
+- **Mercredi 23/09** : elle a supprimé le créneau « Littéracie » et recréé un créneau perso
+  « Littéracie et écriture — moment littéraire + son » (10 h 15-11 h). Les documents du jour y
+  sont accrochés dans SES `liens` (localStorage, cet appareil seulement). Le diaporama *Dans
+  Paris* est sur mardi ET mercredi.
+- **Liens `_blank` corrigés** (23/09) dans l'emploi du temps et « Cette semaine » : le test
+  est l'adresse (`http`), plus la provenance. Règle précisée dans `CLAUDE.md`. `?v=18`.
+- **Zip** : le zip complet échoue (~400 Mo à cause de `github/clean/`). Utiliser le dossier
+  allégé `appli-22-09/` (à refaire si l'appli a bougé depuis).
+
 ## ✅ LE DICTIONNAIRE SPATIAL — affiche au mur (22/09)
 
 `AFFICHE - Dictionnaire spatial.dc.html`, rangé dans **Affichages de la classe → Au mur**.

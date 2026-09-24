@@ -68,9 +68,20 @@ const BANDEAU=(titre,sous)=>'<div style="flex:0 0 auto;background:'+ROUGE+';colo
  +'<div style="flex:0 0 auto;height:5px;background:'+LISERE+'"></div>';
 
 /* Consigne numérotée : pastille ronde bleu nuit, texte à 19 px — exactement ses fiches. */
-const CONSIGNE=(n,txt)=>'<div style="flex:0 0 auto;display:flex;align-items:baseline;gap:11px">'
+/* ⚠ UN PICTO PAR VERBE devant la consigne (23/09, sa demande : « ça manque de picto
+   explicatif » — beaucoup ne lisent pas encore). taper et montre attendent SES photos
+   (clean/pictos/taper.webp, montre.webp) : cadre pointillé en attendant. Les pictos
+   « camarade » et « structure » du dossier sont des bonshommes dessinés : écartés. */
+const PICTO_IMG={ecoute:"url('clean/pictos/ecoute.webp')", repete:"url('clean/mot-parler.webp')",
+  lis:"url('clean/icone-oeil.svg')", entoure:"url('clean/pictos/entoure.webp')",
+  ecris:"url('clean/pictos/ecris.webp')", taper:"url('clean/pictos/taper.webp')", montre:"url('clean/pictos/montre.webp')"};
+const PICTO=k=>k==='coche'
+ ? '<span style="flex:0 0 auto;width:46px;height:46px;box-sizing:border-box;border:2px solid '+ENCRE+';border-radius:8px;background:#fff;display:flex;align-items:center;justify-content:center"><span style="width:24px;height:24px;box-sizing:border-box;border:2.5px solid '+ENCRE+';border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;line-height:1;color:'+ENCRE+'">✓</span></span>'
+ : '<span style="flex:0 0 auto;width:46px;height:46px;box-sizing:border-box;border:2px '+((k==='taper'||k==='montre')?'dashed #8a91a3':'solid '+ENCRE)+';border-radius:8px;background-color:#fff;background-image:'+PICTO_IMG[k]+';background-size:'+(k==='lis'?'70%':'contain')+';background-repeat:no-repeat;background-position:center;display:block"></span>';
+const CONSIGNE=(n,txt,pictos)=>'<div style="flex:0 0 auto;display:flex;align-items:center;gap:11px">'
  +'<span style="width:29px;height:29px;flex:0 0 auto;border-radius:50%;background:'+ENCRE+';color:#fff;'
  +'font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center">'+n+'</span>'
+ +((pictos&&pictos.length)?'<span style="flex:0 0 auto;display:flex;gap:6px">'+pictos.map(PICTO).join('')+'</span>':'')
  +'<span style="font-size:19px;color:'+ENCRE+';font-weight:700">'+esc(txt)+'</span></div>';
 
 const PAGE=(label,corps)=>'<section class="page" data-screen-label="'+esc(label)+'" '
@@ -146,7 +157,7 @@ function exEcoute(mots){
     +'<img src="'+esc(m[1])+'" alt="" style="width:100%;height:96px;object-fit:contain" />'
     +'<span style="font-size:20px;font-weight:700;letter-spacing:0.05em;color:'+ENCRE+'">'+esc(CAP(m[0]))+'</span>'
     +'<span style="font-size:17px;color:#6b7386">'+esc(sansArticle(m[0]))+'</span></div>').join('');
-  return CONSIGNE(1,'J’écoute. Je répète.')
+  return CONSIGNE(1,'J’écoute. Je répète.',['ecoute','repete'])
     +'<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:11px">'+cases+'</div>';
 }
 
@@ -158,7 +169,7 @@ function exCoche(mots, intrus, api, graine){
     +'border:2px solid '+ENCRE+';border-radius:9px;padding:8px">'
     +'<img src="'+esc(m[1])+'" alt="" style="width:100%;height:84px;object-fit:contain" />'
     +'<span style="width:26px;height:26px;border:2px solid '+ENCRE+';border-radius:4px;display:block"></span></div>').join('');
-  return CONSIGNE(2,'J’entends '+api+' ? Je coche la case.')
+  return CONSIGNE(2,'J’entends '+api+' ? Je coche la case.',['ecoute','coche'])
     +'<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:11px">'+cases+'</div>';
 }
 
@@ -204,7 +215,7 @@ function exEntoure(f, graine){
       +'border-radius:9px;height:52px;font-family:'+fo.police+';font-size:'+taille+'px;color:'+ENCRE+'">'
       +esc(txt)+'</span>');
   }
-  return CONSIGNE(3,'Je lis. J’entoure les '+(cibles[0]||'')+'.')
+  return CONSIGNE(3,'Je lis. J’entoure les '+(cibles[0]||'')+'.',['lis','entoure'])
     +'<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(9,1fr);gap:7px">'+cell.join('')+'</div>';
 }
 
@@ -222,7 +233,7 @@ function exSyllabes(mots){
       +'<span style="flex:0 0 160px;font-size:20px;font-weight:700;letter-spacing:0.05em;color:'+ENCRE+'">'+esc(CAP(m[0]))+'</span>'
       +'<span style="display:flex;gap:9px">'+cases+'</span></div>';
   }).join('');
-  return CONSIGNE(4,'Je tape les syllabes dans mes mains. Je coche une case par syllabe.')
+  return CONSIGNE(4,'Je tape les syllabes dans mes mains. Je coche une case par syllabe.',['taper','coche'])
     +'<div style="flex:0 0 auto;display:flex;flex-direction:column">'+lignes+'</div>';
 }
 
@@ -244,9 +255,9 @@ function pageCombinatoire(f){
     +'<span style="flex:1;height:34px;border-bottom:1px solid #c9cfd8;display:block"></span></div>').join('');
   return PAGE('Combinatoire '+f.cle,
     BANDEAU('LE SON '+f.api,'COMBINATOIRE')
-    +CORPS(CONSIGNE(1,'Je lis les syllabes à voix haute.')
+    +CORPS(CONSIGNE(1,'Je lis les syllabes à voix haute.',['lis','repete'])
     +'<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:11px">'+cell+'</div>'
-    +CONSIGNE(2,'Je lis. Je montre la syllabe que le professeur dit.')
+    +CONSIGNE(2,'Je lis. Je montre la syllabe que le professeur dit.',['lis','montre'])
     +'<div style="flex:1;min-height:0;display:flex;flex-direction:column">'+lignes+'</div>'));
 }
 

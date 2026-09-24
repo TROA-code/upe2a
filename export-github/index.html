@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>UPE2A NSA</title>
+<!-- On entre DIRECTEMENT dans l'espace élève (sa demande du 09/09) : l'application
+     s'ouvre déjà verrouillée côté élève, l'accès enseignant se fait par son bouton.
+     Le sommaire des supports imprimables vit désormais dans sommaire.html.
+     La requête est recopiée pour que les liens « Je continue chez moi » (?devoir=…)
+     continuent de marcher.
+     Le ?v= ajouté à l'adresse force son téléphone à recharger le fichier au lieu de
+     ressortir l'ancienne version de son cache (14/09 : le menu restait périmé). À
+     incrémenter à chaque fois qu'elle ne voit pas une modification. -->
+<script>
+  var q = location.search || '';
+  q = q ? q + '&v=14' : '?v=15';
+  location.replace('APPLI%20-%20Espace%20enseignant.dc.html' + q);
+</script>
+<style>
+  body{margin:0;background:#eef2f7;font-family:Archivo,system-ui,sans-serif;color:#6b7386;
+       display:flex;align-items:center;justify-content:center;height:100vh;font-size:15px}
+  a{color:#1d4e89}
+</style>
+</head>
+<body>
+<p>Ouverture de l'application… <a href="APPLI%20-%20Espace%20enseignant.dc.html?v=15">entrer</a> · <a href="sommaire.html">tous les supports</a></p>
+</body>
+</html>

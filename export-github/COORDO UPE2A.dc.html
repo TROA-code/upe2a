@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;600;700&display=swap" />
+<style>
+body{margin:0;background:#f4f6f9}
+input,select,button,textarea{font-family:inherit}
+a{color:#1682a0}
+a:hover{color:#12233b}
+.coordo-scroll{scrollbar-width:thin;scrollbar-color:#c3ccd8 transparent}
+.coordo-scroll::-webkit-scrollbar{height:9px;width:9px}
+.coordo-scroll::-webkit-scrollbar-thumb{background:#c3ccd8;border-radius:5px}
+@media print{
+  html,body{background:#fff}
+  .coordo-nonprint{display:none !important}
+  .coordo-page{height:auto !important;overflow:visible !important}
+  .coordo-scroll{overflow:visible !important}
+  @page{size:A4 landscape;margin:12mm}
+}
+</style>
+</helmet>
+<div class="coordo-page" style="height:100vh;min-height:0;overflow:hidden;display:flex;flex-direction:column;font-family:Archivo, Arial, sans-serif;color:#12233b;background:#f4f6f9">
+
+<div class="coordo-nonprint" style="flex:0 0 auto;background:#12233b;color:#fff;display:flex;align-items:center;gap:14px;padding:12px 18px">
+<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:1px">
+<span style="font-size:9.5px;letter-spacing:0.2em;text-transform:uppercase;color:#7fb8cc;font-weight:700">Coordination &middot; élèves allophones</span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:19px;line-height:1.15;letter-spacing:-0.01em">COORDO UPE2A</span>
+</div>
+<span style="flex:0 0 auto;font-size:11px;color:#9db6ce;letter-spacing:0.04em">{{ dateDuJour }}</span>
+</div>
+
+<div class="coordo-nonprint" style="flex:0 0 auto;background:#fff;border-bottom:1px solid #e2e7ee;padding:0 12px;display:flex;gap:6px;overflow-x:auto">
+<sc-for list="{{ onglets }}" as="o" hint-placeholder-count="3">
+<button onClick="{{ o.aller }}" style="flex:0 0 auto;border:none;background:none;padding:14px 14px 11px;border-bottom:3px solid {{ o.trait }};color:{{ o.encre }};font-family:Archivo Black, Archivo, sans-serif;font-size:12.5px;letter-spacing:0.04em;text-transform:uppercase;cursor:pointer;white-space:nowrap">{{ o.titre }}</button>
+</sc-for>
+</div>
+
+<sc-if value="{{ estTable }}" hint-placeholder-val="{{ true }}">
+<div style="flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:14px;padding:16px 18px 30px">
+
+<div style="display:flex;flex-wrap:wrap;gap:10px">
+<sc-for list="{{ compteurs }}" as="c" hint-placeholder-count="4">
+<div style="flex:1 1 150px;min-width:0;background:#fff;border-radius:13px;box-shadow:0 2px 8px rgba(20,33,61,0.12);padding:12px 14px;display:flex;flex-direction:column;gap:3px;border-left:5px solid {{ c.couleur }}">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:24px;line-height:1;color:{{ c.couleur }}">{{ c.valeur }}</span>
+<span style="font-size:11.5px;color:#5a6577;line-height:1.3">{{ c.libelle }}</span>
+</div>
+</sc-for>
+</div>
+
+<div class="coordo-nonprint" style="display:flex;flex-wrap:wrap;gap:9px;align-items:center">
+<select value="{{ filtre }}" onChange="{{ setFiltre }}" style="border:1px solid #d3dae4;border-radius:10px;padding:9px 11px;font-size:13px;background:#fff;color:#12233b;min-height:40px">
+<sc-for list="{{ filtres }}" as="f" hint-placeholder-count="3">
+<option value="{{ f.cle }}">{{ f.titre }}</option>
+</sc-for>
+</select>
+<button onClick="{{ allerForm }}" style="border:none;border-radius:10px;background:#2a9d6e;color:#fff;padding:11px 16px;font-family:Archivo Black, Archivo, sans-serif;font-size:11.5px;letter-spacing:0.05em;text-transform:uppercase;cursor:pointer;box-shadow:0 3px 0 #1f7a55;min-height:44px">+ Nouvel élève</button>
+<button onClick="{{ exporterCsv }}" style="border:1px solid #d3dae4;border-radius:10px;background:#fff;color:#12233b;padding:11px 15px;font-size:12.5px;font-weight:600;cursor:pointer;min-height:44px">Export CSV</button>
+<button onClick="{{ imprimer }}" style="border:1px solid #d3dae4;border-radius:10px;background:#fff;color:#12233b;padding:11px 15px;font-size:12.5px;font-weight:600;cursor:pointer;min-height:44px">Imprimer</button>
+</div>
+
+<div style="display:flex;flex-wrap:wrap;gap:12px;font-size:11.5px;color:#5a6577;align-items:center">
+<sc-for list="{{ legende }}" as="l" hint-placeholder-count="4">
+<span style="display:flex;align-items:center;gap:6px"><span style="width:11px;height:11px;border-radius:50%;background:{{ l.couleur }};display:block"></span>{{ l.titre }}</span>
+</sc-for>
+</div>
+
+<div class="coordo-scroll" style="flex:0 0 auto;background:#fff;border-radius:14px;box-shadow:0 2px 10px rgba(20,33,61,0.13);overflow-x:auto">
+<table style="border-collapse:collapse;width:100%;min-width:1180px;font-size:12.5px">
+<thead>
+<tr style="background:#eef2f7">
+<sc-for list="{{ colonnes }}" as="c" hint-placeholder-count="12">
+<th style="text-align:left;padding:10px 11px;font-family:Archivo Black, Archivo, sans-serif;font-size:10px;letter-spacing:0.07em;text-transform:uppercase;color:#48586b;white-space:nowrap;border-bottom:2px solid #d8e0ea">{{ c }}</th>
+</sc-for>
+</tr>
+</thead>
+<tbody>
+<sc-for list="{{ lignes }}" as="l" hint-placeholder-count="8">
+<tr onClick="{{ l.ouvrir }}" style="cursor:pointer;background:{{ l.fond }};border-bottom:1px solid #edf1f6">
+<td style="padding:9px 11px"><span style="width:12px;height:12px;border-radius:50%;background:{{ l.couleur }};display:block"></span></td>
+<td style="padding:9px 11px;font-weight:700;white-space:nowrap">{{ l.nom }}</td>
+<td style="padding:9px 11px;white-space:nowrap">{{ l.prenom }}</td>
+<td style="padding:9px 11px;text-align:center">{{ l.sexe }}</td>
+<td style="padding:9px 11px;white-space:nowrap">{{ l.naissance }}</td>
+<td style="padding:9px 11px;text-align:center;white-space:nowrap">{{ l.age }}</td>
+<td style="padding:9px 11px">{{ l.lycee }}</td>
+<td style="padding:9px 11px">{{ l.classe }}</td>
+<td style="padding:9px 11px;white-space:nowrap">{{ l.entreeFls }}</td>
+<td style="padding:9px 11px;white-space:nowrap">{{ l.entreeDisp }}</td>
+<td style="padding:9px 11px;white-space:nowrap;font-weight:700;color:{{ l.couleur }}">{{ l.prise }}</td>
+<td style="padding:9px 11px;white-space:nowrap">{{ l.fin }}</td>
+<td style="padding:9px 11px;white-space:nowrap;color:{{ l.couleur }}">{{ l.reste }}</td>
+<td style="padding:9px 11px;text-align:center">{{ l.heures }}</td>
+<td style="padding:9px 11px;text-align:center">{{ l.derog }}</td>
+</tr>
+</sc-for>
+</tbody>
+</table>
+</div>
+<sc-if value="{{ tableVide }}" hint-placeholder-val="{{ false }}">
+<span style="font-size:13px;color:#8b95a6;padding:6px 2px">Aucun élève ne correspond à ce filtre.</span>
+</sc-if>
+<span style="font-size:11px;color:#8b95a6;line-height:1.5;max-width:720px">L'UPE2A dure <b>un an</b> à partir de la date d'entrée dans le dispositif. Passé ce délai l'élève sort du dispositif — sauf dérogation — mais il peut continuer à bénéficier d'heures de FLS. Cliquer sur une ligne ouvre la fiche de l'élève.</span>
+</div>
+</sc-if>
+
+<sc-if value="{{ estForm }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;overflow-y:auto;padding:16px 18px 40px;display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;flex-wrap:wrap;gap:10px;align-items:baseline">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:17px">{{ titreForm }}</span>
+<span style="font-size:12px;color:#8b95a6">Ce qui est saisi ici arrive directement dans le tableau.</span>
+</div>
+
+<sc-for list="{{ groupes }}" as="g" hint-placeholder-count="3">
+<div style="background:#fff;border-radius:14px;box-shadow:0 2px 9px rgba(20,33,61,0.12);padding:15px 16px 18px;display:flex;flex-direction:column;gap:12px;max-width:940px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:11.5px;letter-spacing:0.07em;text-transform:uppercase;color:{{ g.couleur }};border-left:5px solid {{ g.couleur }};padding-left:10px">{{ g.titre }}</span>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px">
+<sc-for list="{{ g.champs }}" as="c" hint-placeholder-count="4">
+<label style="min-width:0;display:flex;flex-direction:column;gap:5px;grid-column:{{ c.span }}">
+<span style="font-size:11px;font-weight:700;letter-spacing:0.03em;color:#5a6577;text-transform:uppercase">{{ c.label }}</span>
+<sc-if value="{{ c.estSelect }}" hint-placeholder-val="{{ false }}">
+<select value="{{ c.valeur }}" onChange="{{ c.onChange }}" style="border:1px solid #d3dae4;border-radius:9px;padding:10px 10px;font-size:13.5px;background:#fff;color:#12233b;min-height:44px;width:100%;box-sizing:border-box">
+<sc-for list="{{ c.options }}" as="o" hint-placeholder-count="3">
+<option value="{{ o }}">{{ o }}</option>
+</sc-for>
+</select>
+</sc-if>
+<sc-if value="{{ c.estZone }}" hint-placeholder-val="{{ false }}">
+<textarea value="{{ c.valeur }}" onChange="{{ c.onChange }}" rows="3" style="border:1px solid #d3dae4;border-radius:9px;padding:10px;font-size:13.5px;color:#12233b;resize:vertical;width:100%;box-sizing:border-box"></textarea>
+</sc-if>
+<sc-if value="{{ c.estChamp }}" hint-placeholder-val="{{ true }}">
+<input type="{{ c.type }}" value="{{ c.valeur }}" onChange="{{ c.onChange }}" placeholder="{{ c.exemple }}" style="border:1px solid #d3dae4;border-radius:9px;padding:10px;font-size:13.5px;color:#12233b;min-height:44px;width:100%;box-sizing:border-box" />
+</sc-if>
+<sc-if value="{{ c.aide }}" hint-placeholder-val="{{ false }}">
+<span style="font-size:10.5px;color:#8b95a6;line-height:1.35">{{ c.aide }}</span>
+</sc-if>
+</label>
+</sc-for>
+</div>
+</div>
+</sc-for>
+
+<sc-if value="{{ apercuForm }}" hint-placeholder-val="{{ false }}">
+<div style="max-width:940px;background:#eef6f2;border:1px solid #bfe0d1;border-radius:13px;padding:13px 15px;display:flex;flex-direction:column;gap:4px">
+<span style="font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#1f7a55">Calcul immédiat</span>
+<span style="font-size:14px;line-height:1.5;color:#12233b">{{ apercuForm }}</span>
+</div>
+</sc-if>
+
+<div style="display:flex;flex-wrap:wrap;gap:10px;max-width:940px">
+<button onClick="{{ enregistrer }}" style="border:none;border-radius:11px;background:#2a9d6e;color:#fff;padding:13px 22px;font-family:Archivo Black, Archivo, sans-serif;font-size:12.5px;letter-spacing:0.05em;text-transform:uppercase;cursor:pointer;box-shadow:0 3px 0 #1f7a55;min-height:48px">Ajouter au tableau</button>
+<button onClick="{{ annuler }}" style="border:1px solid #d3dae4;border-radius:11px;background:#fff;color:#12233b;padding:13px 18px;font-size:13px;font-weight:600;cursor:pointer;min-height:48px">Annuler</button>
+<sc-if value="{{ peutSupprimer }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ supprimer }}" style="border:1px solid #f0c4cd;border-radius:11px;background:#fff;color:#b3283c;padding:13px 18px;font-size:13px;font-weight:600;cursor:pointer;min-height:48px">Retirer du tableau</button>
+</sc-if>
+</div>
+<sc-if value="{{ erreurForm }}" hint-placeholder-val="{{ false }}">
+<span style="font-size:13px;color:#b3283c;font-weight:700">{{ erreurForm }}</span>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ estDemande }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;overflow-y:auto;padding:16px 18px 40px;display:flex;flex-direction:column;gap:14px">
+<span style="font-size:12.5px;color:#5a6577;line-height:1.5;max-width:700px">Pose ta question au tableau, ou choisis-en une. La réponse se calcule sur les élèves enregistrés, à la date d'aujourd'hui.</span>
+
+<div style="display:flex;gap:9px;flex-wrap:wrap;max-width:760px">
+<input type="text" value="{{ question }}" onChange="{{ setQuestion }}" onKeyDown="{{ toucheQuestion }}" placeholder="ex. combien de jours pour Sumaya ?" style="flex:1 1 320px;min-width:0;border:1px solid #d3dae4;border-radius:11px;padding:13px 14px;font-size:14px;color:#12233b;min-height:48px;box-sizing:border-box" />
+<button onClick="{{ demander }}" style="border:none;border-radius:11px;background:#1d4e89;color:#fff;padding:13px 22px;font-family:Archivo Black, Archivo, sans-serif;font-size:12px;letter-spacing:0.05em;text-transform:uppercase;cursor:pointer;box-shadow:0 3px 0 #163c6a;min-height:48px">Demander</button>
+</div>
+
+<div style="display:flex;flex-wrap:wrap;gap:8px;max-width:900px">
+<sc-for list="{{ suggestions }}" as="s" hint-placeholder-count="5">
+<button onClick="{{ s.poser }}" style="border:1px solid #d3dae4;border-radius:999px;background:#fff;color:#33445c;padding:9px 14px;font-size:12.5px;cursor:pointer;min-height:40px">{{ s.titre }}</button>
+</sc-for>
+</div>
+
+<sc-if value="{{ reponse }}" hint-placeholder-val="{{ false }}">
+<div style="max-width:900px;background:#fff;border-radius:15px;box-shadow:0 3px 12px rgba(20,33,61,0.15);padding:18px 19px;display:flex;flex-direction:column;gap:9px;border-top:5px solid {{ reponse.couleur }}">
+<span style="font-size:11px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#8b95a6">{{ reponse.question }}</span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:27px;line-height:1.15;color:{{ reponse.couleur }}">{{ reponse.valeur }}</span>
+<sc-if value="{{ reponse.detail }}" hint-placeholder-val="{{ false }}">
+<span style="font-size:14px;line-height:1.55;color:#33445c">{{ reponse.detail }}</span>
+</sc-if>
+<sc-if value="{{ reponse.aListe }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:6px;margin-top:3px">
+<sc-for list="{{ reponse.liste }}" as="r" hint-placeholder-count="3">
+<div onClick="{{ r.ouvrir }}" style="cursor:pointer;display:flex;flex-wrap:wrap;gap:10px;align-items:baseline;background:#f5f8fb;border-radius:10px;padding:10px 12px">
+<span style="width:10px;height:10px;border-radius:50%;background:{{ r.couleur }};display:block"></span>
+<span style="font-weight:700;font-size:13.5px">{{ r.nom }}</span>
+<span style="font-size:12.5px;color:#5a6577">{{ r.info }}</span>
+</div>
+</sc-for>
+</div>
+</sc-if>
+</div>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ fiche }}" hint-placeholder-val="{{ false }}">
+<div onClick="{{ fermerFiche }}" class="coordo-nonprint" style="position:fixed;inset:0;background:rgba(18,35,59,0.55);display:flex;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto;z-index:40">
+<div onClick="{{ stop }}" style="width:100%;max-width:560px;background:#fff;border-radius:17px;box-shadow:0 14px 40px rgba(18,35,59,0.4);padding:20px 21px 22px;display:flex;flex-direction:column;gap:13px">
+<div style="display:flex;gap:12px;align-items:flex-start">
+<span style="flex:0 0 auto;width:14px;height:14px;border-radius:50%;background:{{ fiche.couleur }};margin-top:6px;display:block"></span>
+<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:19px;line-height:1.2">{{ fiche.titre }}</span>
+<span style="font-size:12.5px;color:#8b95a6">{{ fiche.sousTitre }}</span>
+</div>
+<button onClick="{{ fermerFiche }}" style="flex:0 0 auto;border:1px solid #d3dae4;border-radius:10px;background:#fff;color:#48586b;width:40px;height:40px;font-size:17px;cursor:pointer">×</button>
+</div>
+<div style="background:{{ fiche.fondPrise }};border-radius:13px;padding:14px 15px;display:flex;flex-direction:column;gap:3px">
+<span style="font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#5a6577">Prise en charge dans le dispositif</span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:25px;line-height:1.15;color:{{ fiche.couleur }}">{{ fiche.prise }}</span>
+<span style="font-size:13px;color:#33445c;line-height:1.5">{{ fiche.phrase }}</span>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px">
+<sc-for list="{{ fiche.infos }}" as="i" hint-placeholder-count="6">
+<div style="min-width:0;display:flex;flex-direction:column;gap:2px">
+<span style="font-size:10.5px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:#8b95a6">{{ i.label }}</span>
+<span style="font-size:13.5px;color:#12233b;line-height:1.4">{{ i.valeur }}</span>
+</div>
+</sc-for>
+</div>
+<div style="display:flex;gap:9px;flex-wrap:wrap">
+<button onClick="{{ fiche.modifier }}" style="border:none;border-radius:11px;background:#1d4e89;color:#fff;padding:12px 19px;font-family:Archivo Black, Archivo, sans-serif;font-size:11.5px;letter-spacing:0.05em;text-transform:uppercase;cursor:pointer;box-shadow:0 3px 0 #163c6a;min-height:46px">Modifier la fiche</button>
+<button onClick="{{ fermerFiche }}" style="border:1px solid #d3dae4;border-radius:11px;background:#fff;color:#12233b;padding:12px 17px;font-size:13px;font-weight:600;cursor:pointer;min-height:46px">Fermer</button>
+</div>
+</div>
+</div>
+</sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:860}}">
+/* COORDO UPE2A — suivi de coordination.
+   Règle métier posée par elle (14/09) : l'UPE2A dure UN AN à partir de la date d'entrée
+   dans le dispositif ; passé ce délai l'élève sort du dispositif — sauf dérogation — mais
+   peut continuer à bénéficier d'heures de FLS. Toute la coloration du tableau vient de là. */
+const CLE = 'coordo-upe2a-eleves';
+const DUREE_MOIS = 12;
+
+const VIDE = {statut:'In',nom:'',prenom:'',sexe:'',naissance:'',pays:'',langues:'',
+  arriveeFrance:'',scolarite:'',lycee:'',classe:'',entreeFls:'',entreeDisp:'',
+  heuresFls:'',derogation:'Non',motifDerog:'',obs:''};
+
+/* Les 8 élèves de son fichier eleves_UPE2A-NSA.xlsx (dates converties des séries Excel). */
+const DEPART = [
+  ['FAKHILZAI','Anita','F','2010-06-26','2025-05-20',''],
+  ['HALAWA','Ahmed','M','2009-06-01','2026-05-26','2026-05-26'],
+  ['MAMINGI MABOTE','Obéd David','M','2007-04-23','2025-03-06','2025-10-19'],
+  ['ORYAKHIL','Sumaya','F','2009-04-18','2025-10-03','2025-10-10'],
+  ['SYLLA','Mahamadou','M','2008-08-04','2025-05-26','2025-05-05'],
+  ['TARAKHEIL','Sania','F','2008-12-15','2025-10-13','2026-04-15'],
+  ['TARAKHEIL','Yasir Ullah','M','2009-12-30','2025-10-13',''],
+  ['ZANGA','Josefina','F','2007-07-24','2026-06-01','2026-06-01']
+].map((r,i)=>Object.assign({},VIDE,{id:'x'+i,nom:r[0],prenom:r[1],sexe:r[2],
+  naissance:r[3],entreeFls:r[4],entreeDisp:r[5],scolarite:'NSA'}));
+
+const jourD = s => { if(!s) return null; const d=new Date(s+'T12:00:00'); return isNaN(d.getTime())?null:d; };
+const fr = s => { const d=jourD(s); return d ? String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear() : '—'; };
+const plusMois = (d,n) => { const r=new Date(d.getTime()); const j=r.getDate(); r.setMonth(r.getMonth()+n); if(r.getDate()<j) r.setDate(0); return r; };
+const nbJours = (a,b) => Math.round((b-a)/86400000);
+/* Découpage calendaire : « 1 an 2 mois 14 jours » se lit mieux que « 441 jours »,
+   mais elle a demandé les deux — le total en jours est toujours affiché à côté. */
+function decouper(a,b){
+  let ans=b.getFullYear()-a.getFullYear(), mois=b.getMonth()-a.getMonth(), jours=b.getDate()-a.getDate();
+  if(jours<0){ mois--; const p=new Date(b.getFullYear(),b.getMonth(),0).getDate(); jours+=p; }
+  if(mois<0){ ans--; mois+=12; }
+  return {ans,mois,jours};
+}
+function texteDuree(a,b){
+  const d=decouper(a,b), p=[];
+  if(d.ans) p.push(d.ans+' an'+(d.ans>1?'s':''));
+  if(d.mois) p.push(d.mois+' mois');
+  if(d.jours||!p.length) p.push(d.jours+' j');
+  return p.join(' ');
+}
+const sansAccent = s => (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+
+class Component extends DCLogic {
+  state = {ecran:'table', eleves:null, form:null, editId:null, erreur:'',
+    filtre:'tous', question:'', reponse:null, ficheId:null, surligne:''};
+
+  componentDidMount(){
+    let l=null;
+    try{ const b=localStorage.getItem(CLE); if(b){ const o=JSON.parse(b); if(Array.isArray(o)) l=o; } }catch(e){}
+    this.setState({eleves:l||DEPART.slice()});
+    if(!l) this.sauver(DEPART.slice());
+  }
+  sauver(l){ try{ localStorage.setItem(CLE, JSON.stringify(l)); }catch(e){} }
+  majListe(l){ this.sauver(l); this.setState({eleves:l}); }
+
+  /* Le calcul central : où en est l'élève de son année de dispositif. */
+  calcul(e){
+    const auj=new Date(); auj.setHours(12,0,0,0);
+    const d=jourD(e.entreeDisp);
+    const derog=(e.derogation==='Oui');
+    const sorti=(e.statut==='Sorti du dispositif');
+    if(!d) return {prise:'—', jours:null, fin:'—', reste:'sans date d\u2019entrée',
+      couleur:'#8b95a6', fond:'#fff', etat:'sansdate',
+      phrase:'Aucune date d\u2019entrée dans le dispositif n\u2019est saisie : la durée ne peut pas être calculée.'};
+    const j=nbJours(d,auj);
+    const fin=plusMois(d,DUREE_MOIS);
+    const jRest=nbJours(auj,fin);
+    const prise=texteDuree(d,auj)+' ('+j+' j)';
+    let couleur='#2a9d6e', fond='#fff', etat='encours', reste;
+    if(sorti){ couleur='#8b95a6'; fond='#fafbfc'; etat='sorti'; reste='sorti du dispositif'; }
+    else if(jRest<0){
+      reste=Math.abs(jRest)+' j de dépassement';
+      if(derog){ couleur='#6d5bd0'; fond='#f7f5fd'; etat='derog'; }
+      else { couleur='#b3283c'; fond='#fdf4f5'; etat='depasse'; }
+    }
+    else if(jRest<=90){ couleur='#d87c1a'; fond='#fdf8f1'; etat='bientot'; reste='encore '+jRest+' j'; }
+    else { reste='encore '+jRest+' j'; }
+    let phrase;
+    if(etat==='sorti') phrase='Élève sorti du dispositif. Il peut continuer à bénéficier d\u2019heures de FLS.';
+    else if(etat==='derog') phrase='L\u2019année de dispositif est terminée depuis le '+fr(this.iso(fin))+', mais une dérogation est en cours.';
+    else if(etat==='depasse') phrase='L\u2019année de dispositif est terminée depuis le '+fr(this.iso(fin))+'. Sans dérogation, l\u2019élève sort de l\u2019UPE2A — il peut garder des heures de FLS.';
+    else if(etat==='bientot') phrase='Fin du dispositif le '+fr(this.iso(fin))+', dans '+jRest+' jours. C\u2019est le moment de préparer la sortie ou une dérogation.';
+    else phrase='Fin du dispositif le '+fr(this.iso(fin))+', dans '+jRest+' jours.';
+    return {prise, jours:j, joursRestants:jRest, fin:fr(this.iso(fin)), reste, couleur, fond, etat, phrase, derog};
+  }
+  iso(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+  age(e){ const d=jourD(e.naissance); if(!d) return '—'; const a=new Date(); return decouper(d,a).ans+' ans'; }
+  nomComplet(e){ return (e.nom||'').toUpperCase()+' '+(e.prenom||''); }
+
+  ouvrirForm(id){
+    const e=id ? (this.state.eleves||[]).find(x=>x.id===id) : null;
+    this.setState({ecran:'form', editId:id||null, ficheId:null, erreur:'',
+      form:Object.assign({}, VIDE, e||{})});
+  }
+  champ(cle,v){ this.setState({form:Object.assign({}, this.state.form, {[cle]:v})}); }
+
+  enregistrerForm(){
+    const f=this.state.form||{};
+    if(!(f.nom||'').trim() || !(f.prenom||'').trim()){ this.setState({erreur:'Il faut au minimum un nom et un prénom.'}); return; }
+    const l=(this.state.eleves||[]).slice();
+    const propre=Object.assign({}, f, {nom:(f.nom||'').trim().toUpperCase(), prenom:(f.prenom||'').trim()});
+    if(this.state.editId){
+      const i=l.findIndex(x=>x.id===this.state.editId);
+      if(i>=0) l[i]=Object.assign({}, l[i], propre);
+    } else {
+      propre.id='e'+Date.now();
+      l.push(propre);
+    }
+    l.sort((a,b)=>(a.nom+a.prenom).localeCompare(b.nom+b.prenom,'fr'));
+    this.sauver(l);
+    this.setState({eleves:l, ecran:'table', form:null, editId:null, erreur:'', surligne:propre.id});
+    setTimeout(()=>{ if(this.state.surligne===propre.id) this.setState({surligne:''}); }, 2600);
+  }
+  supprimerForm(){
+    const l=(this.state.eleves||[]).filter(x=>x.id!==this.state.editId);
+    this.majListe(l);
+    this.setState({ecran:'table', form:null, editId:null});
+  }
+
+  /* « Dialoguer avec le tableau » : pas d'IA, une lecture de la question par mots-clés et
+     par prénom/nom, pour que la réponse tombe instantanément et hors connexion. */
+  repondre(q){
+    const t=sansAccent(q).trim();
+    const el=this.state.eleves||[];
+    if(!t) return null;
+    const ligne=(e)=>{ const c=this.calcul(e); return {nom:this.nomComplet(e), info:c.prise+' · '+c.reste,
+      couleur:c.couleur, ouvrir:()=>this.setState({ficheId:e.id, ecran:'table'})}; };
+    const paquet=(question,liste,couleur,zero)=>({question, couleur,
+      valeur:liste.length ? (liste.length+' élève'+(liste.length>1?'s':'')) : zero,
+      detail:'', liste:liste.map(ligne), aListe:liste.length>0});
+
+    const trouve=el.find(e=>{
+      const p=sansAccent(e.prenom), n=sansAccent(e.nom);
+      return (p && p.length>2 && t.indexOf(p)>=0) || (n && n.length>2 && t.indexOf(n)>=0);
+    });
+    if(trouve){
+      const c=this.calcul(trouve);
+      return {question:q, couleur:c.couleur, valeur:c.prise,
+        detail:this.nomComplet(trouve)+' — '+c.phrase, liste:[], aListe:false};
+    }
+    if(/depass|trop long|plus d.un an|au dela|fini|termin/.test(t))
+      return paquet(q, el.filter(e=>this.calcul(e).etat==='depasse'), '#b3283c', 'Personne ne dépasse l\u2019année.');
+    if(/bientot|3 mois|trois mois|sort|sortie|prochain|fin/.test(t))
+      return paquet(q, el.filter(e=>['bientot','depasse'].indexOf(this.calcul(e).etat)>=0), '#d87c1a', 'Aucune sortie prévue dans les trois mois.');
+    if(/derogation|derog/.test(t))
+      return paquet(q, el.filter(e=>e.derogation==='Oui'), '#6d5bd0', 'Aucune dérogation en cours.');
+    if(/lycee|affectation|affecte/.test(t))
+      return paquet(q, el.filter(e=>!(e.lycee||'').trim()), '#1d4e89', 'Tous les élèves ont un lycée d\u2019affectation.');
+    if(/sans date|pas de date|manque/.test(t))
+      return paquet(q, el.filter(e=>!e.entreeDisp), '#8b95a6', 'Toutes les dates d\u2019entrée sont saisies.');
+    if(/nsa/.test(t))
+      return paquet(q, el.filter(e=>e.scolarite==='NSA'), '#12233b', 'Aucun élève NSA.');
+    if(/heure|fls/.test(t)){
+      const somme=el.reduce((s,e)=>s+(parseFloat(String(e.heuresFls).replace(',','.'))||0),0);
+      return {question:q, couleur:'#1d4e89', valeur:somme+' h par semaine',
+        detail:'Total des heures de FLS saisies sur les '+el.length+' élèves du tableau.', liste:[], aListe:false};
+    }
+    if(/combien|nombre|effectif|total/.test(t)){
+      const dans=el.filter(e=>this.calcul(e).etat!=='sorti').length;
+      return {question:q, couleur:'#12233b', valeur:el.length+' élèves',
+        detail:dans+' encore dans le dispositif, '+(el.length-dans)+' sorti'+((el.length-dans)>1?'s':'')+'.', liste:[], aListe:false};
+    }
+    if(/moyenne|duree moyenne/.test(t)){
+      const v=el.map(e=>this.calcul(e).jours).filter(x=>x!==null&&x!==undefined);
+      const m=v.length?Math.round(v.reduce((a,b)=>a+b,0)/v.length):0;
+      return {question:q, couleur:'#2a9d6e', valeur:m+' jours', detail:'Durée moyenne de prise en charge, sur '+v.length+' élèves ayant une date d\u2019entrée.', liste:[], aListe:false};
+    }
+    return {question:q, couleur:'#8b95a6', valeur:'Je ne sais pas répondre à ça',
+      detail:'Essaie un prénom (« combien de jours pour Sumaya »), ou : dépassement, sortie, dérogation, lycée, heures FLS, combien d\u2019élèves, durée moyenne.',
+      liste:[], aListe:false};
+  }
+
+  renderVals(){
+    const s=this.state;
+    const el=s.eleves||[];
+    const aller=(ec)=>()=>this.setState({ecran:ec, reponse:ec==='demande'?s.reponse:null});
+    const onglets=[['table','Le tableau'],['form','Nouvel élève'],['demande','Je demande']]
+      .map(([cle,titre])=>({titre, trait:s.ecran===cle?'#f08a24':'transparent',
+        encre:s.ecran===cle?'#12233b':'#7a8698',
+        aller:cle==='form'?(()=>this.ouvrirForm(null)):aller(cle)}));
+
+    const filtres=[['tous','Tous les élèves'],['dedans','Dans le dispositif'],
+      ['bientot','Fin dans moins de 3 mois'],['depasse','Année dépassée'],
+      ['derog','Avec dérogation'],['sorti','Sortis du dispositif'],['sanslycee','Sans lycée d\u2019affectation']]
+      .map(([cle,titre])=>({cle,titre}));
+    const garde=(e)=>{
+      const c=this.calcul(e);
+      if(s.filtre==='dedans') return c.etat!=='sorti';
+      if(s.filtre==='bientot') return c.etat==='bientot';
+      if(s.filtre==='depasse') return c.etat==='depasse';
+      if(s.filtre==='derog') return e.derogation==='Oui';
+      if(s.filtre==='sorti') return c.etat==='sorti';
+      if(s.filtre==='sanslycee') return !(e.lycee||'').trim();
+      return true;
+    };
+    const visibles=el.filter(garde);
+    const lignes=visibles.map(e=>{
+      const c=this.calcul(e);
+      return {nom:e.nom, prenom:e.prenom, sexe:e.sexe||'—', naissance:fr(e.naissance),
+        age:this.age(e), lycee:e.lycee||'—', classe:e.classe||'—',
+        entreeFls:fr(e.entreeFls), entreeDisp:fr(e.entreeDisp),
+        prise:c.prise, fin:c.fin, reste:c.reste, heures:e.heuresFls||'—',
+        derog:e.derogation==='Oui'?'oui':'—',
+        couleur:c.couleur, fond:s.surligne===e.id?'#eef8f3':c.fond,
+        ouvrir:()=>this.setState({ficheId:e.id})};
+    });
+
+    const nEtat=(k)=>el.filter(e=>this.calcul(e).etat===k).length;
+    const compteurs=[
+      {valeur:String(el.length), libelle:'élèves suivis', couleur:'#12233b'},
+      {valeur:String(el.filter(e=>this.calcul(e).etat!=='sorti').length), libelle:'dans le dispositif', couleur:'#2a9d6e'},
+      {valeur:String(nEtat('bientot')), libelle:'fin dans moins de 3 mois', couleur:'#d87c1a'},
+      {valeur:String(nEtat('depasse')), libelle:'année dépassée, sans dérogation', couleur:'#b3283c'}
+    ];
+    const legende=[{titre:'moins d\u2019un an',couleur:'#2a9d6e'},{titre:'fin dans moins de 3 mois',couleur:'#d87c1a'},
+      {titre:'année dépassée',couleur:'#b3283c'},{titre:'dérogation',couleur:'#6d5bd0'},
+      {titre:'sorti / sans date',couleur:'#8b95a6'}];
+
+    const f=s.form||VIDE;
+    const ch=(cle,label,opts)=>{
+      const o=opts||{};
+      return {label, valeur:f[cle]||'', exemple:o.exemple||'', aide:o.aide||'',
+        type:o.type||'text', options:o.options||[],
+        estSelect:!!o.options, estZone:!!o.zone, estChamp:!o.options&&!o.zone,
+        span:o.large?'1 / -1':'auto',
+        onChange:(ev)=>this.champ(cle, ev.target.value)};
+    };
+    const groupes=[
+      {titre:'Identité', couleur:'#1d4e89', champs:[
+        ch('nom','Nom de famille',{exemple:'en capitales'}),
+        ch('prenom','Prénom'),
+        ch('sexe','Sexe',{options:['','F','M']}),
+        ch('naissance','Date de naissance',{type:'date'}),
+        ch('pays','Pays d\u2019origine'),
+        ch('langues','Langue(s) parlée(s)',{exemple:'pachto, dari'})]},
+      {titre:'Parcours', couleur:'#6d5bd0', champs:[
+        ch('arriveeFrance','Arrivée en France',{type:'date'}),
+        ch('scolarite','Scolarité antérieure',{options:['','NSA','Peu scolarisé','SA']}),
+        ch('lycee','Lycée d\u2019affectation'),
+        ch('classe','Classe / niveau',{exemple:'2de MRC'})]},
+      {titre:'Dispositif', couleur:'#2a9d6e', champs:[
+        ch('statut','Statut',{options:['In','Sorti du dispositif','En attente d\u2019affectation']}),
+        ch('entreeFls','Date d\u2019entrée en FLS',{type:'date'}),
+        ch('entreeDisp','Date d\u2019entrée dans le dispositif',{type:'date',aide:'C\u2019est cette date qui lance l\u2019année d\u2019UPE2A.'}),
+        ch('heuresFls','Heures de FLS par semaine',{exemple:'6'}),
+        ch('derogation','Dérogation',{options:['Non','Oui']}),
+        ch('motifDerog','Motif de la dérogation'),
+        ch('obs','Observations',{zone:true,large:true})]}
+    ];
+    let apercuForm='';
+    if(f.entreeDisp){
+      const c=this.calcul(f);
+      apercuForm='Prise en charge : '+c.prise+'. '+c.phrase;
+    }
+
+    const suggestions=['Combien de jours pour Sumaya ?','Qui dépasse l\u2019année ?',
+      'Qui sort dans les trois mois ?','Qui n\u2019a pas de lycée d\u2019affectation ?',
+      'Combien d\u2019élèves en tout ?','Combien d\u2019heures de FLS par semaine ?',
+      'Quelle est la durée moyenne de prise en charge ?','Qui a une dérogation ?']
+      .map(titre=>({titre, poser:()=>this.setState({question:titre, reponse:this.repondre(titre)})}));
+
+    const eFiche=s.ficheId ? el.find(x=>x.id===s.ficheId) : null;
+    let fiche=null;
+    if(eFiche){
+      const c=this.calcul(eFiche);
+      fiche={titre:this.nomComplet(eFiche), couleur:c.couleur,
+        sousTitre:(eFiche.sexe||'')+' · '+this.age(eFiche)+' · né'+(eFiche.sexe==='F'?'e':'')+' le '+fr(eFiche.naissance),
+        prise:c.prise, phrase:c.phrase, fondPrise:c.etat==='encours'?'#f0f7f4':(c.fond==='#fff'?'#f5f8fb':c.fond),
+        infos:[['Statut',eFiche.statut||'—'],['Lycée d\u2019affectation',eFiche.lycee||'—'],
+          ['Classe',eFiche.classe||'—'],['Entrée en FLS',fr(eFiche.entreeFls)],
+          ['Entrée dans le dispositif',fr(eFiche.entreeDisp)],['Fin théorique',c.fin],
+          ['Heures de FLS / semaine',eFiche.heuresFls||'—'],
+          ['Dérogation',eFiche.derogation==='Oui'?('oui — '+(eFiche.motifDerog||'motif non précisé')):'non'],
+          ['Pays d\u2019origine',eFiche.pays||'—'],['Langues',eFiche.langues||'—'],
+          ['Arrivée en France',fr(eFiche.arriveeFrance)],['Scolarité antérieure',eFiche.scolarite||'—'],
+          ['Observations',eFiche.obs||'—']].map(([label,valeur])=>({label,valeur})),
+        modifier:()=>this.ouvrirForm(eFiche.id)};
+    }
+
+    const auj=new Date();
+    return {
+      dateDuJour:auj.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'}),
+      onglets, estTable:s.ecran==='table', estForm:s.ecran==='form', estDemande:s.ecran==='demande',
+      compteurs, legende, filtres, filtre:s.filtre, lignes, tableVide:lignes.length===0,
+      colonnes:['','Nom','Prénom','S.','Naissance','Âge','Lycée d\u2019affectation','Classe',
+        'Entrée FLS','Entrée dispositif','Prise en charge','Fin théorique','Reste','h FLS','Dérog.'],
+      setFiltre:(ev)=>this.setState({filtre:ev.target.value}),
+      allerForm:()=>this.ouvrirForm(null),
+      imprimer:()=>window.print(),
+      exporterCsv:()=>{
+        const ent=['Statut','Nom','Prénom','Sexe','Naissance','Pays','Langues','Arrivée en France',
+          'Scolarité','Lycée d\u2019affectation','Classe','Entrée FLS','Entrée dispositif',
+          'Prise en charge (jours)','Fin théorique','Heures FLS','Dérogation','Motif','Observations'];
+        const l=visibles.map(e=>{ const c=this.calcul(e);
+          return [e.statut,e.nom,e.prenom,e.sexe,e.naissance,e.pays,e.langues,e.arriveeFrance,
+            e.scolarite,e.lycee,e.classe,e.entreeFls,e.entreeDisp,
+            (c.jours===null||c.jours===undefined)?'':c.jours, c.fin, e.heuresFls,
+            e.derogation, e.motifDerog, e.obs]; });
+        const csv=[ent].concat(l).map(r=>r.map(v=>'"'+String(v===undefined||v===null?'':v).replace(/"/g,'""')+'"').join(';')).join('\r\n');
+        try{
+          const b=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'});
+          const a=document.createElement('a'); a.href=URL.createObjectURL(b);
+          a.download='coordo-upe2a-'+this.iso(new Date())+'.csv';
+          document.body.appendChild(a); a.click(); document.body.removeChild(a);
+          setTimeout(()=>URL.revokeObjectURL(a.href),4000);
+        }catch(e){}
+      },
+      titreForm:s.editId?'Modifier la fiche':'Nouvel élève',
+      groupes, apercuForm, erreurForm:s.erreur, peutSupprimer:!!s.editId,
+      enregistrer:()=>this.enregistrerForm(),
+      annuler:()=>this.setState({ecran:'table', form:null, editId:null, erreur:''}),
+      supprimer:()=>this.supprimerForm(),
+      question:s.question, reponse:s.reponse, suggestions,
+      setQuestion:(ev)=>this.setState({question:ev.target.value}),
+      toucheQuestion:(ev)=>{ if(ev.key==='Enter') this.setState({reponse:this.repondre(ev.target.value), question:ev.target.value}); },
+      demander:()=>this.setState({reponse:this.repondre(s.question)}),
+      fiche, fermerFiche:()=>this.setState({ficheId:null}), stop:(ev)=>ev.stopPropagation()
+    };
+  }
+}
+
+</script>
+</body>
+</html>

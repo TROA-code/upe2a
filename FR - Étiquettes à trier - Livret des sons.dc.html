@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#8c1c13}
+a:hover{color:#5e120c}
+</style>
+<script src="./doc-page.js"></script>
+</helmet>
+<doc-page size="a4">
+<sc-for list="{{ sons }}" as="s" hint-placeholder-count="2">
+<section class="page" data-screen-label="{{ s.label }}" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto"><div style="background:#8c1c13;color:#fff;padding:3mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:4mm"><span style="font-size:20pt;font-weight:700;letter-spacing:0.04em">{{ s.titre }}</span><span style="font-size:12pt;letter-spacing:0.1em">À DÉCOUPER · 3 ÉLÈVES</span></div><div style="height:1.5mm;background:#c1440e"></div></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm">
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/mot-ciseaux.webp') center/contain no-repeat"></span>
+<span style="font-size:16pt;font-weight:700">Je découpe. Je colle dans mon livret, fiche 4.</span>
+</div>
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:space-evenly">
+<sc-for list="{{ s.jeux }}" as="j" hint-placeholder-count="3">
+<div style="display:grid;grid-template-columns:repeat(4,30mm);border-top:1.5px dashed #14213d;border-left:1.5px dashed #14213d;width:max-content;margin:0 auto">
+<sc-for list="{{ j.e }}" as="m" hint-placeholder-count="8">
+<div style="width:30mm;height:30mm;box-sizing:border-box;border-right:1.5px dashed #14213d;border-bottom:1.5px dashed #14213d;{{ m.fond }}"></div>
+</sc-for>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;font-size:12pt;color:#4a5262;text-align:center">Étiquettes de 30 mm pour les cases de 34 mm du livret.</div>
+</section>
+</sc-for>
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* Étiquettes de « Je trie » (fiche 4) des livrets des sons — FEUILLE À PART (24/09, son
+   oui) : le livret s'imprime en A4 recto-verso, découper une page trouerait la fiche au dos.
+   Mêmes 8 mots que l'ancienne fiche 5 de chaque livret ; 3 jeux par feuille, chacun mélangé
+   autrement. 30 mm ici, cases de 34 mm dans le livret. */
+const ph = m => "background:#fff url('clean/mot-" + m + ".webp') center/contain no-repeat";
+const melange = (l, k) => l.map((_, i) => l[(i * 3 + k * 5) % l.length]);
+const SONS = [
+  ['LE SON [a]', 'Son A', ['table','moto','avion','citron','fromage','poire','ballon','cafe']],
+  ['LE SON [i]', 'Son I', ['ciseaux','table','figue','banane','lit','poire','stylo','train']]];
+class Component extends DCLogic {
+  renderVals() {
+    return { sons: SONS.map(([titre, label, mots]) => ({ titre, label,
+      jeux: [0, 1, 2].map(k => ({ e: melange(mots, k).map(m => ({ fond: ph(m) })) })) })) };
+  }
+}
+</script>
+</body>
+</html>

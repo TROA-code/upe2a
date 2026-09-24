@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+body{margin:0;background:#f6f3ec}
+a{color:#1d4e89}
+a:hover{color:#123560}
+</style>
+</helmet>
+<div style="min-height:100vh;box-sizing:border-box;font-family:Arial, Helvetica, sans-serif;color:#14213d;display:flex;flex-direction:column;align-items:center;padding:16px 14px 40px;gap:14px">
+<div style="width:100%;max-width:640px;display:flex;justify-content:flex-start">
+<button class="bouton" onClick="{{ retour }}" style="border:2px solid #14213d;background:#fff;color:#14213d;border-radius:10px;padding:10px 16px;font-size:17px;font-weight:700;cursor:pointer">← L'accueil</button>
+</div>
+<div style="width:100%;max-width:640px;box-sizing:border-box;background:#1d4e89;color:#fff;border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:4px">
+<span style="font-size:26px;font-weight:700">DANS PARIS</span>
+<span style="font-size:22px" dir="rtl">في باريس</span>
+</div>
+<button onClick="{{ toutLire }}" style="width:100%;max-width:640px;min-height:64px;border:none;border-radius:12px;background:#e0a526;color:#14213d;font-size:22px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:12px">
+<span style="font-size:26px">{{ iconeTout }}</span><span>{{ texteTout }}</span>
+</button>
+<sc-if value="{{ pasDeVoix }}" hint-placeholder-val="{{ false }}">
+<div style="width:100%;max-width:640px;box-sizing:border-box;background:#fbeeea;border:2px solid #c1440e;border-radius:12px;padding:12px 14px;font-size:16px;line-height:1.4">Ce téléphone n'a pas de voix arabe. Réglages → Langue → Synthèse vocale : installer l'arabe.</div>
+</sc-if>
+<div style="width:100%;max-width:640px;display:flex;flex-direction:column;gap:10px">
+<sc-for list="{{ vers }}" as="v" hint-placeholder-count="10">
+<button onClick="{{ v.lire }}" style="{{ v.style }}">
+<span style="font-size:26px;line-height:1.5;text-align:right;width:100%" dir="rtl">{{ v.ar }}</span>
+<span style="font-size:15px;color:#4a5262;text-align:left;width:100%">{{ v.fr }}</span>
+</button>
+</sc-for>
+</div>
+<span style="font-size:13px;color:#6b7386;max-width:640px;text-align:center">{{ voixNom }}</span>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* « Dans Paris » en ARABE ÉGYPTIEN, lu par la voix du téléphone (24/09, son choix : « on
+   essaye »). Pour son élève qui ne parle pas l'arabe standard. Le QR du livret pointe ici.
+   ⚠ Accent non garanti : on prend une voix ar-EG si le téléphone en a une, sinon n'importe
+   quelle voix arabe. Texte à faire relire par l'élève ou sa famille.
+   Première moitié seulement (elle n'a pas encore la partie « … renversa »). */
+const VERS = [
+  ['في باريس، فيه شارع.', 'Dans Paris, il y a une rue.'],
+  ['في الشارع ده، فيه بيت.', 'Dans cette rue, il y a une maison.'],
+  ['في البيت ده، فيه سلّم.', 'Dans cette maison, il y a un escalier.'],
+  ['في السلّم ده، فيه أوضة.', 'Dans cet escalier, il y a une chambre.'],
+  ['في الأوضة دي، فيه ترابيزة.', 'Dans cette chambre, il y a une table.'],
+  ['على الترابيزة دي، فيه سجّادة.', 'Sur cette table, il y a un tapis.'],
+  ['على السجّادة دي، فيه قفص.', 'Sur ce tapis, il y a une cage.'],
+  ['في القفص ده، فيه عشّ.', 'Dans cette cage, il y a un nid.'],
+  ['في العشّ ده، فيه بيضة.', 'Dans ce nid, il y a un œuf.'],
+  ['في البيضة دي، فيه عصفور.', 'Dans cet œuf, il y a un oiseau.']];
+
+class Component extends DCLogic {
+  state = { voix: null, aucune: false, actif: -1, tout: false };
+  componentDidMount() {
+    const choisir = () => {
+      const vs = (window.speechSynthesis && speechSynthesis.getVoices()) || [];
+      const ar = vs.filter(v => /^ar/i.test(v.lang));
+      const v = ar.find(v => /EG/i.test(v.lang)) || ar[0] || null;
+      this.setState({ voix: v, aucune: vs.length > 0 && !v });
+    };
+    if (window.speechSynthesis) { choisir(); speechSynthesis.onvoiceschanged = choisir; }
+    else this.setState({ aucune: true });
+  }
+  componentWillUnmount() { if (window.speechSynthesis) speechSynthesis.cancel(); }
+  dire(i, suite) {
+    if (!window.speechSynthesis) return;
+    const u = new SpeechSynthesisUtterance(VERS[i][0]);
+    u.lang = this.state.voix ? this.state.voix.lang : 'ar-EG';
+    if (this.state.voix) u.voice = this.state.voix;
+    u.rate = 0.8;
+    u.onend = () => {
+      if (suite && this.state.tout && i + 1 < VERS.length) setTimeout(() => this.dire(i + 1, true), 700);
+      else this.setState({ actif: -1, tout: false });
+    };
+    this.setState({ actif: i });
+    speechSynthesis.speak(u);
+  }
+  renderVals() {
+    const { actif, tout, voix, aucune } = this.state;
+    return {
+      retour: () => { if (history.length > 1) history.back(); else location.href = 'index.html' + location.search; },
+      toutLire: () => {
+        speechSynthesis.cancel();
+        if (tout) { this.setState({ tout: false, actif: -1 }); return; }
+        this.setState({ tout: true }, () => this.dire(0, true));
+      },
+      iconeTout: tout ? '■' : '▶', texteTout: tout ? 'Stop' : 'J’écoute tout le poème',
+      pasDeVoix: aucune,
+      voixNom: voix ? 'Voix : ' + voix.name + ' (' + voix.lang + ')' : '',
+      vers: VERS.map(([ar, fr], i) => ({ ar, fr,
+        lire: () => { speechSynthesis.cancel(); this.setState({ tout: false }, () => this.dire(i, false)); },
+        style: 'width:100%;min-height:64px;box-sizing:border-box;border:2px solid ' + (i === actif ? '#e0a526' : '#14213d') +
+          ';background:' + (i === actif ? '#fff6dc' : '#fff') + ';border-radius:12px;padding:10px 14px;display:flex;flex-direction:column;gap:4px;cursor:pointer;font-family:inherit;color:#14213d' }))
+    };
+  }
+}
+</script>
+</body>
+</html>

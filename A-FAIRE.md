@@ -88,7 +88,7 @@ Rien ne bouge sans son accord. Ce qui n'est accroché à **aucun menu** :
 - `FR - Les sports en images.dc.html` — même question.
 - ⚠ **Les planches en images ne sont atteignables depuis aucun menu** : la collection existe dans le code, mais il n'y a pas d'entrée « Fiches à imprimer » sous Lexique (il y en a une sous Écriture et sous Mathématiques). Proposition faite le 18/09, sans réponse.
 - `FR - Livret d'évaluation - Lecture période 1.dc.html` — rangé nulle part.
-- Les **cinq supports des mots repères** (11-13/09) — rangés nulle part.
+- ✅ Les **supports des mots repères** — rangés le 22/09 dans la collection *Écriture → Les mots repères* (7 documents).
 - **La frise de l'alphabet** et le livret d'évaluation → « Affichages de la classe ».
 - ⚠ **Retirer de `sommaire.html`** la rubrique « Affichages » créée sans son accord.
 - **Faire l'inventaire complet des fichiers orphelins** de la racine à cette occasion.
@@ -116,6 +116,21 @@ niveaux A1.1 / A1 / A2, le **texte de la semaine** aux trois niveaux, la **fluen
   « Combien de syllabes ? » a été **retiré** (« aucun intérêt »), ne pas le remettre.
 - ⏳ **La semaine 2 est un métier** (alternance décidée jusqu'à la Toussaint) : **maçon**,
   pour enchaîner sur maison / chambre / les lieux du poème d'Éluard.
+
+## 5 ter · OUVERT DEPUIS LE 22-23/09
+
+- ✅ **`JEU - Le son I.dc.html`** (23/09) : copie conforme du son A, 27 mots avec [i] + 20 sans (dont pièges à l'œil : poire, lait, train, lapin…). Accroché au **parcours des sons** (case i). ⏳ À lui confirmer : les carrés rouges repris du son A.
+- ⏳ **Parcours des sons** : ses liens de jeux partent tous en `_blank`, même un fichier du projet — contraire à la règle « le test est l'adresse ». Signalé, pas corrigé.
+- ✅ **Maths rangées** (23/09) : onglets Numération (ses N°1, 1.1, 2, 3, 4 + Tracer les chiffres + l'étoile) · Géométrie (ses 3 livrets) · Grandeurs et mesures (« à venir ») · Outils (lexique A5, marchande) · Les nombres. PDF dans `docs/numeration-*.pdf`, `docs/geometrie-*.pdf`. Mes Livrets 1 et 2 retirés des menus, fichiers gardés. `?v=20`.
+- ⏳ Grandeurs et mesures : aucun fichier reçu.
+- ⏳ **Voix des jeux du son A et I** : sur une bonne réponse « banane… Bravo » s'entend comme « banane a le son ». Proposé : dire la phrase entière aussi quand c'est juste. En attente de son accord.
+- ⏳ **Son A** : sac, porte, livre sont des dessins — les retirer ? En attente.
+
+- ⏳ **« Pourquoi j'ai ça le mercredi 30 septembre ? »** — sa question, restée sans réponse (coupure).
+- ⏳ **Son PDF « fiches-numération »** : pas encore ouvert, elle n'a pas dit ce qu'elle en veut.
+- ⏳ **`TABLEAU - Lecture et dictée.dc.html`** accroché à aucun menu (Affichages → Au mur ?).
+- ⏳ **Bilal** n'est pas dans `ELEVES` (emploi-du-temps.js) : il manque son nom de famille.
+- ⚠ Ses créneaux perso et leurs liens vivent dans le `localStorage` de CET appareil : ils n'apparaissent pas sur son téléphone.
 
 ## 6 · LE RESTE DE L'APPLI
 
@@ -161,3 +176,8 @@ foi est `CLAUDE.md`.
 6. **Ne jamais écraser une image sans vérifier** qui l'utilise — `clean/mot-*` est la source de vérité, `clean/illu-*` est réservé à Glisse et lis, `github/clean/` est le filet de sécurité.
 7. **Un thème sans ses photos ne s'affiche pas côté élève** (`PHOTOS_ATTENDUES` : retirer le slug à chaque photo reçue).
 8. Les mots repères vivent à **trois endroits** : `ALPHA_IMG`, `banque-mots.js`, `FR - Mes mots - livre interactif.html`. Les corriger **ensemble**.
+
+
+## 6 · À RÉFLÉCHIR CE WEEK-END (24/09)
+
+- ⏳ **Où ranger les quiz** côté élève : « QUIZ - Moto, salade, tomate, lit » est pour l'instant sur *Cette semaine* (jeudi 24) seulement. Piste proposée : un coin « Mes quiz » sur la page élève.

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="polices.css" />
+<style>
+doc-page:not(:defined){visibility:hidden}
+body{margin:0}
+@media print{.om-noprint{display:none !important}}
+a{color:#1d4e89}
+a:hover{color:#14213d}
+</style>
+<script src="./doc-page.js"></script>
+</helmet>
+<button class="om-noprint" onClick="{{ imprimer }}" style="position:fixed;top:14px;right:14px;z-index:60;border:none;border-radius:11px;background:#2a9d6e;color:#fff;padding:13px 22px;font-family:Arial,Helvetica,sans-serif;font-size:13.5px;font-weight:700;cursor:pointer;box-shadow:0 3px 0 #217d57">Imprimer</button>
+<doc-page size="a4">
+
+<svg width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true"><defs>
+<linearGradient id="nCiel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9ac9ee"></stop><stop offset="1" stop-color="#e6f3fd"></stop></linearGradient>
+<linearGradient id="nHerbe" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#93c45f"></stop><stop offset="1" stop-color="#4f8c2b"></stop></linearGradient>
+<linearGradient id="nTerre" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c08f61"></stop><stop offset="1" stop-color="#7d4f2c"></stop></linearGradient>
+<g id="nreg">
+<rect x="4" y="3" width="100" height="76" fill="url(#nCiel)"></rect>
+<rect x="4" y="79" width="100" height="41" fill="url(#nHerbe)"></rect>
+<rect x="4" y="120" width="100" height="79" fill="url(#nTerre)"></rect>
+<line x1="0" y1="3" x2="700" y2="3" stroke="#2f5fd0" stroke-width="2.6"></line>
+<line x1="0" y1="40" x2="700" y2="40" stroke="#b9bfc8" stroke-width="2.2"></line>
+<line x1="0" y1="79" x2="700" y2="79" stroke="#3aa03a" stroke-width="2.8"></line>
+<line x1="0" y1="120" x2="700" y2="120" stroke="#8a5a2b" stroke-width="3.2"></line>
+<line x1="0" y1="159" x2="700" y2="159" stroke="#b9bfc8" stroke-width="2.2"></line>
+<line x1="0" y1="199" x2="700" y2="199" stroke="#d94a3d" stroke-width="2.2"></line>
+</g></defs></svg>
+
+<section class="page" data-screen-label="Cahier 1" style="position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#fff;overflow:hidden;padding:20mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#14213d">
+<span style="flex:0 0 auto;font-size:8.5pt;color:#8a91a3;padding-bottom:2.5mm">Découper sur le trait, puis coller dans le petit cahier &mdash; page 1</span>
+<div style="flex:0 0 auto;width:160mm;height:210mm;box-sizing:border-box;border:1px dashed #9aa3b0;padding:8mm;display:flex;flex-direction:column;overflow:hidden">
+
+<div style="flex:0 0 auto;padding-bottom:2.5mm;border-bottom:2.5px solid #1d4e89">
+<span style="display:block;font-size:21pt;font-weight:700;line-height:1.05">{{ titre }}</span>
+<span style="display:block;margin-top:1.5mm;font-size:10.5pt;color:#5a6270">J'écris en attaché. Chaque lettre a sa place : le ciel, l'herbe, la terre.</span>
+</div>
+
+<div style="flex:0 0 auto;margin-top:4mm;border:1.2px solid #d8dbe4;border-radius:1.5mm;padding:2.5mm 3.5mm;display:flex;gap:8mm">
+<span style="display:flex;align-items:center;gap:2.5mm;font-size:10.5pt"><span style="width:7mm;height:7mm;background:linear-gradient(#9ac9ee,#e6f3fd);display:block"></span>le ciel</span>
+<span style="display:flex;align-items:center;gap:2.5mm;font-size:10.5pt"><span style="width:7mm;height:7mm;background:linear-gradient(#93c45f,#4f8c2b);display:block"></span>l'herbe</span>
+<span style="display:flex;align-items:center;gap:2.5mm;font-size:10.5pt"><span style="width:7mm;height:7mm;background:linear-gradient(#c08f61,#7d4f2c);display:block"></span>la terre</span>
+</div>
+
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:3mm;padding-top:8mm">
+<span style="display:block;font-size:15.5pt;font-weight:700;line-height:1.1;border-bottom:2px solid #4f8c2b;padding-bottom:1.5mm">Les petites lettres dans l'herbe</span>
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4mm">
+<div style="min-width:0;border:1.2px solid #d8dbe4;border-radius:1.5mm;padding:2mm;box-sizing:border-box">
+<svg viewBox="0 0 700 203" style="width:100%;height:auto;display:block"><use href="#nreg"></use>
+<text x="130" y="120" font-family="BA Cursive, cursive" font-size="95" fill="#14213d">a c e i</text>
+</svg>
+</div>
+<div style="min-width:0;border:1.2px solid #d8dbe4;border-radius:1.5mm;padding:2mm;box-sizing:border-box">
+<svg viewBox="0 0 700 203" style="width:100%;height:auto;display:block"><use href="#nreg"></use>
+<text x="130" y="120" font-family="BA Cursive, cursive" font-size="95" fill="#14213d">m n o</text>
+</svg>
+</div>
+<div style="min-width:0;border:1.2px solid #d8dbe4;border-radius:1.5mm;padding:2mm;box-sizing:border-box">
+<svg viewBox="0 0 700 203" style="width:100%;height:auto;display:block"><use href="#nreg"></use>
+<text x="130" y="120" font-family="BA Cursive, cursive" font-size="95" fill="#14213d">r s u</text>
+</svg>
+</div>
+<div style="min-width:0;border:1.2px solid #d8dbe4;border-radius:1.5mm;padding:2mm;box-sizing:border-box">
+<svg viewBox="0 0 700 203" style="width:100%;height:auto;display:block"><use href="#nreg"></use>
+<text x="130" y="120" font-family="BA Cursive, cursive" font-size="95" fill="#14213d">v w x</text>
+</svg>
+</div>
+</div>
+</div>
+
+</div>
+</section>
+
+<section class="page" data-screen-label="Cahier 2" style="position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#fff;overflow:hidden;padding:20mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#14213d">
+<span style="flex:0 0 auto;font-size:8.5pt;color:#8a91a3;padding-bottom:2.5mm">Découper sur le trait, puis coller dans le petit cahier &mdash; page 2</span>
+<div style="flex:0 0 auto;width:160mm;height:210mm;box-sizing:border-box;border:1px dashed #9aa3b0;padding:8mm;display:flex;flex-direction:column;gap:9mm;overflow:hidden">
+
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:3mm">
+<span style="display:block;font-size:15.5pt;font-weight:700;line-height:1.1;border-bottom:2px solid #2f5fd0;padding-bottom:1.5mm">Les lettres hautes</span>
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4mm">
+<div style="min-width:0;border:1.2px solid #d8dbe4;border-radius:1.5mm;padding:2mm;box-sizing:border-box">
+<span style="display:block;font-size:10.5pt;color:#1d4e89;font-weight:700;padding:0 1mm 1.5mm">tout en haut du ciel</span>
+<svg viewBox="0 0 700 203" style="width:100%;height:auto;display:block"><use href="#nreg"></use>
+<text x="130" y="120" font-family="BA Cursive, cursive" font-size="95" fill="#14213d">b h k l</text>
+</svg>
+</div>
+<div style="min-width:0;border:1.2px solid #d8dbe4;border-radius:1.5mm;padding:2mm;box-sizing:border-box">
+<span style="display:block;font-size:10.5pt;color:#1d4e89;font-weight:700;padding:0 1mm 1.5mm">jusqu'à la ligne grise</span>
+<svg viewBox="0 0 700 203" style="width:100%;height:auto;display:block"><use href="#nreg"></use>
+<text x="130" y="120" font-family="BA Cursive, cursive" font-size="95" fill="#14213d">t d</text>
+</svg>
+</div>
+</div>
+</div>
+
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:3mm">
+<span style="display:block;font-size:15.5pt;font-weight:700;line-height:1.1;border-bottom:2px solid #7d4f2c;padding-bottom:1.5mm">Les lettres basses dans la terre</span>
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4mm">
+<div style="min-width:0;border:1.2px solid #d8dbe4;border-radius:1.5mm;padding:2mm;box-sizing:border-box">
+<svg viewBox="0 0 700 203" style="width:100%;height:auto;display:block"><use href="#nreg"></use>
+<text x="130" y="120" font-family="BA Cursive, cursive" font-size="95" fill="#14213d">g j p</text>
+</svg>
+</div>
+<div style="min-width:0;border:1.2px solid #d8dbe4;border-radius:1.5mm;padding:2mm;box-sizing:border-box">
+<svg viewBox="0 0 700 203" style="width:100%;height:auto;display:block"><use href="#nreg"></use>
+<text x="130" y="120" font-family="BA Cursive, cursive" font-size="95" fill="#14213d">q y z</text>
+</svg>
+</div>
+</div>
+</div>
+
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:3mm">
+<span style="display:block;font-size:15.5pt;font-weight:700;line-height:1.1;border-bottom:2px solid #1d4e89;padding-bottom:1.5mm">La lettre f</span>
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4mm">
+<div style="min-width:0;border:1.2px solid #d8dbe4;border-radius:1.5mm;padding:2mm;box-sizing:border-box">
+<span style="display:block;font-size:10.5pt;color:#1d4e89;font-weight:700;padding:0 1mm 1.5mm">du ciel au fond de la terre</span>
+<svg viewBox="0 0 700 203" style="width:100%;height:auto;display:block"><use href="#nreg"></use>
+<text x="130" y="120" font-family="BA Cursive, cursive" font-size="95" fill="#14213d">f</text>
+</svg>
+</div>
+</div>
+</div>
+
+</div>
+</section>
+
+<sc-if value="{{ avecChiffres }}" hint-placeholder-val="{{ true }}">
+<section class="page" data-screen-label="Cahier 3" style="position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#fff;overflow:hidden;padding:20mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#14213d">
+<span style="flex:0 0 auto;font-size:8.5pt;color:#8a91a3;padding-bottom:2.5mm">Découper sur le trait, puis coller dans le petit cahier &mdash; page 3</span>
+<div style="flex:0 0 auto;width:160mm;height:210mm;box-sizing:border-box;border:1px dashed #9aa3b0;padding:8mm;display:flex;flex-direction:column;overflow:hidden">
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:3mm">
+<span style="display:block;font-size:15.5pt;font-weight:700;line-height:1.1;border-bottom:2px solid #b9bfc8;padding-bottom:1.5mm">Les chiffres</span>
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4mm">
+<div style="min-width:0;border:1.2px solid #d8dbe4;border-radius:1.5mm;padding:2mm;box-sizing:border-box">
+<span style="display:block;font-size:10.5pt;color:#1d4e89;font-weight:700;padding:0 1mm 1.5mm">jusqu'à la ligne grise</span>
+<svg viewBox="0 0 700 203" style="width:100%;height:auto;display:block"><use href="#nreg"></use>
+<text x="130" y="120" font-family="BA Cursive, cursive" font-size="95" fill="#14213d">0 1 2 3</text>
+</svg>
+</div>
+<div style="min-width:0;border:1.2px solid #d8dbe4;border-radius:1.5mm;padding:2mm;box-sizing:border-box">
+<span style="display:block;font-size:10.5pt;color:#1d4e89;font-weight:700;padding:0 1mm 1.5mm">la suite</span>
+<svg viewBox="0 0 700 203" style="width:100%;height:auto;display:block"><use href="#nreg"></use>
+<text x="130" y="120" font-family="BA Cursive, cursive" font-size="95" fill="#14213d">4 5 6</text>
+</svg>
+</div>
+<div style="min-width:0;border:1.2px solid #d8dbe4;border-radius:1.5mm;padding:2mm;box-sizing:border-box">
+<span style="display:block;font-size:10.5pt;color:#1d4e89;font-weight:700;padding:0 1mm 1.5mm">la fin</span>
+<svg viewBox="0 0 700 203" style="width:100%;height:auto;display:block"><use href="#nreg"></use>
+<text x="130" y="120" font-family="BA Cursive, cursive" font-size="95" fill="#14213d">7 8 9</text>
+</svg>
+</div>
+</div>
+</div>
+</div>
+</section>
+</sc-if>
+
+</doc-page>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:794,&quot;height&quot;:1123},&quot;titre&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Les normes d'écriture&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;avecChiffres&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+/* Référence à coller dans le PETIT CAHIER (17 × 22 cm). Légende des étiquettes de graphisme.
+
+   ⚠ CADRE DE DÉCOUPE 160 × 210 mm (sa question du 15/09 : « ça va dépasser, non ? » — oui,
+   une A4 entière fait 170 × 257 mm de contenu, ça dépassait en largeur ET en hauteur).
+   Chaque feuille A4 porte donc UN rectangle de 160 × 210 mm en pointillés, centré, qui EST
+   une page de cahier : on découpe sur le trait et on colle, il reste ~5 mm de jeu sur les
+   quatre bords. Ne pas élargir ce cadre.
+
+   ⚠ Tout le contenu d'une page vit DANS le cadre, qui est en overflow:hidden : ce qui
+   dépasse est coupé en silence. Vérifier la hauteur après tout ajout (194 mm utiles).
+
+   ⚠ CARTES CÔTE À CÔTE, DEUX PAR LIGNE (sa demande), donc ~70 mm de large, et
+   4 GLYPHES MAXIMUM par carte : à font-size 95 l'avance d'une lettre suivie d'une espace
+   vaut ~130 unités, pour 570 unités utiles (700 − 130 d'offset). Découpage :
+   petites 4+3+3+3 · hautes 4 · t d 2 · basses 3+3 · f 1 · chiffres 4+3+3.
+
+   ⚠ La réglure est calée sur les métriques MESURÉES de Belle Allure Cursive (fs=100) :
+     corps (herbe)            0,435 em   → a c e i m n o r s u v w x
+     b h k l f                1,23 em    → tout en haut du ciel
+     t d et les chiffres      0,84 em    → pile sur la ligne grise du ciel
+     jambages g j p q y z f   0,83 em    → pile sur la ligne rouge
+   À font-size 95 : corps 41 u (4,1 mm à l'échelle 10 u/mm), lignes à 3 / 40 / 79 / 120 /
+   159 / 199. Ne pas changer de police cursive sans refaire ces mesures.
+
+   ⚠ Les lettres sont écrites EN DUR dans le gabarit : un {{ hole }} dans un <text> SVG est
+   enveloppé dans un <span> et ne se peint jamais (bug du 15/09). */
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      /* Bouton Imprimer à l'écran, masqué au moment d'imprimer (.om-noprint). */
+      imprimer: () => window.print(),
+      titre: this.props.titre ?? "Les normes d'écriture",
+      avecChiffres: this.props.avecChiffres ?? true
+    };
+  }
+}
+
+</script>
+</body>
+</html>
