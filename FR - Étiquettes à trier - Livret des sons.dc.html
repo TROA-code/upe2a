@@ -46,7 +46,8 @@ const ph = m => "background:#fff url('clean/mot-" + m + ".webp') center/contain 
 const melange = (l, k) => l.map((_, i) => l[(i * 3 + k * 5) % l.length]);
 const SONS = [
   ['LE SON [a]', 'Son A', ['table','moto','avion','citron','fromage','poire','ballon','cafe']],
-  ['LE SON [i]', 'Son I', ['ciseaux','table','figue','banane','lit','poire','stylo','train']]];
+  ['LE SON [i]', 'Son I', ['ciseaux','table','figue','banane','lit','poire','stylo','train']],
+  ['LE SON [o]', 'Son O', ['poireau','lapin','drapeau','citron','dos','jupe','bonnet','mouton']]];
 class Component extends DCLogic {
   renderVals() {
     return { sons: SONS.map(([titre, label, mots]) => ({ titre, label,

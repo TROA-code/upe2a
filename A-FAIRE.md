@@ -1,4 +1,4 @@
-# À FAIRE — tout ce qui reste ouvert (arrêté au 22/09/2026, fin de journée)
+# À FAIRE — tout ce qui reste ouvert (arrêté au 26/09/2026)
 
 Liste complète, à relire avec `INSTRUCTIONS-APPLICATION.md` (qui garde le détail, les
 décisions et les pièges). Ici : seulement ce qui reste à faire.
@@ -7,12 +7,31 @@ décisions et les pièges). Ici : seulement ce qui reste à faire.
 
 ---
 
+## 0 · OUVERT AU 26/09 (à traiter en premier)
+
+- ✅ **AU MARCHÉ** (27/09) — lundi 28/09, 10h35 : puzzle en mode syllabes (`?img=lieu-marche&mode=syllabes`), 2 audios (`audio/`), `FR - Diaporama - Au marché` (8 étapes, `clean/diapo-marche-1…8`), `FR - Livret - Au marché` (N&B, 14 pages). `?v=38`. ⏳ À publier.
+
+- ⏳ **Refaire `publier/`** avant sa prochaine publication (celui du 24/09 est dépassé) —
+  **lui demander d'abord**, et si elle garde ou supprime le dossier ensuite.
+- ⏳ **Ranger le livret des mots repères** — où et sur quel jour : attend SA réponse.
+- ⏳ **Parcours des sons sur téléphone** : à confirmer par elle après publication.
+- ✅ **Jeu de l'alphabet** (26/09) : images qui disparaissaient après un toucher — corrigé, `?v=36`. À publier.
+- ✅ **`JEU - Le son O.dc.html`** (26/09) : 24 mots avec [o] (o, au, eau ensemble), 23 sans dont 4 pièges (poire, poisson, mouton, citron — 2 max par manche). Accroché au parcours (case o).
+- ✅ **Vignette du parcours** (menu) : ses pastilles suivent les sons prêts (a · i · o). ⚠ Un nouveau jeu de son s'ajoute à `JEUX_APPLI` (parcours) ET `VIGNETTE_JEUX` (espace enseignant). `?v=37`.
+- ✅ **Livret du son I : le Y ajouté** (26/09) — couverture et fiche 1 (Y · y en 5 écritures), fiche 5 (y/Y à entourer, v et u en lettres proches).
+- ✅ **`FR - Livret des sons - son O.dc.html`** (26/09) : 10 fiches, o · au · eau, repère POT. Étiquettes à trier du son O ajoutées à la feuille commune. ⏳ Rangé nulle part : lui demander où.
+- ✅ **Niveaux d'écriture** (26/09) : fiche 7 = niveau 1 (un rond) dans les 3 livrets ; fiche 7 bis « J'écris une phrase » = niveau 2 (deux ronds), livret du son O seulement : verbe imposé (manger, boire, écrire, dessiner) + objet du son, l'élève choisit je/il/elle, formes données. ⏳ À ajouter aux livrets A et I ? Question posée.
+- ⏳ **Son O — écriture** : « il faut absolument qu'ils écrivent un peu » — forme à décider avec elle.
+- ⏳ **Le sac dans « La maison »** : elle s'en étonne — le retirer ? Question posée.
+- ⏳ **Mots repères sans photo pour les sons Retz** : « huit » [ɥi] et « peigne » [ɲ]
+  (pas utiles au livret alphabétique, mais manquants dans `lecture-sons.js`).
+- ✅ Fait le 25/09 : pictos taper et montre (plus aucun cadre pointillé).
+
 ## 1 · CE QUI ATTEND UNE IMAGE D'ELLE
 
 | Où | Ce qui manque |
 |---|---|
 | `MATHS - Lexique de mathématiques.dc.html` | **4 photos** : `mot-piece`, `mot-billet`, `mot-monnaie`, `mot-balance`. Les 41 autres cases sont finies. ⚠ Pas celles de son document source, filigranées. |
-| Thème **Les animaux sauvages** | **6 photos** : lion, éléphant, ours, loup, singe (macaque), serpent (enroulé). Les domestiques (9) sont prêts. Le thème n'est **pas publié** tant qu'il est incomplet. |
 | Mots repères | `mot-pot` (l'actuelle est un dessin au trait, 172 px). |
 | Fiches métier | `mot-docteur` (retirée le 05/09, basse résolution) et `mot-coiffure` (ciseaux + peigne, perdue). |
 | « Glisse et lis » | 3 illustrations encore en emoji : **zip**, **pull**, + 1 à retrouver. Nommage `illu-<mot>.webp`, jamais `mot-`. |

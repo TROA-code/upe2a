@@ -69,15 +69,15 @@ const BANDEAU=(titre,sous)=>'<div style="flex:0 0 auto;background:'+ROUGE+';colo
 
 /* Consigne numérotée : pastille ronde bleu nuit, texte à 19 px — exactement ses fiches. */
 /* ⚠ UN PICTO PAR VERBE devant la consigne (23/09, sa demande : « ça manque de picto
-   explicatif » — beaucoup ne lisent pas encore). taper et montre attendent SES photos
-   (clean/pictos/taper.webp, montre.webp) : cadre pointillé en attendant. Les pictos
+   explicatif » — beaucoup ne lisent pas encore). taper reçu le 25/09 (sa photo Gemini, recadrée) ;
+   montre reçu le 25/09 (sa photo Gemini). Les pictos
    « camarade » et « structure » du dossier sont des bonshommes dessinés : écartés. */
 const PICTO_IMG={ecoute:"url('clean/pictos/ecoute.webp')", repete:"url('clean/mot-parler.webp')",
   lis:"url('clean/icone-oeil.svg')", entoure:"url('clean/pictos/entoure.webp')",
   ecris:"url('clean/pictos/ecris.webp')", taper:"url('clean/pictos/taper.webp')", montre:"url('clean/pictos/montre.webp')"};
 const PICTO=k=>k==='coche'
  ? '<span style="flex:0 0 auto;width:46px;height:46px;box-sizing:border-box;border:2px solid '+ENCRE+';border-radius:8px;background:#fff;display:flex;align-items:center;justify-content:center"><span style="width:24px;height:24px;box-sizing:border-box;border:2.5px solid '+ENCRE+';border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;line-height:1;color:'+ENCRE+'">✓</span></span>'
- : '<span style="flex:0 0 auto;width:46px;height:46px;box-sizing:border-box;border:2px '+((k==='taper'||k==='montre')?'dashed #8a91a3':'solid '+ENCRE)+';border-radius:8px;background-color:#fff;background-image:'+PICTO_IMG[k]+';background-size:'+(k==='lis'?'70%':'contain')+';background-repeat:no-repeat;background-position:center;display:block"></span>';
+ : '<span style="flex:0 0 auto;width:46px;height:46px;box-sizing:border-box;border:2px solid '+ENCRE+';border-radius:8px;background-color:#fff;background-image:'+PICTO_IMG[k]+';background-size:'+(k==='lis'?'70%':'contain')+';background-repeat:no-repeat;background-position:center;display:block"></span>';
 const CONSIGNE=(n,txt,pictos)=>'<div style="flex:0 0 auto;display:flex;align-items:center;gap:11px">'
  +'<span style="width:29px;height:29px;flex:0 0 auto;border-radius:50%;background:'+ENCRE+';color:#fff;'
  +'font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center">'+n+'</span>'

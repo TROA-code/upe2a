@@ -195,7 +195,19 @@
         date: '2026-09-21' },
       /* Les trois fiches « je lis, je fais » sur la scène de Paris au trait. */
       { nom: 'Je lis, je fais — Paris', f: 'FR - Je lis, je fais - Paris.dc.html',
-        date: '2026-09-21' }
+        date: '2026-09-21' },
+      /* LUNDI 28 SEPTEMBRE 2026 — sa demande du 27/09 : semaine « découverte d'un métier »
+         (équipier du commerce, AU MARCHÉ), sur ce créneau de 10h35. Ordre de la séance :
+         puzzle (syllabes a/i) → écoute du dialogue → diaporama → livret (la reconstitution
+         vient APRÈS l'écoute, sa décision). */
+      { nom: 'Le puzzle — le marché (syllabes)', f: 'JEU - Le puzzle à retourner.dc.html?img=lieu-marche&mode=syllabes',
+        date: '2026-09-28' },
+      { nom: 'Écoute — le dialogue au marché', f: 'audio/marche-dialogue.mp3', date: '2026-09-28' },
+      { nom: 'Écoute — les questions', f: 'audio/marche-questions.mp3', date: '2026-09-28' },
+      { nom: 'Diaporama — Au marché', f: 'FR - Diaporama - Au marché.dc.html', date: '2026-09-28' },
+      { nom: 'Le livret — Au marché', f: 'FR - Livret - Au marché.dc.html', date: '2026-09-28' },
+      /* Sa demande du 28/09 : le drill de la quantité, même créneau, même date. */
+      { nom: 'Drill — Combien y a-t-il de… ?', f: 'DRILL - Combien y a-t-il.dc.html', date: '2026-09-28' }
     ],
     /* MARDI 22 SEPTEMBRE 2026 — sa demande du 22/09, sur le créneau « moment littéraire ».
        La séquence « Dans Paris » de Paul Éluard : on projette, on manipule, on écrit. */

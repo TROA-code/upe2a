@@ -17,7 +17,7 @@
 </style>
 </helmet>
 
-<div style="height:100vh;overflow:hidden;display:flex;flex-direction:column;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;background:#0d1b2e">
+<div style="position:fixed;inset:0;overflow:hidden;display:flex;flex-direction:column;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;background:#0d1b2e">
 
   <div style="flex:0 0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:#12233b;color:#fff;padding:11px 18px">
     <button onClick="{{ accueil }}" style="flex:0 0 auto;border:2px solid #fff;border-radius:11px;background:transparent;color:#fff;min-height:44px;padding:9px 16px;font-family:inherit;font-size:16px;cursor:pointer">← L'accueil</button>
@@ -26,7 +26,7 @@
     <span style="font-size:15px;opacity:.8">{{ compte }}</span>
   </div>
 
-  <div ref="{{ zone }}" style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:14px;overflow:auto">
+  <div ref="{{ zone }}" style="flex:1;min-height:0;display:flex;padding:14px;overflow:auto">
     <div style="{{ stylePlateau }}">
       <sc-for list="{{ cases }}" as="k" hint-placeholder-count="0">
         <button onClick="{{ k.toucher }}" title="{{ k.titre }}" style="{{ k.style }}">{{ k.texte }}</button>
@@ -93,10 +93,13 @@ const POSITIONS = [[5.75,90.13],[10.35,81.8],[14.94,73.43],[18.69,63.57],[13.81,
    n'affiche rien. */
 const PROG_DEFAUT = ['a','i','o','u','é','l','m','r','s','f','v','p','t','ch','ou','on','an','in'];
 
-/* Les jeux DE L'APPLI, en plus de ses liens. Le son I ajouté le 23/09. */
+/* Les jeux DE L'APPLI, en plus de ses liens. Le son I ajouté le 23/09, le son O le 26/09.
+   ⚠ Tout ajout ici s'ajoute AUSSI à VIGNETTE_JEUX dans « APPLI - Espace enseignant »
+   (la vignette du menu). */
 const JEUX_APPLI = {
   a: [['Les jeux du son A', 'JEU - Le son A.dc.html']],
-  i: [['Les jeux du son I', 'JEU - Le son I.dc.html']]
+  i: [['Les jeux du son I', 'JEU - Le son I.dc.html']],
+  o: [['Les jeux du son O', 'JEU - Le son O.dc.html']]
 };
 
 class Component extends DCLogic {
@@ -179,7 +182,13 @@ class Component extends DCLogic {
         cible: j[2] || '_self'
       })),
       fermer: () => this.setState({ ouvert: '' }),
-      stylePlateau: 'position:relative;width:100%;min-width:920px;max-width:1600px;aspect-ratio:1600/893' +
+      /* ⚠ 26/09 (« on ne le voit pas entièrement sur téléphone ») : la zone centrait le plateau
+         (align-items/justify-content:center). Un contenu CENTRÉ plus large que l'écran déborde
+         à gauche HORS de portée du défilement : les premières cases (a, i) étaient
+         intouchables. Le plateau se cale maintenant par `margin:auto` (centré sur grand écran,
+         calé à gauche dès qu'il déborde). La racine est en `position:fixed;inset:0` et plus en
+         100vh : sur téléphone, 100vh passe sous la barre d'adresse. Ne revenir à aucun des deux. */
+      stylePlateau: 'position:relative;flex:0 0 auto;margin:auto;width:100%;min-width:920px;max-width:1600px;aspect-ratio:1600/893' +
         ';background-image:url(clean/plateau-sons.webp);background-size:100% 100%' +
         ';border-radius:14px;overflow:hidden;box-shadow:0 8px 28px rgba(0,0,0,.4)',
       accueil: () => {

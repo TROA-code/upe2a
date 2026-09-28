@@ -10,6 +10,7 @@
     'Les animaux': [['un chat', 'chat'], ['un chien', 'chien'], ['un lapin', 'lapin'],
       ['une poule', 'poule'], ['une vache', 'vache'], ['un mouton', 'mouton'],
       ['un oiseau', 'oiseau'], ['un poisson', 'poisson'], ['un cheval', 'cheval']],
+    'Les animaux sauvages':[['un lion','lion'],['un éléphant','elephant'],['un ours','ours'],['un loup','loup'],['un singe','singe'],['un serpent','serpent'],['un hippopotame','hippopotame']],
  'La politesse':[['bonjour','geste-bonjour'],['bonsoir','geste-bonsoir'],['au revoir','geste-aurevoir'],['merci','geste-merci'],["s'il vous plaît",'geste-silvousplait'],['pardon','geste-pardon'],['oui','geste-oui'],['non','geste-non'],['à demain','geste-ademain']],
   /* ⚠ MOTS REPÈRES — UNE SEULE TABLE DE RÉFÉRENCE, celle validée avec elle les 11 et 13/09,
     identique à ALPHA_IMG dans « APPLI - Espace enseignant ». Elle était restée périmée ici
@@ -21,12 +22,12 @@
  'Les jours':[['lundi','lundi'],['mardi','mardi'],['mercredi','mercredi'],['jeudi','jeudi'],['vendredi','vendredi'],['samedi','samedi'],['dimanche','dimanche']],
  'Les mois':[['janvier','janvier'],['février','fevrier'],['mars','mars'],['avril','avril'],['mai','mai'],['juin','juin'],['juillet','juillet'],['août','aout'],['septembre','septembre'],['octobre','octobre'],['novembre','novembre'],['décembre','decembre']],
  'La météo':[['le soleil','soleil'],['un nuage','nuage'],['la pluie','pluie'],['la neige','neige'],['le vent','vent'],["l'orage",'orage'],['le brouillard','brouillard'],['il fait chaud','chaud'],['il fait froid','froid']],
- 'La maison':[['une maison','maison'],['une porte','porte'],['une table','table'],['une chaise','chaise'],['un lit','lit'],['un livre','livre'],['un mur','mur'],['une lampe','lampe'],['un sac','sac']],
+ 'La maison':[['une maison','maison'],['une porte','porte'],['une table','table'],['une chaise','chaise'],['un lit','lit'],['un livre','livre'],['un mur','mur'],['une lampe','lampe'],['un sac','sac'],['un robinet','robinet']],
  'Le lycée':[['un professeur','professeur'],['une salle','salle'],['un tableau','tableau'],['une cantine','cantine'],['une cour','cour'],['un bureau','bureau'],['une chaise','chaise'],['un cahier','cahier'],['une porte','porte']],
  'Le matériel scolaire':[['un stylo','stylo'],['un crayon','crayon'],['une gomme','gomme'],['une règle','regle'],['un taille-crayon','taille-crayon'],['des ciseaux','ciseaux'],['un feutre','feutre'],['la colle','colle'],['une trousse','trousse']],
  "Le vocabulaire de l'école":[["l'école",'ecole'],['la cour','cour'],['le couloir','couloir'],['la cantine','cantine'],["l'emploi du temps",'emploidutemps'],['un banc','banc'],['une note','note'],['une lettre','lettre'],['le prénom','prenom'],['le nom','nom'],['une question','question'],['une image','image']],
  'Le corps':[['la bouche','bouche'],["l'oreille",'oreille'],['les yeux','yeux'],['les cheveux','cheveux'],['le visage','visage'],['la jambe','jambe'],['la main','main'],['le nez','nez'],['le pied','pied'],['le bras','bras'],['le dos','dos'],['le genou','genou'],['les dents','dents']],
- 'Les vêtements':[['un pantalon','pantalon'],['une chemise','chemise'],['une robe','robe'],['une veste','veste'],['un pull','pull'],['une jupe','jupe'],['un manteau','manteau'],['un tee-shirt','teeshirt'],['une chaussure','chaussure'],['une chaussette','chaussette'],['des lunettes','lunettes']],
+ 'Les vêtements':[['un pantalon','pantalon'],['une chemise','chemise'],['une robe','robe'],['une veste','veste'],['un pull','pull'],['une jupe','jupe'],['un manteau','manteau'],['un tee-shirt','teeshirt'],['une chaussure','chaussure'],['une chaussette','chaussette'],['des lunettes','lunettes'],['un bonnet','bonnet']],
  'La ville':[['un magasin','magasin'],['la mairie','mairie'],["l'hôpital",'hopital'],['un hôtel','hotel'],['la pharmacie','pharmacie'],['la poste','poste'],['la banque','banque'],['la gare','gare'],['une usine','usine'],['la ville','ville'],['le marché','marche'],['une poubelle','poubelle']],
  'Les actions':[['manger','manger'],['boire','boire'],['dormir','dormir'],['courir','courir'],['marcher','marcher'],['lire','lire'],['écrire','ecrire'],['écouter','ecouter'],['parler','parler']],
  'Les positions':[['dans','dans'],['sur','sur'],['sous','sous'],['devant','devant'],['derrière','derriere'],['entre','entre'],['à gauche','gauche'],['à droite','droite'],['ici','ici']],
@@ -61,7 +62,7 @@
    vitre quand l'élève bafouille).
    ⚠ parler, écouter et l'ordinateur sont DÉJÀ pris ailleurs (les actions, le lycée) :
    même image, ne jamais l'écraser en croyant toucher à la radio. */
- 'La radio':[['le micro','micro'],['le casque','casque'],['la platine','platine'],["l'enceinte",'enceinte'],["l'ordinateur",'ordinateur'],['le câble','cable'],['le silence','silence'],['parler','parler'],['écouter','ecouter'],['enregistrer','enregistrer'],['couper','couper'],['la pause','pause'],["l'animateur",'animateur'],['le technicien','technicien'],["l'invité",'invite']]
+ 'La radio':[['le micro','micro'],['le casque','casque'],['la platine','platine'],["l'enceinte",'enceinte'],["l'ordinateur",'ordinateur'],['le câble','cable'],['le silence','silence'],['parler','parler'],['écouter','ecouter'],['enregistrer','enregistrer'],['couper','couper-radio'],['la pause','pause'],["l'animateur",'animateur'],['le technicien','technicien'],["l'invité",'invite']]
 };
   const PREF = f => (/^(geste|phrase|lieu)-/.test(f) ? f : 'mot-' + f);
   /* Ses mots à elle, ajoutés dans l'espace enseignant, viennent se ranger à la suite. */
