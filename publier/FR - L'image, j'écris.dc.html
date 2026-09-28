@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+doc-page:not(:defined){visibility:hidden}
+body{margin:0}
+a{color:#1d5c3a}
+a:hover{color:#14213d}
+</style>
+<script src="./doc-page.js"></script>
+</helmet>
+<doc-page size="a4">
+<section class="page" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:12mm 12mm 12mm;box-sizing:border-box;font-family:Helvetica,'Helvetica Neue',Arial,sans-serif;color:#14213d">
+<div style="flex:0 0 auto;display:flex;align-items:flex-end;justify-content:space-between;gap:6mm;border-bottom:1.5px solid #1d5c3a;padding-bottom:3mm">
+<div style="display:flex;flex-direction:column;gap:1.5mm">
+<span style="font-size:8.5pt;letter-spacing:0.18em;text-transform:uppercase;color:#8a91a3">Français &middot; UPE2A NSA</span>
+<span style="font-size:17pt;font-weight:700;letter-spacing:-0.01em">{{ titre }}</span>
+</div>
+<div style="display:flex;align-items:flex-end;gap:4mm;flex:0 0 auto">
+<div style="display:flex;align-items:flex-end;gap:2mm">
+<span style="font-size:8.5pt;letter-spacing:0.12em;text-transform:uppercase;color:#8a91a3;padding-bottom:1mm">Nom</span>
+<span style="display:block;width:40mm;border-bottom:1.2px solid #b9bdc9;height:6.5mm"></span>
+</div>
+<div style="display:flex;align-items:flex-end;gap:2mm">
+<span style="font-size:8.5pt;letter-spacing:0.12em;text-transform:uppercase;color:#8a91a3;padding-bottom:1mm">Date</span>
+<span style="display:block;width:26mm;border-bottom:1.2px solid #b9bdc9;height:6.5mm"></span>
+</div>
+</div>
+</div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:4mm;padding:3.5mm 0 4.5mm">
+<span style="flex:0 0 auto;width:10mm;height:1.5px;background:#c1440e"></span>
+<span style="font-size:11.5pt;line-height:1.35;text-wrap:pretty">Je regarde l'image. J'écoute le mot. <strong>J'entoure</strong> la bonne syllabe. <strong>J'écris</strong> le mot.</span>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:minmax(0,1fr);gap:5mm 6mm">
+<sc-for list="{{ items }}" as="it" hint-placeholder-count="9">
+<div style="display:flex;flex-direction:column;gap:2mm;min-height:0;overflow:hidden;border:1px solid #e2e0da;border-radius:2mm;padding:3mm 3.5mm;box-sizing:border-box">
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:2.5mm">
+<span style="width:6mm;height:6mm;border-radius:50%;background:#1d5c3a;color:#fff;display:flex;align-items:center;justify-content:center;font-size:9pt;font-weight:700;line-height:1">{{ it.num }}</span>
+<span style="flex:1;height:1px;background:#eceae4"></span>
+</div>
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center">
+<img src="{{ it.img }}" alt="" style="max-height:100%;max-width:100%;width:auto;height:auto;object-fit:contain;display:block" />
+</div>
+<div style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;gap:9mm;padding:1mm 0 1.5mm">
+<sc-for list="{{ it.choix }}" as="ch" hint-placeholder-count="2">
+<span style="font-size:19pt;font-weight:700;line-height:1;letter-spacing:0.01em">{{ ch }}</span>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;display:flex;align-items:flex-end;justify-content:center;gap:1mm;font-size:16pt;line-height:1.1;color:#5b6273">
+<span>{{ it.avant }}</span>
+<span style="display:block;width:14mm;border-bottom:1.5px solid #14213d;height:6mm"></span>
+<span>{{ it.apres }}</span>
+</div>
+<div style="flex:0 0 auto;height:11mm;border-bottom:1.5px solid #14213d"></div>
+</div>
+</sc-for>
+</div>
+</section>
+<sc-if value="{{ corrige }}" hint-placeholder-val="{{ false }}">
+<section class="page" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:12mm;box-sizing:border-box;font-family:Helvetica,'Helvetica Neue',Arial,sans-serif;color:#14213d">
+<div style="flex:0 0 auto;display:flex;align-items:flex-end;justify-content:space-between;gap:6mm;border-bottom:1.5px solid #c1440e;padding-bottom:3mm;margin-bottom:6mm">
+<div style="display:flex;flex-direction:column;gap:1.5mm">
+<span style="font-size:8.5pt;letter-spacing:0.18em;text-transform:uppercase;color:#c1440e">Pour l'enseignante</span>
+<span style="font-size:17pt;font-weight:700;letter-spacing:-0.01em">Corrigé</span>
+</div>
+<span style="font-size:9.5pt;color:#8a91a3;max-width:82mm;text-align:right;text-wrap:pretty">Distracteur : même consonne, autre voyelle (a / o, i / a).</span>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:minmax(0,1fr);gap:5mm 6mm">
+<sc-for list="{{ items }}" as="it" hint-placeholder-count="9">
+<div style="display:flex;flex-direction:column;gap:2mm;min-height:0;overflow:hidden;border:1px solid #e2e0da;border-radius:2mm;padding:3mm;box-sizing:border-box">
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:2.5mm">
+<span style="width:6mm;height:6mm;border-radius:50%;background:#1d5c3a;color:#fff;display:flex;align-items:center;justify-content:center;font-size:9pt;font-weight:700;line-height:1">{{ it.num }}</span>
+<span style="flex:1;height:1px;background:#eceae4"></span>
+</div>
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center">
+<img src="{{ it.img }}" alt="" style="max-height:100%;max-width:100%;width:auto;height:auto;object-fit:contain;display:block" />
+</div>
+<div style="flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:1mm">
+<span style="font-size:17pt;font-weight:700;line-height:1.05;text-align:center">{{ it.mot }}</span>
+<span style="font-size:10pt;color:#8a91a3;line-height:1.1">syllabe : {{ it.bonne }}</span>
+</div>
+</div>
+</sc-for>
+</div>
+</section>
+</sc-if>
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:794,&quot;height&quot;:1123},&quot;titre&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;L'image → j'écris&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Feuille&quot;},&quot;corrige&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Feuille&quot;}}">
+/* Exercice de syllabe manquante, refait d'après son .docx du 13/09 avec les VRAIES
+   photos de clean/ (les images du Word étaient des vignettes sans rapport).
+   ⚠ Dans son document, la bonne syllabe était TOUJOURS en premier : les élèves
+   repèrent l'astuce en trois items. L'ordre est alterné ici. */
+const ITEMS = [
+  { mot: 'salade',  img: 'salade',  avant: 'sa', apres: 'de',  choix: ['la', 'lo'], bonne: 'la' },
+  { mot: 'carotte', img: 'carotte', avant: 'ca', apres: 'tte', choix: ['ra', 'ro'], bonne: 'ro' },
+  { mot: 'moto',    img: 'moto',    avant: '',   apres: 'to',  choix: ['mo', 'ma'], bonne: 'mo' },
+  { mot: 'vélo',    img: 'velo',    avant: 'vé', apres: '',    choix: ['la', 'lo'], bonne: 'lo' },
+  { mot: 'robot',   img: 'robot',   avant: '',   apres: 'bot', choix: ['ro', 'ra'], bonne: 'ro' },
+  { mot: 'kiwi',    img: 'kiwi',    avant: 'ki', apres: '',    choix: ['wa', 'wi'], bonne: 'wi' },
+  { mot: 'usine',   img: 'usine',   avant: 'u',  apres: 'ne',  choix: ['si', 'sa'], bonne: 'si' },
+  { mot: 'cerise',  img: 'cerise',  avant: 'ce', apres: 'se',  choix: ['ra', 'ri'], bonne: 'ri' },
+  { mot: 'ananas',  img: 'ananas',  avant: 'a',  apres: 'nas', choix: ['na', 'no'], bonne: 'na' }
+];
+
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      items: ITEMS.map((it, i) => ({
+        num: i + 1, mot: it.mot, bonne: it.bonne,
+        avant: it.avant, apres: it.apres, choix: it.choix,
+        img: 'clean/mot-' + it.img + '.webp'
+      })),
+      titre: this.props.titre ?? "L'image → j'écris",
+      corrige: this.props.corrige ?? true
+    };
+  }
+}
+</script>
+</body>
+</html>

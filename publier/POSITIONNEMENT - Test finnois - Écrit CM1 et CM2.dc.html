@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" />
+<style>
+  body { margin: 0; font-family: Verdana, Tahoma, sans-serif; color: #111; }
+  a { color: #1d4e89; } a:hover { color: #163a68; }
+  .page { padding: 14mm 15mm 12mm; box-sizing: border-box; display: flex; flex-direction: column; gap: 7mm; }
+  .filet { height: 3.2mm; background: #8d8574; }
+  .num { font-family: 'Archivo Black', Verdana, sans-serif; font-size: 15pt; }
+  .consigne { font-weight: bold; font-size: 12pt; line-height: 1.45; }
+  .item { display: flex; flex-direction: column; gap: 3.5mm; }
+  .opts { display: flex; flex-wrap: wrap; gap: 4mm 9mm; font-size: 12pt; }
+  .echelle { display: flex; gap: 2mm; align-self: flex-end; }
+  .echelle span { border: 1px solid #444; border-bottom-width: 2px; padding: 1mm 3mm; font-size: 9.5pt; font-weight: bold; background: #f2f0ec; }
+  .entete { display: flex; justify-content: space-between; font-size: 8.5pt; font-weight: bold; letter-spacing: .4px; border-bottom: 1.2px solid #111; padding-bottom: 1.5mm; }
+  .pied { margin-top: auto; display: flex; justify-content: space-between; font-size: 8pt; color: #555; border-top: 1px solid #ccc; padding-top: 2mm; }
+  .zone { border: 1.5px dashed #999; padding: 8mm; text-align: center; font-size: 10pt; color: #555; line-height: 1.5; }
+  .tab { border-collapse: collapse; font-size: 10pt; width: 100%; }
+  .tab th, .tab td { border: 1px solid #999; padding: 2mm 2.5mm; text-align: left; }
+  .tab th { background: #6f6a5e; color: #fff; font-weight: bold; }
+  .tab td.h { background: #6f6a5e; color: #fff; font-weight: bold; width: 12mm; }
+  .vide { background: #cfccc4; }
+</style>
+</helmet>
+
+<x-import component-from-global-scope="doc-page" from="./doc-page.js" size="a4" hint-size="100%,100%">
+
+  <section class="page">
+    <div class="entete"><span>ALLOFONIT — LUETUN YMMÄRTÄMINEN — JAKSO 3</span><span>ÄIDINKIELI : SUOMI</span></div>
+    <div style="display:flex;gap:6mm;align-items:flex-end">
+      <label style="flex:1;font-size:10pt">SUKUNIMI :<div style="border-bottom:1.5px solid #111;height:8mm"></div></label>
+      <label style="flex:1;font-size:10pt">ETUNIMI :<div style="border-bottom:1.5px solid #111;height:8mm"></div></label>
+      <label style="width:38mm;font-size:10pt">Syntymäaika :<div style="border-bottom:1.5px solid #111;height:8mm"></div></label>
+    </div>
+    <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:13pt">TASO : CM1-LUOKAN LOPPU</div>
+    <div class="filet"></div>
+    <div class="item">
+      <div class="num">1</div>
+      <div class="consigne">Lue teksti.</div>
+      <div style="font-size:11.5pt;line-height:1.6;display:flex;flex-direction:column;gap:3mm">
+        <div style="font-style:italic">(Sami, nuori poika, menee ensimmäistä kertaa uuteen kouluunsa.)</div>
+        <div>Matkalla Sami herää hitaasti. Hän ei nimittäin nukkunut hyvin.</div>
+        <div>Hän näki painajaista. Hän näki unta, että muilla oppilailla oli lasten ruumiit ja lintujen päät. Opettajan kohdalla asia oli toisin päin: hänellä oli ihmiskasvot ja ilkeä ilme sekä valtava kotkan ruumis.</div>
+        <div>Sitten hän muistelee kyläänsä Labaciassa. Hänen ystävänsä palaavat varmaankin siellä omaan pieneen kouluunsa. Hän muistaa tiiliseinät, savilattian ja kaivon pihan keskellä. Välitunneilla he istuivat mielellään ison puun varjossa, joka kasvoi kaivon vasemmalla puolella, kun pihalle tullaan.</div>
+        <div>Päästäkseen uuteen kouluunsa Sami kääntyy ensin kotoaan oikealle, seuraa sitten puita ja kääntyy ensimmäisestä kadusta vasemmalle. Lopuksi hän kävelee suoraan eteenpäin. Koulu on tällä kadulla, aivan puistoa vastapäätä.</div>
+      </div>
+      <div class="echelle"><span>MI</span><span>MF</span><span>MS</span><span>TBM</span></div>
+    </div>
+    <div class="pied"><span>Réseau Canopé — traduction de travail, non relue</span><span>1</span></div>
+  </section>
+
+  <section class="page">
+    <div class="entete"><span>ALLOFONIT — LUETUN YMMÄRTÄMINEN — JAKSO 3</span><span>ÄIDINKIELI : SUOMI</span></div>
+    <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:12pt">VASTAA KYSYMYKSIIN</div>
+    <div class="filet"></div>
+    <div class="item">
+      <div class="num">2</div>
+      <div class="consigne">Ympyröi oikea vastaus. Tämä teksti on:</div>
+      <div class="opts"><span>• tarina</span><span>• ruokaohje</span><span>• käyttöohje</span><span>• runo</span></div>
+      <div class="echelle"><span>MI</span><span>MF</span><span>MS</span><span>TBM</span></div>
+    </div>
+    <div class="filet"></div>
+    <div class="item">
+      <div class="num">3</div>
+      <div class="consigne">Ympyröi oikea vastaus. Mielestäsi Samin painajainen on:</div>
+      <div class="opts"><span>• huolestuttava</span><span>• rauhoittava</span><span>• urheilullinen</span><span>• iloinen</span></div>
+      <div class="echelle"><span>MI</span><span>MF</span><span>MS</span><span>TBM</span></div>
+    </div>
+    <div class="filet"></div>
+    <div class="item">
+      <div class="num">4</div>
+      <div class="consigne">Ympyröi kuva, jossa on Samin koulu Labaciassa, ja vedä viiva muiden yli.</div>
+      <div class="zone">Les quatre dessins de l'école — à photocopier ici depuis la page 3 de la version originale (les dessins appartiennent à Canopé, je ne les redessine pas).</div>
+      <div class="echelle"><span>MI</span><span>MF</span><span>MS</span><span>TBM</span></div>
+    </div>
+    <div class="pied"><span>Réseau Canopé — traduction de travail, non relue</span><span>2</span></div>
+  </section>
+
+  <section class="page">
+    <div class="entete"><span>ALLOFONIT — LUETUN YMMÄRTÄMINEN — JAKSO 3</span><span>ÄIDINKIELI : SUOMI</span></div>
+    <div class="filet"></div>
+    <div class="item">
+      <div class="num">5</div>
+      <div class="consigne">Piirrä karttaan reitti, jota Sami kulkee kouluun.<br />Lähtöpiste on Samin koti, joka on merkitty rastilla.</div>
+      <div class="zone" style="padding:26mm 8mm">Le plan du quartier — à photocopier ici depuis la page 4 de la version originale.</div>
+      <div class="echelle"><span>MI</span><span>MF</span><span>MS</span><span>TBM</span></div>
+    </div>
+    <div style="font-size:9.5pt;color:#555;line-height:1.6;border:1px solid #ccc;padding:4mm">Korjauskoodit : MI = riittämätön hallinta · MF = heikko hallinta · MS = riittävä hallinta · TBM = erittäin hyvä hallinta.<br />MI ja MF : ei saavutettu · MS ja TBM : katsotaan saavutetuksi.</div>
+    <div class="pied"><span>Réseau Canopé — traduction de travail, non relue</span><span>3</span></div>
+  </section>
+
+  <section class="page">
+    <div class="entete"><span>ALLOFONIT — LUETUN YMMÄRTÄMINEN — JAKSO 3</span><span>ÄIDINKIELI : SUOMI</span></div>
+    <div style="display:flex;gap:6mm;align-items:flex-end">
+      <label style="flex:1;font-size:10pt">SUKUNIMI :<div style="border-bottom:1.5px solid #111;height:8mm"></div></label>
+      <label style="flex:1;font-size:10pt">ETUNIMI :<div style="border-bottom:1.5px solid #111;height:8mm"></div></label>
+      <label style="width:38mm;font-size:10pt">Syntymäaika :<div style="border-bottom:1.5px solid #111;height:8mm"></div></label>
+    </div>
+    <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:13pt">TASO : CM2-LUOKAN LOPPU</div>
+    <div class="filet"></div>
+    <div class="item">
+      <div class="consigne">Lue teksti.</div>
+      <div style="font-size:11.5pt;line-height:1.6;display:flex;flex-direction:column;gap:3mm">
+        <div>Tänä aamuna hän ei kuitenkaan tunnista reittiä. Oliko tuo puu siinä eilen?</div>
+        <div>Sami ajattelee, että muisti varmaan tekee hänelle temppuja. Hän ei pääse eroon tästä oudosta tunteesta, ja painajaisen kuvat palaavat hänen mieleensä.</div>
+        <div>Yhtäkkiä alkaa puhaltaa kylmä tuuli, ja Sami painaa isänsä antaman lippalakin päähänsä. Heti hänen olonsa paranee.</div>
+        <div>Kun hän saapuu koululle, Sami pysähtyy heti. Pilvet ovat peittäneet taivaan, ja pieniä sadepisaroita alkaa tulla. Hän ei odota enää, vaan menee kouluun sisälle.</div>
+        <div>Siellä hän näkee koulun pihan: se on hyvin erilainen kuin Labaciassa. Hän ei tiedä, minne mennä. Niinpä hän ottaa esiin lukujärjestyksen, joka hänelle annettiin ilmoittautumisen yhteydessä, mutta siitä ei ole paljon apua. Hän ei ymmärrä siitä yhtään mitään!</div>
+      </div>
+      <table class="tab">
+        <thead><tr><th colspan="6">LUKUJÄRJESTYS : LUOKKA A</th></tr>
+        <tr><th></th><th>maanantai</th><th>tiistai</th><th>keskiviikko</th><th>torstai</th><th>perjantai</th></tr></thead>
+        <tbody>
+          <tr><td class="h">klo 8</td><td>lukeminen</td><td class="vide"></td><td class="vide"></td><td class="vide"></td><td>lukeminen</td></tr>
+          <tr><td class="h">klo 9</td><td>historia</td><td>matematiikka</td><td>matematiikka</td><td>liikunta</td><td>maantieto</td></tr>
+          <tr><td class="h">klo 10</td><td>maantieto</td><td>luonnontieto</td><td>kielet</td><td>liikunta</td><td>kielioppi</td></tr>
+          <tr><td class="h">klo 11</td><td>kielet</td><td>kielet</td><td class="vide"></td><td>liikunta</td><td>historia</td></tr>
+          <tr><td class="h">klo 13</td><td>luonnontieto</td><td>kielioppi</td><td class="vide"></td><td>lukeminen</td><td>kielet</td></tr>
+          <tr><td class="h">klo 14</td><td>musiikki</td><td>kuvataide</td><td class="vide"></td><td>matematiikka</td><td>matematiikka</td></tr>
+          <tr><td class="h">klo 15</td><td class="vide"></td><td class="vide"></td><td class="vide"></td><td>historia</td><td class="vide"></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="pied"><span>Réseau Canopé — traduction de travail, non relue</span><span>1</span></div>
+  </section>
+
+  <section class="page">
+    <div class="entete"><span>ALLOFONIT — LUETUN YMMÄRTÄMINEN — JAKSO 3</span><span>ÄIDINKIELI : SUOMI</span></div>
+    <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:12pt">YMPYRÖI OIKEA VASTAUS</div>
+    <div class="filet"></div>
+    <div class="item">
+      <div class="num">6</div>
+      <div class="consigne">Mikä lause on kysymys?</div>
+      <div class="opts" style="flex-direction:column;gap:4mm">
+        <span>• Kylmä tuuli alkaa puhaltaa</span>
+        <span>• Oliko tuo puu siinä eilen?</span>
+        <span>• Hän ei pääse eroon tästä oudosta tunteesta</span>
+        <span>• Hän ei ymmärrä siitä yhtään mitään!</span>
+      </div>
+      <div class="echelle"><span>MI</span><span>MF</span><span>MS</span><span>TBM</span></div>
+    </div>
+    <div class="filet"></div>
+    <div class="item">
+      <div class="num">7</div>
+      <div class="consigne">Millainen sää tekstissä on? Varo: sinun täytyy ympyröidä useampi kuin yksi vastaus.</div>
+      <div class="opts">
+        <span>• kylmä tuuli</span><span>• lämmin tuuli</span><span>• pilvistä</span><span>• heikkoa sadetta</span>
+        <span>• aurinkoisia hetkiä</span><span>• rankkaa sadetta</span><span>• aurinkoista</span>
+      </div>
+      <div class="echelle"><span>MI</span><span>MF</span><span>MS</span><span>TBM</span></div>
+    </div>
+    <div class="filet"></div>
+    <div class="item">
+      <div class="num">8</div>
+      <div class="consigne">Miksi Sami ottaa esiin lukujärjestyksensä?</div>
+      <div class="opts" style="flex-direction:column;gap:4mm">
+        <span>• koska hän pitää matematiikasta</span>
+        <span>• koska alkaa sataa</span>
+        <span>• koska hän etsii tietoa</span>
+        <span>• koska hänellä on torstaina liikuntaa</span>
+      </div>
+      <div class="echelle"><span>MI</span><span>MF</span><span>MS</span><span>TBM</span></div>
+    </div>
+    <div class="pied"><span>Réseau Canopé — traduction de travail, non relue</span><span>2</span></div>
+  </section>
+
+  <section class="page">
+    <div class="entete"><span>ALLOFONIT — LUETUN YMMÄRTÄMINEN — JAKSO 3</span><span>ÄIDINKIELI : SUOMI</span></div>
+    <div class="filet"></div>
+    <div class="item">
+      <div class="num">9</div>
+      <div class="consigne">Mihin aikaan Samin koulupäivä yleensä alkaa?</div>
+      <div class="opts"><span>• kello kahdeksan</span><span>• kello yhdeksän</span><span>• kello kymmenen</span></div>
+      <div class="echelle"><span>MI</span><span>MF</span><span>MS</span><span>TBM</span></div>
+    </div>
+    <div class="filet"></div>
+    <div class="item">
+      <div class="num">10</div>
+      <div class="consigne">Minä päivinä Samilla ei ole historiaa?</div>
+      <div class="opts">
+        <span>• maanantaisin ja torstaisin</span><span>• tiistaisin ja keskiviikkoisin</span>
+        <span>• keskiviikkoisin ja torstaisin</span><span>• maanantaisin ja perjantaisin</span>
+      </div>
+      <div class="echelle"><span>MI</span><span>MF</span><span>MS</span><span>TBM</span></div>
+    </div>
+    <div style="font-size:9.5pt;color:#555;line-height:1.6;border:1px solid #ccc;padding:4mm">Korjauskoodit : MI = riittämätön hallinta · MF = heikko hallinta · MS = riittävä hallinta · TBM = erittäin hyvä hallinta.<br />MI ja MF : ei saavutettu · MS ja TBM : katsotaan saavutetuksi.</div>
+    <div class="pied"><span>Réseau Canopé — traduction de travail, non relue</span><span>3</span></div>
+  </section>
+
+</x-import>
+</x-dc>
+</body>
+</html>

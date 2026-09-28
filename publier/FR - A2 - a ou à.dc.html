@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Atkinson+Hyperlegible:wght@400;700&display=swap" />
+<style>
+  doc-page:not(:defined) { visibility: hidden; }
+  @media print { .ecran-seul { display: none !important; } }
+  a { color: #1d4e89; }
+  a:hover { color: #123a6b; }
+</style>
+<script src="doc-page.js"></script>
+</helmet>
+
+<div class="ecran-seul" style="font-family:Verdana,Tahoma,sans-serif;padding:16px 18px 6px;display:flex;flex-direction:column;gap:10px">
+  <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:16px;letter-spacing:.02em">A2 — A OU À&nbsp;?</div>
+  <div style="font-size:11.5px;color:#6b7386;line-height:1.5;max-width:74ch">
+    Une page pour les élèves qui entendent déjà le [a] et à qui il reste à l'écrire.
+    Le test tient en un mot : on remplace par <b>avait</b>. Si la phrase tient debout,
+    c'est <b>a</b>. Sinon, c'est <b>à</b>. Le vocabulaire est celui de la semaine Paris.
+  </div>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+    <button onClick="{{ imprimer }}" style="border:none;background:#2a9d6e;color:#fff;border-radius:9px;padding:10px 18px;font-family:'Archivo Black',Verdana,sans-serif;font-size:12px;letter-spacing:.04em;cursor:pointer">IMPRIMER</button>
+    <span style="font-size:11.5px;color:#8595a8">En couleur : le bleu et le rouge portent la distinction.</span>
+  </div>
+</div>
+
+<doc-page size="a4" margin="2cm">
+  <section class="page" style="padding:2cm;box-sizing:border-box;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;color:#1c2430;display:flex;flex-direction:column;gap:5mm">
+
+    <div style="flex:0 0 auto;display:flex;align-items:flex-end;justify-content:space-between;gap:8mm;border-bottom:2.5px solid #1c2430;padding-bottom:3mm">
+      <span style="font-size:24pt;font-weight:700;line-height:1">a ou à ?</span>
+      <span style="font-size:12pt">Nom :</span>
+    </div>
+
+    <div style="flex:0 0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5mm">
+      <div style="border:2px solid #1d4e89;border-radius:2mm;padding:4mm;display:flex;flex-direction:column;gap:2.5mm">
+        <span style="font-size:26pt;font-weight:700;line-height:1;color:#1d4e89">a</span>
+        <span style="font-size:12.5pt;line-height:1.3">C'est le verbe <b>avoir</b>.</span>
+        <span style="font-size:12.5pt;line-height:1.3;color:#1d4e89">Il <b>a</b> un cahier.</span>
+        <span style="font-size:12.5pt;line-height:1.3;color:#1d4e89">Il y <b>a</b> une rue.</span>
+      </div>
+      <div style="border:2px solid #c1440e;border-radius:2mm;padding:4mm;display:flex;flex-direction:column;gap:2.5mm">
+        <span style="font-size:26pt;font-weight:700;line-height:1;color:#c1440e">à</span>
+        <span style="font-size:12.5pt;line-height:1.3">Ce n'est pas un verbe. Il ne change jamais.</span>
+        <span style="font-size:12.5pt;line-height:1.3;color:#c1440e">J'habite <b>à</b> Paris.</span>
+        <span style="font-size:12.5pt;line-height:1.3;color:#c1440e">Je commence <b>à</b> 9 heures.</span>
+      </div>
+    </div>
+
+    <div style="flex:0 0 auto;background:#f2f5f9;border-left:5px solid #1d4e89;border-radius:1.5mm;padding:4mm 5mm;display:flex;flex-direction:column;gap:2mm">
+      <span style="font-size:13pt;font-weight:700">Le test : je remplace par AVAIT.</span>
+      <span style="font-size:12.5pt;line-height:1.35">Il <b>a</b> un cahier. → Il <b>avait</b> un cahier. <b style="color:#1d4e89">Ça marche : j'écris a.</b></span>
+      <span style="font-size:12.5pt;line-height:1.35">J'habite <b>à</b> Paris. → J'habite <b>avait</b> Paris. <b style="color:#c1440e">Ça ne marche pas : j'écris à.</b></span>
+    </div>
+
+    <div style="flex:1;min-height:0;display:flex;flex-direction:column;gap:2.5mm">
+      <span style="flex:0 0 auto;font-size:13pt;font-weight:700">J'écris <span style="color:#1d4e89">a</span> ou <span style="color:#c1440e">à</span>.</span>
+      <div style="flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;gap:2mm 8mm;align-content:space-between">
+        <span style="font-size:13pt;line-height:1.2">1. Paris …… une grande gare.</span>
+        <span style="font-size:13pt;line-height:1.2">8. Nous allons …… l'école.</span>
+        <span style="font-size:13pt;line-height:1.2">2. J'habite …… Paris.</span>
+        <span style="font-size:13pt;line-height:1.2">9. Elle …… deux frères.</span>
+        <span style="font-size:13pt;line-height:1.2">3. Dans la rue, il y …… une maison.</span>
+        <span style="font-size:13pt;line-height:1.2">10. Je pense …… ma famille.</span>
+        <span style="font-size:13pt;line-height:1.2">4. Je vais …… la cantine.</span>
+        <span style="font-size:13pt;line-height:1.2">11. Karim …… un pyjama gris.</span>
+        <span style="font-size:13pt;line-height:1.2">5. La chambre …… une fenêtre.</span>
+        <span style="font-size:13pt;line-height:1.2">12. Le bus arrive …… huit heures.</span>
+        <span style="font-size:13pt;line-height:1.2">6. Le cours commence …… 9 heures.</span>
+        <span style="font-size:13pt;line-height:1.2">13. L'oiseau …… un nid.</span>
+        <span style="font-size:13pt;line-height:1.2">7. Il …… un cahier rouge.</span>
+        <span style="font-size:13pt;line-height:1.2">14. Je parle …… mon ami.</span>
+      </div>
+    </div>
+
+    <div style="flex:0 0 auto;border-top:2.5px solid #1c2430;padding-top:4mm;display:flex;flex-direction:column;gap:3mm">
+      <span style="font-size:13pt;font-weight:700">J'écris deux phrases.</span>
+      <span style="font-size:12.5pt;color:#1d4e89">Une phrase avec <b>a</b> :</span>
+      <span style="display:block;height:8mm;border-bottom:1.2px solid #8a93a1"></span>
+      <span style="font-size:12.5pt;color:#c1440e">Une phrase avec <b>à</b> :</span>
+      <span style="display:block;height:8mm;border-bottom:1.2px solid #8a93a1"></span>
+    </div>
+
+  </section>
+</doc-page>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* A2 — A OU À (21/09, sa demande). Pour les élèves qui entendent déjà le [a] : il leur
+   reste à l'ÉCRIRE. Différenciation de la séance du son A, pas un exercice de phonologie.
+   ⚠ PAS DE SCORE, pas de nombre de réponses justes — règle du projet.
+   Le test du remplacement par AVAIT est la seule règle donnée : une règle qui se vérifie
+   à l'oral, pas une leçon de grammaire. Ne pas ajouter « préposition » ni « auxiliaire ».
+   Le vocabulaire est celui de la semaine Paris (rue, maison, chambre, gare, nid, oiseau)
+   et de l'appli (cahier, cantine, pyjama, bus) : ils réemploient, ils ne découvrent pas.
+   Corrigé : 1 a · 2 à · 3 a · 4 à · 5 a · 6 à · 7 a · 8 à · 9 a · 10 à · 11 a · 12 à ·
+   13 a · 14 à — sept de chaque, en alternance stricte gauche/droite pour qu'aucune
+   colonne ne donne la réponse de l'autre. */
+class Component extends DCLogic {
+  renderVals() {
+    return { imprimer: () => window.print() };
+  }
+}
+
+</script>
+</body>
+</html>

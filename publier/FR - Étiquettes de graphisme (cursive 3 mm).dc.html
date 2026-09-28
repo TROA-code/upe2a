@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="polices.css" />
+<style>
+doc-page:not(:defined){visibility:hidden}
+body{margin:0}
+@media print{.om-noprint{display:none !important}}
+a{color:#1d4e89}
+a:hover{color:#14213d}
+</style>
+<script src="./doc-page.js"></script>
+</helmet>
+<button class="om-noprint" onClick="{{ imprimer }}" style="position:fixed;top:14px;right:14px;z-index:60;border:none;border-radius:11px;background:#2a9d6e;color:#fff;padding:13px 22px;font-family:Arial,Helvetica,sans-serif;font-size:13.5px;font-weight:700;cursor:pointer;box-shadow:0 3px 0 #217d57">Imprimer</button>
+<doc-page size="a4" orientation="landscape">
+<section class="page" data-screen-label="Étiquettes" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:20mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#14213d">
+
+<svg width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true"><defs>
+<linearGradient id="gCiel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9ac9ee"></stop><stop offset="1" stop-color="#e6f3fd"></stop></linearGradient>
+<linearGradient id="gHerbe" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#93c45f"></stop><stop offset="1" stop-color="#4f8c2b"></stop></linearGradient>
+<linearGradient id="gTerre" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c08f61"></stop><stop offset="1" stop-color="#7d4f2c"></stop></linearGradient>
+<g id="reg">
+<rect x="2" y="3" width="108" height="55" fill="url(#gCiel)"></rect>
+<rect x="2" y="58" width="108" height="30" fill="url(#gHerbe)"></rect>
+<rect x="2" y="88" width="108" height="57" fill="url(#gTerre)"></rect>
+<line x1="0" y1="3" x2="365" y2="3" stroke="#2f5fd0" stroke-width="2"></line>
+<line x1="0" y1="30" x2="365" y2="30" stroke="#b9bfc8" stroke-width="1.6"></line>
+<line x1="0" y1="58" x2="365" y2="58" stroke="#3aa03a" stroke-width="2.2"></line>
+<line x1="0" y1="88" x2="365" y2="88" stroke="#8a5a2b" stroke-width="2.6"></line>
+<line x1="0" y1="116" x2="365" y2="116" stroke="#b9bfc8" stroke-width="1.6"></line>
+<line x1="0" y1="145" x2="365" y2="145" stroke="#d94a3d" stroke-width="1.6"></line>
+</g></defs></svg>
+
+<sc-if value="{{ avecTitre }}" hint-placeholder-val="{{ true }}">
+<div style="flex:0 0 auto;display:flex;align-items:baseline;gap:5mm;padding-bottom:2mm;margin-bottom:3mm;border-bottom:2px solid #1d4e89">
+<span style="flex:1;min-width:0;font-size:14pt;font-weight:700;line-height:1.1">{{ titre }}</span>
+<span style="flex:0 0 auto;font-size:9pt;color:#8a91a3">ciel &middot; herbe &middot; terre &mdash; à découper et à coller dans le cahier</span>
+</div>
+</sc-if>
+
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:space-between;gap:4mm">
+<div style="display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:3mm 4mm">
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">a</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">a</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">e</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">e</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">j</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">j</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">m</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">m</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">r</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">r</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">t</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">t</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">o</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">o</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">l</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">l</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">g</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">g</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">n</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">n</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">s</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">s</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">d</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">d</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">i</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">i</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">b</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">b</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">z</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">z</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">v</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">v</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">c</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">c</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">h</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">h</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">u</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">u</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">h</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">h</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">y</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">y</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">u</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">u</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">x</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">x</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">k</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">k</text></svg></div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:3mm 4mm">
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">1</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">1</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">5</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">5</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">9</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">9</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">p</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">p</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">l</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">l</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">0</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">0</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">2</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">2</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">6</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">6</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">v</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">v</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">q</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">q</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">f</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">f</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">é</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">é</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">3</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">3</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">7</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">7</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">w</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">w</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">g</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">g</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">g</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">g</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">è</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">è</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">4</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">4</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">8</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">8</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">u</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">u</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">s</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">s</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">h</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">h</text></svg></div>
+<div style="min-width:0;border:0.3mm solid #c9cfd8;padding:1.2mm"><svg viewBox="0 0 365 148" style="width:100%;height:auto;display:block;overflow:visible"><use href="#reg"></use><text x="140" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">ç</text><text x="250" y="88" font-family="BA Cursive, cursive" font-size="69" fill="#14213d">ç</text></svg></div>
+</div>
+</div>
+
+</section>
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1123,&quot;height&quot;:794},&quot;titre&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;J'écris les lettres en attaché — réglure 3 mm&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;avecTitre&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Étiquettes&quot;}}">
+/* Étiquettes de graphisme en cursive, d'après son modèle du 15/09 : une réglure de couleur
+   par zone — ciel (au-dessus de l'herbe : les boucles hautes et les capitales), herbe
+   (le corps des minuscules), terre (les jambages) — et la lettre écrite deux fois.
+   Une feuille A4 paysage = 48 étiquettes à découper et à coller dans le cahier.
+
+   ⚠ Le regroupement est LE SIEN, colonne par colonne (familles de ductus). Certaines
+   lettres reviennent (u, h, g, v, s, l) : c'est voulu dans son modèle, ne pas « nettoyer ».
+   ⚠ Les bandes sont des aplats de couleur, pas les photos de ciel / gazon / terre de son
+   modèle : je n'ai pas ces images. Le code couleur est celui du cahier d'écriture de
+   l'appli (bleu ciel · gris · vert minuscules · marron ligne · rouge jambages), donc
+   l'élève retrouve la même réglure partout.
+   ⚠ VERSION 3 mm — celle du cahier Seyes AGRANDI, pour démarrer le geste. Son jumeau
+   « 2 mm » est la version cahier ordinaire, vers laquelle on bascule après une période
+   ou deux. Les deux existent volontairement, ne pas en supprimer un.
+   Échelle : 1 unité = 0,1 mm exactement (viewBox 365 de large pour 36,5 mm de case),
+   donc corps 30 u = 3 mm, font-size 69, jambages 29 u, boucles hautes 85 u.
+   Lignes : 3 / 30 / 58 / 88 (ligne d'écriture) / 116 / 145. */
+
+/* ⚠ Les 48 étiquettes sont écrites EN DUR dans le gabarit, pas produites par un sc-for.
+   Raison (bug du 15/09) : un {{ hole }} dans un <text> SVG est enveloppé dans un
+   <span class="sc-interp">, et un <span> HTML n'est pas un enfant rendu par SVG <text>
+   (seuls les nœuds texte et <tspan> le sont) : les 48 étiquettes sortaient VIDES, réglure
+   et bandes visibles, aucune lettre. Ne pas « factoriser » ce gabarit avec un sc-for.
+   La réglure, elle, est mutualisée par <use href="#reg"> sur un <defs> en tête de page. */
+/* Ordre des étiquettes, pour mémoire seulement — il est écrit en dur dans le gabarit,
+   colonne par colonne comme sur son modèle :
+     a o i u · e l b h · j g z y · m n v u · r s c x · t d h k
+     1 2 3 4 · 5 6 7 8 · 9 v w u · p q g s · l f g h · 0 é è ç
+   Certaines lettres reviennent (u, h, g, v, s, l) : c'est voulu. */
+
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      /* Bouton Imprimer à l'écran, masqué au moment d'imprimer (.om-noprint). */
+      imprimer: () => window.print(),
+      avecTitre: this.props.avecTitre ?? true,
+      titre: this.props.titre ?? "J'écris les lettres en attaché — réglure 3 mm"
+    };
+  }
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+doc-page:not(:defined){visibility:hidden}
+body{margin:0}
+a{color:#1d5c3a}
+a:hover{color:#14213d}
+@media print{.ecran-seul{display:none !important}}
+</style>
+<link rel="stylesheet" href="polices.css" />
+<script src="./doc-page.js"></script>
+</helmet>
+
+<div class="ecran-seul" style="font-family:Helvetica,Arial,sans-serif;padding:16px 18px 6px;display:flex;flex-direction:column;gap:10px">
+  <div style="font-size:16px;font-weight:700;letter-spacing:.02em;color:#14213d">J'ASSOCIE ET J'ÉCRIS — LES MOTS REPÈRES</div>
+  <div style="font-size:11.5px;color:#6b7386;line-height:1.5;max-width:74ch">
+    Deux planches à découper — les 29 photos <strong>sans le mot</strong>, puis les 29 mots — et
+    trois feuilles pour l'élève : il colle la photo, colle le mot à côté, puis l'écrit sur la
+    ligne. Les lettres à deux mots (c, g, o, s) ont une case assez large pour les deux photos.
+    Le h n'a pas de mot repère : il n'a pas de ligne.
+  </div>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+    <button onClick="{{ imprimer }}" style="border:none;background:#2a9d6e;color:#fff;border-radius:9px;padding:10px 18px;font-family:Helvetica,Arial,sans-serif;font-weight:700;font-size:12px;letter-spacing:.04em;cursor:pointer">IMPRIMER</button>
+    <span style="font-size:11.5px;color:#8595a8">Les deux planches une fois pour la classe, les feuilles une par élève.</span>
+  </div>
+</div>
+
+<doc-page size="a4" margin="2cm">
+
+<section class="page" data-screen-label="Étiquettes — les photos" style="padding:2cm;box-sizing:border-box;background:#fff;font-family:Helvetica,'Helvetica Neue',Arial,sans-serif;color:#14213d;display:flex;flex-direction:column;gap:6mm">
+  <div style="flex:0 0 auto;display:flex;align-items:baseline;justify-content:space-between;gap:6mm;border-bottom:1.2px solid #1d5c3a;padding-bottom:1.5mm">
+    <span style="font-size:13pt;font-weight:700">Les étiquettes — les photos, à découper</span>
+    <span style="font-size:8.5pt;letter-spacing:.18em;text-transform:uppercase;color:#8a91a3">Mots repères</span>
+  </div>
+  <div style="flex:0 0 auto;font-size:10pt;color:#4a5262;line-height:1.4">29 photos, sans le mot. On découpe sur le trait, on mélange, on distribue.</div>
+  <div style="flex:1;min-height:0;display:flex;flex-wrap:wrap;gap:6mm;align-content:flex-start">
+    <sc-for list="{{ etiquettes }}" as="e" hint-placeholder-count="29">
+    <div style="width:22mm;height:22mm;border:0.4mm solid #14213d;box-sizing:border-box;padding:1mm;display:flex;align-items:center;justify-content:center;background:#fff">
+      <img src="{{ e.img }}" alt="{{ e.mot }}" style="max-width:100%;max-height:100%;object-fit:contain" />
+    </div>
+    </sc-for>
+  </div>
+</section>
+
+<section class="page" data-screen-label="Étiquettes — les mots" style="padding:2cm;box-sizing:border-box;background:#fff;font-family:Helvetica,'Helvetica Neue',Arial,sans-serif;color:#14213d;display:flex;flex-direction:column;gap:6mm">
+  <div style="flex:0 0 auto;display:flex;align-items:baseline;justify-content:space-between;gap:6mm;border-bottom:1.2px solid #1d5c3a;padding-bottom:1.5mm">
+    <span style="font-size:13pt;font-weight:700">Les étiquettes — les mots, à découper</span>
+    <span style="font-size:8.5pt;letter-spacing:.18em;text-transform:uppercase;color:#8a91a3">Mots repères</span>
+  </div>
+  <div style="flex:0 0 auto;font-size:10pt;color:#4a5262;line-height:1.4">Les mêmes 29 mots, en script. Un mot par étiquette.</div>
+  <div style="flex:1;min-height:0;display:flex;flex-wrap:wrap;gap:5mm 8mm;align-content:flex-start">
+    <sc-for list="{{ etiquettes }}" as="e" hint-placeholder-count="29">
+    <div style="width:46mm;height:11mm;border:0.4mm solid #14213d;box-sizing:border-box;display:flex;align-items:center;justify-content:center;background:#fff">
+      <span style="font-family:'BA Script',Helvetica,sans-serif;font-size:16pt;line-height:1">{{ e.mot }}</span>
+    </div>
+    </sc-for>
+  </div>
+</section>
+
+<sc-for list="{{ pagesEleve }}" as="p" hint-placeholder-count="3">
+<section class="page" data-screen-label="Feuille de l'élève" style="padding:2cm;box-sizing:border-box;background:#fff;font-family:Helvetica,'Helvetica Neue',Arial,sans-serif;color:#14213d;display:flex;flex-direction:column;gap:4mm">
+  <div style="flex:0 0 auto;display:flex;align-items:baseline;justify-content:space-between;gap:6mm;border-bottom:1.2px solid #1d5c3a;padding-bottom:1.5mm">
+    <span style="font-size:13pt;font-weight:700">J'associe et j'écris</span>
+    <span style="font-size:9pt;color:#4a5262">Nom : ......................................</span>
+  </div>
+  <div style="flex:0 0 auto;font-size:10pt;color:#4a5262;line-height:1.4">Je colle la photo. Je colle le mot. J'écris le mot sur la ligne.</div>
+  <div style="flex:1;min-height:0;display:flex;flex-direction:column;gap:3mm">
+    <sc-for list="{{ p.lignes }}" as="l" hint-placeholder-count="9">
+    <div style="flex:0 0 auto;height:25mm;display:flex;align-items:stretch;gap:4mm">
+      <div style="flex:0 0 auto;width:13mm;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5mm;border-right:0.3mm solid #d8dbe4">
+        <span style="font-size:20pt;font-weight:700;line-height:1">{{ l.capitale }}</span>
+        <span style="font-family:'BA Script',Helvetica,sans-serif;font-size:13pt;line-height:1;color:#1d5c3a">{{ l.lettre }}</span>
+      </div>
+      <div style="flex:0 0 auto;width:56mm;border:0.4mm dashed #8a91a3;border-radius:1mm;box-sizing:border-box"></div>
+      <div style="flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:3mm">
+        <div style="flex:0 0 auto;width:50mm;height:12mm;border:0.4mm dashed #8a91a3;border-radius:1mm;box-sizing:border-box"></div>
+        <div style="flex:0 0 auto;height:8mm;border-bottom:0.4mm solid #6b7aa8;background:repeating-linear-gradient(to bottom,#c3cbe4 0,#c3cbe4 0.2mm,transparent 0.2mm,transparent 2mm)"></div>
+      </div>
+    </div>
+    </sc-for>
+  </div>
+</section>
+</sc-for>
+
+</doc-page>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* J'ASSOCIE ET J'ÉCRIS — LES MOTS REPÈRES (22/09, sa demande, d'après la photo du cahier
+   de Farhad : il colle la carte, puis écrit le mot à côté en cursive sur le Seyès).
+   Ce qu'elle a demandé : SES étiquettes, la photo SANS le mot, l'élève associe le mot à la
+   photo, puis écrit à côté ce que c'est. Et « rose et salade ensemble, idem gâteau et gilet »
+   — les lettres à deux mots repères (c, g, o, s) gardent UNE case, assez large pour les deux
+   photos ; les étiquettes, elles, restent individuelles (une photo, un mot).
+   ⚠ Table de LETTRES (25 lignes) : la même que l'abécédaire et `ALPHA_IMG`. Le h n'a pas de
+   mot repère — il n'a donc pas de ligne, et non une ligne vide.
+   ⚠ La case est plus grande que l'étiquette : photo 22 mm dans une case de 56 × 25 mm,
+   mot 46 × 11 mm dans une case de 50 × 12 mm.
+   Les étiquettes sont dans l'ordre alphabétique pour qu'elle les retrouve : c'est le
+   découpage qui mélange. */
+const LETTRES = [
+  ['a',['ananas']],['b',['ballon']],['c',['carotte','cerise']],['d',['deux']],['e',['je']],
+  ['f',['fenetre']],['g',['gateau','gilet']],['i',['immeuble']],['j',['jaune']],
+  ['k',['kiwi']],['l',['lit']],['m',['moto']],['n',['nuage']],['o',['ordinateur','pot']],
+  ['p',['pied']],['q',['quatre']],['r',['robot']],['s',['salade','rose']],['t',['table']],
+  ['u',['usine']],['v',['velo']],['w',['wagon']],['x',['xylophone']],['y',['pyjama']],
+  ['z',['zero']]
+];
+const ECRIT = { fenetre:'fenêtre', gateau:'gâteau', velo:'vélo', zero:'zéro' };
+
+class Component extends DCLogic {
+  renderVals() {
+    const etiquettes = [];
+    LETTRES.forEach(([l, mots]) => mots.forEach(m => etiquettes.push({
+      img: 'clean/mot-' + m + '.webp', mot: ECRIT[m] || m
+    })));
+    const lignes = LETTRES.map(([l]) => ({ lettre: l, capitale: l.toUpperCase() }));
+    const parPage = 9, pagesEleve = [];
+    for (let i = 0; i < lignes.length; i += parPage) {
+      pagesEleve.push({ lignes: lignes.slice(i, i + parPage) });
+    }
+    return { etiquettes, pagesEleve, imprimer: () => window.print() };
+  }
+}
+
+</script>
+</body>
+</html>
