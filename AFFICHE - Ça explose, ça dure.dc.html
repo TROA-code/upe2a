@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&amp;display=swap"></link>
+<style>
+body{margin:0}
+a{color:#8c1c13}
+a:hover{color:#5e120c}
+</style>
+<script src="./doc-page.js"></script>
+</helmet>
+<doc-page size="a4">
+<section class="page" data-screen-label="01 Ça explose" style="background:#fff;display:flex;flex-direction:column;padding:15mm;box-sizing:border-box;overflow:hidden;font-family:Andika, Arial, sans-serif;color:#111;gap:5mm">
+<div style="flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;gap:4mm">
+<div style="width:40mm;height:39mm;position:relative;display:flex;align-items:center;justify-content:center">
+<img src="clean/pictos/son-boum.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain"></img>
+<span style="position:relative;font-size:18pt;font-weight:700;color:#d22b2b">BOUM</span>
+</div>
+<span style="font-size:30pt;font-weight:700;white-space:nowrap">Ça explose !</span>
+<img src="clean/pictos/son-poing-main.webp" alt="" style="width:38mm;height:26mm;object-fit:contain"></img>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:42mm repeat(3,minmax(0,1fr));grid-template-rows:1fr 1fr;border:2.5px solid #111">
+<sc-for list="{{ explose }}" as="row" hint-placeholder-count="2">
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2mm;border:1px solid #111;padding:2mm;text-align:center">
+<div style="display:flex;align-items:center;gap:1mm">
+<sc-if value="{{ row.vibre }}">
+<svg viewBox="0 0 12 40" style="width:5mm;height:16mm"><polyline points="9,2 3,8 9,14 3,20 9,26 3,32 9,38" fill="none" stroke="#d22b2b" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></polyline></svg>
+</sc-if>
+<sc-if value="{{ row.calme }}">
+<svg viewBox="0 0 12 40" style="width:5mm;height:16mm"><polyline points="9,2 3,8 9,14 3,20 9,26 3,32 9,38" fill="none" stroke="#9aa0a8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></polyline><line x1="1" y1="36" x2="11" y2="4" stroke="#111" stroke-width="2.4" stroke-linecap="round"></line></svg>
+</sc-if>
+<img src="clean/geste-son-m.webp" alt="" style="width:28mm;height:28mm;object-fit:cover;border-radius:2mm"></img>
+<sc-if value="{{ row.vibre }}">
+<svg viewBox="0 0 12 40" style="width:5mm;height:16mm"><polyline points="3,2 9,8 3,14 9,20 3,26 9,32 3,38" fill="none" stroke="#d22b2b" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></polyline></svg>
+</sc-if>
+<sc-if value="{{ row.calme }}">
+<svg viewBox="0 0 12 40" style="width:5mm;height:16mm"><polyline points="3,2 9,8 3,14 9,20 3,26 9,32 3,38" fill="none" stroke="#9aa0a8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></polyline><line x1="1" y1="36" x2="11" y2="4" stroke="#111" stroke-width="2.4" stroke-linecap="round"></line></svg>
+</sc-if>
+</div>
+<span style="font-size:12pt;font-weight:700;line-height:1.2">{{ row.label }}</span>
+</div>
+<sc-for list="{{ row.sons }}" as="s" hint-placeholder-count="3">
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:2mm;border:1px solid #111;padding:4mm 2mm 3mm;min-height:0;min-width:0;overflow:hidden">
+<div style="display:flex;align-items:center;gap:2.5mm">
+<img src="clean/pictos/son-explose.webp" alt="" style="width:8mm;height:8mm;object-fit:contain"></img>
+<sc-if value="{{ s.solo }}"><span style="font-size:40pt;font-weight:700;line-height:1">{{ s.g1 }}</span></sc-if><sc-if value="{{ s.multi }}"><sc-for list="{{ s.gr }}" as="g"><span style="font-size:28pt;font-weight:700;line-height:1">{{ g }}</span></sc-for></sc-if>
+</div>
+<sc-if value="{{ s.levres }}">
+<div style="display:flex;align-items:center;gap:1.5mm"><img src="clean/pictos/son-levres-fermees.webp" alt="" style="width:18mm;height:7mm;object-fit:contain"></img><span style="font-size:12pt">→</span><img src="clean/pictos/son-bouche-ouverte.webp" alt="" style="width:10mm;height:10mm;object-fit:contain"></img></div>
+</sc-if>
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:2mm;width:100%">
+<sc-if value="{{ s.noEx }}"><img src="{{ s.img }}" alt="" style="height:100%;max-height:34mm;max-width:34mm;aspect-ratio:1;object-fit:contain"></img></sc-if><sc-if value="{{ s.hasEx }}"><img src="{{ s.img }}" alt="" style="height:100%;max-height:24mm;max-width:24mm;aspect-ratio:1;object-fit:contain"></img></sc-if>
+<sc-if value="{{ s.hasEx }}">
+<div style="display:flex;flex-direction:column;gap:1.5mm">
+<sc-for list="{{ s.ex }}" as="e">
+<div style="display:flex;flex-direction:column;align-items:center">
+<img src="{{ e.img }}" alt="" style="width:13mm;height:13mm;object-fit:contain"></img>
+<span style="font-size:12pt">{{ e.a }}<b style="text-decoration:underline">{{ e.h }}</b>{{ e.b }}</span>
+</div>
+</sc-for>
+</div>
+</sc-if>
+</div>
+<span style="font-size:18pt">{{ s.a }}<b style="text-decoration:underline">{{ s.h }}</b>{{ s.b }}</span>
+</div>
+</sc-for>
+</sc-for>
+</div>
+</section>
+<section class="page" data-screen-label="02 Ça dure" style="background:#fff;display:flex;flex-direction:column;padding:15mm;box-sizing:border-box;overflow:hidden;font-family:Andika, Arial, sans-serif;color:#111;gap:4mm">
+<div style="flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;gap:4mm">
+<div style="width:40mm;display:flex;flex-direction:column;align-items:center">
+<img src="clean/pictos/son-dure.webp" alt="" style="width:36mm;height:22mm;object-fit:contain"></img>
+<span style="font-size:16pt;font-weight:700;color:#1565c0">ffffff…</span>
+</div>
+<span style="font-size:30pt;font-weight:700;white-space:nowrap">Ça dure…</span>
+<img src="clean/pictos/son-souffle.webp" alt="" style="width:40mm;height:20mm;object-fit:contain"></img>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-rows:1fr 1fr 0.85fr;border:2.5px solid #111">
+<sc-for list="{{ dure }}" as="row" hint-placeholder-count="2">
+<div style="display:grid;grid-template-columns:42mm repeat(3,minmax(0,1fr));min-height:0">
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2mm;border:1px solid #111;padding:2mm;text-align:center">
+<div style="display:flex;align-items:center;gap:1mm">
+<sc-if value="{{ row.vibre }}">
+<svg viewBox="0 0 12 40" style="width:5mm;height:16mm"><polyline points="9,2 3,8 9,14 3,20 9,26 3,32 9,38" fill="none" stroke="#d22b2b" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></polyline></svg>
+</sc-if>
+<sc-if value="{{ row.calme }}">
+<svg viewBox="0 0 12 40" style="width:5mm;height:16mm"><polyline points="9,2 3,8 9,14 3,20 9,26 3,32 9,38" fill="none" stroke="#9aa0a8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></polyline><line x1="1" y1="36" x2="11" y2="4" stroke="#111" stroke-width="2.4" stroke-linecap="round"></line></svg>
+</sc-if>
+<img src="clean/geste-son-m.webp" alt="" style="width:28mm;height:28mm;object-fit:cover;border-radius:2mm"></img>
+<sc-if value="{{ row.vibre }}">
+<svg viewBox="0 0 12 40" style="width:5mm;height:16mm"><polyline points="3,2 9,8 3,14 9,20 3,26 9,32 3,38" fill="none" stroke="#d22b2b" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></polyline></svg>
+</sc-if>
+<sc-if value="{{ row.calme }}">
+<svg viewBox="0 0 12 40" style="width:5mm;height:16mm"><polyline points="3,2 9,8 3,14 9,20 3,26 9,32 3,38" fill="none" stroke="#9aa0a8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></polyline><line x1="1" y1="36" x2="11" y2="4" stroke="#111" stroke-width="2.4" stroke-linecap="round"></line></svg>
+</sc-if>
+</div>
+<span style="font-size:12pt;font-weight:700;line-height:1.2">{{ row.label }}</span>
+</div>
+<sc-for list="{{ row.sons }}" as="s" hint-placeholder-count="3">
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:1.5mm;border:1px solid #111;padding:3mm 2mm 2mm;min-height:0;min-width:0;overflow:hidden">
+<div style="display:flex;align-items:center;gap:2mm">
+<img src="clean/pictos/son-dure-petit.webp" alt="" style="width:8mm;height:6mm;object-fit:contain"></img>
+<sc-if value="{{ s.solo }}"><span style="font-size:34pt;font-weight:700;line-height:1">{{ s.g1 }}</span></sc-if><sc-if value="{{ s.multi }}"><sc-for list="{{ s.gr }}" as="g"><span style="font-size:22pt;font-weight:700;line-height:1">{{ g }}</span></sc-for></sc-if>
+</div>
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:2mm;width:100%">
+<sc-if value="{{ s.noEx }}"><img src="{{ s.img }}" alt="" style="height:100%;max-height:28mm;max-width:28mm;aspect-ratio:1;object-fit:contain"></img></sc-if><sc-if value="{{ s.hasEx }}"><img src="{{ s.img }}" alt="" style="height:100%;max-height:22mm;max-width:22mm;aspect-ratio:1;object-fit:contain"></img></sc-if>
+<sc-if value="{{ s.hasEx }}">
+<div style="display:flex;flex-direction:column;align-items:center">
+<sc-for list="{{ s.ex }}" as="e">
+<img src="{{ e.img }}" alt="" style="width:13mm;height:13mm;object-fit:contain"></img>
+<span style="font-size:12pt">{{ e.a }}<b style="text-decoration:underline">{{ e.h }}</b>{{ e.b }}</span>
+</sc-for>
+</div>
+</sc-if>
+</div>
+<span style="font-size:17pt">{{ s.a }}<b style="text-decoration:underline">{{ s.h }}</b>{{ s.b }}</span>
+</div>
+</sc-for>
+</div>
+</sc-for>
+<div style="display:grid;grid-template-columns:42mm repeat(4,minmax(0,1fr));min-height:0;border-top:2.5px solid #111">
+<div style="display:flex;align-items:center;justify-content:center;border:1px solid #111;padding:2mm;text-align:center;font-size:12pt;font-weight:700;line-height:1.2">ça dure aussi</div>
+<sc-for list="{{ aussi }}" as="s" hint-placeholder-count="4">
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:1mm;border:1px solid #111;padding:3mm 2mm 2mm;min-height:0;min-width:0;overflow:hidden">
+<div style="display:flex;align-items:center;gap:2mm">
+<img src="clean/pictos/son-dure-petit.webp" alt="" style="width:8mm;height:6mm;object-fit:contain"></img>
+<span style="font-size:34pt;font-weight:700;line-height:1">{{ s.g }}</span>
+</div>
+<sc-if value="{{ s.levres }}">
+<img src="clean/pictos/son-levres-fermees.webp" alt="" style="width:16mm;height:6mm;object-fit:contain"></img>
+</sc-if>
+<img src="{{ s.img }}" alt="" style="flex:1;min-height:0;max-height:24mm;max-width:24mm;aspect-ratio:1;object-fit:contain"></img>
+<span style="font-size:17pt">{{ s.a }}<b style="text-decoration:underline">{{ s.h }}</b>{{ s.b }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const im = m => 'clean/mot-' + m + '.webp';
+    const S = (gr, m, a, h, b, ex, levres) => ({ gr, g1: gr[0], solo: gr.length === 1, multi: gr.length > 1, noEx: !(ex && ex.length), img: im(m), a, h, b, levres: !!levres, ex: (ex || []).map(([m2, a2, h2, b2]) => ({ img: im(m2), a: a2, h: h2, b: b2 })), hasEx: !!(ex && ex.length) });
+    const PAS = { calme: true, vibre: false, label: 'ça ne vibre pas' };
+    const VIB = { calme: false, vibre: true, label: 'ça vibre' };
+    return {
+      explose: [
+        { ...PAS, sons: [S(['p'], 'pied', '', 'p', 'ied', null, true), S(['t'], 'table', '', 't', 'able'), S(['c', 'k', 'qu'], 'carotte', '', 'c', 'arotte', [['kiwi', '', 'k', 'iwi'], ['quatre', '', 'qu', 'atre']])] },
+        { ...VIB, sons: [S(['b'], 'ballon', '', 'b', 'allon', null, true), S(['d'], 'deux', '', 'd', 'eux'), S(['g', 'gu'], 'gateau', '', 'g', 'âteau')] }
+      ],
+      dure: [
+        { ...PAS, sons: [S(['f', 'ph'], 'fenetre', '', 'f', 'enêtre'), S(['s', 'ss', 'c', 'ç'], 'salade', '', 's', 'alade', [['cerise', '', 'c', 'erise']]), S(['ch'], 'chat', '', 'ch', 'at')] },
+        { ...VIB, sons: [S(['v'], 'velo', '', 'v', 'élo'), S(['z', 's'], 'zero', '', 'z', 'éro', [['rose', 'ro', 's', 'e']]), S(['j', 'g'], 'jaune', '', 'j', 'aune', [['gilet', '', 'g', 'ilet']])] }
+      ],
+      aussi: [['l', 'lit', 'it'], ['r', 'robot', 'obot'], ['m', 'moto', 'oto'], ['n', 'nuage', 'uage']].map(([g, m, b]) => ({ g, img: im(m), a: '', h: g, b, levres: g === 'm' }))
+    };
+  }
+}
+</script>
+</body>
+</html>

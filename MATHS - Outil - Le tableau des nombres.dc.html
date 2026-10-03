@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#1d4e89}
+a:hover{color:#163a68}
+</style>
+<script src="./doc-page.js"></script>
+</helmet>
+<doc-page size="a4">
+<section class="page" data-screen-label="Le tableau des nombres (2 par page)" style="background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Helvetica,'Helvetica Neue',Arial,sans-serif;color:#14213d;gap:0">
+<sc-for list="{{ exemplaires }}" as="x" hint-placeholder-count="2">
+<sc-if value="{{ x.coupe }}" hint-placeholder-val="{{ false }}">
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm;margin:5mm 0;color:#8a91a3;font-size:12pt"><span>✂</span><span style="flex:1;border-top:2px dashed #8a91a3;display:block"></span></div>
+</sc-if>
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;gap:3mm">
+<span style="flex:0 0 auto;font-size:18pt;font-weight:700">Le tableau des nombres</span>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-template-rows:auto auto 1fr 1fr 1fr;border:2.5px solid #14213d">
+<div style="grid-column:1/4;display:flex;align-items:center;justify-content:center;background:#fde8c8;border-right:2.5px solid #14213d;border-bottom:1.5px solid #14213d;padding:2mm;font-size:16pt;font-weight:700">la classe des mille</div>
+<div style="grid-column:4/7;display:flex;align-items:center;justify-content:center;background:#d9ebf7;border-bottom:1.5px solid #14213d;padding:2mm;font-size:16pt;font-weight:700">la classe des unités</div>
+<sc-for list="{{ entetes }}" as="h" hint-placeholder-count="6">
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5mm;background:{{ h.fond }};border-right:{{ h.bord }};border-bottom:2px solid #14213d;padding:1.5mm 1mm;text-align:center">
+<span style="font-size:22pt;font-weight:700;line-height:1;color:{{ h.couleur }}">{{ h.l }}</span>
+<span style="font-size:12pt;line-height:1.1">{{ h.nom }}</span>
+</div>
+</sc-for>
+<sc-for list="{{ lignes }}" as="r" hint-placeholder-count="3">
+<sc-for list="{{ r }}" as="c" hint-placeholder-count="6">
+<div style="display:flex;align-items:center;justify-content:center;border-right:{{ c.bord }};border-bottom:1px solid #8a91a3;font-size:26pt;font-weight:700;color:#1d4e89">{{ c.v }}</div>
+</sc-for>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;display:flex;align-items:baseline;gap:3mm;font-size:13pt"><b style="font-size:16pt;color:#1d4e89;white-space:nowrap">1 250</b><span>mille deux cent cinquante</span><span style="margin-left:auto;color:#4a5262;white-space:nowrap">un espace entre les classes</span></div>
+</div>
+</sc-for>
+</section>
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* OUTIL (02/10, son oui « les deux ») : le tableau des classes de son document n° 7, RÉDUIT à
+   la classe des mille et la classe des unités (ses livrets vont jusqu'à 9 999 ; les millions et
+   milliards ne servent pas). Deux exemplaires par A4, à découper et coller dans le cahier.
+   Ligne 1 = exemple 1 250 (le même que le chèque), lignes 2-3 vides. */
+class Component extends DCLogic {
+  renderVals() {
+    const sep = i => i === 2 ? '2.5px solid #14213d' : (i === 5 ? 'none' : '1px solid #8a91a3');
+    const N = [['c', 'centaines'], ['d', 'dizaines'], ['u', 'unités']];
+    /* Couleurs c d u (02/10) : c bleu · d vert · u orange. */
+    const COUL = { c: '#2f6fca', d: '#4d7f22', u: '#c8620f' };
+    const entetes = [0, 1, 2, 3, 4, 5].map(i => ({ l: N[i % 3][0], nom: N[i % 3][1] + (i < 3 ? ' de mille' : ''), couleur: COUL[N[i % 3][0]], fond: i < 3 ? '#fff6e8' : '#eef6fb', bord: sep(i) }));
+    const ligne = s => { const d = s.padStart(6, ' ').split(''); return d.map((v, i) => ({ v: v.trim(), bord: sep(i) })); };
+    return { entetes, lignes: [ligne('1250'), ligne(''), ligne('')], exemplaires: [{ coupe: false }, { coupe: true }] };
+  }
+}
+</script>
+</body>
+</html>

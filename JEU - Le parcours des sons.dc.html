@@ -91,7 +91,7 @@ const POSITIONS = [[5.75,90.13],[10.35,81.8],[14.94,73.43],[18.69,63.57],[13.81,
 /* L'ordre de départ du tableau « Apprentissage du code » — le même que SONS_INIT dans
    l'espace enseignant. Il ne sert qu'à placer les sons sur le chemin ; un son sans jeux
    n'affiche rien. */
-const PROG_DEFAUT = ['a','i','o','u','é','l','m','r','s','f','v','p','t','ch','ou','on','an','in'];
+const PROG_DEFAUT = ['a','i','o','m','s','u','é','l','r','f','v','p','t','ch','ou','on','an','in'];
 
 /* Les jeux DE L'APPLI, en plus de ses liens. Le son I ajouté le 23/09, le son O le 26/09.
    ⚠ Tout ajout ici s'ajoute AUSSI à VIGNETTE_JEUX dans « APPLI - Espace enseignant »
@@ -99,7 +99,8 @@ const PROG_DEFAUT = ['a','i','o','u','é','l','m','r','s','f','v','p','t','ch','
 const JEUX_APPLI = {
   a: [['Les jeux du son A', 'JEU - Le son A.dc.html']],
   i: [['Les jeux du son I', 'JEU - Le son I.dc.html']],
-  o: [['Les jeux du son O', 'JEU - Le son O.dc.html']]
+  o: [['Les jeux du son O', 'JEU - Le son O.dc.html']],
+  m: [['Les jeux du son M', 'JEU - Le son M.dc.html']]
 };
 
 class Component extends DCLogic {
@@ -188,7 +189,11 @@ class Component extends DCLogic {
          intouchables. Le plateau se cale maintenant par `margin:auto` (centré sur grand écran,
          calé à gauche dès qu'il déborde). La racine est en `position:fixed;inset:0` et plus en
          100vh : sur téléphone, 100vh passe sous la barre d'adresse. Ne revenir à aucun des deux. */
-      stylePlateau: 'position:relative;flex:0 0 auto;margin:auto;width:100%;min-width:920px;max-width:1600px;aspect-ratio:1600/893' +
+      /* ⚠ 01/10 (« sur l'écran de l'ordinateur, c'est tronqué ») : sur un écran large et bas,
+         width:100% donnait un plateau plus haut que la fenêtre → le bas était coupé. La largeur
+         est maintenant plafonnée par la HAUTEUR disponible (bandeau ≈ 66 px + 28 px de marge).
+         Le min-width 920 px reste pour le téléphone (on y défile, c'est voulu). */
+      stylePlateau: 'position:relative;flex:0 0 auto;margin:auto;width:min(100%, calc((100dvh - 100px) * 1600 / 893));min-width:920px;max-width:1600px;aspect-ratio:1600/893' +
         ';background-image:url(clean/plateau-sons.webp);background-size:100% 100%' +
         ';border-radius:14px;overflow:hidden;box-shadow:0 8px 28px rgba(0,0,0,.4)',
       accueil: () => {

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#1d5c3a}
+a:hover{color:#14213d}
+</style>
+<script src="./doc-page.js"></script>
+</helmet>
+<doc-page size="a4">
+
+<section class="page" data-screen-label="01 Niveau 1 - les lettres" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:5mm">
+<div style="flex:0 0 auto;display:flex;align-items:stretch;gap:4mm">
+<div style="flex:1;background:#1d5c3a;color:#fff;padding:4mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:3mm">
+<span style="font-size:22pt;font-weight:700;line-height:1">L'ORDRE ALPHABÉTIQUE</span>
+<span style="display:flex;gap:1.5mm"><span style="width:5mm;height:5mm;border-radius:50%;background:#e0a526;display:block"></span></span>
+</div>
+<div style="flex:0 0 62mm;display:flex;flex-direction:column;justify-content:center;gap:4mm;font-size:12pt">
+<div style="display:flex;align-items:flex-end;gap:2mm"><span style="font-weight:700">Prénom :</span><span style="flex:1;border-bottom:1.2px solid #14213d;height:5mm"></span></div>
+<div style="display:flex;align-items:flex-end;gap:2mm"><span style="font-weight:700">Date :</span><span style="flex:1;border-bottom:1.2px solid #14213d;height:5mm"></span></div>
+</div>
+</div>
+<div style="flex:0 0 auto;height:1.5mm;background:#e0a526;margin-top:-5mm"></div>
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:1.5mm">
+<span style="font-size:12pt;font-weight:700;color:#1d5c3a;letter-spacing:0.08em;text-transform:uppercase">Activité 1</span>
+<span style="font-size:16pt;font-weight:700">Je range les lettres. J'écris dans les cases.</span>
+</div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(13,minmax(0,1fr));border:1.2px solid #b9bfcc;border-radius:1.5mm;overflow:hidden">
+<sc-for list="{{ alphabet }}" as="l" hint-placeholder-count="26">
+<span style="text-align:center;font-size:13pt;font-weight:700;padding:1.2mm 0;border-right:1px solid #e3e6ec;border-bottom:1px solid #e3e6ec">{{ l }}</span>
+</sc-for>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:minmax(0,1fr);gap:4mm">
+<sc-for list="{{ serieLettres }}" as="s" hint-placeholder-count="8">
+<div style="border:1.5px solid #14213d;border-radius:2mm;padding:3mm 4mm;display:flex;flex-direction:column;justify-content:space-between;gap:2mm;min-height:0">
+<div style="flex:1;display:flex;align-items:center;justify-content:space-around">
+<sc-for list="{{ s.lettres }}" as="l" hint-placeholder-count="5">
+<span style="font-size:{{ l.taille }};font-weight:700;line-height:1;transform:translateY({{ l.dy }}) rotate({{ l.rot }});display:block">{{ l.c }}</span>
+</sc-for>
+</div>
+<div style="display:flex;justify-content:space-between;gap:2mm">
+<sc-for list="{{ s.cases }}" as="c" hint-placeholder-count="5">
+<span style="flex:1;height:13mm;border:1.2px solid #14213d;border-radius:1mm;display:block"></span>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section class="page" data-screen-label="02 Niveau 2 - les mots" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:5mm">
+<div style="flex:0 0 auto;display:flex;align-items:stretch;gap:4mm">
+<div style="flex:1;background:#1d5c3a;color:#fff;padding:4mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:3mm">
+<span style="font-size:22pt;font-weight:700;line-height:1">L'ORDRE ALPHABÉTIQUE</span>
+<span style="display:flex;gap:1.5mm"><span style="width:5mm;height:5mm;border-radius:50%;background:#e0a526;display:block"></span><span style="width:5mm;height:5mm;border-radius:50%;background:#e0a526;display:block"></span></span>
+</div>
+<div style="flex:0 0 62mm;display:flex;flex-direction:column;justify-content:center;gap:4mm;font-size:12pt">
+<div style="display:flex;align-items:flex-end;gap:2mm"><span style="font-weight:700">Prénom :</span><span style="flex:1;border-bottom:1.2px solid #14213d;height:5mm"></span></div>
+<div style="display:flex;align-items:flex-end;gap:2mm"><span style="font-weight:700">Date :</span><span style="flex:1;border-bottom:1.2px solid #14213d;height:5mm"></span></div>
+</div>
+</div>
+<div style="flex:0 0 auto;height:1.5mm;background:#e0a526;margin-top:-5mm"></div>
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:1.5mm">
+<span style="font-size:12pt;font-weight:700;color:#1d5c3a;letter-spacing:0.08em;text-transform:uppercase">Activité 2</span>
+<span style="font-size:16pt;font-weight:700">Je range les mots. J'écris 1, 2, 3, 4.</span>
+<span style="font-size:12pt">Je regarde la première lettre.</span>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-rows:repeat(4,minmax(0,1fr));gap:4mm">
+<sc-for list="{{ serieN2 }}" as="s" hint-placeholder-count="4">
+<div style="border:1.5px solid #14213d;border-radius:2mm;padding:3mm 4mm;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4mm;min-height:0">
+<sc-for list="{{ s.mots }}" as="m" hint-placeholder-count="4">
+<div style="display:flex;flex-direction:column;align-items:center;gap:1.5mm;min-height:0">
+<div style="flex:1;min-height:0;width:100%;background-image:{{ m.img }};background-size:contain;background-repeat:no-repeat;background-position:center"></div>
+<span style="font-size:16pt;font-weight:700;letter-spacing:0.04em;border:1.5px solid #14213d;border-radius:2mm;padding:1mm 3mm;line-height:1.1">{{ m.mot }}</span>
+<span style="width:13mm;height:13mm;border:1.2px solid #14213d;border-radius:1mm;display:block"></span>
+</div>
+</sc-for>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section class="page" data-screen-label="03 Niveau 2 - je coche la liste" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:5mm">
+<div style="flex:0 0 auto;display:flex;align-items:stretch;gap:4mm">
+<div style="flex:1;background:#1d5c3a;color:#fff;padding:4mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:3mm">
+<span style="font-size:22pt;font-weight:700;line-height:1">L'ORDRE ALPHABÉTIQUE</span>
+<span style="display:flex;gap:1.5mm"><span style="width:5mm;height:5mm;border-radius:50%;background:#e0a526;display:block"></span><span style="width:5mm;height:5mm;border-radius:50%;background:#e0a526;display:block"></span></span>
+</div>
+<div style="flex:0 0 62mm;display:flex;flex-direction:column;justify-content:center;gap:4mm;font-size:12pt">
+<div style="display:flex;align-items:flex-end;gap:2mm"><span style="font-weight:700">Prénom :</span><span style="flex:1;border-bottom:1.2px solid #14213d;height:5mm"></span></div>
+<div style="display:flex;align-items:flex-end;gap:2mm"><span style="font-weight:700">Date :</span><span style="flex:1;border-bottom:1.2px solid #14213d;height:5mm"></span></div>
+</div>
+</div>
+<div style="flex:0 0 auto;height:1.5mm;background:#e0a526;margin-top:-5mm"></div>
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:1.5mm">
+<span style="font-size:12pt;font-weight:700;color:#1d5c3a;letter-spacing:0.08em;text-transform:uppercase">Activité 3</span>
+<span style="font-size:16pt;font-weight:700">Je coche les listes rangées dans l'ordre, de haut en bas.</span>
+<span style="font-size:12pt">Je regarde la première lettre de chaque mot.</span>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:6mm 5mm">
+<sc-for list="{{ listesN2 }}" as="s" hint-placeholder-count="8">
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:space-around;gap:1.5mm;padding:2mm 1mm 3mm;min-height:0;border:1.2px solid #14213d;border-radius:3mm">
+<span style="flex:0 0 auto;width:8mm;height:8mm;border-radius:50%;background:#14213d;color:#fff;font-size:13pt;font-weight:700;display:flex;align-items:center;justify-content:center">{{ s.num }}</span>
+<span style="flex:0 0 auto;font-size:20pt;font-weight:700;line-height:1;color:#14213d">↓</span>
+<sc-for list="{{ s.mots }}" as="m" hint-placeholder-count="4">
+<div style="flex:1;min-height:0;width:100%;display:flex;flex-direction:column;align-items:center;gap:1mm">
+<div style="flex:1;min-height:0;width:100%;background-image:{{ m.img }};background-size:contain;background-repeat:no-repeat;background-position:center"></div>
+<span style="flex:0 0 auto;font-size:15pt;font-weight:700;letter-spacing:0.04em;line-height:1.1">{{ m.mot }}</span>
+</div>
+</sc-for>
+<span style="flex:0 0 auto;width:10mm;height:10mm;border:1.5px solid #14213d;border-radius:1mm;display:block;margin-top:1mm"></span>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section class="page" data-screen-label="04 Niveau 2 - je recopie" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:5mm">
+<div style="flex:0 0 auto;display:flex;align-items:stretch;gap:4mm">
+<div style="flex:1;background:#1d5c3a;color:#fff;padding:4mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:3mm">
+<span style="font-size:22pt;font-weight:700;line-height:1">L'ORDRE ALPHABÉTIQUE</span>
+<span style="display:flex;gap:1.5mm"><span style="width:5mm;height:5mm;border-radius:50%;background:#e0a526;display:block"></span><span style="width:5mm;height:5mm;border-radius:50%;background:#e0a526;display:block"></span></span>
+</div>
+<div style="flex:0 0 62mm;display:flex;flex-direction:column;justify-content:center;gap:4mm;font-size:12pt">
+<div style="display:flex;align-items:flex-end;gap:2mm"><span style="font-weight:700">Prénom :</span><span style="flex:1;border-bottom:1.2px solid #14213d;height:5mm"></span></div>
+<div style="display:flex;align-items:flex-end;gap:2mm"><span style="font-weight:700">Date :</span><span style="flex:1;border-bottom:1.2px solid #14213d;height:5mm"></span></div>
+</div>
+</div>
+<div style="flex:0 0 auto;height:1.5mm;background:#e0a526;margin-top:-5mm"></div>
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:1.5mm">
+<span style="font-size:12pt;font-weight:700;color:#1d5c3a;letter-spacing:0.08em;text-transform:uppercase">Activité 4</span>
+<span style="font-size:16pt;font-weight:700">Je recopie le mot à sa place dans la liste.</span>
+<span style="font-size:12pt">Je regarde la première lettre.</span>
+</div>
+<div style="flex:0 0 auto;display:flex;justify-content:center;gap:5mm">
+<sc-for list="{{ etiquettesTrou }}" as="m" hint-placeholder-count="4">
+<div style="display:flex;flex-direction:column;align-items:center;gap:1.5mm;border:1.5px solid #14213d;border-radius:3mm;padding:2mm 4mm">
+<span style="font-size:16pt;font-weight:700;letter-spacing:0.04em;line-height:1.1">{{ m.mot }}</span>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4mm">
+<sc-for list="{{ listesTrou }}" as="s" hint-placeholder-count="4">
+<div style="display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:3mm;padding:3mm 3mm 5mm;border:1.2px solid #14213d;border-radius:3mm;min-height:0">
+<span style="flex:0 0 auto;align-self:center;width:8mm;height:8mm;border-radius:50%;background:#14213d;color:#fff;font-size:13pt;font-weight:700;display:flex;align-items:center;justify-content:center">{{ s.num }}</span>
+<sc-for list="{{ s.mots }}" as="m" hint-placeholder-count="5">
+<div style="flex:0 0 auto;height:12mm;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:1mm">
+<sc-if value="{{ m.plein }}" hint-placeholder-val="{{ true }}">
+<span style="flex:0 0 auto;font-size:16pt;font-weight:700;letter-spacing:0.04em;line-height:1.1">{{ m.mot }}</span>
+</sc-if>
+<sc-if value="{{ m.trou }}" hint-placeholder-val="{{ false }}">
+<div style="width:100%;height:10mm;margin-top:auto;border-bottom:1.2px solid #14213d"></div>
+</sc-if>
+</div>
+</sc-for>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section class="page" data-screen-label="05 Niveau 3 - la 2e lettre" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:5mm">
+<div style="flex:0 0 auto;display:flex;align-items:stretch;gap:4mm">
+<div style="flex:1;background:#1d5c3a;color:#fff;padding:4mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:3mm">
+<span style="font-size:22pt;font-weight:700;line-height:1">L'ORDRE ALPHABÉTIQUE</span>
+<span style="display:flex;gap:1.5mm"><span style="width:5mm;height:5mm;border-radius:50%;background:#e0a526;display:block"></span><span style="width:5mm;height:5mm;border-radius:50%;background:#e0a526;display:block"></span><span style="width:5mm;height:5mm;border-radius:50%;background:#e0a526;display:block"></span></span>
+</div>
+<div style="flex:0 0 62mm;display:flex;flex-direction:column;justify-content:center;gap:4mm;font-size:12pt">
+<div style="display:flex;align-items:flex-end;gap:2mm"><span style="font-weight:700">Prénom :</span><span style="flex:1;border-bottom:1.2px solid #14213d;height:5mm"></span></div>
+<div style="display:flex;align-items:flex-end;gap:2mm"><span style="font-weight:700">Date :</span><span style="flex:1;border-bottom:1.2px solid #14213d;height:5mm"></span></div>
+</div>
+</div>
+<div style="flex:0 0 auto;height:1.5mm;background:#e0a526;margin-top:-5mm"></div>
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:1.5mm">
+<span style="font-size:12pt;font-weight:700;color:#1d5c3a;letter-spacing:0.08em;text-transform:uppercase">Activité 5</span>
+<span style="font-size:16pt;font-weight:700">Je surligne la 2e lettre. J'écris 1, 2, 3, 4.</span>
+<span style="font-size:12pt">La première lettre est la même : je regarde la 2e lettre.</span>
+</div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:5mm;border:1.2px solid #14213d;border-radius:2mm;padding:3mm 5mm;font-size:16pt;font-weight:700;letter-spacing:0.04em">
+<span style="font-size:12pt;font-weight:400;letter-spacing:0">Exemple :</span>
+<span style="background:#fff;border:1.5px solid #14213d;border-radius:2mm;padding:1mm 3mm;line-height:1.1">c<span style="background:#ffe45c;padding:0 0.5mm">a</span>rotte</span>
+<span style="background:#fff;border:1.5px solid #14213d;border-radius:2mm;padding:1mm 3mm;line-height:1.1">c<span style="background:#ffe45c;padding:0 0.5mm">e</span>rise</span>
+<span style="font-size:12pt;font-weight:400;letter-spacing:0">a avant e : carotte, puis cerise.</span>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-rows:repeat(4,minmax(0,1fr));gap:4mm">
+<sc-for list="{{ serieN3 }}" as="s" hint-placeholder-count="4">
+<div style="border:1.5px solid #14213d;border-radius:2mm;padding:3mm 4mm;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4mm;min-height:0">
+<sc-for list="{{ s.mots }}" as="m" hint-placeholder-count="4">
+<div style="display:flex;flex-direction:column;align-items:center;gap:1.5mm;min-height:0">
+<div style="flex:1;min-height:0;width:100%;background-image:{{ m.img }};background-size:contain;background-repeat:no-repeat;background-position:center"></div>
+<span style="font-size:16pt;font-weight:700;letter-spacing:0.08em;border:1.5px solid #14213d;border-radius:2mm;padding:1mm 3mm;line-height:1.1">{{ m.mot }}</span>
+<span style="width:13mm;height:13mm;border:1.2px solid #14213d;border-radius:1mm;display:block"></span>
+</div>
+</sc-for>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section class="page" data-screen-label="06 Activité 6 - je range et j'écris" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:5mm">
+<div style="flex:0 0 auto;display:flex;align-items:stretch;gap:4mm">
+<div style="flex:1;background:#1d5c3a;color:#fff;padding:4mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:3mm">
+<span style="font-size:22pt;font-weight:700;line-height:1">L'ORDRE ALPHABÉTIQUE</span>
+<span style="display:flex;gap:1.5mm"><span style="width:5mm;height:5mm;border-radius:50%;background:#e0a526;display:block"></span><span style="width:5mm;height:5mm;border-radius:50%;background:#e0a526;display:block"></span><span style="width:5mm;height:5mm;border-radius:50%;background:#e0a526;display:block"></span></span>
+</div>
+<div style="flex:0 0 62mm;display:flex;flex-direction:column;justify-content:center;gap:4mm;font-size:12pt">
+<div style="display:flex;align-items:flex-end;gap:2mm"><span style="font-weight:700">Prénom :</span><span style="flex:1;border-bottom:1.2px solid #14213d;height:5mm"></span></div>
+<div style="display:flex;align-items:flex-end;gap:2mm"><span style="font-weight:700">Date :</span><span style="flex:1;border-bottom:1.2px solid #14213d;height:5mm"></span></div>
+</div>
+</div>
+<div style="flex:0 0 auto;height:1.5mm;background:#e0a526;margin-top:-5mm"></div>
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:1.5mm">
+<span style="font-size:12pt;font-weight:700;color:#1d5c3a;letter-spacing:0.08em;text-transform:uppercase">Activité 6</span>
+<span style="font-size:16pt;font-weight:700">Je range les mots. J'écris les mots dans l'ordre.</span>
+<span style="font-size:12pt">Les mots du restaurant et de « Dans Paris ».</span>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-rows:repeat(4,minmax(0,1fr));gap:5mm">
+<sc-for list="{{ seriesA6 }}" as="s" hint-placeholder-count="4">
+<div style="display:flex;flex-direction:column;justify-content:space-between;gap:3mm;border:1.2px solid #14213d;border-radius:3mm;padding:4mm 5mm 5mm;min-height:0">
+<div style="display:flex;align-items:center;gap:4mm">
+<span style="flex:0 0 auto;width:8mm;height:8mm;border-radius:50%;background:#14213d;color:#fff;font-size:13pt;font-weight:700;display:flex;align-items:center;justify-content:center">{{ s.num }}</span>
+<span style="font-size:17pt;font-weight:700;letter-spacing:0.04em">{{ s.texte }}</span>
+</div>
+<div style="height:12mm;border-bottom:1.2px solid #14213d"></div>
+<div style="height:12mm;border-bottom:1.2px solid #14213d"></div>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section class="page" data-screen-label="07 Corrigé" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:3mm">
+<div style="flex:0 0 auto;background:#14213d;color:#fff;padding:4mm 5mm;font-size:22pt;font-weight:700;line-height:1">CORRIGÉ — L'ORDRE ALPHABÉTIQUE</div>
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:1mm">
+<span style="font-size:13pt;font-weight:700">Activité 1 · les lettres</span>
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2mm 8mm;font-size:13pt">
+<sc-for list="{{ corrN1 }}" as="c" hint-placeholder-count="8">
+<div style="display:flex;gap:3mm;border-bottom:1px solid #e3e6ec;padding:1mm 0"><span style="color:#6b7386;flex:0 0 18mm">{{ c.num }}</span><span style="font-weight:700;letter-spacing:0.12em;white-space:nowrap">{{ c.rep }}</span></div>
+</sc-for>
+</div>
+</div>
+<sc-for list="{{ corrA2 }}" as="n" hint-placeholder-count="1">
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:1mm">
+<span style="font-size:13pt;font-weight:700">{{ n.titre }}</span>
+<sc-for list="{{ n.series }}" as="c" hint-placeholder-count="4">
+<div style="display:flex;flex-direction:column;gap:0.5mm;border-bottom:1px solid #e3e6ec;padding:0.5mm 0;font-size:12pt;line-height:1.25">
+<span><span style="color:#6b7386">{{ c.num }} — les cases :</span> <b>{{ c.cases }}</b></span>
+<span><span style="color:#6b7386">dans l'ordre :</span> <b>{{ c.ordre }}</b></span>
+</div>
+</sc-for>
+</div>
+</sc-for>
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:1mm">
+<span style="font-size:13pt;font-weight:700">Activité 3 · je coche les listes rangées</span>
+<span style="font-size:12pt">À cocher : <b>{{ corrListes }}</b></span>
+</div>
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:1mm">
+<span style="font-size:13pt;font-weight:700">Activité 4 · je recopie le mot à sa place</span>
+<span style="font-size:12pt"><b>{{ corrTrou }}</b></span>
+</div>
+<sc-for list="{{ corrA5 }}" as="n" hint-placeholder-count="2">
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:1mm">
+<span style="font-size:13pt;font-weight:700">{{ n.titre }}</span>
+<sc-for list="{{ n.series }}" as="c" hint-placeholder-count="4">
+<div style="display:flex;flex-direction:column;gap:0.5mm;border-bottom:1px solid #e3e6ec;padding:0.5mm 0;font-size:12pt;line-height:1.25">
+<sc-if value="{{ c.aCases }}" hint-placeholder-val="{{ true }}"><span><span style="color:#6b7386">{{ c.num }} — les cases :</span> <b>{{ c.cases }}</b></span></sc-if>
+<span><span style="color:#6b7386">{{ c.prefixe }}</span> <b>{{ c.ordre }}</b></span>
+</div>
+</sc-for>
+</div>
+</sc-for>
+</section>
+
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const tri = a => [...a].sort((x, y) => x.localeCompare(y, 'fr', { sensitivity: 'base' }));
+    const L = ['RAMES', 'VBLDT', 'OHCKF', 'IXNPG', 'ZLUJS', 'WDMBR', 'QCYKE', 'TAOJV'];
+    const tailles = ['30pt', '24pt', '34pt', '26pt', '31pt'], dys = ['-3mm', '2mm', '-1mm', '3mm', '-2mm'], rots = ['-6deg', '4deg', '0deg', '-3deg', '7deg'];
+    const serieLettres = L.map((s, k) => ({
+      lettres: s.split('').map((c, i) => ({ c, taille: tailles[(i + k) % 5], dy: dys[(i + 2 * k) % 5], rot: rots[(i + k) % 5] })),
+      cases: [1, 2, 3, 4, 5]
+    }));
+    const W = w => { const [f, mot] = Array.isArray(w) ? w : [w, w]; return { mot, img: "url('clean/mot-" + f + ".webp')" }; };
+    const N2 = [['lit', 'ananas', 'salade', 'moto'], [['velo', 'vélo'], 'ballon', 'robot', 'camion'], ['table', ['gateau', 'gâteau'], 'pied', 'carotte'], ['usine', ['fenetre', 'fenêtre'], 'wagon', 'immeuble']];
+    const N3 = [['bonnet', 'banane', 'brosse', 'bureau'], ['crayon', 'citron', 'carotte', 'chaise'], ['poire', 'pied', 'plombier', 'pantalon'], ['micro', 'moto', 'main', 'melon']];
+    const serie = N => N.map(s => ({ mots: s.map(W) }));
+    const corr = N => N.map((s, k) => {
+      const mots = s.map(W).map(m => m.mot), o = tri(mots);
+      return { num: 'Série ' + (k + 1), cases: mots.map(m => m + ' ' + (o.indexOf(m) + 1)).join(' · '), ordre: o.join(', ') };
+    });
+    const LI = [['ananas', 'ballon', 'lit', 'moto'], [['velo', 'vélo'], 'carotte', 'pied', 'table'], ['chaise', ['fenetre', 'fenêtre'], 'robot', 'usine'], ['salade', 'immeuble', 'banane', 'wagon'], ['moto', ['gateau', 'gâteau'], 'poire', 'bonnet'], ['bureau', 'citron', 'main', 'pantalon'], [['gateau', 'gâteau'], 'immeuble', 'salade', ['velo', 'vélo']], ['table', 'ananas', 'crayon', 'melon']];
+    const A6 = [['oiseau', 'escalier', 'nid', 'tapis', 'Paris'], ['table', 'chambre', 'rue', 'cage', 'maison'], ['poulet', 'carte', 'plat', 'frites', 'client'], ['serveur', 'rue', 'comptoir', 'riz', 'addition']];
+    const motsLI = LI.map(s => s.map(W).map(m => m.mot));
+    const corrListes = 'listes ' + motsLI.map((m, k) => m.join() === tri(m).join() ? k + 1 : null).filter(Boolean).join(', ');
+    const LT = [[['ananas', 'bonnet', 'citron', ['fenetre', 'fenêtre'], 'lit'], 1], [['banane', ['fenetre', 'fenêtre'], ['gateau', 'gâteau'], 'immeuble', 'robot'], 2], [['carotte', 'moto', 'pied', 'salade', 'usine'], 2], [['chaise', 'lit', 'main', 'table', 'wagon'], 4]];
+    const listesTrou = LT.map(([s, t], k) => ({ num: k + 1, mots: s.map(W).map((m, i) => ({ ...m, trou: i === t, plein: i !== t })) }));
+    const manquants = LT.map(([s, t]) => W(s[t]));
+    const etiquettesTrou = [manquants[2], manquants[3], manquants[1], manquants[0]];
+    const corrTrou = manquants.map((m, k) => 'liste ' + (k + 1) + ' : ' + m.mot).join(' · ');
+    return {
+      listesTrou, etiquettesTrou, corrTrou,
+      listesN2: serie(LI).map((s, k) => ({ ...s, num: k + 1 })), corrListes,
+      alphabet: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(''),
+      serieLettres, serieN2: serie(N2), serieN3: serie(N3),
+      corrN1: L.map((s, k) => ({ num: 'Série ' + (k + 1), rep: tri(s.split('')).join(' ') })),
+      corrA2: [{ titre: 'Activité 2 · les mots', series: corr(N2) }], corrA5: [{ titre: 'Activité 5 · la 2e lettre', series: corr(N3) }, { titre: 'Activité 6 · je range et j\'écris', series: A6.map((s, k) => ({ aCases: false, prefixe: 'Série ' + (k + 1) + ' :', ordre: tri(s).join(', ') })) }].map(n => ({ ...n, series: n.series.map(c => ({ aCases: true, prefixe: "dans l'ordre :", ...c })) })),
+      seriesA6: A6.map((s, k) => ({ num: k + 1, texte: s.join(', ') }))
+    };
+  }
+}
+</script>
+</body>
+</html>

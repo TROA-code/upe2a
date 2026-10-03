@@ -249,7 +249,8 @@ const DUREE_MOIS = 12;
 
 const VIDE = {statut:'In',nom:'',prenom:'',sexe:'',naissance:'',pays:'',langues:'',
   arriveeFrance:'',scolarite:'',lycee:'',classe:'',entreeFls:'',entreeDisp:'',
-  heuresFls:'',derogation:'Non',motifDerog:'',obs:''};
+  heuresFls:'',derogation:'Non',motifDerog:'',obs:'',
+  adresse:'',responsable:'',referent:'',telReferent:''};
 
 /* Les 8 élèves de son fichier eleves_UPE2A-NSA.xlsx (dates converties des séries Excel). */
 const DEPART = [
@@ -292,8 +293,18 @@ class Component extends DCLogic {
   componentDidMount(){
     let l=null;
     try{ const b=localStorage.getItem(CLE); if(b){ const o=JSON.parse(b); if(Array.isArray(o)) l=o; } }catch(e){}
-    this.setState({eleves:l||DEPART.slice()});
-    if(!l) this.sauver(DEPART.slice());
+    /* AJOUTS (02/10) : versés UNE fois dans une liste déjà enregistrée, sans rien écraser.
+       Si elle supprime l'élève ensuite, il ne revient pas (clé coordo-ajouts-faits).
+       ⚠ Jamais d'adresse, de téléphone ni de contact ASE ici : ce fichier est publié. */
+    const AJOUTS=[Object.assign({},VIDE,{id:'x-alpha',nom:'TOURE',prenom:'Alpha',naissance:'2011-01-01',scolarite:'NSA'})];
+    if(l){
+      let faits=[]; try{ faits=JSON.parse(localStorage.getItem('coordo-ajouts-faits')||'[]'); }catch(e){}
+      const neufs=AJOUTS.filter(a=>!faits.includes(a.id) && !l.some(e=>e.id===a.id));
+      if(neufs.length){ l=l.concat(neufs); this.sauver(l); }
+      try{ localStorage.setItem('coordo-ajouts-faits',JSON.stringify(faits.concat(neufs.map(a=>a.id)))); }catch(e){}
+    }
+    this.setState({eleves:l||DEPART.concat(AJOUTS)});
+    if(!l) this.sauver(DEPART.concat(AJOUTS));
   }
   sauver(l){ try{ localStorage.setItem(CLE, JSON.stringify(l)); }catch(e){} }
   majListe(l){ this.sauver(l); this.setState({eleves:l}); }
@@ -490,7 +501,14 @@ class Component extends DCLogic {
         ch('heuresFls','Heures de FLS par semaine',{exemple:'6'}),
         ch('derogation','Dérogation',{options:['Non','Oui']}),
         ch('motifDerog','Motif de la dérogation'),
-        ch('obs','Observations',{zone:true,large:true})]}
+        ch('obs','Observations',{zone:true,large:true})]},
+      /* CONTACTS (02/10, sa demande) : saisis par ELLE, gardés dans son navigateur seulement.
+         ⚠ Ne jamais écrire de valeur ici ni dans DEPART/AJOUTS : le fichier est publié. */
+      {titre:'Contacts', couleur:'#c0392b', champs:[
+        ch('adresse','Adresse',{large:true}),
+        ch('responsable','Responsable légal',{exemple:'parents, ASE (IDEFHI)…'}),
+        ch('referent','Éducateur·rice / référent·e'),
+        ch('telReferent','Téléphone',{exemple:'06 …'})]}
     ];
     let apercuForm='';
     if(f.entreeDisp){
@@ -518,7 +536,9 @@ class Component extends DCLogic {
           ['Dérogation',eFiche.derogation==='Oui'?('oui — '+(eFiche.motifDerog||'motif non précisé')):'non'],
           ['Pays d\u2019origine',eFiche.pays||'—'],['Langues',eFiche.langues||'—'],
           ['Arrivée en France',fr(eFiche.arriveeFrance)],['Scolarité antérieure',eFiche.scolarite||'—'],
-          ['Observations',eFiche.obs||'—']].map(([label,valeur])=>({label,valeur})),
+          ['Observations',eFiche.obs||'—'],
+          ['Adresse',eFiche.adresse||'—'],['Responsable légal',eFiche.responsable||'—'],
+          ['Éducateur·rice',eFiche.referent||'—'],['Téléphone',eFiche.telReferent||'—']].map(([label,valeur])=>({label,valeur})),
         modifier:()=>this.ouvrirForm(eFiche.id)};
     }
 
@@ -535,12 +555,13 @@ class Component extends DCLogic {
       exporterCsv:()=>{
         const ent=['Statut','Nom','Prénom','Sexe','Naissance','Pays','Langues','Arrivée en France',
           'Scolarité','Lycée d\u2019affectation','Classe','Entrée FLS','Entrée dispositif',
-          'Prise en charge (jours)','Fin théorique','Heures FLS','Dérogation','Motif','Observations'];
+          'Prise en charge (jours)','Fin théorique','Heures FLS','Dérogation','Motif','Observations',
+          'Adresse','Responsable légal','Éducateur·rice','Téléphone'];
         const l=visibles.map(e=>{ const c=this.calcul(e);
           return [e.statut,e.nom,e.prenom,e.sexe,e.naissance,e.pays,e.langues,e.arriveeFrance,
             e.scolarite,e.lycee,e.classe,e.entreeFls,e.entreeDisp,
             (c.jours===null||c.jours===undefined)?'':c.jours, c.fin, e.heuresFls,
-            e.derogation, e.motifDerog, e.obs]; });
+            e.derogation, e.motifDerog, e.obs, e.adresse, e.responsable, e.referent, e.telReferent]; });
         const csv=[ent].concat(l).map(r=>r.map(v=>'"'+String(v===undefined||v===null?'':v).replace(/"/g,'""')+'"').join(';')).join('\r\n');
         try{
           const b=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'});

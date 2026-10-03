@@ -47,9 +47,105 @@ input,select,button{font-family:inherit}
 <script src="./disques.js?v=9"></script>
 <!-- L'emploi du temps est monté ici par dc-import : le helmet d'un enfant n'est pas
      chargé, donc window.EDT doit être fourni par CETTE page, sinon l'écran est vide. -->
-<script src="./emploi-du-temps.js?v=9"></script>
+<script src="./emploi-du-temps.js?v=10"></script>
 </helmet>
 <div class="om-nonprint" style="height:100vh;min-height:0;overflow:hidden;display:flex;flex-direction:column;font-family:Archivo, Arial, sans-serif;color:#12233b;background:#f4f6f9">
+<!-- CHRONO DU TOP CHRONO (02/10, sa demande) : languette ⏱ à GAUCHE, côté élève seulement.
+     Un seul chrono pour la classe, projeté. Plafond 3 min par défaut (réglable 2/3/4). -->
+<!-- ROUE « QUI PASSE ? » (02/10, sa demande) : tire un élève au hasard parmi les présents.
+     Toucher un prénom = absent (il sort de la roue). « Chacun son tour » : un tiré ne revient
+     pas avant que tout le monde soit passé. Pas de score, pas de compteur. -->
+<sc-if value="{{ rdOuvert }}" hint-placeholder-val="{{ false }}">
+<div style="position:fixed;inset:0;z-index:70;background:#12233b;color:#fff;display:flex;flex-wrap:wrap;align-items:safe center;justify-content:safe center;gap:5vw;padding:64px 24px 24px;box-sizing:border-box;overflow:auto">
+<span style="position:absolute;top:16px;left:50%;transform:translateX(-50%);white-space:nowrap;font-family:Archivo Black, Archivo, sans-serif;font-size:30px;letter-spacing:0.02em;color:#fff">À qui le tour ?</span>
+<button onClick="{{ rdFermer }}" style="position:absolute;top:16px;right:16px;border:2px solid rgba(255,255,255,0.5);border-radius:12px;background:none;color:#fff;padding:10px 18px;font-family:Archivo Black, Archivo, sans-serif;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer">✕ Fermer</button>
+<div style="position:relative;width:min(72vh,86vw,max(300px,calc(100vw - 480px)));aspect-ratio:1;flex:0 0 auto">
+<div style="position:absolute;left:50%;top:-14px;transform:translateX(-50%);z-index:2;width:0;height:0;border-left:20px solid transparent;border-right:20px solid transparent;border-top:38px solid #fff;filter:drop-shadow(0 3px 3px rgba(0,0,0,0.4))"></div>
+<sc-if value="{{ rdVide }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;inset:0;border-radius:50%;border:6px dashed rgba(255,255,255,0.35);display:flex;align-items:center;justify-content:center;text-align:center;font-family:Archivo Black, Archivo, sans-serif;font-size:28px;padding:40px;box-sizing:border-box">Tout le monde est passé !</div>
+</sc-if>
+<sc-if value="{{ rdPasVide }}" hint-placeholder-val="{{ true }}">
+<div ref="{{ rdRoueRef }}" style="position:absolute;inset:0;container-type:inline-size;transform:rotate({{ rdRot }}deg);transition:{{ rdTransition }}">
+<svg viewBox="0 0 200 200" style="position:absolute;inset:0;width:100%;height:100%;display:block">
+<sc-for list="{{ rdParts }}" as="p" hint-placeholder-count="9">
+<path d="{{ p.d }}" fill="{{ p.fond }}" stroke="#12233b" stroke-width="1"></path>
+</sc-for>
+</svg>
+<sc-for list="{{ rdParts }}" as="p" hint-placeholder-count="9">
+<div style="position:absolute;left:50%;top:50%;width:46%;height:0;transform-origin:0 0;transform:rotate({{ p.deg }}deg)">
+<span style="position:absolute;right:0;top:0;transform:translateY(-50%);font-family:Archivo Black, Archivo, sans-serif;font-size:{{ p.taille }};line-height:1;white-space:nowrap;color:{{ p.encre }}">{{ p.nom }}</span>
+</div>
+</sc-for>
+</div>
+<button onClick="{{ rdTourner }}" title="Tourner" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:24%;aspect-ratio:1;border-radius:50%;border:5px solid #12233b;background:#fff;color:#12233b;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;font-family:Archivo Black, Archivo, sans-serif;font-size:min(2.7vh,2.6vw);letter-spacing:0;box-shadow:0 4px 12px rgba(0,0,0,0.35)" style-active="transform:translate(-50%,-50%) scale(0.94)">TOURNE</button>
+</sc-if>
+</div>
+<div style="flex:0 1 380px;min-width:260px;display:flex;flex-direction:column;align-items:center;gap:22px;text-align:center">
+<div style="min-height:120px;width:100%;display:flex;align-items:center;justify-content:center">
+<sc-if value="{{ rdAfficheChoix }}" hint-placeholder-val="{{ false }}">
+<div style="max-width:100%;box-sizing:border-box;background:#2a9d6e;border:5px solid #fff;border-radius:16px;padding:18px 30px;box-shadow:0 10px 28px rgba(0,0,0,0.45);font-family:Archivo Black, Archivo, sans-serif;font-size:min(7vh,7vw,64px);line-height:1.05;color:#f4c430;overflow-wrap:anywhere">{{ rdChoixNom }}</div>
+</sc-if>
+</div>
+<sc-if value="{{ rdVide }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ rdRelancer }}" style="border:3px solid rgba(255,255,255,0.6);border-radius:16px;background:none;color:#fff;padding:18px 30px;font-family:Archivo Black, Archivo, sans-serif;font-size:22px;cursor:pointer">↺ On recommence</button>
+</sc-if>
+<button onClick="{{ rdBasculeTour }}" style="display:flex;align-items:center;gap:10px;border:none;background:none;color:#fff;font-size:15px;cursor:pointer;padding:6px">
+<span style="width:44px;height:26px;border-radius:13px;background:{{ rdTourFond }};position:relative;display:block;flex:0 0 auto"><span style="position:absolute;top:3px;left:{{ rdTourGauche }};width:20px;height:20px;border-radius:50%;background:#fff;display:block"></span></span>
+Une seule fois chacun
+</button>
+<button onClick="{{ rdReinit }}" title="Réinitialiser" aria-label="Réinitialiser" style="width:52px;height:52px;border:3px solid rgba(255,255,255,0.6);border-radius:50%;background:none;color:#fff;font-size:26px;line-height:1;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center">↺</button>
+<div style="display:flex;flex-direction:column;gap:8px;align-items:center">
+<span style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#9db6ce;font-weight:700">Touche un absent</span>
+<div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center">
+<sc-for list="{{ rdEleves }}" as="e" hint-placeholder-count="9">
+<sc-if value="{{ e.present }}" hint-placeholder-val="{{ true }}"><button onClick="{{ e.basculer }}" style="border:none;border-radius:20px;background:#fff;color:#12233b;padding:8px 14px;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap">{{ e.nom }}</button></sc-if>
+<sc-if value="{{ e.passe }}" hint-placeholder-val="{{ false }}"><button onClick="{{ e.remettre }}" title="Déjà passé — toucher pour le remettre dans la roue" style="border:2px solid #2a9d6e;border-radius:20px;background:none;color:#8fd4b4;padding:6px 12px;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap">✓ {{ e.nom }}</button></sc-if>
+<sc-if value="{{ e.absent }}" hint-placeholder-val="{{ false }}"><button onClick="{{ e.basculer }}" style="border:1px dashed rgba(255,255,255,0.4);border-radius:20px;background:none;color:#7d8aa0;padding:8px 14px;font-size:14px;text-decoration:line-through;cursor:pointer;white-space:nowrap">{{ e.nom }}</button></sc-if>
+<sc-if value="{{ e.ajoute }}" hint-placeholder-val="{{ false }}"><button onClick="{{ e.retirer }}" title="Retirer ce prénom" style="margin-left:-6px;width:30px;height:30px;align-self:center;border:none;border-radius:50%;background:rgba(255,255,255,0.15);color:#fff;font-size:15px;line-height:1;cursor:pointer;padding:0">✕</button></sc-if>
+</sc-for>
+</div>
+<form onSubmit="{{ rdAjouter }}" style="display:flex;gap:8px;margin-top:6px">
+<input value="{{ rdSaisie }}" onChange="{{ rdSetSaisie }}" placeholder="Ajouter un prénom" style="width:180px;border:none;border-radius:10px;padding:10px 12px;font-size:15px;color:#12233b"></input>
+<button type="submit" style="border:none;border-radius:10px;background:#f4c430;color:#12233b;padding:10px 16px;font-family:Archivo Black, Archivo, sans-serif;font-size:16px;cursor:pointer">+</button>
+</form>
+</div>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ tcOuvert }}" hint-placeholder-val="{{ false }}">
+<div style="position:fixed;inset:0;z-index:70;background:#12233b;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4vh;padding:24px;box-sizing:border-box">
+<button onClick="{{ tcFermer }}" style="position:absolute;top:16px;right:16px;border:2px solid rgba(255,255,255,0.5);border-radius:12px;background:none;color:#fff;padding:10px 18px;font-family:Archivo Black, Archivo, sans-serif;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer">✕ Fermer</button>
+<div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:5vw">
+<svg viewBox="0 0 200 200" style="width:min(46vh,40vw);height:min(46vh,40vw);flex:0 0 auto;display:block">
+<circle cx="100" cy="100" r="94" fill="rgba(255,255,255,0.1)" stroke="#fff" stroke-width="5"></circle>
+<path d="{{ tcDisque }}" fill="{{ tcDisqueCouleur }}"></path>
+<circle cx="100" cy="100" r="7" fill="#fff"></circle>
+</svg>
+<sc-if value="{{ tcPasFini }}" hint-placeholder-val="{{ true }}">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:min(18vw,30vh);line-height:0.9;letter-spacing:-0.02em;font-variant-numeric:tabular-nums">{{ tcTexte }}</span>
+</sc-if>
+<sc-if value="{{ tcFini }}" hint-placeholder-val="{{ false }}">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:min(18vw,30vh);line-height:0.9;letter-spacing:-0.02em;font-variant-numeric:tabular-nums;color:#f08a24">{{ tcTexte }}</span>
+</sc-if>
+</div>
+<div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center">
+<sc-if value="{{ tcArrete }}" hint-placeholder-val="{{ true }}">
+<button onClick="{{ tcTop }}" style="border:none;border-radius:16px;background:#2a9d6e;color:#fff;padding:22px 48px;font-family:Archivo Black, Archivo, sans-serif;font-size:30px;letter-spacing:0.04em;cursor:pointer;box-shadow:0 5px 0 #1d7350">TOP !</button>
+</sc-if>
+<sc-if value="{{ tcEnMarche }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ tcStop }}" style="border:none;border-radius:16px;background:#d0453a;color:#fff;padding:22px 48px;font-family:Archivo Black, Archivo, sans-serif;font-size:30px;letter-spacing:0.04em;cursor:pointer;box-shadow:0 5px 0 #9c2f26">STOP</button>
+</sc-if>
+<button onClick="{{ tcZero }}" title="Remettre à zéro" style="border:3px solid rgba(255,255,255,0.6);border-radius:16px;background:none;color:#fff;padding:18px 30px;font-family:Archivo Black, Archivo, sans-serif;font-size:30px;cursor:pointer">↺</button>
+</div>
+<div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#9db6ce">
+<span style="letter-spacing:0.12em;text-transform:uppercase;font-weight:700">Maximum</span>
+<sc-for list="{{ tcPlafonds }}" as="p" hint-placeholder-count="3">
+<sc-if value="{{ p.actif }}" hint-placeholder-val="{{ false }}"><button onClick="{{ p.choisir }}" style="border:none;border-radius:9px;background:#fff;color:#12233b;padding:7px 12px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap">{{ p.m }} min</button></sc-if>
+<sc-if value="{{ p.inactif }}" hint-placeholder-val="{{ true }}"><button onClick="{{ p.choisir }}" style="border:1px solid rgba(255,255,255,0.35);border-radius:9px;background:none;color:#fff;padding:7px 12px;font-size:13px;cursor:pointer;white-space:nowrap">{{ p.m }} min</button></sc-if>
+</sc-for>
+</div>
+</div>
+</sc-if>
 
 <div style="flex:0 0 auto;background:#12233b;color:#fff;display:flex;align-items:center;gap:{{ gapBarre }};padding:{{ padBarre }};flex-wrap:nowrap">
 <button onClick="{{ goHome }}" style="flex:0 0 auto;width:42px;height:42px;border-radius:12px;border:none;background:#fff;background-image:url('clean/ico-accueil.webp');background-size:74%;background-repeat:no-repeat;background-position:center;cursor:pointer"></button>
@@ -58,7 +154,7 @@ input,select,button{font-family:inherit}
 </sc-if>
 <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:1px">
 <sc-if value="{{ assezLarge }}" hint-placeholder-val="{{ true }}">
-<span style="font-size:9.5px;letter-spacing:0.2em;text-transform:uppercase;color:#7fb8cc;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">UPE2A NSA &middot; français langue de scolarisation</span>
+<span style="font-size:9.5px;letter-spacing:0.2em;text-transform:uppercase;color:#7fb8cc;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">français langue de scolarisation</span>
 </sc-if>
 <span style="font-family:Archivo Black, Archivo, sans-serif;font-size:{{ tailleTitre }};line-height:1.15;letter-spacing:-0.01em;overflow:hidden">{{ titre }}</span>
 </div>
@@ -211,6 +307,22 @@ input,select,button{font-family:inherit}
 <img src="clean/fenetre.webp" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;top:18px;left:24px;width:250px;height:auto;z-index:0;filter:drop-shadow(0 6px 14px rgba(0,0,0,0.2))" />
 <img src="clean/plante.webp" alt="" data-decor="1" style="display:{{ affDecor }};position:absolute;bottom:0;left:8px;width:190px;height:auto;z-index:1" />
 </sc-if>
+<!-- BANDEAU D'OUTILS (02/10, son oui) : au-dessus des tableaux de liège, accueil élève.
+     Un outil = un bouton (icône + mot). On en ajoute ici, jamais en languette sur le bord. -->
+<sc-if value="{{ bandeauOutils }}" hint-placeholder-val="{{ false }}">
+<div style="position:relative;z-index:2;flex:0 0 auto;width:100%;max-width:{{ largeurAccueil }};margin:0 {{ margeAccueil }} 0 auto;box-sizing:border-box;display:flex;justify-content:flex-end">
+<div style="display:flex;flex-wrap:wrap;gap:10px;background:rgba(18,35,59,0.9);border-radius:14px;padding:8px;box-shadow:0 8px 20px rgba(0,0,0,0.25)">
+<button onClick="{{ tcOuvrir }}" title="Chrono" style="flex:0 0 auto;min-height:52px;display:flex;align-items:center;gap:10px;border:none;border-radius:10px;background:#f08a24;color:#fff;padding:6px 18px 6px 12px;cursor:pointer;box-shadow:0 3px 0 #c96f14">
+<span style="font-size:28px;line-height:1">⏱</span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:13px;letter-spacing:0.06em;text-transform:uppercase">Chrono</span>
+</button>
+<button onClick="{{ rdOuvrir }}" title="Qui passe ?" style="flex:0 0 auto;min-height:52px;display:flex;align-items:center;gap:10px;border:none;border-radius:10px;background:#1d4e89;color:#fff;padding:6px 18px 6px 12px;cursor:pointer;box-shadow:0 3px 0 #133a68">
+<span style="width:30px;height:30px;border-radius:50%;background:conic-gradient(#f08a24 0 25%,#2a9d6e 0 50%,#f4c430 0 75%,#d0453a 0);border:2px solid #fff;box-sizing:border-box;display:block"></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:13px;letter-spacing:0.06em;text-transform:uppercase">Roue</span>
+</button>
+</div>
+</div>
+</sc-if>
 <div style="position:relative;z-index:2;flex:0 0 auto;width:100%;max-width:{{ largeurAccueil }};margin:0 {{ margeAccueil }} auto auto;box-sizing:border-box;display:grid;grid-template-columns:{{ colAccueil }};gap:18px">
 <button onClick="{{ ouvrirSemaine }}" style="box-shadow:0 12px 28px rgba(0,0,0,0.3);background-image:url('clean/liege.webp');background-size:100% 100%;background-repeat:no-repeat;border:none;padding:15px 15px 18px;display:flex;flex-direction:column;align-items:center;gap:11px;cursor:pointer" style-hover="transform:translateY(-3px)">
 <span style="position:relative;background:#fdf3c4;padding:8px 16px;transform:rotate(-0.7deg);box-shadow:0 4px 10px rgba(0,0,0,0.3);display:block">
@@ -238,7 +350,7 @@ input,select,button{font-family:inherit}
 <button onClick="{{ ouvrirTableauCode }}" style="box-shadow:0 12px 28px rgba(0,0,0,0.3);background-image:url('clean/liege.webp');background-size:100% 100%;background-repeat:no-repeat;border:none;padding:15px 15px 18px;display:flex;flex-direction:column;align-items:center;gap:11px;cursor:pointer" style-hover="transform:translateY(-3px)">
 <span style="position:relative;background:#fdf3c4;padding:8px 16px;transform:rotate(0.9deg);box-shadow:0 4px 10px rgba(0,0,0,0.3);display:block">
 <span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:block"></span>
-<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:17px;letter-spacing:0.02em;text-transform:uppercase;color:#8a4b1e;text-align:center;line-height:1.2;display:block;font-size:13px">Les lettres<br />et les sons</span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:17px;letter-spacing:0.02em;text-transform:uppercase;color:#8a4b1e;text-align:center;line-height:1.2;display:block;font-size:13px">Lettres,<br />sons, syllabes</span>
 </span>
 <span style="width:100%;display:grid;grid-template-columns:{{ colApercu }};gap:7px">
 <sc-for list="{{ apercuCode }}" as="a" hint-placeholder-count="4">
@@ -261,22 +373,15 @@ input,select,button{font-family:inherit}
 </span>
 <span style="font-size:11.5px;color:#fdf3c4;text-shadow:0 1px 3px rgba(0,0,0,0.5)">je touche un son, je joue</span>
 </a>
-<!-- ⚠ CINQUIÈME TABLEAU (20/09) : « Glisse et lis », l'appli de fusion syllabique.
-     Elle est rangée JUSTE APRÈS « Les lettres et les sons » — c'est le même travail, le
-     code, et un élève qui sort des sons la trouve là. Aperçu M · U · R aux trois couleurs
-     de l'appli : consonne bleu nuit, voyelle simple rouge. -->
-<a href="FR - Glisse et lis.html" style="box-shadow:0 12px 28px rgba(0,0,0,0.3);background-image:url('clean/liege.webp');background-size:100% 100%;background-repeat:no-repeat;border:none;padding:15px 15px 18px;display:flex;flex-direction:column;align-items:center;gap:11px;cursor:pointer;text-decoration:none" style-hover="transform:translateY(-3px)">
+<!-- ⚠ 02/10 (son oui) : « Glisse et lis » est passé DANS « Lettres, sons, syllabes » (1re case).
+     Sa place ici = « Histoire, géographie, EMC », vide pour l'instant (« on voit plus tard »). -->
+<div style="box-shadow:0 12px 28px rgba(0,0,0,0.3);background-image:url('clean/liege.webp');background-size:100% 100%;background-repeat:no-repeat;border:none;padding:15px 15px 18px;display:flex;flex-direction:column;align-items:center;gap:11px">
 <span style="position:relative;background:#fdf3c4;padding:8px 16px;transform:rotate(-1deg);box-shadow:0 4px 10px rgba(0,0,0,0.3);display:block">
 <span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:block"></span>
-<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:13px;letter-spacing:0.02em;text-transform:uppercase;color:#8a4b1e;text-align:center;line-height:1.2;display:block">Glisse<br />et lis</span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:13px;letter-spacing:0.02em;text-transform:uppercase;color:#8a4b1e;text-align:center;line-height:1.2;display:block">Histoire, géographie,<br />EMC</span>
 </span>
-<span style="width:100%;display:grid;grid-template-columns:{{ colApercu }};gap:7px">
-<span style="background:#fff;border:3px solid #1d4e89;border-radius:8px;box-shadow:0 3px 10px rgba(0,0,0,0.18);aspect-ratio:1;align-self:start;display:flex;align-items:center;justify-content:center"><span style="font-family:Andika, Verdana, sans-serif;font-size:30px;font-weight:700;line-height:1;color:#1d4e89">M</span></span>
-<span style="background:#fff;border:3px solid #c0392b;border-radius:8px;box-shadow:0 3px 10px rgba(0,0,0,0.18);aspect-ratio:1;align-self:start;display:flex;align-items:center;justify-content:center"><span style="font-family:Andika, Verdana, sans-serif;font-size:30px;font-weight:700;line-height:1;color:#c0392b">U</span></span>
-<span style="background:#fff;border:3px solid #1d4e89;border-radius:8px;box-shadow:0 3px 10px rgba(0,0,0,0.18);aspect-ratio:1;align-self:start;display:flex;align-items:center;justify-content:center"><span style="font-family:Andika, Verdana, sans-serif;font-size:30px;font-weight:700;line-height:1;color:#1d4e89">R</span></span>
-</span>
-<span style="font-size:11.5px;color:#fdf3c4;text-shadow:0 1px 3px rgba(0,0,0,0.5)">je glisse les sons, je lis le mot</span>
-</a>
+<span style="font-size:11.5px;color:#fdf3c4;text-shadow:0 1px 3px rgba(0,0,0,0.5)">bientôt</span>
+</div>
 <a href="ORIENTATION - Mon avenir au Havre.html" style="box-shadow:0 12px 28px rgba(0,0,0,0.3);background-image:url('clean/liege.webp');background-size:100% 100%;background-repeat:no-repeat;border:none;padding:15px 15px 18px;display:flex;flex-direction:column;align-items:center;gap:11px;cursor:pointer;text-decoration:none" style-hover="transform:translateY(-3px)">
 <span style="position:relative;background:#fdf3c4;padding:8px 16px;transform:rotate(1deg);box-shadow:0 4px 10px rgba(0,0,0,0.3);display:block">
 <span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:block"></span>
@@ -322,7 +427,7 @@ input,select,button{font-family:inherit}
 <div style="position:relative;z-index:2;flex:1;min-height:0;width:100%;max-width:{{ largeurPanneau }};margin-left:auto;margin-right:{{ margePanneau }};box-sizing:border-box;box-shadow:0 12px 28px rgba(0,0,0,0.28);background-image:url('clean/liege.webp');background-size:100% 100%;background-repeat:no-repeat;padding:16px 20px 18px;display:flex;flex-direction:column;align-items:center;gap:12px">
 <div style="position:relative;background:#fdf3c4;padding:10px 34px;transform:rotate(0.9deg);box-shadow:0 4px 10px rgba(0,0,0,0.3)">
 <span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4)"></span>
-<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:18px;letter-spacing:0.03em;text-transform:uppercase;color:#8a4b1e;white-space:nowrap">Les lettres et les sons</span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:18px;letter-spacing:0.03em;text-transform:uppercase;color:#8a4b1e;white-space:nowrap">Lettres, sons, syllabes</span>
 </div>
 <div style="flex:1;min-height:0;width:100%;display:grid;grid-template-columns:{{ colCode }};grid-auto-rows:minmax(128px,auto);gap:10px;overflow-y:auto;overflow-x:hidden;padding-right:14px">
 <sc-for list="{{ cartesCode }}" as="c" hint-placeholder-count="12">
@@ -339,6 +444,11 @@ input,select,button{font-family:inherit}
 <button onClick="{{ c.evaluer }}" style="flex:0 0 auto;width:100%;border:none;border-radius:6px;background:#f08a24;color:#fff;padding:4px 0;font-family:Archivo Black, Archivo, sans-serif;font-size:9px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;overflow:hidden;white-space:nowrap">Évaluation</button>
 </div>
 </sc-for>
+<a href="FR - Glisse et lis.html" style="position:relative;background:#fff;border:3px solid #1d4e89;border-radius:11px;box-shadow:0 3px 10px rgba(0,0,0,0.2);padding:6px 6px 15px;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0;min-height:0;text-decoration:none;cursor:pointer">
+<span style="flex:1 1 auto;min-height:30px;width:100%;border:1.5px solid #1d4e89;border-radius:7px;display:flex;align-items:center;justify-content:center;gap:2px"><span style="font-family:Andika, Verdana, sans-serif;font-size:24px;font-weight:700;line-height:1;color:#1d4e89">M</span><span style="font-family:Andika, Verdana, sans-serif;font-size:24px;font-weight:700;line-height:1;color:#c0392b">U</span><span style="font-family:Andika, Verdana, sans-serif;font-size:24px;font-weight:700;line-height:1;color:#1d4e89">R</span></span>
+<span style="flex:0 0 auto;font-family:Archivo Black, Archivo, sans-serif;font-size:10.5px;color:#12233b;text-align:center;line-height:1.15;height:25px;overflow:hidden;display:flex;align-items:center;justify-content:center">Glisse et lis</span>
+<span style="flex:0 0 auto;width:100%;border-radius:6px;background:#2a9d6e;color:#fff;padding:4px 0;font-family:Archivo Black, Archivo, sans-serif;font-size:9px;letter-spacing:0.06em;text-transform:uppercase;text-align:center;overflow:hidden;white-space:nowrap">Je joue</span>
+</a>
 </div>
 </div>
 </div>
@@ -376,7 +486,7 @@ input,select,button{font-family:inherit}
 <span style="flex:1;font-size:13px;color:#6b7386;padding-bottom:10px">{{ infoSon }}</span>
 <span style="font-size:12.5px;color:#8a91a3;padding-bottom:10px">{{ nombreSons }}</span>
 <button onClick="{{ reinitSons }}" style="border:1px solid #c9cfd8;border-radius:8px;background:#fff;color:#12233b;padding:10px 16px;font-size:12.5px;cursor:pointer">Liste de départ</button>
-<button onClick="{{ allerReglagesCode }}" title="Ce que voient les élèves dans « Les lettres et les sons »" style="border:1px solid #c9cfd8;border-radius:8px;background:#fff;color:#12233b;padding:10px 16px;font-size:12.5px;cursor:pointer">&#128065; Ce que voient les élèves</button>
+<button onClick="{{ allerReglagesCode }}" title="Ce que voient les élèves dans « Lettres, sons, syllabes »" style="border:1px solid #c9cfd8;border-radius:8px;background:#fff;color:#12233b;padding:10px 16px;font-size:12.5px;cursor:pointer">&#128065; Ce que voient les élèves</button>
 </div>
 <span style="flex:0 0 auto;font-size:12.5px;color:#6b7386;line-height:1.45">Clique sur un son pour ouvrir sa page. Pour changer l'ordre, <b>attrape une case et dépose-la</b> à sa place.</span>
 <div style="flex:1;min-height:0;background:#fff;border-radius:10px;box-shadow:0 1px 3px rgba(20,33,61,0.12);padding:12px;overflow:auto">
@@ -1532,7 +1642,7 @@ Le trait d'union sépare les mots</label>
 <span style="flex:1;font-size:14.5px;font-weight:700;color:#1d4e89">Les ateliers visibles par les élèves</span>
 <button onClick="{{ retourSons }}" style="border:1px solid #c9cfd8;border-radius:8px;background:#fff;color:#12233b;padding:8px 14px;font-size:12px;cursor:pointer">&#8592; L'apprentissage du code</button>
 </div>
-<span style="font-size:11.5px;color:#8a91a3;line-height:1.45">Décoche un atelier pour le retirer du tableau « Les lettres et les sons » de l'espace élève. L'ordre du tableau ne suit pas encore ta progression des sons.</span>
+<span style="font-size:11.5px;color:#8a91a3;line-height:1.45">Décoche un atelier pour le retirer du tableau « Lettres, sons, syllabes » de l'espace élève. L'ordre du tableau ne suit pas encore ta progression des sons.</span>
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px">
 <sc-for list="{{ ateliersCode }}" as="c" hint-placeholder-count="12">
 <button onClick="{{ c.basculer }}" style="display:flex;align-items:center;gap:9px;border:1px solid #dde2e9;border-radius:8px;background:#fff;padding:9px 11px;cursor:pointer;text-align:left">
@@ -1972,11 +2082,19 @@ Le trait d'union sépare les mots</label>
 <span style="flex:0 0 auto;font-size:12.5px;color:#6b7386;line-height:1.5;max-width:640px">Ces documents ne se composent pas page par page : chacun s'ouvre et s'imprime tel quel. À découper et à coller dans le cahier de l'élève.</span>
 <div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px">
 <sc-for list="{{ docsColl }}" as="d" hint-placeholder-count="2">
+<sc-if value="{{ d.intertitre }}" hint-placeholder-val="{{ false }}">
+<div style="grid-column:1/-1;display:flex;align-items:center;gap:12px;margin-top:8px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:13px;letter-spacing:0.1em;text-transform:uppercase;color:#12233b">{{ d.titre }}</span>
+<span style="flex:1;height:2px;background:#dde2e9;display:block"></span>
+</div>
+</sc-if>
+<sc-if value="{{ d.doc }}" hint-placeholder-val="{{ true }}">
 <a href="{{ d.url }}" target="{{ d.cible }}" onClick="{{ d.ouvrir }}" style="min-width:0;display:flex;flex-direction:column;gap:7px;background:#fff;border-radius:14px;box-shadow:0 2px 8px rgba(20,33,61,0.14);padding:16px 17px;text-decoration:none;border-top:5px solid #8a4b1e">
 <span style="font-family:Archivo Black, Archivo, sans-serif;font-size:13.5px;color:#12233b;line-height:1.35">{{ d.titre }}</span>
 <span style="font-size:12px;color:#6b7386;line-height:1.5">{{ d.detail }}</span>
 <span style="margin-top:2px;font-size:11.5px;font-weight:700;color:#8a4b1e">{{ d.action }}</span>
 </a>
+</sc-if>
 </sc-for>
 </div>
 </sc-if>
@@ -2551,7 +2669,8 @@ const MOTS_DEMO={'Les repas':[['une pomme','pomme'],['une banane','banane'],['du
 
 /* Ordre de départ : voyelles, puis consonnes qui se prolongent (la fusion s'entend),
    puis occlusives, puis digrammes, puis nasales — les plus dures à discriminer. */
-const SONS_INIT=['a','i','o','u','é','l','m','r','s','f','v','p','t','ch','ou','on','an','in'];
+/* 01/10 : le S juste après le O (« je suis Pilotis »). */
+const SONS_INIT=['a','i','o','m','s','u','é','l','r','f','v','p','t','ch','ou','on','an','in'];
 
 /* Table de LETTRES validée mot par mot avec elle (11 et 13/09). C'est le SON de la lettre,
    pas l'initiale : d'où « melon » pour le e. Quatre lettres portent deux images dans la
@@ -2574,9 +2693,8 @@ const COLL_VIDES=[
  ['ronds','Les ronds','#8a4b1e','à construire',true],
  ['courbes','Les courbes','#8a4b1e','à construire',true],
  ['boucles','Les boucles','#8a4b1e','à construire',true],
- ['ponts','Les ponts','#8a4b1e','à construire',true],
- /* Grandeurs et mesures : « à venir » (23/09, sa décision) — l'onglet se voit, vide. */
- ['mathsgm','Grandeurs et mesures','#c1440e','à venir',true]
+ ['ponts','Les ponts','#8a4b1e','à construire',true]
+ /* Grandeurs et mesures : sorti des vides le 02/10 (livret 1 · Les longueurs). */
 ];
 /* « Lettres cursive » ne tient pas des fiches de FICHES_SRC mais des DOCUMENTS entiers
    (15/09). C'est ici que vivent les normes d'écriture et les étiquettes de graphisme —
@@ -2598,7 +2716,11 @@ const COLL_DOCS=[
     fichiers GARDÉS. « Les nombres » (feuilles seules) reste en dernier onglet. */
  ['mathsnum','Numération','#e59a2b','ses livrets de 0 à 9 999, le tracé, l’étoile'],
  ['mathsgeo','Géométrie','#2a9d6e','droites, polygones, quadrilatères'],
- ['mathsoutils','Outils','#6d5bd0','le lexique A5 et le jeu de la marchande'],
+ /* 02/10 (sa demande) : son PDF mimiclass coupé en 3 livrets au gabarit des siens. */
+ ['mathsgm','Grandeurs et mesures','#1f6fb2','les longueurs, la monnaie, l’heure'],
+ /* AUTOMATISMES (02/10, sa demande) : « pas calcul mental, automatismes ». */
+ ['mathsauto','Automatismes','#d81b60','la progression et les 8 livrets Top Chrono'],
+ ['mathsoutils','Outils','#6d5bd0','le lexique A5, le tableau des nombres, la marchande'],
  /* LES MOTS REPÈRES (22/09, son accord) : les supports du 11-13/09 n'étaient rangés
     NULLE PART depuis leur création, plus celui du 22/09. Réunis ici dans l'ordre de
     difficulté : je regarde → j'associe → j'écris → je projette. Sous Écriture et non sous
@@ -2610,9 +2732,15 @@ const COLL_DOCS=[
     ses livrets de maths (couverture, fiches avec jours et compétence, bilan, consignes).
     Pour l'instant A et I, mots fixés ; la version qui lit le choix de mots de l'écran du
     son reste à faire. */
- ['livretssons','Les livrets des sons','#8c1c13','un livret à imprimer par son']
+ ['livretssons','Les livrets des sons','#8c1c13','un livret à imprimer par son'],
+ /* LES DIFFÉRENTS TESTS (03/10, sa demande) : rubrique de Positionnement. Le test collège
+    sera complété par une amie prof de maths : ne pas toucher à son contenu. */
+ ['postests','Les différents tests','#1d4e89','tests de positionnement à imprimer']
 ];
 const DOCS_COLL={
+ postests:[
+  ["Test collège — Mathématiques (EANA)","D’après le test de Créteil. 4 paliers (6e → 3e), grille d’analyse ancien et nouveau programme, corrigé. Imprimer à 100 %.","MATHS - Test de positionnement EANA collège.dc.html"]
+ ],
  cursive:[
   ["Les normes d\u2019écriture","Le ciel, l\u2019herbe, la terre : où monte et où descend chaque lettre en attaché. Un cadre en pointillés à la taille d\u2019une page de petit cahier — on découpe sur le trait et on colle.","FR - Les normes d'écriture (cursive).dc.html"],
   /* Deux réglures, volontairement (15/09) : 3 mm = cahier Seyes agrandi, pour démarrer le
@@ -2648,6 +2776,7 @@ const DOCS_COLL={
   ["L’abécédaire à coller sur le bureau","Demi-feuille A4 paysage : les 26 lettres en capitale, script et cursive, avec la photo du mot repère. Une par élève, collée sur la table.","FR - Abécédaire des mots repères.dc.html"],
   ["J’associe et j’écris","Deux planches à découper — les 29 photos sans le mot, puis les 29 mots — et trois feuilles : l’élève colle la photo, colle le mot à côté, puis l’écrit sur la ligne.","FR - J'associe et j'écris (mots repères).dc.html"],
   ["J’écris les mots repères","Une case par son : la photo du mot repère et la ligne pour écrire le mot. Le c, le g, le o et le s ont leurs deux photos dans la même case ; le h n’en a aucune.","FR - Écrire les mots repères.dc.html"],
+  ["L’ordre alphabétique","Trois niveaux sur photos : ranger 5 lettres, ranger 4 mots (1re lettre), puis la 2e lettre. Corrigé à la fin.","FR - L'ordre alphabétique.dc.html"],
   ["L’image, j’écris","Neuf items : la syllabe manquante à entourer, puis à écrire. Avec les photos de la banque.","FR - L'image, j'écris.dc.html"],
   ["Le diaporama des mots repères","51 diapos : la photo seule, puis la même avec le mot. Pas de lettre affichée — on nomme, puis on vérifie.","FR - Diaporama des mots repères.dc.html"],
   /* Les deux fiches de la scène de restaurant sont ici parce qu'elles font AGIR sur les
@@ -2659,8 +2788,16 @@ const DOCS_COLL={
   ["Numération 1 — De 0 à 10","13 pages : associer quantités et nombres, compter et écrire, comparer, ranger, reconnaître vite. Bilan, J’ai appris, consignes.","docs/numeration-1.pdf"],
   ["Numération 1.1 — Jusqu’à 20","10 pages : les nombres de 11 à 20, le plus, le moins, ranger, compléter une collection. Bilan, J’ai appris, consignes.","docs/numeration-1-1.pdf"],
   ["Numération 2 — De 0 à 99","24 pages, 18 fiches : chiffres et lettres, compter par 1, 2, 5 et 10, billets de 10 € et pièces, dizaines et unités, comparer, ranger, faire 10 € et 20 €.","docs/numeration-2.pdf"],
+  ["Numération 2.1 — L’enquête","8 suspects jusqu’à 100, 5 cartes-indices à découper, la fiche du voleur, corrigé.","MATHS - Numération 2.1 - L'enquête.dc.html"],
   ["Numération 3 — De 0 à 999","21 pages, 15 fiches : même trame avec les centaines et les billets de 100 €.","docs/numeration-3.pdf"],
   ["Numération 4 — De 0 à 9 999","17 pages, 11 fiches : tableau m c d u, l’espace entre les milliers, comparer, ranger, la droite graduée, juste avant et juste après.","docs/numeration-4.pdf"],
+  /* 02/10 : d'après son document n° 5, sur le modèle d'un vrai chèque. Étiquettes en option (réglage). */
+  ["Numération 4.1 — Le chèque","2 pages, 4 chèques : écrire une somme en chiffres et en lettres (15 € à 1 250 €). Étiquettes « les mots de la somme » si besoin.","MATHS - Numération 4.1 - Le chèque.dc.html"],
+  ["Numération 4.2 — Le tableau des nombres","2 pages : j’écris le nombre dans le tableau, puis je lis le tableau et j’écris le nombre. Jusqu’à 9 999, avec des zéros.","MATHS - Numération 4.2 - Le tableau des nombres.dc.html"],
+  ["Numération 5 — Les centaines de mille","Jusqu’à 999 999 : le tableau des nombres, comparer, ranger, les suites. Corrigé.","MATHS - Numération 5 - Les centaines de mille.dc.html"],
+  ["Numération 6 — Millions et milliards","Les 4 classes : le tableau des nombres, comparer, ranger, les suites. Corrigé.","MATHS - Numération 6 - Millions et milliards.dc.html"],
+  /* 02/10 : son doc n° 6 (Mme 657) refait en FALC, suspects à plaque numérotée, corrigé calculé. */
+  ["Numération 6.1 — L’enquête","7 suspects jusqu’aux milliards, 4 cartes-indices à découper, la fiche du voleur, corrigé.","MATHS - Numération 6.1 - L'enquête.dc.html"],
   ["Tracer les chiffres","Couverture et dix pages, un chiffre par page, de 0 à 9. Le geste du tracé.","MATHS - Livret 1 bis - Tracer les chiffres.dc.html"],
   /* Le diaporama se range en Numération (placé le 15/09 à côté du livret 1), sa demande du 15/09 : même domaine,
      même série — le livret est sur la table, l'étoile est au tableau. */
@@ -2671,7 +2808,29 @@ const DOCS_COLL={
   ["Géométrie 2 — Les polygones","11 pages : polygone ou pas, côtés et sommets, triangle rectangle.","docs/geometrie-2.pdf"],
   ["Géométrie 3 — Les quadrilatères","17 pages : carré, rectangle, losange — reconnaître, vérifier, tracer.","docs/geometrie-3.pdf"]
  ],
+ mathsgm:[
+  ["Grandeurs et mesures 1 — Les longueurs","13 pages, 8 fiches : choisir l’unité, placer la règle, mesurer en cm puis en cm et mm, bout à bout, tracer. Bilan, J’ai appris, consignes, corrigé. Imprimer à 100 %.","MATHS - Grandeurs et mesures 1 - Les longueurs.dc.html"],
+  ["Grandeurs et mesures 2 — La monnaie","14 pages, 8 fiches : pièces et billets, compter, comparer, payer le prix, au restaurant, les centimes, euros et centimes, rendre la monnaie. Bilan, J’ai appris, consignes, corrigé.","MATHS - Grandeurs et mesures 2 - La monnaie.dc.html"]
+ ],
+ mathsauto:[
+  /* Image reçue d'elle le 02/10, gardée à sa largeur (1348 px) : réduite à 1000 le texte devient illisible. */
+  ["Progression des automatismes — cycle 2","CP, CE1, CE2 : trois périodes, vingt automatismes par niveau (CM1 à CM20). Compléments, doubles, décompositions, tables, suite numérique.","docs/progression-automatismes.webp"],
+  /* CALCULS (02/10, son oui) : les 8 livrets du Top Chrono, n° 1 à 41. Remplacent l'ancien
+     Top Chrono (papier), sa v2 et ses pages de garde par élève (supprimés). */
+  ["§Calculs"],
+  ["Top Chrono 1 · Additionner jusqu’à 10 ●","n° 1 à 5 — additions, doubles, compléments à 5 et à 10. Page de garde, fiches, correction.","MATHS - Top Chrono - Livret 1.dc.html"],
+  ["Top Chrono 2 · Les nombres jusqu’à 20 ●●","n° 6 à 10 — comparer, avant/après, ranger, compter, doubles.","MATHS - Top Chrono - Livret 2.dc.html"],
+  ["Top Chrono 3 · Les tables d’addition ●●","n° 11 à 17 — de + 2 à + 9.","MATHS - Top Chrono - Livret 3.dc.html"],
+  ["Top Chrono 4 · Calculer vite jusqu’à 20 ●●","n° 18 à 23 — presque doubles, doubles, compléments à 20, 3 nombres, + 5 / − 5, moitiés.","MATHS - Top Chrono - Livret 4.dc.html"],
+  ["Top Chrono 5 · Les nombres jusqu’à 100 ●●●","n° 24 à 29 — + 10 / − 10, compter, dizaines, compléments à 100, + 9 / − 9.","MATHS - Top Chrono - Livret 5.dc.html"],
+  ["Top Chrono 6 · Doubles et multiplications ●●●","n° 30 à 35 — × 2, × 10, × 5, × 3, × 4, mélange.","MATHS - Top Chrono - Livret 6.dc.html"],
+  ["Top Chrono 7 · Après 100 ●●●●","n° 36 à 38 — compter jusqu’à 199, compléments en deux étapes, la centaine.","MATHS - Top Chrono - Livret 7.dc.html"],
+  ["Top Chrono 8 · Calculer jusqu’à 100 ●●●","n° 39 à 41 — additionner deux nombres, moitiés, doubles.","MATHS - Top Chrono - Livret 8.dc.html"]
+ ],
  mathsoutils:[
+  /* 02/10 (son oui) : le tableau des classes de son doc n° 7, réduit à mille + unités. */
+  ["Le tableau des nombres","La classe des mille et la classe des unités, deux par A4 : à découper et coller dans le cahier. Exemple 1 250.","MATHS - Outil - Le tableau des nombres.dc.html"],
+  ["Le grand tableau des nombres","Les 4 classes — milliards, millions, mille, unités — deux par A4, à coller dans le cahier. Exemple 68 000 000.","MATHS - Outil - Le grand tableau des nombres.dc.html"],
   /* Le lexique de maths A5 (15/09) : un PDF TROUVÉ PAR ELLE sur un site NSA, gardé TEL QUEL
      à sa demande — « je garde le livret A5 fourni, insère-le ». J'avais proposé de le
      refaire en A4 dans le style de l'appli (six cases au registre trop enfantin, deux images
@@ -2700,7 +2859,8 @@ const DOMAINES={
      Les fiches de lecture se prennent maintenant dans Lecture → le son → Séance. */
   lexique:['dico','planches'], lecture:['livretssons'],
   ecriture:['ronds','courbes','boucles','ponts','lettres','cursive','motsreperes','chiffres'],
-  maths:['mathsnum','mathsgeo','mathsgm','mathsoutils','nombres']
+  maths:['mathsnum','mathsgeo','mathsgm','mathsauto','mathsoutils','nombres'],
+  positionnement:['postests']
 };
 function toutesLesFeuilles(){ return SRC_FICHES().pages; }
 const COMPETENCES=[
@@ -2747,9 +2907,9 @@ LOTS.gcAll={nom:'Les graphèmes complexes',items:LOTS.gc1.items.concat(LOTS.gc2.
    s'ajoute AUSSI ici (VIGNETTE_JEUX). Même règle : un son de SA progression (upe2a-sons) qui a
    au moins un jeu (de l'appli ou un de ses liens, upe2a-themes-perso.jeuxSons). */
 const VIGNETTE_POS=[[5.75,90.13],[10.35,81.8],[14.94,73.43],[18.69,63.57],[13.81,49.22],[8.85,41.52],[8.27,26.47],[14.83,15.62],[24.06,16.82],[29.02,28.89],[29.88,43.95],[30.06,60.2],[31,75.11],[34.92,84.68],[42.57,87.63],[50.29,78.1],[51.44,63.8],[46.23,50.26],[42.02,41.22],[41.92,25.48],[48.46,15.17],[57.63,16.07],[63.1,27.84],[64.48,41.96],[66.77,54.45],[69.31,66.48],[72.15,77.99],[77.52,84.94],[86.68,84.01],[91.42,71.15],[88.46,53.89],[82.06,48.32],[78.46,38.19],[82.98,22.83],[87.88,15.02],[92.77,7.21]];
-const VIGNETTE_JEUX=['a','i','o'];
+const VIGNETTE_JEUX=['a','i','o','m'];
 const vignetteSons=()=>{
-  let prog=['a','i','o','u','é','l','m','r','s','f','v','p','t','ch','ou','on','an','in'], js={};
+  let prog=['a','i','o','m','s','u','é','l','r','f','v','p','t','ch','ou','on','an','in'], js={};
   try{ const t=JSON.parse(localStorage.getItem('upe2a-sons')||'null'); if(Array.isArray(t)&&t.length) prog=t; }catch(e){}
   try{ const o=JSON.parse(localStorage.getItem('upe2a-themes-perso')||'null'); if(o&&o.jeuxSons) js=o.jeuxSons; }catch(e){}
   const out=[];
@@ -3880,9 +4040,125 @@ class Component extends DCLogic {
       lettreSel:'',imageSel:'',trouves:[],erreurs:0,reussites:0,errParLettre:{},errParLettreTotal:{},secondes:0,tremble:''});
     if(mode==='Évaluation') this.demarrerChrono();
   }
+  /* Chrono du Top Chrono (02/10) — à part du chrono des jeux (_chrono). */
+  valsTopChrono(){
+    const s=this.state, max=s.tcMax||180, sec=Math.min(max,Math.floor((s.tcMs||0)/1000));
+    const raz=x=>{ this.tcArret(); this.setState(Object.assign({tcMs:0,tcMarche:false,tcFini:false},x||{})); };
+    return {
+      tcVisible:!!s.verrou && !s.tcOuvert && !s.rdOuvert, tcOuvert:!!s.tcOuvert,
+      tcTexte:Math.floor(sec/60)+':'+String(sec%60).padStart(2,'0'),
+      tcFini:!!s.tcFini, tcPasFini:!s.tcFini, tcEnMarche:!!s.tcMarche, tcArrete:!s.tcMarche,
+      /* Disque qui se remplit (02/10, idée d'un collègue retenue par elle) : remplace les cases.
+         Le temps qui passe se VOIT sans lire l'heure ; les chiffres montent toujours (« Mon temps »). */
+      tcDisque:(()=>{ const f=Math.min(1,(s.tcMs||0)/(max*1000)); if(f<=0) return ''; if(f>=1) return 'M 100 6 A 94 94 0 1 1 99.99 6 Z';
+        const t=f*2*Math.PI, x=(100+94*Math.sin(t)).toFixed(2), y=(100-94*Math.cos(t)).toFixed(2);
+        return 'M 100 100 L 100 6 A 94 94 0 '+(f>0.5?1:0)+' 1 '+x+' '+y+' Z'; })(),
+      tcDisqueCouleur:s.tcFini?'#d0453a':'#f08a24',
+      tcOuvrir:()=>this.setState({tcOuvert:true}),
+      tcFermer:()=>raz({tcOuvert:false}),
+      tcTop:()=>{
+        if(this._tc) return;
+        const depart=s.tcFini?0:(s.tcMs||0);
+        this._tcDebut=Date.now()-depart;
+        this.setState({tcMs:depart,tcFini:false,tcMarche:true});
+        this._tc=setInterval(()=>{
+          const ms=Date.now()-this._tcDebut;
+          if(ms>=max*1000){ this.tcArret(); this.setState({tcMs:max*1000,tcFini:true,tcMarche:false}); this.tcBip(); }
+          else this.setState({tcMs:ms});
+        },200);
+      },
+      tcStop:()=>{ this.tcArret(); this.setState({tcMarche:false}); },
+      tcZero:()=>raz(),
+      tcPlafonds:[2,3,4].map(m=>({m, actif:max===m*60, inactif:max!==m*60, choisir:()=>raz({tcMax:m*60})}))
+    };
+  }
+  /* Roue « Qui passe ? » (02/10). Élèves lus dans window.EDT.ELEVES (une seule liste). */
+  valsRoue(){
+    const s=this.state;
+    /* Prénoms ajoutés à la main (02/10, sa demande) : gardés dans ce navigateur. */
+    if(this._rdExtras===undefined){ try{ this._rdExtras=JSON.parse(localStorage.getItem('roue-prenoms-ajoutes')||'[]'); }catch(e){ this._rdExtras=[]; } }
+    const extras=this._rdExtras;
+    const majExtras=l=>{ this._rdExtras=l; try{ localStorage.setItem('roue-prenoms-ajoutes',JSON.stringify(l)); }catch(e){} this.forceUpdate(); };
+    const tous=((window.EDT&&window.EDT.ELEVES)||[]).map(e=>({id:e.id,nom:e.nom,ajoute:false}))
+      .concat(extras.map(n=>({id:'x:'+n,nom:n,ajoute:true})));
+    /* Un élève `pasArrive` (EDT) part absent ; un appui sur son prénom le remet dans la roue. */
+    const abs=Object.assign({},...((window.EDT&&window.EDT.ELEVES)||[]).filter(e=>e.pasArrive).map(e=>({[e.id]:true})),s.rdAbsents||{}), tires=s.rdTires||{}, tour=s.rdTour!==false;
+    const pool=tous.filter(e=>!abs[e.id] && !(tour && tires[e.id]));
+    const n=pool.length, a=360/Math.max(1,n);
+    const pt=(t,r)=>{ const x=t*Math.PI/180; return (100+r*Math.sin(x)).toFixed(2)+' '+(100-r*Math.cos(x)).toFixed(2); };
+    const COUL=[['#f08a24','#fff'],['#2a9d6e','#fff'],['#f4c430','#12233b'],['#d0453a','#fff'],['#1d4e89','#fff'],['#7fb8cc','#12233b']];
+    const parts=pool.map((e,i)=>{
+      const c=COUL[(n%COUL.length===1&&i===n-1)?2:i%COUL.length];
+      const d=n===1?'M 100 4 A 96 96 0 1 1 99.99 4 Z':'M 100 100 L '+pt(i*a,96)+' A 96 96 0 '+(a>180?1:0)+' 1 '+pt((i+1)*a,96)+' Z';
+      return {nom:e.nom,d,fond:c[0],encre:c[1],deg:(i+0.5)*a-90,taille:n>12?'4cqw':n>8?'5cqw':'6cqw'};
+    });
+    const choix=tous.find(e=>e.id===s.rdChoix);
+    return {
+      rdRoueRef:this.rdRoueRef||(this.rdRoueRef=React.createRef()),
+      rdOuvert:!!s.rdOuvert, rdParts:parts, rdVide:n===0, rdPasVide:n>0,
+      rdRot:s.rdRot||0, rdTransition:s.rdTourne?'transform 4.2s cubic-bezier(0.17,0.67,0.2,1)':'none',
+      rdAfficheChoix:!!choix && !s.rdTourne, rdChoixNom:choix?choix.nom:'',
+      rdPeutTourner:n>0 && !(s.rdTourne && Date.now()-(this._rdDebut||0)<4600),
+      rdTourFond:tour?'#2a9d6e':'#55657d', rdTourGauche:tour?'21px':'3px',
+      rdBasculeTour:()=>this.setState({rdTour:!tour}),
+      rdOuvrir:()=>this.setState({rdOuvert:true,rdTourne:false}),
+      rdFermer:()=>{ clearTimeout(this._rd); this.setState({rdOuvert:false,rdTourne:false}); },
+      rdRelancer:()=>this.setState({rdTires:{},rdChoix:null}),
+      /* Réinitialiser (02/10) : personne n'est passé, absents remis par défaut (pas encore arrivés). */
+      rdReinit:()=>{ clearTimeout(this._rd); this.setState({rdTires:{},rdChoix:null,rdAbsents:{},rdTourne:false,rdTour:true}); },
+      rdSaisie:s.rdSaisie||'',
+      rdSetSaisie:ev=>this.setState({rdSaisie:ev.target.value}),
+      rdAjouter:ev=>{ if(ev&&ev.preventDefault) ev.preventDefault(); const n=(s.rdSaisie||'').trim(); if(!n||tous.some(e=>e.nom.toLowerCase()===n.toLowerCase())){ this.setState({rdSaisie:''}); return; } majExtras(extras.concat([n])); this.setState({rdSaisie:''}); },
+      rdDejaPasses:tour && Object.keys(tires).some(k=>tires[k]) && n>0,
+      rdEleves:tous.map(e=>{ const passe=tour && !abs[e.id] && (!!tires[e.id] || (e.id===s.rdChoix && !s.rdTourne));
+        return {nom:e.nom,present:!abs[e.id]&&!passe,absent:!!abs[e.id],passe,ajoute:e.ajoute,
+        remettre:()=>this.setState(p=>{ const t=Object.assign({},p.rdTires||{}); delete t[e.id]; return {rdTires:t,rdChoix:p.rdChoix===e.id?null:p.rdChoix}; }),
+        retirer:()=>majExtras(extras.filter(x=>'x:'+x!==e.id)),
+        basculer:()=>this.setState(p=>({rdAbsents:Object.assign({},p.rdAbsents||{},{[e.id]:!abs[e.id]})}))}; }),
+      rdTourner:()=>{
+        /* Garde par l'horloge, pas seulement par l'état : un rechargement pendant un tour laissait
+           rdTourne à vrai pour toujours et la roue ne repartait plus (02/10). */
+        if(!n || (s.rdTourne && Date.now()-(this._rdDebut||0)<4600)) return;
+        this._rdDebut=Date.now();
+        const t2=Object.assign({},tires); if(tour && s.rdChoix) t2[s.rdChoix]=true;
+        const p2=tous.filter(e=>!abs[e.id] && !(tour && t2[e.id]));
+        if(!p2.length){ this.setState({rdTires:t2,rdChoix:null}); return; }
+        const k=Math.floor(Math.random()*p2.length), a2=360/p2.length;
+        const cible=((-(k+0.1+Math.random()*0.8)*a2)%360+360)%360, act=s.rdRot||0, mod=((act%360)+360)%360;
+        const rot=act+360*5+((cible-mod+360)%360);
+        this.setState({rdTires:t2,rdChoix:p2[k].id,rdTourne:true,rdRot:rot});
+        this.rdCliquetis(a2);
+        clearTimeout(this._rd); this._rd=setTimeout(()=>{ this.setState({rdTourne:false}); this.tcBip(); },4300);
+      }
+    };
+  }
+  /* Cliquetis de la roue (02/10, sa demande) : un « tic » chaque fois qu'une part passe sous
+     la flèche — il ralentit avec la roue. Angle lu sur l'élément qui tourne, image par image. */
+  rdCliquetis(part){
+    cancelAnimationFrame(this._rdRaf);
+    let ctx; try{ ctx=this._rdAudio||(this._rdAudio=new (window.AudioContext||window.webkitAudioContext)()); if(ctx.state==='suspended') ctx.resume(); }catch(e){ return; }
+    const tic=()=>{ const t=ctx.currentTime, o=ctx.createOscillator(), g=ctx.createGain();
+      o.type='square'; o.frequency.value=1400; o.connect(g); g.connect(ctx.destination);
+      g.gain.setValueAtTime(0.12,t); g.gain.exponentialRampToValueAtTime(0.001,t+0.03); o.start(t); o.stop(t+0.035); };
+    const angle=()=>{ const el=this.rdRoueRef&&this.rdRoueRef.current; if(!el) return null;
+      const m=getComputedStyle(el).transform; if(!m||m==='none') return 0;
+      const v=m.match(/matrix\(([^)]+)\)/); if(!v) return null; const [a,b]=v[1].split(',').map(Number);
+      return Math.atan2(b,a)*180/Math.PI; };
+    let prec=angle(), cumul=0, cran=0, debut=performance.now();
+    const pas=()=>{
+      const x=angle();
+      if(x!==null && prec!==null){ let d=x-prec; if(d<-180) d+=360; if(d>180) d-=360; cumul+=d;
+        const c=Math.floor(cumul/part); if(c!==cran){ cran=c; tic(); } }
+      prec=x;
+      if(this.state.rdTourne && performance.now()-debut<5000) this._rdRaf=requestAnimationFrame(pas);
+    };
+    this._rdRaf=requestAnimationFrame(pas);
+  }
+  tcArret(){ if(this._tc){ clearInterval(this._tc); this._tc=null; } }
+  tcBip(){ try{ const a=new (window.AudioContext||window.webkitAudioContext)(); [0,0.35].forEach(t=>{ const o=a.createOscillator(),g=a.createGain(); o.frequency.value=880; o.connect(g); g.connect(a.destination); g.gain.setValueAtTime(0.25,a.currentTime+t); g.gain.exponentialRampToValueAtTime(0.001,a.currentTime+t+0.3); o.start(a.currentTime+t); o.stop(a.currentTime+t+0.3); }); }catch(e){} }
   demarrerChrono(){ this.arreterChrono(); this._chrono=setInterval(()=>this.setState(p=>({secondes:(p.secondes||0)+1})),1000); }
   arreterChrono(){ if(this._chrono){clearInterval(this._chrono);this._chrono=null;} }
-  componentWillUnmount(){ this.arreterChrono(); }
+  componentWillUnmount(){ this.arreterChrono(); this.tcArret(); cancelAnimationFrame(this._rdRaf); }
   lotAlpha(){
     const s=this.state;
     const jeu=this.jeu();
@@ -4623,7 +4899,8 @@ class Component extends DCLogic {
       accueilEleve:"Accueil d'un élève — la fiche, le test, les résultats, la préconisation",
       edt:'Mon emploi du temps — la semaine, le jour, les documents de chaque créneau',
       pos:'Positionnement — saisir et corriger un test', posTable:'Positionnement — tous les élèves testés',
-      themeAccueil:'Choisis ton tableau', semaine:'Cette semaine', tableauThemes:'Choisis ton thème', tableauCode:'Les lettres et les sons',sousTheme:s.themeParent||'Choisis',niveau:'Choisis ton niveau',themeEleve:'Choisis un thème',explore:s.themeEleve||'Exploration',trouve:'Trouve la bonne image',vf:'Vrai ou faux',lireDessin:'Trouve le bon dessin',lireMot:'Trouve le bon mot',repete:'Écoute et répète',situation:'Que dis-tu ?',ecrire:s.modeEcrire==='completer'?'Complète le mot':'Écris le mot',resultat:'Résultat'};
+      /* Accueil élève (02/10, sa demande) : « Choisis ton tableau » retiré, « UPE2A NSA » à la place. */
+      themeAccueil:'UPE2A NSA', semaine:'Cette semaine', tableauThemes:'Choisis ton thème', tableauCode:'Lettres, sons, syllabes',sousTheme:s.themeParent||'Choisis',niveau:'Choisis ton niveau',themeEleve:'Choisis un thème',explore:s.themeEleve||'Exploration',trouve:'Trouve la bonne image',vf:'Vrai ou faux',lireDessin:'Trouve le bon dessin',lireMot:'Trouve le bon mot',repete:'Écoute et répète',situation:'Que dis-tu ?',ecrire:s.modeEcrire==='completer'?'Complète le mot':'Écris le mot',resultat:'Résultat'};
     const ECRANS_PROF=['groupes','reglages','reglagesCode','fabrique','bilan','oral','themes','sons','son','texte','outils','creer','competences','devoirs','mdp','accueilEleve','pos','posTable','disques','edt','rituels'];
     const RUBRIQUES=[
       /* Organisation en premier (09/09, sa demande) : c'est l'écran qu'elle ouvre
@@ -4650,7 +4927,9 @@ class Component extends DCLogic {
         ['Fiches à imprimer','outils','maths']]],
       ['Positionnement','#1d4e89',[
         ["Accueil d'un élève",'accueilEleve'],
-        ['Tous les élèves testés','posTable']]],
+        /* « Tous les élèves testés » retiré du menu (03/10, sa demande). L'écran posTable
+           reste dans le code, non affiché. */
+        ['Les différents tests','outils','positionnement']]],
       ['Ressources enseignantes','#6d5bd0',[
         ['Je continue chez moi','devoirs'],
         ['Jeux de classe','disques'],
@@ -5184,6 +5463,8 @@ class Component extends DCLogic {
            haut du menu. En étroit le menu est le panneau, donc on l'ouvre. */
         ? {verrou:false,ecran:'groupes',menuReplie:false,menuTel:true,saisieMdp:'',erreurMdp:''}
         : {erreurMdp:'Mot de passe incorrect.'}),
+      ...this.valsTopChrono(),
+      ...this.valsRoue(),
       verrouille:!!s.verrou,
       libelleAcces:s.verrou?'Espace enseignant':'Élève',
       actionAcces:()=>s.verrou?this.setState({ecran:'verrou',saisieMdp:'',erreurMdp:''}):this.setState({ecran:'themeAccueil',verrou:true,msgEleve:''}), goEleve:()=>this.go('eleve'),
@@ -5374,7 +5655,7 @@ class Component extends DCLogic {
           if(bloque) return {estGroupe:false, estColl:true, nom, desc:desc||'à construire', couleur:'#8a91a3',
             bord:'#e2e6ec', fond:'#f1f4f8', compteur:'',
             curseur:'default', choisir:()=>{}};
-          return {estGroupe:false, estColl:true, nom,desc,couleur, bord:on?couleur:'#dde2e9', fond:on?'#fff':'#f8fafc',
+          return {estGroupe:false, estColl:true, nom,desc,couleur, bord:on?couleur:couleur+'55', fond:couleur+(on?'38':'1c'),
             compteur:n?(n+' page'+(n>1?'s':'')+' choisie'+(n>1?'s':'')):'',
             curseur:'pointer',
             choisir:()=>this.setState({outilsColl:id,outilsPage:0,collReplie:true})};
@@ -5409,8 +5690,10 @@ class Component extends DCLogic {
          qu'elle a vu sur le lexique de maths. Les documents .dc.html, eux, restent dans
          l'onglet courant. */
       docsColl:(DOCS_COLL[s.outilsColl]||[]).map(([titre,detail,url])=>{
+        /* Intertitre (02/10) : une entrée ['§Titre'] ouvre une sous-rubrique. */
+        if(titre.charAt(0)==='§') return {intertitre:true,doc:false,titre:titre.slice(1)};
         const pdf=/\.pdf$/i.test(url);
-        return {titre,detail,cible:pdf?'_blank':'_self',url:encodeURI(url)+this.jeton(),
+        return {intertitre:false,doc:true,titre,detail,cible:pdf?'_blank':'_self',url:encodeURI(url)+this.jeton(),
           action: pdf?'Télécharger le PDF \u2193':'Ouvrir le document \u2192',
           /* ⚠ UN PDF SE TÉLÉCHARGE, IL NE S'AFFICHE PAS (15/09, après trois essais) : Chrome
              refuse un PDF dans un cadre, un nouvel onglet n'emporte pas le jeton d'aperçu
@@ -6115,7 +6398,10 @@ class Component extends DCLogic {
       colonnesExplore:this.tel()?'1fr':'1fr 320px',
       colonnesGrilleExplore:this.tel()?'repeat(2,minmax(0,1fr))':'repeat(4,minmax(0,1fr))',
       hauteurImageExplore:this.tel()?'96px':(s.champEleve==='Je lis'?'74px':'88px'),
-      estTel:this.tel(), pasTel:!this.tel(), assezLarge:!this.tel()&&(s.largeur||1200)>=940,
+      estTel:this.tel(), pasTel:!this.tel(),
+      /* Bandeau d'outils : ordinateur / TNI seulement (02/10) — inutile sur téléphone et tablette. */
+      bandeauOutils:!this.tel() && (s.largeur||1200)>=1100 && !(window.matchMedia && matchMedia('(pointer:coarse)').matches && !matchMedia('(pointer:fine)').matches),
+      assezLarge:!this.tel()&&(s.largeur||1200)>=940,
       affDecor:this.tel()?'none':'block',
       largJauge:this.tel()?'26px':'44px',
       debord:'auto',

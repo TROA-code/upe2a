@@ -307,6 +307,19 @@ a:hover{color:#5e120c}
 <div style="flex:0 0 auto;display:flex;justify-content:flex-end;margin-top:-1mm"><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12pt;font-weight:700">10</span></div>
 </section>
 
+<section class="page" data-screen-label="Étiquettes des maisons" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:5mm">
+<div style="flex:0 0 auto;border:2.5px solid #14213d;border-radius:2mm;padding:3mm;text-align:center;font-size:16pt;font-weight:700;letter-spacing:0.06em">NE PAS IMPRIMER AVEC LE LIVRET — feuille à part</div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm">
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/mot-ciseaux.webp') center/contain no-repeat"></span>
+<span style="font-size:16pt;font-weight:700">Je découpe. Je colle dans la bonne maison.</span>
+</div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(4,30mm);justify-content:space-between;row-gap:6mm">
+<sc-for list="{{ etiqMaisons }}" as="e" hint-placeholder-count="10">
+<div style="width:30mm;height:30mm;box-sizing:border-box;border:1.5px dashed #14213d;{{ e }}"></div>
+</sc-for>
+</div>
+</section>
+
 </doc-page>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;ecriture&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;cursive&quot;,&quot;script&quot;],&quot;default&quot;:&quot;cursive&quot;,&quot;tsType&quot;:&quot;'cursive'|'script'&quot;,&quot;section&quot;:&quot;Fiche 8 — J'écris le mot&quot;}}">
@@ -349,6 +362,9 @@ class Component extends DCLogic {
       numeros: [1,2,3,4,5,6,7,8],
       jours: ['lundi','mardi','mercredi','jeudi','vendredi','samedi','dimanche'],
       cinq: [0,1,2,3,4], quatre: [0,1,2,3],
+      /* Étiquettes des maisons (28/09, sa demande) : 5 avec [a] (table, avion, fromage, ballon,
+         café), 5 sans (moto, citron, lit, vélo, pomme). ⚠ Pas de poire : « oi » = [wa]. */
+      etiqMaisons: ['table','moto','avion','citron','fromage','lit','ballon','velo','cafe','pomme'].map(ph),
       f1: ['ananas','banane','salade','tomate','cartable','vache'].map(mot),
       f2: ['chat','pomme','gateau','velo','carotte','lit','pyjama','train','papaye'].map(mot),
       f3: ['banane','tomate','cartable','salade','camion'].map(mot),
