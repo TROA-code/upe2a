@@ -5,6 +5,179 @@ sujet, avec ce qui attend une image ou une décision d'elle. Ce fichier-ci garde
 les décisions prises et les pièges ; la liste de travail est là-bas. **À tenir à jour tous
 les deux.**
 
+## ✅ CE QUI S'EST DÉCIDÉ DU 30/09 AU 02/10 (à lire avant tout)
+
+- **Ce qui reste ouvert est listé en tête d'`A-FAIRE.md` (§00)** : à relire au démarrage.
+- **Elle suit PILOTIS** pour le code. Ordre : a · i · o · m · s… Le M passe AVANT le S (01/10) :
+  une seule écriture, aucun piège. Mot repère du S = SALADE (« le S de salade »), du M = MOTO.
+- ⚠ **Pas de pièges dans les livrets de sons sans sa demande** : rose et maison (s = [z])
+  retirés du livret du S (« c'est piégeux »). En revanche l'exercice s / ss en a besoin :
+  lui reposer la question là-bas.
+- ⚠ **Le S majuscule en cursive est retiré** (« il est chelou ») ; pas de M majuscule
+  cursif non plus.
+- La règle « entre deux voyelles : ss » est écrite DIRECTEMENT dans le livret du S, à
+  l'endroit qu'elle a validé. ⚠ « poisson » n'est pas un bon exemple (oi) : en prendre un autre.
+- **Documents administratifs** (`docs/administratif/`) : ce sont des papiers OFFICIELS. On
+  garde EXACTEMENT le modèle (« le même !! ») ; on remplit seulement. Modèle vierge :
+  `MODELE - Fiche action -vierge-.docx`. Une sortie = une autorisation (PDF) + une fiche action
+  (Word). Écriture des cases : propre, sans pointillés ni tirets ajoutés.
+- **Maths** : pages de garde (12 tuiles) ; Top Chrono imprimé en NOIR ET BLANC.
+
+## ✅ CE QUI S'EST DÉCIDÉ LE 04/10 — à lire avant tout
+
+**Règles générales (reportées aussi dans CLAUDE.md)**
+- **« Activité 1, 2, 3… », jamais « Leçon 1, 2… »** : « ils ne sont pas en CE1, ils ont 16 ans », et tout peut se faire en une semaine.
+- **Découper = tirets + picto ciseaux** (`clean/pictos/ciseaux.webp`) posé au départ du trait. **Plier = trait plein gris + « je plie »** écrit le long. Jamais de pointillés pour plier.
+- **Toute consigne élève porte son picto** (`clean/pictos/` : `colle`, `decoupe`, `ecris`, `compte`…), carré de 12 mm à gauche de la phrase. Plus jamais de badge texte « JE COLLE ». Un picto manque : on le lui demande.
+- **Livret « à coller » façon lapbook** (modèle : le lapbook CENICIENTA, qu'elle aime) : bandeau foncé en haut (mots clés en MAJUSCULES, notions soulignées), page à coller, **toutes les planches d'étiquettes à la fin**, une par page, numéro d'activité en gros. « On colle partout. »
+- **Couverture : petites images**, pour économiser l'encre.
+- **Photos de nuit** (lit, réverbère, chouette) : beaucoup d'encre noire. Acceptable seulement en petite étiquette.
+
+**Pièges de cette journée**
+- ⚠ **Ne JAMAIS supprimer un fichier d'`uploads/` dans le même lot que sa conversion.** Le 04/10, la conversion a échoué (nom de fichier « (1) » refusé) et la suppression est passée quand même : ses 6 photos ont été perdues et elle a dû les renvoyer. Ordre obligatoire : convertir → vérifier que le `.webp` est dans `clean/` → seulement ensuite supprimer. Un nom avec espace ou parenthèse se copie d'abord sous un nom simple.
+- ⚠ **Vérifier qui utilise une image AVANT de dire « elle ne sert qu'ici ».** J'avais affirmé que `mot-neige` ne servait qu'au livret, ce qui était faux (« Mes mots », fiche « La météo », Livret 2). Faire le grep d'abord.
+- **Quand elle envoie un meilleur picto pour un mot existant : on REMPLACE, on ne range pas à part** (« celui-là est plus parlant »). `mot-neige.webp` + `apercu/mot-neige.jpg` remplacés le 04/10.
+- Avant de proposer une page, relire ce qui existe déjà dans le livret (« c'est ton activité 2 que tu remontes »).
+- Les métiers sont déjà dans `clean/` : `mot-boulanger`, `mot-pompier`, `mot-hopital`, `lieu-hopital`, `lieu-boulangerie`. Chercher avant de demander une photo.
+
+**Livret « Se repérer dans le temps » (HIST) — ⏸ MIS DE CÔTÉ à sa demande**
+- Fichier : `HIST - Livret - Se repérer dans le temps.dc.html`, 19 pages, Activités 1 à 9, rangé dans `histtemps` (Espace enseignant). Le PDF CENICIENTA a été retiré.
+- Activité 1 : un rond de 15 cm sous 2 volets jour / nuit (bande de colle grise, pli gris « je plie »). Sous les volets : en haut LE JOUR / LA NUIT, dessous 9 cases (jour / les deux sur le pli / nuit). Étiquettes de 2,4 cm, cases de 2,7 cm. Jour = repas, ballon, sac de cours. Les deux = hôpital, pompier, boulanger. Nuit = lit, réverbère et lune, chouette.
+- Activité 2, la journée : « l'après-midi je n'ai pas cours, je rentre, je fais du sport, mes devoirs » ; « le midi, à la cantine ou à la maison ».
+- Activité 6, l'astuce des poings (`hist-poings.webp`) : bosse = 31 jours, creux = 30 jours.
+- Activité 8 (ex-9) : tableau par **MOIS** et non par saison (son choix) : Mars, Juin, **Octobre** (pas septembre), Décembre × vêtements / temps / température. Le temps qu'il fait = pictos `mot-soleil/pluie/vent/neige`. ⏳ Il manque `hist-habits-printemps/ete/automne/hiver` et `pictos/thermo-tres-froid/frais/chaud/tres-chaud` (prompts donnés).
+- ⏳ À la reprise : revérifier la marge du bas de la page 2 (resserrée, pas revérifiée).
+- Diaporama `HIST - Diaporama - Se repérer dans le temps (la journée).dc.html` : panorama `hist-course-soleil` puis 6 photos, le mot au clic.
+
+## ✅ CE QUI S'EST DÉCIDÉ LE 03/10 — à lire avant tout
+
+**Maths — menu et rubriques**
+- Menu « Mathématiques » = les rubriques directement (4e valeur des RUBRIQUES = collection) : Numération · Géométrie · Grandeurs et mesures · Automatismes · **Rituels** · **Supports d'aide** (ex-« Outils »). En maths, **plus de colonne « Mes collections »** (elle reste en Écriture/Lecture/Histoire).
+- Onglet « Les nombres » retiré ; mes anciens `MATHS - Livret 1 - Les nombres de 0 à 10` et `Livret 2 - Comparer et ranger` **supprimés** (doublons de SES livrets de Numération). « Tracer les chiffres » (1 bis) gardé.
+- La **marchande** → Grandeurs et mesures (après La monnaie). L'étoile (diaporama) → Rituels.
+- Grandeurs et mesures en **bleu #1f6fb2** (plus vert, confondu avec Géométrie).
+- Choisir une collection **ne replie plus** la colonne de gauche (« ça m'agace »).
+
+**Rituel maths — `MATHS - Rituel - L'étoile des nombres.dc.html`**
+- Bouton rouge « ★ Rituel maths » dans le bandeau (à côté de Chrono et Roue) + rangé dans Rituels.
+- Plus de grille ni de « déjà fait en rouge » (elle n'en voulait pas) : **niveau** (jusqu'à 20 / 100 / 1 000), « Au hasard », ou taper un nombre. Branches dévoilées une par une, « Tout montrer ».
+- **Imprimer** : A4 paysage, 2 étoiles A5 vides (à couper) + 1 page corrigé. Pas d'étoile vierge (son refus).
+- « ← L'accueil » : history.back() puis repli sur le lien après 400 ms.
+
+**Accueil élève / bandeau**
+- 6 panneaux de liège de **même hauteur** (calés sur ceux du haut ; plateau du parcours réduit dans un cadre 3:1).
+- Bandeau Chrono / Roue / Rituel **moitié moins haut**.
+- **Chrono** : durée libre (min + s) en plus de 2/3/4 min, gardée en localStorage `topchrono-max`.
+- **Parcours des sons** : les sons PRÊTS se suivent **sans trou** dans l'ordre de sa progression (son choix « le 2 »), sur le plateau ET la vignette.
+
+**Positionnement**
+- Nouvelle rubrique « **Les différents tests** » ; « Tous les élèves testés » retiré du menu (écran gardé dans le code).
+- `MATHS - Test de positionnement EANA collège.dc.html` : 4 paliers 6e→3e, grille **ancien programme (rouge)** + **nouveau programme (5 domaines, BO 5 mars 2026)**, corrigé. ⚠ **Ne plus toucher au contenu** : une amie prof de maths le complète.
+
+**Hist / Géo / EMC** (nouvelle rubrique du menu enseignant, #0f6e6e)
+- Entrées : Se repérer dans le temps · Se repérer dans l'espace · Habiter, vivre ensemble (« à venir ») · **Les grands thèmes d'histoire** (domaine `histoire`, 6 collections).
+- 6 livrets `HIST - Livret 1..6` (Préhistoire, Antiquité, Moyen Âge, Temps modernes, XIXe, XXe) + 6 diaporamas `HIST - Diaporama - … (les mots)`.
+- Plan fixé avec elle : l'ancienne activité « je regarde, je dis » est sortie en **diaporama** (c'est l'enseignante qui montre). Livret : Act. 1 entourer + Act. 2 frise (même page, petites cases) · Act. 3 relier à la bonne période · Act. 4 écrire le mot **niveau ● puis ●●** · Act. 5 la phrase **● puis ●●** · J'ai appris · Corrigé. « Différencie : certains savent écrire » → niveaux à la suite, avec des points.
+- ⚠ **Photos toutes à venir**, préfixe **`clean/hist-<mot>.webp`** (~35). Elle « verra plus tard ». Les dates/faits viennent de mes connaissances générales : à relire par elle.
+- Les fichiers à accents/apostrophe ne s'ouvrent pas dans run_script : copier vers `tests/` (nom ASCII), transformer, recopier (move).
+
+**Grandeurs et mesures 2 · La monnaie** : terminée et rangée (vrais billets/pièces, exemples fond gris 7 % + bord noir épais 3,5 px, pictos compte/écris).
+**Pictos** : `clean/pictos/mesure.webp` et `trace.webp` (ses images Gemini) dans le livret des longueurs.
+
+**Publication**
+- `publier/` refait le 03/10 (sans .md, uploads, PDF mimiclass), `?v=42`. Elle a poussé, mais son navigateur montrait encore l'ancienne version (cache). ⚠ **Tout ce qui précède depuis le zip n'est PAS en ligne** : refaire `publier/` + zip avant la prochaine publication (et monter `?v`).
+- Rappel GitHub Desktop : vider le dossier SAUF `.git`, coller le CONTENU de `publier/`, Summary → Commit → Push.
+
+**Distanciel** : elle va faire des visios WhatsApp avec partage d'écran (appli WhatsApp de bureau). J'ai proposé une page « Séance à distance » (gros boutons vers diaporamas, étoile, jeux) — **pas encore demandée, ne pas la construire sans son oui**. Elle teste d'abord.
+
+**Méthode** : un fichier s'est retrouvé corrompu le 03/10 (slice avec indexOf = -1 dans run_script). Toujours vérifier `fin >= 0` avant de couper une chaîne.
+
+## ✅ CE QUI S'EST DÉCIDÉ LE 02/10 (après-midi) — à lire avant tout
+
+- **Accueil élève** : « Les lettres et les sons » s'appelle **« Lettres, sons, syllabes »** (son titre). « Glisse et lis » n'est plus un tableau : DERNIÈRE case DANS ce tableau (« mets-le à la fin »). Son ancien emplacement = **« Histoire, géographie, EMC »** (vide, « bientôt »). Toujours six tableaux.
+
+- **Corrigés PARTOUT** : tout document d'exercices finit par ses pages « Corrigé », calculées
+  à partir des données (Top Chrono, chèque, tableaux, enquête, pays).
+- **Données d'élèves** : coordonnées (adresse, tél., éducateur·rice, ASE) JAMAIS dans le code
+  — rubrique « Contacts » de COORDO, en localStorage (« ça reste en local mon chou »).
+  ⚠ Jamais de prénom à côté d'un pays d'origine dans un fichier.
+- **Élèves** : + TOURE Alpha. `pasArrive: true` (Sumaya, David, Alpha) = grisé, hors roue.
+  SYLLA Mahamadou : on le laisse dans COORDO (elle ne sait pas), ne pas y revenir sans elle.
+- **Bandeau d'outils** (accueil élève, ordinateur seulement, calé à droite) : ⏱ Chrono (disque
+  qui se remplit, chiffres qui montent, max 3 min) et roue « À qui le tour ? » (« Une seule fois
+  chacun » par défaut, ↺ seul = réinitialiser, prénom tiré À CÔTÉ de la roue jaune sur vert,
+  bouton TOURNE au centre, cliquetis). Pas de confettis (déconseillé). Jamais de languette.
+- **Accueil élève** : titre « UPE2A NSA » (plus « Choisis ton tableau ») ; la petite ligne bleue
+  dit seulement « français langue de scolarisation » (sur TOUS les écrans — à trancher).
+- **Maths → Automatismes** (son mot, pas « calcul mental ») : progression cycle 2 + intertitre
+  « Calculs » (`['§Titre']` dans DOCS_COLL) + 8 livrets Top Chrono (41 séries,
+  `top-chrono-series.js`, page de garde Nom/Prénom/Classe). Anciens fichiers supprimés.
+- **Numération** : 2.1 L'enquête (jusqu'à 100) · 4.1 Le chèque (vrai modèle de chèque, banque
+  fictive, étiquettes en option) · 4.2 Le tableau des nombres · 5 (jusqu'à 999 999) · 6 (millions,
+  milliards, A4 paysage, + page « Les pays » Banque mondiale 2024) · 6.1 L'enquête. Outils : le
+  tableau des nombres + le grand tableau (A5, 2 par A4). Couleurs c bleu · d vert · u orange
+  PARTOUT. La colonne « le nombre » est DÉTACHÉE du tableau (« ça me perturbe »).
+- **Enquête en FALC** : phrases courtes, une idée par carte, toujours les mêmes mots. Elle garde
+  « suspect » (bande « Les mots » : suspect / innocent). Jamais « voler » seul.
+- **Affiche « Ça explose / Ça dure »** : mots repères, toutes les graphies, l r m n en bande sur
+  l'affiche 2, `geste-son-m` (zigzag rouge / zigzag gris barré). Marges 1,5 cm : exception
+  qu'ELLE a donnée pour cette affiche seulement. Picto « ça vibre » jugé moyen : à revoir.
+- ⚠ **Piège outil** : les fichiers à accent (é, ç) ne se lisent pas par script — passer par une
+  copie ASCII dans `tests/`, puis la remettre à sa place.
+
+## ✅ CE QUI S'EST DÉCIDÉ DU 27 AU 29/09 (à lire avant tout)
+
+- **Rythme** : une semaine LITTÉRACIE, une semaine DÉCOUVERTE D'UN MÉTIER, en alternance.
+- **`FR - Livret - Au marché.dc.html`** (métier : équipier polyvalent du commerce, EPC) —
+  refait d'après SON livret, style « Dans Paris ». Elle l'imprime EN COULEUR (« laisse tout
+  le livret »). Ce qu'elle a fixé :
+  · **« Activité 1, 2, 3… »** pour numéroter (pas « fiche ») ; la **compétence en HAUT**, sous
+    le bandeau, sur TOUTES les pages ; **objectifs au début** : je comprends, je parle,
+    j'écoute, j'écris + étude de la langue (déterminants, être/avoir, exprimer la quantité) ;
+  · Activité 1 « J'écoute » : l'écoute vient D'ABORD, la reconstitution de l'histoire APRÈS ;
+    niveau 1 (un rond) = je lis, niveau 2 (deux ronds) = l'image et le mot, sur UNE page ;
+    point d'interrogation plutôt que « j'entoure » ; QR code du dialogue dès le début ;
+  · Activité 2 : la grille du puzzle (syllabes a/i) + « La photo mystère » (réponse : un marché) ;
+  · le dialogue = le texte EXACT de l'audio, qu'elle a recopié (version longue) ;
+  · cases de collage 41 mm pour images 40 mm ; écriture : cursive ET script côte à côte ;
+  · tâche finale n° 1 « Je présente le métier d'équipier du commerce » (oral) ; tâche finale
+    n° 2 le jeu de rôle ;
+  · ⚠ cartes du jeu de rôle : **« C'est combien ? »** — elle REFUSE « coûte / coûtent » et
+    « C'est combien, les… ? » ;
+  · ⚠ retirés à sa demande, ne pas remettre : « Mes fiches terminées », « J'écris dans ma
+    langue », le « AU MARCHÉ » à droite des bandeaux, toute note pour l'enseignant écrite sur
+    la page élève (« pourquoi tu m'écris ça ? »), les phrases qui « bouffent de l'encre pour
+    rien » (« c'est juste ! », tailles des étiquettes…) ;
+  · être/avoir : mémo dans le style des mémos de sa collègue (bandeau « Rappel : », bulles
+    pastel, la partie qui change en couleur).
+- **Diaporama `FR - Diaporama - Au marché`** : 8 étapes, `clean/diapo-marche-1…8` (dessins
+  au trait) ; étape 5 = le vendeur tient l'oignon + bulle « ? € » ajoutée par moi.
+- **`DRILL - Combien y a-t-il`** : 23 vues ; question ÉCRITE aux 3 premiers produits
+  seulement, ensuite à l'oral ; des kiwis (pas de courgettes). Accroché lundi 28, 10h35,
+  côté enseignant ET élève.
+- **Puzzle à retourner** : mode `syllabes` (16 syllabes a/i), `?img=lieu-marche&mode=syllabes`.
+- **Verbes d'action** : DESSINS AU TRAIT avec un jeune adulte (style du site qu'elle a montré),
+  plus des photos. Remercier = bulle « merci ».
+- `clean/mot-laitue.webp` = copie de `mot-salade` (« c'est une laitue »). `mot-kilo` est
+  mauvaise (dessin 300 px, sert aussi à la lettre K) : proposé un poids en fonte « 1 kg ».
+- **Livrets des sons A, I, O** : les étiquettes des maisons à la FIN, cadre « NE PAS IMPRIMER
+  AVEC LE LIVRET » (imprimées à part, 9 exemplaires). Son O aussi en écriture script.
+- **Élèves** (9) : + CAMARA Bilal, SAYEM Saifur Rahman. ⚠ La liste est recopiée dans
+  `MATHS - Pages de garde` : un élève ajouté s'ajoute aux deux endroits (+ AJOUTS de
+  `COORDO UPE2A`). 02/10 : + TOURE Alpha (né le 01/01/2011). ⚠ Ses coordonnées (adresse,
+  éducatrice, ASE) ne vont JAMAIS dans le code : fichiers publiés.
+  garde du Top Chrono par élève ont été supprimées le 02/10). La roue lit EDT.ELEVES.
+- **Maths** : `MATHS - Pages de garde` (12 tuiles : + − × = < > « inférieur à / supérieur à »,
+  équation, ordre croissant, droite, triangle, carré, cercle — ni point ni segment).
+  ⚠ 02/10 : remplacé par `MATHS - Top Chrono - Livret 1..8` (séries dans
+  `top-chrono-series.js`, 41 séries ; ses 10 premières = n° 1-10 inchangées). Historique :
+  `MATHS - Top Chrono (papier)` : noir et blanc, numérotation CONTINUE 1 à 10 ; n° 1
+  additions jusqu'à 10 SANS « 1 + », n° 2 additions qui dépassent 10 (7 + 8, 7 + 4…) ;
+  puis ● doubles/compléments, ●● comparer/ranger. Deux niveaux car certains sont au livret 2.
+  ⏳ Top Chrono EN LIGNE : « on verra plus tard » (plan dans A-FAIRE §0).
+- **Publication** (28/09) : `publier/` refait, `?v=39`. Après son push, l'appli en ligne
+  était cassée : fichiers copiés au mauvais niveau du dossier GitHub. ⏳ À revérifier avec elle.
+
 ## ✅ CE QUI S'EST DÉCIDÉ LES 25 ET 26/09 (à lire avant tout)
 
 - ⚠ **Méthode, rappel ferme** (24/09 au soir, sur le zip refait sans prévenir : « ça m'agace

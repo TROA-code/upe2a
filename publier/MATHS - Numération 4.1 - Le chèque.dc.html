@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#1d4e89}
+a:hover{color:#163a68}
+</style>
+<script src="./doc-page.js"></script>
+</helmet>
+<doc-page size="a4">
+<sc-for list="{{ pages }}" as="pg" hint-placeholder-count="2">
+<section class="page" data-screen-label="{{ pg.label }}" style="background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Helvetica,'Helvetica Neue',Arial,sans-serif;color:#14213d;gap:5mm">
+<div style="flex:0 0 auto;display:flex;align-items:flex-end;justify-content:space-between;gap:4mm;border-bottom:2.5px solid #14213d;padding-bottom:2.5mm">
+<div style="display:flex;flex-direction:column;gap:1mm;min-width:0">
+<span style="font-size:12pt;letter-spacing:0.12em;text-transform:uppercase;color:#4a5262;white-space:nowrap">Numération · chiffres et lettres</span>
+<span style="font-size:22pt;font-weight:700;line-height:1.1;white-space:nowrap">Je paie avec un chèque</span>
+</div>
+<div style="flex:0 0 auto;display:flex;align-items:flex-end;gap:2mm;font-size:13pt;font-weight:700;white-space:nowrap">Prénom :<span style="width:40mm;border-bottom:2px solid #14213d;display:block"></span></div>
+</div>
+<sc-for list="{{ pg.achats }}" as="a" hint-placeholder-count="2">
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;gap:3mm;justify-content:center">
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:4mm">
+<span style="width:24mm;height:24mm;flex:0 0 auto;border:1.5px solid #dde2e9;border-radius:3mm;background-image:url('{{ a.img }}');background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+<span style="font-size:20pt;font-weight:700;border:2.5px solid #14213d;border-radius:2mm;padding:1mm 3mm;white-space:nowrap">{{ a.prix }} €</span>
+<span style="font-size:13pt;white-space:nowrap">chez <b>{{ a.vendeur }}</b></span>
+</div>
+<div style="flex:0 0 auto;position:relative;height:80mm;box-sizing:border-box;border:1.5px solid #9fb59a;border-radius:2mm;background:#e8f0e3;overflow:hidden;display:grid;grid-template-columns:minmax(0,1fr) 44mm;grid-template-rows:auto auto 1fr auto;column-gap:5mm;padding:3mm 4mm 2mm">
+<div style="grid-column:1/2;display:flex;align-items:center;gap:2mm;white-space:nowrap"><span style="width:7mm;height:7mm;border-radius:50%;border:2px solid #1d5c3a;display:flex;align-items:center;justify-content:center;font-size:12pt;font-weight:700;color:#1d5c3a">B</span><span style="font-size:16pt;font-weight:700;color:#1d5c3a;letter-spacing:0.04em">BANQUE DE LA CLASSE</span></div>
+<div style="grid-column:2/3;display:flex;align-items:center;justify-content:flex-end;gap:2mm;white-space:nowrap"><span style="font-size:12pt;font-style:italic;color:#4a6248">en euros</span><span style="font-size:24pt;font-weight:700;color:#4a6248;line-height:1">€</span></div>
+<div style="grid-column:1/2;display:flex;flex-direction:column;gap:1mm;margin-top:1.5mm;position:relative">
+<div style="display:flex;align-items:flex-end;gap:2mm;font-size:12pt;font-style:italic;white-space:nowrap">Payez contre ce chèque<span style="flex:1;border-bottom:1.5px solid #6f8a6b;height:8mm;display:block"></span></div>
+<span style="border-bottom:1.5px solid #6f8a6b;height:8mm;display:block"></span>
+<span style="align-self:flex-end;font-size:12pt;font-style:italic;color:#8c1c13;white-space:nowrap">somme en toutes lettres</span>
+<div style="display:flex;align-items:flex-end;gap:2mm;font-size:12pt;font-style:italic;white-space:nowrap">à<span style="flex:1;border-bottom:1.5px solid #6f8a6b;height:7mm;display:block"></span></div>
+<span style="position:absolute;left:62%;top:-2mm;width:2px;height:24mm;background:#c48a85;transform:rotate(28deg);display:block"></span>
+<span style="position:absolute;left:68%;top:-2mm;width:2px;height:24mm;background:#c48a85;transform:rotate(28deg);display:block"></span>
+</div>
+<div style="grid-column:2/3;grid-row:2/4;display:flex;flex-direction:column;gap:2mm;margin-top:1.5mm">
+<div style="height:11mm;box-sizing:border-box;border:2px solid #b04a43;background:#fff;display:flex;align-items:center;padding:0 2mm;font-size:16pt;font-weight:700;color:#4a6248">€</div>
+<div style="display:flex;align-items:flex-end;gap:2mm;font-size:12pt;font-style:italic;white-space:nowrap">À<span style="flex:1;border-bottom:1.5px solid #6f8a6b;height:6mm;display:block"></span></div>
+<div style="display:flex;align-items:flex-end;gap:2mm;font-size:12pt;font-style:italic;white-space:nowrap">Le<span style="flex:1;border-bottom:1.5px solid #6f8a6b;height:6mm;display:block"></span></div>
+<span style="font-size:12pt;font-style:italic;color:#8c1c13;text-align:center">Signature</span>
+<span style="flex:1;min-height:11mm;border:1.5px dashed #8a91a3;border-radius:2mm;background:rgba(255,255,255,0.6);display:block"></span>
+</div>
+<div style="grid-column:1/2;grid-row:3/4;align-self:end;margin-top:3mm;display:grid;grid-template-columns:auto minmax(0,1fr);gap:4mm;align-items:end">
+<div style="border:1.5px solid #6f8a6b;border-radius:1mm;padding:1mm 2mm;font-size:12pt;line-height:1.25;white-space:nowrap;background:rgba(255,255,255,0.4)">Payable en France<br></br>LE HAVRE</div>
+<div style="display:flex;flex-direction:column;gap:1mm;font-size:12pt;white-space:nowrap;min-width:0">
+<span style="color:#4a6248">N° de compte 0000 0000 0000</span>
+<div style="display:flex;align-items:flex-end;gap:2mm">Titulaire<span style="flex:1;border-bottom:1.5px solid #6f8a6b;height:6mm;display:block"></span></div>
+</div>
+</div>
+<div style="grid-column:1/3;display:flex;justify-content:space-between;align-items:center;border-top:1px solid #9fb59a;margin-top:1.5mm;padding-top:1mm;font-size:12pt;white-space:nowrap">
+<span>Chèque n° 00000{{ a.n }}</span>
+<span style="font-family:'Courier New',monospace;letter-spacing:0.15em;color:#4a6248">⑈00000{{ a.n }}⑈ 0000000000⑆ 000000000000⑉</span>
+</div>
+</div>
+</div>
+</sc-for>
+<sc-if value="{{ avecMots }}" hint-placeholder-val="{{ false }}">
+<div style="flex:0 0 auto;border:2px dashed #8a91a3;border-radius:3mm;padding:2.5mm 4mm;display:flex;flex-direction:column;gap:2mm">
+<span style="font-size:12pt;font-weight:700">✂ Les mots de la somme : je découpe, je colle.</span>
+<div style="display:flex;flex-wrap:wrap;gap:2.5mm">
+<sc-for list="{{ pg.mots }}" as="m" hint-placeholder-count="8">
+<span style="font-size:14pt;font-weight:700;border:1.5px solid #14213d;border-radius:1.5mm;padding:1.2mm 3mm;background:#fff;white-space:nowrap">{{ m }}</span>
+</sc-for>
+</div>
+</div>
+</sc-if>
+</section>
+</sc-for>
+<section class="page" data-screen-label="Corrigé" style="background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Helvetica,'Helvetica Neue',Arial,sans-serif;color:#14213d;gap:6mm">
+<div style="flex:0 0 auto;font-size:22pt;font-weight:700;border-bottom:2.5px solid #14213d;padding-bottom:2.5mm">Corrigé · Je paie avec un chèque</div>
+<sc-for list="{{ corrige }}" as="c" hint-placeholder-count="4">
+<div style="flex:0 0 auto;display:grid;grid-template-columns:22mm 34mm minmax(0,1fr);gap:5mm;align-items:center;border:1.5px solid #14213d;border-radius:3mm;padding:3mm 4mm">
+<span style="font-size:14pt;font-weight:700;white-space:nowrap">n° {{ c.n }}</span>
+<span style="font-size:20pt;font-weight:700;white-space:nowrap">{{ c.prix }} €</span>
+<div style="display:flex;flex-direction:column;gap:1.5mm">
+<span style="font-size:16pt;font-weight:700">{{ c.lettres }}</span>
+<span style="font-size:12pt;color:#4a5262">à {{ c.vendeur }} · Le Havre, le (date du jour) · signature</span>
+</div>
+</div>
+</sc-for>
+<span style="flex:0 0 auto;font-size:12pt;color:#4a5262">⚠ 230 : « deux cent trente » — cent sans s, il est suivi d'un nombre. 45 : « quarante-cinq » avec un trait d'union.</span>
+</section>
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;motsSomme&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;label&quot;:&quot;Les mots de la somme (étiquettes à découper)&quot;}}">
+/* EXEMPLE (02/10) : son document n° 5 (chèques) refait pour des 16-18 ans NSA, sur le modèle
+   d'un VRAI chèque français (ses trois photos du 02/10) : « Payez contre ce chèque », somme en
+   toutes lettres, deux barres, « à », case € encadrée, À / Le / Signature, cartouche
+   « Payable en France », n° de compte, ligne de chiffres du bas. Banque FICTIVE.
+   Deux chèques par page (un vrai chèque est long : trois ne tiennent pas avec 2 cm de marge).
+   Étiquettes : les mots des sommes de la page, mêlés. */
+const ACHATS = [
+  { n: 1, m: 'ballon', prix: '15', vendeur: 'Sport Plus', mots: ['quinze', 'euros'] },
+  { n: 2, m: 'velo', prix: '230', vendeur: 'Vélo Havre', mots: ['deux', 'cent', 'trente', 'euros'] },
+  { n: 3, m: 'chaise', prix: '45', vendeur: 'Maison et Meubles', mots: ['quarante', 'cinq', 'euros'] },
+  { n: 4, m: 'table', prix: '1 250', vendeur: 'Maison et Meubles', mots: ['mille', 'deux', 'cent', 'cinquante', 'euros'] }
+];
+/* 230 = deux cent trente (cent SANS s : suivi d'un nombre) · 45 = quarante-cinq (trait d'union : l'étiquette « - » n'est pas fournie, à dire à l'oral) */
+const melange = (l, g) => l.map((x, i) => [((i + 1) * 7919 + g * 31) % 97, x]).sort((a, b) => a[0] - b[0]).map(x => x[1]);
+class Component extends DCLogic {
+  renderVals() {
+    const pages = [];
+    for (let i = 0; i < ACHATS.length; i += 2) {
+      const grp = ACHATS.slice(i, i + 2);
+      pages.push({
+        label: 'Chèques ' + grp.map(a => a.n).join(' et '),
+        achats: grp.map(a => Object.assign({}, a, { img: 'clean/mot-' + a.m + '.webp' })),
+        mots: melange([].concat(...grp.map(a => a.mots)), i)
+      });
+    }
+    /* Étiquettes « si j'en ai besoin » (02/10) : masquées par défaut, réglage « Les mots de la somme ». */
+    /* Corrigé (02/10, sa règle : corrigés partout). Écriture en lettres posée à la main, vérifiée. */
+    const LETTRES = { '15': 'quinze euros', '230': 'deux cent trente euros', '45': 'quarante-cinq euros', '1 250': 'mille deux cent cinquante euros' };
+    const corrige = ACHATS.map(a => ({ n: a.n, prix: a.prix, vendeur: a.vendeur, lettres: LETTRES[a.prix] }));
+    return { pages, corrige, avecMots: !!this.props.motsSomme };
+  }
+}
+</script>
+</body>
+</html>

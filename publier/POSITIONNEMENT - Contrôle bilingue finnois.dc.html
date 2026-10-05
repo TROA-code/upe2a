@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" />
+<style>
+  body { margin: 0; font-family: Verdana, Tahoma, sans-serif; color: #111; }
+  a { color: #1d4e89; } a:hover { color: #163a68; }
+  .page { padding: 13mm 14mm 11mm; box-sizing: border-box; display: flex; flex-direction: column; gap: 5mm; }
+  .t { border-collapse: collapse; width: 100%; font-size: 9.5pt; }
+  .t th { background: #1d4e89; color: #fff; padding: 2.5mm 3mm; text-align: left; font-size: 9pt; letter-spacing: .3px; }
+  .t td { border: 1px solid #bbc7d5; padding: 2.5mm 3mm; vertical-align: top; line-height: 1.5; width: 50%; }
+  .t td.n { width: 9mm; text-align: center; font-family: 'Archivo Black', Verdana, sans-serif; background: #eef3f9; }
+  .t tr.pal td { background: #dbe6f2; font-weight: bold; }
+  .ok { width: 16mm; background: #f7f9fc; text-align: center; font-size: 8pt; color: #667; }
+  .pied { margin-top: auto; display: flex; justify-content: space-between; font-size: 8pt; color: #555; border-top: 1px solid #ccc; padding-top: 2mm; }
+</style>
+</helmet>
+
+<x-import component-from-global-scope="doc-page" from="./doc-page.js" size="a4" orientation="landscape" hint-size="100%,100%">
+
+  <section class="page">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2px solid #1d4e89;padding-bottom:3mm">
+      <div style="display:flex;flex-direction:column;gap:1.5mm">
+        <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:14pt;color:#1d4e89">FEUILLE DE CONTRÔLE — FINNOIS</div>
+        <div style="font-size:9.5pt;color:#445">Compréhension de l'écrit, cycle 3 (Canopé) — paliers fin de CM1 et fin de CM2</div>
+      </div>
+      <div style="display:flex;gap:5mm;font-size:9pt">
+        <label>Relu par :<div style="border-bottom:1px solid #111;width:52mm;height:6mm"></div></label>
+        <label>Le :<div style="border-bottom:1px solid #111;width:26mm;height:6mm"></div></label>
+      </div>
+    </div>
+    <div style="font-size:9.5pt;line-height:1.6;background:#f4f2fd;border:1.2px solid #6d5bd0;padding:3.5mm">
+      <b>Ce que je demande au relecteur :</b> lire la colonne de droite et dire, ligne par ligne, si elle veut dire la même chose que la colonne de gauche — <b>et si elle est aussi facile</b>. Un mot plus rare ou plus savant en finnois rend l'exercice plus difficile et fausse le résultat : c'est ce qu'il faut signaler. Cocher la dernière colonne quand la ligne est bonne, corriger directement dessus sinon.
+    </div>
+    <table class="t">
+      <thead><tr><th></th><th>FRANÇAIS (version d'origine)</th><th>SUOMI (à vérifier)</th><th style="width:16mm">OK</th></tr></thead>
+      <tbody>
+        <tr class="pal"><td class="n">—</td><td>NIVEAU : FIN DE CM1</td><td>TASO : CM1-LUOKAN LOPPU</td><td class="ok"></td></tr>
+        <tr><td class="n">1</td><td>Lis le texte.</td><td>Lue teksti.</td><td class="ok"></td></tr>
+        <tr><td class="n"></td><td>(Sami, un jeune garçon, se rend pour la première fois dans sa nouvelle école.)</td><td>(Sami, nuori poika, menee ensimmäistä kertaa uuteen kouluunsa.)</td><td class="ok"></td></tr>
+        <tr><td class="n"></td><td>Sur le chemin, Sami sort lentement du sommeil. En fait, il n'a pas bien dormi.</td><td>Matkalla Sami herää hitaasti. Hän ei nimittäin nukkunut hyvin.</td><td class="ok"></td></tr>
+        <tr><td class="n"></td><td>Il a fait un cauchemar. Il a rêvé que les élèves avaient des corps d'enfants et des têtes d'oiseaux. C'était le contraire pour la professeure : elle avait un visage humain avec un air méchant et un immense corps d'aigle.</td><td>Hän näki painajaista. Hän näki unta, että muilla oppilailla oli lasten ruumiit ja lintujen päät. Opettajan kohdalla asia oli toisin päin: hänellä oli ihmiskasvot ja ilkeä ilme sekä valtava kotkan ruumis.</td><td class="ok"></td></tr>
+        <tr><td class="n"></td><td>Il repense alors à son village, en Labacie. Ses amis font sans doute leur rentrée là-bas dans leur petite école. Il se souvient des murs en briques, du sol en terre et du puits au centre de la cour. Pendant les récréations, ils aimaient tous s'asseoir à l'ombre du grand arbre, à gauche du puits en entrant dans la cour.</td><td>Sitten hän muistelee kyläänsä Labaciassa. Hänen ystävänsä palaavat varmaankin siellä omaan pieneen kouluunsa. Hän muistaa tiiliseinät, savilattian ja kaivon pihan keskellä. Välitunneilla he istuivat mielellään ison puun varjossa, joka kasvoi kaivon vasemmalla puolella, kun pihalle tullaan.</td><td class="ok"></td></tr>
+        <tr><td class="n"></td><td>Pour aller à sa nouvelle école, Sami tourne d'abord à droite en sortant de chez lui, puis il suit les arbres et prend la première rue à gauche. Enfin, il marche tout droit. L'école est dans cette rue, juste en face du parc.</td><td>Päästäkseen uuteen kouluunsa Sami kääntyy ensin kotoaan oikealle, seuraa sitten puita ja kääntyy ensimmäisestä kadusta vasemmalle. Lopuksi hän kävelee suoraan eteenpäin. Koulu on tällä kadulla, aivan puistoa vastapäätä.</td><td class="ok"></td></tr>
+        <tr><td class="n">2</td><td>Entoure la bonne réponse. Ce texte est : une histoire · une recette · un mode d'emploi · un poème</td><td>Ympyröi oikea vastaus. Tämä teksti on: tarina · ruokaohje · käyttöohje · runo</td><td class="ok"></td></tr>
+        <tr><td class="n">3</td><td>Entoure la bonne réponse. Selon toi, le cauchemar de Sami est : inquiétant · rassurant · sportif · joyeux</td><td>Ympyröi oikea vastaus. Mielestäsi Samin painajainen on: huolestuttava · rauhoittava · urheilullinen · iloinen</td><td class="ok"></td></tr>
+        <tr><td class="n">4</td><td>Entoure le dessin de l'école de Sami en Labacie et barre les autres.</td><td>Ympyröi kuva, jossa on Samin koulu Labaciassa, ja vedä viiva muiden yli.</td><td class="ok"></td></tr>
+        <tr><td class="n">5</td><td>Sur le plan, trace l'itinéraire que Sami emprunte pour aller à l'école. Le point de départ est la maison de Sami, marquée d'une croix.</td><td>Piirrä karttaan reitti, jota Sami kulkee kouluun. Lähtöpiste on Samin koti, joka on merkitty rastilla.</td><td class="ok"></td></tr>
+      </tbody>
+    </table>
+    <div class="pied"><span>Traduction de travail — ne pas utiliser pour évaluer avant relecture.</span><span>1 / 2</span></div>
+  </section>
+
+  <section class="page">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2px solid #1d4e89;padding-bottom:3mm">
+      <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:12pt;color:#1d4e89">FEUILLE DE CONTRÔLE — FINNOIS · suite</div>
+      <div style="font-size:9pt;color:#445">palier fin de CM2</div>
+    </div>
+    <table class="t">
+      <thead><tr><th></th><th>FRANÇAIS (version d'origine)</th><th>SUOMI (à vérifier)</th><th style="width:16mm">OK</th></tr></thead>
+      <tbody>
+        <tr class="pal"><td class="n">—</td><td>NIVEAU : FIN DE CM2</td><td>TASO : CM2-LUOKAN LOPPU</td><td class="ok"></td></tr>
+        <tr><td class="n"></td><td>Ce matin, pourtant, il ne reconnaît pas le chemin. Cet arbre était-il là hier ?</td><td>Tänä aamuna hän ei kuitenkaan tunnista reittiä. Oliko tuo puu siinä eilen?</td><td class="ok"></td></tr>
+        <tr><td class="n"></td><td>Sami se dit que sa mémoire lui joue des tours. Il n'arrive pas à se débarrasser de cette étrange impression et les images de son cauchemar lui reviennent.</td><td>Sami ajattelee, että muisti varmaan tekee hänelle temppuja. Hän ei pääse eroon tästä oudosta tunteesta, ja painajaisen kuvat palaavat hänen mieleensä.</td><td class="ok"></td></tr>
+        <tr><td class="n"></td><td>Soudain, un vent froid se lève et Sami enfonce sur sa tête la casquette que son père lui a donnée ; il se sent tout de suite mieux.</td><td>Yhtäkkiä alkaa puhaltaa kylmä tuuli, ja Sami painaa isänsä antaman lippalakin päähänsä. Heti hänen olonsa paranee.</td><td class="ok"></td></tr>
+        <tr><td class="n"></td><td>En arrivant à l'école, Sami s'arrête net. Des nuages ont couvert le ciel et de petites gouttes de pluie commencent à tomber. Il n'attend pas davantage et entre dans l'école.</td><td>Kun hän saapuu koululle, Sami pysähtyy heti. Pilvet ovat peittäneet taivaan, ja pieniä sadepisaroita alkaa tulla. Hän ei odota enää, vaan menee kouluun sisälle.</td><td class="ok"></td></tr>
+        <tr><td class="n"></td><td>Là, il découvre la cour ; elle est très différente de celle de Labacie. Il ne sait pas où aller. Alors il sort l'emploi du temps qu'on lui a donné à l'inscription, mais il ne l'aide pas beaucoup. Il n'y comprend rien !</td><td>Siellä hän näkee koulun pihan: se on hyvin erilainen kuin Labaciassa. Hän ei tiedä, minne mennä. Niinpä hän ottaa esiin lukujärjestyksen, joka hänelle annettiin ilmoittautumisen yhteydessä, mutta siitä ei ole paljon apua. Hän ei ymmärrä siitä yhtään mitään!</td><td class="ok"></td></tr>
+        <tr><td class="n"></td><td>EMPLOI DU TEMPS : CLASSE A — lundi, mardi, mercredi, jeudi, vendredi · lecture, histoire, géographie, langues, sciences, grammaire, musique, arts plastiques, sport, mathématiques</td><td>LUKUJÄRJESTYS : LUOKKA A — maanantai, tiistai, keskiviikko, torstai, perjantai · lukeminen, historia, maantieto, kielet, luonnontieto, kielioppi, musiikki, kuvataide, liikunta, matematiikka</td><td class="ok"></td></tr>
+        <tr><td class="n">6</td><td>Quelle phrase est une question ? Un vent froid se lève · Cet arbre était-il là hier ? · Il n'arrive pas à se débarrasser de cette étrange impression · Il n'y comprend rien !</td><td>Mikä lause on kysymys? Kylmä tuuli alkaa puhaltaa · Oliko tuo puu siinä eilen? · Hän ei pääse eroon tästä oudosta tunteesta · Hän ei ymmärrä siitä yhtään mitään!</td><td class="ok"></td></tr>
+        <tr><td class="n">7</td><td>Dans le texte, quel temps fait-il ? Attention, tu dois entourer plus d'une réponse. vent froid · vent chaud · nuageux · pluie fine · éclaircies · forte pluie · ensoleillé</td><td>Millainen sää tekstissä on? Varo: sinun täytyy ympyröidä useampi kuin yksi vastaus. kylmä tuuli · lämmin tuuli · pilvistä · heikkoa sadetta · aurinkoisia hetkiä · rankkaa sadetta · aurinkoista</td><td class="ok"></td></tr>
+        <tr><td class="n">8</td><td>Pourquoi Sami sort-il son emploi du temps ? parce qu'il aime les mathématiques · parce qu'il commence à pleuvoir · parce qu'il cherche une information · parce qu'il a sport le jeudi</td><td>Miksi Sami ottaa esiin lukujärjestyksensä? koska hän pitää matematiikasta · koska alkaa sataa · koska hän etsii tietoa · koska hänellä on torstaina liikuntaa</td><td class="ok"></td></tr>
+        <tr><td class="n">9</td><td>À quelle heure Sami commence-t-il habituellement sa journée ? à huit heures · à neuf heures · à dix heures</td><td>Mihin aikaan Samin koulupäivä yleensä alkaa? kello kahdeksan · kello yhdeksän · kello kymmenen</td><td class="ok"></td></tr>
+        <tr><td class="n">10</td><td>Quels jours Sami n'a-t-il pas histoire ? les lundis et les jeudis · les mardis et les mercredis · les mercredis et les jeudis · les lundis et les vendredis</td><td>Minä päivinä Samilla ei ole historiaa? maanantaisin ja torstaisin · tiistaisin ja keskiviikkoisin · keskiviikkoisin ja torstaisin · maanantaisin ja perjantaisin</td><td class="ok"></td></tr>
+      </tbody>
+    </table>
+    <div style="font-size:9pt;line-height:1.6;background:#fdf6ec;border:1.2px solid #d8a24a;padding:3.5mm">
+      <b>Ce que j'ai adapté, à trancher par toi :</b> les dessins et le plan (items 4 et 5) restent ceux de Canopé, à photocopier — je ne les redessine pas. L'emploi du temps garde les horaires français (8h–15h) et les matières françaises : l'exercice porte sur la lecture d'un tableau, pas sur l'école finlandaise. Item 3 : ta version anglaise imprime « possible » là où la version française imprime « rassurant » ; j'ai suivi le français.
+    </div>
+    <div class="pied"><span>Traduction de travail — ne pas utiliser pour évaluer avant relecture.</span><span>2 / 2</span></div>
+  </section>
+
+</x-import>
+</x-dc>
+</body>
+</html>

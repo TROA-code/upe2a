@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#1d5c3a}
+a:hover{color:#123d26}
+</style>
+<script src="./doc-page.js"></script>
+</helmet>
+<doc-page size="a4">
+<sc-for list="{{ eleves }}" as="e" hint-placeholder-count="9">
+<section class="page" data-screen-label="{{ e.label }}" style="background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Helvetica,'Helvetica Neue',Arial,sans-serif;color:#14213d;gap:6mm">
+<div style="flex:0 0 auto;background:#1d5c3a;color:#fbfaf7;padding:10mm 12mm 9mm;display:flex;flex-direction:column;gap:4mm;border-radius:4mm">
+<span style="font-size:13pt;letter-spacing:0.12em;color:#d7e6dc">Classe UPE2A (NSA) · 2026-2027</span>
+<span style="font-size:46pt;font-weight:700;line-height:1;letter-spacing:-0.01em">Mathématiques</span>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr));gap:4mm">
+<sc-for list="{{ tuiles }}" as="t" hint-placeholder-count="12">
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2mm;border-radius:4mm;background:{{ t.fond }};padding:3mm;min-height:0">
+<div style="flex:1;min-height:0;width:100%;display:flex;align-items:center;justify-content:center">{{ t.dessin }}</div>
+<span style="flex:0 0 auto;font-size:12pt;font-weight:700;color:{{ t.c }}">{{ t.nom }}</span>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;border:3px solid #1d5c3a;border-radius:4mm;padding:7mm 10mm;display:flex;flex-direction:column;gap:2mm">
+<span style="font-size:40pt;font-weight:700;line-height:1.05">{{ e.prenom }}</span>
+<span style="font-size:24pt;font-weight:700;letter-spacing:0.04em;color:#3c4356">{{ e.famille }}</span>
+</div>
+</section>
+</sc-for>
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* PAGES DE GARDE DE MATHS (28/09, sa demande) : une page par élève, à coller sur le cahier.
+   Tuiles : les SYMBOLES (+ − × = < >) et la GÉOMÉTRIE (point, segment, droite, triangle,
+   carré, cercle) — sa demande : « un point, un segment, etc. », pas des chiffres.
+   ⚠ Liste recopiée de ELEVES dans emploi-du-temps.js (9 élèves au 28/09) : un élève ajouté
+   là-bas s'ajoute ICI aussi. */
+const ELEVES = [
+  ['Anita', 'FAKHILZAI'], ['Ahmed Samir', 'HALAWA'], ['Josefina', 'ZANGA'],
+  ['Sania', 'TARAKHEIL'], ['Yasir', 'TARAKHEIL'], ['Sumaya', 'ORYAKKHIL'],
+  ['David', 'MAMINGI MABOTE'], ['Bilal', 'CAMARA'], ['Saifur Rahman', 'SAYEM'], ['Alpha', 'TOURE']];
+const h = React.createElement;
+const svg = (...k) => h('svg', { viewBox: '0 0 100 100', style: { width: '100%', height: '100%', maxHeight: '32mm', display: 'block' } }, ...k);
+const sym = (t, c) => h('span', { style: { fontSize: '54pt', fontWeight: 700, color: c, lineHeight: 1 } }, t);
+const pt = (x, y, c) => h('circle', { cx: x, cy: y, r: 5, fill: c });
+const TUILES = [
+  ['l\u2019addition', '#c1440e', '#fbe7de', () => sym('+', '#c1440e')],
+  ['l\u2019ordre croissant', '#1d4e89', '#e2ecf7', () => h('span', { style: { fontSize: '26pt', fontWeight: 700, color: '#1d4e89', whiteSpace: 'nowrap' } }, '1 < 4 < 7')],
+  ['la soustraction', '#c1440e', '#fbe7de', () => sym('\u2212', '#c1440e')],
+  ['l\u2019\u00e9quation', '#1d4e89', '#e2ecf7', () => h('span', { style: { fontSize: '26pt', fontWeight: 700, color: '#1d4e89', whiteSpace: 'nowrap' } }, 'x + 2 = 5')],
+  ['la multiplication', '#c1440e', '#fbe7de', () => sym('\u00d7', '#c1440e')],
+  ['la droite', '#1d4e89', '#e2ecf7', c => svg(h('line', { x1: 0, y1: 70, x2: 100, y2: 30, stroke: c, strokeWidth: 4 }))],
+  ['\u00e9gal', '#1d5c3a', '#e1f0e6', () => sym('=', '#1d5c3a')],
+  ['le triangle', '#7a3e9d', '#f0e5f6', c => svg(h('polygon', { points: '50,14 88,82 12,82', fill: 'none', stroke: c, strokeWidth: 4, strokeLinejoin: 'round' }))],
+  ['inf\u00e9rieur \u00e0', '#1d5c3a', '#e1f0e6', () => sym('<', '#1d5c3a')],
+  ['le carr\u00e9', '#7a3e9d', '#f0e5f6', c => svg(h('rect', { x: 18, y: 18, width: 64, height: 64, fill: 'none', stroke: c, strokeWidth: 4 }))],
+  ['sup\u00e9rieur \u00e0', '#1d5c3a', '#e1f0e6', () => sym('>', '#1d5c3a')],
+  ['le cercle', '#7a3e9d', '#f0e5f6', c => svg(h('circle', { cx: 50, cy: 50, r: 34, fill: 'none', stroke: c, strokeWidth: 4 }), pt(50, 50, c))]];
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      eleves: ELEVES.map(([prenom, famille]) => ({ prenom, famille, label: prenom })),
+      tuiles: TUILES.map(([nom, c, fond, f]) => ({ nom, c, fond, dessin: f(c) }))
+    };
+  }
+}
+</script>
+</body>
+</html>

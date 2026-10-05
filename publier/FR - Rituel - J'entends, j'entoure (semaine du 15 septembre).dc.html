@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+doc-page:not(:defined){visibility:hidden}
+body{margin:0}
+a{color:#1d4e89}
+a:hover{color:#14213d}
+</style>
+<script src="./doc-page.js"></script>
+</helmet>
+<doc-page size="a4">
+<sc-for list="{{ jours }}" as="j" hint-placeholder-count="4">
+<section class="page" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:14mm 16mm 14mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#14213d">
+<div style="flex:0 0 auto;display:flex;align-items:flex-start;gap:5mm;padding-bottom:3mm;border-bottom:2.5px solid #1d4e89">
+<div style="flex:1;min-width:0">
+<span style="display:block;font-size:10pt;letter-spacing:0.18em;text-transform:uppercase;color:#8a91a3">{{ j.date }}</span>
+<span style="display:block;margin-top:1mm;font-size:23pt;font-weight:700;line-height:1.05">J'entends, j'entoure</span>
+<span style="display:block;margin-top:1.5mm;font-size:11pt;color:#5a6270">{{ j.objectif }}</span>
+</div>
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:2mm;padding-top:2mm">
+<span style="display:flex;align-items:baseline;gap:2.5mm"><span style="font-size:8.5pt;letter-spacing:0.12em;text-transform:uppercase;color:#8a91a3">Nom</span><span style="display:block;width:42mm;border-bottom:1px solid #b9bdc9;height:6mm"></span></span>
+<span style="font-size:10pt;color:#5a6270;text-align:right">Score : _____ / 12</span>
+</div>
+</div>
+
+<div style="flex:0 0 auto;margin-top:4mm;background:#f2f3f6;border-left:3px solid #1d4e89;padding:3mm 4mm">
+<span style="display:block;font-size:14pt;font-weight:700">Écoutez. Entourez ce que vous entendez.</span>
+<span style="display:block;margin-top:1mm;font-size:10pt;color:#5a6270">Le professeur dit une seule fois, puis répète une fois. Douze fois.</span>
+</div>
+
+<div style="flex:1;min-height:0;margin-top:5mm;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:minmax(0,1fr);gap:4mm">
+<sc-for list="{{ j.items }}" as="it" hint-placeholder-count="12">
+<div style="display:flex;align-items:center;gap:3mm;border:1.2px solid #d8dbe4;border-radius:2mm;padding:2mm 3mm;min-height:0">
+<span style="flex:0 0 auto;width:7mm;height:7mm;border-radius:50%;background:#f2f3f6;color:#5a6270;font-size:9.5pt;display:flex;align-items:center;justify-content:center">{{ it.n }}</span>
+<span style="flex:1;min-width:0;display:flex;align-items:baseline;justify-content:space-around;gap:2mm">
+<sc-for list="{{ it.choix }}" as="c" hint-placeholder-count="3">
+<span style="font-size:21pt;line-height:1.1">{{ c }}</span>
+</sc-for>
+</span>
+</div>
+</sc-for>
+</div>
+
+<div style="flex:0 0 auto;display:flex;justify-content:space-between;gap:5mm;padding-top:3mm;margin-top:4mm;font-size:8.5pt;color:#8a91a3;border-top:1px solid #eceef3"><span>{{ j.note }}</span><span>UPE2A-NSA &mdash; semaine du 15 septembre</span></div>
+</section>
+</sc-for>
+
+<section class="page" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:14mm 16mm 14mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#14213d">
+<div style="flex:0 0 auto;padding-bottom:3mm;border-bottom:2.5px solid #14213d">
+<span style="display:block;font-size:19pt;font-weight:700;line-height:1.1">Pour l'enseignant &mdash; ce qu'il faut dicter</span>
+<span style="display:block;margin-top:1mm;font-size:10pt;color:#5a6270">Cette page ne se distribue pas. Les syllabes sont dans l'ordre des numéros de la feuille.</span>
+</div>
+<div style="flex:1;min-height:0;margin-top:5mm;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:5mm">
+<sc-for list="{{ jours }}" as="j" hint-placeholder-count="4">
+<div style="display:flex;flex-direction:column;min-height:0;border:1.2px solid #d8dbe4;border-radius:2mm;overflow:hidden">
+<span style="flex:0 0 auto;background:#f2f3f6;padding:2.5mm 4mm;font-size:12pt;font-weight:700">{{ j.date }}</span>
+<div style="flex:1;min-height:0;padding:3mm 4mm;display:grid;grid-template-columns:1fr 1fr;gap:1.5mm 4mm;align-content:start">
+<sc-for list="{{ j.items }}" as="it" hint-placeholder-count="12">
+<span style="display:flex;align-items:baseline;gap:2.5mm;font-size:12pt"><span style="color:#8a91a3;font-size:9.5pt">{{ it.n }}</span><span style="font-weight:700">{{ it.reponse }}</span></span>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;margin-top:5mm;display:flex;flex-direction:column;gap:2mm;font-size:10.5pt;line-height:1.5;color:#14213d">
+<span style="font-size:12pt;font-weight:700;color:#1d4e89">Comment ça se passe</span>
+<p style="margin:0">Cinq minutes en début d'heure, tous les jours. Le professeur dit la syllabe deux fois, sans montrer la feuille des yeux. L'élève entoure. On corrige ensemble tout de suite après, à voix haute.</p>
+<p style="margin:0"><strong>Ne sont utilisés</strong> que les sons de la période 1 : a, i, o, u, é, e et l, m, r, s, v, t, p.</p>
+<p style="margin:0">Jeudi, aucune syllabe retournée ne finit par <strong>m</strong> ni par <strong>n</strong> : <em>am</em> se lit [ã] et <em>im</em> se lit [ɛ̃] &mdash; l'élève aurait raison de ne pas entendre la syllabe demandée. Seuls l, r, s, t, v, p sont retournés.</p>
+<p style="margin:0">Si un élève dépasse 10 sur 12 trois jours de suite, il passe au palier « je lis des mots » du livret d'évaluation.</p>
+</div>
+<div style="flex:0 0 auto;padding-top:3mm;margin-top:4mm;font-size:8.5pt;color:#8a91a3;border-top:1px solid #eceef3">UPE2A-NSA &mdash; semaine du 15 septembre</div>
+</section>
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:794,&quot;height&quot;:1123}}">
+/* Rituel quotidien repris de l'exercice du livret d'évaluation (palier 2) qu'elle aime :
+   le professeur dit une syllabe, l'élève entoure. Une feuille par jour, douze items.
+   Sons de la période 1 seulement : a i o u é e / l m r s v t p.
+   La progression change l'axe de difficulté chaque jour :
+     mardi    — même consonne, la voyelle change   (ma mo mu)
+     mercredi — même voyelle, la consonne change   (ma la ra)
+     jeudi    — la syllabe est retournée           (la / al)
+     vendredi — bilan, les trois axes mélangés
+   Aucune syllabe retournée en m ou en n (am, im, om, un) : elle se lirait [ã], [ɛ̃]
+   et l'élève aurait raison de ne pas entendre ce qu'on lui demande (sa remarque du 14/09).
+   La bonne réponse est le 4e élément ; elle n'apparaît que sur la page enseignant. */
+const JOURS = [
+  { date: 'Mardi 15 septembre',
+    objectif: 'La consonne ne change pas. C\'est la voyelle qu\'il faut entendre.',
+    note: 'Jour 1 — même consonne, voyelle différente',
+    items: [
+      ['ma','mo','mu','mo'], ['li','la','lo','li'], ['su','sa','si','sa'],
+      ['té','ta','to','to'], ['ré','ri','ru','ru'], ['vo','va','vu','va'],
+      ['pi','po','pa','po'], ['lu','lé','la','lé'], ['mi','mé','mo','mi'],
+      ['ro','ra','ré','ré'], ['ta','ti','tu','ti'], ['sé','so','su','su']
+    ] },
+  { date: 'Mercredi 16 septembre',
+    objectif: 'La voyelle ne change pas. C\'est la consonne qu\'il faut entendre.',
+    note: 'Jour 2 — même voyelle, consonne différente',
+    items: [
+      ['ma','la','ra','la'], ['si','li','ri','ri'], ['to','po','ro','po'],
+      ['vu','su','lu','su'], ['pé','té','mé','té'], ['la','va','sa','va'],
+      ['mi','pi','ti','ti'], ['ro','so','vo','vo'], ['tu','ru','mu','mu'],
+      ['sé','vé','ré','sé'], ['po','mo','lo','lo'], ['ri','vi','si','vi']
+    ] },
+  { date: 'Jeudi 17 septembre',
+    objectif: 'La syllabe est retournée. Écoutez ce qui vient en premier.',
+    note: 'Jour 3 — la syllabe est retournée',
+    items: [
+      ['la','al','li','al'], ['li','il','la','li'], ['ro','or','ra','or'],
+      ['su','us','so','us'], ['té','ét','ta','ta'], ['pa','ap','po','ap'],
+      ['lo','ol','lu','lo'], ['ri','ir','ro','ir'], ['va','av','vo','av'],
+      ['vu','uv','va','vu'], ['si','is','sa','is'], ['tu','ut','to','ut']
+    ] },
+  { date: 'Vendredi 18 septembre',
+    objectif: 'Bilan de la semaine. Tout est mélangé.',
+    note: 'Jour 4 — bilan de la semaine',
+    items: [
+      ['ro','ra','ar','ra'], ['li','ri','il','ri'], ['sa','su','as','as'],
+      ['to','po','ot','po'], ['vé','vi','év','vi'], ['ru','ro','ur','ro'],
+      ['pa','la','ap','la'], ['té','ti','ét','té'], ['so','vo','os','os'],
+      ['ta','tu','at','tu'], ['lu','ru','ul','ul'], ['pi','ti','ip','pi']
+    ] }
+];
+
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      jours: JOURS.map(j => ({
+        date: j.date, objectif: j.objectif, note: j.note,
+        items: j.items.map((it, i) => ({ n: i + 1, choix: it.slice(0, 3), reponse: it[3] }))
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>

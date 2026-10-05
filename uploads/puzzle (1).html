@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Puzzle à retourner</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+  :root {
+    --bg: #f6f4ee;
+    --paper: #ffffff;
+    --ink: #1b1a17;
+    --muted: #6b675e;
+    --line: #d8d3c6;
+    --tile: #2b3a55;
+    --tile-ink: #f6f4ee;
+    --accent: #b8472a;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #17181c; --paper: #22242a; --ink: #ece9e1; --muted: #a39e93; --line: #3a3d45;
+      --tile: #3b4d70; --tile-ink: #f6f4ee; --accent: #e0714f;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #17181c; --paper: #22242a; --ink: #ece9e1; --muted: #a39e93; --line: #3a3d45;
+    --tile: #3b4d70; --tile-ink: #f6f4ee; --accent: #e0714f;
+  }
+  html, body { height: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "Atkinson Hyperlegible", "Segoe UI", Arial, sans-serif;
+    padding-inline: 16px; padding-block: 12px;
+    display: flex; flex-direction: column; gap: 12px; box-sizing: border-box;
+  }
+  header { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; }
+  h1 { font-size: 1.1rem; margin: 0; font-weight: 700; letter-spacing: .01em; }
+  .controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-left: auto; }
+  button, label.btn, select {
+    font: inherit; font-size: .95rem; color: var(--ink); background: var(--paper);
+    border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; cursor: pointer;
+  }
+  button:hover, label.btn:hover { border-color: var(--ink); }
+  button:focus-visible, label.btn:focus-within, select:focus-visible, .tile:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  input[type=file] { position: absolute; width: 1px; height: 1px; opacity: 0; }
+  .stage { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; }
+  .board {
+    position: relative; width: min(100%, calc((100dvh - 120px) * var(--ratio)));
+    aspect-ratio: var(--ratio); max-width: 100%;
+    background: var(--paper) center / cover no-repeat; background-image: var(--img);
+    border: 1px solid var(--line); border-radius: 6px; overflow: hidden;
+    display: grid; grid-template-columns: repeat(var(--cols), 1fr);
+  }
+  .tile {
+    appearance: none; border: 0; padding: 0; margin: 0; background: transparent;
+    perspective: 900px; cursor: pointer; position: relative;
+  }
+  .tile .face {
+    position: absolute; inset: 0; display: grid; place-items: center;
+    background: var(--tile); color: var(--tile-ink);
+    font-size: clamp(0.9rem, calc(24vmin / var(--cols)), 5rem); font-weight: 700; font-variant-numeric: tabular-nums;
+    box-shadow: inset 0 0 0 1.5px var(--bg);
+    transition: transform .45s cubic-bezier(.4,0,.2,1), opacity .2s linear .3s;
+    transform-origin: center; backface-visibility: hidden;
+  }
+  .tile.open .face { transform: rotateY(180deg); opacity: 0; pointer-events: none; }
+  @media (prefers-reduced-motion: reduce) { .tile .face { transition: none; } }
+  .hint { color: var(--muted); font-size: .9rem; margin: 0; }
+  .found { display: none; }
+  .board.done .found {
+    display: block; position: absolute; inset: auto 0 0 0; text-align: center; padding: 6px;
+    background: var(--paper); color: var(--ink); font-weight: 700; opacity: .9;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Puzzle à retourner</h1>
+  <p class="hint">Un élève dit un nombre, on retourne la case. Qui devine l'image ?</p>
+  <div class="controls">
+    <select id="count" aria-label="Nombre de cases">
+      <option value="6">6 cases</option>
+      <option value="9">9 cases</option>
+      <option value="12" selected>12 cases</option>
+      <option value="16">16 cases</option>
+      <option value="20">20 cases</option>
+      <option value="30">30 cases</option>
+      <option value="50">50 cases</option>
+      <option value="100">100 cases</option>
+    </select>
+    <button id="shuffle" type="button">Mélanger les nombres</button>
+    <button id="reset" type="button">Tout cacher</button>
+    <button id="reveal" type="button">Tout montrer</button>
+    <label class="btn" for="photo">Choisir une photo<input id="photo" type="file" accept="image/*"></label>
+  </div>
+</header>
+
+<div class="stage">
+  <div class="board" id="board" style="--cols:4;--ratio:1.83"></div>
+</div>
+
+<script>
+  const DEFAULT_IMG = "paris.jpg"; // photo placée à côté de ce fichier
+  const DEFAULT_RATIO = 16 / 9; // remplacé par le vrai format dès que l'image est chargée
+  const board = document.getElementById('board');
+  const countSel = document.getElementById('count');
+  let shuffled = false;
+  let imgSrc = DEFAULT_IMG, ratio = DEFAULT_RATIO;
+
+  try {
+    const saved = localStorage.getItem('puzzle-photo');
+    const savedRatio = parseFloat(localStorage.getItem('puzzle-ratio'));
+    if (saved && savedRatio > 0) { imgSrc = saved; ratio = savedRatio; }
+  } catch (e) {}
+
+  const layouts = { 6: [3, 2], 9: [3, 3], 12: [4, 3], 16: [4, 4], 20: [5, 4], 30: [6, 5], 50: [10, 5], 100: [10, 10] };
+
+  function build() {
+    const n = +countSel.value;
+    const [cols] = layouts[n];
+    board.style.setProperty('--cols', cols);
+    board.style.setProperty('--ratio', ratio);
+    board.style.setProperty('--img', `url("${imgSrc}")`);
+    board.classList.remove('done');
+    let nums = Array.from({ length: n }, (_, i) => i + 1);
+    if (shuffled) for (let i = nums.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [nums[i], nums[j]] = [nums[j], nums[i]]; }
+    board.innerHTML = '';
+    nums.forEach(k => {
+      const t = document.createElement('button');
+      t.className = 'tile'; t.type = 'button'; t.dataset.n = k;
+      t.setAttribute('aria-label', `Case ${k}`);
+      t.innerHTML = `<span class="face">${k}</span>`;
+      t.addEventListener('click', () => { t.classList.add('open'); check(); });
+      board.appendChild(t);
+    });
+  }
+  function check() {
+    if ([...board.querySelectorAll('.tile')].every(t => t.classList.contains('open'))) board.classList.add('done');
+  }
+  countSel.addEventListener('change', build);
+  document.getElementById('shuffle').addEventListener('click', () => { shuffled = !shuffled; build(); });
+  document.getElementById('reset').addEventListener('click', build);
+  document.getElementById('reveal').addEventListener('click', () => { board.querySelectorAll('.tile').forEach(t => t.classList.add('open')); check(); });
+
+  // Type a number on the keyboard then Enter (or wait) to flip that tile — handy at the board.
+  let typed = '', timer;
+  document.addEventListener('keydown', e => {
+    if (e.target.tagName === 'SELECT') return;
+    if (/^\d$/.test(e.key)) { typed += e.key; clearTimeout(timer); timer = setTimeout(flipTyped, 700); }
+    else if (e.key === 'Enter') { clearTimeout(timer); flipTyped(); }
+  });
+  function flipTyped() {
+    const t = board.querySelector(`.tile[data-n="${+typed}"]`);
+    if (t) { t.classList.add('open'); check(); }
+    typed = '';
+  }
+
+  document.getElementById('photo').addEventListener('change', e => {
+    const f = e.target.files[0]; if (!f) return;
+    const r = new FileReader();
+    r.onload = () => {
+      const im = new Image();
+      im.onload = () => {
+        // downscale so the photo stays light and can be remembered on this device
+        const max = 1600, s = Math.min(1, max / Math.max(im.width, im.height));
+        const c = document.createElement('canvas'); c.width = im.width * s; c.height = im.height * s;
+        c.getContext('2d').drawImage(im, 0, 0, c.width, c.height);
+        imgSrc = c.toDataURL('image/jpeg', 0.82); ratio = c.width / c.height;
+        try { localStorage.setItem('puzzle-photo', imgSrc); localStorage.setItem('puzzle-ratio', ratio); } catch (err) {}
+        build();
+      };
+      im.src = r.result;
+    };
+    r.readAsDataURL(f);
+  });
+
+  build();
+  const probe = new Image();
+  probe.onload = () => { if (imgSrc === DEFAULT_IMG) { ratio = probe.width / probe.height; build(); } };
+  probe.src = DEFAULT_IMG;
+</script>
+</body>
+</html>

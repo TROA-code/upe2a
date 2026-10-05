@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#1d5c3a}
+a:hover{color:#123d26}
+</style>
+<script src="./doc-page.js"></script>
+<script src="./top-chrono-series.js"></script>
+</helmet>
+<doc-page size="a4">
+<sc-if value="{{ pret }}" hint-placeholder-val="{{ true }}">
+<section class="page" data-screen-label="Page de garde" style="background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Helvetica,'Helvetica Neue',Arial,sans-serif;color:#1a1a1a;gap:8mm">
+<div style="flex:0 0 auto;background:#1a1a1a;color:#fff;border-radius:4mm;padding:11mm 12mm 10mm;display:flex;flex-direction:column;gap:4mm">
+<span style="font-size:13pt;letter-spacing:0.12em">Classe UPE2A (NSA) · Mathématiques</span>
+<span style="font-size:60pt;font-weight:700;line-height:0.95;letter-spacing:-0.01em">TOP CHRONO</span>
+<div style="display:flex;align-items:center;gap:5mm;flex-wrap:wrap">
+<span style="font-size:19pt;font-weight:700">Livret {{ cover.num }} · {{ cover.titre }}</span>
+<span style="display:flex;gap:2.5mm"><sc-for list="{{ cover.ronds }}" as="r" hint-placeholder-count="1"><span style="width:6mm;height:6mm;border-radius:50%;background:#fff;display:block"></span></sc-for></span>
+</div>
+</div>
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:10mm">
+<span style="font-size:110pt;line-height:1">⏱</span>
+<div style="display:flex;flex-direction:column;gap:3mm">
+<sc-for list="{{ cover.fiches }}" as="f" hint-placeholder-count="5">
+<div style="display:flex;gap:4mm;font-size:14pt;align-items:baseline"><b style="width:15mm;flex:0 0 auto">n° {{ f.n }}</b><span>{{ f.objectif }}</span></div>
+</sc-for>
+</div>
+</div>
+<div style="flex:0 0 auto;border:3px solid #1a1a1a;border-radius:4mm;padding:4mm 10mm 8mm;display:flex;flex-direction:column;gap:2mm">
+<div style="display:flex;align-items:flex-end;gap:4mm;font-size:22pt;font-weight:700;height:16mm">Nom :<span style="flex:1;border-bottom:2px solid #1a1a1a;display:block"></span></div>
+<div style="display:flex;align-items:flex-end;gap:4mm;font-size:22pt;font-weight:700;height:16mm">Prénom :<span style="flex:1;border-bottom:2px solid #1a1a1a;display:block"></span></div>
+<div style="display:flex;align-items:flex-end;gap:4mm;font-size:22pt;font-weight:700;height:16mm">Classe :<span style="flex:1;border-bottom:2px solid #1a1a1a;display:block"></span></div>
+</div>
+</section>
+</sc-if>
+<sc-for list="{{ pages }}" as="pg" hint-placeholder-count="2">
+<section class="page" data-screen-label="{{ pg.label }}" style="background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Helvetica,'Helvetica Neue',Arial,sans-serif;color:#14213d;gap:8mm">
+<sc-for list="{{ pg.series }}" as="s" hint-placeholder-count="2">
+<div style="flex:1;min-height:0;border:2.5px solid #1a1a1a;border-radius:4mm;display:flex;flex-direction:column;overflow:hidden">
+<div style="flex:0 0 auto;background:#1a1a1a;color:#fff;padding:3mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:4mm">
+<span style="display:flex;align-items:center;gap:3mm;font-size:18pt;font-weight:700">Top Chrono n° {{ s.n }}<span style="display:flex;gap:1.5mm"><sc-for list="{{ s.ronds }}" as="r" hint-placeholder-count="1"><span style="width:4mm;height:4mm;border-radius:50%;background:#fff;display:block"></span></sc-for></span></span>
+<span style="display:flex;align-items:center;gap:2mm;font-size:13pt;font-weight:700">⏱ Mon temps :<span style="width:26mm;height:8mm;background:#fff;border-radius:1.5mm;display:block"></span></span>
+</div>
+<div style="flex:0 0 auto;padding:2.5mm 5mm 0;font-size:12pt;font-style:italic;color:#4a5262">{{ s.objectif }}</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:{{ s.colonnes }};grid-auto-rows:1fr;column-gap:10mm;padding:2mm 6mm 4mm;align-items:center">
+<sc-for list="{{ s.items }}" as="it" hint-placeholder-count="10">
+<div style="display:flex;align-items:center;gap:2.5mm;font-size:19pt;font-weight:700;white-space:nowrap">
+<sc-for list="{{ it }}" as="k" hint-placeholder-count="3">
+<sc-if value="{{ k.blank }}" hint-placeholder-val="{{ false }}"><span style="width:15mm;height:11mm;box-sizing:border-box;border:2px solid #8a91a3;border-radius:2mm;display:block;flex:0 0 auto"></span></sc-if>
+<sc-if value="{{ k.texte }}" hint-placeholder-val="{{ true }}"><span>{{ k.t }}</span></sc-if>
+</sc-for>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</section>
+</sc-for>
+<sc-for list="{{ corrPages }}" as="pg" hint-placeholder-count="1">
+<section class="page" data-screen-label="{{ pg.label }}" style="background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Helvetica,'Helvetica Neue',Arial,sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto;font-size:16pt;font-weight:700;letter-spacing:0.1em;border-bottom:2px solid #1a1a1a;padding-bottom:2mm">CORRECTION</div>
+<sc-for list="{{ pg.series }}" as="s" hint-placeholder-count="4">
+<div style="flex:1 1 0;min-height:0;border:1.5px solid #1a1a1a;border-radius:3mm;display:flex;flex-direction:column;overflow:hidden;box-sizing:border-box">
+<div style="flex:0 0 auto;border-bottom:1.5px solid #1a1a1a;padding:1.5mm 4mm;display:flex;align-items:baseline;gap:4mm">
+<span style="font-size:13pt;font-weight:700;white-space:nowrap">n° {{ s.n }}</span>
+<span style="font-size:12pt;font-style:italic;color:#4a5262">{{ s.objectif }}</span>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:{{ s.colonnes }};grid-auto-rows:1fr;column-gap:10mm;padding:1mm 5mm;align-items:center">
+<sc-for list="{{ s.corr }}" as="it" hint-placeholder-count="10">
+<div style="display:flex;align-items:center;gap:2mm;font-size:12pt;white-space:nowrap">
+<sc-for list="{{ it }}" as="k" hint-placeholder-count="3">
+<sc-if value="{{ k.rep }}" hint-placeholder-val="{{ false }}"><b style="font-size:13pt;text-decoration:underline">{{ k.t }}</b></sc-if>
+<sc-if value="{{ k.texte }}" hint-placeholder-val="{{ true }}"><span>{{ k.t }}</span></sc-if>
+</sc-for>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</section>
+</sc-for>
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* Livret n° LIVRET du Top Chrono. Les séries vivent dans top-chrono-series.js (source unique
+   des 8 livrets) : ne rien recopier ici. */
+const LIVRET = 8;
+class Component extends DCLogic {
+  componentDidMount() {
+    if (!window.TOP_CHRONO) this.t = setInterval(() => { if (window.TOP_CHRONO) { clearInterval(this.t); this.forceUpdate(); } }, 100);
+  }
+  componentWillUnmount() { clearInterval(this.t); }
+  renderVals() {
+    const T = window.TOP_CHRONO;
+    return T ? T.livret(LIVRET) : { pret: false, cover: { ronds: [], fiches: [] }, pages: [], corrPages: [] };
+  }
+}
+</script>
+</body>
+</html>

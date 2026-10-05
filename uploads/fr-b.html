@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="fr" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Positionnement Français CASNAV - Compréhension C4</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: { extend: {} }
+        }
+    </script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white !important; color: black !important; }
+            .print-break-inside-avoid { break-inside: avoid; }
+            .shadow-sm, .shadow-lg { box-shadow: none !important; border: 1px solid #e2e8f0 !important; }
+            .print-bg-gray { background-color: #f8fafc !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            #printCommentsDisplay { white-space: pre-wrap; font-family: sans-serif; }
+            
+            /* En impression, on élargit la barre latérale et on masque la saisie pour ne garder que le bilan */
+            aside { grid-column: span 3 / span 3 !important; }
+            #studentFormArea { display: none; }
+        }
+
+        /* Styling pour les labels cliquables (checkbox/radio) */
+        .check-card { cursor: pointer; transition: all 0.2s; }
+        .check-card input:checked + div {
+            background-color: #eff6ff; border-color: #3b82f6; color: #1e40af;
+        }
+        .dark .check-card input:checked + div {
+            background-color: #1e3a8a; border-color: #3b82f6; color: #93c5fd;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 min-h-screen pb-12 flex flex-col">
+
+    <!-- NAVBAR & TABS -->
+    <nav class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 sticky top-0 z-50 no-print">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex items-center justify-between h-14">
+                <div class="flex items-center gap-2 font-bold text-blue-600 dark:text-blue-400">
+                    <i data-lucide="book-open" class="w-5 h-5"></i>
+                    <span class="hidden sm:inline">CASNAV Profiler - FLS</span>
+                </div>
+                
+                <div class="flex items-center gap-2 sm:gap-4">
+                    <div class="flex bg-slate-100 dark:bg-slate-700 rounded-lg p-1">
+                        <button onclick="exportData('csv')" class="px-2 py-1 text-xs font-semibold rounded hover:bg-white dark:hover:bg-slate-600 shadow-sm transition-all">CSV</button>
+                        <button onclick="exportData('xml')" class="px-2 py-1 text-xs font-semibold rounded hover:bg-white dark:hover:bg-slate-600 shadow-sm transition-all">XML</button>
+                    </div>
+                    <button onclick="toggleDarkMode()" class="p-2 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white rounded-full hover:bg-slate-100 dark:hover:bg-slate-700 transition-all">
+                        <i data-lucide="moon" id="themeIcon" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="flex items-center gap-2 pb-2 overflow-x-auto hide-scrollbar" id="tabsContainer"></div>
+        </div>
+    </nav>
+
+    <!-- ACCUEIL VIEW -->
+    <div id="homeView" class="max-w-4xl mx-auto w-full px-4 pt-10 space-y-8 flex-grow">
+        <div class="text-center space-y-4 mb-10">
+            <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="book-text" class="w-8 h-8"></i>
+            </div>
+            <h1 class="text-3xl font-bold">Évaluation Français - Compréhension C4</h1>
+            <p class="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">
+                Test de lecture / compréhension (Fin de 5ème) pour élèves allophones arrivants. 
+                Saisissez <strong>les réponses de l'élève</strong>, l'outil déduit automatiquement le palier d'acquisition selon le barème officiel.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Mode d'emploi -->
+            <div class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700">
+                <h2 class="font-bold text-lg mb-4 flex items-center gap-2">
+                    <i data-lucide="info" class="text-blue-500 w-5 h-5"></i> Principe de notation
+                </h2>
+                <ul class="space-y-4 text-sm text-slate-600 dark:text-slate-300">
+                    <li class="flex items-start gap-3">
+                        <div class="w-6 h-6 rounded bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">1</div>
+                        <p><strong>Saisie Miroir (Multilingue) :</strong> Reproduisez ce que l'élève a coché. Changez la langue de réponse pour afficher les propositions en Portugais ou Français.</p>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <div class="w-6 h-6 rounded bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">2</div>
+                        <p><strong>Moteur de règles CASNAV :</strong> Le logiciel applique les règles complexes du corrigé (avec pénalités pour les mauvaises réponses) de manière transparente.</p>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <div class="w-6 h-6 rounded bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">3</div>
+                        <p><strong>Bilan Synthétique :</strong> Une analyse des capacités de repérage, vocabulaire et inférence est générée, prête à rejoindre le dossier d'inclusion.</p>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Documents -->
+            <div class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 flex flex-col">
+                <h2 class="font-bold text-lg mb-4 flex items-center gap-2">
+                    <i data-lucide="download" class="text-emerald-500 w-5 h-5"></i> Téléchargements (PDF)
+                </h2>
+                <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">Récupérez les supports de test vierges (adaptés aux différentes langues) et le corrigé officiel.</p>
+                
+                <div class="flex-grow flex flex-col justify-center space-y-4 bg-slate-50 dark:bg-slate-900/50 p-4 rounded-lg border border-slate-100 dark:border-slate-700">
+                    <div class="flex flex-col gap-2">
+                        <label class="text-xs font-bold text-slate-500 uppercase">Sélectionnez le document :</label>
+                        <select id="docSelector" class="bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-emerald-500 outline-none w-full">
+                            <option value="test_fr">Test vierge (Français) - Support de base</option>
+                            <option value="test_pt">Test vierge (Portugais) - Traduction EANA</option>
+                            <option value="corrige">Corrigé officiel CASNAV</option>
+                        </select>
+                    </div>
+                    
+                    <button onclick="downloadDocument()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-2.5 rounded-lg flex justify-center items-center gap-2 transition-colors">
+                        <i data-lucide="download-cloud" class="w-4 h-4"></i>
+                        Télécharger le document
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- STUDENT VIEW -->
+    <div id="studentView" class="max-w-7xl mx-auto w-full px-4 pt-6 space-y-4 sm:space-y-6 flex-grow hidden">
+        
+        <!-- HEADER ELEVE -->
+        <header class="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 flex flex-col gap-4">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 w-full">
+                <div class="space-y-1 print:hidden">
+                    <h1 class="text-xl font-bold flex items-center gap-2">
+                        <i data-lucide="user" class="text-blue-500 w-5 h-5"></i> Dossier Élève
+                    </h1>
+                    <p class="text-slate-500 dark:text-slate-400 text-xs italic">Saisie des réponses de l'élève (C4 - Français)</p>
+                </div>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full no-print">
+                    <div class="flex flex-col">
+                        <label class="text-[10px] font-bold text-slate-400 uppercase mb-1">Nom / Prénom</label>
+                        <input type="text" id="studentName" oninput="updateCurrentStudent('name', this.value)" class="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded-lg px-3 py-1.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                    </div>
+                    <div class="flex flex-col">
+                        <label class="text-[10px] font-bold text-slate-400 uppercase mb-1">Date du test</label>
+                        <input type="date" id="testDate" onchange="updateCurrentStudent('date', this.value)" class="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded-lg px-3 py-1.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                    </div>
+                    <div class="flex flex-col">
+                        <label class="text-[10px] font-bold text-slate-400 uppercase mb-1">Langue des réponses</label>
+                        <select id="studentLanguage" onchange="updateCurrentStudent('language', this.value)" class="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded-lg px-3 py-1.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none cursor-pointer">
+                            <option value="fr">Français</option>
+                            <option value="pt">Portugais</option>
+                        </select>
+                    </div>
+                    <div class="flex flex-col">
+                        <label class="text-[10px] font-bold text-slate-400 uppercase mb-1">Infos scolarité</label>
+                        <input type="text" id="studentInfo" oninput="updateCurrentStudent('info', this.value)" placeholder="Ex: Lusophone, scolarisé" class="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded-lg px-3 py-1.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Print only header -->
+            <div class="hidden print:block text-center w-full pb-4 border-b border-slate-200 mb-2">
+                <h1 class="text-2xl font-bold mb-3 uppercase tracking-wide">Bilan de Compréhension Écrite (C4)</h1>
+                <div class="flex justify-center items-center gap-8 text-lg bg-slate-50 p-3 rounded-lg border border-slate-200 text-slate-900">
+                    <p>Élève : <span class="font-bold text-blue-700" id="printNameDisplay"></span></p>
+                    <p>Date : <span class="font-bold" id="printDateDisplay"></span></p>
+                    <p class="text-sm italic border-l border-slate-300 pl-4" id="printInfoDisplay"></p>
+                </div>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+            
+            <!-- FORMULAIRE DE SAISIE DES EXERCICES -->
+            <section id="studentFormArea" class="lg:col-span-2 space-y-4 print-break-inside-avoid">
+                <div class="flex justify-between items-center mb-2">
+                    <h2 class="font-bold text-lg text-slate-700 dark:text-slate-200 flex items-center gap-2">
+                        <i data-lucide="edit-3" class="w-5 h-5 text-blue-500"></i> Copie de l'élève
+                    </h2>
+                    <button onclick="resetCurrentAnswers()" class="text-xs uppercase font-bold text-slate-400 hover:text-red-500 transition-colors flex items-center gap-1">
+                        <i data-lucide="rotate-ccw" class="w-3 h-3"></i> RAZ
+                    </button>
+                </div>
+                
+                <div id="exercisesContainer" class="space-y-6">
+                    <!-- Javascript will inject interactive exercise cards here -->
+                </div>
+            </section>
+
+            <!-- SIDEBAR: STATS, COMMENTS & REPORT -->
+            <aside class="space-y-4 sm:space-y-6">
+
+                <!-- PROGRESS BARS (Domaines) -->
+                <div class="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 print-break-inside-avoid">
+                    <div class="flex items-center gap-2 mb-4">
+                        <i data-lucide="bar-chart-2" class="text-emerald-500 w-4 h-4"></i>
+                        <h2 class="font-bold text-sm">Acquisition par domaine</h2>
+                    </div>
+                    <div id="statsContainer" class="space-y-3">
+                        <!-- JS Inject -->
+                    </div>
+                </div>
+
+                <!-- COMMENTAIRES ENSEIGNANT -->
+                <div class="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 print-break-inside-avoid no-print">
+                    <div class="flex items-center gap-2 mb-3">
+                        <i data-lucide="message-square" class="text-orange-500 w-4 h-4"></i>
+                        <h2 class="font-bold text-sm">Commentaires libres</h2>
+                    </div>
+                    <textarea 
+                        id="teacherComments" 
+                        oninput="updateCurrentStudent('comments', this.value)" 
+                        placeholder="Attitude face à l'écrit, déchiffrage, temps de réalisation, besoin de consignes orales..."
+                        class="w-full h-24 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none transition-all resize-none"></textarea>
+                </div>
+
+                <!-- COMPTE RENDU SYNTHETIQUE -->
+                <div class="bg-blue-900 dark:bg-slate-950 text-white rounded-xl shadow-lg border border-blue-800 dark:border-slate-800 overflow-hidden flex flex-col print-break-inside-avoid">
+                    <div class="p-3 border-b border-blue-800/50 dark:border-slate-800 flex justify-between items-center no-print">
+                        <h3 class="font-bold text-xs flex items-center gap-2">
+                            <i data-lucide="file-text" class="w-4 h-4 text-blue-300"></i>
+                            Bilan Pédagogique (FLS)
+                        </h3>
+                        <button onclick="copyReport()" class="p-1 hover:bg-blue-800 dark:hover:bg-slate-800 rounded-md transition-all" title="Copier le texte">
+                            <i data-lucide="copy" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                    <div class="p-4 bg-blue-950/40 dark:bg-slate-900/50 flex-grow">
+                        <div id="reportArea" class="text-sm leading-relaxed font-sans opacity-90 whitespace-pre-wrap text-justify"></div>
+                    </div>
+                    <div class="p-3 bg-blue-900 dark:bg-slate-950 grid grid-cols-1 gap-2 no-print">
+                        <button onclick="window.print()" class="bg-blue-600 hover:bg-blue-500 text-white text-xs py-2 px-3 rounded-lg flex items-center justify-center gap-2 transition-all">
+                            <i data-lucide="printer" class="w-3 h-3"></i> Imprimer le Dossier
+                        </button>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- App Logic -->
+    <script>
+        // --- DATA & RULES ENGINE MULTILINGUE ---
+        
+        const EXERCISES_CONF = [
+            {
+                id: 'ex1', title: 'Ex. 1 - Indices textuels (Chien)', group: 'reperage',
+                desc: 'Cochez les propositions que l\'élève a entourées :',
+                type: 'checkboxes',
+                options: [
+                    { id: 'opt1', labels: { fr: 'Buck avait accepté la corde avec calme', pt: 'Buck tinha aceitado a corda com calma' } },
+                    { id: 'opt2', labels: { fr: 'Il grogna de façon menaçante', pt: 'Ele rosnou de forma ameaçadora' } },
+                    { id: 'opt3', labels: { fr: 'Jamais il n\'avait été aussi furieux', pt: 'Nunca na sua vida tinha ficado tão furioso' } },
+                    { id: 'opt4', labels: { fr: 'Sa langue pendait', pt: 'A sua língua pendia' } },
+                    { id: 'opt5', labels: { fr: 'Pensant, dans son orgueil...', pt: 'Acreditava, no seu orgulho...' } },
+                    { id: 'opt6', labels: { fr: 'Ses yeux devinrent vitreux', pt: 'Os seus olhos ficaram vidrados' } }
+                ],
+                calcScore: (ansObj) => {
+                    if(Object.keys(ansObj).length === 0) return 'NE';
+                    
+                    let correctCount = 0;
+                    let wrongCount = 0;
+                    
+                    // Bonnes réponses (+1)
+                    if(ansObj['opt1']) correctCount++;
+                    if(ansObj['opt2']) correctCount++;
+                    if(ansObj['opt4']) correctCount++;
+                    
+                    // Mauvaises réponses (-1)
+                    if(ansObj['opt3']) wrongCount++;
+                    if(ansObj['opt5']) wrongCount++;
+                    if(ansObj['opt6']) wrongCount++;
+                    
+                    let netScore = correctCount - wrongCount;
+                    
+                    if(netScore === 3) return '++';
+                    if(netScore === 2) return '+';
+                    if(netScore === 1) return '-';
+                    return '--';
+                }
+            },
+            {
+                id: 'ex2', title: 'Ex. 2 - Caractérisation (L\'homme)', group: 'vocabulaire',
+                desc: 'Cochez les mots que l\'élève a entourés :',
+                type: 'checkboxes',
+                options: [
+                    { id: 'aimant', labels: { fr: 'Aimant', pt: 'Afetuoso' } }, 
+                    { id: 'doux', labels: { fr: 'Doux', pt: 'Doce' } },
+                    { id: 'cruel', labels: { fr: 'Cruel', pt: 'Cruel' } }, 
+                    { id: 'fort', labels: { fr: 'Fort', pt: 'Forte' } },
+                    { id: 'soumis', labels: { fr: 'Soumis', pt: 'Submisso' } }, 
+                    { id: 'patient', labels: { fr: 'Patient', pt: 'Paciente' } },
+                    { id: 'habile', labels: { fr: 'Habile', pt: 'Hábil' } }
+                ],
+                calcScore: (ansObj) => {
+                    if(Object.keys(ansObj).length === 0) return 'NE';
+                    
+                    let correctCount = 0;
+                    let wrongCount = 0;
+
+                    // Bonnes réponses (+1)
+                    if(ansObj['cruel']) correctCount++;
+                    if(ansObj['fort']) correctCount++;
+                    if(ansObj['habile']) correctCount++;
+
+                    // Mauvaises réponses (-1)
+                    if(ansObj['aimant']) wrongCount++;
+                    if(ansObj['doux']) wrongCount++;
+                    if(ansObj['soumis']) wrongCount++;
+                    if(ansObj['patient']) wrongCount++;
+
+                    let netScore = correctCount - wrongCount;
+
+                    if(netScore === 3) return '++';
+                    if(netScore === 2) return '+';
+                    if(netScore === 1) return '-';
+                    return '--';
+                }
+            },
+            {
+                id: 'ex3', title: 'Ex. 3 - Vrai ou Faux', group: 'reperage',
+                desc: 'Saisissez les réponses de l\'élève (laissez vide si non répondu) :',
+                type: 'selects',
+                questions: [
+                    { id: 'q1', text: 'Buck a l\'habitude d\'être maltraité', correct: 'F' },
+                    { id: 'q2', text: 'Buck ne comprend pas ce qu\'il se passe', correct: 'V' },
+                    { id: 'q3', text: 'Buck se pensait supérieur aux autres', correct: 'V' }
+                ],
+                opts: {
+                    fr: [{v:'', l:'---'}, {v:'V', l:'Vrai'}, {v:'F', l:'Faux'}],
+                    pt: [{v:'', l:'---'}, {v:'V', l:'Verdadeiro'}, {v:'F', l:'Falso'}]
+                },
+                calcScore: (ansObj) => {
+                    let answered = Object.values(ansObj).filter(v => v !== '').length;
+                    if(answered === 0) return 'NE';
+                    let correctCount = 0;
+                    if(ansObj['q1'] === 'F') correctCount++;
+                    if(ansObj['q2'] === 'V') correctCount++;
+                    if(ansObj['q3'] === 'V') correctCount++;
+
+                    if(correctCount === 3) return '++';
+                    if(correctCount === 2) return '+';
+                    if(correctCount === 1) return '-';
+                    return '--';
+                }
+            },
+            {
+                id: 'ex4', title: 'Ex. 4 - Champs lexicaux', group: 'vocabulaire',
+                desc: 'Saisissez la correspondance choisie par l\'élève :',
+                type: 'selects',
+                questions: [
+                    { id: 'q1', text: 'La douleur', correct: 'sensation' },
+                    { id: 'q2', text: 'Le grognement', correct: 'reaction' },
+                    { id: 'q3', text: 'La colère', correct: 'sentiment' }
+                ],
+                opts: {
+                    fr: [{v:'', l:'---'}, {v:'sentiment', l:'Un sentiment'}, {v:'reaction', l:'Une réaction'}, {v:'sensation', l:'Une sensation'}],
+                    pt: [{v:'', l:'---'}, {v:'sentiment', l:'Um sentimento'}, {v:'reaction', l:'Uma reação'}, {v:'sensation', l:'Uma sensação'}]
+                },
+                calcScore: (ansObj) => {
+                    let answered = Object.values(ansObj).filter(v => v !== '').length;
+                    if(answered === 0) return 'NE';
+                    let correctCount = 0;
+                    if(ansObj['q1'] === 'sensation') correctCount++;
+                    if(ansObj['q2'] === 'reaction') correctCount++;
+                    if(ansObj['q3'] === 'sentiment') correctCount++;
+
+                    if(correctCount === 3) return '++';
+                    if(correctCount === 2) return '+';
+                    if(correctCount === 1) return '-';
+                    return '--';
+                }
+            },
+            {
+                id: 'ex5', title: 'Ex. 5 - Chronologie', group: 'comprehension',
+                desc: 'Saisissez l\'ordre (1 à 4) donné par l\'élève :',
+                type: 'selects',
+                questions: [
+                    { id: 'q1', text: 'Buck se sent en danger', correct: '2' },
+                    { id: 'q2', text: 'Buck s\'évanouit', correct: '4' },
+                    { id: 'q3', text: 'Buck se laisse faire', correct: '1' },
+                    { id: 'q4', text: 'Buck résiste', correct: '3' }
+                ],
+                opts: {
+                    fr: [{v:'', l:'-'}, {v:'1', l:'1'}, {v:'2', l:'2'}, {v:'3', l:'3'}, {v:'4', l:'4'}],
+                    pt: [{v:'', l:'-'}, {v:'1', l:'1'}, {v:'2', l:'2'}, {v:'3', l:'3'}, {v:'4', l:'4'}]
+                },
+                calcScore: (ansObj) => {
+                    let answered = Object.values(ansObj).filter(v => v !== '').length;
+                    if(answered === 0) return 'NE';
+                    let correctCount = 0;
+                    if(ansObj['q1'] === '2') correctCount++;
+                    if(ansObj['q2'] === '4') correctCount++;
+                    if(ansObj['q3'] === '1') correctCount++;
+                    if(ansObj['q4'] === '3') correctCount++;
+
+                    if(correctCount === 4) return '++';
+                    if(correctCount >= 2) return '+';
+                    return '--'; 
+                }
+            },
+            {
+                id: 'ex6', title: 'Ex. 6 - Utilité de la corde', group: 'inference',
+                desc: 'Cochez les propositions entourées par l\'élève :',
+                type: 'checkboxes',
+                options: [
+                    { id: 'frapper', labels: { fr: 'À frapper Buck', pt: 'Para bater no Buck' } },
+                    { id: 'promener', labels: { fr: 'À emmener Buck en promenade', pt: 'Para levar o Buck a passear' } },
+                    { id: 'empecher', labels: { fr: 'À l\'empêcher de bouger', pt: 'Para o impedir de se mover' } },
+                    { id: 'etrangler', labels: { fr: 'À l\'étrangler', pt: 'Para o estrangular' } }
+                ],
+                calcScore: (ansObj) => {
+                    if(Object.keys(ansObj).length === 0) return 'NE';
+                    let etrangler = ansObj['etrangler'];
+                    let empecher = ansObj['empecher'];
+                    let wrong = ansObj['frapper'] || ansObj['promener'];
+                    
+                    if(etrangler && !empecher && !wrong) return '++';
+                    if(etrangler && empecher && !wrong) return '+';
+                    return '--';
+                }
+            }
+        ];
+
+        const DOMAINS = [
+            { id: "reperage", label: "Repérage d'informations (Ex 1, 3)" },
+            { id: "vocabulaire", label: "Vocabulaire et Lexique (Ex 2, 4)" },
+            { id: "comprehension", label: "Compréhension globale (Ex 5)" },
+            { id: "inference", label: "Inférence (Ex 6)" }
+        ];
+
+        const COMMENT_BANK = {
+            intro: {
+                high: "Le test de lecture révèle un excellent niveau de compréhension écrite. L'élève est capable d'appréhender un texte complexe de fin de cycle 4 de manière autonome.",
+                medium: "L'évaluation met en évidence une compréhension partielle du texte. Si le sens global semble perçu, l'analyse détaillée reste fragile.",
+                low: "L'évaluation initiale montre que l'accès au sens d'un texte de niveau cycle 4 est actuellement très difficile voire impossible de manière autonome."
+            },
+            reperage: {
+                acquired: "Le prélèvement d'informations explicites dans le texte est maîtrisé et précis.",
+                fragile: "La recherche d'informations explicites est hésitante et nécessite encore de l'étayage.",
+                not_acquired: "L'élève ne parvient pas à localiser ou isoler une information explicite dans le texte."
+            },
+            vocabulaire: {
+                acquired: "L'élève dispose d'un lexique suffisant pour caractériser les personnages et identifier les champs sémantiques.",
+                fragile: "Le lexique reste une barrière partielle à la compréhension fine du texte.",
+                not_acquired: "Le déficit de vocabulaire bloque l'accès au sens des mots et de leurs nuances."
+            },
+            comprehension: {
+                acquired: "La compréhension globale des enjeux et la chronologie du récit sont parfaitement acquises.",
+                fragile: "Le fil chronologique ou certaines actions clés sont saisis de manière incomplète.",
+                not_acquired: "Le sens global de l'extrait et l'enchaînement des événements échappent à l'élève."
+            },
+            inference: {
+                acquired: "Excellente capacité à lire entre les lignes et à inférer des éléments non explicitement formulés.",
+                fragile: "Les déductions logiques (inférences) sont balbutiantes ou partielles.",
+                not_acquired: "La lecture reste strictement littérale, l'implicite n'est pas perçu."
+            },
+            orientation: {
+                high: "Le niveau linguistique permet d'envisager une inclusion totale ou quasi-totale en classe ordinaire (niveau 4ème/3ème).",
+                medium: "Une inclusion partielle en classe ordinaire est possible, mais un maintien d'heures de FLS (Français Langue de Scolarisation) en UPE2A reste hautement recommandé.",
+                low: "Un accompagnement intensif et prioritaire en dispositif UPE2A est indispensable pour construire les compétences de base en lecture."
+            }
+        };
+
+        const SCORE_BADGES = {
+            'NE': { label: 'NE', color: 'bg-slate-100 text-slate-500 border-slate-200' },
+            '--': { label: '-- (MI)', color: 'bg-red-100 text-red-700 border-red-200' },
+            '-':  { label: '- (MF)', color: 'bg-orange-100 text-orange-700 border-orange-200' },
+            '+':  { label: '+ (MS)', color: 'bg-green-100 text-green-700 border-green-200' },
+            '++': { label: '++ (TBM)', color: 'bg-emerald-200 text-emerald-800 border-emerald-300' }
+        };
+
+        // --- STATE MANAGEMENT ---
+        let students = [];
+        let activeTabId = 'home';
+        let currentRenderedLang = null;
+        let isDarkMode = false;
+
+        function getToday() { return new Date().toISOString().split('T')[0]; }
+
+        function createNewStudent(name = "Nouvel Élève") {
+            const id = 'student_' + Date.now();
+            const newStudent = {
+                id, name: name, date: getToday(), language: 'fr', info: '', comments: '', answers: {}
+            };
+            EXERCISES_CONF.forEach(ex => {
+                if (ex.type === 'checkboxes') newStudent.answers[ex.id] = {};
+                if (ex.type === 'selects') {
+                    newStudent.answers[ex.id] = {};
+                    ex.questions.forEach(q => newStudent.answers[ex.id][q.id] = '');
+                }
+            });
+            return newStudent;
+        }
+
+        function initApp() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                isDarkMode = true;
+                document.documentElement.classList.add('dark');
+            }
+            updateThemeIcon();
+            renderTabs();
+            switchTab('home');
+        }
+
+        // --- UI RENDERING ---
+
+        function buildExerciseForms(lang) {
+            currentRenderedLang = lang;
+            const container = document.getElementById('exercisesContainer');
+            container.innerHTML = '';
+
+            EXERCISES_CONF.forEach(ex => {
+                const card = document.createElement('div');
+                card.className = "bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700";
+                
+                let contentHTML = `
+                    <div class="flex justify-between items-start mb-3 pb-2 border-b border-slate-100 dark:border-slate-700">
+                        <div>
+                            <h3 class="font-bold text-slate-800 dark:text-slate-100 text-sm">${ex.title}</h3>
+                            <p class="text-[11px] text-slate-500 mt-0.5">${ex.desc}</p>
+                        </div>
+                        <div id="badge-${ex.id}" class="inline-flex items-center justify-center px-2 py-1 rounded-md text-[10px] font-bold border ${SCORE_BADGES['NE'].color}">
+                            ${SCORE_BADGES['NE'].label}
+                        </div>
+                    </div>
+                    <div class="space-y-2 mt-2">
+                `;
+
+                if (ex.type === 'checkboxes') {
+                    contentHTML += `<div class="grid grid-cols-1 sm:grid-cols-2 gap-2">`;
+                    ex.options.forEach(opt => {
+                        contentHTML += `
+                            <label class="check-card relative flex items-start">
+                                <input type="checkbox" class="sr-only" 
+                                    onchange="updateAnswerData('${ex.id}', '${opt.id}', this.checked, 'checkbox')"
+                                    id="input-${ex.id}-${opt.id}">
+                                <div class="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-900/50 text-sm text-slate-700 dark:text-slate-300">
+                                    ${opt.labels[lang]}
+                                </div>
+                            </label>
+                        `;
+                    });
+                    contentHTML += `</div>`;
+                } 
+                else if (ex.type === 'selects') {
+                    ex.questions.forEach(q => {
+                        let optionsHTML = ex.opts[lang].map(o => `<option value="${o.v}">${o.l}</option>`).join('');
+                        contentHTML += `
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-2 rounded-lg bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-700">
+                                <span class="text-sm text-slate-700 dark:text-slate-300 font-medium">${q.text}</span>
+                                <select onchange="updateAnswerData('${ex.id}', '${q.id}', this.value, 'select')"
+                                    id="input-${ex.id}-${q.id}"
+                                    class="w-full sm:w-40 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-md py-1 px-2 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500">
+                                    ${optionsHTML}
+                                </select>
+                            </div>
+                        `;
+                    });
+                }
+
+                contentHTML += `</div>`;
+                card.innerHTML = contentHTML;
+                container.appendChild(card);
+            });
+        }
+
+        function renderTabs() {
+            const container = document.getElementById('tabsContainer');
+            container.innerHTML = '';
+            
+            const homeTab = document.createElement('button');
+            homeTab.onclick = () => switchTab('home');
+            homeTab.className = `flex items-center gap-2 px-4 py-2 text-sm font-bold rounded-t-lg border-b-2 whitespace-nowrap transition-colors ${activeTabId === 'home' ? 'border-blue-500 text-blue-600 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-900/20' : 'border-transparent text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800'}`;
+            homeTab.innerHTML = `<i data-lucide="home" class="w-4 h-4"></i> Accueil`;
+            container.appendChild(homeTab);
+
+            students.forEach(student => {
+                const tab = document.createElement('button');
+                tab.onclick = () => switchTab(student.id);
+                tab.className = `flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-t-lg border-b-2 whitespace-nowrap transition-colors ${student.id === activeTabId ? 'border-blue-500 text-blue-600 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-900/20' : 'border-transparent text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800'}`;
+                tab.innerHTML = `<span class="truncate max-w-[120px]">${student.name || 'Sans nom'}</span><span onclick="deleteStudent(event, '${student.id}')" class="ml-1 p-0.5 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-400 hover:text-red-500"><i data-lucide="x" class="w-3 h-3"></i></span>`;
+                container.appendChild(tab);
+            });
+
+            const addBtn = document.createElement('button');
+            addBtn.onclick = addStudent;
+            addBtn.className = "flex items-center justify-center w-9 h-9 rounded-full hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-400 hover:text-blue-500 transition-colors shrink-0";
+            addBtn.innerHTML = '<i data-lucide="plus" class="w-5 h-5"></i>';
+            container.appendChild(addBtn);
+            
+            lucide.createIcons();
+        }
+
+        function renderActiveView() {
+            if (activeTabId === 'home') {
+                document.getElementById('homeView').classList.remove('hidden');
+                document.getElementById('studentView').classList.add('hidden');
+            } else {
+                document.getElementById('homeView').classList.add('hidden');
+                document.getElementById('studentView').classList.remove('hidden');
+                renderActiveStudentData();
+            }
+        }
+
+        function renderActiveStudentData() {
+            const student = students.find(s => s.id === activeTabId);
+            if (!student) return;
+
+            // Rebuild forms if language changed
+            if (student.language !== currentRenderedLang) {
+                buildExerciseForms(student.language || 'fr');
+            }
+
+            document.getElementById('studentName').value = student.name.startsWith("Élève ") ? "" : student.name;
+            document.getElementById('testDate').value = student.date;
+            document.getElementById('studentLanguage').value = student.language || 'fr';
+            document.getElementById('studentInfo').value = student.info || "";
+            document.getElementById('teacherComments').value = student.comments || "";
+            
+            document.getElementById('printNameDisplay').innerText = student.name || "Non renseigné";
+            document.getElementById('printDateDisplay').innerText = student.date.split('-').reverse().join('/');
+            document.getElementById('printInfoDisplay').innerText = student.info ? `${student.info}` : "";
+
+            EXERCISES_CONF.forEach(ex => {
+                const ansObj = student.answers[ex.id];
+                
+                if (ex.type === 'checkboxes') {
+                    ex.options.forEach(opt => {
+                        const el = document.getElementById(`input-${ex.id}-${opt.id}`);
+                        if(el) el.checked = !!ansObj[opt.id];
+                    });
+                } else if (ex.type === 'selects') {
+                    ex.questions.forEach(q => {
+                        const el = document.getElementById(`input-${ex.id}-${q.id}`);
+                        if(el) el.value = ansObj[q.id] || '';
+                    });
+                }
+                
+                const score = ex.calcScore(ansObj);
+                const badge = document.getElementById(`badge-${ex.id}`);
+                if(badge) {
+                    badge.className = `inline-flex items-center justify-center px-2 py-1 rounded-md text-[10px] font-bold border ${SCORE_BADGES[score].color}`;
+                    badge.innerText = SCORE_BADGES[score].label;
+                }
+            });
+
+            updateStatsAndReport();
+        }
+
+        // --- ACTIONS ---
+
+        function switchTab(id) { activeTabId = id; renderTabs(); renderActiveView(); }
+        
+        function addStudent() {
+            const newStudent = createNewStudent(`Élève ${students.length + 1}`);
+            students.push(newStudent);
+            switchTab(newStudent.id);
+        }
+
+        function deleteStudent(e, id) {
+            e.stopPropagation();
+            if(!confirm("Supprimer ce dossier élève ?")) return;
+            students = students.filter(s => s.id !== id);
+            switchTab(students.length > 0 && activeTabId === id ? students[students.length - 1].id : (activeTabId === id ? 'home' : activeTabId));
+        }
+
+        function updateCurrentStudent(field, value) {
+            const student = students.find(s => s.id === activeTabId);
+            if(student) {
+                student[field] = value;
+                if(field === 'name') renderTabs(); 
+                renderActiveStudentData();
+            }
+        }
+
+        function updateAnswerData(exId, dataId, value, inputType) {
+            const student = students.find(s => s.id === activeTabId);
+            if(!student) return;
+
+            if (inputType === 'checkbox') {
+                if(value) {
+                    student.answers[exId][dataId] = true;
+                } else {
+                    delete student.answers[exId][dataId];
+                }
+            } else if (inputType === 'select') {
+                student.answers[exId][dataId] = value;
+            }
+            
+            renderActiveStudentData();
+        }
+
+        function resetCurrentAnswers() {
+            if(!confirm("Effacer toutes les saisies pour cet élève ?")) return;
+            const student = students.find(s => s.id === activeTabId);
+            if(student) {
+                EXERCISES_CONF.forEach(ex => {
+                    student.answers[ex.id] = {};
+                    if(ex.type === 'selects') {
+                        ex.questions.forEach(q => student.answers[ex.id][q.id] = '');
+                    }
+                });
+                renderActiveStudentData();
+            }
+        }
+
+        function downloadDocument() {
+            const val = document.getElementById('docSelector').value;
+            let filename = "document.pdf";
+            if (val === 'test_fr') filename = "Test_Positionnement_C4_Francais.pdf";
+            if (val === 'test_pt') filename = "Test_Positionnement_C4_Portugais.pdf";
+            if (val === 'corrige') filename = "Corrige_Positionnement_C4.pdf";
+            
+            alert(`Simulation : Le téléchargement de ${filename} démarre.`);
+        }
+
+        // --- CALCULATIONS & REPORTS ---
+
+        function updateStatsAndReport() {
+            const student = students.find(s => s.id === activeTabId);
+            const container = document.getElementById('statsContainer');
+            container.innerHTML = '';
+
+            const domainScores = {};
+
+            DOMAINS.forEach(domain => {
+                const groupExs = EXERCISES_CONF.filter(ex => ex.group === domain.id);
+                let acquired = 0;
+                let evaluated = 0;
+
+                groupExs.forEach(ex => {
+                    const score = ex.calcScore(student.answers[ex.id]);
+                    if (score !== 'NE') {
+                        evaluated++;
+                        if (score === '+' || score === '++') acquired++;
+                    }
+                });
+
+                const percent = evaluated > 0 ? Math.round((acquired / evaluated) * 100) : 0;
+                domainScores[domain.id] = percent;
+
+                const div = document.createElement('div');
+                div.className = "space-y-1.5";
+                div.innerHTML = `
+                    <div class="flex justify-between items-end">
+                        <span class="text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide">${domain.label}</span>
+                        <span class="text-[10px] font-bold ${percent >= 50 ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-500 dark:text-slate-400'}">
+                            ${evaluated > 0 ? percent + '%' : 'NE'}
+                        </span>
+                    </div>
+                    <div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-1.5 overflow-hidden">
+                        <div class="h-full transition-all duration-500 ${percent >= 50 ? 'bg-emerald-500 dark:bg-emerald-400' : 'bg-slate-300 dark:bg-slate-500'}" style="width: ${percent}%"></div>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+
+            generateReportText(student, domainScores);
+        }
+
+        function hasStarted(student) {
+            for (let ex of EXERCISES_CONF) {
+                let ans = student.answers[ex.id];
+                if (ex.type === 'checkboxes' && Object.keys(ans).length > 0) return true;
+                if (ex.type === 'selects' && Object.values(ans).filter(v => v !== '').length > 0) return true;
+            }
+            return false;
+        }
+
+        function generateReportText(student, domainScores) {
+            const name = student.name && !student.name.startsWith("Élève ") ? student.name : "L'élève";
+            const started = hasStarted(student);
+            
+            let reportHTML = `<div class="mb-4 text-xs opacity-75">Évaluation générée le ${student.date.split('-').reverse().join('/')}</div>`;
+            
+            if (!started) {
+                reportHTML += `<p class="italic text-slate-400">En attente de saisie des réponses de l'élève...</p>`;
+                document.getElementById('reportArea').innerHTML = reportHTML;
+                return;
+            }
+
+            const activeScores = Object.values(domainScores).filter(val => val > 0 || started);
+            const overallScore = activeScores.length > 0 ? activeScores.reduce((a,b)=>a+b,0) / activeScores.length : 0;
+            
+            reportHTML += `<p class="mb-3 text-blue-200">`;
+            if(overallScore >= 75) reportHTML += COMMENT_BANK.intro.high;
+            else if(overallScore >= 40) reportHTML += COMMENT_BANK.intro.medium;
+            else reportHTML += COMMENT_BANK.intro.low;
+            reportHTML += `</p>`;
+
+            reportHTML += `<div class="pl-3 border-l-2 border-blue-500/30 mb-4 space-y-2">`;
+            
+            reportHTML += `<p><strong>• ${DOMAINS.find(d=>d.id==='reperage').label} :</strong> `;
+            if(domainScores['reperage'] >= 75) reportHTML += COMMENT_BANK.reperage.acquired;
+            else if(domainScores['reperage'] >= 40) reportHTML += COMMENT_BANK.reperage.fragile;
+            else reportHTML += COMMENT_BANK.reperage.not_acquired;
+            reportHTML += `</p>`;
+
+            reportHTML += `<p><strong>• ${DOMAINS.find(d=>d.id==='vocabulaire').label} :</strong> `;
+            if(domainScores['vocabulaire'] >= 75) reportHTML += COMMENT_BANK.vocabulaire.acquired;
+            else if(domainScores['vocabulaire'] >= 40) reportHTML += COMMENT_BANK.vocabulaire.fragile;
+            else reportHTML += COMMENT_BANK.vocabulaire.not_acquired;
+            reportHTML += `</p>`;
+
+            reportHTML += `<p><strong>• ${DOMAINS.find(d=>d.id==='comprehension').label} :</strong> `;
+            if(domainScores['comprehension'] >= 75) reportHTML += COMMENT_BANK.comprehension.acquired;
+            else if(domainScores['comprehension'] >= 40) reportHTML += COMMENT_BANK.comprehension.fragile;
+            else reportHTML += COMMENT_BANK.comprehension.not_acquired;
+            reportHTML += `</p>`;
+
+            reportHTML += `<p><strong>• ${DOMAINS.find(d=>d.id==='inference').label} :</strong> `;
+            if(domainScores['inference'] >= 75) reportHTML += COMMENT_BANK.inference.acquired;
+            else if(domainScores['inference'] >= 40) reportHTML += COMMENT_BANK.inference.fragile;
+            else reportHTML += COMMENT_BANK.inference.not_acquired;
+            reportHTML += `</p>`;
+            
+            reportHTML += `</div>`;
+            
+            if (student.comments && student.comments.trim() !== "") {
+                reportHTML += `<div class="mt-4 mb-4 p-3 bg-blue-800/20 border-l-2 border-blue-400 rounded-r">
+                    <strong>Observations complémentaires :</strong><br>
+                    <span class="italic text-blue-100">${student.comments.replace(/\n/g, '<br>')}</span>
+                </div>`;
+            }
+
+            reportHTML += `<p class="mt-4 p-3 bg-blue-800/40 rounded border border-blue-700/50"><strong>Préconisation Pédagogique :</strong><br>`;
+            if(overallScore >= 75) reportHTML += COMMENT_BANK.orientation.high;
+            else if(overallScore >= 40) reportHTML += COMMENT_BANK.orientation.medium;
+            else reportHTML += COMMENT_BANK.orientation.low;
+            reportHTML += `</p>`;
+
+            document.getElementById('reportArea').innerHTML = reportHTML;
+        }
+
+        // --- UTILS ---
+
+        function toggleDarkMode() {
+            isDarkMode = !isDarkMode;
+            if(isDarkMode) {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            } else {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            }
+            updateThemeIcon();
+        }
+
+        function updateThemeIcon() {
+            const icon = document.getElementById('themeIcon');
+            icon.setAttribute('data-lucide', isDarkMode ? 'sun' : 'moon');
+            lucide.createIcons();
+        }
+
+        function copyReport() {
+            const textToCopy = document.getElementById('reportArea').innerText;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                alert("Compte-rendu copié !");
+            }).catch(err => {
+                const textarea = document.createElement('textarea');
+                textarea.value = textToCopy;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                alert("Compte-rendu copié !");
+            });
+        }
+
+        function exportData(format) {
+            if(students.length === 0) return alert("Aucun dossier élève à exporter.");
+            
+            let content = '';
+            let filename = `export_casnav_francais_${getToday()}`;
+
+            if (format === 'csv') {
+                content += 'ID,Nom,Date,Langue,Info,Commentaires,';
+                content += EXERCISES_CONF.map(ex => `Ex${ex.id.replace('ex', '')}_Score`).join(',') + '\n';
+                students.forEach(s => {
+                    let row = `${s.id},"${s.name}",${s.date},"${s.language}","${s.info || ''}","${s.comments ? s.comments.replace(/"/g, '""') : ''}",`;
+                    let exData = EXERCISES_CONF.map(ex => `"${ex.calcScore(s.answers[ex.id])}"`);
+                    row += exData.join(',');
+                    content += row + '\n';
+                });
+                downloadFile(content, filename+'.csv', 'text/csv;charset=utf-8;');
+            } else if (format === 'xml') {
+                content = '<?xml version="1.0" encoding="UTF-8"?>\n<evaluations>\n';
+                students.forEach(s => {
+                    content += `  <student id="${s.id}">\n    <name><![CDATA[${s.name}]]></name>\n    <date>${s.date}</date>\n    <language><![CDATA[${s.language}]]></language>\n    <info><![CDATA[${s.info || ''}]]></info>\n    <comments><![CDATA[${s.comments || ''}]]></comments>\n    <results>\n`;
+                    EXERCISES_CONF.forEach(ex => {
+                        content += `      <exercise id="${ex.id}">\n        <score><![CDATA[${ex.calcScore(s.answers[ex.id])}]]></score>\n      </exercise>\n`;
+                    });
+                    content += `    </results>\n  </student>\n`;
+                });
+                content += '</evaluations>';
+                downloadFile(content, filename+'.xml', 'application/xml;charset=utf-8;');
+            }
+        }
+
+        function downloadFile(content, filename, mimeType) {
+            const blob = new Blob([content], { type: mimeType });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url; a.download = filename;
+            document.body.appendChild(a); a.click(); document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        window.onload = initApp;
+    </script>
+</body>
+</html>

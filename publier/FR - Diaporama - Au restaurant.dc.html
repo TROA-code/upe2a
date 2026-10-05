@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta charset="utf-8" />
+<style>
+body{margin:0;background:#14213d}
+a{color:#fbfaf7}
+a:hover{color:#fff}
+</style>
+<meta name="ext-resource-dependency" content="restaurant/etape-1.jpeg" />
+<meta name="ext-resource-dependency" content="restaurant/etape-2.jpeg" />
+<meta name="ext-resource-dependency" content="restaurant/etape-3.jpeg" />
+<meta name="ext-resource-dependency" content="restaurant/etape-4.jpeg" />
+<meta name="ext-resource-dependency" content="restaurant/etape-5.jpeg" />
+<meta name="ext-resource-dependency" content="restaurant/etape-6.jpeg" />
+<meta name="ext-resource-dependency" content="restaurant/etape-7.jpeg" />
+<meta name="ext-resource-dependency" content="restaurant/etape-8.jpeg" />
+<meta name="ext-resource-dependency" content="restaurant/etape-9.jpeg" />
+<meta name="ext-resource-dependency" content="restaurant/etape-10.jpeg" />
+<template id="__bundler_thumbnail">
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#8c1c13"></rect><text x="100" y="132" font-family="Helvetica,Arial,sans-serif" font-size="96" font-weight="700" fill="#ffffff" text-anchor="middle">R</text></svg>
+</template>
+</helmet>
+<!-- Les dix étapes sont écrites en clair, une <section> par diapositive : les phrases et les
+     numéros sont du texte statique, qu'elle peut donc corriger d'un clic dans l'éditeur.
+     Ne pas les regrouper dans une boucle : le texte passerait par un {{ hole }} et
+     redeviendrait intouchable. L'ORDRE est la chronologie de l'histoire. -->
+<x-import component-from-global-scope="deck-stage" from="./deck-stage.js" width="1920" height="1080" hint-size="100%,100%">
+<section data-label="Titre" data-screen-label="Titre" data-speaker-notes="On regarde chaque image, on dit ce qui se passe, puis on raconte toute l'histoire." style="display:flex;flex-direction:column;justify-content:center;gap:40px;padding:0 160px;background:#14213d;color:#fbfaf7;font-family:Arial, Helvetica, sans-serif;height:100%;box-sizing:border-box">
+<div style="display:flex;align-items:center;gap:28px">
+<span style="width:120px;height:4px;background:#c1440e"></span>
+<span style="font-size:30px;letter-spacing:0.2em;text-transform:uppercase;color:#c9d3e2">Français &middot; UPE2A NSA</span>
+</div>
+<span style="font-size:132px;font-weight:700;line-height:1.02">Au restaurant</span>
+<span style="font-size:44px;color:#c9d3e2">L'histoire en images &middot; 10 étapes</span>
+</section>
+<section data-label="1 · image" data-screen-label="1 · image" data-speaker-notes="On regarde. Qu'est-ce qui se passe ? On laisse les élèves dire, puis on montre la phrase." style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:48px;padding:70px 120px;background:#fbfaf7;color:#14213d;font-family:Arial, Helvetica, sans-serif;height:100%;box-sizing:border-box">
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:56px;width:100%">
+<span style="flex:0 0 auto;width:116px;height:116px;border-radius:50%;background:#8c1c13;color:#fff;display:flex;align-items:center;justify-content:center;font-size:58px;font-weight:700">1</span>
+<div style="flex:1;min-width:0;height:100%;display:flex;align-items:center;justify-content:center;background:#fff;border:2px solid #e2e0da;border-radius:24px;padding:28px;box-sizing:border-box">
+<img src="restaurant/etape-1.jpeg" alt="Deux clients entrent." style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block" />
+</div>
+<span style="flex:0 0 auto;width:116px"></span>
+</div>
+<span style="visibility:hidden;flex:0 0 auto;font-size:62px;font-weight:700;text-align:center;text-wrap:pretty;line-height:1.16">Deux clients entrent.</span>
+</section>
+<section data-label="1 · Deux clients entrent" data-screen-label="1 · Deux clients entrent" data-speaker-notes="Deux clients entrent." style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:48px;padding:70px 120px;background:#fbfaf7;color:#14213d;font-family:Arial, Helvetica, sans-serif;height:100%;box-sizing:border-box">
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:56px;width:100%">
+<span style="flex:0 0 auto;width:116px;height:116px;border-radius:50%;background:#8c1c13;color:#fff;display:flex;align-items:center;justify-content:center;font-size:58px;font-weight:700">1</span>
+<div style="flex:1;min-width:0;height:100%;display:flex;align-items:center;justify-content:center;background:#fff;border:2px solid #e2e0da;border-radius:24px;padding:28px;box-sizing:border-box">
+<img src="restaurant/etape-1.jpeg" alt="Deux clients entrent." style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block" />
+</div>
+<span style="flex:0 0 auto;width:116px"></span>
+</div>
+<span style="flex:0 0 auto;font-size:62px;font-weight:700;text-align:center;text-wrap:pretty;line-height:1.16">Deux clients entrent.</span>
+</section>
+<section data-label="2 · image" data-screen-label="2 · image" data-speaker-notes="On regarde. Qu'est-ce qui se passe ? On laisse les élèves dire, puis on montre la phrase." style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:48px;padding:70px 120px;background:#fbfaf7;color:#14213d;font-family:Arial, Helvetica, sans-serif;height:100%;box-sizing:border-box">
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:56px;width:100%">
+<span style="flex:0 0 auto;width:116px;height:116px;border-radius:50%;background:#8c1c13;color:#fff;display:flex;align-items:center;justify-content:center;font-size:58px;font-weight:700">2</span>
+<div style="flex:1;min-width:0;height:100%;display:flex;align-items:center;justify-content:center;background:#fff;border:2px solid #e2e0da;border-radius:24px;padding:28px;box-sizing:border-box">
+<img src="restaurant/etape-2.jpeg" alt="Le serveur propose une table." style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block" />
+</div>
+<span style="flex:0 0 auto;width:116px"></span>
+</div>
+<span style="visibility:hidden;flex:0 0 auto;font-size:62px;font-weight:700;text-align:center;text-wrap:pretty;line-height:1.16">Le serveur propose une table.</span>
+</section>
+<section data-label="2 · Le serveur propose une table" data-screen-label="2 · Le serveur propose une table" data-speaker-notes="Le serveur propose une table." style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:48px;padding:70px 120px;background:#fbfaf7;color:#14213d;font-family:Arial, Helvetica, sans-serif;height:100%;box-sizing:border-box">
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:56px;width:100%">
+<span style="flex:0 0 auto;width:116px;height:116px;border-radius:50%;background:#8c1c13;color:#fff;display:flex;align-items:center;justify-content:center;font-size:58px;font-weight:700">2</span>
+<div style="flex:1;min-width:0;height:100%;display:flex;align-items:center;justify-content:center;background:#fff;border:2px solid #e2e0da;border-radius:24px;padding:28px;box-sizing:border-box">
+<img src="restaurant/etape-2.jpeg" alt="Le serveur propose une table." style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block" />
+</div>
+<span style="flex:0 0 auto;width:116px"></span>
+</div>
+<span style="flex:0 0 auto;font-size:62px;font-weight:700;text-align:center;text-wrap:pretty;line-height:1.16">Le serveur propose une table.</span>
+</section>
+<section data-label="3 · image" data-screen-label="3 · image" data-speaker-notes="On regarde. Qu'est-ce qui se passe ? On laisse les élèves dire, puis on montre la phrase." style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:48px;padding:70px 120px;background:#fbfaf7;color:#14213d;font-family:Arial, Helvetica, sans-serif;height:100%;box-sizing:border-box">
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:56px;width:100%">
+<span style="flex:0 0 auto;width:116px;height:116px;border-radius:50%;background:#8c1c13;color:#fff;display:flex;align-items:center;justify-content:center;font-size:58px;font-weight:700">3</span>
+<div style="flex:1;min-width:0;height:100%;display:flex;align-items:center;justify-content:center;background:#fff;border:2px solid #e2e0da;border-radius:24px;padding:28px;box-sizing:border-box">
+<img src="restaurant/etape-3.jpeg" alt="Il pose la carte sur la table." style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block" />
+</div>
+<span style="flex:0 0 auto;width:116px"></span>
+</div>
+<span style="visibility:hidden;flex:0 0 auto;font-size:62px;font-weight:700;text-align:center;text-wrap:pretty;line-height:1.16">Il pose la carte sur la table.</span>
+</section>
+<section data-label="3 · Il pose la carte" data-screen-label="3 · Il pose la carte" data-speaker-notes="Il pose la carte sur la table." style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:48px;padding:70px 120px;background:#fbfaf7;color:#14213d;font-family:Arial, Helvetica, sans-serif;height:100%;box-sizing:border-box">
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:56px;width:100%">
+<span style="flex:0 0 auto;width:116px;height:116px;border-radius:50%;background:#8c1c13;color:#fff;display:flex;align-items:center;justify-content:center;font-size:58px;font-weight:700">3</span>
+<div style="flex:1;min-width:0;height:100%;display:flex;align-items:center;justify-content:center;background:#fff;border:2px solid #e2e0da;border-radius:24px;padding:28px;box-sizing:border-box">
+<img src="restaurant/etape-3.jpeg" alt="Il pose la carte sur la table." style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block" />
+</div>
+<span style="flex:0 0 auto;width:116px"></span>
+</div>
+<span style="flex:0 0 auto;font-size:62px;font-weight:700;text-align:center;text-wrap:pretty;line-height:1.16">Il pose la carte sur la table.</span>
+</section>
+<section data-label="4 · image" data-screen-label="4 · image" data-speaker-notes="On regarde. Qu'est-ce qui se passe ? On laisse les élèves dire, puis on montre la phrase." style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:48px;padding:70px 120px;background:#fbfaf7;color:#14213d;font-family:Arial, Helvetica, sans-serif;height:100%;box-sizing:border-box">
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:56px;width:100%">
+<span style="flex:0 0 auto;width:116px;height:116px;border-radius:50%;background:#8c1c13;color:#fff;display:flex;align-items:center;justify-content:center;font-size:58px;font-weight:700">4</span>
+<div style="flex:1;min-width:0;height:100%;display:flex;align-items:center;justify-content:center;background:#fff;border:2px solid #e2e0da;border-radius:24px;padding:28px;box-sizing:border-box">
+<img src="restaurant/etape-4.jpeg" alt="Les clients regardent la carte." style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block" />
+</div>
+<span style="flex:0 0 auto;width:116px"></span>
+</div>
+<span style="visibility:hidden;flex:0 0 auto;font-size:62px;font-weight:700;text-align:center;text-wrap:pretty;line-height:1.16">Les clients regardent la carte.</span>
+</section>
+<section data-label="4 · Les clients regardent la carte" data-screen-label="4 · Les clients regardent la carte" data-speaker-notes="Les clients regardent la carte." style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:48px;padding:70px 120px;background:#fbfaf7;color:#14213d;font-family:Arial, Helvetica, sans-serif;height:100%;box-sizing:border-box">
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:56px;width:100%">
+<span style="flex:0 0 auto;width:116px;height:116px;border-radius:50%;background:#8c1c13;color:#fff;display:flex;align-items:center;justify-content:center;font-size:58px;font-weight:700">4</span>
+<div style="flex:1;min-width:0;height:100%;display:flex;align-items:center;justify-content:center;background:#fff;border:2px solid #e2e0da;border-radius:24px;padding:28px;box-sizing:border-box">
+<img src="restaurant/etape-4.jpeg" alt="Les clients regardent la carte." style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block" />
+</div>
+<span style="flex:0 0 auto;width:116px"></span>
+</div>
+<span style="flex:0 0 auto;font-size:62px;font-weight:700;text-align:center;text-wrap:pretty;line-height:1.16">Les clients regardent la carte.</span>
+</section>
+<section data-label="5 · image" data-screen-label="5 · image" data-speaker-notes="On regarde. Qu'est-ce qui se passe ? On laisse les élèves dire, puis on montre la phrase." style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:48px;padding:70px 120px;background:#fbfaf7;color:#14213d;font-family:Arial, Helvetica, sans-serif;height:100%;box-sizing:border-box">
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:56px;width:100%">
+<span style="flex:0 0 auto;width:116px;height:116px;border-radius:50%;background:#8c1c13;color:#fff;display:flex;align-items:center;justify-content:center;font-size:58px;font-weight:700">5</span>
+<div style="flex:1;min-width:0;height:100%;display:flex;align-items:center;justify-content:center;background:#fff;border:2px solid #e2e0da;border-radius:24px;padding:28px;box-sizing:border-box">
+<img src="restaurant/etape-5.jpeg" alt="Un client commande un poisson avec du riz." style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block" />
+</div>
+<span style="flex:0 0 auto;width:116px"></span>
+</div>
+<span style="visibility:hidden;flex:0 0 auto;font-size:62px;font-weight:700;text-align:center;text-wrap:pretty;line-height:1.16">Un client dit : « Je voudrais un poisson avec du riz. »</span>
+</section>
+<section data-label="5 · Je voudrais un poisson" data-screen-label="5 · Je voudrais un poisson" data-speaker-notes="Un client dit : « Je voudrais un poisson avec du riz. »" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:48px;padding:70px 120px;background:#fbfaf7;color:#14213d;font-family:Arial, Helvetica, sans-serif;height:100%;box-sizing:border-box">
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:56px;width:100%">
+<span style="flex:0 0 auto;width:116px;height:116px;border-radius:50%;background:#8c1c13;color:#fff;display:flex;align-items:center;justify-content:center;font-size:58px;font-weight:700">5</span>
+<div style="flex:1;min-width:0;height:100%;display:flex;align-items:center;justify-content:center;background:#fff;border:2px solid #e2e0da;border-radius:24px;padding:28px;box-sizing:border-box">
+<img src="restaurant/etape-5.jpeg" alt="Un client commande un poisson avec du riz." style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block" />
+</div>
+<span style="flex:0 0 auto;width:116px"></span>
+</div>
+<span style="flex:0 0 auto;font-size:62px;font-weight:700;text-align:center;text-wrap:pretty;line-height:1.16">Un client dit : « Je voudrais un poisson avec du riz. »</span>
+</section>
+<section data-label="6 · image" data-screen-label="6 · image" data-speaker-notes="On regarde. Qu'est-ce qui se passe ? On laisse les élèves dire, puis on montre la phrase." style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:48px;padding:70px 120px;background:#fbfaf7;color:#14213d;font-family:Arial, Helvetica, sans-serif;height:100%;box-sizing:border-box">
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:56px;width:100%">
+<span style="flex:0 0 auto;width:116px;height:116px;border-radius:50%;background:#8c1c13;color:#fff;display:flex;align-items:center;justify-content:center;font-size:58px;font-weight:700">6</span>
+<div style="flex:1;min-width:0;height:100%;display:flex;align-items:center;justify-content:center;background:#fff;border:2px solid #e2e0da;border-radius:24px;padding:28px;box-sizing:border-box">
+<img src="restaurant/etape-6.jpeg" alt="L'autre client commande un poulet avec des frites." style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block" />
+</div>
+<span style="flex:0 0 auto;width:116px"></span>
+</div>
+<span style="visibility:hidden;flex:0 0 auto;font-size:62px;font-weight:700;text-align:center;text-wrap:pretty;line-height:1.16">L'autre dit : « Je voudrais un poulet avec des frites. »</span>
+</section>
+<section data-label="6 · Je voudrais un poulet" data-screen-label="6 · Je voudrais un poulet" data-speaker-notes="L'autre dit : « Je voudrais un poulet avec des frites. »" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:48px;padding:70px 120px;background:#fbfaf7;color:#14213d;font-family:Arial, Helvetica, sans-serif;height:100%;box-sizing:border-box">
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:56px;width:100%">
+<span style="flex:0 0 auto;width:116px;height:116px;border-radius:50%;background:#8c1c13;color:#fff;display:flex;align-items:center;justify-content:center;font-size:58px;font-weight:700">6</span>
+<div style="flex:1;min-width:0;height:100%;display:flex;align-items:center;justify-content:center;background:#fff;border:2px solid #e2e0da;border-radius:24px;padding:28px;box-sizing:border-box">
+<img src="restaurant/etape-6.jpeg" alt="L'autre client commande un poulet avec des frites." style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block" />
+</div>
+<span style="flex:0 0 auto;width:116px"></span>
+</div>
+<span style="flex:0 0 auto;font-size:62px;font-weight:700;text-align:center;text-wrap:pretty;line-height:1.16">L'autre dit : « Je voudrais un poulet avec des frites. »</span>
+</section>
+<section data-label="7 · image" data-screen-label="7 · image" data-speaker-notes="On regarde. Qu'est-ce qui se passe ? On laisse les élèves dire, puis on montre la phrase." style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:48px;padding:70px 120px;background:#fbfaf7;color:#14213d;font-family:Arial, Helvetica, sans-serif;height:100%;box-sizing:border-box">
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:56px;width:100%">
+<span style="flex:0 0 auto;width:116px;height:116px;border-radius:50%;background:#8c1c13;color:#fff;display:flex;align-items:center;justify-content:center;font-size:58px;font-weight:700">7</span>
+<div style="flex:1;min-width:0;height:100%;display:flex;align-items:center;justify-content:center;background:#fff;border:2px solid #e2e0da;border-radius:24px;padding:28px;box-sizing:border-box">
+<img src="restaurant/etape-7.jpeg" alt="Le serveur apporte les plats sur le plateau." style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block" />
+</div>
+<span style="flex:0 0 auto;width:116px"></span>
+</div>
+<span style="visibility:hidden;flex:0 0 auto;font-size:62px;font-weight:700;text-align:center;text-wrap:pretty;line-height:1.16">Le serveur apporte les plats sur le plateau.</span>
+</section>
+<section data-label="7 · Le serveur apporte les plats" data-screen-label="7 · Le serveur apporte les plats" data-speaker-notes="Le serveur apporte les plats sur le plateau." style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:48px;padding:70px 120px;background:#fbfaf7;color:#14213d;font-family:Arial, Helvetica, sans-serif;height:100%;box-sizing:border-box">
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:56px;width:100%">
+<span style="flex:0 0 auto;width:116px;height:116px;border-radius:50%;background:#8c1c13;color:#fff;display:flex;align-items:center;justify-content:center;font-size:58px;font-weight:700">7</span>
+<div style="flex:1;min-width:0;height:100%;display:flex;align-items:center;justify-content:center;background:#fff;border:2px solid #e2e0da;border-radius:24px;padding:28px;box-sizing:border-box">
+<img src="restaurant/etape-7.jpeg" alt="Le serveur apporte les plats sur le plateau." style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block" />
+</div>
+<span style="flex:0 0 auto;width:116px"></span>
+</div>
+<span style="flex:0 0 auto;font-size:62px;font-weight:700;text-align:center;text-wrap:pretty;line-height:1.16">Le serveur apporte les plats sur le plateau.</span>
+</section>
+<section data-label="8 · image" data-screen-label="8 · image" data-speaker-notes="On regarde. Qu'est-ce qui se passe ? On laisse les élèves dire, puis on montre la phrase." style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:48px;padding:70px 120px;background:#fbfaf7;color:#14213d;font-family:Arial, Helvetica, sans-serif;height:100%;box-sizing:border-box">
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:56px;width:100%">
+<span style="flex:0 0 auto;width:116px;height:116px;border-radius:50%;background:#8c1c13;color:#fff;display:flex;align-items:center;justify-content:center;font-size:58px;font-weight:700">8</span>
+<div style="flex:1;min-width:0;height:100%;display:flex;align-items:center;justify-content:center;background:#fff;border:2px solid #e2e0da;border-radius:24px;padding:28px;box-sizing:border-box">
+<img src="restaurant/etape-8.jpeg" alt="Les clients mangent." style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block" />
+</div>
+<span style="flex:0 0 auto;width:116px"></span>
+</div>
+<span style="visibility:hidden;flex:0 0 auto;font-size:62px;font-weight:700;text-align:center;text-wrap:pretty;line-height:1.16">Les clients mangent.</span>
+</section>
+<section data-label="8 · Les clients mangent" data-screen-label="8 · Les clients mangent" data-speaker-notes="Les clients mangent." style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:48px;padding:70px 120px;background:#fbfaf7;color:#14213d;font-family:Arial, Helvetica, sans-serif;height:100%;box-sizing:border-box">
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:56px;width:100%">
+<span style="flex:0 0 auto;width:116px;height:116px;border-radius:50%;background:#8c1c13;color:#fff;display:flex;align-items:center;justify-content:center;font-size:58px;font-weight:700">8</span>
+<div style="flex:1;min-width:0;height:100%;display:flex;align-items:center;justify-content:center;background:#fff;border:2px solid #e2e0da;border-radius:24px;padding:28px;box-sizing:border-box">
+<img src="restaurant/etape-8.jpeg" alt="Les clients mangent." style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block" />
+</div>
+<span style="flex:0 0 auto;width:116px"></span>
+</div>
+<span style="flex:0 0 auto;font-size:62px;font-weight:700;text-align:center;text-wrap:pretty;line-height:1.16">Les clients mangent.</span>
+</section>
+<section data-label="9 · image" data-screen-label="9 · image" data-speaker-notes="On regarde. Qu'est-ce qui se passe ? On laisse les élèves dire, puis on montre la phrase." style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:48px;padding:70px 120px;background:#fbfaf7;color:#14213d;font-family:Arial, Helvetica, sans-serif;height:100%;box-sizing:border-box">
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:56px;width:100%">
+<span style="flex:0 0 auto;width:116px;height:116px;border-radius:50%;background:#8c1c13;color:#fff;display:flex;align-items:center;justify-content:center;font-size:58px;font-weight:700">9</span>
+<div style="flex:1;min-width:0;height:100%;display:flex;align-items:center;justify-content:center;background:#fff;border:2px solid #e2e0da;border-radius:24px;padding:28px;box-sizing:border-box">
+<img src="restaurant/etape-9.jpeg" alt="Le serveur donne l'addition." style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block" />
+</div>
+<span style="flex:0 0 auto;width:116px"></span>
+</div>
+<span style="visibility:hidden;flex:0 0 auto;font-size:62px;font-weight:700;text-align:center;text-wrap:pretty;line-height:1.16">Le serveur donne l'addition.</span>
+</section>
+<section data-label="9 · Le serveur donne l'addition" data-screen-label="9 · Le serveur donne l'addition" data-speaker-notes="Le serveur donne l'addition." style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:48px;padding:70px 120px;background:#fbfaf7;color:#14213d;font-family:Arial, Helvetica, sans-serif;height:100%;box-sizing:border-box">
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:56px;width:100%">
+<span style="flex:0 0 auto;width:116px;height:116px;border-radius:50%;background:#8c1c13;color:#fff;display:flex;align-items:center;justify-content:center;font-size:58px;font-weight:700">9</span>
+<div style="flex:1;min-width:0;height:100%;display:flex;align-items:center;justify-content:center;background:#fff;border:2px solid #e2e0da;border-radius:24px;padding:28px;box-sizing:border-box">
+<img src="restaurant/etape-9.jpeg" alt="Le serveur donne l'addition." style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block" />
+</div>
+<span style="flex:0 0 auto;width:116px"></span>
+</div>
+<span style="flex:0 0 auto;font-size:62px;font-weight:700;text-align:center;text-wrap:pretty;line-height:1.16">Le serveur donne l'addition.</span>
+</section>
+<section data-label="10 · image" data-screen-label="10 · image" data-speaker-notes="On regarde. Qu'est-ce qui se passe ? On laisse les élèves dire, puis on montre la phrase." style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:48px;padding:70px 120px;background:#fbfaf7;color:#14213d;font-family:Arial, Helvetica, sans-serif;height:100%;box-sizing:border-box">
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:56px;width:100%">
+<span style="flex:0 0 auto;width:116px;height:116px;border-radius:50%;background:#8c1c13;color:#fff;display:flex;align-items:center;justify-content:center;font-size:58px;font-weight:700">10</span>
+<div style="flex:1;min-width:0;height:100%;display:flex;align-items:center;justify-content:center;background:#fff;border:2px solid #e2e0da;border-radius:24px;padding:28px;box-sizing:border-box">
+<img src="restaurant/etape-10.jpeg" alt="Les clients paient au comptoir." style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block" />
+</div>
+<span style="flex:0 0 auto;width:116px"></span>
+</div>
+<span style="visibility:hidden;flex:0 0 auto;font-size:62px;font-weight:700;text-align:center;text-wrap:pretty;line-height:1.16">Les clients paient au comptoir.</span>
+</section>
+<section data-label="10 · Les clients paient" data-screen-label="10 · Les clients paient" data-speaker-notes="Les clients paient au comptoir." style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:48px;padding:70px 120px;background:#fbfaf7;color:#14213d;font-family:Arial, Helvetica, sans-serif;height:100%;box-sizing:border-box">
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:56px;width:100%">
+<span style="flex:0 0 auto;width:116px;height:116px;border-radius:50%;background:#8c1c13;color:#fff;display:flex;align-items:center;justify-content:center;font-size:58px;font-weight:700">10</span>
+<div style="flex:1;min-width:0;height:100%;display:flex;align-items:center;justify-content:center;background:#fff;border:2px solid #e2e0da;border-radius:24px;padding:28px;box-sizing:border-box">
+<img src="restaurant/etape-10.jpeg" alt="Les clients paient au comptoir." style="max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block" />
+</div>
+<span style="flex:0 0 auto;width:116px"></span>
+</div>
+<span style="flex:0 0 auto;font-size:62px;font-weight:700;text-align:center;text-wrap:pretty;line-height:1.16">Les clients paient au comptoir.</span>
+</section>
+</x-import>
+</x-dc>
+</body>
+</html>

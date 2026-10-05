@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#1f6fb2}
+a:hover{color:#14213d}
+</style>
+<script src="./doc-page.js"></script>
+</helmet>
+<doc-page size="a4">
+
+<section class="page" data-screen-label="Couverture" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:7mm">
+<div style="flex:0 0 auto;background:#1f6fb2;color:#fff;padding:9mm 8mm 8mm;display:flex;flex-direction:column;gap:2.5mm">
+<span style="font-size:13pt;letter-spacing:0.3em">L I V R E T</span>
+<div style="display:flex;align-items:baseline;gap:4mm;white-space:nowrap;line-height:1"><span style="font-size:22pt;font-weight:700">GRANDEURS ET MESURES</span><span style="font-size:22pt;font-weight:700">N° 2</span></div>
+<span style="font-size:30pt;font-weight:700">La monnaie</span>
+</div>
+<div style="flex:0 0 auto;height:1.5mm;background:#e0a526;margin-top:-7mm"></div>
+<div style="flex:1;min-height:0;display:flex;flex-wrap:wrap;align-content:center;justify-content:center;align-items:center;gap:6mm;padding:0 10mm">
+<sc-for list="{{ couverture }}" as="x" hint-placeholder-count="10"><span style="flex:0 0 auto;width:{{ x.w }};height:{{ x.h }};border-radius:{{ x.r }};border:{{ x.bd }};background:{{ x.bg }};padding-left:{{ x.pl }};box-sizing:border-box;display:flex;align-items:center;justify-content:center;font-size:12pt;font-weight:700;color:#14213d;white-space:nowrap">{{ x.t }}</span></sc-for>
+</div>
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:5mm;font-size:14pt">
+<div style="display:flex;align-items:flex-end;gap:3mm"><span style="font-weight:700">Prénom :</span><span style="flex:1;border-bottom:1.5px solid #14213d;height:7mm"></span></div>
+<div style="display:flex;align-items:flex-end;gap:3mm"><span style="font-weight:700">Classe :</span><span style="flex:1;border-bottom:1.5px solid #14213d;height:7mm"></span></div>
+</div>
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:2mm">
+<span style="font-size:12pt;font-weight:700">Mes fiches terminées</span>
+<div style="display:flex;gap:2.5mm;flex-wrap:wrap"><sc-for list="{{ numeros }}" as="n" hint-placeholder-count="8"><span style="width:11mm;height:11mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;display:flex;align-items:center;justify-content:center;font-size:13pt;font-weight:700">{{ n }}</span></sc-for></div>
+</div>
+</section>
+
+<section class="page" data-screen-label="Sommaire" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:6mm">
+<div style="flex:0 0 auto;font-size:24pt;font-weight:700;border-bottom:2.5px solid #1f6fb2;padding-bottom:2mm">Sommaire</div>
+<div style="flex:0 0 auto;display:flex;flex-direction:column">
+<sc-for list="{{ sommaire }}" as="s" hint-placeholder-count="11"><div style="display:grid;grid-template-columns:24mm minmax(0,1fr) 12mm;align-items:center;border-bottom:1px solid #dde2e9;padding:2.2mm 0;font-size:13pt"><span style="font-weight:700">{{ s.a }}</span><span>{{ s.b }}</span><span style="text-align:right">{{ s.p }}</span></div></sc-for>
+</div>
+<div style="flex:0 0 auto;font-size:18pt;font-weight:700;margin-top:4mm">Je fais le point</div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:minmax(0,1fr) 22mm 16mm 16mm;border:2px solid #14213d;font-size:12pt">
+<span style="padding:2mm 3mm;font-weight:700;border-bottom:2px solid #14213d">JE SAIS…</span><span style="padding:2mm;font-weight:700;border-bottom:2px solid #14213d;border-left:1px solid #8a91a3;text-align:center">FICHE</span><span style="padding:2mm;font-weight:700;border-bottom:2px solid #14213d;border-left:1px solid #8a91a3;text-align:center">oui</span><span style="padding:2mm;font-weight:700;border-bottom:2px solid #14213d;border-left:1px solid #8a91a3;text-align:center">pas encore</span>
+<sc-for list="{{ point }}" as="p" hint-placeholder-count="6"><span style="padding:2.5mm 3mm;border-bottom:1px solid #c9cfd8">{{ p.a }}</span><span style="padding:2.5mm;border-bottom:1px solid #c9cfd8;border-left:1px solid #8a91a3;text-align:center">{{ p.f }}</span><span style="border-bottom:1px solid #c9cfd8;border-left:1px solid #8a91a3"></span><span style="border-bottom:1px solid #c9cfd8;border-left:1px solid #8a91a3"></span></sc-for>
+</div>
+<div style="flex:1"></div>
+<div style="flex:0 0 auto;display:flex;justify-content:space-between;align-items:center;font-size:12pt;color:#4a5262"><span style="font-style:italic">D'après Mimi classe</span><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:#14213d">2</span></div>
+</section>
+
+<section class="page" data-screen-label="Fiche 1 · Pièces et billets" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto"><div style="background:#1f6fb2;color:#fff;padding:3mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:4mm"><span style="font-size:20pt;font-weight:700;letter-spacing:0.04em">LA MONNAIE</span><span style="font-size:12pt;letter-spacing:0.1em">FICHE 1</span></div><div style="height:1.5mm;background:#e0a526"></div></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm"><span style="width:12mm;height:12mm;flex:0 0 auto;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/entoure.webp') center/contain no-repeat"></span><span style="font-size:16pt;font-weight:700">Entourez les billets.</span></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:8mm;border:1.5px dashed #8a91a3;border-radius:2mm;padding:3mm 4mm;font-size:13pt">
+<div style="display:flex;align-items:center;gap:3mm"><span style="width:34mm;height:18mm;border-radius:1mm;border:1px solid #8a91a3;background:#fff url('clean/mot-billet10.webp') center / 100% 100% no-repeat;display:block"></span><span style="font-weight:700">un billet</span></div>
+<div style="display:flex;align-items:center;gap:3mm"><span style="width:25.75mm;height:25.75mm;border-radius:50%;background:#fff url('clean/mot-piece2e.webp') center / 100% 100% no-repeat;display:block"></span><span style="font-weight:700">une pièce</span></div>
+</div>
+<div style="flex:1;min-height:0;display:flex;flex-wrap:wrap;align-content:center;justify-content:center;align-items:center;gap:10mm 12mm;padding:0 6mm">
+<sc-for list="{{ f1 }}" as="x" hint-placeholder-count="12"><span style="flex:0 0 auto;width:{{ x.w }};height:{{ x.h }};border-radius:{{ x.r }};border:{{ x.bd }};background:{{ x.bg }};padding-left:{{ x.pl }};box-sizing:border-box;display:flex;align-items:center;justify-content:center;font-size:12pt;font-weight:700;color:#14213d;white-space:nowrap">{{ x.t }}</span></sc-for>
+</div>
+<div style="flex:0 0 auto;border-top:1px solid #c9cfd8;padding-top:2mm;font-size:12pt;color:#4a5262;display:flex;flex-direction:column;gap:0.5mm"><span>Compétence : Utiliser la monnaie (euro, centime d'euro)</span><span>Objectif : Reconnaître les pièces et les billets</span></div>
+<div style="flex:0 0 auto;display:flex;justify-content:space-between;align-items:center;font-size:12pt;color:#4a5262;margin-top:auto"><span style="font-style:italic">D'après Mimi classe</span><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:#14213d">3</span></div>
+</section>
+
+<section class="page" data-screen-label="Fiche 2 · Compter l'argent" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto"><div style="background:#1f6fb2;color:#fff;padding:3mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:4mm"><span style="font-size:20pt;font-weight:700;letter-spacing:0.04em">LA MONNAIE</span><span style="font-size:12pt;letter-spacing:0.1em">FICHE 2</span></div><div style="height:1.5mm;background:#e0a526"></div></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm"><span style="width:12mm;height:12mm;flex:0 0 auto;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/compte.webp') center/contain no-repeat"></span><span style="width:12mm;height:12mm;flex:0 0 auto;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/ecris.webp') center/contain no-repeat"></span><span style="font-size:16pt;font-weight:700">Comptez l'argent. Écrivez le total.</span></div>
+<div style="flex:0 0 auto;display:flex;align-items:stretch;font-size:13pt;border:2px solid #e0a526;border-radius:2mm;overflow:hidden"><span style="flex:0 0 auto;background:#e0a526;color:#14213d;font-weight:700;padding:2mm 4mm;display:flex;align-items:center">Conseil</span><span style="padding:2mm 4mm;display:flex;align-items:center">Commencez par le plus grand.</span></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:4mm;position:relative;border:3.5px solid #14213d;border-radius:2mm;padding:2mm 3mm;margin-top:2mm;background:#ededed"><span style="position:absolute;top:-3mm;left:3mm;background:linear-gradient(#fff 50%,#ededed 50%);padding:0 1.5mm;font-size:12pt;font-weight:700;color:#d62828">Exemple</span>
+<div style="flex:1;min-width:0;display:flex;flex-wrap:wrap;align-items:center;gap:3mm"><sc-for list="{{ e2 }}" as="x" hint-placeholder-count="3"><div style="flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:1mm"><span style="height:18.2mm;display:flex;align-items:center"><span style="width:{{ x.w }};height:{{ x.h }};border-radius:{{ x.r }};border:{{ x.bd }};background:{{ x.bg }};box-sizing:border-box;display:block"></span></span><span style="font-size:14pt;font-weight:700;color:#d62828;white-space:nowrap">{{ x.cum }}</span></div></sc-for></div>
+<div style="flex:0 0 auto;display:flex;align-items:flex-end;gap:2mm;font-size:16pt"><span>=</span><span style="width:20mm;border-bottom:1.5px solid #14213d;height:9mm;display:flex;align-items:flex-end;justify-content:center;font-size:17pt;font-weight:700;color:#d62828">17</span><span>€</span></div>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-rows:repeat(6,minmax(0,1fr))">
+<sc-for list="{{ f2 }}" as="r" hint-placeholder-count="6">
+<div style="display:flex;align-items:center;gap:4mm;border-bottom:1px solid #dde2e9">
+<div style="flex:1;min-width:0;display:flex;flex-wrap:wrap;align-items:center;gap:3mm"><sc-for list="{{ r.m }}" as="x" hint-placeholder-count="3"><span style="flex:0 0 auto;width:{{ x.w }};height:{{ x.h }};border-radius:{{ x.r }};border:{{ x.bd }};background:{{ x.bg }};padding-left:{{ x.pl }};box-sizing:border-box;display:flex;align-items:center;justify-content:center;font-size:12pt;font-weight:700;color:#14213d;white-space:nowrap">{{ x.t }}</span></sc-for></div>
+<div style="flex:0 0 auto;display:flex;align-items:flex-end;gap:2mm;font-size:16pt"><span>=</span><span style="width:20mm;border-bottom:1.5px solid #14213d;height:9mm;display:block"></span><span>€</span></div>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;border-top:1px solid #c9cfd8;padding-top:2mm;font-size:12pt;color:#4a5262;display:flex;flex-direction:column;gap:0.5mm"><span>Compétence : Utiliser la monnaie (euro, centime d'euro)</span><span>Objectif : Calculer une somme d'argent en euros</span></div>
+<div style="flex:0 0 auto;display:flex;justify-content:space-between;align-items:center;font-size:12pt;color:#4a5262;margin-top:auto"><span style="font-style:italic">D'après Mimi classe</span><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:#14213d">4</span></div>
+</section>
+
+<section class="page" data-screen-label="Fiche 3 · Le plus d'argent" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto"><div style="background:#1f6fb2;color:#fff;padding:3mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:4mm"><span style="font-size:20pt;font-weight:700;letter-spacing:0.04em">LA MONNAIE</span><span style="font-size:12pt;letter-spacing:0.1em">FICHE 3</span></div><div style="height:1.5mm;background:#e0a526"></div></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm"><span style="width:12mm;height:12mm;flex:0 0 auto;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/compte.webp') center/contain no-repeat"></span><span style="width:12mm;height:12mm;flex:0 0 auto;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/ecris.webp') center/contain no-repeat"></span><span style="font-size:16pt;font-weight:700">Qui a le plus d'argent ? Écrivez &gt; ou &lt;.</span></div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:minmax(0,1fr) 16mm minmax(0,1fr);align-items:center;gap:3mm;position:relative;border:3.5px solid #14213d;border-radius:2mm;padding:3mm;margin-top:2mm;background:#ededed"><span style="position:absolute;top:-3mm;left:3mm;background:linear-gradient(#fff 50%,#ededed 50%);padding:0 1.5mm;font-size:12pt;font-weight:700;color:#d62828">Exemple</span>
+<div style="display:flex;flex-direction:column;gap:2mm;border:2px solid #14213d;border-radius:3mm;padding:3mm;background:#fff">
+<div style="display:flex;flex-wrap:wrap;align-items:center;gap:1.5mm"><sc-for list="{{ e3g }}" as="x" hint-placeholder-count="3"><span style="flex:0 0 auto;width:{{ x.w }};height:{{ x.h }};border-radius:{{ x.r }};border:{{ x.bd }};background:{{ x.bg }};box-sizing:border-box;display:block"></span></sc-for></div>
+<div style="display:flex;align-items:flex-end;gap:2mm;font-size:15pt"><span style="width:16mm;border-bottom:1.5px solid #14213d;height:8mm;display:flex;align-items:flex-end;justify-content:center;font-size:17pt;font-weight:700;color:#d62828">21</span><span>€</span></div>
+</div>
+<span style="width:16mm;height:16mm;box-sizing:border-box;border:2.5px solid #14213d;border-radius:2mm;background:#fff;display:flex;align-items:center;justify-content:center;font-size:28pt;font-weight:700;color:#d62828;line-height:1">&gt;</span>
+<div style="display:flex;flex-direction:column;gap:2mm;border:2px solid #14213d;border-radius:3mm;padding:3mm;background:#fff">
+<div style="display:flex;flex-wrap:wrap;align-items:center;gap:1.5mm"><sc-for list="{{ e3d }}" as="x" hint-placeholder-count="3"><span style="flex:0 0 auto;width:{{ x.w }};height:{{ x.h }};border-radius:{{ x.r }};border:{{ x.bd }};background:{{ x.bg }};box-sizing:border-box;display:block"></span></sc-for></div>
+<div style="display:flex;align-items:flex-end;gap:2mm;font-size:15pt"><span style="width:16mm;border-bottom:1.5px solid #14213d;height:8mm;display:flex;align-items:flex-end;justify-content:center;font-size:17pt;font-weight:700;color:#d62828">19</span><span>€</span></div>
+</div>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-rows:repeat(3,minmax(0,1fr));gap:5mm">
+<sc-for list="{{ f3 }}" as="r" hint-placeholder-count="3">
+<div style="display:grid;grid-template-columns:minmax(0,1fr) 16mm minmax(0,1fr);align-items:center;gap:3mm;min-height:0">
+<div style="display:flex;flex-direction:column;gap:2mm;border:2px solid #14213d;border-radius:3mm;padding:3mm;min-height:0;overflow:hidden">
+<div style="flex:1;display:flex;flex-wrap:wrap;align-items:center;align-content:center;gap:1.5mm"><sc-for list="{{ r.g }}" as="x" hint-placeholder-count="3"><span style="flex:0 0 auto;width:{{ x.w }};height:{{ x.h }};border-radius:{{ x.r }};border:{{ x.bd }};background:{{ x.bg }};padding-left:{{ x.pl }};box-sizing:border-box;display:flex;align-items:center;justify-content:center;font-size:12pt;font-weight:700;color:#14213d;white-space:nowrap">{{ x.t }}</span></sc-for></div>
+<div style="display:flex;align-items:flex-end;gap:2mm;font-size:15pt"><span style="width:16mm;border-bottom:1.5px solid #14213d;height:8mm;display:block"></span><span>€</span></div>
+</div>
+<span style="width:16mm;height:16mm;box-sizing:border-box;border:2.5px solid #14213d;border-radius:2mm;display:block"></span>
+<div style="display:flex;flex-direction:column;gap:2mm;border:2px solid #14213d;border-radius:3mm;padding:3mm;min-height:0;overflow:hidden">
+<div style="flex:1;display:flex;flex-wrap:wrap;align-items:center;align-content:center;gap:1.5mm"><sc-for list="{{ r.d }}" as="x" hint-placeholder-count="3"><span style="flex:0 0 auto;width:{{ x.w }};height:{{ x.h }};border-radius:{{ x.r }};border:{{ x.bd }};background:{{ x.bg }};padding-left:{{ x.pl }};box-sizing:border-box;display:flex;align-items:center;justify-content:center;font-size:12pt;font-weight:700;color:#14213d;white-space:nowrap">{{ x.t }}</span></sc-for></div>
+<div style="display:flex;align-items:flex-end;gap:2mm;font-size:15pt"><span style="width:16mm;border-bottom:1.5px solid #14213d;height:8mm;display:block"></span><span>€</span></div>
+</div>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;border-top:1px solid #c9cfd8;padding-top:2mm;font-size:12pt;color:#4a5262;display:flex;flex-direction:column;gap:0.5mm"><span>Compétence : Utiliser la monnaie (euro, centime d'euro)</span><span>Objectif : Comparer deux sommes d'argent</span></div>
+<div style="flex:0 0 auto;display:flex;justify-content:space-between;align-items:center;font-size:12pt;color:#4a5262;margin-top:auto"><span style="font-style:italic">D'après Mimi classe</span><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:#14213d">5</span></div>
+</section>
+
+<section class="page" data-screen-label="Fiche 4 · Payer le prix" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto"><div style="background:#1f6fb2;color:#fff;padding:3mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:4mm"><span style="font-size:20pt;font-weight:700;letter-spacing:0.04em">LA MONNAIE</span><span style="font-size:12pt;letter-spacing:0.1em">FICHE 4</span></div><div style="height:1.5mm;background:#e0a526"></div></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm"><span style="width:12mm;height:12mm;flex:0 0 auto;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/entoure.webp') center/contain no-repeat"></span><span style="font-size:16pt;font-weight:700">Entourez l'argent pour payer le prix.</span></div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:22mm 30mm minmax(0,1fr);align-items:center;gap:3mm;height:24mm;box-sizing:border-box;position:relative;border:3.5px solid #14213d;border-radius:2mm;padding:2mm 3mm;margin-top:2mm;background:#ededed"><span style="position:absolute;top:-3mm;left:3mm;background:linear-gradient(#fff 50%,#ededed 50%);padding:0 1.5mm;font-size:12pt;font-weight:700;color:#d62828">Exemple</span>
+<div style="height:100%;background:url('clean/mot-chaussure.webp') center/contain no-repeat"></div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:1mm"><span style="font-size:12pt;font-weight:700">des chaussures</span><span style="font-size:18pt;font-weight:700;border:2px solid #e0a526;border-radius:1.5mm;padding:0.5mm 2.5mm">25 €</span></div>
+<div style="display:flex;flex-wrap:wrap;align-items:center;gap:4mm;padding-left:1.5mm"><sc-for list="{{ e4 }}" as="x" hint-placeholder-count="3"><span style="flex:0 0 auto;position:relative;width:{{ x.w }};height:{{ x.h }};display:block"><span style="position:absolute;inset:0;border-radius:{{ x.r }};border:{{ x.bd }};background:{{ x.bg }};box-sizing:border-box;display:block"></span><sc-if value="{{ x.o }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 100 60" preserveAspectRatio="none" style="position:absolute;left:-3.5mm;top:-3mm;width:calc(100% + 7mm);height:calc(100% + 6mm);overflow:visible;transform:rotate(-4deg)"><path d="M14,9 C40,-3 86,0 96,21 C104,41 82,58 49,58 C17,57 1,46 3,28 C5,13 24,5 42,4 C57,3 68,6 75,11" fill="none" stroke="#d62828" stroke-width="2.6" stroke-linecap="round" vector-effect="non-scaling-stroke"></path></svg></sc-if></span></sc-for></div>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-rows:repeat(6,minmax(0,1fr));gap:3mm">
+<sc-for list="{{ f4 }}" as="r" hint-placeholder-count="6">
+<div style="display:grid;grid-template-columns:22mm 30mm minmax(0,1fr);align-items:center;gap:3mm;border:2px solid #14213d;border-radius:3mm;padding:2mm 3mm;min-height:0">
+<div style="height:100%;min-height:0;background-image:{{ r.img }};background-size:contain;background-repeat:no-repeat;background-position:center"></div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:1mm"><span style="font-size:12pt;font-weight:700">{{ r.nom }}</span><span style="font-size:18pt;font-weight:700;border:2px solid #e0a526;border-radius:1.5mm;padding:0.5mm 2.5mm">{{ r.prix }}</span></div>
+<div style="display:flex;flex-wrap:wrap;align-items:center;align-content:center;gap:2.5mm"><sc-for list="{{ r.m }}" as="x" hint-placeholder-count="5"><span style="flex:0 0 auto;width:{{ x.w }};height:{{ x.h }};border-radius:{{ x.r }};border:{{ x.bd }};background:{{ x.bg }};padding-left:{{ x.pl }};box-sizing:border-box;display:flex;align-items:center;justify-content:center;font-size:12pt;font-weight:700;color:#14213d;white-space:nowrap">{{ x.t }}</span></sc-for></div>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;border-top:1px solid #c9cfd8;padding-top:2mm;font-size:12pt;color:#4a5262;display:flex;flex-direction:column;gap:0.5mm"><span>Compétence : Utiliser la monnaie (euro, centime d'euro)</span><span>Objectif : Réaliser une somme d'argent donnée</span></div>
+<div style="flex:0 0 auto;display:flex;justify-content:space-between;align-items:center;font-size:12pt;color:#4a5262;margin-top:auto"><span style="font-style:italic">D'après Mimi classe</span><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:#14213d">6</span></div>
+</section>
+
+<section class="page" data-screen-label="Fiche 5 · Au restaurant" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto"><div style="background:#1f6fb2;color:#fff;padding:3mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:4mm"><span style="font-size:20pt;font-weight:700;letter-spacing:0.04em">LA MONNAIE</span><span style="font-size:12pt;letter-spacing:0.1em">FICHE 5</span></div><div style="height:1.5mm;background:#e0a526"></div></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm"><span style="width:12mm;height:12mm;flex:0 0 auto;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/ecris.webp') center/contain no-repeat"></span><span style="font-size:16pt;font-weight:700">Au restaurant. Combien je paie ?</span></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:4mm;height:26mm;box-sizing:border-box;position:relative;border:3.5px solid #14213d;border-radius:2mm;padding:2mm 3mm;margin-top:2mm;background:#ededed"><span style="position:absolute;top:-3mm;left:3mm;background:linear-gradient(#fff 50%,#ededed 50%);padding:0 1.5mm;font-size:12pt;font-weight:700;color:#d62828">Exemple</span>
+<div style="width:24mm;height:100%;flex:0 0 auto;background:url('clean/mot-cafe.webp') center/contain no-repeat"></div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:0.5mm"><span style="font-size:12pt">un café</span><span style="font-size:17pt;font-weight:700">2 €</span></div>
+<span style="font-size:20pt;font-weight:700">+</span>
+<div style="width:24mm;height:100%;flex:0 0 auto;background:url('clean/mot-glace.webp') center/contain no-repeat"></div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:0.5mm"><span style="font-size:12pt">une glace</span><span style="font-size:17pt;font-weight:700">3 €</span></div>
+<div style="margin-left:auto;display:flex;align-items:flex-end;gap:2mm;font-size:17pt"><span>=</span><span style="width:18mm;border-bottom:1.5px solid #14213d;height:9mm;display:flex;align-items:flex-end;justify-content:center;font-size:17pt;font-weight:700;color:#d62828">5</span><span>€</span></div>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-rows:repeat(5,minmax(0,1fr));gap:3mm">
+<sc-for list="{{ f5 }}" as="r" hint-placeholder-count="5">
+<div style="display:flex;align-items:center;gap:4mm;border-bottom:1px solid #dde2e9;min-height:0">
+<div style="width:24mm;height:100%;max-height:28mm;flex:0 0 auto;background-image:{{ r.img1 }};background-size:contain;background-repeat:no-repeat;background-position:center"></div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:0.5mm"><span style="font-size:12pt">{{ r.nom1 }}</span><span style="font-size:17pt;font-weight:700">{{ r.p1 }}</span></div>
+<span style="font-size:20pt;font-weight:700">+</span>
+<div style="width:24mm;height:100%;max-height:28mm;flex:0 0 auto;background-image:{{ r.img2 }};background-size:contain;background-repeat:no-repeat;background-position:center"></div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:0.5mm"><span style="font-size:12pt">{{ r.nom2 }}</span><span style="font-size:17pt;font-weight:700">{{ r.p2 }}</span></div>
+<div style="margin-left:auto;display:flex;align-items:flex-end;gap:2mm;font-size:17pt"><span>=</span><span style="width:18mm;border-bottom:1.5px solid #14213d;height:9mm;display:block"></span><span>€</span></div>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;border-top:1px solid #c9cfd8;padding-top:2mm;font-size:12pt;color:#4a5262;display:flex;flex-direction:column;gap:0.5mm"><span>Compétence : Résoudre des problèmes impliquant des prix</span><span>Objectif : Additionner deux prix</span></div>
+<div style="flex:0 0 auto;display:flex;justify-content:space-between;align-items:center;font-size:12pt;color:#4a5262;margin-top:auto"><span style="font-style:italic">D'après Mimi classe</span><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:#14213d">7</span></div>
+</section>
+
+<section class="page" data-screen-label="Fiche 6 · Les centimes" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto"><div style="background:#1f6fb2;color:#fff;padding:3mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:4mm"><span style="font-size:20pt;font-weight:700;letter-spacing:0.04em">LA MONNAIE</span><span style="font-size:12pt;letter-spacing:0.1em">FICHE 6</span></div><div style="height:1.5mm;background:#e0a526"></div></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm"><span style="width:12mm;height:12mm;flex:0 0 auto;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/compte.webp') center/contain no-repeat"></span><span style="width:12mm;height:12mm;flex:0 0 auto;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/ecris.webp') center/contain no-repeat"></span><span style="font-size:16pt;font-weight:700">Comptez les centimes. Écrivez le total.</span></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:6mm;border:1.5px dashed #8a91a3;border-radius:2mm;padding:2.5mm 4mm;font-size:13pt"><span style="font-weight:700">Le centime : c</span><span style="font-size:16pt;font-weight:700">100 c = 1 €</span><span>50 c + 20 c = <b>70 c</b></span></div>
+<div style="flex:1;min-height:0;display:grid;grid-template-rows:repeat(5,minmax(0,1fr))">
+<sc-for list="{{ f6 }}" as="r" hint-placeholder-count="5">
+<div style="display:flex;align-items:center;gap:4mm;border-bottom:1px solid #dde2e9">
+<div style="flex:1;min-width:0;display:flex;flex-wrap:wrap;align-items:center;gap:3mm"><sc-for list="{{ r.m }}" as="x" hint-placeholder-count="4"><span style="flex:0 0 auto;width:{{ x.w }};height:{{ x.h }};border-radius:{{ x.r }};border:{{ x.bd }};background:{{ x.bg }};padding-left:{{ x.pl }};box-sizing:border-box;display:flex;align-items:center;justify-content:center;font-size:12pt;font-weight:700;color:#14213d;white-space:nowrap">{{ x.t }}</span></sc-for></div>
+<div style="flex:0 0 auto;display:flex;align-items:flex-end;gap:2mm;font-size:16pt"><span>=</span><span style="width:20mm;border-bottom:1.5px solid #14213d;height:9mm;display:block"></span><span>c</span></div>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;border-top:1px solid #c9cfd8;padding-top:2mm;font-size:12pt;color:#4a5262;display:flex;flex-direction:column;gap:0.5mm"><span>Compétence : Utiliser la monnaie (euro, centime d'euro)</span><span>Objectif : Compter des centimes · 1 € = 100 c</span></div>
+<div style="flex:0 0 auto;display:flex;justify-content:space-between;align-items:center;font-size:12pt;color:#4a5262;margin-top:auto"><span style="font-style:italic">D'après Mimi classe</span><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:#14213d">8</span></div>
+</section>
+
+<section class="page" data-screen-label="Fiche 7 · Euros et centimes" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto"><div style="background:#1f6fb2;color:#fff;padding:3mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:4mm"><span style="font-size:20pt;font-weight:700;letter-spacing:0.04em">LA MONNAIE</span><span style="font-size:12pt;letter-spacing:0.1em">FICHE 7</span></div><div style="height:1.5mm;background:#e0a526"></div></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm"><span style="width:12mm;height:12mm;flex:0 0 auto;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/compte.webp') center/contain no-repeat"></span><span style="width:12mm;height:12mm;flex:0 0 auto;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/ecris.webp') center/contain no-repeat"></span><span style="font-size:16pt;font-weight:700">Comptez les euros, puis les centimes. Écrivez.</span></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:6mm;position:relative;border:3.5px solid #14213d;border-radius:2mm;padding:2mm 3mm;margin-top:2mm;background:#ededed"><span style="position:absolute;top:-3mm;left:3mm;background:linear-gradient(#fff 50%,#ededed 50%);padding:0 1.5mm;font-size:12pt;font-weight:700;color:#d62828">Exemple</span>
+<div style="display:flex;flex-wrap:wrap;align-items:center;gap:3mm"><sc-for list="{{ e7 }}" as="x" hint-placeholder-count="3"><span style="flex:0 0 auto;width:{{ x.w }};height:{{ x.h }};border-radius:{{ x.r }};border:{{ x.bd }};background:{{ x.bg }};box-sizing:border-box;display:block"></span></sc-for></div>
+<div style="display:flex;align-items:flex-end;gap:2mm;font-size:16pt"><span style="width:16mm;border-bottom:1.5px solid #14213d;height:9mm;display:flex;align-items:flex-end;justify-content:center;font-size:17pt;font-weight:700;color:#d62828">3</span><span>€ et</span><span style="width:16mm;border-bottom:1.5px solid #14213d;height:9mm;display:flex;align-items:flex-end;justify-content:center;font-size:17pt;font-weight:700;color:#d62828">50</span><span>c</span></div>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-rows:repeat(4,minmax(0,1fr))">
+<sc-for list="{{ f7 }}" as="r" hint-placeholder-count="4">
+<div style="display:flex;flex-direction:column;justify-content:center;gap:4mm;border-bottom:1px solid #dde2e9">
+<div style="display:flex;flex-wrap:wrap;align-items:center;gap:3mm"><sc-for list="{{ r.m }}" as="x" hint-placeholder-count="4"><span style="flex:0 0 auto;width:{{ x.w }};height:{{ x.h }};border-radius:{{ x.r }};border:{{ x.bd }};background:{{ x.bg }};padding-left:{{ x.pl }};box-sizing:border-box;display:flex;align-items:center;justify-content:center;font-size:12pt;font-weight:700;color:#14213d;white-space:nowrap">{{ x.t }}</span></sc-for></div>
+<div style="display:flex;align-items:flex-end;gap:2mm;font-size:16pt"><span style="width:16mm;border-bottom:1.5px solid #14213d;height:9mm;display:block"></span><span>€ et</span><span style="width:16mm;border-bottom:1.5px solid #14213d;height:9mm;display:block"></span><span>c</span></div>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;border-top:1px solid #c9cfd8;padding-top:2mm;font-size:12pt;color:#4a5262;display:flex;flex-direction:column;gap:0.5mm"><span>Compétence : Utiliser la monnaie (euro, centime d'euro)</span><span>Objectif : Compter une somme en euros et centimes</span></div>
+<div style="flex:0 0 auto;display:flex;justify-content:space-between;align-items:center;font-size:12pt;color:#4a5262;margin-top:auto"><span style="font-style:italic">D'après Mimi classe</span><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:#14213d">9</span></div>
+</section>
+
+<section class="page" data-screen-label="Fiche 8 · Rendre la monnaie" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto"><div style="background:#1f6fb2;color:#fff;padding:3mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:4mm"><span style="font-size:20pt;font-weight:700;letter-spacing:0.04em">LA MONNAIE</span><span style="font-size:12pt;letter-spacing:0.1em">FICHE 8</span></div><div style="height:1.5mm;background:#e0a526"></div></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm"><span style="width:12mm;height:12mm;flex:0 0 auto;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/ecris.webp') center/contain no-repeat"></span><span style="font-size:16pt;font-weight:700">Je donne un billet. Combien on me rend ?</span></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:4mm;height:28mm;box-sizing:border-box;position:relative;border:3.5px solid #14213d;border-radius:2mm;padding:2mm 3mm;margin-top:2mm;background:#ededed"><span style="position:absolute;top:-3mm;left:3mm;background:linear-gradient(#fff 50%,#ededed 50%);padding:0 1.5mm;font-size:12pt;font-weight:700;color:#d62828">Exemple</span>
+<div style="width:24mm;height:100%;flex:0 0 auto;background:url('clean/mot-chocolat.webp') center/contain no-repeat"></div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:0.5mm;width:24mm"><span style="font-size:12pt">un chocolat</span><span style="font-size:17pt;font-weight:700;border:2px solid #e0a526;border-radius:1.5mm;padding:0.5mm 2.5mm">6 €</span></div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:1mm"><span style="font-size:12pt">je donne</span><sc-for list="{{ e8 }}" as="x" hint-placeholder-count="3"><span style="flex:0 0 auto;width:{{ x.w }};height:{{ x.h }};border-radius:{{ x.r }};border:{{ x.bd }};background:{{ x.bg }};box-sizing:border-box;display:block"></span></sc-for></div>
+<div style="margin-left:auto;display:flex;align-items:flex-end;gap:2mm;font-size:15pt"><span>on me rend</span><span style="width:16mm;border-bottom:1.5px solid #14213d;height:9mm;display:flex;align-items:flex-end;justify-content:center;font-size:17pt;font-weight:700;color:#d62828">4</span><span>€</span></div>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-rows:repeat(5,minmax(0,1fr));gap:3mm">
+<sc-for list="{{ f8 }}" as="r" hint-placeholder-count="5">
+<div style="display:flex;align-items:center;gap:4mm;border-bottom:1px solid #dde2e9;min-height:0">
+<div style="width:24mm;height:100%;max-height:28mm;flex:0 0 auto;background-image:{{ r.img }};background-size:contain;background-repeat:no-repeat;background-position:center"></div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:0.5mm;width:24mm"><span style="font-size:12pt">{{ r.nom }}</span><span style="font-size:17pt;font-weight:700;border:2px solid #e0a526;border-radius:1.5mm;padding:0.5mm 2.5mm">{{ r.prix }}</span></div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:1mm"><span style="font-size:12pt">je donne</span><sc-for list="{{ r.m }}" as="x" hint-placeholder-count="1"><span style="flex:0 0 auto;width:{{ x.w }};height:{{ x.h }};border-radius:{{ x.r }};border:{{ x.bd }};background:{{ x.bg }};padding-left:{{ x.pl }};box-sizing:border-box;display:flex;align-items:center;justify-content:center;font-size:12pt;font-weight:700;color:#14213d;white-space:nowrap">{{ x.t }}</span></sc-for></div>
+<div style="margin-left:auto;display:flex;align-items:flex-end;gap:2mm;font-size:15pt"><span>on me rend</span><span style="width:16mm;border-bottom:1.5px solid #14213d;height:9mm;display:block"></span><span>€</span></div>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;border-top:1px solid #c9cfd8;padding-top:2mm;font-size:12pt;color:#4a5262;display:flex;flex-direction:column;gap:0.5mm"><span>Compétence : Résoudre des problèmes impliquant des prix</span><span>Objectif : Calculer la monnaie à rendre</span></div>
+<div style="flex:0 0 auto;display:flex;justify-content:space-between;align-items:center;font-size:12pt;color:#4a5262;margin-top:auto"><span style="font-style:italic">D'après Mimi classe</span><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:#14213d">10</span></div>
+</section>
+
+<section class="page" data-screen-label="Bilan" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto"><div style="background:#1f6fb2;color:#fff;padding:3mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:4mm"><span style="font-size:20pt;font-weight:700;letter-spacing:0.04em">LA MONNAIE</span><span style="font-size:12pt;letter-spacing:0.1em">BILAN</span></div><div style="height:1.5mm;background:#e0a526"></div></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm"><span style="width:8mm;height:8mm;flex:0 0 auto;border-radius:50%;background:#14213d;color:#fff;font-size:13pt;font-weight:700;display:flex;align-items:center;justify-content:center">1</span><span style="font-size:16pt;font-weight:700">Comptez l'argent.</span></div>
+<sc-for list="{{ bilan1 }}" as="r" hint-placeholder-count="2">
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:4mm;border-bottom:1px solid #dde2e9;padding:2mm 0">
+<div style="flex:1;min-width:0;display:flex;flex-wrap:wrap;align-items:center;gap:3mm"><sc-for list="{{ r.m }}" as="x" hint-placeholder-count="4"><span style="flex:0 0 auto;width:{{ x.w }};height:{{ x.h }};border-radius:{{ x.r }};border:{{ x.bd }};background:{{ x.bg }};padding-left:{{ x.pl }};box-sizing:border-box;display:flex;align-items:center;justify-content:center;font-size:12pt;font-weight:700;color:#14213d;white-space:nowrap">{{ x.t }}</span></sc-for></div>
+<div style="flex:0 0 auto;display:flex;align-items:flex-end;gap:2mm;font-size:15pt"><span style="width:14mm;border-bottom:1.5px solid #14213d;height:8mm;display:block"></span><span>€ et</span><span style="width:14mm;border-bottom:1.5px solid #14213d;height:8mm;display:block"></span><span>c</span></div>
+</div>
+</sc-for>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm;margin-top:2mm"><span style="width:8mm;height:8mm;flex:0 0 auto;border-radius:50%;background:#14213d;color:#fff;font-size:13pt;font-weight:700;display:flex;align-items:center;justify-content:center">2</span><span style="font-size:16pt;font-weight:700">Au restaurant. Combien je paie ?</span></div>
+<div style="flex:0 0 32mm;display:flex;align-items:center;gap:4mm">
+<div style="width:26mm;height:100%;background:url('clean/mot-frites.webp') center/contain no-repeat"></div><span style="font-size:17pt;font-weight:700">3 €</span><span style="font-size:20pt;font-weight:700">+</span>
+<div style="width:26mm;height:100%;background:url('clean/mot-cafe.webp') center/contain no-repeat"></div><span style="font-size:17pt;font-weight:700">2 €</span>
+<div style="margin-left:auto;display:flex;align-items:flex-end;gap:2mm;font-size:17pt"><span>=</span><span style="width:18mm;border-bottom:1.5px solid #14213d;height:9mm;display:block"></span><span>€</span></div>
+</div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm;margin-top:2mm"><span style="width:8mm;height:8mm;flex:0 0 auto;border-radius:50%;background:#14213d;color:#fff;font-size:13pt;font-weight:700;display:flex;align-items:center;justify-content:center">3</span><span style="font-size:16pt;font-weight:700">Combien on me rend ?</span></div>
+<div style="flex:0 0 32mm;display:flex;align-items:center;gap:4mm">
+<div style="width:26mm;height:100%;background:url('clean/mot-gateau.webp') center/contain no-repeat"></div>
+<span style="font-size:17pt;font-weight:700;border:2px solid #e0a526;border-radius:1.5mm;padding:0.5mm 2.5mm">8 €</span>
+<span style="font-size:13pt">je donne</span><span style="width:34mm;height:18mm;border-radius:1.5mm;border:2px solid #14213d;background:linear-gradient(90deg,#8fb3e0 0 6mm,#fff 6mm);padding-left:6mm;box-sizing:border-box;display:flex;align-items:center;justify-content:center;font-size:12pt;font-weight:700">20 €</span>
+<div style="margin-left:auto;display:flex;align-items:flex-end;gap:2mm;font-size:15pt"><span>on me rend</span><span style="width:16mm;border-bottom:1.5px solid #14213d;height:9mm;display:block"></span><span>€</span></div>
+</div>
+<div style="flex:1"></div>
+<div style="flex:0 0 auto;border-top:1px solid #c9cfd8;padding-top:2mm;font-size:12pt;color:#4a5262;display:flex;flex-direction:column;gap:0.5mm"><span>Compétence : Utiliser la monnaie · résoudre des problèmes impliquant des prix</span><span>Objectif : Bilan : la monnaie</span></div>
+<div style="flex:0 0 auto;display:flex;justify-content:space-between;align-items:center;font-size:12pt;color:#4a5262;margin-top:auto"><span style="font-style:italic">D'après Mimi classe</span><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:#14213d">11</span></div>
+</section>
+
+<section class="page" data-screen-label="J'ai appris" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:6mm">
+<div style="flex:0 0 auto;display:flex;align-items:baseline;gap:4mm;border-bottom:2.5px solid #1f6fb2;padding-bottom:2mm"><span style="font-size:24pt;font-weight:700">J'ai appris</span><span style="font-size:13pt;color:#4a5262">— je regarde quand j'ai besoin</span></div>
+<span style="flex:0 0 auto;font-size:16pt;font-weight:700">Les pièces</span>
+<div style="flex:0 0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:5mm"><sc-for list="{{ memoPieces }}" as="x" hint-placeholder-count="8"><span style="flex:0 0 auto;width:{{ x.w }};height:{{ x.h }};border-radius:{{ x.r }};border:{{ x.bd }};background:{{ x.bg }};padding-left:{{ x.pl }};box-sizing:border-box;display:flex;align-items:center;justify-content:center;font-size:12pt;font-weight:700;color:#14213d;white-space:nowrap">{{ x.t }}</span></sc-for></div>
+<span style="flex:0 0 auto;font-size:16pt;font-weight:700">Les billets</span>
+<div style="flex:0 0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:5mm"><sc-for list="{{ memoBillets }}" as="x" hint-placeholder-count="4"><span style="flex:0 0 auto;width:{{ x.w }};height:{{ x.h }};border-radius:{{ x.r }};border:{{ x.bd }};background:{{ x.bg }};padding-left:{{ x.pl }};box-sizing:border-box;display:flex;align-items:center;justify-content:center;font-size:12pt;font-weight:700;color:#14213d;white-space:nowrap">{{ x.t }}</span></sc-for></div>
+<div style="flex:0 0 auto;display:flex;justify-content:center;gap:12mm;font-size:22pt;font-weight:700;border:2px solid #14213d;border-radius:3mm;padding:5mm"><span>1 € = 100 c</span></div>
+<div style="flex:0 0 auto;font-size:13pt;display:flex;flex-direction:column;gap:2.5mm">
+<span><b>€</b> : l'euro. <b>c</b> : le centime.</span>
+<span><b>Je compte l'argent</b> : je commence par le plus grand.</span>
+<span><b>On me rend la monnaie</b> : je compte du prix jusqu'au billet. 7 € → 10 € : on me rend <b>3 €</b>.</span>
+</div>
+<div style="flex:1"></div>
+<div style="flex:0 0 auto;display:flex;justify-content:space-between;align-items:center;font-size:12pt;color:#4a5262"><span style="font-style:italic">D'après Mimi classe</span><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:#14213d">12</span></div>
+</section>
+
+<section class="page" data-screen-label="Les consignes" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:6mm">
+<div style="flex:0 0 auto;font-size:24pt;font-weight:700;border-bottom:2.5px solid #1f6fb2;padding-bottom:2mm">Les consignes</div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5mm">
+<div style="display:flex;align-items:center;gap:4mm;border:2px solid #14213d;border-radius:3mm;padding:4mm"><span style="width:18mm;height:18mm;flex:0 0 auto;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/entoure.webp') center/contain no-repeat"></span><span style="font-size:18pt;font-weight:700">Entourez</span></div>
+<div style="display:flex;align-items:center;gap:4mm;border:2px solid #14213d;border-radius:3mm;padding:4mm"><span style="width:18mm;height:18mm;flex:0 0 auto;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/ecris.webp') center/contain no-repeat"></span><span style="font-size:18pt;font-weight:700">Écrivez · Comptez</span></div>
+<div style="display:flex;align-items:center;gap:4mm;border:2px solid #14213d;border-radius:3mm;padding:4mm"><span style="width:18mm;height:18mm;flex:0 0 auto;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;display:flex;align-items:center;justify-content:center"><span style="width:9mm;height:9mm;box-sizing:border-box;border:2px solid #14213d;border-radius:1mm;display:flex;align-items:center;justify-content:center;font-size:16pt;font-weight:700;line-height:1">✓</span></span><span style="font-size:18pt;font-weight:700">Cochez</span></div>
+</div>
+<div style="flex:1"></div>
+<div style="flex:0 0 auto;display:flex;justify-content:space-between;align-items:center;font-size:12pt;color:#4a5262"><span style="font-style:italic">D'après Mimi classe</span><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:#14213d">13</span></div>
+</section>
+
+<section class="page" data-screen-label="Corrigé" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:3mm">
+<div style="flex:0 0 auto;background:#14213d;color:#fff;padding:4mm 5mm;font-size:20pt;font-weight:700;line-height:1">CORRIGÉ — LA MONNAIE</div>
+<sc-for list="{{ corrige }}" as="c" hint-placeholder-count="9">
+<div style="flex:0 0 auto;display:grid;grid-template-columns:26mm minmax(0,1fr);gap:3mm;border-bottom:1px solid #e3e6ec;padding:1.5mm 0;font-size:12pt;line-height:1.3"><span style="font-weight:700">{{ c.t }}</span><span>{{ c.r }}</span></div>
+</sc-for>
+</section>
+
+<section class="page" data-screen-label="Déroulé des séances" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto;display:flex;align-items:baseline;justify-content:space-between;gap:4mm;border-bottom:2.5px solid #1f6fb2;padding-bottom:2mm"><span style="font-size:24pt;font-weight:700">Déroulé des séances</span><span style="font-size:12pt">pour l'enseignant·e</span></div>
+<div style="flex:0 0 auto;font-size:12pt;display:flex;flex-direction:column;gap:1mm;line-height:1.3"><span><b>Matériel :</b> de vraies pièces et de vrais billets (ou factices), un sac opaque, des étiquettes prix.</span><span><b>Principe :</b> on manipule d'abord, la fiche vient ensuite.</span></div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:17mm 17mm minmax(0,1fr);border:2px solid #14213d;font-size:12pt;line-height:1.3">
+<span style="padding:2mm;font-weight:700;border-bottom:2px solid #14213d">Séance</span><span style="padding:2mm;font-weight:700;border-bottom:2px solid #14213d;border-left:1px solid #8a91a3">Fiches</span><span style="padding:2mm 3mm;font-weight:700;border-bottom:2px solid #14213d;border-left:1px solid #8a91a3">Avant la fiche, on manipule</span>
+<span style="padding:2.5mm 2mm;font-weight:700;border-bottom:1px solid #c9cfd8">1</span><span style="padding:2.5mm 2mm;border-bottom:1px solid #c9cfd8;border-left:1px solid #8a91a3">1</span><span style="padding:2.5mm 3mm;border-bottom:1px solid #c9cfd8;border-left:1px solid #8a91a3">On vide un porte-monnaie sur la table. On sépare pièces et billets, on les range du plus petit au plus grand. Puis le sac mystère (encadré).</span>
+<span style="padding:2.5mm 2mm;font-weight:700;border-bottom:1px solid #c9cfd8">2</span><span style="padding:2.5mm 2mm;border-bottom:1px solid #c9cfd8;border-left:1px solid #8a91a3">2 · 3</span><span style="padding:2.5mm 3mm;border-bottom:1px solid #c9cfd8;border-left:1px solid #8a91a3">Chacun reçoit une poignée d'argent et compte : les billets d'abord, puis les pièces. On compare deux tas : qui a le plus ?</span>
+<span style="padding:2.5mm 2mm;font-weight:700;border-bottom:1px solid #c9cfd8">3</span><span style="padding:2.5mm 2mm;border-bottom:1px solid #c9cfd8;border-left:1px solid #8a91a3">4 · 5</span><span style="padding:2.5mm 3mm;border-bottom:1px solid #c9cfd8;border-left:1px solid #8a91a3">Des objets avec une étiquette prix. Un élève vend, un autre paie la somme exacte. Au restaurant : on additionne deux prix.</span>
+<span style="padding:2.5mm 2mm;font-weight:700;border-bottom:1px solid #c9cfd8">4</span><span style="padding:2.5mm 2mm;border-bottom:1px solid #c9cfd8;border-left:1px solid #8a91a3">6 · 7</span><span style="padding:2.5mm 3mm;border-bottom:1px solid #c9cfd8;border-left:1px solid #8a91a3">On échange : 2 pièces de 50 c contre 1 €, 5 pièces de 20 c contre 1 €. 1 € = 100 c.</span>
+<span style="padding:2.5mm 2mm;font-weight:700;border-bottom:1px solid #c9cfd8">5</span><span style="padding:2.5mm 2mm;border-bottom:1px solid #c9cfd8;border-left:1px solid #8a91a3">8</span><span style="padding:2.5mm 3mm;border-bottom:1px solid #c9cfd8;border-left:1px solid #8a91a3">La caisse. L'élève paie avec un billet trop grand ; le vendeur rend en comptant à voix haute à partir du prix : « 7… 8, 9, 10 ».</span>
+<span style="padding:2.5mm 2mm;font-weight:700">6</span><span style="padding:2.5mm 2mm;border-left:1px solid #8a91a3">Bilan</span><span style="padding:2.5mm 3mm;border-left:1px solid #8a91a3">Le bilan seul, puis « J'ai appris » ensemble. L'élève remplit « Je fais le point » au sommaire.</span>
+</div>
+<div style="flex:0 0 auto;display:flex;flex-direction:column;border:2px solid #e0a526;border-radius:2mm;overflow:hidden;font-size:12pt;line-height:1.35">
+<span style="background:#e0a526;color:#14213d;font-weight:700;font-size:14pt;padding:2mm 4mm">Le sac mystère : reconnaître au toucher</span>
+<div style="padding:3mm 4mm;display:flex;flex-direction:column;gap:2mm">
+<span>Toutes les pièces dans un sac opaque. L'élève plonge la main <b>sans regarder</b> et cherche la pièce demandée.</span>
+<span><b>La pièce de 20 c</b> a 7 encoches sur le bord : on la trouve les yeux fermés. Elle a été dessinée pour ça, et pour les personnes aveugles.</span>
+<span><b>Les plus grosses</b> sont les pièces de 2 €, 50 c et 1 €. Attention : la pièce de 50 c est plus grosse que celle de 1 €. La taille ne dit pas toujours la valeur.</span>
+<span>On rejoue souvent, en début de séance : 5 minutes suffisent.</span>
+</div>
+</div>
+<div style="flex:1"></div>
+<div style="flex:0 0 auto;display:flex;justify-content:space-between;align-items:center;font-size:12pt;color:#4a5262"><span style="font-style:italic">D'après Mimi classe</span></div>
+</section>
+
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const img = f => "url('clean/mot-" + f + ".webp')";
+    const BAND = { 5: '#b9cfc4', 10: '#e8a6a0', 20: '#8fb3e0', 50: '#f0b974' };
+    const CS = { 1: 16.25, 2: 18.75, 5: 21.25, 10: 19.75, 20: 22.25, 50: 24.25 };
+    // b10 = billet 10 €, p2 = pièce 2 €, c50 = 50 centimes
+    const tok = (code, z = 1) => {
+      const k = code[0], n = +code.slice(1), q = v => (v * z).toFixed(1) + 'mm';
+      if (k === 'b') return { w: q(34), h: q(18), r: '1mm', bd: '1px solid #8a91a3', bg: "#fff url('clean/mot-billet" + n + ".webp') center / 100% 100% no-repeat", pl: '0', t: '', v: n * 100 };
+      const coin = f => "#fff url('clean/mot-piece" + f + ".webp') center / 100% 100% no-repeat";
+      if (k === 'p') { const s = n === 2 ? 25.75 : 23.25; return { w: q(s), h: q(s), r: '50%', bd: 'none', bg: coin(n + 'e'), pl: '0', t: '', v: n * 100 }; }
+      const s = CS[n]; return { w: q(s), h: q(s), r: '50%', bd: 'none', bg: coin(n + 'c'), pl: '0', t: '', v: n };
+    };
+    const toks = (a, z) => a.map(c => tok(c, z));
+    const tot = a => a.reduce((s, c) => s + tok(c).v, 0);
+    const eur = v => v / 100 + ' €';
+    const ec = v => Math.floor(v / 100) + ' € et ' + (v % 100) + ' c';
+    const F1 = ['p2', 'b5', 'c50', 'b20', 'p1', 'c10', 'b10', 'p2', 'b50', 'c20', 'p1', 'b5'];
+    // difficulté croissante : 1-2 déjà rangés, 3-4 un peu mélangés, 5-6 tout mélangés
+    const F2 = [['b10', 'p2', 'p1'], ['b20', 'b5', 'p2'], ['p2', 'b10', 'b5'], ['p1', 'b20', 'p2', 'b10'], ['p2', 'b5', 'p1', 'b20', 'b10'], ['p1', 'b10', 'p2', 'b50', 'b5']];
+    const F3 = [[['b10', 'p2'], ['b5', 'b5', 'p1']], [['b5', 'p1', 'p1'], ['p2', 'p2', 'p2', 'p2']], [['b50'], ['b20', 'b20', 'b10', 'p2']]];
+    const F4 = [['cahier', 'un cahier', 3, ['p2', 'p2', 'p1', 'c50'], '2 € + 1 €'], ['gateau', 'un gâteau', 8, ['b5', 'p2', 'p2', 'p1', 'c50'], '5 € + 2 € + 1 €'], ['bonnet', 'un bonnet', 15, ['b10', 'b10', 'b5', 'p2'], '10 € + 5 €'], ['frites', 'des frites', 4, ['b5', 'p2', 'p1', 'p1'], '2 € + 1 € + 1 €'], ['chocolat', 'un chocolat', 6, ['b5', 'p2', 'p2', 'p2', 'c50'], '2 € + 2 € + 2 €'], ['pain', 'du pain', 1, ['p2', 'p1', 'c50', 'c20'], '1 €']];
+    const F5 = [['cafe', 'un café', 2, 'gateau', 'un gâteau', 4], ['frites', 'des frites', 3, 'eau', 'de l\'eau', 1], ['fromage', 'du fromage', 5, 'pain', 'du pain', 1], ['glace', 'une glace', 3, 'chocolat', 'un chocolat', 6], ['lait', 'du lait', 1, 'frites', 'des frites', 3]];
+    const F6 = [['c50', 'c20', 'c10'], ['c20', 'c20', 'c5', 'c2'], ['c50', 'c10', 'c10', 'c5', 'c1'], ['c10', 'c10', 'c10', 'c2', 'c2'], ['c50', 'c20', 'c20', 'c5', 'c5']];
+    const F7 = [['b5', 'p2', 'c20', 'c10'], ['b10', 'p1', 'c50', 'c20', 'c5'], ['p2', 'p2', 'c10', 'c10', 'c2'], ['b20', 'p1', 'c50', 'c50']];
+    const F8 = [['cahier', 'un cahier', 3, 5], ['gateau', 'un gâteau', 8, 10], ['bonnet', 'un bonnet', 15, 20], ['chaussure', 'des chaussures', 35, 50], ['frites', 'des frites', 4, 10]];
+    const B1 = [['b20', 'b5', 'p2', 'p1', 'c50'], ['b10', 'p2', 'c50', 'c20']];
+    return {
+      jours: ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'],
+      numeros: [1, 2, 3, 4, 5, 6, 7, 8],
+      couverture: toks(['b20', 'p2', 'c50', 'b10', 'p1', 'c20', 'b5', 'c10', 'p2', 'b50']),
+      sommaire: [['Fiche 1', 'Pièces et billets', 3], ['Fiche 2', 'Compter l\'argent', 4], ['Fiche 3', 'Qui a le plus ?', 5], ['Fiche 4', 'Payer le prix', 6], ['Fiche 5', 'Au restaurant', 7], ['Fiche 6', 'Les centimes', 8], ['Fiche 7', 'Euros et centimes', 9], ['Fiche 8', 'Rendre la monnaie', 10], ['Bilan', 'Je vérifie ce que je sais', 11], ['J\'ai appris', 'La monnaie', 12], ['Mémo', 'Les consignes', 13]].map(([a, b, p]) => ({ a, b, p })),
+      point: [['Je reconnais les pièces et les billets.', '1'], ['Je compte l\'argent.', '2, 3'], ['Je paie le bon prix.', '4'], ['J\'additionne deux prix.', '5'], ['Je compte les euros et les centimes.', '6, 7'], ['Je calcule la monnaie.', '8']].map(([a, f]) => ({ a, f })),
+      f1: toks(F1),
+      e3g: toks(['b20', 'p1'], 0.55),
+      e3d: toks(['b10', 'b5', 'p2', 'p2'], 0.55),
+      e2: toks(['b10', 'b5', 'p2'], 0.7).map((x, k) => Object.assign(x, { cum: ['10', '→ 15', '→ 17'][k] })),
+      e4: ['b20', 'b10', 'b5', 'p2'].map((c, i) => Object.assign(tok(c, 0.7), { o: i === 0 || i === 2 })),
+      e7: toks(['p2', 'p1', 'c50'], 0.8),
+      e8: toks(['b10'], 0.8),
+      f2: F2.map(m => ({ m: toks(m, 0.7) })),
+      f3: F3.map(p => ({ g: toks(p[0], 0.55), d: toks(p[1], 0.55) })),
+      f4: F4.map(r => ({ img: img(r[0]), nom: r[1], prix: r[2] + ' €', m: toks(r[3], 0.7) })),
+      f5: F5.map(r => ({ img1: img(r[0]), nom1: r[1], p1: r[2] + ' €', img2: img(r[3]), nom2: r[4], p2: r[5] + ' €' })),
+      f6: F6.map(m => ({ m: toks(m, 0.85) })),
+      f7: F7.map(m => ({ m: toks(m, 0.8) })),
+      f8: F8.map(r => ({ img: img(r[0]), nom: r[1], prix: r[2] + ' €', m: toks(['b' + r[3]], 0.8) })),
+      bilan1: B1.map(m => ({ m: toks(m, 0.65) })),
+      memoPieces: toks(['c1', 'c2', 'c5', 'c10', 'c20', 'c50', 'p1', 'p2']),
+      memoBillets: toks(['b5', 'b10', 'b20', 'b50']),
+      corrige: [
+        { t: 'Fiche 1', r: 'billets à entourer : ' + F1.filter(c => c[0] === 'b').map(c => c.slice(1) + ' €').join(', ') + ' (' + F1.filter(c => c[0] === 'b').length + ' billets).' },
+        { t: 'Fiche 2', r: F2.map(m => eur(tot(m))).join(' · ') },
+        { t: 'Fiche 3', r: F3.map((p, i) => (i + 1) + '. ' + eur(tot(p[0])) + (tot(p[0]) > tot(p[1]) ? ' > ' : ' < ') + eur(tot(p[1]))).join(' · ') },
+        { t: 'Fiche 4', r: F4.map(r => r[1] + ' ' + r[2] + ' € : ' + r[4]).join(' · ') + ' (d\'autres façons sont justes).' },
+        { t: 'Fiche 5', r: F5.map(r => r[2] + ' + ' + r[5] + ' = ' + (r[2] + r[5]) + ' €').join(' · ') },
+        { t: 'Fiche 6', r: F6.map(m => tot(m) + ' c').join(' · ') + ' (100 c = 1 €)' },
+        { t: 'Fiche 7', r: F7.map(m => ec(tot(m))).join(' · ') },
+        { t: 'Fiche 8', r: F8.map(r => r[1] + ' : ' + r[3] + ' − ' + r[2] + ' = ' + (r[3] - r[2]) + ' €').join(' · ') },
+        { t: 'Bilan', r: '1. ' + B1.map(m => ec(tot(m))).join(' · ') + ' — 2. 3 + 2 = 5 € — 3. 20 − 8 = 12 €' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -143,6 +143,11 @@ Une seule fois chacun
 <sc-if value="{{ p.actif }}" hint-placeholder-val="{{ false }}"><button onClick="{{ p.choisir }}" style="border:none;border-radius:9px;background:#fff;color:#12233b;padding:7px 12px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap">{{ p.m }} min</button></sc-if>
 <sc-if value="{{ p.inactif }}" hint-placeholder-val="{{ true }}"><button onClick="{{ p.choisir }}" style="border:1px solid rgba(255,255,255,0.35);border-radius:9px;background:none;color:#fff;padding:7px 12px;font-size:13px;cursor:pointer;white-space:nowrap">{{ p.m }} min</button></sc-if>
 </sc-for>
+<span style="margin-left:6px">ou</span>
+<input type="number" min="0" max="59" value="{{ tcMinutes }}" onChange="{{ tcSetMinutes }}" style="width:52px;border:1px solid rgba(255,255,255,0.35);border-radius:9px;background:none;color:#fff;padding:6px 6px;font-size:14px;text-align:center" />
+<span>min</span>
+<input type="number" min="0" max="59" step="5" value="{{ tcSecondes }}" onChange="{{ tcSetSecondes }}" style="width:52px;border:1px solid rgba(255,255,255,0.35);border-radius:9px;background:none;color:#fff;padding:6px 6px;font-size:14px;text-align:center" />
+<span>s</span>
 </div>
 </div>
 </sc-if>
@@ -311,19 +316,24 @@ Une seule fois chacun
      Un outil = un bouton (icône + mot). On en ajoute ici, jamais en languette sur le bord. -->
 <sc-if value="{{ bandeauOutils }}" hint-placeholder-val="{{ false }}">
 <div style="position:relative;z-index:2;flex:0 0 auto;width:100%;max-width:{{ largeurAccueil }};margin:0 {{ margeAccueil }} 0 auto;box-sizing:border-box;display:flex;justify-content:flex-end">
-<div style="display:flex;flex-wrap:wrap;gap:10px;background:rgba(18,35,59,0.9);border-radius:14px;padding:8px;box-shadow:0 8px 20px rgba(0,0,0,0.25)">
-<button onClick="{{ tcOuvrir }}" title="Chrono" style="flex:0 0 auto;min-height:52px;display:flex;align-items:center;gap:10px;border:none;border-radius:10px;background:#f08a24;color:#fff;padding:6px 18px 6px 12px;cursor:pointer;box-shadow:0 3px 0 #c96f14">
-<span style="font-size:28px;line-height:1">⏱</span>
-<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:13px;letter-spacing:0.06em;text-transform:uppercase">Chrono</span>
+<div style="display:flex;flex-wrap:wrap;gap:6px;background:rgba(18,35,59,0.9);border-radius:10px;padding:4px;box-shadow:0 6px 14px rgba(0,0,0,0.25)">
+<button onClick="{{ tcOuvrir }}" title="Chrono" style="flex:0 0 auto;min-height:26px;display:flex;align-items:center;gap:6px;border:none;border-radius:7px;background:#f08a24;color:#fff;padding:2px 12px 2px 8px;cursor:pointer;box-shadow:0 2px 0 #c96f14">
+<span style="font-size:15px;line-height:1">⏱</span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:11px;letter-spacing:0.06em;text-transform:uppercase">Chrono</span>
 </button>
-<button onClick="{{ rdOuvrir }}" title="Qui passe ?" style="flex:0 0 auto;min-height:52px;display:flex;align-items:center;gap:10px;border:none;border-radius:10px;background:#1d4e89;color:#fff;padding:6px 18px 6px 12px;cursor:pointer;box-shadow:0 3px 0 #133a68">
-<span style="width:30px;height:30px;border-radius:50%;background:conic-gradient(#f08a24 0 25%,#2a9d6e 0 50%,#f4c430 0 75%,#d0453a 0);border:2px solid #fff;box-sizing:border-box;display:block"></span>
-<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:13px;letter-spacing:0.06em;text-transform:uppercase">Roue</span>
+<button onClick="{{ rdOuvrir }}" title="Qui passe ?" style="flex:0 0 auto;min-height:26px;display:flex;align-items:center;gap:6px;border:none;border-radius:7px;background:#1d4e89;color:#fff;padding:2px 12px 2px 8px;cursor:pointer;box-shadow:0 2px 0 #133a68">
+<span style="width:16px;height:16px;border-radius:50%;background:conic-gradient(#f08a24 0 25%,#2a9d6e 0 50%,#f4c430 0 75%,#d0453a 0);border:1.5px solid #fff;box-sizing:border-box;display:block"></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:11px;letter-spacing:0.06em;text-transform:uppercase">Roue</span>
 </button>
+<!-- Rituel maths (03/10, sa demande) : l'étoile des nombres en appli. ⚠ Jamais target="_blank". -->
+<a href="MATHS - Rituel - L'étoile des nombres.dc.html" title="Rituel maths" style="flex:0 0 auto;min-height:26px;display:flex;align-items:center;gap:6px;border:none;border-radius:7px;background:#c1440e;color:#fff;padding:2px 12px 2px 8px;cursor:pointer;box-shadow:0 2px 0 #8a2f08;text-decoration:none">
+<span style="font-size:15px;line-height:1">★</span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:11px;letter-spacing:0.06em;text-transform:uppercase">Rituel maths</span>
+</a>
 </div>
 </div>
 </sc-if>
-<div style="position:relative;z-index:2;flex:0 0 auto;width:100%;max-width:{{ largeurAccueil }};margin:0 {{ margeAccueil }} auto auto;box-sizing:border-box;display:grid;grid-template-columns:{{ colAccueil }};gap:18px">
+<div style="position:relative;z-index:2;flex:0 0 auto;width:100%;max-width:{{ largeurAccueil }};margin:0 {{ margeAccueil }} auto auto;box-sizing:border-box;display:grid;grid-template-columns:{{ colAccueil }};grid-auto-rows:1fr;gap:18px">
 <button onClick="{{ ouvrirSemaine }}" style="box-shadow:0 12px 28px rgba(0,0,0,0.3);background-image:url('clean/liege.webp');background-size:100% 100%;background-repeat:no-repeat;border:none;padding:15px 15px 18px;display:flex;flex-direction:column;align-items:center;gap:11px;cursor:pointer" style-hover="transform:translateY(-3px)">
 <span style="position:relative;background:#fdf3c4;padding:8px 16px;transform:rotate(-0.7deg);box-shadow:0 4px 10px rgba(0,0,0,0.3);display:block">
 <span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:block"></span>
@@ -364,14 +374,28 @@ Une seule fois chacun
      cases PRÊTES (26/09, sa demande « en fonction des phonèmes que j'ajoute ») — calculées
      par `vignetteSons`, même règle que le plateau. ⚠ Jamais target="_blank". -->
 <a href="JEU - Le parcours des sons.dc.html" style="box-shadow:0 12px 28px rgba(0,0,0,0.3);background-image:url('clean/liege.webp');background-size:100% 100%;background-repeat:no-repeat;border:none;padding:15px 15px 18px;display:flex;flex-direction:column;align-items:center;gap:11px;cursor:pointer;text-decoration:none" style-hover="transform:translateY(-3px)">
-<span style="position:relative;background:#fdf3c4;padding:8px 16px;transform:rotate(1.1deg);box-shadow:0 4px 10px rgba(0,0,0,0.3);display:block">
+<span style="position:relative;background:#d6efc7;padding:8px 16px;transform:rotate(1.1deg);box-shadow:0 4px 10px rgba(0,0,0,0.3);display:block">
 <span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:block"></span>
-<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:13px;letter-spacing:0.02em;text-transform:uppercase;color:#8a4b1e;text-align:center;line-height:1.2;display:block">Le parcours<br />des sons</span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:13px;letter-spacing:0.02em;text-transform:uppercase;color:#2f6b2a;text-align:center;line-height:1.2;display:block">Le parcours<br />des sons</span>
 </span>
-<span style="position:relative;width:100%;aspect-ratio:1600/893;background-image:url('clean/plateau-sons.webp');background-size:100% 100%;background-repeat:no-repeat;border:3px solid #fff;border-radius:8px;box-shadow:0 3px 10px rgba(0,0,0,0.25);overflow:hidden;display:block">
-<sc-for list="{{ vignetteSons }}" as="v" hint-placeholder-count="0"><span style="position:absolute;left:{{ v.x }};top:{{ v.y }};transform:translate(-50%,-50%);width:5.5%;aspect-ratio:1;border-radius:50%;background:#c1440e;border:1.5px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center"><span style="font-family:Archivo Black, Archivo, sans-serif;font-size:8px;line-height:1;color:#fff">{{ v.son }}</span></span></sc-for>
+<span style="width:100%;aspect-ratio:3/1;display:flex;justify-content:center">
+<span style="position:relative;height:100%;aspect-ratio:1600/893;box-sizing:border-box;background-image:url('clean/plateau-sons.webp');background-size:100% 100%;background-repeat:no-repeat;border:3px solid #fff;border-radius:8px;box-shadow:0 3px 10px rgba(0,0,0,0.25);overflow:hidden;display:block">
+<sc-for list="{{ vignetteSons }}" as="v" hint-placeholder-count="0"><span style="position:absolute;left:{{ v.x }};top:{{ v.y }};transform:translate(-50%,-50%);width:5.5%;aspect-ratio:1;border-radius:50%;background:#c1440e;border:1.5px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center"><span style="font-family:Archivo Black, Archivo, sans-serif;font-size:7px;line-height:1;color:#fff">{{ v.son }}</span></span></sc-for>
+</span>
 </span>
 <span style="font-size:11.5px;color:#fdf3c4;text-shadow:0 1px 3px rgba(0,0,0,0.5)">je touche un son, je joue</span>
+</a>
+<!-- 05/10 (son oui) : LE JEU DE L'OIE côté élève (lettres · mots repères · mots-outils), juste après le parcours des sons :
+     même étiquette VERTE que lui = « ici on joue ». ?eleve=1 → pas de bouton Imprimer. ⚠ Jamais target="_blank". -->
+<a href="JEU - Oie des mots-outils.dc.html?eleve=1" style="box-shadow:0 12px 28px rgba(0,0,0,0.3);background-image:url('clean/liege.webp');background-size:100% 100%;background-repeat:no-repeat;border:none;padding:15px 15px 18px;display:flex;flex-direction:column;align-items:center;gap:11px;cursor:pointer;text-decoration:none" style-hover="transform:translateY(-3px)">
+<span style="position:relative;background:#d6efc7;padding:8px 16px;transform:rotate(-0.9deg);box-shadow:0 4px 10px rgba(0,0,0,0.3);display:block">
+<span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:block"></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:13px;letter-spacing:0.02em;text-transform:uppercase;color:#2f6b2a;text-align:center;line-height:1.2;display:block">Le jeu<br />de l’oie</span>
+</span>
+<span style="width:100%;max-width:220px;display:flex;gap:4px;padding:6px;box-sizing:border-box;background:#fff;border-radius:8px;box-shadow:0 3px 10px rgba(0,0,0,0.25)">
+<span style="flex:1 1 0;aspect-ratio:1;background:#fff;border:2px solid #12233b;border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:Andika, Archivo, sans-serif;font-weight:700;font-size:15px;color:#12233b">A a</span><span style="flex:1 1 0;aspect-ratio:1;background:#fff;border:2px solid #12233b;border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:Andika, Archivo, sans-serif;font-weight:700;font-size:15px;color:#12233b">R r</span><span style="flex:1 1 0;aspect-ratio:1;background:#fdf0cf;border:2px solid #12233b;border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:Andika, Archivo, sans-serif;font-weight:700;font-size:15px;color:#12233b">🎲</span><span style="flex:1 1 0;aspect-ratio:1;background:#fff;border:2px solid #12233b;border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:Andika, Archivo, sans-serif;font-weight:700;font-size:15px;color:#12233b">M m</span>
+</span>
+<span style="font-size:11.5px;color:#fdf3c4;text-shadow:0 1px 3px rgba(0,0,0,0.5)">je joue avec mes copains</span>
 </a>
 <!-- ⚠ 02/10 (son oui) : « Glisse et lis » est passé DANS « Lettres, sons, syllabes » (1re case).
      Sa place ici = « Histoire, géographie, EMC », vide pour l'instant (« on voit plus tard »). -->
@@ -393,6 +417,20 @@ Une seule fois chacun
 <span style="background:#fff;border:3px solid #1682a0;border-radius:8px;box-shadow:0 3px 10px rgba(0,0,0,0.18);aspect-ratio:1;align-self:start;overflow:hidden;background-image:url('clean/mot-electricien.webp');background-size:contain;background-repeat:no-repeat;background-position:center;background-origin:content-box;padding:6px;display:block"></span>
 </span>
 <span style="font-size:11.5px;color:#fdf3c4;text-shadow:0 1px 3px rgba(0,0,0,0.5)">les lycées et les métiers</span>
+</a>
+<!-- PRÉPARATION AU DELF (04/10, sa demande) : A1 (sujet officiel) + A2 à venir. ⚠ Jamais target="_blank". -->
+<a href="{{ lienDelf }}" style="box-shadow:0 12px 28px rgba(0,0,0,0.3);background-image:url('clean/liege.webp');background-size:100% 100%;background-repeat:no-repeat;border:none;padding:15px 15px 18px;display:flex;flex-direction:column;align-items:center;gap:11px;cursor:pointer;text-decoration:none" style-hover="transform:translateY(-3px)">
+<span style="position:relative;background:#fdf3c4;padding:8px 16px;transform:rotate(0.8deg);box-shadow:0 4px 10px rgba(0,0,0,0.3);display:block">
+<span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:block"></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:13px;letter-spacing:0.02em;text-transform:uppercase;color:#8a4b1e;text-align:center;line-height:1.2;display:block">Préparation<br />au DELF</span>
+</span>
+<span style="width:100%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px">
+<span style="background:#fff;border:3px solid #6d5bd0;border-radius:8px;aspect-ratio:1;background-image:url('clean/pictos/delf-ecoute.webp');background-size:contain;background-repeat:no-repeat;background-position:center;background-origin:content-box;padding:4px;display:block"></span>
+<span style="background:#fff;border:3px solid #2a9d6e;border-radius:8px;aspect-ratio:1;background-image:url('clean/pictos/delf-lis.webp');background-size:contain;background-repeat:no-repeat;background-position:center;background-origin:content-box;padding:4px;display:block"></span>
+<span style="background:#fff;border:3px solid #e59a2b;border-radius:8px;aspect-ratio:1;background-image:url('clean/pictos/delf-ecris.webp');background-size:contain;background-repeat:no-repeat;background-position:center;background-origin:content-box;padding:4px;display:block"></span>
+<span style="background:#fff;border:3px solid #e8654f;border-radius:8px;aspect-ratio:1;background-image:url('clean/pictos/delf-parle.webp');background-size:contain;background-repeat:no-repeat;background-position:center;background-origin:content-box;padding:4px;display:block"></span>
+</span>
+<span style="font-size:11.5px;color:#fdf3c4;text-shadow:0 1px 3px rgba(0,0,0,0.5)">A1 · A2</span>
 </a>
 </div>
 </div>
@@ -447,6 +485,12 @@ Une seule fois chacun
 <a href="FR - Glisse et lis.html" style="position:relative;background:#fff;border:3px solid #1d4e89;border-radius:11px;box-shadow:0 3px 10px rgba(0,0,0,0.2);padding:6px 6px 15px;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0;min-height:0;text-decoration:none;cursor:pointer">
 <span style="flex:1 1 auto;min-height:30px;width:100%;border:1.5px solid #1d4e89;border-radius:7px;display:flex;align-items:center;justify-content:center;gap:2px"><span style="font-family:Andika, Verdana, sans-serif;font-size:24px;font-weight:700;line-height:1;color:#1d4e89">M</span><span style="font-family:Andika, Verdana, sans-serif;font-size:24px;font-weight:700;line-height:1;color:#c0392b">U</span><span style="font-family:Andika, Verdana, sans-serif;font-size:24px;font-weight:700;line-height:1;color:#1d4e89">R</span></span>
 <span style="flex:0 0 auto;font-family:Archivo Black, Archivo, sans-serif;font-size:10.5px;color:#12233b;text-align:center;line-height:1.15;height:25px;overflow:hidden;display:flex;align-items:center;justify-content:center">Glisse et lis</span>
+<span style="flex:0 0 auto;width:100%;border-radius:6px;background:#2a9d6e;color:#fff;padding:4px 0;font-family:Archivo Black, Archivo, sans-serif;font-size:9px;letter-spacing:0.06em;text-transform:uppercase;text-align:center;overflow:hidden;white-space:nowrap">Je joue</span>
+</a>
+<!-- 04/10 : JEU - Les syllabes (5 jeux), après Glisse et lis. ⚠ Jamais target="_blank". -->
+<a href="JEU - Les syllabes.dc.html" style="position:relative;background:#fff;border:3px solid #1d4e89;border-radius:11px;box-shadow:0 3px 10px rgba(0,0,0,0.2);padding:6px 6px 15px;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0;min-height:0;text-decoration:none;cursor:pointer">
+<span style="flex:1 1 auto;min-height:30px;width:100%;border:1.5px solid #1d4e89;border-radius:7px;display:flex;align-items:center;justify-content:center;gap:2px"><span style="font-family:Andika, Verdana, sans-serif;font-size:24px;font-weight:700;line-height:1;color:#1d4e89">m</span><span style="font-family:Andika, Verdana, sans-serif;font-size:24px;font-weight:700;line-height:1;color:#c0392b">a</span></span>
+<span style="flex:0 0 auto;font-family:Archivo Black, Archivo, sans-serif;font-size:10.5px;color:#12233b;text-align:center;line-height:1.15;height:25px;overflow:hidden;display:flex;align-items:center;justify-content:center">Les syllabes</span>
 <span style="flex:0 0 auto;width:100%;border-radius:6px;background:#2a9d6e;color:#fff;padding:4px 0;font-family:Archivo Black, Archivo, sans-serif;font-size:9px;letter-spacing:0.06em;text-transform:uppercase;text-align:center;overflow:hidden;white-space:nowrap">Je joue</span>
 </a>
 </div>
@@ -2333,6 +2377,16 @@ Le trait d'union sépare les mots</label>
 </div>
 </sc-if>
 
+<!-- 05/10 : le jeu de l'oie des mots-outils (son plateau PDF), projeté ou imprimé en A3. ⚠ Jamais target="_blank". -->
+<sc-if value="{{ dsqOutilOie }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;overflow-y:auto;padding:22px 24px;display:flex;flex-direction:column;gap:14px;max-width:660px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:17px;color:#12233b">Les jeux de l’oie</span>
+<span style="font-size:12.5px;color:#5d6879;line-height:1.6">Tous les plateaux sur une même page : <b>les mots-outils</b> (je, il, la, dans, avec…) et <b>les mots repères</b> (ananas, ballon, carotte… avec leur photo). On lance le dé, le pion avance, <b>on lit le mot de la case</b> ; le 🔊 sert à vérifier après. Sur un 🎲, on rejoue.</span>
+<span style="font-size:12.5px;color:#5d6879;line-height:1.6">De 1 à 4 joueurs ou équipes. Le bouton <b>🖨 Imprimer</b> sort le plateau seul, en A3.</span>
+<a href="{{ urlOie }}" style="align-self:flex-start;background:#6d5bd0;color:#fff;text-decoration:none;border-radius:10px;padding:11px 16px;font-family:Archivo Black, Archivo, sans-serif;font-size:12px;letter-spacing:0.05em;text-transform:uppercase">Ouvrir le jeu</a>
+</div>
+</sc-if>
+
 <sc-if value="{{ dsqOutilAttente }}" hint-placeholder-val="{{ false }}">
 <div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:30px">
 <span style="font-size:15px;font-weight:700;color:#8a91a3">{{ dsqOutilNom }}</span>
@@ -2717,10 +2771,21 @@ const COLL_DOCS=[
  ['mathsnum','Numération','#e59a2b','ses livrets de 0 à 9 999, le tracé, l’étoile'],
  ['mathsgeo','Géométrie','#2a9d6e','droites, polygones, quadrilatères'],
  /* 02/10 (sa demande) : son PDF mimiclass coupé en 3 livrets au gabarit des siens. */
- ['mathsgm','Grandeurs et mesures','#1f6fb2','les longueurs, la monnaie, l’heure'],
+ ['mathsgm','Grandeurs et mesures','#1f6fb2','les longueurs, la monnaie, l’heure, la marchande'],
  /* AUTOMATISMES (02/10, sa demande) : « pas calcul mental, automatismes ». */
  ['mathsauto','Automatismes','#d81b60','la progression et les 8 livrets Top Chrono'],
- ['mathsoutils','Outils','#6d5bd0','le lexique A5, le tableau des nombres, la marchande'],
+ /* LES GRANDS THÈMES D'HISTOIRE (03/10, sa demande) : 6 livrets, un par période. */
+ ['histprehistoire','La Préhistoire','#0f6e6e','livret n° 1'],
+ ['histantiquite','L’Antiquité','#0f6e6e','livret n° 2'],
+ ['histmoyenage','Le Moyen Âge','#0f6e6e','livret n° 3'],
+ ['histmodernes','Les Temps modernes','#0f6e6e','livret n° 4'],
+ ['histxix','Le XIXe siècle','#0f6e6e','livret n° 5'],
+ ['histxx','Le XXe siècle','#0f6e6e','livret n° 6'],
+ /* SE REPÉRER DANS LE TEMPS (04/10) : notre livret ; le PDF CENICIENTA est retiré (son oui). */
+ ['histtemps','Se repérer dans le temps','#0f6e6e','la journée, la semaine, les mois, la date, les saisons'],
+ ['mathsrituels','Rituels','#c1440e','à projeter en début d’heure : l’étoile des nombres'],
+ /* 03/10 (son choix) : « Outils » devient « Supports d'aide » ; la marchande passe en Grandeurs et mesures. */
+ ['mathsoutils','Supports d’aide','#6d5bd0','le lexique A5, les tableaux des nombres'],
  /* LES MOTS REPÈRES (22/09, son accord) : les supports du 11-13/09 n'étaient rangés
     NULLE PART depuis leur création, plus celui du 22/09. Réunis ici dans l'ordre de
     difficulté : je regarde → j'associe → j'écris → je projette. Sous Écriture et non sous
@@ -2738,6 +2803,34 @@ const COLL_DOCS=[
  ['postests','Les différents tests','#1d4e89','tests de positionnement à imprimer']
 ];
 const DOCS_COLL={
+ histantiquite:[
+  ["L’Antiquité — les mots (diaporama)","À projeter avant le livret : 6 photos, le mot apparaît au clic.","HIST - Diaporama - L'Antiquité (les mots).dc.html"],
+  ["L’Antiquité — livret 2","9 pages : ce qui existe à cette période, la frise, relier à la bonne période, écrire le mot (● et ●●), la phrase (● et ●●), J’ai appris, corrigé. Photos à venir.","HIST - Livret 2 - L'Antiquité.dc.html"]
+ ],
+ histmoyenage:[
+  ["Le Moyen Âge — les mots (diaporama)","À projeter avant le livret : 6 photos, le mot apparaît au clic.","HIST - Diaporama - Le Moyen Âge (les mots).dc.html"],
+  ["Le Moyen Âge — livret 3","9 pages : ce qui existe à cette période, la frise, relier à la bonne période, écrire le mot (● et ●●), la phrase (● et ●●), J’ai appris, corrigé. Photos à venir.","HIST - Livret 3 - Le Moyen Âge.dc.html"]
+ ],
+ histmodernes:[
+  ["Les Temps modernes — les mots (diaporama)","À projeter avant le livret : 6 photos, le mot apparaît au clic.","HIST - Diaporama - Les Temps modernes (les mots).dc.html"],
+  ["Les Temps modernes — livret 4","9 pages : ce qui existe à cette période, la frise, relier à la bonne période, écrire le mot (● et ●●), la phrase (● et ●●), J’ai appris, corrigé. Photos à venir.","HIST - Livret 4 - Les Temps modernes.dc.html"]
+ ],
+ histxix:[
+  ["Le XIXe siècle — les mots (diaporama)","À projeter avant le livret : 6 photos, le mot apparaît au clic.","HIST - Diaporama - Le XIXe siècle (les mots).dc.html"],
+  ["Le XIXe siècle — livret 5","9 pages : ce qui existe à cette période, la frise, relier à la bonne période, écrire le mot (● et ●●), la phrase (● et ●●), J’ai appris, corrigé. Photos à venir.","HIST - Livret 5 - Le XIXe siècle.dc.html"]
+ ],
+ histxx:[
+  ["Le XXe siècle — les mots (diaporama)","À projeter avant le livret : 6 photos, le mot apparaît au clic.","HIST - Diaporama - Le XXe siècle (les mots).dc.html"],
+  ["Le XXe siècle — livret 6","9 pages : ce qui existe à cette période, la frise, relier à la bonne période, écrire le mot (● et ●●), la phrase (● et ●●), J’ai appris, corrigé. Photos à venir.","HIST - Livret 6 - Le XXe siècle.dc.html"]
+ ],
+ histtemps:[
+  ["Se repérer dans le temps — la journée (diaporama)","À projeter avant le livret : le panorama du matin à la nuit, puis 6 photos (le jour, la nuit, le matin, le midi, l’après-midi, le soir), le mot apparaît au clic.","HIST - Diaporama - Se repérer dans le temps (la journée).dc.html"],
+  ["Se repérer dans le temps — livret","15 pages à coller, d’après le lapbook CENICIENTA : le jour et la nuit, la journée, avant/pendant/après, la semaine, les mois, la date, les saisons, mesurer le temps. Une leçon par chapitre, 3 planches d’étiquettes, J’ai appris, corrigé.","HIST - Livret - Se repérer dans le temps.dc.html"]
+ ],
+ histprehistoire:[
+  ["La Préhistoire — les mots (diaporama)","À projeter avant le livret : 6 photos, le mot apparaît au clic. On regarde, on dit, on répète.","HIST - Diaporama - La Préhistoire (les mots).dc.html"],
+  ["La Préhistoire — livret 1","9 pages : ce qui existe à la Préhistoire, la frise, avant/après, écrire le mot (● et ●●), la phrase (● et ●●), J’ai appris, corrigé. Photos à venir.","HIST - Livret 1 - La Préhistoire.dc.html"]
+ ],
  postests:[
   ["Test collège — Mathématiques (EANA)","D’après le test de Créteil. 4 paliers (6e → 3e), grille d’analyse ancien et nouveau programme, corrigé. Imprimer à 100 %.","MATHS - Test de positionnement EANA collège.dc.html"]
  ],
@@ -2798,10 +2891,12 @@ const DOCS_COLL={
   ["Numération 6 — Millions et milliards","Les 4 classes : le tableau des nombres, comparer, ranger, les suites. Corrigé.","MATHS - Numération 6 - Millions et milliards.dc.html"],
   /* 02/10 : son doc n° 6 (Mme 657) refait en FALC, suspects à plaque numérotée, corrigé calculé. */
   ["Numération 6.1 — L’enquête","7 suspects jusqu’aux milliards, 4 cartes-indices à découper, la fiche du voleur, corrigé.","MATHS - Numération 6.1 - L'enquête.dc.html"],
-  ["Tracer les chiffres","Couverture et dix pages, un chiffre par page, de 0 à 9. Le geste du tracé.","MATHS - Livret 1 bis - Tracer les chiffres.dc.html"],
-  /* Le diaporama se range en Numération (placé le 15/09 à côté du livret 1), sa demande du 15/09 : même domaine,
-     même série — le livret est sur la table, l'étoile est au tableau. */
-  ["L’étoile des nombres — diaporama","34 étoiles à projeter, de 12 à 150. Six branches autour du nombre : juste avant, juste après, la décomposition, les dizaines et les unités, le nombre en lettres, le dessin. Ce qui est donné change d’une étoile à l’autre.","MATHS - L'étoile des nombres (diaporama).dc.html"],
+  ["Tracer les chiffres","Couverture et dix pages, un chiffre par page, de 0 à 9. Le geste du tracé.","MATHS - Livret 1 bis - Tracer les chiffres.dc.html"]
+ ],
+ /* RITUELS (03/10, sa demande) : l'étoile des nombres y passe depuis Numération. */
+ mathsrituels:[
+  ["L’étoile des nombres — appli","Choisir un niveau (jusqu’à 20, 100 ou 1 000) puis tirer un nombre au hasard, ou taper le sien. Les branches se dévoilent une par une.","MATHS - Rituel - L'étoile des nombres.dc.html"],
+  ["L’étoile des nombres — diaporama","34 étoiles à projeter, de 12 à 150. Six branches autour du nombre : juste avant, juste après, la décomposition, les dizaines et les unités, le nombre en lettres, le dessin. Ce qui est donné change d’une étoile à l’autre.","MATHS - L'étoile des nombres (diaporama).dc.html"]
  ],
  mathsgeo:[
   ["Géométrie 1 — Le vocabulaire de base","15 pages : droite, segment, angle droit, alignement, programme de construction. Règle et équerre.","docs/geometrie-1.pdf"],
@@ -2810,7 +2905,13 @@ const DOCS_COLL={
  ],
  mathsgm:[
   ["Grandeurs et mesures 1 — Les longueurs","13 pages, 8 fiches : choisir l’unité, placer la règle, mesurer en cm puis en cm et mm, bout à bout, tracer. Bilan, J’ai appris, consignes, corrigé. Imprimer à 100 %.","MATHS - Grandeurs et mesures 1 - Les longueurs.dc.html"],
-  ["Grandeurs et mesures 2 — La monnaie","14 pages, 8 fiches : pièces et billets, compter, comparer, payer le prix, au restaurant, les centimes, euros et centimes, rendre la monnaie. Bilan, J’ai appris, consignes, corrigé.","MATHS - Grandeurs et mesures 2 - La monnaie.dc.html"]
+  ["Grandeurs et mesures 2 — La monnaie","14 pages, 8 fiches : pièces et billets, compter, comparer, payer le prix, au restaurant, les centimes, euros et centimes, rendre la monnaie. Bilan, J’ai appris, consignes, corrigé.","MATHS - Grandeurs et mesures 2 - La monnaie.dc.html"],
+  /* Le jeu de la marchande (22/09) : PDF trouvé par elle (mimiclass.fr, partagé par
+     Coralie), gardé TEL QUEL — ne pas le refabriquer. 30 pages : 11 planches d'articles
+     étiquetés en euros, les panneaux de rayons, les listes de course, six recettes, les
+     paniers à chiffrer (petit déjeuner, déjeuner, dîner, goûter, trousse de toilette,
+     j'adopte un chat), les étiquettes de promotion et le bon de commande. */
+  ["Le jeu de la marchande — 30 pages","Les articles avec leur prix à ranger dans les rayons, les listes de course, les recettes, les paniers à chiffrer, les promotions et le bon de commande. Pour aller chercher les articles, calculer un total, rendre la monnaie. Source : mimiclass.fr, partagé par Coralie.","docs/jeu-marchande.pdf"]
  ],
  mathsauto:[
   /* Image reçue d'elle le 02/10, gardée à sa largeur (1348 px) : réduite à 1000 le texte devient illisible. */
@@ -2836,13 +2937,7 @@ const DOCS_COLL={
      refaire en A4 dans le style de l'appli (six cases au registre trop enfantin, deux images
      filigranées, la « boîte de Fischer » incompréhensible hors école primaire) : elle a
      tranché pour l'original. Ne pas le remplacer par une refabrication. */
-  ["Lexique de maths — livret A5","Le vocabulaire des consignes en images : partager, comparer, ordonner, encadrer, mesurer, peser. Le code couleur distingue les verbes, les adjectifs et les noms. Deux pages A5 à imprimer.","docs/lexique-maths-a5.pdf"],
-  /* Le jeu de la marchande (22/09) : PDF trouvé par elle (mimiclass.fr, partagé par
-     Coralie), gardé TEL QUEL — ne pas le refabriquer. 30 pages : 11 planches d'articles
-     étiquetés en euros, les panneaux de rayons, les listes de course, six recettes, les
-     paniers à chiffrer (petit déjeuner, déjeuner, dîner, goûter, trousse de toilette,
-     j'adopte un chat), les étiquettes de promotion et le bon de commande. */
-  ["Le jeu de la marchande — 30 pages","Les articles avec leur prix à ranger dans les rayons, les listes de course, les recettes, les paniers à chiffrer, les promotions et le bon de commande. Pour aller chercher les articles, calculer un total, rendre la monnaie. Source : mimiclass.fr, partagé par Coralie.","docs/jeu-marchande.pdf"]
+  ["Lexique de maths — livret A5","Le vocabulaire des consignes en images : partager, comparer, ordonner, encadrer, mesurer, peser. Le code couleur distingue les verbes, les adjectifs et les noms. Deux pages A5 à imprimer.","docs/lexique-maths-a5.pdf"]
  ]
 };
 const GROUPES_COLL={ecriture:[['gestes','Les gestes préparatoires',['ronds','courbes','boucles','ponts']]]};
@@ -2859,8 +2954,10 @@ const DOMAINES={
      Les fiches de lecture se prennent maintenant dans Lecture → le son → Séance. */
   lexique:['dico','planches'], lecture:['livretssons'],
   ecriture:['ronds','courbes','boucles','ponts','lettres','cursive','motsreperes','chiffres'],
-  maths:['mathsnum','mathsgeo','mathsgm','mathsauto','mathsoutils','nombres'],
-  positionnement:['postests']
+  maths:['mathsnum','mathsgeo','mathsgm','mathsauto','mathsrituels','mathsoutils'],
+  positionnement:['postests'],
+  histoire:['histprehistoire','histantiquite','histmoyenage','histmodernes','histxix','histxx'],
+  temps:['histtemps']
 };
 function toutesLesFeuilles(){ return SRC_FICHES().pages; }
 const COMPETENCES=[
@@ -2913,9 +3010,9 @@ const vignetteSons=()=>{
   try{ const t=JSON.parse(localStorage.getItem('upe2a-sons')||'null'); if(Array.isArray(t)&&t.length) prog=t; }catch(e){}
   try{ const o=JSON.parse(localStorage.getItem('upe2a-themes-perso')||'null'); if(o&&o.jeuxSons) js=o.jeuxSons; }catch(e){}
   const out=[];
-  prog.slice(0,VIGNETTE_POS.length).forEach((son,k)=>{
-    if(VIGNETTE_JEUX.includes(son)||((js[son]||[]).length>0))
-      out.push({son, x:VIGNETTE_POS[k][0]+'%', y:VIGNETTE_POS[k][1]+'%'});
+  /* 03/10 (son choix) : les sons prêts se suivent sans trou, comme sur le plateau. */
+  prog.filter(son=>VIGNETTE_JEUX.includes(son)||((js[son]||[]).length>0)).slice(0,VIGNETTE_POS.length).forEach((son,k)=>{
+    out.push({son, x:VIGNETTE_POS[k][0]+'%', y:VIGNETTE_POS[k][1]+'%'});
   });
   return out;
 };
@@ -4042,9 +4139,16 @@ class Component extends DCLogic {
   }
   /* Chrono du Top Chrono (02/10) — à part du chrono des jeux (_chrono). */
   valsTopChrono(){
+    /* Durée libre (03/10, sa demande « le temps que je veux ») : minutes + secondes, gardée
+       dans ce navigateur. Les boutons 2/3/4 min restent. */
+    if(this._tcMaxLu===undefined){ this._tcMaxLu=true; try{ const v=+localStorage.getItem('topchrono-max'); if(v>0) this.state.tcMax=v; }catch(e){} }
     const s=this.state, max=s.tcMax||180, sec=Math.min(max,Math.floor((s.tcMs||0)/1000));
-    const raz=x=>{ this.tcArret(); this.setState(Object.assign({tcMs:0,tcMarche:false,tcFini:false},x||{})); };
+    const raz=x=>{ this.tcArret(); if(x&&x.tcMax){ try{ localStorage.setItem('topchrono-max',String(x.tcMax)); }catch(e){} } this.setState(Object.assign({tcMs:0,tcMarche:false,tcFini:false},x||{})); };
+    const regler=(m,sc)=>{ m=Math.max(0,Math.min(59,Math.floor(+m||0))); sc=Math.max(0,Math.min(59,Math.floor(+sc||0))); const t=m*60+sc; if(t>0) raz({tcMax:t}); };
     return {
+      tcMinutes:Math.floor(max/60), tcSecondes:max%60,
+      tcSetMinutes:e=>regler(e.target.value,max%60),
+      tcSetSecondes:e=>regler(Math.floor(max/60),e.target.value),
       tcVisible:!!s.verrou && !s.tcOuvert && !s.rdOuvert, tcOuvert:!!s.tcOuvert,
       tcTexte:Math.floor(sec/60)+':'+String(sec%60).padStart(2,'0'),
       tcFini:!!s.tcFini, tcPasFini:!s.tcFini, tcEnMarche:!!s.tcMarche, tcArrete:!s.tcMarche,
@@ -4924,7 +5028,21 @@ class Component extends DCLogic {
         ['Apprentissage','outils','ecriture'],
         ['Créer une fiche','creer']]],
       ['Mathématiques','#e59a2b',[
-        ['Fiches à imprimer','outils','maths']]],
+        /* 03/10 (son oui) : « Fiches à imprimer » remplacé par les rubriques elles-mêmes ;
+           4e valeur = la collection ouverte directement. */
+        ['Numération','outils','maths','mathsnum'],
+        ['Géométrie','outils','maths','mathsgeo'],
+        ['Grandeurs et mesures','outils','maths','mathsgm'],
+        ['Automatismes','outils','maths','mathsauto'],
+        ['Rituels','outils','maths','mathsrituels'],
+        ['Supports d’aide','outils','maths','mathsoutils']]],
+      /* HISTOIRE, GÉOGRAPHIE, EMC (03/10, sa demande) : rubrique posée, entrées vides pour
+         l'instant (« à venir »). Même nom que le tableau de l'accueil élève. */
+      ['Hist / Géo / EMC','#0f6e6e',[
+        ['Se repérer dans le temps','outils','temps'],
+        ["Se repérer dans l'espace"],
+        ['Habiter, vivre ensemble'],
+        ["Les grands thèmes d'histoire",'outils','histoire']]],
       ['Positionnement','#1d4e89',[
         ["Accueil d'un élève",'accueilEleve'],
         /* « Tous les élèves testés » retiré du menu (03/10, sa demande). L'écran posTable
@@ -4945,12 +5063,15 @@ class Component extends DCLogic {
            a sa règle écrite à l'écran — séances entières et références. On lit une
            séance, on accroche une affiche : mélanger les deux en ferait un fourre-tout. */
         ['Affichages de la classe','affichages'],
-        ['Mes documents utiles','docsUtiles']]]
+        ['Mes documents utiles','docsUtiles'],
+        /* 05/10 : le DELF côté prof (sujets papier, corrigés). ?prof=1 → boutons 📄 sous chaque sujet. */
+        ['Préparation au DELF','delfProf']]]
     ];
-    const ouvrirDom=(ec,dom)=>()=>{
+    const ouvrirDom=(ec,dom,coll)=>()=>{
+      if(ec==='delfProf'){ location.href='DELF - Préparation.dc.html?prof=1'; return; }
       if(dom){
         const colls=DOMAINES[dom]||[];
-        const prem=colls.find(id=>!collBloquee(id))||colls[0]||'';
+        const prem=coll||colls.find(id=>!collBloquee(id))||colls[0]||'';
         this.setState({outilsDomaine:dom, outilsColl:prem, outilsPage:0});
       }
       this.go(ec);
@@ -4975,7 +5096,7 @@ class Component extends DCLogic {
         // depuis la bande repliée : on ouvre le menu sur cette rubrique
         ouvrirPremier:()=>{
           this.setState(p=>({menuReplie:false, rubOuvertes:Object.assign({},p.rubOuvertes,{[rub]:true})}));
-          if(prem) ouvrirDom(prem[1],prem[2])();
+          if(prem) ouvrirDom(prem[1],prem[2],prem[3])();
         },
         fond:dep?'rgba(240,138,36,0.14)':'transparent',
         pastille:couleur, vif:VIF[couleur]||couleur,
@@ -4985,13 +5106,13 @@ class Component extends DCLogic {
           o[rub]=!o[rub];
           return {rubOuvertes:o};
         }),
-        items:items.map(([titre,ec,dom])=>{
+        items:items.map(([titre,ec,dom,coll])=>{
           const avenir=!ec;
-          const actif=!avenir && ecMenu===ec && (!dom || s.outilsDomaine===dom);
+          const actif=!avenir && ecMenu===ec && (!dom || s.outilsDomaine===dom) && (!coll || s.outilsColl===coll);
           return {titre:avenir?titre+' — à venir':titre, couleur:avenir?'#3d5470':couleur,
             point:avenir?'#3d5470':(VIF[couleur]||couleur),
             aff:dep?'flex':'none',
-            ouvrir:avenir?(()=>{}):ouvrirDom(ec,dom),
+            ouvrir:avenir?(()=>{}):ouvrirDom(ec,dom,coll),
             fond:actif?'rgba(255,255,255,0.12)':'transparent',
             encre:actif?'#fff':(avenir?'#5f7690':'#c3d2e2'),
             trait:actif?couleur:'transparent',
@@ -5597,9 +5718,11 @@ class Component extends DCLogic {
       }, estBilan:s.ecran==='bilan', estOral:s.ecran==='oral',
       estThemes:s.ecran==='themes', estMdp:s.ecran==='mdp',
       estOutils:s.ecran==='outils',
-      collReplie:!!s.collReplie,
-      collDeplie:!s.collReplie,
-      colsOutils:s.collReplie?'46px minmax(320px,1fr)':'minmax(200px,250px) minmax(320px,1fr)',
+      /* 03/10 (son oui) : en MATHS, plus de colonne « Mes collections » — le menu porte les
+         rubriques. La colonne reste en Écriture et en Lecture. */
+      collReplie:s.outilsDomaine!=='maths' && !!s.collReplie,
+      collDeplie:s.outilsDomaine!=='maths' && !s.collReplie,
+      colsOutils:s.outilsDomaine==='maths'?'minmax(0,1fr)':s.collReplie?'46px minmax(320px,1fr)':'minmax(200px,250px) minmax(320px,1fr)',
       nomCollActive:(()=>{const c=toutesCollections().find(x=>x[0]===s.outilsColl); return c?c[1]:'';})(),
       replierColl:()=>this.setState({collReplie:true}),
       deplierColl:()=>this.setState({collReplie:false}), ouvrirMdp:()=>this.go('mdp'),
@@ -5658,7 +5781,8 @@ class Component extends DCLogic {
           return {estGroupe:false, estColl:true, nom,desc,couleur, bord:on?couleur:couleur+'55', fond:couleur+(on?'38':'1c'),
             compteur:n?(n+' page'+(n>1?'s':'')+' choisie'+(n>1?'s':'')):'',
             curseur:'pointer',
-            choisir:()=>this.setState({outilsColl:id,outilsPage:0,collReplie:true})};
+            /* 03/10 (sa demande, « ça m'agace ») : choisir une collection ne replie plus la colonne. */
+            choisir:()=>this.setState({outilsColl:id,outilsPage:0})};
         };
         const groupes=GROUPES_COLL[s.outilsDomaine]||[];
         if(!groupes.length) return liste.map(carte);
@@ -5859,6 +5983,7 @@ class Component extends DCLogic {
            sous 100 cases, un élève dit un nombre, la case s'ouvre. Les nombres jusqu'à
            100 se lisent à voix haute pour rien — c'est le but. */
         ['puzzle','Le puzzle à retourner','une photo sous les nombres',false],
+        ['oie','Les jeux de l’oie','mots-outils, mots repères… on lit la case',false],
         /* Le jeu du symbole commun (09/09) : deux cartes ont toujours une image commune,
            et une seule. Le paquet se fabrique depuis ses photos, dans son propre document. */
         ['cartes','Le jeu du symbole commun','deux cartes, une seule image en commun',false],
@@ -5874,10 +5999,11 @@ class Component extends DCLogic {
         }),
       dsqOutilDes:(s.dsqOutil||'des')==='des',
       dsqOutilCartes:(s.dsqOutil||'des')==='cartes',
-      dsqOutilPuzzle:(s.dsqOutil||'des')==='puzzle',
+      dsqOutilPuzzle:(s.dsqOutil||'des')==='puzzle', dsqOutilOie:s.dsqOutil==='oie',
+      urlOie:'JEU - Oie des mots-outils.dc.html'+(typeof location!=='undefined'?location.search:''),
       urlPuzzle:'JEU - Le puzzle à retourner.dc.html'+(typeof location!=='undefined'?location.search:''),
       urlCartes:'JEU - Le symbole commun (cartes).dc.html'+(typeof location!=='undefined'?location.search:''),
-      dsqOutilAttente:['des','cartes','puzzle'].indexOf(s.dsqOutil||'des')<0,
+      dsqOutilAttente:['des','cartes','puzzle','oie'].indexOf(s.dsqOutil||'des')<0,
       dsqOutilNom:s.dsqOutilNom||'',
       dsqOutilNote:s.dsqOutilNote||'',
       dsqSources:[['theme',"Mots et images d'un thème",'les mots vivants du thème',false],
@@ -6439,8 +6565,12 @@ class Component extends DCLogic {
          orphelin), deux en dessous, une seule sur téléphone. Une tuile ne descend pas sous
          ~277 px : quatre colonnes réclamaient 1200 px de grille et la ligne débordait.
          ⚠ Ne pas remettre quatre colonnes : à cinq tableaux, ça donne 4 + 1. */
-      colAccueil:this.tel()?'minmax(0,1fr)':((this.state.largeur||1200)>=1180?'repeat(3,minmax(0,1fr))':'repeat(2,minmax(0,1fr))'),
-      largeurAccueil:this.tel()?'100%':((this.state.largeur||1200)>=1180?'min(900px, 100% - 260px)':'min(620px, 100% - 300px)'),
+      /* 04/10 (sa demande) : 7e tableau « Préparation au DELF » + tableaux réduits d'1/4
+         → une colonne de plus sur la même largeur (4 + 3). */
+      /* 05/10 : déverrouillé (enseignante) → ?prof=1 : le DELF montre alors « Sujet papier · Corrigé · Surveillant ». */
+      lienDelf:'DELF - Préparation.dc.html'+(s.verrou?'':'?prof=1'),
+      colAccueil:this.tel()?'minmax(0,1fr)':((this.state.largeur||1200)>=1180?'repeat(4,minmax(0,1fr))':'repeat(3,minmax(0,1fr))'),
+      largeurAccueil:this.tel()?'100%':((this.state.largeur||1200)>=1180?'min(920px, 100% - 260px)':'min(700px, 100% - 300px)'),
       margeAccueil:this.tel()?'0':'40px',
       colApercu:'repeat(3,minmax(0,1fr))',
       colThemes:this.tel()?'repeat(2,minmax(0,1fr))':'repeat(5,minmax(0,1fr))',

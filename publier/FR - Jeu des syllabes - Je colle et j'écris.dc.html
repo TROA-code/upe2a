@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta charset="utf-8" />
+<style>
+doc-page:not(:defined){visibility:hidden}
+body{margin:0}
+a{color:#8c1c13}
+a:hover{color:#c1440e}
+</style>
+<link rel="stylesheet" href="polices.css" />
+<script src="./doc-page.js"></script>
+</helmet>
+<doc-page size="a4">
+
+<!-- ⚠ GÉOMÉTRIE DES PIÈCES — trois essais avant d'y arriver (18/09 : « y a vraiment une
+     sensation d'emboîtement », puis « c'est trop moche, regarde l'exemple »). Ce qui fait
+     la pièce de puzzle, et que j'avais raté :
+       · la PROPORTION — large et basse, ratio 1,9 (440 × 232). Presque carrée, la diagonale
+         du chevron s'aplatit et la pièce ressemble à un parallélogramme tordu.
+       · la PROFONDEUR de la pointe — 110 sur 440, soit 25 % de la largeur. À 12 % on ne voit
+         plus un emboîtement, juste un bord de travers.
+       · le TRAIT — fin, noir, pointillé serré : un trait de découpe. Pas un gros pointillé
+         bordeaux qui écrase la syllabe. Fond blanc, la couleur est dans l'encre.
+     UNE LIGNE DE CASES = UN SEUL SVG. Deux pièces qui se chevauchaient dessinaient chacune
+     leur bord au même endroit avec des pointillés déphasés : la couture était double et
+     tremblée. Ici le contour extérieur et les coutures internes sont tracés une seule fois.
+     Les pièces sont TOUTES de la même forme — creux à gauche, pointe à droite — étiquettes
+     comme cases : n'importe quelle syllabe entre dans n'importe quelle case. Sinon la place
+     d'une pièce se devine à sa découpe et l'exercice se résout sans lire.
+     ⚠ LA CASE EST TOUJOURS UN PEU PLUS GRANDE QUE L'ÉTIQUETTE, jamais l'inverse : une pièce
+     plus large que sa case ne peut pas être posée du tout. Étiquette 48 × 25,3 mm, case
+     52 × 27,4 mm (8 % de marge, de quoi pardonner un découpage approximatif).
+     Une ligne de n cases mesure 52 + (n−1) × 39 mm — soit 91 pour deux et 130 pour trois — et
+     son viewBox 440 + (n−1) × 330 sur 232, le même ratio. 130 + la photo de 34 et son
+     écart de 8 font 172 des 178 mm utiles : on ne peut plus agrandir sans réduire la photo.
+     LA FLÈCHE DU SENS DE LECTURE A ÉTÉ RETIRÉE (18/09 : « du coup, ça sert à quoi la
+     flèche ? »). Elle venait du PDF d'origine, où les cases étaient des rectangles ; des
+     chevrons qui pointent à droite disent déjà le sens. Ne pas la remettre. -->
+<section class="page" data-screen-label="Je colle les syllabes" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:0;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d">
+<div style="flex:0 0 auto;background:#8c1c13;color:#fff;padding:9mm 16mm 7mm;display:flex;align-items:center;justify-content:space-between;gap:10mm">
+<span style="font-size:22pt;font-weight:700;letter-spacing:0.04em">LES SYLLABES</span>
+<span style="font-size:11pt;letter-spacing:0.1em;opacity:0.85">JE COLLE &middot; J&rsquo;ÉCRIS</span>
+</div>
+<div style="flex:0 0 auto;height:1.6mm;background:#c1440e"></div>
+
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:space-between;padding:8mm 16mm 10mm">
+
+<div style="flex:0 0 auto;display:flex;align-items:baseline;gap:4mm;border-bottom:0.6mm solid #14213d;padding-bottom:2mm">
+<span style="flex:0 0 auto;width:8mm;height:8mm;border-radius:50%;background:#14213d;color:#fff;font-size:11pt;font-weight:700;display:flex;align-items:center;justify-content:center">1</span>
+<span style="font-size:13.5pt;font-weight:700">Je regarde la photo. J&rsquo;emboîte les syllabes et je les colle. J&rsquo;écris le mot.</span>
+</div>
+
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:8mm">
+<img src="clean/mot-moto.webp" alt="une moto" style="flex:0 0 auto;width:34mm;height:28mm;object-fit:contain" />
+<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3.5mm">
+<div style="display:flex;align-items:center;gap:5mm">
+<svg viewBox="0 0 770 232" style="flex:0 0 auto;width:91mm;height:27.4mm;display:block" fill="none" stroke="#14213d" stroke-width="3.4" stroke-dasharray="11 7">
+<path d="M0 0 H660 L770 116 L660 232 H0 L110 116 Z" fill="#fff"></path>
+<path d="M330 0 L440 116 L330 232"></path>
+</svg>
+</div>
+<span style="display:block;height:15mm;border-bottom:0.6mm solid #14213d;position:relative"><span style="position:absolute;left:0;right:0;top:7.5mm;border-top:0.3mm dotted #b9c6d6;display:block"></span></span>
+</div>
+</div>
+
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:8mm">
+<img src="clean/mot-salade.webp" alt="une salade" style="flex:0 0 auto;width:34mm;height:28mm;object-fit:contain" />
+<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3.5mm">
+<div style="display:flex;align-items:center;gap:5mm">
+<svg viewBox="0 0 1100 232" style="flex:0 0 auto;width:130mm;height:27.4mm;display:block" fill="none" stroke="#14213d" stroke-width="3.4" stroke-dasharray="11 7">
+<path d="M0 0 H990 L1100 116 L990 232 H0 L110 116 Z" fill="#fff"></path>
+<path d="M330 0 L440 116 L330 232"></path>
+<path d="M660 0 L770 116 L660 232"></path>
+</svg>
+</div>
+<span style="display:block;height:15mm;border-bottom:0.6mm solid #14213d;position:relative"><span style="position:absolute;left:0;right:0;top:7.5mm;border-top:0.3mm dotted #b9c6d6;display:block"></span></span>
+</div>
+</div>
+
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:8mm">
+<img src="clean/mot-lit.webp" alt="un lit" style="flex:0 0 auto;width:34mm;height:28mm;object-fit:contain" />
+<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3.5mm">
+<div style="display:flex;align-items:center;gap:5mm">
+<svg viewBox="0 0 440 232" style="flex:0 0 auto;width:52mm;height:27.4mm;display:block" fill="none" stroke="#14213d" stroke-width="3.4" stroke-dasharray="11 7">
+<path d="M0 0 H330 L440 116 L330 232 H0 L110 116 Z" fill="#fff"></path>
+</svg>
+<span style="flex:0 0 auto;font-size:10.5pt;color:#6b7386">une seule syllabe</span>
+</div>
+<span style="display:block;height:15mm;border-bottom:0.6mm solid #14213d;position:relative"><span style="position:absolute;left:0;right:0;top:7.5mm;border-top:0.3mm dotted #b9c6d6;display:block"></span></span>
+</div>
+</div>
+
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:8mm">
+<img src="clean/mot-tomate-photo.webp" alt="une tomate" style="flex:0 0 auto;width:34mm;height:28mm;object-fit:contain" />
+<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3.5mm">
+<div style="display:flex;align-items:center;gap:5mm">
+<svg viewBox="0 0 1100 232" style="flex:0 0 auto;width:130mm;height:27.4mm;display:block" fill="none" stroke="#14213d" stroke-width="3.4" stroke-dasharray="11 7">
+<path d="M0 0 H990 L1100 116 L990 232 H0 L110 116 Z" fill="#fff"></path>
+<path d="M330 0 L440 116 L330 232"></path>
+<path d="M660 0 L770 116 L660 232"></path>
+</svg>
+</div>
+<span style="display:block;height:15mm;border-bottom:0.6mm solid #14213d;position:relative"><span style="position:absolute;left:0;right:0;top:7.5mm;border-top:0.3mm dotted #b9c6d6;display:block"></span></span>
+</div>
+</div>
+
+<span style="flex:0 0 auto;font-size:10pt;color:#6b7386">Prénom : <span style="display:inline-block;width:60mm;border-bottom:0.3mm solid #c9cfd8"></span></span>
+</div>
+</section>
+
+<!-- PAGE 2 — les étiquettes, deux exemplaires, EN DÉSORDRE : rangées dans l'ordre des mots,
+     l'élève les recopierait de haut en bas sans rien lire. Sur la feuille elles sont
+     espacées (on découpe) ; c'est une fois découpées qu'elles s'emboîtent. La syllabe est
+     décalée vers la droite du creux, sinon elle paraît collée au bord gauche. -->
+<section class="page" data-screen-label="Les étiquettes à découper" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:0;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d">
+<div style="flex:0 0 auto;background:#14213d;color:#fff;padding:9mm 16mm 7mm;display:flex;align-items:center;justify-content:space-between;gap:10mm">
+<span style="font-size:22pt;font-weight:700;letter-spacing:0.04em">LES ÉTIQUETTES</span>
+<span style="font-size:11pt;letter-spacing:0.1em;opacity:0.85">À DÉCOUPER</span>
+</div>
+<div style="flex:0 0 auto;height:1.6mm;background:#c1440e"></div>
+
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;gap:8mm;padding:9mm 16mm 12mm">
+<span style="flex:0 0 auto;font-size:12pt;color:#48586b">Découpez sur les pointillés. Deux exemplaires de chaque syllabe : un pour l&rsquo;élève, un pour le professeur. La pointe d&rsquo;une pièce entre dans le creux de la suivante.</span>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,48mm);grid-auto-rows:25.3mm;gap:9mm 8mm;justify-content:space-between;align-content:space-between">
+
+<span style="position:relative;display:block;width:48mm;height:25.3mm"><svg viewBox="0 0 440 232" style="position:absolute;inset:0;width:100%;height:100%"><path d="M0 0 H330 L440 116 L330 232 H0 L110 116 Z" fill="#fff" stroke="#14213d" stroke-width="3.4" stroke-dasharray="11 7"></path></svg><span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding-left:8mm;box-sizing:border-box;font-size:25pt;font-weight:700">to</span></span>
+<span style="position:relative;display:block;width:48mm;height:25.3mm"><svg viewBox="0 0 440 232" style="position:absolute;inset:0;width:100%;height:100%"><path d="M0 0 H330 L440 116 L330 232 H0 L110 116 Z" fill="#fff" stroke="#14213d" stroke-width="3.4" stroke-dasharray="11 7"></path></svg><span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding-left:8mm;box-sizing:border-box;font-size:25pt;font-weight:700">la</span></span>
+<span style="position:relative;display:block;width:48mm;height:25.3mm"><svg viewBox="0 0 440 232" style="position:absolute;inset:0;width:100%;height:100%"><path d="M0 0 H330 L440 116 L330 232 H0 L110 116 Z" fill="#fff" stroke="#14213d" stroke-width="3.4" stroke-dasharray="11 7"></path></svg><span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding-left:8mm;box-sizing:border-box;font-size:25pt;font-weight:700">lit</span></span>
+
+<span style="position:relative;display:block;width:48mm;height:25.3mm"><svg viewBox="0 0 440 232" style="position:absolute;inset:0;width:100%;height:100%"><path d="M0 0 H330 L440 116 L330 232 H0 L110 116 Z" fill="#fff" stroke="#14213d" stroke-width="3.4" stroke-dasharray="11 7"></path></svg><span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding-left:8mm;box-sizing:border-box;font-size:25pt;font-weight:700">ma</span></span>
+<span style="position:relative;display:block;width:48mm;height:25.3mm"><svg viewBox="0 0 440 232" style="position:absolute;inset:0;width:100%;height:100%"><path d="M0 0 H330 L440 116 L330 232 H0 L110 116 Z" fill="#fff" stroke="#14213d" stroke-width="3.4" stroke-dasharray="11 7"></path></svg><span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding-left:8mm;box-sizing:border-box;font-size:25pt;font-weight:700">mo</span></span>
+<span style="position:relative;display:block;width:48mm;height:25.3mm"><svg viewBox="0 0 440 232" style="position:absolute;inset:0;width:100%;height:100%"><path d="M0 0 H330 L440 116 L330 232 H0 L110 116 Z" fill="#fff" stroke="#14213d" stroke-width="3.4" stroke-dasharray="11 7"></path></svg><span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding-left:8mm;box-sizing:border-box;font-size:25pt;font-weight:700">de</span></span>
+
+<span style="position:relative;display:block;width:48mm;height:25.3mm"><svg viewBox="0 0 440 232" style="position:absolute;inset:0;width:100%;height:100%"><path d="M0 0 H330 L440 116 L330 232 H0 L110 116 Z" fill="#fff" stroke="#14213d" stroke-width="3.4" stroke-dasharray="11 7"></path></svg><span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding-left:8mm;box-sizing:border-box;font-size:25pt;font-weight:700">te</span></span>
+<span style="position:relative;display:block;width:48mm;height:25.3mm"><svg viewBox="0 0 440 232" style="position:absolute;inset:0;width:100%;height:100%"><path d="M0 0 H330 L440 116 L330 232 H0 L110 116 Z" fill="#fff" stroke="#14213d" stroke-width="3.4" stroke-dasharray="11 7"></path></svg><span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding-left:8mm;box-sizing:border-box;font-size:25pt;font-weight:700">sa</span></span>
+<span style="position:relative;display:block;width:48mm;height:25.3mm"><svg viewBox="0 0 440 232" style="position:absolute;inset:0;width:100%;height:100%"><path d="M0 0 H330 L440 116 L330 232 H0 L110 116 Z" fill="#fff" stroke="#14213d" stroke-width="3.4" stroke-dasharray="11 7"></path></svg><span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding-left:8mm;box-sizing:border-box;font-size:25pt;font-weight:700">to</span></span>
+
+<span style="position:relative;display:block;width:48mm;height:25.3mm"><svg viewBox="0 0 440 232" style="position:absolute;inset:0;width:100%;height:100%"><path d="M0 0 H330 L440 116 L330 232 H0 L110 116 Z" fill="#fff" stroke="#14213d" stroke-width="3.4" stroke-dasharray="11 7"></path></svg><span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding-left:8mm;box-sizing:border-box;font-size:25pt;font-weight:700">te</span></span>
+<span style="position:relative;display:block;width:48mm;height:25.3mm"><svg viewBox="0 0 440 232" style="position:absolute;inset:0;width:100%;height:100%"><path d="M0 0 H330 L440 116 L330 232 H0 L110 116 Z" fill="#fff" stroke="#14213d" stroke-width="3.4" stroke-dasharray="11 7"></path></svg><span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding-left:8mm;box-sizing:border-box;font-size:25pt;font-weight:700">mo</span></span>
+<span style="position:relative;display:block;width:48mm;height:25.3mm"><svg viewBox="0 0 440 232" style="position:absolute;inset:0;width:100%;height:100%"><path d="M0 0 H330 L440 116 L330 232 H0 L110 116 Z" fill="#fff" stroke="#14213d" stroke-width="3.4" stroke-dasharray="11 7"></path></svg><span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding-left:8mm;box-sizing:border-box;font-size:25pt;font-weight:700">sa</span></span>
+
+<span style="position:relative;display:block;width:48mm;height:25.3mm"><svg viewBox="0 0 440 232" style="position:absolute;inset:0;width:100%;height:100%"><path d="M0 0 H330 L440 116 L330 232 H0 L110 116 Z" fill="#fff" stroke="#14213d" stroke-width="3.4" stroke-dasharray="11 7"></path></svg><span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding-left:8mm;box-sizing:border-box;font-size:25pt;font-weight:700">ma</span></span>
+<span style="position:relative;display:block;width:48mm;height:25.3mm"><svg viewBox="0 0 440 232" style="position:absolute;inset:0;width:100%;height:100%"><path d="M0 0 H330 L440 116 L330 232 H0 L110 116 Z" fill="#fff" stroke="#14213d" stroke-width="3.4" stroke-dasharray="11 7"></path></svg><span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding-left:8mm;box-sizing:border-box;font-size:25pt;font-weight:700">lit</span></span>
+<span style="position:relative;display:block;width:48mm;height:25.3mm"><svg viewBox="0 0 440 232" style="position:absolute;inset:0;width:100%;height:100%"><path d="M0 0 H330 L440 116 L330 232 H0 L110 116 Z" fill="#fff" stroke="#14213d" stroke-width="3.4" stroke-dasharray="11 7"></path></svg><span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding-left:8mm;box-sizing:border-box;font-size:25pt;font-weight:700">to</span></span>
+
+<span style="position:relative;display:block;width:48mm;height:25.3mm"><svg viewBox="0 0 440 232" style="position:absolute;inset:0;width:100%;height:100%"><path d="M0 0 H330 L440 116 L330 232 H0 L110 116 Z" fill="#fff" stroke="#14213d" stroke-width="3.4" stroke-dasharray="11 7"></path></svg><span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding-left:8mm;box-sizing:border-box;font-size:25pt;font-weight:700">la</span></span>
+<span style="position:relative;display:block;width:48mm;height:25.3mm"><svg viewBox="0 0 440 232" style="position:absolute;inset:0;width:100%;height:100%"><path d="M0 0 H330 L440 116 L330 232 H0 L110 116 Z" fill="#fff" stroke="#14213d" stroke-width="3.4" stroke-dasharray="11 7"></path></svg><span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding-left:8mm;box-sizing:border-box;font-size:25pt;font-weight:700">de</span></span>
+<span style="position:relative;display:block;width:48mm;height:25.3mm"><svg viewBox="0 0 440 232" style="position:absolute;inset:0;width:100%;height:100%"><path d="M0 0 H330 L440 116 L330 232 H0 L110 116 Z" fill="#fff" stroke="#14213d" stroke-width="3.4" stroke-dasharray="11 7"></path></svg><span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding-left:8mm;box-sizing:border-box;font-size:25pt;font-weight:700">to</span></span>
+
+</div>
+</div>
+</section>
+
+</doc-page>
+</x-dc>
+</body>
+</html>

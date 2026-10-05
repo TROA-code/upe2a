@@ -149,8 +149,11 @@ class Component extends DCLogic {
   renderVals() {
     const s = this.state;
 
+    /* 03/10 (son choix) : les sons PRÊTS se suivent sans trou, dans l'ordre de sa
+       progression. Les cases suivantes restent vides, sans lettre. */
+    const prets = s.prog.filter(son => this.jeuxDe(son, s.jeuxSons).length > 0);
     const cases = POSITIONS.map((p, k) => {
-      const son = s.prog[k] || '';
+      const son = prets[k] || '';
       const jeux = son ? this.jeuxDe(son, s.jeuxSons) : [];
       const prete = jeux.length > 0;
       const taille = prete ? 4.9 : 3.7;

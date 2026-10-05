@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#1d4e89}
+a:hover{color:#163a68}
+</style>
+<script src="./doc-page.js"></script>
+</helmet>
+<doc-page size="a4">
+<section class="page" data-screen-label="1 · L'enquête" style="background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Helvetica,'Helvetica Neue',Arial,sans-serif;color:#14213d;gap:5mm">
+<div style="flex:0 0 auto;display:flex;align-items:flex-end;justify-content:space-between;gap:4mm;border-bottom:2.5px solid #14213d;padding-bottom:2.5mm">
+<div style="display:flex;flex-direction:column;gap:1mm;min-width:0">
+<span style="font-size:12pt;letter-spacing:0.12em;text-transform:uppercase;color:#4a5262;white-space:nowrap">{{ niveau }}</span>
+<span style="font-size:24pt;font-weight:700;line-height:1.1;white-space:nowrap">L'enquête</span>
+</div>
+<div style="flex:0 0 auto;display:flex;align-items:flex-end;gap:2mm;font-size:13pt;font-weight:700;white-space:nowrap">Prénom :<span style="width:40mm;border-bottom:2px solid #14213d;display:block"></span></div>
+</div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:6mm;border:2.5px solid #14213d;border-radius:4mm;padding:5mm 6mm">
+<div style="display:flex;flex-direction:column;gap:1.5mm">
+<sc-for list="{{ histoire }}" as="h" hint-placeholder-count="4"><span style="font-size:17pt;font-weight:700;line-height:1.25">{{ h }}</span></sc-for>
+</div>
+<div style="display:flex;flex-direction:column;gap:2mm;border-left:2px dashed #8a91a3;padding-left:6mm">
+<span style="font-size:12pt;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#4a5262">Ma mission</span>
+<sc-for list="{{ mission }}" as="m" hint-placeholder-count="3"><span style="font-size:14pt;line-height:1.3">{{ m }}</span></sc-for>
+</div>
+</div>
+<div style="flex:0 0 auto;display:flex;flex-wrap:wrap;gap:3mm 8mm;align-items:baseline;background:#fdf3d0;border-radius:3mm;padding:3mm 5mm;font-size:14pt">
+<b style="font-size:12pt;letter-spacing:0.12em;text-transform:uppercase">Les mots</b>
+<span><b>un suspect</b> = peut-être le voleur</span>
+<span><b>innocent</b> = ce n'est pas le voleur</span>
+</div>
+<span style="flex:0 0 auto;font-size:18pt;font-weight:700">Les suspects</span>
+<div style="flex:1;min-height:0;display:flex;flex-wrap:wrap;justify-content:center;align-content:flex-start;gap:5mm 4mm">
+<sc-for list="{{ suspects }}" as="s" hint-placeholder-count="8">
+<div style="width:38mm;height:66mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;overflow:hidden;position:relative;background:repeating-linear-gradient(to bottom,#fff 0,#fff 5.4mm,#b9c0cc 5.4mm,#b9c0cc 6mm);display:flex;flex-direction:column;align-items:center;justify-content:flex-end">
+<span style="width:15mm;height:15mm;border-radius:50%;border:2.5px solid #14213d;background:#fff;box-sizing:border-box;display:block;margin-bottom:1mm"></span>
+<span style="width:30mm;height:18mm;border:2.5px solid #14213d;border-bottom:none;border-radius:15mm 15mm 0 0;background:#fff;box-sizing:border-box;display:block"></span>
+<div style="position:absolute;left:50%;bottom:3mm;transform:translateX(-50%);background:#fff;border:2.5px solid #14213d;padding:1.2mm 2mm;max-width:35mm;box-sizing:border-box;text-align:center;white-space:nowrap">
+<sc-if value="{{ plaqueGrand }}" hint-placeholder-val="{{ true }}"><span style="font-size:24pt;font-weight:700;line-height:1">{{ s.num }}</span></sc-if>
+<sc-if value="{{ plaquePetit }}" hint-placeholder-val="{{ false }}"><span style="font-size:12pt;font-weight:700;line-height:1.1">{{ s.num }}</span></sc-if>
+</div>
+</div>
+</sc-for>
+</div>
+</section>
+<section class="page" data-screen-label="2 · Les indices" style="background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Helvetica,'Helvetica Neue',Arial,sans-serif;color:#14213d;gap:5mm">
+<div style="flex:0 0 auto;display:flex;align-items:flex-end;justify-content:space-between;gap:4mm;border-bottom:2.5px solid #14213d;padding-bottom:2.5mm">
+<span style="font-size:24pt;font-weight:700;line-height:1.1;white-space:nowrap">Les indices</span>
+<span style="font-size:13pt;white-space:nowrap">✂ Je découpe. Je lis une carte à la fois.</span>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-auto-rows:minmax(0,1fr);gap:5mm">
+<sc-for list="{{ indices }}" as="i" hint-placeholder-count="5">
+<div style="border:2px dashed #14213d;border-radius:3mm;padding:4mm 5mm;display:flex;flex-direction:column;gap:2mm;min-height:0;overflow:hidden">
+<span style="align-self:flex-start;background:#14213d;color:#fff;border-radius:2mm;padding:1mm 3mm;font-size:13pt;font-weight:700;white-space:nowrap">Indice {{ i.n }}</span>
+<sc-for list="{{ i.lignes }}" as="l" hint-placeholder-count="3"><span style="font-size:16pt;line-height:1.3">{{ l }}</span></sc-for>
+<sc-if value="{{ i.aTableau }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top:auto;display:flex;flex-direction:column;border:2px solid #14213d;width:100%;max-width:80mm">
+<sc-if value="{{ montrerClasses }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex">
+<sc-for list="{{ classesHdr }}" as="c" hint-placeholder-count="4"><div style="flex:1;min-width:0;background:{{ c.fond }};border-right:{{ c.bord }};border-bottom:1.5px solid #14213d;font-size:12pt;font-weight:700;text-align:center;padding:0.8mm 0;overflow:hidden">{{ c.nom }}</div></sc-for>
+</div>
+</sc-if>
+<div style="display:flex">
+<sc-for list="{{ i.cells }}" as="c" hint-placeholder-count="2"><div style="flex:1;min-width:0;background:{{ c.fond }};border-right:{{ c.bord }};font-size:14pt;font-weight:700;color:{{ c.couleur }};text-align:center;padding:1mm 0">{{ c.l }}</div></sc-for>
+</div>
+</div>
+</sc-if>
+</div>
+</sc-for>
+</div>
+</section>
+<section class="page" data-screen-label="3 · La fiche du voleur" style="background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Helvetica,'Helvetica Neue',Arial,sans-serif;color:#14213d;gap:8mm">
+<div style="flex:0 0 auto;display:flex;align-items:flex-end;justify-content:space-between;gap:4mm;border-bottom:2.5px solid #14213d;padding-bottom:2.5mm">
+<span style="font-size:24pt;font-weight:700;line-height:1.1;white-space:nowrap">La fiche du voleur</span>
+<div style="flex:0 0 auto;display:flex;align-items:flex-end;gap:2mm;font-size:13pt;font-weight:700;white-space:nowrap">Prénom :<span style="width:40mm;border-bottom:2px solid #14213d;display:block"></span></div>
+</div>
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:3mm">
+<span style="font-size:16pt;font-weight:700">1 · Le voleur, c'est le numéro :</span>
+<span style="width:90mm;height:18mm;border:2.5px solid #14213d;border-radius:2mm;display:block"></span>
+</div>
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:3mm">
+<span style="font-size:16pt;font-weight:700">2 · Je l'écris dans le tableau :</span>
+<div style="display:flex;flex-direction:column;border:2.5px solid #14213d">
+<sc-if value="{{ montrerClasses }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex">
+<sc-for list="{{ classesHdr }}" as="c" hint-placeholder-count="4"><div style="flex:1;min-width:0;background:{{ c.fond }};border-right:{{ c.bord }};border-bottom:1.5px solid #14213d;font-size:13pt;font-weight:700;text-align:center;padding:1.5mm 0">{{ c.nom }}</div></sc-for>
+</div>
+</sc-if>
+<div style="display:flex">
+<sc-for list="{{ colonnes }}" as="c" hint-placeholder-count="2"><div style="flex:1;min-width:0;background:{{ c.fond }};border-right:{{ c.bord }};border-bottom:2px solid #14213d;font-size:18pt;font-weight:700;color:{{ c.couleur }};text-align:center;padding:1.5mm 0">{{ c.l }}</div></sc-for>
+</div>
+<div style="display:flex;height:22mm">
+<sc-for list="{{ colonnes }}" as="c" hint-placeholder-count="2"><div style="flex:1;min-width:0;border-right:{{ c.bord }}"></div></sc-for>
+</div>
+</div>
+</div>
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:3mm">
+<span style="font-size:16pt;font-weight:700">3 · Je l'écris en lettres :</span>
+<sc-for list="{{ lignesLettres }}" as="x" hint-placeholder-count="1"><span style="height:13mm;border-bottom:1.5px solid #14213d;display:block"></span></sc-for>
+</div>
+</section>
+<section class="page" data-screen-label="Corrigé" style="background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Helvetica,'Helvetica Neue',Arial,sans-serif;color:#14213d;gap:6mm">
+<div style="flex:0 0 auto;font-size:24pt;font-weight:700;border-bottom:2.5px solid #14213d;padding-bottom:2.5mm">Corrigé · L'enquête</div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:3mm 8mm">
+<sc-for list="{{ corrige }}" as="c" hint-placeholder-count="8">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:3mm;border-bottom:1px solid #c9cfd8;padding:1.5mm 0">
+<span style="font-size:15pt;font-weight:700;white-space:nowrap">{{ c.num }}</span>
+<sc-if value="{{ c.innocent }}" hint-placeholder-val="{{ true }}"><span style="font-size:12pt;color:#4a5262;white-space:nowrap">innocent · indice {{ c.indice }}</span></sc-if>
+<sc-if value="{{ c.voleur }}" hint-placeholder-val="{{ false }}"><span style="font-size:12pt;font-weight:700;color:#fff;background:#2a9d6e;border-radius:2mm;padding:1mm 3mm;white-space:nowrap">LE VOLEUR</span></sc-if>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:3mm">
+<span style="font-size:16pt;font-weight:700">1 · Le voleur : {{ voleurTxt }}</span>
+<span style="font-size:16pt;font-weight:700">2 · Dans le tableau :</span>
+<div style="display:flex;flex-direction:column;border:2.5px solid #14213d">
+<sc-if value="{{ montrerClasses }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex">
+<sc-for list="{{ classesHdr }}" as="c" hint-placeholder-count="4"><div style="flex:1;min-width:0;background:{{ c.fond }};border-right:{{ c.bord }};border-bottom:1.5px solid #14213d;font-size:13pt;font-weight:700;text-align:center;padding:1.5mm 0">{{ c.nom }}</div></sc-for>
+</div>
+</sc-if>
+<div style="display:flex">
+<sc-for list="{{ colonnes }}" as="c" hint-placeholder-count="2"><div style="flex:1;min-width:0;background:{{ c.fond }};border-right:{{ c.bord }};border-bottom:2px solid #14213d;font-size:18pt;font-weight:700;color:{{ c.couleur }};text-align:center;padding:1.5mm 0">{{ c.l }}</div></sc-for>
+</div>
+<div style="display:flex;height:16mm">
+<sc-for list="{{ voleurCases }}" as="c" hint-placeholder-count="2"><div style="flex:1;min-width:0;border-right:{{ c.bord }};display:flex;align-items:center;justify-content:center;font-size:22pt;font-weight:700;color:#1d4e89">{{ c.v }}</div></sc-for>
+</div>
+</div>
+<span style="font-size:16pt;font-weight:700">3 · En lettres : {{ lettres }}</span>
+</div>
+</section>
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* L'ENQUÊTE (02/10, son oui « fais les 2 jeux ») : idée de son document n° 6 (Mme 657), refaite
+   en FALC — phrases courtes, une idée par carte, toujours les mêmes mots. Les suspects tiennent
+   une plaque avec leur numéro (comme au commissariat). Jamais « voler » seul : « un vol », « le voleur ».
+   Le corrigé est CALCULÉ : chaque indice a un test, le voleur est le seul suspect qu'aucun n'élimine. */
+/* Version MILLIARDS : SES 7 suspects (doc n° 6). Témoignages 2 (pas un suspect) et 5
+   (n'élimine personne) retirés, 02/10. */
+const DATA = {
+  niveau: 'Numération 6.1',
+  classes: [
+    { nom: 'milliards', fond: '#e6dcf5', l: ['c', 'd', 'u'] }, { nom: 'millions', fond: '#d3ecd5', l: ['c', 'd', 'u'] },
+    { nom: 'mille', fond: '#fde8c8', l: ['c', 'd', 'u'] }, { nom: 'unités', fond: '#d9ebf7', l: ['c', 'd', 'u'] }],
+  montrerClasses: true, plaque: 'petit',
+  suspects: [9546000, 70800990777, 9457000, 1282531, 100094421, 82787963124, 40530290018],
+  indices: [
+    { lignes: ['Regarde les dizaines de mille.', 'Il y a un 8 ?', 'Ce suspect est innocent.'], hl: [7], test: n => Math.floor(n / 10000) % 10 === 8 },
+    { lignes: ['Ces deux suspects étaient au restaurant :', 'neuf millions cinq cent quarante-six mille,', 'neuf millions quatre cent cinquante-sept mille.', 'Ils sont innocents.'], hl: null, test: n => n === 9546000 || n === 9457000 },
+    { lignes: ['Regarde les milliards.', 'Plus de 60 milliards ?', 'Ce suspect est innocent.'], hl: [0, 1, 2], test: n => n > 60e9 },
+    { lignes: ['Le chef de la police :', '1 × 100 000 000 + 9 × 10 000', '+ 4 × 1 000 + 4 × 100 + 2 × 10 + 1', 'Il est innocent.'], hl: null, test: n => n === 100094421 }
+  ],
+  lettres: 'quarante milliards cinq cent trente millions deux cent quatre-vingt-dix mille dix-huit', lignesLettres: 3
+};
+/* FIN DATA */
+const COUL = { c: '#2f6fca', d: '#4d7f22', u: '#c8620f' };
+const fmt = n => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+class Component extends DCLogic {
+  renderVals() {
+    const D = DATA, THICK = '2.5px solid #14213d', THIN = '1px solid #8a91a3';
+    const colonnes = [];
+    D.classes.forEach((k, ki) => k.l.forEach((l, li) => colonnes.push({ l, couleur: COUL[l], fond: k.fond,
+      bord: (ki === D.classes.length - 1 && li === k.l.length - 1) ? 'none' : (li === k.l.length - 1 ? THICK : THIN) })));
+    const classesHdr = D.classes.map((k, ki) => ({ nom: k.nom, fond: k.fond, bord: ki === D.classes.length - 1 ? 'none' : THICK }));
+    const corrige = D.suspects.map(n => { const k = D.indices.findIndex(i => i.test(n)); return { num: fmt(n), innocent: k >= 0, voleur: k < 0, indice: k + 1 }; });
+    const voleurs = D.suspects.filter(n => !D.indices.some(i => i.test(n)));
+    if (voleurs.length !== 1) console.warn('Enquête : il doit rester UN suspect, il en reste', voleurs);
+    const v = voleurs[0];
+    const nc = colonnes.length;
+    return {
+      niveau: D.niveau, montrerClasses: D.montrerClasses, plaqueGrand: D.plaque === 'grand', plaquePetit: D.plaque !== 'grand',
+      histoire: ['Il y a eu un vol au Havre.', 'La police a ' + D.suspects.length + ' suspects.', 'Chaque suspect a un numéro.', 'Qui est le voleur ?'],
+      mission: ['1 · Je lis un indice.', '2 · Je barre les suspects innocents.', '3 · Il reste un seul suspect : c\u2019est le voleur !'],
+      suspects: D.suspects.map(n => ({ num: fmt(n) })),
+      indices: D.indices.map((i, k) => ({ n: k + 1, lignes: i.lignes, aTableau: !!i.hl,
+        cells: colonnes.map((c, ci) => ({ l: c.l, couleur: c.couleur, bord: c.bord, fond: i.hl && i.hl.includes(ci) ? '#f4c430' : '#fff' })) })),
+      colonnes, classesHdr, corrige,
+      voleurTxt: v === undefined ? '' : fmt(v),
+      voleurCases: String(v === undefined ? '' : v).padStart(nc, ' ').split('').map((x, ci) => ({ v: x.trim(), bord: colonnes[ci].bord })),
+      lettres: D.lettres, lignesLettres: Array.from({ length: D.lignesLettres }, (_, k) => k)
+    };
+  }
+}
+</script>
+</body>
+</html>
