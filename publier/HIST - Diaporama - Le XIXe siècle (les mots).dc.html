@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta charset="utf-8" />
+<style>
+body{margin:0;background:#14213d}
+a{color:#fbfaf7}
+a:hover{color:#fff}
+@media print{.barre-diapo{display:none!important}}
+</style>
+</helmet>
+<div class="barre-diapo" style="position:fixed;top:14px;right:14px;z-index:50;display:flex;gap:9px;align-items:center"><button onClick="{{ accueil }}" style="border:2px solid rgba(255,255,255,.55);border-radius:11px;background:rgba(18,35,59,.72);color:#fff;min-height:44px;padding:9px 16px;font-family:Helvetica, Arial, sans-serif;font-size:15px;cursor:pointer" style-hover="background:#14213d">← L'accueil</button><button onClick="{{ basculeVignettes }}" style="border:2px solid rgba(255,255,255,.35);border-radius:11px;background:rgba(18,35,59,.5);color:#fff;min-height:44px;padding:9px 16px;font-family:Helvetica, Arial, sans-serif;font-size:15px;cursor:pointer" style-hover="background:#14213d">{{ libelleVignettes }}</button></div>
+<x-import component-from-global-scope="deck-stage" from="./deck-stage.js" width="1920" height="1080" hint-size="100%,100%">
+<section data-label="Titre" data-screen-label="Titre" data-speaker-notes="On regarde chaque image, on dit le mot, on répète." style="display:flex;flex-direction:column;justify-content:center;gap:30px;padding:120px 160px;box-sizing:border-box;background:#0f6e6e;color:#fff;font-family:Helvetica, Arial, sans-serif">
+<span style="font-size:40px;letter-spacing:0.3em">HISTOIRE</span>
+<span style="font-size:150px;font-weight:700;line-height:1">Le XIX<sup>e</sup> siècle</span>
+<span style="width:220px;height:10px;background:#e0a526"></span>
+<span style="font-size:52px">Les mots · je regarde, je dis, je répète</span>
+</section>
+<section data-label="1 · image" data-screen-label="1 · image" data-speaker-notes="On regarde. Qui connaît ce mot ? On laisse les élèves dire, puis on montre le mot." style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:40px;padding:60px 80px;box-sizing:border-box;background:#fbfaf7;font-family:Helvetica, Arial, sans-serif;color:#14213d">
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:56px;width:100%">
+<span style="flex:0 0 auto;width:116px;height:116px;border-radius:50%;background:#0f6e6e;color:#fff;display:flex;align-items:center;justify-content:center;font-size:58px;font-weight:700">1</span>
+<div style="position:relative;flex:0 1 auto;width:1300px;height:100%;display:flex;align-items:center;justify-content:center;font-size:36px;color:#8a91a3"><span>photo à venir</span><span style="position:absolute;inset:0;background:url('clean/hist-train-vapeur.webp') center/contain no-repeat"></span></div>
+</div>
+<span style="visibility:hidden;flex:0 0 auto;font-size:96px;font-weight:700;text-align:center;line-height:1.1">un train à vapeur</span>
+</section>
+<section data-label="1 · un train à vapeur" data-screen-label="1 · un train à vapeur" data-speaker-notes="un train à vapeur" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:40px;padding:60px 80px;box-sizing:border-box;background:#fbfaf7;font-family:Helvetica, Arial, sans-serif;color:#14213d">
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:56px;width:100%">
+<span style="flex:0 0 auto;width:116px;height:116px;border-radius:50%;background:#0f6e6e;color:#fff;display:flex;align-items:center;justify-content:center;font-size:58px;font-weight:700">1</span>
+<div style="position:relative;flex:0 1 auto;width:1300px;height:100%;display:flex;align-items:center;justify-content:center;font-size:36px;color:#8a91a3"><span>photo à venir</span><span style="position:absolute;inset:0;background:url('clean/hist-train-vapeur.webp') center/contain no-repeat"></span></div>
+</div>
+<span style="flex:0 0 auto;font-size:96px;font-weight:700;text-align:center;line-height:1.1">un train à vapeur</span>
+</section>
+<section data-label="2 · image" data-screen-label="2 · image" data-speaker-notes="On regarde. Qui connaît ce mot ? On laisse les élèves dire, puis on montre le mot." style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:40px;padding:60px 80px;box-sizing:border-box;background:#fbfaf7;font-family:Helvetica, Arial, sans-serif;color:#14213d">
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:56px;width:100%">
+<span style="flex:0 0 auto;width:116px;height:116px;border-radius:50%;background:#0f6e6e;color:#fff;display:flex;align-items:center;justify-content:center;font-size:58px;font-weight:700">2</span>
+<div style="position:relative;flex:0 1 auto;width:1300px;height:100%;display:flex;align-items:center;justify-content:center;font-size:36px;color:#8a91a3"><span>photo à venir</span><span style="position:absolute;inset:0;background:url('clean/hist-usine.webp') center/contain no-repeat"></span></div>
+</div>
+<span style="visibility:hidden;flex:0 0 auto;font-size:96px;font-weight:700;text-align:center;line-height:1.1">une usine</span>
+</section>
+<section data-label="2 · une usine" data-screen-label="2 · une usine" data-speaker-notes="une usine" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:40px;padding:60px 80px;box-sizing:border-box;background:#fbfaf7;font-family:Helvetica, Arial, sans-serif;color:#14213d">
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:56px;width:100%">
+<span style="flex:0 0 auto;width:116px;height:116px;border-radius:50%;background:#0f6e6e;color:#fff;display:flex;align-items:center;justify-content:center;font-size:58px;font-weight:700">2</span>
+<div style="position:relative;flex:0 1 auto;width:1300px;height:100%;display:flex;align-items:center;justify-content:center;font-size:36px;color:#8a91a3"><span>photo à venir</span><span style="position:absolute;inset:0;background:url('clean/hist-usine.webp') center/contain no-repeat"></span></div>
+</div>
+<span style="flex:0 0 auto;font-size:96px;font-weight:700;text-align:center;line-height:1.1">une usine</span>
+</section>
+<section data-label="3 · image" data-screen-label="3 · image" data-speaker-notes="On regarde. Qui connaît ce mot ? On laisse les élèves dire, puis on montre le mot." style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:40px;padding:60px 80px;box-sizing:border-box;background:#fbfaf7;font-family:Helvetica, Arial, sans-serif;color:#14213d">
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:56px;width:100%">
+<span style="flex:0 0 auto;width:116px;height:116px;border-radius:50%;background:#0f6e6e;color:#fff;display:flex;align-items:center;justify-content:center;font-size:58px;font-weight:700">3</span>
+<div style="position:relative;flex:0 1 auto;width:1300px;height:100%;display:flex;align-items:center;justify-content:center;font-size:36px;color:#8a91a3"><span>photo à venir</span><span style="position:absolute;inset:0;background:url('clean/hist-ouvrier.webp') center/contain no-repeat"></span></div>
+</div>
+<span style="visibility:hidden;flex:0 0 auto;font-size:96px;font-weight:700;text-align:center;line-height:1.1">un ouvrier</span>
+</section>
+<section data-label="3 · un ouvrier" data-screen-label="3 · un ouvrier" data-speaker-notes="un ouvrier" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:40px;padding:60px 80px;box-sizing:border-box;background:#fbfaf7;font-family:Helvetica, Arial, sans-serif;color:#14213d">
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:56px;width:100%">
+<span style="flex:0 0 auto;width:116px;height:116px;border-radius:50%;background:#0f6e6e;color:#fff;display:flex;align-items:center;justify-content:center;font-size:58px;font-weight:700">3</span>
+<div style="position:relative;flex:0 1 auto;width:1300px;height:100%;display:flex;align-items:center;justify-content:center;font-size:36px;color:#8a91a3"><span>photo à venir</span><span style="position:absolute;inset:0;background:url('clean/hist-ouvrier.webp') center/contain no-repeat"></span></div>
+</div>
+<span style="flex:0 0 auto;font-size:96px;font-weight:700;text-align:center;line-height:1.1">un ouvrier</span>
+</section>
+<section data-label="4 · image" data-screen-label="4 · image" data-speaker-notes="On regarde. Qui connaît ce mot ? On laisse les élèves dire, puis on montre le mot." style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:40px;padding:60px 80px;box-sizing:border-box;background:#fbfaf7;font-family:Helvetica, Arial, sans-serif;color:#14213d">
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:56px;width:100%">
+<span style="flex:0 0 auto;width:116px;height:116px;border-radius:50%;background:#0f6e6e;color:#fff;display:flex;align-items:center;justify-content:center;font-size:58px;font-weight:700">4</span>
+<div style="position:relative;flex:0 1 auto;width:1300px;height:100%;display:flex;align-items:center;justify-content:center;font-size:36px;color:#8a91a3"><span>photo à venir</span><span style="position:absolute;inset:0;background:url('clean/hist-ecole.webp') center/contain no-repeat"></span></div>
+</div>
+<span style="visibility:hidden;flex:0 0 auto;font-size:96px;font-weight:700;text-align:center;line-height:1.1">une école</span>
+</section>
+<section data-label="4 · une école" data-screen-label="4 · une école" data-speaker-notes="une école" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:40px;padding:60px 80px;box-sizing:border-box;background:#fbfaf7;font-family:Helvetica, Arial, sans-serif;color:#14213d">
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:56px;width:100%">
+<span style="flex:0 0 auto;width:116px;height:116px;border-radius:50%;background:#0f6e6e;color:#fff;display:flex;align-items:center;justify-content:center;font-size:58px;font-weight:700">4</span>
+<div style="position:relative;flex:0 1 auto;width:1300px;height:100%;display:flex;align-items:center;justify-content:center;font-size:36px;color:#8a91a3"><span>photo à venir</span><span style="position:absolute;inset:0;background:url('clean/hist-ecole.webp') center/contain no-repeat"></span></div>
+</div>
+<span style="flex:0 0 auto;font-size:96px;font-weight:700;text-align:center;line-height:1.1">une école</span>
+</section>
+<section data-label="5 · image" data-screen-label="5 · image" data-speaker-notes="On regarde. Qui connaît ce mot ? On laisse les élèves dire, puis on montre le mot." style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:40px;padding:60px 80px;box-sizing:border-box;background:#fbfaf7;font-family:Helvetica, Arial, sans-serif;color:#14213d">
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:56px;width:100%">
+<span style="flex:0 0 auto;width:116px;height:116px;border-radius:50%;background:#0f6e6e;color:#fff;display:flex;align-items:center;justify-content:center;font-size:58px;font-weight:700">5</span>
+<div style="position:relative;flex:0 1 auto;width:1300px;height:100%;display:flex;align-items:center;justify-content:center;font-size:36px;color:#8a91a3"><span>photo à venir</span><span style="position:absolute;inset:0;background:url('clean/hist-ampoule.webp') center/contain no-repeat"></span></div>
+</div>
+<span style="visibility:hidden;flex:0 0 auto;font-size:96px;font-weight:700;text-align:center;line-height:1.1">une ampoule</span>
+</section>
+<section data-label="5 · une ampoule" data-screen-label="5 · une ampoule" data-speaker-notes="une ampoule" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:40px;padding:60px 80px;box-sizing:border-box;background:#fbfaf7;font-family:Helvetica, Arial, sans-serif;color:#14213d">
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:56px;width:100%">
+<span style="flex:0 0 auto;width:116px;height:116px;border-radius:50%;background:#0f6e6e;color:#fff;display:flex;align-items:center;justify-content:center;font-size:58px;font-weight:700">5</span>
+<div style="position:relative;flex:0 1 auto;width:1300px;height:100%;display:flex;align-items:center;justify-content:center;font-size:36px;color:#8a91a3"><span>photo à venir</span><span style="position:absolute;inset:0;background:url('clean/hist-ampoule.webp') center/contain no-repeat"></span></div>
+</div>
+<span style="flex:0 0 auto;font-size:96px;font-weight:700;text-align:center;line-height:1.1">une ampoule</span>
+</section>
+<section data-label="6 · image" data-screen-label="6 · image" data-speaker-notes="On regarde. Qui connaît ce mot ? On laisse les élèves dire, puis on montre le mot." style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:40px;padding:60px 80px;box-sizing:border-box;background:#fbfaf7;font-family:Helvetica, Arial, sans-serif;color:#14213d">
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:56px;width:100%">
+<span style="flex:0 0 auto;width:116px;height:116px;border-radius:50%;background:#0f6e6e;color:#fff;display:flex;align-items:center;justify-content:center;font-size:58px;font-weight:700">6</span>
+<div style="position:relative;flex:0 1 auto;width:1300px;height:100%;display:flex;align-items:center;justify-content:center;font-size:36px;color:#8a91a3"><span>photo à venir</span><span style="position:absolute;inset:0;background:url('clean/hist-appareil-photo.webp') center/contain no-repeat"></span></div>
+</div>
+<span style="visibility:hidden;flex:0 0 auto;font-size:96px;font-weight:700;text-align:center;line-height:1.1">un appareil photo</span>
+</section>
+<section data-label="6 · un appareil photo" data-screen-label="6 · un appareil photo" data-speaker-notes="un appareil photo" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:40px;padding:60px 80px;box-sizing:border-box;background:#fbfaf7;font-family:Helvetica, Arial, sans-serif;color:#14213d">
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:56px;width:100%">
+<span style="flex:0 0 auto;width:116px;height:116px;border-radius:50%;background:#0f6e6e;color:#fff;display:flex;align-items:center;justify-content:center;font-size:58px;font-weight:700">6</span>
+<div style="position:relative;flex:0 1 auto;width:1300px;height:100%;display:flex;align-items:center;justify-content:center;font-size:36px;color:#8a91a3"><span>photo à venir</span><span style="position:absolute;inset:0;background:url('clean/hist-appareil-photo.webp') center/contain no-repeat"></span></div>
+</div>
+<span style="flex:0 0 auto;font-size:96px;font-weight:700;text-align:center;line-height:1.1">un appareil photo</span>
+</section>
+</x-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* Diaporama d'histoire : retour + vignettes en haut à DROITE ; avance au clic ; jamais au-delà de la dernière vue (règles du 22/09, posées ici le 03/10). */
+const CLE_VIGNETTES = 'upe2a-diapo-hist-vignettes';
+class Component extends DCLogic {
+  state = { vignettes: true };
+  componentDidMount() {
+    let v = true;
+    try { v = localStorage.getItem(CLE_VIGNETTES) !== 'non'; } catch (e) {}
+    this.setState({ vignettes: v });
+    this.appliquer(v);
+    this._clic = (e) => {
+      const chemin = e.composedPath ? e.composedPath() : [];
+      for (const n of chemin) {
+        const c = n && n.classList;
+        if (c && (c.contains('barre-diapo') || c.contains('rail') || c.contains('rail-resize') || c.contains('overlay'))) return;
+      }
+      const d = document.querySelector('deck-stage');
+      if (!d || typeof d.goTo !== 'function') return;
+      const vues = Array.prototype.slice.call(d.querySelectorAll('section'));
+      let i = vues.findIndex(s => s.hasAttribute('data-deck-active'));
+      if (i < 0) i = 0;
+      if (i < vues.length - 1) d.goTo(i + 1);
+    };
+    document.addEventListener('click', this._clic);
+  }
+  componentWillUnmount() { if (this._clic) document.removeEventListener('click', this._clic); }
+  appliquer(v) {
+    const d = document.querySelector('deck-stage');
+    if (!d) return;
+    if (v) d.removeAttribute('no-rail'); else d.setAttribute('no-rail', '');
+  }
+  renderVals() {
+    const v = this.state.vignettes;
+    return {
+      libelleVignettes: v ? 'Masquer les vignettes' : 'Voir les vignettes',
+      basculeVignettes: () => {
+        const n = !v;
+        this.setState({ vignettes: n });
+        try { localStorage.setItem(CLE_VIGNETTES, n ? 'oui' : 'non'); } catch (e) {}
+        this.appliquer(n);
+      },
+      accueil: () => {
+        const ici = location.href;
+        try { history.back(); } catch (e) {}
+        setTimeout(() => { if (location.href === ici) location.href = 'APPLI - Espace enseignant.dc.html' + location.search; }, 400);
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

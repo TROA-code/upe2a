@@ -1,3 +1,9 @@
+## 05/10 (soir) — à reprendre
+- ✅ `DELF.html` = fichier ISOLÉ (A1 sujet 1, aucune sortie, tout inclus, 5,4 Mo), fabriqué depuis `DELF-seul.dc.html` (SEUL forcé) + images/sons en base64. En ligne : **https://troa-code.github.io/upe2a/github/DELF.html** (elle l'a déposé dans `github/`, majuscules). Si le sujet 1 change → refabriquer.
+- ✅ Publication 05/10 : `?v=43`. ⚠ Dépôt public contient `A-FAIRE.md`, `DOC-TECHNIQUE.md` et des vieux dossiers (`a-imprimer-22-09`, `appli-22-09`, `export-github`, `github`, `publier`, `autonome`) → lui proposer de les retirer. `uploads/` absent : OK.
+- ⏳ Voix de CÉLINE (profil voicebox « Celine2 ») pour les 25 mots repères + 26 noms de lettres → `audio/mot-<mot>.wav`, `audio/lettre-<l>.wav`. Reçus : ananas, ballon, carotte, deux. « je » et « fenêtre » ont planté le serveur (500) → script console avec DEJA + zip. À relier ensuite : 3 endroits des mots repères + jeu de l'oie.
+- ✅ Jeu de l'oie : plateau LETTRES en 1er, « Jouer seul » (lettres seulement, à étendre après essai), 8e tableau élève vert (`?eleve=1` = pas d'Imprimer).
+
 ## ✅ 04/10 — `JEU - Les syllabes.dc.html` (nouvelle appli, ses choix)
 - 5 jeux : J'entends je touche · Je fabrique (c + v) · Je reconstruis le mot · La syllabe qui manque · Je lis vite (Lent/Moyen/Vite). Manches de 6, BRAVO/OH ZUT, pas de score, toucher seulement.
 - ⚙ Les lettres : consonnes + voyelles choisies par elle (localStorage `syllabes-lettres`). Mots des jeux 3-4 = banques des jeux de sons A/I/O/M (photos `mot-*`), filtrés sur les lettres choisies.

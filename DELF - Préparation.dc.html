@@ -21,13 +21,13 @@ input,textarea,button{font-family:inherit}
 <div style="position:fixed;inset:0;display:flex;flex-direction:column;background:url('clean/mur-briques.webp') repeat;overflow:auto">
 
 <div class="no-print" style="flex:0 0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 18px">
-<button onClick="{{ retour }}" style="min-height:44px;border:none;border-radius:10px;background:#12233b;color:#fff;padding:0 16px;font-weight:700;font-size:15px;cursor:pointer;box-shadow:0 3px 0 #050d18">{{ libelleRetour }}</button>
+<sc-if value="{{ aRetour }}" hint-placeholder-val="{{ true }}"><button onClick="{{ retour }}" style="min-height:44px;border:none;border-radius:10px;background:#12233b;color:#fff;padding:0 16px;font-weight:700;font-size:15px;cursor:pointer;box-shadow:0 3px 0 #050d18">{{ libelleRetour }}</button></sc-if>
 <div style="flex:1"></div>
-<div style="display:flex;gap:4px;background:rgba(18,35,59,0.9);border-radius:12px;padding:4px">
+<sc-if value="{{ aNiveaux }}" hint-placeholder-val="{{ true }}"><div style="display:flex;gap:4px;background:rgba(18,35,59,0.9);border-radius:12px;padding:4px">
 <sc-for list="{{ niveaux }}" as="n" hint-placeholder-count="2">
 <button onClick="{{ n.choisir }}" style="min-width:64px;min-height:40px;border:none;border-radius:9px;background:{{ n.fond }};color:{{ n.encre }};font-family:Archivo Black, Archivo, sans-serif;font-size:17px;cursor:pointer">{{ n.nom }}</button>
 </sc-for>
-</div>
+</div></sc-if>
 </div>
 
 <sc-if value="{{ estMenu }}" hint-placeholder-val="{{ true }}">
@@ -378,8 +378,10 @@ input,textarea,button{font-family:inherit}
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script>
+/* 05/10 (son oui) : MODE SEUL — fichier isolé « DELF.html » (A1, sujet 1, aucune sortie). ?seul=1 ou window.DELF_SEUL. */
+const SEUL = window.DELF_SEUL === true || /[?&]seul=1/.test(location.search);
 class Component extends DCLogic {
-  state = { niveau: 'A1', sujet: null, ecran: 'menu', exoIdx: 0, rep: {}, fini: {}, cartesVues: {}, carteTiree: -1, chronoFin: 0, chronoMin: 0, audioPct: 0, audioJoue: false };
+  state = { niveau: 'A1', sujet: SEUL ? 0 : null, ecran: SEUL ? 'sujet' : 'menu', exoIdx: 0, rep: {}, fini: {}, cartesVues: {}, carteTiree: -1, chronoFin: 0, chronoMin: 0, audioPct: 0, audioJoue: false };
 
   data() {
     const qcm = (q, choix, bonne) => ({ q, choix, bonne });
@@ -567,6 +569,7 @@ class Component extends DCLogic {
   retour() {
     const e = this.state.ecran;
     if (e !== 'menu' && e !== 'sujet') { this.stopAudio(); clearInterval(this.tic); this.setState({ ecran: 'sujet', chronoFin: 0, audioJoue: false, audioPct: 0 }); return; }
+    if (SEUL) return;
     if (e === 'sujet') { this.setState({ ecran: 'menu', sujet: null }); return; }
     const repli = 'APPLI - Espace enseignant.dc.html' + (location.search || '');
     if (history.length > 1) { history.back(); setTimeout(() => { location.href = repli; }, 400); } else location.href = repli;
@@ -652,6 +655,7 @@ class Component extends DCLogic {
     return {
       niveau: s.niveau, estA2: !sujets.length && !suj, estMenu: !suj, estSujet: !!suj && !ep, estEpreuve: !!ep,
       titreSujet: suj ? suj.titre : '',
+      aRetour: !SEUL || !!ep, aNiveaux: !SEUL,
       libelleRetour: ep ? '← ' + suj.titre : (suj ? '← Les sujets' : '← L’accueil'), retour: () => this.retour(),
       niveaux: ['A1', 'A2'].map(n => ({ nom: n, fond: s.niveau === n ? '#fdf3c4' : 'transparent', encre: s.niveau === n ? '#12233b' : '#fff',
         choisir: () => { this.stopAudio(); this.setState({ niveau: n, sujet: null, ecran: 'menu', chronoFin: 0, audioJoue: false, audioPct: 0 }); } })),

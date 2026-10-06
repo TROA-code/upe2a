@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&amp;family=Archivo+Black&amp;family=Andika:wght@700&amp;display=swap" rel="stylesheet" />
+<style>
+body { margin: 0; background: #e9e4dc; font-family: Archivo, sans-serif; color: #12233b; }
+a { color: #1d4e89; } a:hover { color: #12233b; }
+@page { size: A3 portrait; margin: 2cm; }
+@media print {
+  body { background: #fff; }
+  [data-ecran] { display: none !important; }
+  [data-plateau] { width: 100% !important; max-width: none !important; box-shadow: none !important; padding: 0 !important; background: #fff !important; }
+  [data-plateau-grille] { height: calc(420mm - 4cm - 20mm) !important; grid-auto-rows: 1fr !important; }
+  [data-titre-print] { display: block !important; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</helmet>
+
+<div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;gap:16px;padding:14px 14px 30px;box-sizing:border-box">
+
+<div data-ecran="1" style="width:100%;max-width:1200px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+<button class="bouton" onClick="{{ retour }}" style="min-height:46px;border:none;border-radius:10px;background:#12233b;color:#fff;padding:0 16px;font-weight:700;font-size:16px;cursor:pointer">← Les jeux</button>
+<span style="flex:1;font-family:Archivo Black, Archivo, sans-serif;font-size:22px">Les jeux de l’oie</span>
+<sc-if value="{{ aImprimer }}" hint-placeholder-val="{{ true }}"><button class="bouton" onClick="{{ imprimer }}" style="min-height:46px;border:none;border-radius:10px;background:#fff;color:#12233b;padding:0 16px;font-weight:700;font-size:16px;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,0.15)">🖨 Imprimer ce plateau (A3)</button></sc-if>
+</div>
+
+<div data-ecran="1" style="width:100%;max-width:1200px;display:flex;gap:10px;flex-wrap:wrap">
+<sc-for list="{{ plateaux }}" as="p" hint-placeholder-count="2">
+<button class="bouton" onClick="{{ p.choisir }}" style="min-height:52px;border:3px solid #12233b;border-radius:12px;background:{{ p.fond }};color:{{ p.encre }};padding:0 20px;font-family:Archivo Black, Archivo, sans-serif;font-size:17px;cursor:pointer">{{ p.nom }}</button>
+</sc-for>
+</div>
+
+<div style="width:100%;max-width:1200px;display:flex;gap:18px;align-items:flex-start;justify-content:center;flex-wrap:wrap">
+
+<div data-plateau="1" style="flex:1 1 520px;max-width:680px;background:#fff;padding:14px;box-shadow:0 10px 26px rgba(0,0,0,0.25);box-sizing:border-box">
+<div data-titre-print="1" style="display:none;font-family:Archivo Black, Archivo, sans-serif;font-size:28px;text-align:center;margin-bottom:10px">{{ titrePlateau }}</div>
+<div data-plateau-grille="1" style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));grid-auto-rows:minmax(64px,auto);gap:0">
+<sc-for list="{{ cases }}" as="c" hint-placeholder-count="45">
+<div style="position:relative;border:{{ c.bord }};background:{{ c.fond }};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;box-sizing:border-box;min-height:{{ c.haut }};margin:-1px 0 0 -1px;padding:4px">
+<sc-if value="{{ c.aImg }}" hint-placeholder-val="{{ false }}">
+<span style="width:100%;flex:1 1 auto;min-height:50px;background-image:{{ c.img }};background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+</sc-if>
+<span style="font-family:{{ c.police }};font-size:{{ c.taille }};color:{{ c.encre }};line-height:1.1;text-align:center">{{ c.t }}</span>
+<span style="position:absolute;left:4px;bottom:3px;display:flex;gap:3px">
+<sc-for list="{{ c.pions }}" as="p" hint-placeholder-count="0">
+<span style="width:20px;height:20px;border-radius:50%;background:{{ p.couleur }};border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,0.5);display:block"></span>
+</sc-for>
+</span>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div data-ecran="1" style="flex:0 1 340px;display:flex;flex-direction:column;gap:10px">
+
+<!-- 05/10 : image seule (l'élève dit le mot) · image et mot · mot seul (il lit). -->
+<!-- 05/10 : réglages compactés (sa demande « ça mange trop d'espace ») : une seule carte, une ligne par réglage. -->
+<div style="background:#fff;border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:8px;box-shadow:0 4px 12px rgba(0,0,0,0.15)">
+<sc-if value="{{ aEcriture }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+<span style="font-weight:700;font-size:13px;color:#5d6879;width:92px;flex:0 0 auto">Les lettres</span>
+<sc-for list="{{ ecritures }}" as="a" hint-placeholder-count="3">
+<button class="bouton" onClick="{{ a.choisir }}" style="min-height:34px;border:2px solid #12233b;border-radius:8px;background:{{ a.fond }};color:{{ a.encre }};padding:0 10px;font-weight:700;font-size:14px;cursor:pointer;font-family:Andika, Archivo, sans-serif;font-size:16px;min-width:40px">{{ a.nom }}</button>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ aAffichage }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+<span style="font-weight:700;font-size:13px;color:#5d6879;width:92px;flex:0 0 auto">Sur les cases</span>
+<sc-for list="{{ affichages }}" as="a" hint-placeholder-count="3">
+<button class="bouton" onClick="{{ a.choisir }}" style="min-height:34px;border:2px solid #12233b;border-radius:8px;background:{{ a.fond }};color:{{ a.encre }};padding:0 10px;font-weight:700;font-size:14px;cursor:pointer">{{ a.nom }}</button>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ aOrdre }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+<span style="font-weight:700;font-size:13px;color:#5d6879;width:92px;flex:0 0 auto">L’ordre</span>
+<button class="bouton" onClick="{{ alpha }}" style="min-height:34px;border:2px solid #12233b;border-radius:8px;background:{{ fondAlpha }};color:{{ encreAlpha }};padding:0 10px;font-weight:700;font-size:14px;cursor:pointer">A → Z</button>
+<button class="bouton" onClick="{{ melanger }}" style="min-height:34px;border:2px solid #12233b;border-radius:8px;background:{{ fondMel }};color:{{ encreMel }};padding:0 10px;font-weight:700;font-size:14px;cursor:pointer">🔀 Mélangé</button>
+</div>
+</sc-if>
+</div>
+<sc-if value="{{ enReglage }}" hint-placeholder-val="{{ true }}">
+<div style="background:#fff;border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:8px;box-shadow:0 4px 12px rgba(0,0,0,0.15)">
+<span style="font-weight:700;font-size:13px;color:#5d6879">Les joueurs</span>
+<sc-for list="{{ joueursReglage }}" as="j" hint-placeholder-count="2">
+<div style="display:flex;align-items:center;gap:8px">
+<span style="width:22px;height:22px;border-radius:50%;background:{{ j.couleur }};flex:0 0 auto;display:block"></span>
+<input value="{{ j.nom }}" onChange="{{ j.changer }}" placeholder="Prénom" style="flex:1;min-width:0;min-height:36px;border:2px solid #c9cfd8;border-radius:8px;padding:0 10px;font-size:15px" />
+<button class="bouton" onClick="{{ j.retirer }}" style="min-width:36px;min-height:36px;border:none;border-radius:8px;background:#eef0f4;font-size:15px;cursor:pointer">✕</button>
+</div>
+</sc-for>
+<sc-if value="{{ peutAjouter }}" hint-placeholder-val="{{ true }}">
+<button class="bouton" onClick="{{ ajouter }}" style="min-height:36px;border:2px dashed #9aa3b2;border-radius:8px;background:#fff;font-weight:700;font-size:14px;cursor:pointer">+ Un joueur</button>
+</sc-if>
+<button class="bouton" onClick="{{ commencer }}" style="min-height:46px;border:none;border-radius:10px;background:#2a9d6e;color:#fff;font-family:Archivo Black, Archivo, sans-serif;font-size:17px;cursor:pointer">On joue !</button>
+<sc-if value="{{ aSolo }}" hint-placeholder-val="{{ false }}">
+<button class="bouton" onClick="{{ jouerSeul }}" style="min-height:46px;border:3px solid #2a9d6e;border-radius:10px;background:#fff;color:#1f7a55;font-family:Archivo Black, Archivo, sans-serif;font-size:17px;cursor:pointer">🎧 Jouer seul</button>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ enJeu }}" hint-placeholder-val="{{ false }}">
+<div style="background:#fff;border-radius:12px;padding:16px;display:flex;flex-direction:column;align-items:center;gap:14px;box-shadow:0 4px 12px rgba(0,0,0,0.15)">
+<div style="display:flex;align-items:center;gap:10px">
+<span style="width:30px;height:30px;border-radius:50%;background:{{ tourCouleur }};display:block"></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:22px">{{ tourNom }}</span>
+</div>
+<button class="bouton" onClick="{{ lancer }}" title="Lancer le dé" style="width:120px;height:120px;border:4px solid #12233b;border-radius:22px;background:#fdf3c4;font-family:Archivo Black, Archivo, sans-serif;font-size:64px;cursor:pointer;box-shadow:0 5px 0 #12233b;transform:rotate({{ deRot }});transition:transform 0.4s ease">{{ deTexte }}</button>
+<sc-if value="{{ enChoix }}" hint-placeholder-val="{{ false }}">
+<div style="width:100%;display:flex;flex-direction:column;align-items:center;gap:12px;border-top:1px solid #e6e8ec;padding-top:12px">
+<button class="bouton" onClick="{{ redire }}" style="min-height:56px;border:none;border-radius:12px;background:#12233b;color:#fff;padding:0 20px;font-weight:700;font-size:18px;cursor:pointer">🔊 J’écoute</button>
+<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+<sc-for list="{{ choixLettres }}" as="c" hint-placeholder-count="3">
+<button class="bouton" onClick="{{ c.choisir }}" style="min-width:84px;height:84px;border:3px solid #12233b;border-radius:14px;background:{{ c.fond }};color:{{ c.encre }};padding:0 10px;font-family:Andika, Archivo, sans-serif;font-weight:700;font-size:40px;cursor:pointer">{{ c.t }}</button>
+</sc-for>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ aMot }}" hint-placeholder-val="{{ false }}">
+<div style="width:100%;display:flex;flex-direction:column;align-items:center;gap:10px;border-top:1px solid #e6e8ec;padding-top:12px">
+<sc-if value="{{ aMotImg }}" hint-placeholder-val="{{ false }}">
+<span style="width:180px;height:140px;background-image:{{ motImg }};background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+</sc-if>
+<span style="font-family:Andika, Archivo, sans-serif;font-size:60px;color:{{ motEncre }};line-height:1.2;text-align:center">{{ motTexte }}</span>
+<button class="bouton" onClick="{{ ecouterMot }}" style="min-height:46px;border:none;border-radius:10px;background:#eef0f4;padding:0 16px;font-weight:700;font-size:16px;cursor:pointer">🔊 J’écoute pour vérifier</button>
+</div>
+</sc-if>
+<sc-if value="{{ aEnsuite }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:8px;font-weight:700;font-size:16px;color:#5d6879"><span style="width:16px;height:16px;border-radius:50%;background:{{ ensuiteCouleur }};display:block"></span>{{ ensuite }}</div>
+</sc-if>
+<sc-if value="{{ aMessage }}" hint-placeholder-val="{{ false }}">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:28px;color:{{ messageCouleur }};text-align:center">{{ message }}</span>
+</sc-if>
+</div>
+<button class="bouton" onClick="{{ rejouer }}" style="min-height:46px;border:none;border-radius:10px;background:#fff;padding:0 16px;font-weight:700;font-size:15px;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,0.15)">↻ Nouvelle partie</button>
+</sc-if>
+
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* Les jeux de l'oie (05/10). Tous les plateaux sur UNE page (sa demande) : on choisit le plateau en haut.
+   - Mots-outils : son plateau PDF, ordre et couleurs gardés, tout en SCRIPT (sa demande).
+   - Mots repères : SES 25 mots repères (table « L'alphabet » de banque-mots.js = ALPHA_IMG), photo clean/mot-*.webp + mot.
+   ⚠ Si un mot repère change, le changer AUSSI ici (4e endroit).
+   Imprimable en A3 (elle l'imprime en A3 pour ces plateaux, 05/10). Pas de score. Le tour passe au lancer suivant. */
+const R = '#e0241b', V = '#1aa34a', N = '#12233b', DE = ['🎲', 'de'], DEP = ['🏃', 'depart'], ARR = ['🏆', 'arrivee'];
+const OUTILS = [DEP, ['je', R], ['il', N], ['la', R], DE, ['si', R], ['le', N], ['vous', V], ['pour', R], ['dans', R], DE,
+  ['un', R], ['sur', V], ['elle', R], DE, ['une', N], ['du', R], ['il y a', V], ['de', R], ['au', R], DE, ['avec', N], ['c’est', V],
+  ['son', R], ['pas', N], ['et', R], ['moi', R], ['des', V], ARR];
+const REP = [['ananas','ananas'],['ballon','ballon'],['carotte','carotte'],['deux','deux'],['je','je'],['fenêtre','fenetre'],['gâteau','gateau'],
+  ['immeuble','immeuble'],['jaune','jaune'],['kiwi','kiwi'],['lit','lit'],['moto','moto'],['nuage','nuage'],['ordinateur','ordinateur'],['pied','pied'],
+  ['quatre','quatre'],['robot','robot'],['salade','salade'],['table','table'],['usine','usine'],['vélo','velo'],['wagon','wagon'],
+  ['xylophone','xylophone'],['pyjama','pyjama'],['zéro','zero']];
+/* 05/10 : ordre alphabétique OU mélangé (bouton 🔀) ; les 🎲 restent tous les 6 mots. */
+const repCases = ordre => [DEP].concat(...ordre.map((k, i) => { const m = REP[k]; return i % 6 === 5 ? [[m[0], N, m[1]], DE] : [[m[0], N, m[1]]]; })).concat([ARR]);
+const ALPHA = REP.map((m, i) => i);
+/* 05/10 : plateau des LETTRES, en premier (sa demande). L'élève dit le NOM de la lettre ; 🔊 dit le nom puis le mot repère.
+   Écriture A a / A / a ; cases lettre seule / lettre et image / image seule ; mélangé par défaut (il ne récite pas l'alphabet). H n'a pas de mot repère. */
+const NOMS = ['a','bé','cé','dé','e','effe','gé','ache','i','ji','ka','elle','emme','enne','o','pé','ku','erre','esse','té','u','vé','double vé','ixe','i grec','zède'];
+const LETTRES = 'abcdefghijklmnopqrstuvwxyz'.split('').map((l, i) => { const m = REP.find(r => l === 'e' ? r[0] === 'je' : l === 'y' ? r[0] === 'pyjama' : r[0][0] === l && r[0] !== 'je' && r[0] !== 'pyjama'); return { l, nom: NOMS[i], m }; });
+const letCases = (ordre, s) => [DEP].concat(...ordre.map((k, i) => { const x = LETTRES[k], t = s.ecriture === 'A' ? x.l.toUpperCase() : s.ecriture === 'a' ? x.l : x.l.toUpperCase() + ' ' + x.l;
+  const c = [t, N, x.m ? x.m[1] : null, x.nom + (x.m ? '. ' + x.m[0] : ''), k]; return i % 6 === 5 ? [c, DE] : [c]; })).concat([ARR]);
+/* JOUER SEUL (05/10, son oui) : plateau VIDE, la voix dit une lettre, 3 lettres au choix. Les 2 intrus viennent de la même
+   famille de NOMS (bé/pé/dé…, effe/esse/elle…) : c'est là qu'ils se trompent. Bonne réponse → la lettre s'inscrit dans la case.
+   Erreur → OH ZUT !, la lettre touchée rougit, la voix redit le nom, il rechoisit. Rien n'est compté. */
+const FAMILLES = ['bcdgptvw', 'flmnrs', 'ahk', 'ijxy', 'ouq', 'ez'];
+const intrus = k => { const l = 'abcdefghijklmnopqrstuvwxyz'[k], fam = (FAMILLES.find(x => x.includes(l)) || '').replace(l, '').split('');
+  const autres = 'abcdefghijklmnopqrstuvwxyz'.replace(l, '').split('').filter(x => !fam.includes(x));
+  const pioche = a => a.splice(Math.floor(Math.random() * a.length), 1)[0], r = [];
+  while (r.length < 2) r.push(fam.length ? pioche(fam) : pioche(autres));
+  return r.map(x => 'abcdefghijklmnopqrstuvwxyz'.indexOf(x)); };
+const melange = n => { const o = [...Array(n).keys()]; for (let i = n - 1; i > 0; i--) { const k = Math.floor(Math.random() * (i + 1)); [o[i], o[k]] = [o[k], o[i]]; } return o; };
+const PLATEAUX = [
+  { nom: 'Les lettres', n: 26, cases: (o, s) => letCases(o || [...Array(26).keys()], s), haut: '96px', melangeable: true, lettres: true,
+    affichages: [['mot', 'Lettre seule'], ['les2', 'Lettre et image'], ['image', 'Image seule']], affDefaut: 'mot' },
+  { nom: 'Les mots repères', n: REP.length, cases: o => repCases(o || ALPHA), haut: '96px', melangeable: true,
+    affichages: [['image', 'Image seule'], ['les2', 'Image et mot'], ['mot', 'Mot seul']], affDefaut: 'les2' },
+  { nom: 'Les mots-outils', cases: () => OUTILS, haut: '64px' }];
+/* Serpentin 5 colonnes : une ligne pleine, une case de liaison, une ligne pleine en sens inverse… */
+function lignes(n) {
+  const L = []; let i = 0, sens = 1;
+  while (i < n) {
+    const ligne = [null, null, null, null, null];
+    for (let k = 0; k < 5 && i < n; k++) ligne[sens > 0 ? k : 4 - k] = i++;
+    L.push(ligne); if (i >= n) break;
+    const lien = [null, null, null, null, null]; lien[sens > 0 ? 4 : 0] = i++; L.push(lien); sens = -sens;
+  }
+  return L;
+}
+const COULEURS = ['#1d4e89', '#e8654f', '#2a9d6e', '#e59a2b'];
+class Component extends DCLogic {
+  state = { solo: false, trouvees: {}, choix: null, faux: null, attente: false, aff: {}, ordres: { 0: melange(26) }, ecriture: 'Aa', plateau: 0, joueurs: [{ nom: '' }, { nom: '' }], pos: [], tour: 0, enJeu: false, de: 0, rot: 0, mot: null, message: '', occupe: false, passer: false };
+  dire(t) { try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t); u.lang = 'fr-FR'; u.rate = 0.8; speechSynthesis.speak(u); } catch (e) {} }
+  lancer() {
+    const s = this.state, P = PLATEAUX[s.plateau].cases(s.ordres[s.plateau], s); if (s.occupe || s.attente || s.message === 'BRAVO !') return;
+    const n = 1 + Math.floor(Math.random() * 6), j = s.passer ? (s.tour + 1) % s.joueurs.length : s.tour;
+    this.setState({ de: n, rot: (s.rot + 360) % 720, mot: null, message: '', occupe: true, tour: j, passer: false });
+    let pas = 0; const fin = P.length - 1;
+    const avance = () => { const p = this.state.pos.slice(); if (p[j] >= fin || pas >= n) return arrive(); p[j]++; pas++; this.setState({ pos: p }); setTimeout(avance, 280); };
+    const arrive = () => {
+      const c = P[this.state.pos[j]];
+      if (c[1] === 'arrivee') { this.setState({ occupe: false, message: 'BRAVO !' }); return; }
+      if (c[1] === 'de') { this.setState({ occupe: false, message: 'Tu rejoues !' }); return; }
+      if (this.state.solo && !this.state.trouvees[this.state.pos[j]]) {
+        const ch = melange(3).map(i => [c[4]].concat(intrus(c[4]))[i]);
+        this.setState({ occupe: false, mot: c, message: '', attente: true, choix: ch, faux: null }); setTimeout(() => this.dire(NOMS[c[4]]), 300); return;
+      }
+      this.setState({ occupe: false, mot: c, message: '', passer: !this.state.solo && this.state.joueurs.length > 1 });
+    };
+    setTimeout(avance, 450);
+  }
+  repondre(k) {
+    const s = this.state; if (!s.attente) return;
+    if (k === s.mot[4]) { this.setState({ attente: false, choix: null, faux: null, message: 'BRAVO !!', trouvees: { ...s.trouvees, [s.pos[0]]: true } }); setTimeout(() => this.dire(s.mot[3]), 200); }
+    else { this.setState({ faux: k, message: 'OH ZUT !' }); setTimeout(() => this.dire(NOMS[s.mot[4]]), 700); }
+  }
+  retour() {
+    const q = (location.search || '').replace(/([?&])eleve=1&?/, '$1').replace(/[?&]$/, ''), repli = 'APPLI - Espace enseignant.dc.html' + q;
+    if (history.length > 1) { history.back(); setTimeout(() => { location.href = repli; }, 400); } else location.href = repli;
+  }
+  renderVals() {
+    const s0 = this.state, PL = PLATEAUX[s0.plateau], s = { ...s0, affichage: s0.aff[s0.plateau] || PL.affDefaut, ordreRep: s0.ordres[s0.plateau] }, nb = s.joueurs.length, P = PL.cases(s.ordreRep, s);
+    const cases = [].concat(...lignes(P.length).map(l => l.map(i => {
+      if (i == null) return { t: '', bord: '0 solid transparent', fond: 'transparent', police: 'Archivo', taille: '0', encre: N, pions: [], aImg: false, img: 'none', haut: PL.haut };
+      const [t, k, img] = P[i], special = k === 'de' || k === 'depart' || k === 'arrivee';
+      const cache = s.solo && !special && !s.trouvees[i];
+      const tt = cache || (img && s.affichage === 'image') ? '' : t;
+      return { t: tt, bord: '2px solid #12233b', fond: k === 'de' ? '#fdf0cf' : '#fff', haut: PL.haut,
+        police: special ? 'Archivo' : "Andika, 'Archivo', sans-serif", taille: special ? '34px' : PL.lettres ? (img && s.affichage === 'les2' ? '24px' : '40px') : (img && s.affichage === 'les2' ? '18px' : (PL.melangeable ? '18px' : '28px')), encre: special ? N : k,
+        aImg: !!img && !cache && s.affichage !== 'mot', img: img ? "url('clean/mot-" + img + ".webp')" : 'none',
+        pions: s.enJeu ? s.joueurs.map((j, ji) => ({ couleur: COULEURS[ji], ici: s.pos[ji] === i })).filter(p => p.ici) : [] };
+    })));
+    const j = s.joueurs[s.tour] || {}, gagnant = s.message === 'BRAVO !';
+    const reset = { solo: false, trouvees: {}, choix: null, faux: null, attente: false, enJeu: false, pos: [], tour: 0, de: 0, mot: null, message: '', passer: false, occupe: false };
+    return {
+      cases, titrePlateau: 'Le jeu de l’oie · ' + PL.nom.toLowerCase(), retour: () => this.retour(), imprimer: () => window.print(),
+      plateaux: PLATEAUX.map((p, i) => ({ nom: p.nom, fond: i === s.plateau ? '#12233b' : '#fff', encre: i === s.plateau ? '#fff' : '#12233b',
+        choisir: () => this.setState({ plateau: i, ...reset }) })),
+      aAffichage: !!PL.melangeable,
+      affichages: (PL.affichages || []).map(([k, nom]) => ({ nom, fond: s.affichage === k ? '#12233b' : '#fff', encre: s.affichage === k ? '#fff' : '#12233b', choisir: () => this.setState(z => ({ aff: { ...z.aff, [z.plateau]: k } })) })),
+      aEcriture: !!PL.lettres, ecritures: [['Aa', 'A a'], ['A', 'A'], ['a', 'a']].map(([k, nom]) => ({ nom, fond: s.ecriture === k ? '#12233b' : '#fff', encre: s.ecriture === k ? '#fff' : '#12233b', choisir: () => this.setState({ ecriture: k }) })),
+      aOrdre: !!PL.melangeable && !s.enJeu, ordreAlpha: !s.ordreRep,
+      fondAlpha: !s.ordreRep ? '#12233b' : '#fff', encreAlpha: !s.ordreRep ? '#fff' : '#12233b', fondMel: s.ordreRep ? '#12233b' : '#fff', encreMel: s.ordreRep ? '#fff' : '#12233b',
+      alpha: () => this.setState(z => ({ ordres: { ...z.ordres, [z.plateau]: null } })),
+      melanger: () => this.setState(z => ({ ordres: { ...z.ordres, [z.plateau]: melange(PLATEAUX[z.plateau].n) } })),
+      enReglage: !s.enJeu, enJeu: s.enJeu,
+      joueursReglage: s.joueurs.map((x, i) => ({ nom: x.nom, couleur: COULEURS[i],
+        changer: e => { const v = e.target.value; this.setState(p => ({ joueurs: p.joueurs.map((y, k) => k === i ? { nom: v } : y) })); },
+        retirer: () => { if (nb > 1) this.setState(p => ({ joueurs: p.joueurs.filter((y, k) => k !== i) })); } })),
+      peutAjouter: nb < 4, ajouter: () => this.setState(p => ({ joueurs: p.joueurs.concat({ nom: '' }) })),
+      commencer: () => this.setState({ ...reset, enJeu: true, pos: s.joueurs.map(() => 0) }),
+      rejouer: () => this.setState(reset),
+      tourNom: j.nom || 'Joueur ' + (s.tour + 1), tourCouleur: COULEURS[s.tour],
+      lancer: () => this.lancer(), deTexte: s.de && !s.passer ? String(s.de) : '🎲', deRot: s.rot + 'deg',
+      aImprimer: !/eleve=1/.test(location.search), aSolo: !!PL.lettres,
+      jouerSeul: () => this.setState({ solo: true, enJeu: true, pos: [0], tour: 0, trouvees: {}, choix: null, faux: null, attente: false, de: 0, mot: null, message: '', passer: false }),
+      enChoix: !!s.attente, choixLettres: (s.choix || []).map(k => { const l = 'abcdefghijklmnopqrstuvwxyz'[k]; return { t: s.ecriture === 'A' ? l.toUpperCase() : s.ecriture === 'a' ? l : l.toUpperCase() + ' ' + l, fond: s.faux === k ? '#d0453a' : '#fff', encre: s.faux === k ? '#fff' : N, choisir: () => this.repondre(k) }; }),
+      redire: () => s.mot && this.dire(NOMS[s.mot[4]]),
+      aMot: !!s.mot && !s.attente, motTexte: s.mot && !(s.mot[2] && s.affichage === 'image') ? s.mot[0] : '', motEncre: s.mot ? s.mot[1] : N,
+      aMotImg: !!(s.mot && s.mot[2]) && s.affichage !== 'mot', motImg: s.mot && s.mot[2] ? "url('clean/mot-" + s.mot[2] + ".webp')" : 'none',
+      ecouterMot: () => s.mot && this.dire(s.mot[3] || s.mot[0].replace('’', "'")),
+      aEnsuite: !!s.passer && !s.occupe, ensuite: (() => { const k = (s.tour + 1) % nb, x = s.joueurs[k] || {}; return 'Ensuite : ' + (x.nom || 'Joueur ' + (k + 1)); })(),
+      ensuiteCouleur: COULEURS[(s.tour + 1) % nb],
+      aMessage: !!s.message, message: s.message, messageCouleur: s.message === 'OH ZUT !' ? '#d0453a' : (gagnant || s.message === 'BRAVO !!') ? '#1f8a4c' : '#1d4e89'
+    };
+  }
+}
+</script>
+</body>
+</html>

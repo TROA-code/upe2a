@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&amp;family=Archivo+Black&amp;display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+<style>
+html,body{margin:0;min-height:100%;font-family:Archivo, sans-serif;color:#12233b;background:#eef0f4}
+a{color:#1d4e89}
+a:hover{color:#12233b}
+button,input,select{font-family:inherit}
+</style>
+</helmet>
+<div style="max-width:980px;margin:0 auto;padding:18px;display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+<button onClick="{{ retour }}" style="min-height:44px;border:none;border-radius:10px;background:#12233b;color:#fff;padding:0 16px;font-weight:700;font-size:15px;cursor:pointer">← L’accueil</button>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:24px">Voix des syllabes</span>
+<span style="font-size:14px;color:#6b7386">outil enseignante · voicebox</span>
+</div>
+
+<div style="background:#fff;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px">
+<div style="font-weight:700;font-size:17px">1 · Le serveur</div>
+<div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+<input value="{{ base }}" onChange="{{ changerBase }}" style="flex:1 1 280px;min-height:44px;border:2px solid #c9cfd8;border-radius:8px;padding:0 10px;font-size:16px" />
+<button onClick="{{ tester }}" style="min-height:44px;border:none;border-radius:10px;background:#1d4e89;color:#fff;padding:0 18px;font-weight:700;font-size:15px;cursor:pointer">Tester</button>
+</div>
+<div style="font-size:15px;color:{{ etatCouleur }};font-weight:700;white-space:pre-wrap">{{ etat }}</div>
+<sc-if value="{{ aVoix }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+<span style="font-size:15px;font-weight:700">La voix :</span>
+<sc-for list="{{ voix }}" as="v" hint-placeholder-count="0">
+<button onClick="{{ v.choisir }}" style="min-height:40px;border:2px solid {{ v.bord }};border-radius:9px;background:{{ v.fond }};color:{{ v.encre }};padding:0 14px;font-weight:700;font-size:15px;cursor:pointer">{{ v.nom }}</button>
+</sc-for>
+</div>
+</sc-if>
+</div>
+
+<div style="background:#fff;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+<span style="font-weight:700;font-size:17px;flex:1">2 · Les syllabes ({{ nbSyl }}) — lettres du jeu</span>
+<button onClick="{{ toutFaire }}" style="min-height:44px;border:none;border-radius:10px;background:{{ fondTout }};color:#fff;padding:0 18px;font-weight:700;font-size:15px;cursor:pointer">{{ libelleTout }}</button>
+<button onClick="{{ zip }}" style="min-height:44px;border:none;border-radius:10px;background:#2a9d6e;color:#fff;padding:0 18px;font-weight:700;font-size:15px;cursor:pointer">⬇ Tout télécharger ({{ nbPrets }})</button>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px">
+<sc-for list="{{ lignes }}" as="l" hint-placeholder-count="0">
+<div style="display:flex;align-items:center;gap:6px;border:2px solid {{ l.bord }};border-radius:10px;padding:6px 8px;background:{{ l.fond }}">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:22px;flex:1">{{ l.s }}</span>
+<button onClick="{{ l.jouer }}" title="Écouter" style="width:38px;height:38px;border:none;border-radius:8px;background:#eef0f4;font-size:15px;cursor:pointer;opacity:{{ l.opJouer }}">▶</button>
+<button onClick="{{ l.refaire }}" title="Refaire" style="width:38px;height:38px;border:none;border-radius:8px;background:#eef0f4;font-size:17px;cursor:pointer">↻</button>
+</div>
+</sc-for>
+</div>
+<div style="font-size:14px;color:#6b7386">Gris = pas encore fait · jaune = en cours · vert = prêt · rouge = erreur (touche ↻). « pe, me… » sont envoyés sous la forme « peu, meu… ».</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* OUTIL - Voix des syllabes (04/10, son oui) : fabrique un son par syllabe avec voicebox (voix de Steeve),
+   pour le JEU - Les syllabes. Pas de clé d'API. Les sons restent dans la page jusqu'au zip, qu'elle m'envoie
+   → rangés dans audio/syl-<syllabe>.<ext> (é → « -aigu »). */
+const DEF_C = ['m','s','l','r','t','p','n','d'], DEF_V = ['a','i','o','u','e','é'];
+const pron = x => /^[a-z]e$/.test(x) ? (x[0] === 'c' ? 'ce' : x[0] === 'g' ? 'je' : x[0] + 'eu') : x;
+const nomF = s => 'syl-' + s.normalize('NFD').replace(/[\u0300-\u036f]/g, '') + (/é/.test(s) ? '-aigu' : '');
+const pause = ms => new Promise(r => setTimeout(r, ms));
+
+class Component extends DCLogic {
+  state = { base: 'https://voice.educ-ai.fr', etat: 'Touche « Tester ».', ok: false, voix: [], voixId: '', sons: {}, statut: {}, enCours: false };
+  componentDidMount() { this.tester(); }
+  lettres() {
+    try { const r = JSON.parse(localStorage.getItem('syllabes-lettres') || 'null'); if (r && r.cons && r.voy) return r; } catch (e) {}
+    return { cons: DEF_C, voy: DEF_V };
+  }
+  syllabes() { const l = this.lettres(), o = []; l.cons.forEach(c => l.voy.forEach(v => o.push(c + v))); return o; }
+  async tester() {
+    const b = this.state.base.replace(/\/+$/, '');
+    this.setState({ etat: 'Je teste…', ok: false });
+    try {
+      const h = await fetch(b + '/health'); if (!h.ok) throw new Error('health ' + h.status);
+      const p = await fetch(b + '/profiles'); if (!p.ok) throw new Error('profiles ' + p.status);
+      const liste = await p.json(); const voix = (Array.isArray(liste) ? liste : (liste.profiles || liste.items || [])).map(x => ({ id: x.id, nom: x.name }));
+      const st = voix.find(v => (v.nom || '').toLowerCase() === 'steeve') || voix[0];
+      this.setState({ ok: true, voix, voixId: st ? st.id : '', etat: 'Le serveur répond. ' + voix.length + ' voix trouvées.' });
+    } catch (e) {
+      this.setState({ etat: 'Le serveur ne répond pas à cette page (' + e.message + ').\nC’est sans doute le blocage « d’une autre page » : on passera au plan B (à la main sur le site).' });
+    }
+  }
+  async attendre(b, id, g) {
+    for (let k = 0; k < 40 && g && g.status && g.status !== 'completed'; k++) {
+      if (g.status === 'failed' || g.status === 'error') throw new Error(g.error || 'échec');
+      await pause(1500);
+      for (const u of ['/generate/' + id, '/history/' + id]) { try { const r = await fetch(b + u); if (r.ok) { g = await r.json(); break; } } catch (e) {} }
+    }
+    return g;
+  }
+  async audio(b, id) {
+    for (const u of ['/audio/' + id, '/history/' + id + '/audio', '/generations/' + id + '/audio']) {
+      try { const r = await fetch(b + u); if (r.ok) { const bl = await r.blob(); if (bl.size > 500) return bl; } } catch (e) {}
+    }
+    throw new Error('son introuvable');
+  }
+  async faire(s) {
+    const b = this.state.base.replace(/\/+$/, '');
+    this.setState(p => ({ statut: { ...p.statut, [s]: 'cours' } }));
+    try {
+      const r = await fetch(b + '/generate', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ profile_id: this.state.voixId, text: pron(s), language: 'fr', seed: 42, normalize: true }) });
+      if (!r.ok) throw new Error('generate ' + r.status);
+      let g = await r.json(); g = await this.attendre(b, g.id, g);
+      const bl = await this.audio(b, g.id);
+      this.setState(p => ({ sons: { ...p.sons, [s]: bl }, statut: { ...p.statut, [s]: 'ok' } }));
+    } catch (e) {
+      this.setState(p => ({ statut: { ...p.statut, [s]: 'err' }, etat: 'Erreur sur « ' + s + ' » : ' + e.message }));
+    }
+  }
+  async toutFaire() {
+    if (this.state.enCours) { this.stop = true; return; }
+    this.stop = false; this.setState({ enCours: true });
+    for (const s of this.syllabes()) { if (this.stop) break; if (this.state.statut[s] === 'ok') continue; await this.faire(s); }
+    this.setState({ enCours: false });
+  }
+  jouer(s) { const bl = this.state.sons[s]; if (!bl) return; try { this.lecteur && this.lecteur.pause(); } catch (e) {} this.lecteur = new Audio(URL.createObjectURL(bl)); this.lecteur.play(); }
+  async zip() {
+    if (!window.JSZip) { this.setState({ etat: 'Le zip n’est pas encore chargé, réessaie dans une seconde.' }); return; }
+    const z = new window.JSZip(); let n = 0;
+    Object.entries(this.state.sons).forEach(([s, bl]) => { const ext = /mpeg|mp3/.test(bl.type) ? 'mp3' : /ogg/.test(bl.type) ? 'ogg' : 'wav'; z.file(nomF(s) + '.' + ext, bl); n++; });
+    if (!n) return;
+    const out = await z.generateAsync({ type: 'blob' }); const a = document.createElement('a');
+    a.href = URL.createObjectURL(out); a.download = 'syllabes.zip'; document.body.appendChild(a); a.click(); a.remove();
+  }
+  renderVals() {
+    const s = this.state, syl = this.syllabes();
+    const C = { ok: ['#2a9d6e', '#e3f4ec'], cours: ['#e59a2b', '#fdf3c4'], err: ['#d0453a', '#fbdcd8'] };
+    return {
+      base: s.base, changerBase: e => this.setState({ base: e.target.value }), tester: () => this.tester(),
+      etat: s.etat, etatCouleur: s.ok ? '#1f8a4c' : '#c1440e', aVoix: s.voix.length > 0,
+      voix: s.voix.map(v => { const on = v.id === s.voixId; return { nom: v.nom, fond: on ? '#1d4e89' : '#fff', encre: on ? '#fff' : '#12233b', bord: on ? '#1d4e89' : '#c9cfd8', choisir: () => this.setState({ voixId: v.id, sons: {}, statut: {} }) }; }),
+      nbSyl: syl.length, nbPrets: Object.keys(s.sons).length,
+      libelleTout: s.enCours ? '❚❚ Arrêter' : '▶ Tout fabriquer', fondTout: s.enCours ? '#c1440e' : '#1d4e89',
+      toutFaire: () => { if (!s.ok || !s.voixId) return; this.toutFaire(); }, zip: () => this.zip(),
+      lignes: syl.map(x => { const st = s.statut[x], c = C[st] || ['#c9cfd8', '#fff'];
+        return { s: x, bord: c[0], fond: c[1], opJouer: s.sons[x] ? 1 : 0.3, jouer: () => this.jouer(x), refaire: () => { if (s.ok && s.voixId) this.faire(x); } }; }),
+      retour: () => { const repli = 'APPLI - Espace enseignant.dc.html' + (location.search || ''); if (history.length > 1) { history.back(); setTimeout(() => { location.href = repli; }, 400); } else location.href = repli; }
+    };
+  }
+}
+</script>
+</body>
+</html>

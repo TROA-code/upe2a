@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>body{margin:0;background:#f4f1e8;font-family:Archivo, Arial, sans-serif;color:#12233b}a{color:#1d4e89}a:hover{color:#12233b}</style>
+</helmet>
+<div style="max-width:980px;margin:0 auto;padding:24px 18px 60px;display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+<button class="bouton" onClick="{{ retour }}" style="min-height:44px;border:none;border-radius:10px;background:#12233b;color:#fff;padding:0 16px;font-weight:700;font-size:15px;cursor:pointer">← Retour</button>
+<span style="flex:1;font-family:Archivo Black, Archivo, sans-serif;font-size:24px">Roule galette : les prompts</span>
+<span style="font-size:15px;font-weight:700;color:#8a4b1e">{{ reste }}</span>
+</div>
+<div style="font-size:15px;line-height:1.5;color:#3a4250">Je touche <b>📋 Copier</b>, je colle dans Gemini, j’envoie l’image ici. Une carte verte = image reçue.</div>
+<sc-for list="{{ groupes }}" as="g" hint-placeholder-count="5">
+<div style="display:flex;flex-direction:column;gap:10px;background:#fff;border-radius:14px;padding:16px;box-shadow:0 3px 10px rgba(0,0,0,0.08)">
+<div style="font-family:Archivo Black, Archivo, sans-serif;font-size:17px">{{ g.titre }}</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));gap:10px">
+<sc-for list="{{ g.items }}" as="p" hint-placeholder-count="3">
+<div style="display:flex;flex-direction:column;gap:8px;border:2px solid {{ p.bord }};background:{{ p.fond }};border-radius:10px;padding:12px">
+<div style="display:flex;align-items:center;gap:8px">
+<span style="flex:1;font-weight:700;font-size:16px">{{ p.nom }}</span>
+<span style="font-size:13px;font-weight:700;color:#1f8a4c">{{ p.etat }}</span>
+</div>
+<sc-if value="{{ p.fait }}" hint-placeholder-val="{{ false }}">
+<div style="width:100%;aspect-ratio:16 / 9;border-radius:6px;background-image:{{ p.src }};background-size:cover;background-position:center"></div>
+</sc-if>
+<sc-if value="{{ p.afaire }}" hint-placeholder-val="{{ true }}">
+<div style="font-size:12.5px;line-height:1.45;color:#3a4250;background:#f6f7f9;border-radius:6px;padding:8px;max-height:120px;overflow:auto">{{ p.texte }}</div>
+<button class="bouton" onClick="{{ p.copier }}" style="min-height:44px;border:none;border-radius:8px;background:{{ p.btn }};color:#fff;font-weight:700;font-size:15px;cursor:pointer">{{ p.libelle }}</button>
+</sc-if>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const STYLE = 'Vintage 1950s French picture-book illustration, loose watercolor and gouache, thin ink outlines, off-white paper background, warm muted colors (sage green, rust orange, straw yellow), visible brush texture. ';
+const FIN = ' No text, no letters. One single image only.';
+const VIEILLE = 'an old woman with a white bonnet, green skirt, white apron and orange fringed shawl';
+const SENTIER = ' at the edge of a forest path.';
+/* 05/10 : liste des images du QCM « Roule galette ». fichier = clean/qcm-galette-<f>.webp (préfixe validé). */
+const G = [
+  ['Couverture', [['galette', 'La galette', 'A single round golden galette, slightly cracked on top, seen from the front, centered. No people.']]],
+  ['Question 1 · Où trouve-t-elle le blé ?', [['pot', 'Le pot', ''], ['moulin', 'Le moulin', ''], ['grenier', 'Le grenier', '']]],
+  ['Question 2 · Pourquoi sur la fenêtre ?', [
+    ['chat', 'Le chat veut la manger', 'In a rustic farmhouse kitchen, a round golden galette on a wooden table, and a grey tabby cat on a chair stretching its paw toward it, licking its lips. No people.'],
+    ['refroidir', 'Pour la faire refroidir', 'In a rustic farmhouse, ' + VIEILLE + ', placing a round golden galette on an open window sill; light steam rises from the hot galette.'],
+    ['cuisine', 'Plus de place dans la cuisine', 'A small rustic farmhouse kitchen completely cluttered: the table and shelves overflowing with pots, jars, bowls, baskets and vegetables, no free space anywhere. No people.']]],
+  ['Question 3 · Le premier animal', [
+    ['renard', 'Le renard', 'A red fox sitting' + SENTIER + ' Seen from the side, bushy tail. No people.'],
+    ['lapin', 'Le lapin', 'A brown wild rabbit sitting in the grass' + SENTIER + ' Long ears up. No people.'],
+    ['ours', 'L’ours', 'A big brown bear standing on four legs' + SENTIER + ' No people.']]],
+  ['Question 5 · Que dit le renard ?', [
+    ['renard-cadeau', 'J’ai un cadeau pour toi', 'A red fox sitting on a forest path, holding out a small wrapped gift box with a ribbon in its front paws. No people.'],
+    ['renard-sentir', 'Comme tu sens bon', 'A red fox sitting on a forest path, eyes closed, nose up, happily sniffing the air, with soft wavy scent lines floating toward its nose. No people.'],
+    ['renard-sourd', 'Je suis sourd', 'A red fox sitting on a forest path, leaning forward with one front paw cupped behind its ear, as if it cannot hear well. No people.']]],
+  ['Question 6 · Qui fait la galette ?', [['vieille', 'La vieille', ''], ['fils', 'Le fils', ''], ['tante', 'La tante', '']]],
+  ['Question 7 · Pour qui ?', [
+    ['mari', 'Son mari', ''],
+    ['fille', 'Sa fille', 'A young woman of about 20 with a red scarf on her head and a green dress, standing in a farmhouse doorway.'],
+    ['niece', 'Sa nièce', 'A teenage girl of about 15 with two braids and a yellow dress, standing in a farmhouse doorway.']]],
+  ['Question 8 · Combien d’animaux ?', [
+    ['2', '2', 'Two small round golden galettes side by side, seen from the front. No people.'],
+    ['4', '4', 'Four small round golden galettes in a row, seen from the front. No people.'],
+    ['6', '6', 'Six small round golden galettes in a row, seen from the front. No people.']]],
+  ['Question 9 · Qui la mange ?', [['loup', 'Le loup', 'A grey wolf standing on four legs' + SENTIER + ' No people.'], ['renard', 'Le renard (Q3)', ''], ['ours', 'L’ours (Q3)', '']]]];
+const RECUES = ['pot', 'moulin', 'grenier', 'vieille', 'fils', 'tante', 'mari', 'chat', 'refroidir', 'cuisine', 'galette', 'renard', 'ours', 'lapin', 'renard-cadeau', 'renard-sentir', 'renard-sourd', 'fille', 'niece', '2', '4', '6', 'loup'];
+class Component extends DCLogic {
+  state = { copie: null };
+  copier(cle, t) {
+    const ok = () => { this.setState({ copie: cle }); clearTimeout(this._t); this._t = setTimeout(() => this.setState({ copie: null }), 1800); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(ok, () => this.repli(t, ok)); else this.repli(t, ok);
+  }
+  repli(t, ok) { const a = document.createElement('textarea'); a.value = t; document.body.appendChild(a); a.select(); try { document.execCommand('copy'); ok(); } catch (e) {} a.remove(); }
+  renderVals() {
+    let n = 0; const vus = {};
+    const groupes = G.map(([titre, items], gi) => ({ titre, items: items.map(([f, nom, p], ii) => {
+      const fait = RECUES.includes(f) || !p, cle = gi + '-' + ii, texte = STYLE + p + FIN;
+      if (!fait && !vus[f]) { n++; vus[f] = 1; }
+      const deja = !RECUES.includes(f) && !p;
+      return { nom, fait: RECUES.includes(f), afaire: !fait, texte, src: "url('clean/qcm-galette-" + f + ".webp')",
+        etat: RECUES.includes(f) ? '✓ reçue' : deja ? 'voir Q3' : '',
+        bord: RECUES.includes(f) ? '#2a9d6e' : '#d8dce3', fond: RECUES.includes(f) ? '#eef8f1' : '#fff',
+        btn: this.state.copie === cle ? '#2a9d6e' : '#1d4e89', libelle: this.state.copie === cle ? '✓ Copié !' : '📋 Copier',
+        copier: () => this.copier(cle, texte) }; }) }));
+    return { groupes, reste: n + ' image' + (n > 1 ? 's' : '') + ' à faire',
+      retour: () => { if (history.length > 1) history.back(); else location.href = 'APPLI - Espace enseignant.dc.html' + (location.search || ''); } };
+  }
+}
+</script>
+</body>
+</html>
