@@ -2189,7 +2189,7 @@ Le trait d'union sépare les mots</label>
 <sc-if value="{{ estDocsUtiles }}" hint-placeholder-val="{{ false }}">
 <div style="flex:1;min-height:0;overflow-y:auto;padding:18px 20px;display:flex;flex-direction:column;gap:14px">
 <span style="font-size:12.5px;color:#6b7386;line-height:1.5;max-width:640px">Les documents qui ne sont ni une fiche de lexique ni un exercice sur écran : des séances entières et les références. Chacun s'ouvre dans un onglet et s'imprime tout seul.</span>
-<sc-for list="{{ sequences }}" as="s" hint-placeholder-count="1">
+<sc-for list="{{ sequencesDocs }}" as="s" hint-placeholder-count="1">
 <div style="display:flex;flex-direction:column;gap:2px;border-left:5px solid #12233b;padding:2px 0 2px 12px">
 <span style="font-family:Archivo Black, Archivo, sans-serif;font-size:15px;color:#12233b">{{ s.titre }}</span>
 <span style="font-size:12px;color:#6b7386;line-height:1.45">{{ s.detail }}</span>
@@ -2210,8 +2210,23 @@ Le trait d'union sépare les mots</label>
 <sc-if value="{{ estLitteraire }}" hint-placeholder-val="{{ false }}">
 <div style="flex:1;min-height:0;overflow-y:auto;padding:18px 20px;display:flex;flex-direction:column;gap:22px">
 <span style="font-size:12.5px;color:#6b7386;line-height:1.5;max-width:640px">Une séquence, un texte : le diaporama à projeter, les étiquettes à manipuler, la feuille d'écriture, et l'audio à écouter. Tout se lance d'ici.</span>
-<sc-for list="{{ sequences }}" as="q" hint-placeholder-count="1">
+<!-- 06/10 (sa demande) : une VIGNETTE par texte ; on clique, ses documents s'ouvrent. -->
+<sc-if value="{{ litChoix }}" hint-placeholder-val="{{ true }}">
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px">
+<sc-for list="{{ sequences }}" as="q" hint-placeholder-count="2">
+<button class="bouton" onClick="{{ q.ouvrir }}" style="min-width:0;display:flex;flex-direction:column;background:#fff;border:none;border-radius:16px;box-shadow:0 3px 12px rgba(20,33,61,0.16);padding:0;overflow:hidden;cursor:pointer;text-align:left;border-top:6px solid {{ q.couleur }}" style-hover="transform:translateY(-3px)">
+<span style="width:100%;aspect-ratio:4 / 3;background-color:#f4f1ea;background-image:{{ q.visuel }};background-size:cover;background-position:center;display:block"></span>
+<span style="display:flex;flex-direction:column;gap:4px;padding:14px 16px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:18px;color:#12233b">{{ q.nom }}</span>
+<span style="font-size:12.5px;color:{{ q.couleur }};font-weight:700">{{ q.auteur }}</span>
+</span>
+</button>
+</sc-for>
+</div>
+</sc-if>
+<sc-for list="{{ sequencesOuvertes }}" as="q" hint-placeholder-count="0">
 <div style="display:flex;flex-direction:column;gap:12px">
+<button class="bouton" onClick="{{ litRetour }}" style="align-self:flex-start;min-height:40px;border:none;border-radius:10px;background:#eef0f4;color:#12233b;padding:0 14px;font-weight:700;font-size:14px;cursor:pointer">← Les textes</button>
 <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;border-left:5px solid {{ q.couleur }};padding-left:11px">
 <span style="font-family:Archivo Black, Archivo, sans-serif;font-size:15px;letter-spacing:.02em;color:#12233b">{{ q.nom }}</span>
 <span style="font-size:12.5px;color:{{ q.couleur }};font-weight:700">{{ q.auteur }}</span>
@@ -2225,7 +2240,7 @@ Le trait d'union sépare les mots</label>
 </sc-for>
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px">
 <sc-for list="{{ q.docs }}" as="d" hint-placeholder-count="3">
-<a href="{{ d.url }}" onClick="{{ d.clic }}" style="min-width:0;display:flex;flex-direction:column;gap:7px;background:#fff;border-radius:14px;box-shadow:0 2px 8px rgba(20,33,61,0.14);padding:16px 17px;text-decoration:none;border-top:5px solid {{ q.couleur }}">
+<a href="{{ d.url }}" target="{{ d.cible }}" rel="noopener" onClick="{{ d.clic }}" style="min-width:0;display:flex;flex-direction:column;gap:7px;background:#fff;border-radius:14px;box-shadow:0 2px 8px rgba(20,33,61,0.14);padding:16px 17px;text-decoration:none;border-top:5px solid {{ q.couleur }}">
 <span style="font-family:Archivo Black, Archivo, sans-serif;font-size:13.5px;color:#12233b;line-height:1.35">{{ d.titre }}</span>
 <span style="font-size:12px;color:#6b7386;line-height:1.5">{{ d.detail }}</span>
 <span style="font-size:11.5px;color:#1d4e89;font-weight:700">Ouvrir →</span>
@@ -3004,7 +3019,7 @@ LOTS.gcAll={nom:'Les graphèmes complexes',items:LOTS.gc1.items.concat(LOTS.gc2.
    s'ajoute AUSSI ici (VIGNETTE_JEUX). Même règle : un son de SA progression (upe2a-sons) qui a
    au moins un jeu (de l'appli ou un de ses liens, upe2a-themes-perso.jeuxSons). */
 const VIGNETTE_POS=[[5.75,90.13],[10.35,81.8],[14.94,73.43],[18.69,63.57],[13.81,49.22],[8.85,41.52],[8.27,26.47],[14.83,15.62],[24.06,16.82],[29.02,28.89],[29.88,43.95],[30.06,60.2],[31,75.11],[34.92,84.68],[42.57,87.63],[50.29,78.1],[51.44,63.8],[46.23,50.26],[42.02,41.22],[41.92,25.48],[48.46,15.17],[57.63,16.07],[63.1,27.84],[64.48,41.96],[66.77,54.45],[69.31,66.48],[72.15,77.99],[77.52,84.94],[86.68,84.01],[91.42,71.15],[88.46,53.89],[82.06,48.32],[78.46,38.19],[82.98,22.83],[87.88,15.02],[92.77,7.21]];
-const VIGNETTE_JEUX=['a','i','o','m'];
+const VIGNETTE_JEUX=['a','i','o','m','s'];
 const vignetteSons=()=>{
   let prog=['a','i','o','m','s','u','é','l','r','f','v','p','t','ch','ou','on','an','in'], js={};
   try{ const t=JSON.parse(localStorage.getItem('upe2a-sons')||'null'); if(Array.isArray(t)&&t.length) prog=t; }catch(e){}
@@ -5893,10 +5908,26 @@ class Component extends DCLogic {
            ["Les étiquettes — les mots","Les mêmes, en mots : Paris, la rue, la maison… à associer aux images.","FR - Étiquettes mots - Dans Paris.dc.html"],
            ["Écris les mots","Les onze images sans les mots, un trait sous chacune. Une page A4 par élève.","FR - Écris les mots - Dans Paris.dc.html"],
            ["Le texte de la semaine","Les trois niveaux A1.1 · A1 · A2 sur Paris.","FR - Paris - Le texte de la semaine.dc.html"]],
-          [["Le poème — l'audio","On écoute avant de montrer quoi que ce soit.","docs/dans-paris-paul-eluard.mp3"]]]
-      ].map(([nom,auteur,couleur,docs,audios])=>({nom,auteur,couleur,
-        docs:docs.map(([titre,detail,url])=>({titre,detail,url:encodeURI(url),clic:pdfClic(encodeURI(url))})),
+          [["Le poème — l'audio","On écoute avant de montrer quoi que ce soit.","docs/dans-paris-paul-eluard.mp3"]]],
+        /* 06/10 : Roule galette. La vidéo n'est PAS dans l'appli (droits Père Castor + poids) : lien Digiview
+           (La Digitale) qu'elle a fait : la vidéo YouTube sans pub ni suggestions. */
+        ['Roule galette','Conte traditionnel · Père Castor','#c1440e',
+          [["Le conte — la vidéo","On regarde et on écoute avant de montrer quoi que ce soit. S'ouvre dans un nouvel onglet.","https://ladigitale.dev/digiview/#/v/551ed8a67136c8a0"],
+           ["Le texte complet","Le conte en entier, en gros caractères, la chanson en retrait. À lire, à imprimer.","FR - Roule galette - Le texte.dc.html"],
+           ["Le diaporama — les dix images","Les pages de l'album, dans l'ordre du conte, à projeter pendant qu'on raconte. Pour la classe seulement (illustrations Père Castor).","FR - Diaporama - Roule galette.dc.html"],
+           ["L'ordre de l'histoire — sur écran","Deux jeux : le début (5 images) et la route (6 images). On touche une image, puis sa case ; « J'ai fini » pour vérifier.","JEU - Roule galette - L'ordre.dc.html"],
+           ["L'ordre de l'histoire — à découper","Les mêmes deux jeux sur papier : les cases à coller, les images à découper, puis le corrigé.","FR - Roule galette - L'ordre (papier).dc.html"],
+           ["Je lis — sur écran","Ta fiche 01-1 en jeu : le vrai titre, les mots du texte, les phrases à compléter, la bonne orthographe.","JEU - Roule galette - Je lis.dc.html"],
+           ["Je lis — la fiche","La même fiche refaite au propre, avec les pictos, et son corrigé.","FR - Roule galette - Je lis - fiche.dc.html"],
+           ["Le QCM — Roule galette","Les questions en images, une à la fois : on touche la bonne image. À projeter ou sur tablette.","QCM - Roule galette.dc.html"]],
+          []]
+      ].map(([nom,auteur,couleur,docs,audios],i)=>({nom,auteur,couleur,
+        visuel:"url('"+['clean/diapo-paris-chambre.webp','clean/diapo-galette-5.webp'][i]+"')",
+        ouvrir:()=>this.setState({litSel:i}),
+        docs:docs.map(([titre,detail,url])=>({titre,detail,url:/^https?:/i.test(url)?url:encodeURI(url),cible:/^https?:/i.test(url)?'_blank':'_self',clic:pdfClic(encodeURI(url))})),
         audios:audios.map(([titre,detail,src])=>({titre,detail,src:encodeURI(src)}))})),
+      get sequencesOuvertes(){ return s.litSel==null?[]:[this.sequences[s.litSel]]; },
+      litChoix:s.litSel==null, litRetour:()=>this.setState({litSel:null}),
       estAffichages:s.ecran==='affichages',
       /* Les cinq affichages déjà créés. Groupés par où ça se colle : au mur, ou sur la
          table de l'élève — c'est ce qu'elle regarde quand elle cherche un affichage. */
@@ -5950,7 +5981,8 @@ class Component extends DCLogic {
       /* Les documents sont regroupés par séquence : « Séquence 1 — Bienvenue au lycée »
          tient les deux premières séances, le jeu de cartes et la carte à remplir
          (04/09/26). Les séquences suivantes s'ajouteront comme autant de groupes. */
-      sequences:[['Séquence 1 — Bienvenue au lycée','Se présenter : son prénom, son métier, sa ville, son âge.']]
+      /* ⚠ 06/10 : s'appelait aussi « sequences » et ÉCRASAIT les séquences du Moment littéraire (écran vide). */
+      sequencesDocs:[['Séquence 1 — Bienvenue au lycée','Se présenter : son prénom, son métier, sa ville, son âge.']]
         .map(([titre,detail])=>({titre,detail})),
       docsUtiles:[
         ['Séance 1 et 2 — Me présenter','Les deux premières séances de la séquence : fiches de préparation et fiches élève. Prénom et métier, puis ville et âge.','#2a9d6e','SÉANCES - Me présenter (Ratatouille).dc.html'],
