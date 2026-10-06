@@ -2252,6 +2252,51 @@ Le trait d'union sépare les mots</label>
 </div>
 </sc-if>
 
+<sc-if value="{{ estLangue }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;overflow-y:auto;padding:18px 20px;display:flex;flex-direction:column;gap:22px">
+<span style="font-size:12.5px;color:#6b7386;line-height:1.5;max-width:640px">Une notion à la fois : la vidéo à regarder ensemble, puis les documents. Tout se lance d'ici.</span>
+<sc-if value="{{ langChoix }}" hint-placeholder-val="{{ true }}">
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px">
+<sc-for list="{{ notions }}" as="q" hint-placeholder-count="1">
+<button class="bouton" onClick="{{ q.ouvrir }}" style="min-width:0;display:flex;flex-direction:column;background:#fff;border:none;border-radius:16px;box-shadow:0 3px 12px rgba(20,33,61,0.16);padding:0;overflow:hidden;cursor:pointer;text-align:left;border-top:6px solid {{ q.couleur }}" style-hover="transform:translateY(-3px)">
+<span style="width:100%;aspect-ratio:4 / 3;background:{{ q.couleur }};display:flex;align-items:center;justify-content:center;font-family:Archivo Black, Archivo, sans-serif;font-size:34px;letter-spacing:.04em;color:#fff">{{ q.nom }}</span>
+<span style="display:flex;flex-direction:column;gap:4px;padding:14px 16px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:18px;color:#12233b">{{ q.nom }}</span>
+<span style="font-size:12.5px;color:{{ q.couleur }};font-weight:700">{{ q.sous }}</span>
+</span>
+</button>
+</sc-for>
+</div>
+</sc-if>
+<sc-for list="{{ notionsOuvertes }}" as="q" hint-placeholder-count="0">
+<div style="display:flex;flex-direction:column;gap:12px">
+<button class="bouton" onClick="{{ langRetour }}" style="align-self:flex-start;min-height:40px;border:none;border-radius:10px;background:#eef0f4;color:#12233b;padding:0 14px;font-weight:700;font-size:14px;cursor:pointer">← Les notions</button>
+<div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;border-left:5px solid {{ q.couleur }};padding-left:11px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:15px;letter-spacing:.02em;color:#12233b">{{ q.nom }}</span>
+<span style="font-size:12.5px;color:{{ q.couleur }};font-weight:700">{{ q.sous }}</span>
+</div>
+<sc-for list="{{ q.videos }}" as="v" hint-placeholder-count="0">
+<div style="display:flex;flex-direction:column;gap:9px;background:#12233b;border-radius:14px;padding:15px 17px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:13.5px;color:#fff;line-height:1.35">{{ v.titre }}</span>
+<span style="font-size:12px;color:#aebccd;line-height:1.5">{{ v.detail }}</span>
+<video controls="{{ vrai }}" preload="none" src="{{ v.src }}" style="width:100%;max-width:720px;border-radius:8px;background:#000"></video>
+<button class="bouton" onClick="{{ grandEcran }}" style="align-self:flex-start;min-height:44px;border:none;border-radius:10px;background:#fff;color:#12233b;padding:0 16px;font-weight:700;font-size:14px;cursor:pointer">⛶ Grand écran</button>
+</div>
+</sc-for>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px">
+<sc-for list="{{ q.docs }}" as="d" hint-placeholder-count="2">
+<a href="{{ d.url }}" onClick="{{ d.clic }}" style="min-width:0;display:flex;flex-direction:column;gap:7px;background:#fff;border-radius:14px;box-shadow:0 2px 8px rgba(20,33,61,0.14);padding:16px 17px;text-decoration:none;border-top:5px solid {{ q.couleur }}">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:13.5px;color:#12233b;line-height:1.35">{{ d.titre }}</span>
+<span style="font-size:12px;color:#6b7386;line-height:1.5">{{ d.detail }}</span>
+<span style="font-size:11.5px;color:#1d4e89;font-weight:700">Ouvrir →</span>
+</a>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
 <sc-if value="{{ estAffichages }}" hint-placeholder-val="{{ false }}">
 <div style="flex:1;min-height:0;overflow-y:auto;padding:18px 20px;display:flex;flex-direction:column;gap:18px">
 <span style="font-size:12.5px;color:#6b7386;line-height:1.5;max-width:640px">Ce qui s'imprime une fois et reste sous les yeux de l'élève : au mur, sur sa table, ou dans sa pochette. Chacun s'ouvre dans un onglet et s'imprime tout seul.</span>
@@ -2813,6 +2858,10 @@ const COLL_DOCS=[
     Pour l'instant A et I, mots fixés ; la version qui lit le choix de mots de l'écran du
     son reste à faire. */
  ['livretssons','Les livrets des sons','#8c1c13','un livret à imprimer par son'],
+ ['plateauxsons','Les plateaux à pinces','#4f7f2a','un plateau à pincer par son, avec son corrigé'],
+ /* LES COULEURS DES SONS (06/10, son accord) : SON code — noir oi, marron on, rouge ou, orange an,
+    jaune o, violet è, bleu eu, vert sapin in (avec un), rosé é. Le même partout. */
+ ['couleurssons','Les couleurs des sons','#7b3fa0','une couleur par son complexe'],
  /* LES DIFFÉRENTS TESTS (03/10, sa demande) : rubrique de Positionnement. Le test collège
     sera complété par une amie prof de maths : ne pas toucher à son contenu. */
  ['postests','Les différents tests','#1d4e89','tests de positionnement à imprimer']
@@ -2878,7 +2927,28 @@ const DOCS_COLL={
  livretssons:[
   ["Le son A — livret","Couverture, 7 fiches (j’écoute · j’entends ? · où est le [a] ? · je trie · j’entoure · je lis les syllabes · j’écris), bilan, consignes. A4 recto-verso.","FR - Livret des sons (exemple).dc.html"],
   ["Le son I — livret","Les mêmes pages, avec les mots du son [i].","FR - Livret des sons - son I (exemple).dc.html"],
-  ["Les étiquettes à trier — A et I","Feuille à part, pour la fiche 4 « Je trie » : 3 jeux par page, une page par son.","FR - Étiquettes à trier - Livret des sons.dc.html"]
+  ["Le son O — livret","10 fiches : o · au · eau, mot repère POT.","FR - Livret des sons - son O.dc.html"],
+  ["Le son O — livret en script","Le même livret, écrit en script.","FR - Livret des sons - son O - script.dc.html"],
+  ["Le son L — livret","Mot repère LIT, « le L de lit ».","FR - Livret des sons - son L.dc.html"],
+  ["Le son M — livret","Mot repère MOTO, sans m nasal.","FR - Livret des sons - son M.dc.html"],
+  ["Le son M — livret en script","Le même livret, écrit en script.","FR - Livret des sons - son M - script.dc.html"],
+  ["Le son S — livret","Mot repère SALADE, « le S de salade ».","FR - Livret des sons - son S.dc.html"],
+  ["Le son S — livret en script","Le même livret, écrit en script.","FR - Livret des sons - son S - script.dc.html"],
+  ["Les étiquettes à trier — A, I et O","Feuille à part, pour la fiche « Je trie » : 3 jeux par page, une page par son.","FR - Étiquettes à trier - Livret des sons.dc.html"]
+ ],
+ couleurssons:[
+  ["Le diaporama des couleurs","À projeter pour découvrir : une vue par couleur, le mot en grand et ses graphies. On avance au clic.","FR - Diaporama - Les couleurs des sons.dc.html"],
+  ["Les couleurs des sons — voyelles","Neuf colonnes : je colorie, j'écris, les mots « En cuisine ». Corrigé colorié.","FR - Les couleurs des sons (voyelles).dc.html"],
+  ["La réglette des sons complexes","4 réglettes par A4 : l'élève colorie, puis découpe. Corrigé colorié.","FR - Réglette des sons complexes.dc.html"],
+  ["Le jeu des familles","9 familles de 6 cartes, une page par famille, bandeau de couleur sur papier blanc. Règle du jeu en page 1.","FR - Jeu des familles - Les couleurs des sons.dc.html"]
+ ],
+ plateauxsons:[
+  ["Le son A — plateau à pinces","Le plateau (18 photos à pincer) puis son corrigé à pastilles vertes. 2 pages A4, à plastifier.","FR - Plateau à pinces - son A.dc.html"],
+  ["Le son I — plateau à pinces","Le plateau puis son corrigé. 2 pages A4.","FR - Plateau à pinces - son I.dc.html"],
+  ["Le son O — plateau à pinces","Le plateau puis son corrigé. 2 pages A4.","FR - Plateau à pinces - son O.dc.html"],
+  ["Le son L — plateau à pinces","Le plateau puis son corrigé. 2 pages A4.","FR - Plateau à pinces - son L.dc.html"],
+  ["Le son M — plateau à pinces","Le plateau puis son corrigé. 2 pages A4.","FR - Plateau à pinces - son M.dc.html"],
+  ["Le son S — plateau à pinces","Le plateau puis son corrigé. 2 pages A4.","FR - Plateau à pinces - son S.dc.html"]
  ],
  motsreperes:[
   ["L’abécédaire à coller sur le bureau","Demi-feuille A4 paysage : les 26 lettres en capitale, script et cursive, avec la photo du mot repère. Une par élève, collée sur la table.","FR - Abécédaire des mots repères.dc.html"],
@@ -2967,7 +3037,7 @@ const DOMAINES={
      de A, I et O, désormais fabriquées depuis l'écran du son — les garder en doublon
      ramenait les mots d'origine (ananas, banane…) alors que l'écran en propose d'autres.
      Les fiches de lecture se prennent maintenant dans Lecture → le son → Séance. */
-  lexique:['dico','planches'], lecture:['livretssons'],
+  lexique:['dico','planches'], lecture:['livretssons','plateauxsons','couleurssons'],
   ecriture:['ronds','courbes','boucles','ponts','lettres','cursive','motsreperes','chiffres'],
   maths:['mathsnum','mathsgeo','mathsgm','mathsauto','mathsrituels','mathsoutils'],
   positionnement:['postests'],
@@ -3019,7 +3089,7 @@ LOTS.gcAll={nom:'Les graphèmes complexes',items:LOTS.gc1.items.concat(LOTS.gc2.
    s'ajoute AUSSI ici (VIGNETTE_JEUX). Même règle : un son de SA progression (upe2a-sons) qui a
    au moins un jeu (de l'appli ou un de ses liens, upe2a-themes-perso.jeuxSons). */
 const VIGNETTE_POS=[[5.75,90.13],[10.35,81.8],[14.94,73.43],[18.69,63.57],[13.81,49.22],[8.85,41.52],[8.27,26.47],[14.83,15.62],[24.06,16.82],[29.02,28.89],[29.88,43.95],[30.06,60.2],[31,75.11],[34.92,84.68],[42.57,87.63],[50.29,78.1],[51.44,63.8],[46.23,50.26],[42.02,41.22],[41.92,25.48],[48.46,15.17],[57.63,16.07],[63.1,27.84],[64.48,41.96],[66.77,54.45],[69.31,66.48],[72.15,77.99],[77.52,84.94],[86.68,84.01],[91.42,71.15],[88.46,53.89],[82.06,48.32],[78.46,38.19],[82.98,22.83],[87.88,15.02],[92.77,7.21]];
-const VIGNETTE_JEUX=['a','i','o','m','s'];
+const VIGNETTE_JEUX=['a','i','o','m','s','l'];
 const vignetteSons=()=>{
   let prog=['a','i','o','m','s','u','é','l','r','f','v','p','t','ch','ou','on','an','in'], js={};
   try{ const t=JSON.parse(localStorage.getItem('upe2a-sons')||'null'); if(Array.isArray(t)&&t.length) prog=t; }catch(e){}
@@ -5014,6 +5084,7 @@ class Component extends DCLogic {
       docsUtiles:'Mes documents utiles — mes séances et mes références',
       affichages:'Affichages de la classe — ce qui reste au mur ou sur la table',
       litteraire:'Moment littéraire — les séquences, leurs documents et leurs audios',
+      langue:'Étude de la langue — une notion, ses documents et sa vidéo',
       rituels:'Rituels — les documents du quotidien de la classe',
       accueilEleve:"Accueil d'un élève — la fiche, le test, les résultats, la préconisation",
       edt:'Mon emploi du temps — la semaine, le jour, les documents de chaque créneau',
@@ -5073,7 +5144,9 @@ class Component extends DCLogic {
            Charivari est le premier, l'écran existe. */
         ['Rituels','rituels'],
         ['Découverte du monde et des sciences',''],
-        ['Étude de la langue',''],
+        /* 06/10 (sa demande) : même dessin que Moment littéraire, une vignette par notion.
+           La première : LE VERBE (sa série « Au pays des mots », sa vidéo, dans l'appli). */
+        ['Étude de la langue','langue'],
         /* Affichages à part de « Mes documents utiles » (14/09, sa remarque) : celui-ci
            a sa règle écrite à l'écran — séances entières et références. On lit une
            séance, on accroche une affiche : mélanger les deux en ferait un fourre-tout. */
@@ -5928,6 +6001,27 @@ class Component extends DCLogic {
         audios:audios.map(([titre,detail,src])=>({titre,detail,src:encodeURI(src)}))})),
       get sequencesOuvertes(){ return s.litSel==null?[]:[this.sequences[s.litSel]]; },
       litChoix:s.litSel==null, litRetour:()=>this.setState({litSel:null}),
+      estLangue:s.ecran==='langue',
+      /* ÉTUDE DE LA LANGUE (06/10). Une notion = sa vidéo (SA vidéo : elle entre dans l'appli,
+         lecteur <video>, pas de nouvel onglet) + ses documents. Liens internes, jamais _blank. */
+      notions:[
+        ['LE VERBE','Au pays des mots · épisode 1','#c62828',
+          [["Le roi — l'histoire","Cinq pages : le verbe est le roi de la phrase. Il dit ce qu'on fait, ou comment on est. Le sandwich ne … pas.","docs/pays-des-mots-episode-1.pdf"],
+           ["Le livret d'exercices","Page de garde, neuf exercices (le 2 en « tu »), puis le corrigé. À imprimer en noir et blanc.","FR - Le verbe - Livret.dc.html"]],
+          [["Le roi — la vidéo","On regarde et on écoute avant de montrer quoi que ce soit.","docs/pays-des-mots-episode-1.mp4"]]]
+      ].map(([nom,sous,couleur,docs,videos],i)=>({nom,sous,couleur,
+        ouvrir:()=>this.setState({langSel:i}),
+        docs:docs.map(([titre,detail,url])=>({titre,detail,url:encodeURI(url),clic:pdfClic(encodeURI(url))})),
+        videos:videos.map(([titre,detail,src])=>({titre,detail,src:encodeURI(src)}))})),
+      get notionsOuvertes(){ return s.langSel==null?[]:[this.notions[s.langSel]]; },
+      langChoix:s.langSel==null, langRetour:()=>this.setState({langSel:null}),
+      /* 06/10 : la vidéo en grand écran (bouton à part : le cadre de l'appli peut masquer celui du lecteur). */
+      grandEcran:(e)=>{
+        const v=e.currentTarget.parentElement.querySelector('video'); if(!v) return;
+        const f=v.requestFullscreen||v.webkitRequestFullscreen||v.webkitEnterFullscreen;
+        try{ const p=f&&f.call(v); if(p&&p.catch) p.catch(()=>{}); }catch(_){}
+        v.play&&v.play().catch(()=>{});
+      },
       estAffichages:s.ecran==='affichages',
       /* Les cinq affichages déjà créés. Groupés par où ça se colle : au mur, ou sur la
          table de l'élève — c'est ce qu'elle regarde quand elle cherche un affichage. */

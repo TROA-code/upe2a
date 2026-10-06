@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="polices.css" />
+<style>body{margin:0;font-family:Arial, Helvetica, sans-serif;color:#14213d}a{color:#8c1c13}a:hover{color:#5e120c}@media print{.bouton{display:none !important}}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}</style>
+</helmet>
+<button class="bouton" onClick="{{ retour }}" style="position:fixed;top:12px;left:12px;z-index:10;min-height:44px;border:none;border-radius:10px;background:#12233b;color:#fff;padding:0 16px;font-weight:700;font-size:15px;cursor:pointer">← L'accueil</button>
+<button class="bouton" onClick="{{ imprimer }}" style="position:fixed;top:12px;right:12px;z-index:10;min-height:44px;border:none;border-radius:10px;background:#2a9d6e;color:#fff;padding:0 18px;font-weight:700;font-size:15px;cursor:pointer">🖨 Imprimer</button>
+<x-import component-from-global-scope="doc-page" from="./doc-page.js" size="a4" hint-size="100%,100%">
+<sc-for list="{{ pages }}" as="pg" hint-placeholder-count="2">
+<section class="page" data-screen-label="{{ pg.label }}" style="box-sizing:border-box;padding:20mm;background:#fff;display:flex;flex-direction:column;gap:4mm">
+<sc-if value="{{ pg.eleve }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;flex-direction:column;gap:2mm">
+<div style="display:flex;align-items:center;gap:4mm"><img src="clean/pictos/ciseaux.webp" alt="" style="width:12mm;height:12mm;object-fit:contain" /><span style="font-size:14pt;font-weight:700">Je colorie avec la bonne couleur. Je découpe ma réglette.</span></div>
+</div>
+</sc-if>
+<sc-if value="{{ pg.corrige }}" hint-placeholder-val="{{ false }}">
+<div style="font-size:20pt;font-weight:700;color:#c62828">Corrigé</div>
+</sc-if>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8mm">
+<sc-for list="{{ pg.reglettes }}" as="r" hint-placeholder-count="4">
+<div style="position:relative;display:flex;flex-direction:column;border:1.5px dashed #14213d;padding:2mm">
+<img src="clean/pictos/ciseaux.webp" alt="" style="position:absolute;top:-6mm;left:-6mm;width:9mm;height:9mm;object-fit:contain;background:#fff" />
+<sc-for list="{{ pg.groupes }}" as="g" hint-placeholder-count="9">
+<div style="flex:{{ g.n }};position:relative;display:flex;flex-direction:column;background:{{ g.fond }};border:1.5px solid #14213d;margin-top:-1.5px">
+<span style="position:absolute;top:0.8mm;left:1mm;font-size:7pt;line-height:1;color:{{ g.encreNom }}">{{ g.nom }}</span>
+<sc-for list="{{ g.graphies }}" as="t" hint-placeholder-count="2"><span style="flex:1;display:flex;align-items:center;justify-content:center;font-family:'BA Script';font-size:17pt;line-height:1;color:{{ g.encre }}">{{ t }}</span></sc-for>
+</div>
+</sc-for>
+</div>
+</sc-for>
+</div>
+</section>
+</sc-for>
+</x-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    /* RÉGLETTE DES SONS COMPLEXES (06/10) : d'après la réglette qu'elle a montrée, mais avec
+       SON code (jeu des familles, « Les couleurs des sons ») : violet è…, vert sapin in…, « un »
+       avec les in. ⚠ C'EST L'ÉLÈVE QUI COLORIE (sa demande) : page 1 en blanc, le nom de la
+       couleur en petit dans chaque case ; page 2 = corrigé colorié. 4 réglettes par A4. */
+    const G = [
+      ['noir', '#111111', '#fff', ['oi']],
+      ['marron', '#7b4a26', '#fff', ['on', 'om']],
+      ['rouge', '#d62828', '#fff', ['ou']],
+      ['orange', '#f08a24', '#14213d', ['an', 'am', 'en', 'em']],
+      ['jaune', '#f6d32d', '#14213d', ['o', 'au', 'eau']],
+      ['violet', '#7b3fa0', '#fff', ['è', 'ê', 'ai', 'ei', 'et']],
+      ['bleu', '#1f5fbf', '#fff', ['eu', 'œu']],
+      ['vert sapin', '#0f5132', '#fff', ['in', 'im', 'un', 'ain', 'aim', 'ein']],
+      ['rosé', '#f4b6c2', '#14213d', ['é', 'er', 'ez']]
+    ];
+    const groupes = corr => G.map(([nom, fond, encre, graphies]) => ({ nom, graphies, n: graphies.length,
+      fond: corr ? fond : '#fff', encre: corr ? encre : '#14213d', encreNom: corr ? encre : '#4a5262' }));
+    return {
+      imprimer: () => window.print(),
+      retour: () => { const av = location.href; history.back(); setTimeout(() => { if (location.href === av) location.href = 'APPLI - Espace enseignant.dc.html' + location.search; }, 400); },
+      pages: [
+        { label: 'Réglettes à colorier', eleve: true, corrige: false, reglettes: [0, 1, 2, 3], groupes: groupes(false) },
+        { label: 'Corrigé', eleve: false, corrige: true, reglettes: [0, 1, 2, 3], groupes: groupes(true) }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="polices.css" />
+<style>
+body{margin:0;background:#14213d}
+a{color:#fbfaf7}
+a:hover{color:#fff}
+@media print{.barre-diapo{display:none!important}}
+</style>
+</helmet>
+<div class="barre-diapo" style="position:fixed;top:14px;right:14px;z-index:50;display:flex;gap:9px;align-items:center"><button onClick="{{ accueil }}" style="border:2px solid rgba(255,255,255,.55);border-radius:11px;background:rgba(18,35,59,.72);color:#fff;min-height:44px;padding:9px 16px;font-family:Helvetica, Arial, sans-serif;font-size:15px;cursor:pointer" style-hover="background:#14213d">← L'accueil</button><button onClick="{{ basculeVignettes }}" style="border:2px solid rgba(255,255,255,.35);border-radius:11px;background:rgba(18,35,59,.5);color:#fff;min-height:44px;padding:9px 16px;font-family:Helvetica, Arial, sans-serif;font-size:15px;cursor:pointer" style-hover="background:#14213d">{{ libelleVignettes }}</button></div>
+<x-import component-from-global-scope="deck-stage" from="./deck-stage.js" width="1920" height="1080" hint-size="100%,100%">
+<section data-label="Titre" data-screen-label="Titre" data-speaker-notes="Chaque couleur a son son. On dit le mot, on entend le son." style="display:flex;flex-direction:column;justify-content:center;gap:30px;padding:120px 160px;box-sizing:border-box;background:#fbfaf7;color:#14213d;font-family:Helvetica, Arial, sans-serif">
+<span style="font-size:40px;letter-spacing:0.3em">LECTURE</span>
+<span style="font-size:150px;font-weight:700;line-height:1">Les couleurs des sons</span>
+<div style="display:flex;gap:14px"><span style="width:90px;height:40px;background:#111111"></span><span style="width:90px;height:40px;background:#7b4a26"></span><span style="width:90px;height:40px;background:#d62828"></span><span style="width:90px;height:40px;background:#f08a24"></span><span style="width:90px;height:40px;background:#f6d32d"></span><span style="width:90px;height:40px;background:#7b3fa0"></span><span style="width:90px;height:40px;background:#1f5fbf"></span><span style="width:90px;height:40px;background:#0f5132"></span><span style="width:90px;height:40px;background:#f4b6c2"></span></div>
+</section>
+<section data-label="NOIR" data-screen-label="NOIR" data-speaker-notes="noir — on entend oi." style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:70px;background:#111111;color:#ffffff;font-family:Helvetica, Arial, sans-serif"><span style="font-size:300px;font-weight:700;line-height:1">NOIR</span><span style="font-family:'BA Script';font-size:110px;line-height:1">oi</span></section>
+<section data-label="MARRON" data-screen-label="MARRON" data-speaker-notes="marron — on entend on." style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:70px;background:#7b4a26;color:#ffffff;font-family:Helvetica, Arial, sans-serif"><span style="font-size:300px;font-weight:700;line-height:1">MARRON</span><span style="font-family:'BA Script';font-size:110px;line-height:1">on · om</span></section>
+<section data-label="ROUGE" data-screen-label="ROUGE" data-speaker-notes="rouge — on entend ou." style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:70px;background:#d62828;color:#ffffff;font-family:Helvetica, Arial, sans-serif"><span style="font-size:300px;font-weight:700;line-height:1">ROUGE</span><span style="font-family:'BA Script';font-size:110px;line-height:1">ou</span></section>
+<section data-label="ORANGE" data-screen-label="ORANGE" data-speaker-notes="orange — on entend an." style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:70px;background:#f08a24;color:#14213d;font-family:Helvetica, Arial, sans-serif"><span style="font-size:300px;font-weight:700;line-height:1">ORANGE</span><span style="font-family:'BA Script';font-size:110px;line-height:1">an · am · en · em</span></section>
+<section data-label="JAUNE" data-screen-label="JAUNE" data-speaker-notes="jaune — on entend o." style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:70px;background:#f6d32d;color:#14213d;font-family:Helvetica, Arial, sans-serif"><span style="font-size:300px;font-weight:700;line-height:1">JAUNE</span><span style="font-family:'BA Script';font-size:110px;line-height:1">o · au · eau</span></section>
+<section data-label="VIOLET" data-screen-label="VIOLET" data-speaker-notes="violet — on entend è, à la fin du mot." style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:70px;background:#7b3fa0;color:#ffffff;font-family:Helvetica, Arial, sans-serif"><span style="font-size:300px;font-weight:700;line-height:1">VIOLET</span><span style="font-family:'BA Script';font-size:110px;line-height:1">è · ê · ai · ei · et</span></section>
+<section data-label="BLEU" data-screen-label="BLEU" data-speaker-notes="bleu — on entend eu." style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:70px;background:#1f5fbf;color:#ffffff;font-family:Helvetica, Arial, sans-serif"><span style="font-size:300px;font-weight:700;line-height:1">BLEU</span><span style="font-family:'BA Script';font-size:110px;line-height:1">eu · œu</span></section>
+<section data-label="VERT SAPIN" data-screen-label="VERT SAPIN" data-speaker-notes="vert sapin — on entend in, dans sapin." style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:70px;background:#0f5132;color:#ffffff;font-family:Helvetica, Arial, sans-serif"><span style="font-size:240px;font-weight:700;line-height:1">VERT SAPIN</span><span style="font-family:'BA Script';font-size:100px;line-height:1">in · im · un · ain · aim · ein</span></section>
+<section data-label="ROSÉ" data-screen-label="ROSÉ" data-speaker-notes="rosé — on entend é." style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:70px;background:#f4b6c2;color:#14213d;font-family:Helvetica, Arial, sans-serif"><span style="font-size:300px;font-weight:700;line-height:1">ROSÉ</span><span style="font-family:'BA Script';font-size:110px;line-height:1">é · er · ez</span></section>
+</x-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* Diaporama des couleurs des sons (06/10) : SON code (violet è, vert sapin in). Retour + vignettes en
+   haut à DROITE ; avance au clic ; jamais au-delà de la dernière vue (règles du 22/09). */
+const CLE_VIGNETTES = 'upe2a-diapo-couleurs-vignettes';
+class Component extends DCLogic {
+  state = { vignettes: true };
+  componentDidMount() {
+    let v = true;
+    try { v = localStorage.getItem(CLE_VIGNETTES) !== 'non'; } catch (e) {}
+    this.setState({ vignettes: v });
+    this.appliquer(v);
+    this._clic = (e) => {
+      const chemin = e.composedPath ? e.composedPath() : [];
+      for (const n of chemin) {
+        const c = n && n.classList;
+        if (c && (c.contains('barre-diapo') || c.contains('rail') || c.contains('rail-resize') || c.contains('overlay'))) return;
+      }
+      const d = document.querySelector('deck-stage');
+      if (!d || typeof d.goTo !== 'function') return;
+      const vues = Array.prototype.slice.call(d.querySelectorAll('section'));
+      let i = vues.findIndex(s => s.hasAttribute('data-deck-active'));
+      if (i < 0) i = 0;
+      if (i < vues.length - 1) d.goTo(i + 1);
+    };
+    document.addEventListener('click', this._clic);
+  }
+  componentWillUnmount() { if (this._clic) document.removeEventListener('click', this._clic); }
+  appliquer(v) {
+    const d = document.querySelector('deck-stage');
+    if (!d) return;
+    if (v) d.removeAttribute('no-rail'); else d.setAttribute('no-rail', '');
+  }
+  renderVals() {
+    const v = this.state.vignettes;
+    return {
+      libelleVignettes: v ? 'Masquer les vignettes' : 'Voir les vignettes',
+      basculeVignettes: () => {
+        const n = !v;
+        this.setState({ vignettes: n });
+        try { localStorage.setItem(CLE_VIGNETTES, n ? 'oui' : 'non'); } catch (e) {}
+        this.appliquer(n);
+      },
+      accueil: () => {
+        const ici = location.href;
+        try { history.back(); } catch (e) {}
+        setTimeout(() => { if (location.href === ici) location.href = 'APPLI - Espace enseignant.dc.html' + location.search; }, 400);
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

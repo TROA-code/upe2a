@@ -18,6 +18,9 @@ a:hover{color:#5e120c}
 <link rel="stylesheet" href="polices.css" />
 <script src="./doc-page.js"></script>
 </helmet>
+<style>@media print{.bouton{display:none !important}}</style>
+<button class="bouton" onClick="{{ retour }}" style="position:fixed;top:12px;left:12px;z-index:10;min-height:44px;border:none;border-radius:10px;background:#12233b;color:#fff;padding:0 16px;font-weight:700;font-size:15px;font-family:Arial, Helvetica, sans-serif;cursor:pointer">← L'accueil</button>
+<button class="bouton" onClick="{{ imprimer }}" style="position:fixed;top:12px;right:12px;z-index:10;min-height:44px;border:none;border-radius:10px;background:#2a9d6e;color:#fff;padding:0 18px;font-weight:700;font-size:15px;font-family:Arial, Helvetica, sans-serif;cursor:pointer">🖨 Imprimer</button>
 <doc-page size="a4">
 
 <section class="page" data-screen-label="Couverture" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:6mm">
@@ -391,6 +394,12 @@ const picto = (img, verbe, extra) => ({ verbe, glyphe: '', style: PB + "backgrou
 
 class Component extends DCLogic {
   renderVals() {
+    return Object.assign(this.valsLivret(), {
+      imprimer: () => window.print(),
+      retour: () => { const av = location.href; history.back(); setTimeout(() => { if (location.href === av) location.href = 'APPLI - Espace enseignant.dc.html' + location.search; }, 400); }
+    });
+  }
+  valsLivret() {
     /* O et o en script, Belle Allure et cursive, mêlés à des lettres rondes proches (a, c, e,
        u, Q, C, D, G). ⚠ Pas de zéro : 0 et O se confondent. */
     /* s et S en script, Belle Allure et cursive, mêlés à des lettres proches (z, Z, c, e, r, n, x).
@@ -433,10 +442,10 @@ class Component extends DCLogic {
          sont données (je bois / il boit ne s'écrivent pas pareil). Photos d'action du thème « Les
          actions » (mot-couper = le dessin « couper une tomate » depuis le 27/09 ; la table de mixage est devenue mot-couper-radio). Pas de banque de mots :
          les mots ont été écrits au niveau 1 (fiche 7). */
-      f9b: [['manger','je mange · il mange · elle mange','salade'],
-            ['écrire',"j'écris · il écrit · elle écrit",'stylo'],
-            ['dessiner','je dessine · il dessine · elle dessine','soleil'],
-            ['couper','je coupe · il coupe · elle coupe','ananas']].map(([inf, formes, objet]) => {
+      f9b: [['prendre',"je prends · il prend · elle prend",'bus'],
+            ['acheter',"j'achète · il achète · elle achète",'sucre'],
+            ['donner',"je donne · il donne · elle donne",'stylo']
+           ].map(([inf, formes, objet]) => {
         const police = (this.props.ecriture ?? 'cursive') === 'script' ? 'BA Script, sans-serif' : 'BA Cursive, cursive';
         const verbe = inf === 'écrire' ? 'ecrire' : inf;
         return { inf, formes, fondVerbe: ph(verbe), fondObjet: ph(objet),

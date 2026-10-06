@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="polices.css" />
+<style>body{margin:0;font-family:Arial, Helvetica, sans-serif;color:#14213d}a{color:#8c1c13}a:hover{color:#5e120c}@media print{.bouton{display:none !important}}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}</style>
+</helmet>
+<button class="bouton" onClick="{{ retour }}" style="position:fixed;top:12px;left:12px;z-index:10;min-height:44px;border:none;border-radius:10px;background:#12233b;color:#fff;padding:0 16px;font-weight:700;font-size:15px;cursor:pointer">← L'accueil</button>
+<button class="bouton" onClick="{{ imprimer }}" style="position:fixed;top:12px;right:12px;z-index:10;min-height:44px;border:none;border-radius:10px;background:#2a9d6e;color:#fff;padding:0 18px;font-weight:700;font-size:15px;cursor:pointer">🖨 Imprimer</button>
+<x-import component-from-global-scope="doc-page" from="./doc-page.js" size="a4" hint-size="100%,100%">
+
+<sc-for list="{{ voyelles }}" as="f" hint-placeholder-count="2">
+<section class="page" data-screen-label="{{ f.label }}" style="box-sizing:border-box;padding:20mm;background:#fff;font-family:Arial, Helvetica, sans-serif;display:flex;flex-direction:column;gap:7mm">
+<div style="background:#8c1c13;color:#fff;padding:4mm 6mm;display:flex;align-items:center;justify-content:space-between;gap:4mm">
+<span style="font-size:13pt;letter-spacing:0.15em;white-space:nowrap">ACTIVITÉ {{ f.n }}</span>
+<span style="font-size:26pt;font-weight:700;letter-spacing:0.05em">{{ f.titre }}</span>
+</div>
+<sc-for list="{{ f.blocs }}" as="b" hint-placeholder-count="3">
+<div style="display:flex;flex-direction:column;gap:2.5mm">
+<div style="display:flex;align-items:center;gap:5mm">
+<div style="flex:0 0 32mm;height:32mm;display:flex;align-items:center;justify-content:center">
+<sc-if value="{{ b.aGeste }}" hint-placeholder-val="{{ true }}"><img src="{{ b.geste }}" alt="" style="width:32mm;height:32mm;object-fit:cover;border-radius:2mm" /></sc-if>
+</div>
+<div style="flex:1;height:30mm;box-sizing:border-box;border:2.5px solid #8c1c13;border-radius:4mm;display:grid;grid-template-columns:repeat(4,1fr);align-items:center;justify-items:center">
+<span style="font-size:42pt">{{ b.l }}</span><span style="font-size:42pt;font-family:{{ b.fL }}">{{ b.L }}</span><span style="font-size:42pt;font-family:'BA Script'">{{ b.l }}</span><span style="font-size:36pt;font-family:'BA Cursive'">{{ b.L }}</span>
+</div>
+<div style="flex:0 0 32mm;height:32mm;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1mm">
+<sc-if value="{{ b.aRepere }}" hint-placeholder-val="{{ true }}"><img src="{{ b.repere }}" alt="" style="width:30mm;height:24mm;object-fit:contain" /><span style="font-size:12pt;font-weight:700">{{ b.mot }}</span></sc-if>
+</div>
+</div>
+<div style="display:flex;align-items:center;gap:4mm"><img src="clean/pictos/lis.webp" alt="" style="width:12mm;height:12mm;object-fit:contain" /><span style="font-size:14pt;font-weight:700">{{ b.consigne }}</span></div>
+<div style="display:flex;flex-direction:column;border:1.5px solid #8a91a3">
+<sc-for list="{{ b.lignes }}" as="r" hint-placeholder-count="1">
+<div style="height:15mm;display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:minmax(0,1fr);border-bottom:1px solid #dde2e9">
+<sc-for list="{{ r }}" as="c" hint-placeholder-count="6"><span style="height:15mm;line-height:15mm;text-align:center;font-size:{{ c.fs }};font-family:{{ c.f }};border-left:1px solid #eef1f5">{{ c.t }}</span></sc-for>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</section>
+</sc-for>
+
+<sc-for list="{{ consonnes }}" as="f" hint-placeholder-count="8">
+<section class="page" data-screen-label="{{ f.label }}" style="box-sizing:border-box;padding:20mm;background:#fff;font-family:Arial, Helvetica, sans-serif;display:flex;flex-direction:column;gap:2.5mm">
+<div style="background:#8c1c13;color:#fff;padding:2.5mm 6mm;display:flex;align-items:center;justify-content:space-between;gap:4mm">
+<span style="font-size:13pt;letter-spacing:0.15em;white-space:nowrap">ACTIVITÉ {{ f.n }}</span>
+<div style="display:flex;align-items:baseline;gap:5mm"><span style="font-size:24pt;font-weight:700">{{ f.titre }}</span><span style="font-size:22pt;font-family:'BA Cursive'">{{ f.cursive }}</span></div>
+</div>
+<div style="display:flex;align-items:center;gap:4mm"><img src="clean/pictos/lis.webp" alt="" style="width:12mm;height:12mm;object-fit:contain" /><span style="font-size:14pt;font-weight:700">1. Je lis les syllabes.</span></div>
+<div style="display:flex;flex-direction:column;border:1.5px solid #8a91a3">
+<sc-for list="{{ f.syll }}" as="r" hint-placeholder-count="4">
+<div style="height:9mm;display:grid;grid-template-columns:repeat(6,1fr);border-bottom:1px solid #dde2e9">
+<sc-for list="{{ r.cases }}" as="c" hint-placeholder-count="6"><span style="display:flex;align-items:center;justify-content:center;font-size:18pt;font-family:'BA Script'">{{ c }}</span></sc-for>
+</div>
+</sc-for>
+</div>
+<div style="display:flex;align-items:center;gap:4mm"><img src="clean/pictos/lis.webp" alt="" style="width:12mm;height:12mm;object-fit:contain" /><span style="font-size:14pt;font-weight:700">2. Je lis les mots.</span></div>
+<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2mm 4mm">
+<sc-for list="{{ f.mots }}" as="m" hint-placeholder-count="12">
+<div style="min-height:9mm;display:flex;align-items:center;gap:3mm;border-bottom:1px solid #eef1f5">
+<sc-if value="{{ m.photo }}" hint-placeholder-val="{{ false }}"><img src="{{ m.img }}" alt="" style="width:9mm;height:9mm;object-fit:contain" /></sc-if>
+<span style="font-size:16pt;font-family:'BA Script'">{{ m.mot }}</span>
+</div>
+</sc-for>
+</div>
+<div style="display:flex;align-items:center;gap:4mm"><img src="clean/pictos/lis.webp" alt="" style="width:12mm;height:12mm;object-fit:contain" /><span style="font-size:14pt;font-weight:700">3. Je lis les phrases.</span></div>
+<div style="display:flex;flex-direction:column;gap:1.5mm;background:#f4f4f4;padding:2.5mm 6mm">
+<sc-for list="{{ f.phrases }}" as="p" hint-placeholder-count="2"><span style="font-size:16pt;line-height:1.3;white-space:pre-wrap"><sc-for list="{{ p.segs }}" as="s" hint-placeholder-count="1"><span style="font-family:{{ s.f }}">{{ s.t }}</span></sc-for></span></sc-for>
+</div>
+<div style="display:flex;align-items:center;gap:4mm"><img src="clean/pictos/ecris.webp" alt="" style="width:12mm;height:12mm;object-fit:contain" /><span style="font-size:14pt;font-weight:700">4. Je lis le mot. Je l'écris.</span></div>
+<div style="flex:1;display:flex;flex-direction:column;justify-content:space-around;gap:2mm">
+<sc-for list="{{ f.ecrire }}" as="e" hint-placeholder-count="3">
+<div style="display:flex;align-items:flex-end;gap:6mm">
+<span style="flex:0 0 32mm;font-size:18pt;font-family:'BA Script'">{{ e }}</span>
+<span style="flex:1;height:9mm;border-bottom:1.5px solid #14213d;border-top:1px solid #c9cfd8"></span>
+</div>
+</sc-for>
+</div>
+</section>
+</sc-for>
+
+<section class="page" data-screen-label="Corrigé" style="box-sizing:border-box;padding:20mm;background:#fff;font-family:Arial, Helvetica, sans-serif;display:flex;flex-direction:column;gap:5mm">
+<div style="font-size:24pt;font-weight:700;color:#c62828">Corrigé</div>
+<div style="font-size:12pt;color:#4a5262">Parties 1, 2 et 3 : lecture à voix haute, avec l'adulte. Partie 4 : l'élève recopie le mot sur la ligne, en script ou en cursive.</div>
+<sc-for list="{{ consonnes }}" as="f" hint-placeholder-count="8">
+<div style="display:flex;align-items:baseline;gap:6mm;border-bottom:1px solid #dde2e9;padding-bottom:2mm">
+<span style="flex:0 0 40mm;font-size:13pt;font-weight:700">Activité {{ f.n }} · {{ f.titre }}</span>
+<div style="display:flex;flex-wrap:wrap;gap:3mm 8mm"><sc-for list="{{ f.ecrire }}" as="e" hint-placeholder-count="3"><span style="font-size:16pt;font-family:'BA Cursive'">{{ e }}</span></sc-for></div>
+</div>
+</sc-for>
+</section>
+
+</x-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    /* D'après ses fiches Pilotis (semaines 1 à 4), refaites pour des 16-18 ans : même ordre,
+       mêmes syllabes et mêmes mots ; les phrases d'album sont remplacées par des phrases
+       sobres qui n'utilisent que les sons déjà vus. Aucun dessin : ses photos quand elles existent. */
+    /* 06/10 : plus aucune photo dans les exercices (sa demande) — on lit le mot, sans l'image. */
+    const PHOTOS = {};
+    const lignes = t => t.split('|').map(r => ({ cases: r.trim().split(' ') }));
+    const mots = t => t.split(',').map(s => s.trim()).map(mot => {
+      const f = PHOTOS[mot]; return { mot, photo: !!f, img: f ? 'clean/mot-' + f + '.webp' : '' };
+    });
+    /* Comme sa fiche Pilotis : geste à gauche, la lettre dans ses 4 écritures, le mot repère à
+       droite, puis une ligne qui MÉLANGE les écritures (cursive comprise). Écriture : a = Arial,
+       s = script d'école, c = cursive. Gestes : ses photos (femme, t-shirt blanc) — a, i, o
+       seulement ; u, é, e n'en ont pas encore. */
+    const POL = { a: 'Arial, Helvetica, sans-serif', s: "'BA Script'", c: "'BA Cursive'" };
+    /* ⚠ I MAJUSCULE À BARRES (06/10, sa demande) : en bâton, I et l se confondent. Partout où un
+       I capital s'écrit hors cursive, il prend une police à empattements. */
+    const SERIF = "'Times New Roman', Georgia, serif";
+    const rang = t => t.trim().split(' ').map(x => {
+      const c = x.slice(0, -2), k = x.slice(-1);
+      return { t: c, f: c === 'I' && k !== 'c' ? SERIF : POL[k], fs: k === 'a' ? '24pt' : '22pt' };
+    });
+    const bloc = (l, L, geste, mot, img, lignesTxt) => ({ l, L, fL: L === 'I' ? SERIF : 'inherit',
+      aGeste: !!geste, geste: geste ? 'clean/geste-son-' + geste + '.webp' : '',
+      aRepere: !!img, repere: img ? 'clean/mot-' + img + '.webp' : '', mot,
+      consigne: lignesTxt.length > 1 ? 'Je lis les lettres.' : 'Je lis la lettre.',
+      lignes: lignesTxt.map(rang) });
+    const voyelles = [
+      { n: 1, titre: 'a · i · o', blocs: [
+        bloc('a', 'A', 'a', 'ananas', 'ananas', ['a/a A/c A/a a/s â/a à/a']),
+        bloc('i', 'I', 'i', 'lit', 'lit', ['I/a i/a i/s ï/a I/c î/a']),
+        bloc('o', 'O', 'o', 'pot', 'pot', ['o/a A/a i/a à/a O/a î/a', 'ô/s O/c i/s o/s I/c a/s']) ] },
+      { n: 2, titre: 'u · é · e', blocs: [
+        bloc('u', 'U', '', 'rue', 'rue', ['u/a U/c U/a u/s û/a u/c']),
+        bloc('é', 'É', '', 'épée', '', ['é/a É/a é/s É/c é/c é/a']),
+        bloc('e', 'E', '', '', '', ['e/a E/c E/a e/s e/c é/a', 'u/s é/c a/s e/c E/a o/s']) ] }
+    ].map(f => ({ n: f.n, titre: f.titre, label: 'Activité ' + f.n, blocs: f.blocs }));
+    const consonnes = [
+      /* ⚠ SON ORDRE (06/10, corrigé le jour même) : a i o, u é e, puis l, m, s, r… Le l vient
+         d'abord pour le, la, il. Chaque activité n'emploie que les lettres déjà vues. */
+      { n: 3, titre: 'l', cursive: 'l L', syll: 'la le lo lu lé li | ol lé le il al ul | li le lu lo la lé | al ol ul il lé le',
+        mots: 'la, le, il, le lit, il lit, le lilas, l’île, l’îlot, allô, l’allée, Lola, Léa',
+        phrases: ['Lila lit.', 'Léo a lu. Il lit là.'], ecrire: ['il', 'lit', 'l’île'] },
+      { n: 4, titre: 'm', cursive: 'm M', syll: 'ma mi mo mu mé me | mé mu ma me mo mi | am im om um al ol | mal mil mol mul mal mil',
+        mots: 'ami, ému, mimé, mal, la mule, le lama, la lime, la momie, mille, Mila, Malo, Emma',
+        phrases: ['Mila a mimé le lama.', 'Malo a mal.'], ecrire: ['ami', 'mal', 'mule'] },
+      { n: 5, titre: 's', cursive: 's S', syll: 'sa si so su sé se | sé su sa se so si | as is os us as is | sal sol sil mas mis sul',
+        mots: 'salé, assis, la salle, le sol, l’os, le mimosa, le sumo, le salami, Sam, Sami, Lisa, Issa',
+        phrases: ['Sam, assis, a salé le salami.', 'Lisa a mis le mimosa là.'], ecrire: ['sol', 'assis', 'salé'] },
+      { n: 6, titre: 'r', cursive: 'r R', syll: 'ra ri ro ré re ru | ré re ri ro ru ra | or ol ur ul ar al | lar lir lur lor rar rir',
+        mots: 'le rat, la rue, le riz, lire, rire, relire, il relit, la mare, la rame, le mur, l’or, Sara',
+        phrases: ['Sara relit le rôle.', 'Il a ri, alors elle rit.'], ecrire: ['rue', 'riz', 'mur'] },
+      { n: 7, titre: 'ch', cursive: 'ch Ch', syll: 'cho chu che ché chi cha | che cho cha chi ché chu | uch ach och ich che chu | lur char sol lir rar sur',
+        mots: 'la ruche, riche, chéri, le châle, la hache, l’échasse, le char, la roche, il a séché, il a léché, il lâche, il arrache',
+        phrases: ['Charlie lâche la hache.', 'Le chat chasse sur la roche.'], ecrire: ['riche', 'hache', 'roche'] },
+      { n: 8, titre: 'ou', cursive: 'ou Ou', syll: 'lou sou lu rou cho su | sou lou chou ru rou so | rou our sou ous lou oul | chou our lor roul sour sor',
+        mots: 'le loup, le chou, sous, la souris, il sourit, la louche, la roue, roux, rousse, lourd, sourd, l’ours',
+        phrases: ['Lou roule sur le sol.', 'Il a sali sa roue. Il sourit.'], ecrire: ['loup', 'sous', 'roue'] },
+      { n: 9, titre: 'v', cursive: 'v V', syll: 'vo vé vu vou va vi | vé vo va vi ve vu | vou av ov vé ouv iv | lav riv vor vis val vre',
+        mots: 'le vélo, volé, lavé, la vache, avalé, la vie, ravi, la salive, l’olive, la ville, vivre, ouvrir',
+        phrases: ['Vali, ravi, ouvre le livre.', 'Il va le lire à Lou.'], ecrire: ['vélo', 'vie', 'ville'] },
+      { n: 10, titre: 'Je révise', cursive: '', syll: 'va mo le ru si ché | mou lu cha so ré ve | mal lor sur vir mir sar | mour rou vré vor chou mur',
+        mots: 'allô, le lard, rassuré, rassis, le ressort, la série, l’iris, l’ourse, sourire, la malle, mars, avril',
+        phrases: ['Mila ouvre le livre.', 'Charlie murmure le mot : il a lu !'], ecrire: ['mars', 'avril', 'sourire'] }
+    ].map(f => ({ n: f.n, titre: f.titre, cursive: f.cursive, label: 'Activité ' + f.n,
+      syll: lignes(f.syll), mots: mots(f.mots), ecrire: f.ecrire,
+      phrases: f.phrases.map(p => ({ segs: p.split(/(I)/).filter(Boolean).map(t => ({ t, f: t === 'I' ? SERIF : "'BA Script'" })) })) }));
+    return {
+      imprimer: () => window.print(),
+      retour: () => { const av = location.href; history.back(); setTimeout(() => { if (location.href === av) location.href = 'APPLI - Espace enseignant.dc.html' + location.search; }, 400); },
+      voyelles, consonnes
+    };
+  }
+}
+</script>
+</body>
+</html>

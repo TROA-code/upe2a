@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="polices.css" />
+<style>body{margin:0;font-family:Arial, Helvetica, sans-serif;color:#14213d}a{color:#8c1c13}a:hover{color:#5e120c}@media print{.bouton{display:none !important}}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}</style>
+</helmet>
+<button class="bouton" onClick="{{ retour }}" style="position:fixed;top:12px;left:12px;z-index:10;min-height:44px;border:none;border-radius:10px;background:#12233b;color:#fff;padding:0 16px;font-weight:700;font-size:15px;cursor:pointer">← L'accueil</button>
+<button class="bouton" onClick="{{ imprimer }}" style="position:fixed;top:12px;right:12px;z-index:10;min-height:44px;border:none;border-radius:10px;background:#2a9d6e;color:#fff;padding:0 18px;font-weight:700;font-size:15px;cursor:pointer">🖨 Imprimer</button>
+<x-import component-from-global-scope="doc-page" from="./doc-page.js" size="a4" hint-size="100%,100%">
+<section class="page" data-screen-label="Règle du jeu" style="box-sizing:border-box;padding:20mm;background:#fff;display:flex;flex-direction:column;gap:2.5mm;font-size:12pt;line-height:1.3">
+<div style="font-size:20pt;font-weight:700">Le jeu des familles des sons</div>
+<div style="font-size:14pt;color:#4a5262">9 familles de 6 cartes · 3 à 5 joueurs · 54 cartes</div>
+<div style="display:flex;flex-direction:column;gap:1.5mm">
+<span style="font-size:14pt;font-weight:700">Comment jouer</span>
+<span>On distribue 6 cartes à chaque joueur. Les autres cartes font la pioche.</span>
+<span>À mon tour, je demande une carte à un joueur : « Dans la famille rouge, je voudrais la soupe, s'il te plaît. »</span>
+<span>Il a la carte ? « Oui, voilà. » Je la prends et je rejoue.</span>
+<span>Il n'a pas la carte ? « Non, pioche ! » Je pioche une carte.</span>
+<span>J'ai les 6 cartes d'une famille : je pose la famille sur la table.</span>
+<span>Le gagnant a le plus de familles.</span>
+</div>
+<div style="display:flex;flex-direction:column;gap:1.5mm">
+<span style="font-size:14pt;font-weight:700">Pour commencer</span>
+<span>Avec les débutants, jouer avec 4 ou 5 familles seulement. Ajouter les autres petit à petit.</span>
+</div>
+<div style="display:flex;flex-direction:column;gap:0">
+<span style="font-size:14pt;font-weight:700">Les familles</span>
+<sc-for list="{{ familles }}" as="f" hint-placeholder-count="9">
+<div style="display:grid;grid-template-columns:24mm 52mm minmax(0,1fr);align-items:center;gap:3mm;font-size:12pt;line-height:1.2;padding:0.6mm 0;border-bottom:1px solid #eef1f5"><span style="height:6mm;display:flex;align-items:center;justify-content:center;background:{{ f.fond }};color:{{ f.encre }};font-weight:700;white-space:nowrap">{{ f.nom }}</span><span style="font-weight:700">{{ f.graphies }}</span><span>{{ f.liste }}</span></div>
+</sc-for>
+</div>
+<div style="font-size:12pt;color:#4a5262">Imprimer en couleur sur papier blanc : le bandeau de couleur fait le code. Découper sur les tirets.</div>
+</section>
+<sc-for list="{{ familles }}" as="f" hint-placeholder-count="9">
+<section class="page" data-screen-label="{{ f.label }}" style="box-sizing:border-box;padding:20mm;background:#fff;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr));gap:6mm">
+<sc-for list="{{ f.cartes }}" as="c" hint-placeholder-count="6">
+<div style="position:relative;display:flex;flex-direction:column;border:1.5px dashed #14213d;overflow:hidden">
+<img src="clean/pictos/ciseaux.webp" alt="" style="position:absolute;top:1mm;right:1mm;width:7mm;height:7mm;object-fit:contain;z-index:1" />
+<div style="flex:0 0 auto;background:{{ f.fond }};color:{{ f.encre }};padding:3mm 4mm;display:flex;flex-direction:column;gap:1mm">
+<span style="font-size:15pt;font-weight:700;letter-spacing:0.05em">famille {{ f.nom }}</span>
+<span style="font-family:'BA Script';font-size:15pt;line-height:1.1">{{ f.graphies }}</span>
+</div>
+<div style="flex:1;display:flex;align-items:center;justify-content:center;padding:2mm 3mm;text-align:center"><span style="font-family:'BA Script';font-size:26pt;line-height:1.1">{{ c.mot }}</span></div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:1fr 1fr;gap:0.5mm 3mm;padding:2mm 4mm 3mm;border-top:3px solid {{ f.fond }}">
+<sc-for list="{{ c.liste }}" as="l" hint-placeholder-count="6"><span style="font-size:12pt;line-height:1.2;font-weight:{{ l.poids }};color:{{ l.couleur }}">{{ l.t }}</span></sc-for>
+</div>
+</div>
+</sc-for>
+</section>
+</sc-for>
+</x-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    /* JEU DES FAMILLES DES SONS — d'après SON PDF (docs/couleurs-des-sons-jeu-des-familles.pdf),
+       mêmes 9 familles, mêmes mots. ⚠ Imprimé sur papier BLANC avec un bandeau de couleur (sa
+       décision du 06/10 : pas 9 papiers de couleur). Une famille par page, 6 cartes. En bas de chaque
+       carte, la liste de la famille : la carte qu'on tient en gras. */
+    const F = [
+      ['noir', '#111111', '#fff', 'oi', ['la poire','le poivre','la noix','la boisson','froid','le pourboire']],
+      ['rouge', '#d62828', '#fff', 'ou', ['la soupe','le four','la mousse','la douche','le sous-chef','couper']],
+      ['marron', '#7b4a26', '#fff', 'on · om', ['le citron','le poisson','le melon','la compote','le concombre','le savon']],
+      ['orange', '#f08a24', '#14213d', 'an · am · en · em', ['la viande','la menthe',"l'orange",'le gant','le champignon','à emporter']],
+      ['jaune', '#f6d32d', '#14213d', 'o · au · eau', ["l'eau",'la sauce','chaud','le plateau','le gâteau','la tomate']],
+      ['violet', '#7b3fa0', '#fff', 'è · ê · ai · ei · et · e', ['la crème','la crêpe','le lait','la neige','le poulet',"l'assiette"]],
+      ['bleu', '#1f5fbf', '#fff', 'e · eu · œu', ["l'œuf",'le beurre','le menu','le serveur','la fleur','le bœuf']],
+      ['vert sapin', '#0f5132', '#fff', 'in · im · un · ain · aim · ein', ['le pain','le vin','la faim','le lapin','plein','lundi']],
+      ['rosé', '#f4b6c2', '#14213d', 'é · er · ez', ['le café','le thé','la purée','le tablier','le dîner','assez']]
+    ];
+    const familles = F.map(([nom, fond, encre, graphies, mots]) => ({
+      nom, fond, encre, graphies, label: 'Famille ' + nom, liste: mots.join(' · '),
+      cartes: mots.map(m => ({ mot: m, liste: mots.map(t => ({ t, poids: t === m ? 700 : 400, couleur: t === m ? '#14213d' : '#6b7386' })) }))
+    }));
+    return {
+      imprimer: () => window.print(),
+      retour: () => { const av = location.href; history.back(); setTimeout(() => { if (location.href === av) location.href = 'APPLI - Espace enseignant.dc.html' + location.search; }, 400); },
+      familles
+    };
+  }
+}
+</script>
+</body>
+</html>

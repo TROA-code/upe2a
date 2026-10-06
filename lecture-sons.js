@@ -114,7 +114,7 @@ function pagesSeance(cle){
 }
 
 // photos de mots repères présentes dans clean/ — les autres attendent la photo
-const PRESENTES=new Set(['ananas','gris','pot','pomme','rue','epee','regle','bleu','rouge','banc',
+const PRESENTES=new Set(['huit','peigne','ananas','gris','pot','pomme','rue','epee','regle','bleu','rouge','banc',
  'bonbon','main','oiseau','pyjama','fille','moto','lit','robot','salade','rose','zebre','pied',
  'table','date','fantome','velo','ballon','nuage','chat','jupe','gateau','carotte','cinq','wagon',
  'xylophone','lait','jaune']);
