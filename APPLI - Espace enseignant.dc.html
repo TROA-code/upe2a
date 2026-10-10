@@ -2123,7 +2123,7 @@ Le trait d'union sépare les mots</label>
 </sc-if>
 <div style="min-width:0;min-height:0;display:flex;flex-direction:column;gap:14px;overflow:auto">
 <sc-if value="{{ aDocsColl }}" hint-placeholder-val="{{ false }}">
-<span style="flex:0 0 auto;font-size:12.5px;color:#6b7386;line-height:1.5;max-width:640px">Ces documents ne se composent pas page par page : chacun s'ouvre et s'imprime tel quel. À découper et à coller dans le cahier de l'élève.</span>
+
 <div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px">
 <sc-for list="{{ docsColl }}" as="d" hint-placeholder-count="2">
 <sc-if value="{{ d.intertitre }}" hint-placeholder-val="{{ false }}">
@@ -2182,6 +2182,20 @@ Le trait d'union sépare les mots</label>
 </sc-for>
 </div>
 </sc-if>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ estAdmin }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;overflow-y:auto;padding:18px 20px;display:flex;flex-direction:column;gap:14px">
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px">
+<sc-for list="{{ docsAdmin }}" as="d" hint-placeholder-count="3">
+<a href="{{ d.url }}" style="min-width:0;display:flex;flex-direction:column;gap:7px;background:#fff;border-radius:14px;box-shadow:0 2px 8px rgba(20,33,61,0.14);padding:16px 17px;text-decoration:none;border-top:5px solid {{ d.couleur }}">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:13.5px;color:#12233b;line-height:1.35">{{ d.titre }}</span>
+<span style="font-size:12px;color:#6b7386;line-height:1.5">{{ d.detail }}</span>
+<span style="font-size:11.5px;color:#1d4e89;font-weight:700">Ouvrir →</span>
+</a>
+</sc-for>
 </div>
 </div>
 </sc-if>
@@ -2784,7 +2798,17 @@ const MOTS_DEMO={'Les repas':[['une pomme','pomme'],['une banane','banane'],['du
 /* Ordre de départ : voyelles, puis consonnes qui se prolongent (la fusion s'entend),
    puis occlusives, puis digrammes, puis nasales — les plus dures à discriminer. */
 /* 01/10 : le S juste après le O (« je suis Pilotis »). */
-const SONS_INIT=['a','i','o','m','s','u','é','l','r','f','v','p','t','ch','ou','on','an','in'];
+/* 09/10 (son oui) : l'ordre de PILOTIS (ses fiches semaines 1-4) : a i o, u é, puis l m s r ch ou v.
+   L'ordre enregistré sur chaque appareil est remis une seule fois dans cet ordre (clé upe2a-sons-pilotis). */
+const SONS_INIT=['a','i','o','u','é','l','m','s','r','ch','ou','v','f','p','t','on','an','in'];
+const sonsPilotis=t=>{
+  try{
+    if(!Array.isArray(t)||!t.length||localStorage.getItem('upe2a-sons-pilotis')) return t;
+    const r=SONS_INIT.filter(s=>t.includes(s)).concat(t.filter(s=>!SONS_INIT.includes(s)));
+    localStorage.setItem('upe2a-sons',JSON.stringify(r)); localStorage.setItem('upe2a-sons-pilotis','1');
+    return r;
+  }catch(e){ return t; }
+};
 
 /* Table de LETTRES validée mot par mot avec elle (11 et 13/09). C'est le SON de la lettre,
    pas l'initiale : d'où « melon » pour le e. Quatre lettres portent deux images dans la
@@ -2859,6 +2883,8 @@ const COLL_DOCS=[
     son reste à faire. */
  ['livretssons','Les livrets des sons','#8c1c13','un livret à imprimer par son'],
  ['plateauxsons','Les plateaux à pinces','#4f7f2a','un plateau à pincer par son, avec son corrigé'],
+ /* 09/10 (son oui) : puzzles des syllabes, à imprimer, pour les élèves en difficulté. */
+ ['puzzlessyl','Les puzzles des syllabes','#1d4e89','photo + syllabes à découper et coller, pour les élèves en difficulté'],
  /* LES COULEURS DES SONS (06/10, son accord) : SON code — noir oi, marron on, rouge ou, orange an,
     jaune o, violet è, bleu eu, vert sapin in (avec un), rosé é. Le même partout. */
  ['couleurssons','Les couleurs des sons','#7b3fa0','une couleur par son complexe'],
@@ -2929,7 +2955,10 @@ const DOCS_COLL={
   ["Le son I — livret","Les mêmes pages, avec les mots du son [i].","FR - Livret des sons - son I (exemple).dc.html"],
   ["Le son O — livret","10 fiches : o · au · eau, mot repère POT.","FR - Livret des sons - son O.dc.html"],
   ["Le son O — livret en script","Le même livret, écrit en script.","FR - Livret des sons - son O - script.dc.html"],
+  ["Le son U — livret","Mot repère USINE, « le U d'usine ». Geste à venir.","FR - Livret des sons - son U.dc.html"],
+  ["Le son U — livret en script","Le même livret, écrit en script.","FR - Livret des sons - son U - script.dc.html"],
   ["Le son L — livret","Mot repère LIT, « le L de lit ».","FR - Livret des sons - son L.dc.html"],
+  ["Le son L — livret en script","Le même livret, écrit en script.","FR - Livret des sons - son L - script.dc.html"],
   ["Le son M — livret","Mot repère MOTO, sans m nasal.","FR - Livret des sons - son M.dc.html"],
   ["Le son M — livret en script","Le même livret, écrit en script.","FR - Livret des sons - son M - script.dc.html"],
   ["Le son S — livret","Mot repère SALADE, « le S de salade ».","FR - Livret des sons - son S.dc.html"],
@@ -2942,10 +2971,15 @@ const DOCS_COLL={
   ["La réglette des sons complexes","4 réglettes par A4 : l'élève colorie, puis découpe. Corrigé colorié.","FR - Réglette des sons complexes.dc.html"],
   ["Le jeu des familles","9 familles de 6 cartes, une page par famille, bandeau de couleur sur papier blanc. Règle du jeu en page 1.","FR - Jeu des familles - Les couleurs des sons.dc.html"]
  ],
+ puzzlessyl:[
+  ["Moto, salade, lit, tomate — je colle et j'écris","Le premier : 4 mots, je colle les syllabes puis j'écris le mot.","FR - Jeu des syllabes - Je colle et j'écris.dc.html"],
+  ["Les sons R, V et L","9 mots : radio, radis, robot, rideau, lavabo, vélo, salade, livre, lune. 2 planches, les étiquettes à découper, le corrigé.","FR - Puzzle des syllabes.dc.html"]
+ ],
  plateauxsons:[
   ["Le son A — plateau à pinces","Le plateau (18 photos à pincer) puis son corrigé à pastilles vertes. 2 pages A4, à plastifier.","FR - Plateau à pinces - son A.dc.html"],
   ["Le son I — plateau à pinces","Le plateau puis son corrigé. 2 pages A4.","FR - Plateau à pinces - son I.dc.html"],
   ["Le son O — plateau à pinces","Le plateau puis son corrigé. 2 pages A4.","FR - Plateau à pinces - son O.dc.html"],
+  ["Le son U — plateau à pinces","Le plateau puis son corrigé. 2 pages A4.","FR - Plateau à pinces - son U.dc.html"],
   ["Le son L — plateau à pinces","Le plateau puis son corrigé. 2 pages A4.","FR - Plateau à pinces - son L.dc.html"],
   ["Le son M — plateau à pinces","Le plateau puis son corrigé. 2 pages A4.","FR - Plateau à pinces - son M.dc.html"],
   ["Le son S — plateau à pinces","Le plateau puis son corrigé. 2 pages A4.","FR - Plateau à pinces - son S.dc.html"]
@@ -3037,12 +3071,13 @@ const DOMAINES={
      de A, I et O, désormais fabriquées depuis l'écran du son — les garder en doublon
      ramenait les mots d'origine (ananas, banane…) alors que l'écran en propose d'autres.
      Les fiches de lecture se prennent maintenant dans Lecture → le son → Séance. */
-  lexique:['dico','planches'], lecture:['livretssons','plateauxsons','couleurssons'],
+  lexique:['dico','planches'], lecture:['livretssons','plateauxsons','puzzlessyl','couleurssons'],
   ecriture:['ronds','courbes','boucles','ponts','lettres','cursive','motsreperes','chiffres'],
   maths:['mathsnum','mathsgeo','mathsgm','mathsauto','mathsrituels','mathsoutils'],
   positionnement:['postests'],
   histoire:['histprehistoire','histantiquite','histmoyenage','histmodernes','histxix','histxx'],
-  temps:['histtemps']
+  temps:['histtemps'],
+  decouverte:['histtemps']
 };
 function toutesLesFeuilles(){ return SRC_FICHES().pages; }
 const COMPETENCES=[
@@ -3089,10 +3124,10 @@ LOTS.gcAll={nom:'Les graphèmes complexes',items:LOTS.gc1.items.concat(LOTS.gc2.
    s'ajoute AUSSI ici (VIGNETTE_JEUX). Même règle : un son de SA progression (upe2a-sons) qui a
    au moins un jeu (de l'appli ou un de ses liens, upe2a-themes-perso.jeuxSons). */
 const VIGNETTE_POS=[[5.75,90.13],[10.35,81.8],[14.94,73.43],[18.69,63.57],[13.81,49.22],[8.85,41.52],[8.27,26.47],[14.83,15.62],[24.06,16.82],[29.02,28.89],[29.88,43.95],[30.06,60.2],[31,75.11],[34.92,84.68],[42.57,87.63],[50.29,78.1],[51.44,63.8],[46.23,50.26],[42.02,41.22],[41.92,25.48],[48.46,15.17],[57.63,16.07],[63.1,27.84],[64.48,41.96],[66.77,54.45],[69.31,66.48],[72.15,77.99],[77.52,84.94],[86.68,84.01],[91.42,71.15],[88.46,53.89],[82.06,48.32],[78.46,38.19],[82.98,22.83],[87.88,15.02],[92.77,7.21]];
-const VIGNETTE_JEUX=['a','i','o','m','s','l'];
+const VIGNETTE_JEUX=['a','i','o','u','m','s','l'];
 const vignetteSons=()=>{
-  let prog=['a','i','o','m','s','u','é','l','r','f','v','p','t','ch','ou','on','an','in'], js={};
-  try{ const t=JSON.parse(localStorage.getItem('upe2a-sons')||'null'); if(Array.isArray(t)&&t.length) prog=t; }catch(e){}
+  let prog=SONS_INIT.slice(), js={};
+  try{ const t=sonsPilotis(JSON.parse(localStorage.getItem('upe2a-sons')||'null')); if(Array.isArray(t)&&t.length) prog=t; }catch(e){}
   try{ const o=JSON.parse(localStorage.getItem('upe2a-themes-perso')||'null'); if(o&&o.jeuxSons) js=o.jeuxSons; }catch(e){}
   const out=[];
   /* 03/10 (son choix) : les sons prêts se suivent sans trou, comme sur le plateau. */
@@ -4124,7 +4159,7 @@ class Component extends DCLogic {
   chargerSons(){
     try{
       const b=localStorage.getItem('upe2a-sons');
-      if(b){ const l=JSON.parse(b); if(Array.isArray(l)&&l.length) return l; }
+      if(b){ const l=sonsPilotis(JSON.parse(b)); if(Array.isArray(l)&&l.length) return l; }
     }catch(e){}
     return null;
   }
@@ -5082,6 +5117,7 @@ class Component extends DCLogic {
       alpha:"L'alphabet",alphaEcrire:'Écris la lettre',resultatAlpha:'Résultat',
       disques:'Jeux de classe — on joue ensemble, rien à écrire, rien à noter',
       docsUtiles:'Mes documents utiles — mes séances et mes références',
+      admin:'Administratif — mes papiers de sortie (sur cet ordinateur seulement)',
       affichages:'Affichages de la classe — ce qui reste au mur ou sur la table',
       litteraire:'Moment littéraire — les séquences, leurs documents et leurs audios',
       langue:'Étude de la langue — une notion, ses documents et sa vidéo',
@@ -5143,7 +5179,9 @@ class Component extends DCLogic {
         /* Rituels n'est plus « à venir » (09/09) : le rituel des cartes de langage de
            Charivari est le premier, l'écran existe. */
         ['Rituels','rituels'],
-        ['Découverte du monde et des sciences',''],
+        /* 09/10 (sa demande) : sous-rubrique « Se repérer dans le temps » = la même collection
+           histtemps que Hist / Géo / EMC (les deux chemins mènent aux mêmes documents). */
+        ['Découverte du monde et des sciences','outils','decouverte'],
         /* 06/10 (sa demande) : même dessin que Moment littéraire, une vignette par notion.
            La première : LE VERBE (sa série « Au pays des mots », sa vidéo, dans l'appli). */
         ['Étude de la langue','langue'],
@@ -5152,6 +5190,9 @@ class Component extends DCLogic {
            séance, on accroche une affiche : mélanger les deux en ferait un fourre-tout. */
         ['Affichages de la classe','affichages'],
         ['Mes documents utiles','docsUtiles'],
+        /* 10/10 (son oui) : ADMINISTRATIF, ordinateur seulement. Les fichiers de docs/administratif/
+           ne partent JAMAIS dans le zip d'envoi (noms, adresses) : en ligne, les liens ne mènent nulle part. */
+        ...(this.tel()?[]:[['Administratif','admin']]),
         /* 05/10 : le DELF côté prof (sujets papier, corrigés). ?prof=1 → boutons 📄 sous chaque sujet. */
         ['Préparation au DELF','delfProf']]]
     ];
@@ -5963,6 +6004,16 @@ class Component extends DCLogic {
       vrai:true,
       estDisques:s.ecran==='disques',
       estDocsUtiles:s.ecran==='docsUtiles',
+      estAdmin:s.ecran==='admin'&&!this.tel(),
+      docsAdmin:[
+        ['Sortie Valmy — autorisation de sortie','Pour le proviseur. Mardi 13 octobre, départ 09h30, retour 11h15.','#1d4e89','2026-10-13 Autorisation de sortie - Valmy.pdf'],
+        ['Sortie Valmy — autorisation des parents et droit à l\u2019image','À donner aux familles, une par élève.','#2a9d6e','2026-10-13 Autorisation parents et droit image - Valmy.pdf'],
+        ['Sortie Valmy — fiche action (Word)','« Roule galette ». Le Word se télécharge, puis s\u2019imprime.','#6d5bd0','2026-2027 Fiche action - Valmy.docx'],
+        ['Sortie Senghor — autorisation de sortie','Pour le proviseur.','#1d4e89','2026-09-24 Autorisation de sortie - Senghor.pdf'],
+        ['Sortie Senghor — fiche action','PDF, et le Word à côté.','#6d5bd0','2026-2027 Fiche action - Senghor.pdf'],
+        ['Sortie Senghor — fiche action (Word)','','#6d5bd0','2026-2027 Fiche action - Senghor.docx'],
+        ['Fiche action vierge (Word)','Le modèle du lycée, pour une prochaine sortie.','#48586b','MODELE - Fiche action -vierge-.docx']
+      ].map(([titre,detail,couleur,f])=>({titre,detail,couleur,url:'docs/administratif/'+f})),
       estLitteraire:s.ecran==='litteraire',
       /* LES SÉQUENCES DU MOMENT LITTÉRAIRE (22/09). Une séquence = un texte et TOUT ce qui
          tourne autour : les documents de l'appli, le diaporama à projeter, l'audio à
@@ -6007,7 +6058,9 @@ class Component extends DCLogic {
       notions:[
         ['LE VERBE','Au pays des mots · épisode 1','#c62828',
           [["Le roi — l'histoire","Cinq pages : le verbe est le roi de la phrase. Il dit ce qu'on fait, ou comment on est. Le sandwich ne … pas.","docs/pays-des-mots-episode-1.pdf"],
-           ["Le livret d'exercices","Page de garde, neuf exercices (le 2 en « tu »), puis le corrigé. À imprimer en noir et blanc.","FR - Le verbe - Livret.dc.html"]],
+           ["Le livret d'exercices","Page de garde, neuf exercices (le 2 en « tu »), puis le corrigé. À imprimer en noir et blanc.","FR - Le verbe - Livret.dc.html"],
+           ["Le tableau de conjugaison","Présent des verbes en -ER : marcher, danser, manger, parler, chanter, regarder. Terminaisons en gras soulignées.","FR - Le verbe - Tableau de conjugaison.dc.html"],
+           ["Le tableau de conjugaison à remplir","Les mêmes verbes, pronoms et lignes vides. Corrigé en page 2.","FR - Le verbe - Tableau de conjugaison (vide).dc.html"]],
           [["Le roi — la vidéo","On regarde et on écoute avant de montrer quoi que ce soit.","docs/pays-des-mots-episode-1.mp4"]]]
       ].map(([nom,sous,couleur,docs,videos],i)=>({nom,sous,couleur,
         ouvrir:()=>this.setState({langSel:i}),

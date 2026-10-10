@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#6d5bd0"/><text x="50" y="62" font-size="30" text-anchor="middle" fill="#fff" font-family="Arial" font-weight="700">DELF</text></svg></template>
 </head>
 <body>
 <x-dc>
@@ -65,17 +66,6 @@ input,textarea,button{font-family:inherit}
 </div>
 </sc-for>
 </div>
-<!-- 09/10 : fiches d'entraînement papier, CÔTÉ PROF, A1. Jamais target="_blank". -->
-<sc-if value="{{ aFiches }}" hint-placeholder-val="{{ false }}">
-<div style="width:100%;max-width:980px;display:flex;flex-direction:column;align-items:center;gap:12px">
-<span style="background:#fdf3c4;padding:6px 18px;font-family:Archivo Black, Archivo, sans-serif;font-size:18px;color:#8a4b1e;box-shadow:0 4px 10px rgba(0,0,0,0.3)">Fiches d'entraînement</span>
-<div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center">
-<sc-for list="{{ fiches }}" as="f" hint-placeholder-count="1">
-<a href="{{ f.href }}" style="min-height:44px;display:flex;align-items:center;gap:6px;background:#fff;border-radius:10px;padding:0 16px;font-weight:700;font-size:16px;color:#12233b;text-decoration:none;box-shadow:0 2px 6px rgba(0,0,0,0.2)">📄 {{ f.nom }}</a>
-</sc-for>
-</div>
-</div>
-</sc-if>
 </div>
 </sc-if>
 
@@ -389,10 +379,11 @@ input,textarea,button{font-family:inherit}
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script>
-/* 05/10 (son oui) : MODE SEUL — fichier isolé « DELF.html » (A1, sujet 1, aucune sortie). ?seul=1 ou window.DELF_SEUL. */
-const SEUL = window.DELF_SEUL === true || /[?&]seul=1/.test(location.search);
+/* 06/10 : copie de DELF-seul pour le SUJET 2 → fichier isolé « DELF2.html » (A1, sujet 2, aucune sortie).
+   05/10 (son oui) : MODE SEUL — ?seul=1 ou window.DELF_SEUL. */
+const SEUL = true || /[?&]seul=1/.test(location.search);
 class Component extends DCLogic {
-  state = { niveau: 'A1', sujet: SEUL ? 0 : null, ecran: SEUL ? 'sujet' : 'menu', exoIdx: 0, rep: {}, fini: {}, cartesVues: {}, carteTiree: -1, chronoFin: 0, chronoMin: 0, audioPct: 0, audioJoue: false };
+  state = { niveau: 'A1', sujet: SEUL ? 1 : null, ecran: SEUL ? 'sujet' : 'menu', exoIdx: 0, rep: {}, fini: {}, cartesVues: {}, carteTiree: -1, chronoFin: 0, chronoMin: 0, audioPct: 0, audioJoue: false };
 
   data() {
     const qcm = (q, choix, bonne) => ({ q, choix, bonne });
@@ -664,8 +655,6 @@ class Component extends DCLogic {
     /* 05/10 : un exercice d'écoute a toujours son « J'ai fini », même sans corrigé (sujet 2 en attente du corrigé de l'oral). */
     const aCorriger = !!exo && (!!exo.audio || exo.questions.some(q => (q.choix && q.bonne != null) || q.jh || (q.champs || []).some(f => f.bonne)));
     return {
-      aFiches: !suj && s.niveau === 'A1' && /[?&]prof=1/.test(location.search),
-      fiches: [{ nom: "Remplir une fiche d'identité", href: "FR - Remplir une fiche d'identité.dc.html" }],
       niveau: s.niveau, estA2: !sujets.length && !suj, estMenu: !suj, estSujet: !!suj && !ep, estEpreuve: !!ep,
       titreSujet: suj ? suj.titre : '',
       aRetour: !SEUL || !!ep, aNiveaux: !SEUL,

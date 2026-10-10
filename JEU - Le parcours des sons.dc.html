@@ -91,7 +91,16 @@ const POSITIONS = [[5.75,90.13],[10.35,81.8],[14.94,73.43],[18.69,63.57],[13.81,
 /* L'ordre de départ du tableau « Apprentissage du code » — le même que SONS_INIT dans
    l'espace enseignant. Il ne sert qu'à placer les sons sur le chemin ; un son sans jeux
    n'affiche rien. */
-const PROG_DEFAUT = ['a','i','o','m','s','u','é','l','r','f','v','p','t','ch','ou','on','an','in'];
+/* 09/10 (son oui) : ordre PILOTIS ; l'ordre enregistré est remis une fois dans cet ordre (upe2a-sons-pilotis). */
+const PROG_DEFAUT = ['a','i','o','u','é','l','m','s','r','ch','ou','v','f','p','t','on','an','in'];
+const sonsPilotis = t => {
+  try {
+    if (!Array.isArray(t) || !t.length || localStorage.getItem('upe2a-sons-pilotis')) return t;
+    const r = PROG_DEFAUT.filter(s => t.includes(s)).concat(t.filter(s => !PROG_DEFAUT.includes(s)));
+    localStorage.setItem('upe2a-sons', JSON.stringify(r)); localStorage.setItem('upe2a-sons-pilotis', '1');
+    return r;
+  } catch (e) { return t; }
+};
 
 /* Les jeux DE L'APPLI, en plus de ses liens. Le son I ajouté le 23/09, le son O le 26/09.
    ⚠ Tout ajout ici s'ajoute AUSSI à VIGNETTE_JEUX dans « APPLI - Espace enseignant »
@@ -102,7 +111,8 @@ const JEUX_APPLI = {
   o: [['Les jeux du son O', 'JEU - Le son O.dc.html']],
   m: [['Les jeux du son M', 'JEU - Le son M.dc.html']],
   s: [['Les jeux du son S', 'JEU - Le son S.dc.html']],
-  l: [['Les jeux du son L', 'JEU - Le son L.dc.html']]
+  l: [['Les jeux du son L', 'JEU - Le son L.dc.html']],
+  u: [['Les jeux du son U', 'JEU - Le son U.dc.html']]
 };
 
 class Component extends DCLogic {
@@ -113,7 +123,7 @@ class Component extends DCLogic {
     let prog = PROG_DEFAUT, jeuxSons = {};
     try {
       const a = localStorage.getItem('upe2a-sons');
-      if (a) { const t = JSON.parse(a); if (Array.isArray(t) && t.length) prog = t; }
+      if (a) { const t = sonsPilotis(JSON.parse(a)); if (Array.isArray(t) && t.length) prog = t; }
     } catch (e) {}
     try {
       const b = localStorage.getItem('upe2a-themes-perso');
