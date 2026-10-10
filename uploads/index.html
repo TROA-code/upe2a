@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aide à la Lecture et à l'Écriture</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&family=Playpen+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- Panneau de configuration principal -->
+    <header class="control-card">
+      <div class="control-grid">
+        
+        <!-- Section Saisie de texte -->
+        <div class="control-section text-input-section">
+          <label for="text-input" class="section-title">LE MOT, LA PHRASE OU LE TEXTE</label>
+          <textarea 
+            id="text-input" 
+            placeholder="un mot, une phrase ou un texte court"
+            rows="4"
+          >Bonjour a tous , je m'appel steeve et je suis cool</textarea>
+        </div>
+
+        <!-- Section Options à droite (Image + Interlignage) -->
+        <div class="control-section options-section">
+          <!-- Option Image -->
+          <div class="option-group">
+            <span class="section-title">L'IMAGE</span>
+            <div class="radio-options">
+              <label class="radio-label">
+                <input type="radio" name="image-choice" value="none" checked id="radio-no-image">
+                <span class="custom-radio"></span>
+                <span>Aucune image</span>
+              </label>
+              
+              <label class="radio-label">
+                <input type="radio" name="image-choice" value="custom" id="radio-custom-image">
+                <span class="custom-radio"></span>
+                <span>Importer une image</span>
+              </label>
+              <input type="file" id="image-file-input" accept="image/*" style="display: none;">
+
+              <label class="radio-label disabled">
+                <input type="radio" name="image-choice" value="ai" disabled>
+                <span class="custom-radio"></span>
+                <span class="disabled-text">Générer avec l'IA — à venir</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Option Interlignage -->
+          <div class="option-group">
+            <span class="section-title">L'INTERLIGNAGE</span>
+            <div class="segmented-control" id="line-spacing-control">
+              <button type="button" class="segment-btn active" data-spacing="petit">Petit</button>
+              <button type="button" class="segment-btn" data-spacing="moyen">Moyen</button>
+              <button type="button" class="segment-btn" data-spacing="grand">Grand</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Barre d'outils inférieure : Aides à la lecture + Actions -->
+      <div class="control-bottom-bar">
+        <!-- Bouton déroulant pour la modale des aides -->
+        <div class="reading-aids-dropdown" id="open-aids-modal-btn">
+          <div class="dropdown-content-left">
+            <span class="dropdown-label">AIDER À LIRE LE MOT</span>
+            <span class="dropdown-status-badge" id="aids-status-summary">aucune aide</span>
+          </div>
+          <div class="dropdown-arrow">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+              <path d="M7 10l5 5 5-5z"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Boutons d'action -->
+        <div class="action-buttons">
+          <button type="button" class="action-btn btn-print" id="btn-print" title="Imprimer la fiche">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 6 2 18 2 18 9"></polyline>
+              <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+              <rect x="6" y="14" width="12" height="8"></rect>
+            </svg>
+          </button>
+
+          <button type="button" class="action-btn btn-save" id="btn-save" title="Sauvegarder">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+              <polyline points="17 21 17 13 7 13 7 21"></polyline>
+              <polyline points="7 3 7 8 15 8"></polyline>
+            </svg>
+          </button>
+
+          <button type="button" class="action-btn btn-star" id="btn-star" title="Ajouter aux favoris">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Zone Aperçu -->
+    <main class="preview-wrapper">
+      <h2 class="preview-heading">APERÇU</h2>
+
+      <div class="sheet-container" id="printable-sheet">
+        <!-- Feuille d'écriture type Seyès -->
+        <div class="writing-sheet spacing-petit" id="writing-sheet">
+          
+          <!-- En-tête de la fiche -->
+          <div class="sheet-header">
+            <div class="header-left">
+              <h1 class="sheet-title">J'écris</h1>
+            </div>
+            <div class="header-right">
+              <span class="subject-tag">ÉCRITURE</span>
+            </div>
+          </div>
+
+          <!-- Ligne élève (Nom et Date) -->
+          <div class="student-meta-row">
+            <div class="meta-field">
+              <span class="meta-label">Nom :</span>
+              <span class="meta-line"></span>
+            </div>
+            <div class="meta-field">
+              <span class="meta-label">Date :</span>
+              <span class="meta-line"></span>
+            </div>
+          </div>
+
+          <!-- Cadre de consigne -->
+          <div class="instruction-box">
+            <p><strong>Lis le texte.</strong></p>
+            <p>Repasse sur le texte.</p>
+            <p>Écris le texte seul.</p>
+          </div>
+
+          <!-- Emplacement image optionnelle -->
+          <div class="sheet-image-container" id="sheet-image-container" style="display: none;">
+            <img id="sheet-image-preview" src="" alt="Illustration">
+          </div>
+
+          <!-- Zone du texte rendu avec les aides visuelles -->
+          <div class="sheet-text-area" id="sheet-text-rendered">
+            <!-- Injecté dynamiquement par JavaScript -->
+          </div>
+
+          <!-- Lignes d'apprentissage Seyès pour l'élève -->
+          <div class="seyes-lines-grid" id="seyes-lines-container">
+            <!-- Généré dynamiquement en fonction du texte et de l'interlignage -->
+          </div>
+
+        </div>
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Modale "Aider à lire le mot" -->
+  <div class="modal-backdrop" id="aids-modal" style="display: none;">
+    <div class="modal-card">
+      
+      <!-- En-tête de la modale -->
+      <div class="modal-header">
+        <h3 class="modal-title">Aider à lire le mot</h3>
+        <button type="button" class="modal-close-btn" id="modal-close-btn" aria-label="Fermer">
+          <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Grille des aides à cocher -->
+      <div class="modal-body">
+        <div class="aids-grid">
+          
+          <!-- Option 1: Étiquettes de mots -->
+          <div class="aid-option-card" data-aid="etiquettes">
+            <div class="aid-card-header">
+              <input type="checkbox" id="aid-etiquettes" class="aid-checkbox">
+              <label for="aid-etiquettes" class="aid-label">Étiquettes de mots</label>
+            </div>
+            <div class="aid-preview-box">
+              <span class="preview-tag">le</span>
+              <span class="preview-tag">cahier</span>
+              <span class="preview-tag">rouge</span>
+            </div>
+          </div>
+
+          <!-- Option 2: Couleur des syllabes -->
+          <div class="aid-option-card" data-aid="couleur-syllabes">
+            <div class="aid-card-header">
+              <input type="checkbox" id="aid-couleur-syllabes" class="aid-checkbox">
+              <label for="aid-couleur-syllabes" class="aid-label">Couleur des syllabes</label>
+            </div>
+            <div class="aid-preview-box preview-syllables-colored">
+              <span class="syl-c1">or</span><span class="syl-c2">di</span><span class="syl-c3">na</span><span class="syl-c4">teur</span>
+            </div>
+          </div>
+
+          <!-- Option 3: Lettres muettes en gris -->
+          <div class="aid-option-card" data-aid="lettres-muettes">
+            <div class="aid-card-header">
+              <input type="checkbox" id="aid-lettres-muettes" class="aid-checkbox">
+              <label for="aid-lettres-muettes" class="aid-label">Lettres muettes en gris</label>
+            </div>
+            <div class="aid-preview-box preview-mute-letters">
+              le canar<span class="mute-letter-sample">d</span>
+            </div>
+          </div>
+
+          <!-- Option 4: Arcs sous les syllabes -->
+          <div class="aid-option-card" data-aid="arcs-syllabes">
+            <div class="aid-card-header">
+              <input type="checkbox" id="aid-arcs-syllabes" class="aid-checkbox">
+              <label for="aid-arcs-syllabes" class="aid-label">Arcs sous les syllabes</label>
+            </div>
+            <div class="aid-preview-box preview-arcs-box">
+              <span class="arc-syllable-demo">
+                <span>or</span>
+                <svg class="demo-arc-svg" viewBox="0 0 30 10"><path d="M 2,2 Q 15,11 28,2" fill="none" stroke="#475569" stroke-width="1.8" stroke-linecap="round"/></svg>
+              </span>
+              <span class="arc-syllable-demo">
+                <span>di</span>
+                <svg class="demo-arc-svg" viewBox="0 0 25 10"><path d="M 2,2 Q 12.5,11 23,2" fill="none" stroke="#475569" stroke-width="1.8" stroke-linecap="round"/></svg>
+              </span>
+              <span class="arc-syllable-demo">
+                <span>na</span>
+                <svg class="demo-arc-svg" viewBox="0 0 30 10"><path d="M 2,2 Q 15,11 28,2" fill="none" stroke="#475569" stroke-width="1.8" stroke-linecap="round"/></svg>
+              </span>
+              <span class="arc-syllable-demo">
+                <span>teur</span>
+                <svg class="demo-arc-svg" viewBox="0 0 42 10"><path d="M 2,2 Q 21,11 40,2" fill="none" stroke="#475569" stroke-width="1.8" stroke-linecap="round"/></svg>
+              </span>
+            </div>
+          </div>
+
+          <!-- Option 5: Mots repères -->
+          <div class="aid-option-card" data-aid="mots-reperes">
+            <div class="aid-card-header">
+              <input type="checkbox" id="aid-mots-reperes" class="aid-checkbox">
+              <label for="aid-mots-reperes" class="aid-label">Mots repères</label>
+            </div>
+            <div class="aid-preview-box preview-color-cue">
+              <div class="cue-swatch cue-red"></div>
+              <span class="cue-word">rouge</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Pied de la modale -->
+      <div class="modal-footer">
+        <button type="button" class="btn-primary-green" id="modal-submit-btn">TERMINÉ</button>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

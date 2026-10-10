@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>body{margin:0;background:#f4f1e8;font-family:Archivo, Arial, sans-serif;color:#12233b}a{color:#1d4e89}a:hover{color:#12233b}</style>
+</helmet>
+<div style="max-width:980px;margin:0 auto;padding:24px 18px 60px;display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+<button class="bouton" onClick="{{ retour }}" style="min-height:44px;border:none;border-radius:10px;background:#12233b;color:#fff;padding:0 16px;font-weight:700;font-size:15px;cursor:pointer">← Retour</button>
+<span style="flex:1;font-family:Archivo Black, Archivo, sans-serif;font-size:24px">Les actions : les prompts</span>
+<span style="font-size:15px;font-weight:700;color:#8a4b1e">{{ reste }}</span>
+</div>
+<div style="font-size:15px;line-height:1.5;color:#3a4250">Je touche <b>📋 Copier</b>, je colle dans Gemini, j’envoie l’image ici. Une carte verte = image reçue.</div>
+<sc-for list="{{ groupes }}" as="g" hint-placeholder-count="5">
+<div style="display:flex;flex-direction:column;gap:10px;background:#fff;border-radius:14px;padding:16px;box-shadow:0 3px 10px rgba(0,0,0,0.08)">
+<div style="font-family:Archivo Black, Archivo, sans-serif;font-size:17px">{{ g.titre }}</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));gap:10px">
+<sc-for list="{{ g.items }}" as="p" hint-placeholder-count="3">
+<div style="display:flex;flex-direction:column;gap:8px;border:2px solid {{ p.bord }};background:{{ p.fond }};border-radius:10px;padding:12px">
+<div style="display:flex;align-items:center;gap:8px">
+<span style="flex:1;font-weight:700;font-size:16px">{{ p.nom }}</span>
+<span style="font-size:13px;font-weight:700;color:#1f8a4c">{{ p.etat }}</span>
+</div>
+<sc-if value="{{ p.fait }}" hint-placeholder-val="{{ false }}">
+<div style="width:100%;aspect-ratio:16 / 9;border-radius:6px;background-image:{{ p.src }};background-size:contain;background-repeat:no-repeat;background-position:center;background-color:#fff"></div>
+</sc-if>
+<sc-if value="{{ p.afaire }}" hint-placeholder-val="{{ true }}">
+<div style="font-size:12.5px;line-height:1.45;color:#3a4250;background:#f6f7f9;border-radius:6px;padding:8px;max-height:120px;overflow:auto">{{ p.texte }}</div>
+<button class="bouton" onClick="{{ p.copier }}" style="min-height:44px;border:none;border-radius:8px;background:{{ p.btn }};color:#fff;font-weight:700;font-size:15px;cursor:pointer">{{ p.libelle }}</button>
+</sc-if>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const STYLE = 'Simple black line drawing, clean uniform outlines, no shading, no color, pure white background. A young adult (about 18 years old), full body, centered, clearly doing the action: ';
+const FIN = ' Same simple style as a picture dictionary. No text, no letters. One single image only.';
+/* 05/10 : les 22 verbes de sa feuille « Des actions » qui manquent au thème « Les actions ».
+   Même style que mot-manger (dessin au trait noir, fond blanc). Fichier = clean/mot-<f>.webp. */
+const G = [
+  ['Les gestes', [
+    ['donner', 'donner', 'a young woman handing a book to a young man; both hold the book.'],
+    ['prendre', 'prendre', 'a young man picking up a glass from a table with one hand.'],
+    ['lancer', 'lancer', 'a young man throwing a ball forward, arm stretched, the ball in the air with motion lines.'],
+    ['attraper', 'attraper', 'a young man catching a ball in the air with both hands.'],
+    ['casser', 'casser', 'a young man breaking a wooden stick in two with both hands, small pieces flying.'],
+    ['laver', 'laver', 'a young woman washing her hands at a sink with soap foam and running water.'],
+    ['acheter', 'acheter', 'a young man at a shop counter giving money to a cashier, a bag of shopping on the counter.']]],
+  ['Le corps qui bouge', [
+    ['sauter', 'sauter', 'a young man jumping in the air, both feet off the ground, arms up.'],
+    ['grimper', 'grimper', 'a young man climbing up a thick rope, hands and feet on the rope.'],
+    ['tomber', 'tomber', 'a young man tripping over a stone and falling forward, arms out.'],
+    ['tourner', 'tourner', 'a young man walking and turning at a street corner, a curved arrow on the ground showing the turn.'],
+    ['monter', 'monter', 'a young woman walking UP a staircase, one foot on the next step, an arrow pointing up.'],
+    ['descendre', 'descendre', 'a young woman walking DOWN a staircase, holding the handrail, an arrow pointing down.']]],
+  ['La voix et le visage', [
+    ['crier', 'crier', 'a young man shouting, mouth wide open, hands around the mouth, sound lines coming out.'],
+    ['pleurer', 'pleurer', 'a young woman crying, tears running down her cheeks, wiping her eyes.'],
+    ['regarder', 'regarder', 'a young man looking far away with one hand above his eyes, his gaze clearly directed.'],
+    ['chanter', 'chanter', 'a young woman singing with her mouth open, musical notes floating around her.'],
+    ['appeler', 'appeler', 'a young man holding a mobile phone to his ear and talking.'],
+    ['demander', 'demander', 'a young man raising his hand to ask a question, a speech bubble with a big question mark above him.']]],
+  ['Avec les autres', [
+    ['embrasser', 'embrasser', 'two young people greeting each other with a kiss on the cheek (la bise).'],
+    ['raconter', 'raconter', 'a young woman telling a story, gesturing with her hands, two people sitting and listening to her.'],
+    ['rever', 'rêver', 'a young man asleep in a bed, a cloud-shaped thought bubble above him showing a beach with a palm tree.']]],
+  /* 05/10 : 8 verbes repris de ses cartes papier (éditeur → on ne copie pas le dessin, on refait la scène, ados et non enfants). */
+  ['Moi et les autres', [
+    ['siffler', 'siffler', 'a young man whistling, lips rounded in a small O, small music notes coming out of his mouth. Head and shoulders, large in the image.'],
+    ['peindre', 'peindre', 'a young woman sitting at a table painting on a sheet of paper with a brush, small paint pots on the table.'],
+    ['emballer', 'emballer', 'a young woman wrapping a gift box at a table, tying a ribbon around it with both hands.'],
+    ['se-laver', 'se laver', 'a young man in the shower, shirtless, washing his face and body with soap foam, water drops falling.'],
+    ['s-habiller', 's’habiller', 'a young man putting on a sweater: his head is coming out of the neck opening, both arms pulling the sweater DOWN over his body. A large arrow pointing DOWN next to him.'],
+    ['se-deshabiller', 'se déshabiller', 'a young man taking off his sweater: arms crossed above his head pulling the sweater UP and off, his face half hidden inside it, a t-shirt visible underneath. A large arrow pointing UP next to him.'],
+    ['se-moquer', 'se moquer', 'a young man pointing his finger and laughing at a young woman who looks sad and embarrassed, head down.'],
+    ['voler', 'voler', 'two young people sitting side by side at a table; one secretly takes the phone of the other who looks away. The thief has a sneaky face.']]]];
+const RECUES = ['lancer', 'donner', 'prendre', 'attraper', 'casser', 'laver', 'acheter', 'sauter', 'grimper', 'tomber', 'tourner', 'monter', 'descendre', 'crier', 'pleurer', 'regarder', 'chanter', 'appeler', 'demander', 'embrasser', 'raconter', 'rever'];
+class Component extends DCLogic {
+  state = { copie: null };
+  copier(cle, t) {
+    const ok = () => { this.setState({ copie: cle }); clearTimeout(this._t); this._t = setTimeout(() => this.setState({ copie: null }), 1800); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(ok, () => this.repli(t, ok)); else this.repli(t, ok);
+  }
+  repli(t, ok) { const a = document.createElement('textarea'); a.value = t; document.body.appendChild(a); a.select(); try { document.execCommand('copy'); ok(); } catch (e) {} a.remove(); }
+  renderVals() {
+    let n = 0; const vus = {};
+    const groupes = G.map(([titre, items], gi) => ({ titre, items: items.map(([f, nom, p], ii) => {
+      const fait = RECUES.includes(f) || !p, cle = gi + '-' + ii, texte = STYLE + p + FIN;
+      if (!fait && !vus[f]) { n++; vus[f] = 1; }
+      const deja = !RECUES.includes(f) && !p;
+      return { nom, fait: RECUES.includes(f), afaire: !fait, texte, src: "url('clean/mot-" + f + ".webp')",
+        etat: RECUES.includes(f) ? '✓ reçue' : deja ? 'voir Q3' : '',
+        bord: RECUES.includes(f) ? '#2a9d6e' : '#d8dce3', fond: RECUES.includes(f) ? '#eef8f1' : '#fff',
+        btn: this.state.copie === cle ? '#2a9d6e' : '#1d4e89', libelle: this.state.copie === cle ? '✓ Copié !' : '📋 Copier',
+        copier: () => this.copier(cle, texte) }; }) }));
+    return { groupes, reste: n + ' image' + (n > 1 ? 's' : '') + ' à faire',
+      retour: () => { if (history.length > 1) history.back(); else location.href = 'APPLI - Espace enseignant.dc.html' + (location.search || ''); } };
+  }
+}
+</script>
+</body>
+</html>

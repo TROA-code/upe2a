@@ -23,12 +23,24 @@
   <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:16px;letter-spacing:.02em">ÉTIQUETTES — CODES DE SESSION</div>
   <div style="font-size:11.5px;color:#6b7386;line-height:1.5;max-width:70ch">
     Une étiquette par élève, à découper et à coller dans le classeur ou sur la trousse.
-    Identifiant : première lettre du prénom + nom de famille, sans point. Six étiquettes
-    par page : les cinq élèves et une vierge pour un nouvel arrivant.
+    Identifiant de session : première lettre du prénom + nom de famille, sans point. Les codes ENT
+    s'ajoutent en dessous quand ils sont saisis. Une étiquette vierge à la fin pour un nouvel arrivant.
   </div>
   <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
     <button onClick="{{ imprimer }}" style="border:none;background:#2a9d6e;color:#fff;border-radius:9px;padding:10px 18px;font-family:'Archivo Black',Verdana,sans-serif;font-size:12px;letter-spacing:.04em;cursor:pointer">IMPRIMER</button>
     <span style="font-size:11.5px;color:#8595a8">Le mot de passe se change dans les réglages de la page.</span>
+  </div>
+  <!-- 09/10 : codes PERSONNELS (ENT) tapés ici par elle, gardés sur CET appareil seulement (localStorage
+       upe2a-codes-ent), jamais dans le code publié. Laisser vide = la règle habituelle. -->
+  <div style="display:flex;flex-direction:column;gap:6px;border:1px solid #d6dde6;border-radius:9px;padding:10px 12px;max-width:640px">
+    <div style="font-size:12px;font-weight:bold;color:#1c2430">Codes ENT (gardés sur cet appareil seulement — les codes de session ne changent pas)</div>
+    <sc-for list="{{ saisies }}" as="x" hint-placeholder-count="6">
+      <div style="display:grid;grid-template-columns:150px minmax(0,1fr) minmax(0,1fr);gap:6px;align-items:center;font-size:12px">
+        <span>{{ x.nom }}</span>
+        <input value="{{ x.ident }}" onChange="{{ x.setIdent }}" placeholder="identifiant" style="border:1px solid #c9cfd8;border-radius:6px;padding:6px 8px;font-family:Consolas, monospace;font-size:13px;min-width:0" />
+        <input value="{{ x.mdp }}" onChange="{{ x.setMdp }}" placeholder="mot de passe" style="border:1px solid #c9cfd8;border-radius:6px;padding:6px 8px;font-family:Consolas, monospace;font-size:13px;min-width:0" />
+      </div>
+    </sc-for>
   </div>
 </div>
 
@@ -43,7 +55,7 @@
 
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:4mm">
       <sc-for list="{{ etiquettes }}" as="e" hint-placeholder-count="6">
-        <div style="border:1.5px dashed #8b98a8;border-radius:3mm;padding:4mm 4.5mm;display:flex;flex-direction:column;gap:2.5mm;min-height:44mm;box-sizing:border-box">
+        <div style="border:1.5px dashed #8b98a8;border-radius:3mm;padding:4mm 4.5mm;display:flex;flex-direction:column;gap:2.5mm;min-height:44mm;box-sizing:border-box;break-inside:avoid;page-break-inside:avoid">
           <div style="font-size:9pt;letter-spacing:.09em;color:#6b7386;font-weight:bold">MON ORDINATEUR AU LYCÉE</div>
           <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:14.5pt;line-height:1.1">{{ e.eleve }}</div>
           <div style="display:flex;flex-direction:column;gap:1mm">
@@ -54,6 +66,17 @@
             <div style="font-size:9.5pt;color:#1d4e89;font-weight:bold;letter-spacing:.04em">MOT DE PASSE</div>
             <div style="font-family:Consolas,'Courier New',monospace;font-size:16pt;letter-spacing:.06em;border-bottom:1.5px solid #1c2430;padding-bottom:1mm;min-height:8mm">{{ e.motDePasse }}</div>
           </div>
+          <sc-if value="{{ e.aEnt }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:1.5mm;padding-top:2mm;border-top:1.5px solid #8b98a8;font-size:9pt;letter-spacing:.09em;color:#6b7386;font-weight:bold">L'ENT</div>
+            <div style="display:flex;flex-direction:column;gap:1mm">
+              <div style="font-size:9.5pt;color:#6d5bd0;font-weight:bold;letter-spacing:.04em">IDENTIFIANT ENT</div>
+              <div style="font-family:Consolas,'Courier New',monospace;font-size:16pt;letter-spacing:.06em;border-bottom:1.5px solid #1c2430;padding-bottom:1mm;min-height:8mm">{{ e.entIdent }}</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:1mm">
+              <div style="font-size:9.5pt;color:#6d5bd0;font-weight:bold;letter-spacing:.04em">MOT DE PASSE ENT</div>
+              <div style="font-family:Consolas,'Courier New',monospace;font-size:16pt;letter-spacing:.06em;border-bottom:1.5px solid #1c2430;padding-bottom:1mm;min-height:8mm">{{ e.entMdp }}</div>
+            </div>
+          </sc-if>
         </div>
       </sc-for>
     </div>
@@ -81,8 +104,20 @@ class Component extends DCLogic {
       { prenom: 'Ahmed Samir', famille: 'HALAWA' },
       { prenom: 'Sania', famille: 'TARAKHEIL' },
       { prenom: 'Yasir', famille: 'TARAKHEIL' },
-      { prenom: 'Josefina', famille: 'ZANGA' }
+      { prenom: 'Josefina', famille: 'ZANGA' },
+      /* 09/10 (sa demande) : ses codes sont personnels, saisis à l'écran (jamais ici). */
+      { prenom: 'Saifur', famille: 'SAYEM' },
+      { prenom: 'Bilal', famille: 'CAMARA' }
     ];
+  }
+  state = { codes: {} };
+  componentDidMount() {
+    try { this.setState({ codes: JSON.parse(localStorage.getItem('upe2a-codes-ent') || '{}') || {} }); } catch (e) {}
+  }
+  majCode(cle, champ, v) {
+    const codes = { ...this.state.codes, [cle]: { ...(this.state.codes[cle] || {}), [champ]: v } };
+    this.setState({ codes });
+    try { localStorage.setItem('upe2a-codes-ent', JSON.stringify(codes)); } catch (e) {}
   }
 
   /* La règle qu'elle a donnée : première lettre du prénom + nom de famille, sans point.
@@ -102,17 +137,30 @@ class Component extends DCLogic {
        l'appli (bouton orange Espace enseignant), qui vit dans APPLI - Espace enseignant.
        Deux mots de passe distincts, ne jamais les confondre. */
     const mdp = this.props.motDePasse || 'Lecesne2026!!';
-    const liste = this.eleves().map((e) => ({
-      eleve: e.prenom + ' ' + e.famille,
+    const codes = this.state.codes || {};
+    const cle = (e) => e.prenom + ' ' + e.famille;
+    /* 09/10 (sa demande) : par ordre alphabétique du NOM de famille, puis du prénom. */
+    const tries = this.eleves().slice().sort((a, b) => a.famille.localeCompare(b.famille, 'fr') || a.prenom.localeCompare(b.prenom, 'fr'));
+    const liste = tries.map((e) => ({
+      eleve: e.famille + ' ' + e.prenom,
       identifiant: this.identifiant(e),
-      motDePasse: mdp
+      motDePasse: mdp,
+      /* 09/10 : les codes ENT sont À PART des codes de session (ne jamais les mélanger). */
+      aEnt: !!(codes[cle(e)] && (codes[cle(e)].ident || codes[cle(e)].mdp)),
+      entIdent: (codes[cle(e)] || {}).ident || '',
+      entMdp: (codes[cle(e)] || {}).mdp || ''
+    }));
+    const saisies = tries.map((e) => ({
+      nom: e.famille + ' ' + e.prenom, ident: (codes[cle(e)] || {}).ident || '', mdp: (codes[cle(e)] || {}).mdp || '',
+      setIdent: (ev) => this.majCode(cle(e), 'ident', ev.target.value),
+      setMdp: (ev) => this.majCode(cle(e), 'mdp', ev.target.value)
     }));
     /* Une étiquette vierge en dernier : les arrivées se font toute l'année, et une page
        de six se découpe plus proprement qu'une page de cinq. */
     if (this.props.carteVierge !== false) {
-      liste.push({ eleve: '\u00a0', identifiant: '\u00a0', motDePasse: mdp });
+      liste.push({ eleve: '\u00a0', identifiant: '\u00a0', motDePasse: mdp, aEnt: true, entIdent: '\u00a0', entMdp: '\u00a0' });
     }
-    return { etiquettes: liste, imprimer: () => window.print() };
+    return { etiquettes: liste, saisies, imprimer: () => window.print() };
   }
 }
 </script>

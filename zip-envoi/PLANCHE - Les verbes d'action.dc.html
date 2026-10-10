@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>body{margin:0;background:#f4f1ea;font-family:Archivo, sans-serif;color:#12233b}a{color:#1d4e89}a:hover{color:#12233b}</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&amp;family=Archivo:wght@400;700&amp;family=Archivo+Black&amp;display=swap" />
+</helmet>
+<div style="max-width:1200px;margin:0 auto;padding:20px;display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+<button class="bouton" onClick="{{ retour }}" style="min-height:46px;border:none;border-radius:10px;background:#12233b;color:#fff;padding:0 16px;font-weight:700;font-size:16px;cursor:pointer">← L’accueil</button>
+<div style="flex:1;font-family:Archivo Black, Archivo, sans-serif;font-size:26px">Les verbes d’action</div>
+</div>
+<sc-for list="{{ groupes }}" as="g" hint-placeholder-count="4">
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="font-family:Archivo Black, Archivo, sans-serif;font-size:17px;color:#8a4b1e">{{ g.titre }}</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));gap:12px">
+<sc-for list="{{ g.items }}" as="v" hint-placeholder-count="6">
+<div style="background:#fff;border-radius:12px;box-shadow:0 3px 10px rgba(0,0,0,0.08);overflow:hidden;display:flex;flex-direction:column">
+<div style="aspect-ratio:1 / 1;margin:6px;background-image:{{ v.src }};background-size:contain;background-position:center;background-repeat:no-repeat;background-color:#fff"></div>
+<div style="padding:8px;text-align:center;font-family:Andika, Archivo, sans-serif;font-weight:700;font-size:22px;border-top:1px solid #eef0f4">{{ v.nom }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const G = [
+  ['La vie de tous les jours', [['manger', 'manger'], ['boire', 'boire'], ['dormir', 'dormir'], ['courir', 'courir'], ['marcher', 'marcher'], ['lire', 'lire'], ['ecrire', 'écrire'], ['ecouter', 'écouter'], ['parler', 'parler'], ['dessiner', 'dessiner']]],
+  ['Les gestes', [['donner', 'donner'], ['prendre', 'prendre'], ['lancer', 'lancer'], ['attraper', 'attraper'], ['casser', 'casser'], ['laver', 'laver'], ['acheter', 'acheter']]],
+  ['Le corps qui bouge', [['sauter', 'sauter'], ['grimper', 'grimper'], ['tomber', 'tomber'], ['tourner', 'tourner'], ['monter', 'monter'], ['descendre', 'descendre']]],
+  ['La voix et le visage', [['crier', 'crier'], ['pleurer', 'pleurer'], ['regarder', 'regarder'], ['chanter', 'chanter'], ['appeler', 'appeler'], ['demander', 'demander']]],
+  ['Avec les autres', [['embrasser', 'embrasser'], ['raconter', 'raconter'], ['rever', 'rêver']]]];
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      groupes: G.map(([titre, items]) => ({ titre, items: items.map(([f, nom]) => ({ nom, src: "url('clean/mot-" + f + ".webp')" })) })),
+      retour: () => { if (history.length > 1) history.back(); else location.href = 'APPLI - Espace enseignant.dc.html' + (location.search || ''); }
+    };
+  }
+}
+</script>
+</body>
+</html>

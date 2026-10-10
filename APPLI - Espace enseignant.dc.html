@@ -2266,6 +2266,12 @@ Le trait d'union sépare les mots</label>
 </div>
 </sc-if>
 
+<sc-if value="{{ estDelfInfos }}" hint-placeholder-val="{{ false }}">
+<iframe src="DELF - Préparation.dc.html?prof=1&amp;cadre=1&amp;infos=1" title="Explications des épreuves" style="flex:1;min-height:0;width:100%;border:none;display:block;background:#fff"></iframe>
+</sc-if>
+<sc-if value="{{ estDelfEntrainement }}" hint-placeholder-val="{{ false }}">
+<iframe src="DELF - Préparation.dc.html?prof=1&amp;cadre=1&amp;entrainement=1" title="Entraînements" style="flex:1;min-height:0;width:100%;border:none;display:block;background:#fff"></iframe>
+</sc-if>
 <sc-if value="{{ estDelfProf }}" hint-placeholder-val="{{ false }}">
 <iframe src="DELF - Préparation.dc.html?prof=1&amp;cadre=1" title="Préparation au DELF" style="flex:1;min-height:0;width:100%;border:none;display:block;background:#fff"></iframe>
 </sc-if>
@@ -5125,6 +5131,8 @@ class Component extends DCLogic {
       affichages:'Affichages de la classe — ce qui reste au mur ou sur la table',
       litteraire:'Moment littéraire — les séquences, leurs documents et leurs audios',
       langue:'Étude de la langue — une notion, ses documents et sa vidéo',
+      delfInfos:'Préparation au DELF — explications des épreuves',
+      delfEntrainement:'Préparation au DELF — entraînements',
       delfProf:'Préparation au DELF — les sujets A1 et A2',
       rituels:'Rituels — les documents du quotidien de la classe',
       accueilEleve:"Accueil d'un élève — la fiche, le test, les résultats, la préconisation",
@@ -5132,7 +5140,7 @@ class Component extends DCLogic {
       pos:'Positionnement — saisir et corriger un test', posTable:'Positionnement — tous les élèves testés',
       /* Accueil élève (02/10, sa demande) : « Choisis ton tableau » retiré, « UPE2A NSA » à la place. */
       themeAccueil:'UPE2A NSA', semaine:'Cette semaine', tableauThemes:'Choisis ton thème', tableauCode:'Lettres, sons, syllabes',sousTheme:s.themeParent||'Choisis',niveau:'Choisis ton niveau',themeEleve:'Choisis un thème',explore:s.themeEleve||'Exploration',trouve:'Trouve la bonne image',vf:'Vrai ou faux',lireDessin:'Trouve le bon dessin',lireMot:'Trouve le bon mot',repete:'Écoute et répète',situation:'Que dis-tu ?',ecrire:s.modeEcrire==='completer'?'Complète le mot':'Écris le mot',resultat:'Résultat'};
-    const ECRANS_PROF=['groupes','reglages','reglagesCode','fabrique','bilan','oral','themes','sons','son','texte','outils','creer','competences','devoirs','mdp','accueilEleve','pos','posTable','disques','edt','rituels','delfProf'];
+    const ECRANS_PROF=['groupes','reglages','reglagesCode','fabrique','bilan','oral','themes','sons','son','texte','outils','creer','competences','devoirs','mdp','accueilEleve','pos','posTable','disques','edt','rituels','delfProf','delfInfos','delfEntrainement'];
     const RUBRIQUES=[
       /* Organisation en premier (09/09, sa demande) : c'est l'écran qu'elle ouvre
          chaque jour. Graphite #44546a. Le cahier journal et les fiches de prep viendront ici. */
@@ -5182,6 +5190,9 @@ class Component extends DCLogic {
         ['Les différents tests','outils','positionnement']]],
       ['DELF','#5b6b2f',[
         /* 05/10 : le DELF côté prof (sujets papier, corrigés). ?prof=1 → boutons 📄 sous chaque sujet. */
+        /* 10/10 (sa demande) : « Explications des épreuves » DEVANT les sujets. */
+        ['Explications des épreuves','delfInfos'],
+        ['Entraînements','delfEntrainement'],
         ['Les sujets A1 et A2','delfProf']]],
       ['Ressources enseignantes','#6d5bd0',[
         ['Je continue chez moi','devoirs'],
@@ -6061,7 +6072,7 @@ class Component extends DCLogic {
         audios:audios.map(([titre,detail,src])=>({titre,detail,src:encodeURI(src)}))})),
       get sequencesOuvertes(){ return s.litSel==null?[]:[this.sequences[s.litSel]]; },
       litChoix:s.litSel==null, litRetour:()=>this.setState({litSel:null}),
-      estDelfProf:s.ecran==='delfProf',
+      estDelfProf:s.ecran==='delfProf', estDelfInfos:s.ecran==='delfInfos', estDelfEntrainement:s.ecran==='delfEntrainement',
       estLangue:s.ecran==='langue',
       /* ÉTUDE DE LA LANGUE (06/10). Une notion = sa vidéo (SA vidéo : elle entre dans l'appli,
          lecteur <video>, pas de nouvel onglet) + ses documents. Liens internes, jamais _blank. */

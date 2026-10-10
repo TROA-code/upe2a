@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#0f6e6e}
+a:hover{color:#14213d}
+</style>
+<script src="./doc-page.js"></script>
+</helmet>
+<doc-page size="a4">
+
+<section class="page" data-screen-label="Couverture" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:7mm">
+<div style="flex:0 0 auto;background:#0f6e6e;color:#fff;padding:9mm 8mm 8mm;display:flex;flex-direction:column;gap:2.5mm">
+<span style="font-size:13pt;letter-spacing:0.3em">L I V R E T</span>
+<span style="font-size:34pt;font-weight:700;line-height:1">GRANDEURS ET MESURES</span>
+<span style="font-size:16pt;font-weight:700;letter-spacing:0.1em">N° 1</span>
+<span style="font-size:30pt;font-weight:700">Les longueurs</span>
+</div>
+<div style="flex:0 0 auto;height:1.5mm;background:#e0a526;margin-top:-7mm"></div>
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10mm">
+<div style="display:flex;flex-direction:column;align-items:flex-start;gap:1mm">
+<div style="display:flex;align-items:center;gap:2mm;font-size:16pt;font-weight:700"><span>A</span><div style="position:relative;width:100mm;height:5mm"><span style="position:absolute;left:0;right:0;top:50%;border-top:0.6mm solid #14213d;display:block"></span><span style="position:absolute;left:0;top:0;bottom:0;border-left:0.5mm solid #14213d;display:block"></span><span style="position:absolute;right:0;top:0;bottom:0;border-left:0.5mm solid #14213d;display:block"></span></div><span>B</span></div>
+<div style="display:flex;gap:2mm;font-size:16pt;font-weight:700"><span style="visibility:hidden">A</span>
+<div style="position:relative;width:118mm;height:15mm;margin-left:-4mm;border:0.35mm solid #14213d;border-radius:1mm;background:#fff">
+<div style="position:absolute;left:4mm;top:0;width:100.3mm;height:2.5mm;background-image:repeating-linear-gradient(90deg,#14213d 0 0.25mm,transparent 0.25mm 1mm)"></div>
+<div style="position:absolute;left:4mm;top:0;width:100.3mm;height:5mm;background-image:repeating-linear-gradient(90deg,#14213d 0 0.3mm,transparent 0.3mm 10mm)"></div>
+<sc-for list="{{ graduations10 }}" as="g" hint-placeholder-count="11"><span style="position:absolute;left:{{ g.left }};top:6mm;transform:translateX(-50%);font-size:12pt;font-weight:400">{{ g.n }}</span></sc-for>
+</div>
+</div>
+<span style="font-size:14pt;font-weight:700;margin-left:6mm">[AB] = 10 cm</span>
+</div>
+</div>
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:5mm;font-size:14pt">
+<div style="display:flex;align-items:flex-end;gap:3mm"><span style="font-weight:700">Prénom :</span><span style="flex:1;border-bottom:1.5px solid #14213d;height:7mm"></span></div>
+<div style="display:flex;align-items:flex-end;gap:3mm"><span style="font-weight:700">Classe :</span><span style="flex:1;border-bottom:1.5px solid #14213d;height:7mm"></span></div>
+</div>
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:2mm">
+<span style="font-size:12pt;font-weight:700">Mes fiches terminées</span>
+<div style="display:flex;gap:2.5mm;flex-wrap:wrap">
+<sc-for list="{{ numeros }}" as="n" hint-placeholder-count="8"><span style="width:11mm;height:11mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;display:flex;align-items:center;justify-content:center;font-size:13pt;font-weight:700">{{ n }}</span></sc-for>
+</div>
+</div>
+</section>
+
+<section class="page" data-screen-label="Sommaire" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:6mm">
+<div style="flex:0 0 auto;font-size:24pt;font-weight:700;border-bottom:2.5px solid #0f6e6e;padding-bottom:2mm">Sommaire</div>
+<div style="flex:0 0 auto;display:flex;flex-direction:column">
+<sc-for list="{{ sommaire }}" as="s" hint-placeholder-count="11">
+<div style="display:grid;grid-template-columns:24mm minmax(0,1fr) 12mm;align-items:center;border-bottom:1px solid #dde2e9;padding:2.2mm 0;font-size:13pt"><span style="font-weight:700">{{ s.a }}</span><span>{{ s.b }}</span><span style="text-align:right">{{ s.p }}</span></div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;font-size:18pt;font-weight:700;margin-top:4mm">Je fais le point</div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:minmax(0,1fr) 22mm 16mm 16mm;border:2px solid #14213d;font-size:12pt">
+<span style="padding:2mm 3mm;font-weight:700;border-bottom:2px solid #14213d">JE SAIS…</span><span style="padding:2mm;font-weight:700;border-bottom:2px solid #14213d;border-left:1px solid #8a91a3;text-align:center">FICHE</span><span style="padding:2mm;font-weight:700;border-bottom:2px solid #14213d;border-left:1px solid #8a91a3;text-align:center">oui</span><span style="padding:2mm;font-weight:700;border-bottom:2px solid #14213d;border-left:1px solid #8a91a3;text-align:center">pas encore</span>
+<sc-for list="{{ point }}" as="p" hint-placeholder-count="6">
+<span style="padding:2.5mm 3mm;border-bottom:1px solid #c9cfd8">{{ p.a }}</span><span style="padding:2.5mm;border-bottom:1px solid #c9cfd8;border-left:1px solid #8a91a3;text-align:center">{{ p.f }}</span><span style="border-bottom:1px solid #c9cfd8;border-left:1px solid #8a91a3"></span><span style="border-bottom:1px solid #c9cfd8;border-left:1px solid #8a91a3"></span>
+</sc-for>
+</div>
+<div style="flex:1"></div>
+<div style="flex:0 0 auto;display:flex;justify-content:space-between;align-items:center;font-size:12pt;color:#4a5262"><span style="font-style:italic">D'après Mimi classe</span><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:#14213d">2</span></div>
+</section>
+
+<section class="page" data-screen-label="Fiche 1 · Choisir l'unité" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto"><div style="background:#0f6e6e;color:#fff;padding:3mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:4mm"><span style="font-size:20pt;font-weight:700;letter-spacing:0.04em">LES LONGUEURS</span><span style="font-size:12pt;letter-spacing:0.1em">FICHE 1</span></div><div style="height:1.5mm;background:#e0a526"></div></div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(7,1fr);border:1px solid #8a91a3"><sc-for list="{{ jours }}" as="j" hint-placeholder-count="7"><span style="height:8mm;display:flex;align-items:center;justify-content:center;font-size:12pt;border-left:1px solid #c9cfd8">{{ j }}</span></sc-for></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm"><span style="width:12mm;height:12mm;flex:0 0 auto;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/entoure.webp') center/contain no-repeat"></span><span style="font-size:16pt;font-weight:700">Entourez la bonne longueur.</span></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:5mm;border:1.5px dashed #8a91a3;border-radius:2mm;padding:2.5mm 4mm;font-size:13pt"><span style="font-weight:700">Exemple</span><span>une porte :</span><span>2 cm</span><span style="border:2px solid #14213d;border-radius:50%;padding:0.5mm 3mm;font-weight:700">2 m</span></div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:5mm">
+<sc-for list="{{ f1 }}" as="m" hint-placeholder-count="6">
+<div style="display:flex;flex-direction:column;align-items:center;gap:2mm;border:2px solid #14213d;border-radius:3mm;padding:3mm;min-height:0">
+<div style="flex:1;min-height:0;width:100%;background-image:{{ m.img }};background-size:contain;background-repeat:no-repeat;background-position:center"></div>
+<span style="font-size:13pt;font-weight:700">{{ m.nom }}</span>
+<div style="display:flex;gap:3mm;font-size:14pt"><sc-for list="{{ m.choix }}" as="c" hint-placeholder-count="2"><span style="padding:1mm 2mm">{{ c }}</span></sc-for></div>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;border-top:1px solid #c9cfd8;padding-top:2mm;font-size:12pt;color:#4a5262;display:flex;flex-direction:column;gap:0.5mm"><span>Compétence : Utiliser la règle graduée pour tracer des segments, comparer des longueurs</span><span>Objectif : Choisir la bonne unité de mesure</span></div>
+<div style="flex:0 0 auto;display:flex;justify-content:space-between;align-items:center;font-size:12pt;color:#4a5262;margin-top:auto"><span style="font-style:italic">D'après Mimi classe</span><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:#14213d">3</span></div>
+</section>
+
+<section class="page" data-screen-label="Fiche 2 · cm ou m" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto"><div style="background:#0f6e6e;color:#fff;padding:3mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:4mm"><span style="font-size:20pt;font-weight:700;letter-spacing:0.04em">LES LONGUEURS</span><span style="font-size:12pt;letter-spacing:0.1em">FICHE 2</span></div><div style="height:1.5mm;background:#e0a526"></div></div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(7,1fr);border:1px solid #8a91a3"><sc-for list="{{ jours }}" as="j" hint-placeholder-count="7"><span style="height:8mm;display:flex;align-items:center;justify-content:center;font-size:12pt;border-left:1px solid #c9cfd8">{{ j }}</span></sc-for></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm"><span style="width:12mm;height:12mm;flex:0 0 auto;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/ecris.webp') center/contain no-repeat"></span><span style="font-size:16pt;font-weight:700">Complétez : écrivez cm ou m.</span></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:4mm;border:1.5px dashed #8a91a3;border-radius:2mm;padding:2.5mm 4mm;font-size:13pt"><span style="font-weight:700">Exemple</span><span>une porte :</span><span style="font-size:15pt;font-weight:700">2</span><span style="min-width:14mm;border:2px solid #14213d;border-radius:1.5mm;padding:1mm 2mm;text-align:center;font-size:15pt;font-weight:700">m</span></div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:5mm">
+<sc-for list="{{ f2 }}" as="m" hint-placeholder-count="6">
+<div style="display:flex;flex-direction:column;align-items:center;gap:2mm;border:2px solid #14213d;border-radius:3mm;padding:3mm;min-height:0">
+<div style="flex:1;min-height:0;width:100%;background-image:{{ m.img }};background-size:contain;background-repeat:no-repeat;background-position:center"></div>
+<span style="font-size:13pt;font-weight:700">{{ m.nom }}</span>
+<div style="display:flex;align-items:center;gap:3mm"><span style="font-size:18pt;font-weight:700">{{ m.nb }}</span><span style="width:18mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:1.5mm;display:block"></span></div>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;border-top:1px solid #c9cfd8;padding-top:2mm;font-size:12pt;color:#4a5262;display:flex;flex-direction:column;gap:0.5mm"><span>Compétence : Utiliser la règle graduée pour tracer des segments, comparer des longueurs</span><span>Objectif : Choisir la bonne unité de mesure</span></div>
+<div style="flex:0 0 auto;display:flex;justify-content:space-between;align-items:center;font-size:12pt;color:#4a5262;margin-top:auto"><span style="font-style:italic">D'après Mimi classe</span><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:#14213d">4</span></div>
+</section>
+
+<section class="page" data-screen-label="Fiche 3 · Placer la règle" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto"><div style="background:#0f6e6e;color:#fff;padding:3mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:4mm"><span style="font-size:20pt;font-weight:700;letter-spacing:0.04em">LES LONGUEURS</span><span style="font-size:12pt;letter-spacing:0.1em">FICHE 3</span></div><div style="height:1.5mm;background:#e0a526"></div></div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(7,1fr);border:1px solid #8a91a3"><sc-for list="{{ jours }}" as="j" hint-placeholder-count="7"><span style="height:8mm;display:flex;align-items:center;justify-content:center;font-size:12pt;border-left:1px solid #c9cfd8">{{ j }}</span></sc-for></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm"><span style="width:12mm;height:12mm;flex:0 0 auto;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;display:flex;align-items:center;justify-content:center"><span style="width:6.5mm;height:6.5mm;box-sizing:border-box;border:2px solid #14213d;border-radius:1mm;display:flex;align-items:center;justify-content:center;font-size:13pt;font-weight:700;line-height:1">✓</span></span><span style="font-size:16pt;font-weight:700">La règle est bien placée ? Cochez.</span></div>
+<div style="flex:0 0 auto;font-size:13pt;border:1.5px dashed #8a91a3;border-radius:2mm;padding:2.5mm 4mm"><b>Le 0 de la règle</b> est au début du segment.</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-rows:repeat(4,minmax(0,1fr));gap:3mm">
+<sc-for list="{{ f3 }}" as="r" hint-placeholder-count="4">
+<div style="display:flex;align-items:center;gap:6mm;border-bottom:1px solid #dde2e9">
+<span style="flex:0 0 auto;width:8mm;height:8mm;border-radius:50%;background:#14213d;color:#fff;font-size:13pt;font-weight:700;display:flex;align-items:center;justify-content:center">{{ r.num }}</span>
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:0.5mm">
+<div style="position:relative;width:108mm;height:5mm"><div style="position:absolute;left:{{ r.offset }};width:{{ r.len }};top:0;bottom:0"><span style="position:absolute;left:0;right:0;top:50%;border-top:0.6mm solid #14213d;display:block"></span><span style="position:absolute;left:0;top:0;bottom:0;border-left:0.5mm solid #14213d;display:block"></span><span style="position:absolute;right:0;top:0;bottom:0;border-left:0.5mm solid #14213d;display:block"></span></div></div>
+<div style="position:relative;width:108mm;height:14mm;border:0.35mm solid #14213d;border-radius:1mm;box-sizing:border-box">
+<div style="position:absolute;left:4mm;top:0;width:100.3mm;height:2.5mm;background-image:repeating-linear-gradient(90deg,#14213d 0 0.25mm,transparent 0.25mm 1mm)"></div>
+<div style="position:absolute;left:4mm;top:0;width:100.3mm;height:5mm;background-image:repeating-linear-gradient(90deg,#14213d 0 0.3mm,transparent 0.3mm 10mm)"></div>
+<sc-for list="{{ graduations10 }}" as="g" hint-placeholder-count="11"><span style="position:absolute;left:{{ g.left }};top:5.5mm;transform:translateX(-50%);font-size:12pt">{{ g.n }}</span></sc-for>
+</div>
+</div>
+<span style="flex:0 0 auto;margin-left:auto;width:12mm;height:12mm;box-sizing:border-box;border:2.5px solid #14213d;border-radius:1.5mm;display:block"></span>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;border-top:1px solid #c9cfd8;padding-top:2mm;font-size:12pt;color:#4a5262;display:flex;flex-direction:column;gap:0.5mm"><span>Compétence : Utiliser la règle graduée pour tracer des segments, comparer des longueurs</span><span>Objectif : Savoir placer et manipuler correctement la règle graduée</span></div>
+<div style="flex:0 0 auto;display:flex;justify-content:space-between;align-items:center;font-size:12pt;color:#4a5262;margin-top:auto"><span style="font-style:italic">D'après Mimi classe</span><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:#14213d">5</span></div>
+</section>
+
+<section class="page" data-screen-label="Fiche 4 · Mesurer en cm" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto"><div style="background:#0f6e6e;color:#fff;padding:3mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:4mm"><span style="font-size:20pt;font-weight:700;letter-spacing:0.04em">LES LONGUEURS</span><span style="font-size:12pt;letter-spacing:0.1em">FICHE 4</span></div><div style="height:1.5mm;background:#e0a526"></div></div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(7,1fr);border:1px solid #8a91a3"><sc-for list="{{ jours }}" as="j" hint-placeholder-count="7"><span style="height:8mm;display:flex;align-items:center;justify-content:center;font-size:12pt;border-left:1px solid #c9cfd8">{{ j }}</span></sc-for></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm"><span style="width:12mm;height:12mm;flex:0 0 auto;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/mesure.webp') center/contain no-repeat"></span><span style="width:12mm;height:12mm;flex:0 0 auto;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/ecris.webp') center/contain no-repeat"></span><span style="font-size:16pt;font-weight:700">Mesurez avec la règle. Écrivez la longueur.</span></div>
+<div style="flex:0 0 auto;font-size:13pt;border:1.5px dashed #8a91a3;border-radius:2mm;padding:2.5mm 4mm">Posez le <b>0</b> de la règle sur la première lettre.</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-rows:repeat(4,minmax(0,1fr));gap:4mm">
+<sc-for list="{{ f4 }}" as="s" hint-placeholder-count="4">
+<div style="display:flex;flex-direction:column;justify-content:center;gap:5mm;border-bottom:1px solid #dde2e9">
+<div style="display:flex;align-items:center;gap:2mm;font-size:16pt;font-weight:700"><span>{{ s.a }}</span><div style="position:relative;width:{{ s.w }};height:5mm"><span style="position:absolute;left:0;right:0;top:50%;border-top:0.6mm solid #14213d;display:block"></span><span style="position:absolute;left:0;top:0;bottom:0;border-left:0.5mm solid #14213d;display:block"></span><span style="position:absolute;right:0;top:0;bottom:0;border-left:0.5mm solid #14213d;display:block"></span></div><span>{{ s.b }}</span></div>
+<div style="display:flex;align-items:flex-end;gap:2mm;font-size:15pt"><span>[{{ s.a }}{{ s.b }}] =</span><span style="width:22mm;border-bottom:1.5px solid #14213d;height:8mm;display:block"></span><span>cm</span></div>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;border-top:1px solid #c9cfd8;padding-top:2mm;font-size:12pt;color:#4a5262;display:flex;flex-direction:column;gap:0.5mm"><span>Compétence : Utiliser la règle graduée pour tracer des segments, comparer des longueurs</span><span>Objectif : Mesurer un segment en centimètres</span></div>
+<div style="flex:0 0 auto;display:flex;justify-content:space-between;align-items:center;font-size:12pt;color:#4a5262;margin-top:auto"><span style="font-style:italic">D'après Mimi classe</span><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:#14213d">6</span></div>
+</section>
+
+<section class="page" data-screen-label="Fiche 5 · Mesurer et relier" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto"><div style="background:#0f6e6e;color:#fff;padding:3mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:4mm"><span style="font-size:20pt;font-weight:700;letter-spacing:0.04em">LES LONGUEURS</span><span style="font-size:12pt;letter-spacing:0.1em">FICHE 5</span></div><div style="height:1.5mm;background:#e0a526"></div></div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(7,1fr);border:1px solid #8a91a3"><sc-for list="{{ jours }}" as="j" hint-placeholder-count="7"><span style="height:8mm;display:flex;align-items:center;justify-content:center;font-size:12pt;border-left:1px solid #c9cfd8">{{ j }}</span></sc-for></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm"><span style="width:12mm;height:12mm;flex:0 0 auto;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;display:flex;align-items:center;justify-content:center;gap:1mm"><span style="width:2mm;height:2mm;border-radius:50%;background:#14213d;display:block"></span><span style="width:4mm;border-top:1.5px solid #14213d;display:block"></span><span style="width:2mm;height:2mm;border-radius:50%;background:#14213d;display:block"></span></span><span style="font-size:16pt;font-weight:700">Mesurez. Reliez le segment à sa longueur.</span></div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 32mm;column-gap:16mm">
+<div style="display:grid;grid-template-rows:repeat(4,minmax(0,1fr))">
+<sc-for list="{{ f5 }}" as="s" hint-placeholder-count="4">
+<div style="display:flex;align-items:center;gap:2mm;font-size:16pt;font-weight:700"><span>{{ s.a }}</span><div style="position:relative;width:{{ s.w }};height:5mm"><span style="position:absolute;left:0;right:0;top:50%;border-top:0.6mm solid #14213d;display:block"></span><span style="position:absolute;left:0;top:0;bottom:0;border-left:0.5mm solid #14213d;display:block"></span><span style="position:absolute;right:0;top:0;bottom:0;border-left:0.5mm solid #14213d;display:block"></span></div><span>{{ s.b }}</span><span style="margin-left:auto;width:3mm;height:3mm;border-radius:50%;background:#14213d;display:block"></span></div>
+</sc-for>
+</div>
+<div style="display:grid;grid-template-rows:repeat(4,minmax(0,1fr))">
+<sc-for list="{{ f5etiq }}" as="e" hint-placeholder-count="4">
+<div style="display:flex;align-items:center;gap:3mm"><span style="width:3mm;height:3mm;border-radius:50%;background:#14213d;display:block"></span><span style="border:2px solid #14213d;border-radius:2mm;padding:2mm 4mm;font-size:16pt;font-weight:700">{{ e }}</span></div>
+</sc-for>
+</div>
+</div>
+<div style="flex:0 0 auto;border-top:1px solid #c9cfd8;padding-top:2mm;font-size:12pt;color:#4a5262;display:flex;flex-direction:column;gap:0.5mm"><span>Compétence : Utiliser la règle graduée pour tracer des segments, comparer des longueurs</span><span>Objectif : Mesurer un segment en centimètres</span></div>
+<div style="flex:0 0 auto;display:flex;justify-content:space-between;align-items:center;font-size:12pt;color:#4a5262;margin-top:auto"><span style="font-style:italic">D'après Mimi classe</span><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:#14213d">7</span></div>
+</section>
+
+<section class="page" data-screen-label="Fiche 6 · Bout à bout" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto"><div style="background:#0f6e6e;color:#fff;padding:3mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:4mm"><span style="font-size:20pt;font-weight:700;letter-spacing:0.04em">LES LONGUEURS</span><span style="font-size:12pt;letter-spacing:0.1em">FICHE 6</span></div><div style="height:1.5mm;background:#e0a526"></div></div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(7,1fr);border:1px solid #8a91a3"><sc-for list="{{ jours }}" as="j" hint-placeholder-count="7"><span style="height:8mm;display:flex;align-items:center;justify-content:center;font-size:12pt;border-left:1px solid #c9cfd8">{{ j }}</span></sc-for></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm"><span style="width:12mm;height:12mm;flex:0 0 auto;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/mesure.webp') center/contain no-repeat"></span><span style="width:12mm;height:12mm;flex:0 0 auto;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/ecris.webp') center/contain no-repeat"></span><span style="font-size:16pt;font-weight:700">Mesurez les 2 morceaux. Écrivez la longueur totale.</span></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:4mm;border:1.5px dashed #8a91a3;border-radius:2mm;padding:2.5mm 4mm;font-size:13pt"><span style="font-weight:700">Exemple</span><span>3 cm + 2 cm = <b>5 cm</b></span><span style="font-size:12pt;color:#4a5262">le trait plein, puis le trait en tirets</span></div>
+<div style="flex:1;min-height:0;display:grid;grid-template-rows:repeat(4,minmax(0,1fr));gap:4mm">
+<sc-for list="{{ f6 }}" as="s" hint-placeholder-count="4">
+<div style="display:flex;flex-direction:column;justify-content:center;gap:5mm;border-bottom:1px solid #dde2e9">
+<div style="display:flex;align-items:center;height:6mm"><div style="position:relative;width:{{ s.w1 }};height:6mm"><span style="position:absolute;left:0;right:0;top:50%;border-top:0.8mm solid #14213d;display:block"></span><span style="position:absolute;left:0;top:0;bottom:0;border-left:0.5mm solid #14213d;display:block"></span></div><div style="position:relative;width:{{ s.w2 }};height:6mm"><span style="position:absolute;left:0;right:0;top:50%;border-top:0.8mm dashed #14213d;display:block"></span><span style="position:absolute;left:0;top:0;bottom:0;border-left:0.5mm solid #14213d;display:block"></span><span style="position:absolute;right:0;top:0;bottom:0;border-left:0.5mm solid #14213d;display:block"></span></div></div>
+<div style="display:flex;align-items:flex-end;gap:2mm;font-size:15pt"><span style="width:16mm;border-bottom:1.5px solid #14213d;height:8mm;display:block"></span><span>cm +</span><span style="width:16mm;border-bottom:1.5px solid #14213d;height:8mm;display:block"></span><span>cm =</span><span style="width:16mm;border-bottom:1.5px solid #14213d;height:8mm;display:block"></span><span>cm</span></div>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;border-top:1px solid #c9cfd8;padding-top:2mm;font-size:12pt;color:#4a5262;display:flex;flex-direction:column;gap:0.5mm"><span>Compétence : Utiliser la règle graduée pour tracer des segments, comparer des longueurs</span><span>Objectif : Mesurer un segment en centimètres</span></div>
+<div style="flex:0 0 auto;display:flex;justify-content:space-between;align-items:center;font-size:12pt;color:#4a5262;margin-top:auto"><span style="font-style:italic">D'après Mimi classe</span><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:#14213d">8</span></div>
+</section>
+
+<section class="page" data-screen-label="Fiche 7 · cm et mm" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto"><div style="background:#0f6e6e;color:#fff;padding:3mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:4mm"><span style="font-size:20pt;font-weight:700;letter-spacing:0.04em">LES LONGUEURS</span><span style="font-size:12pt;letter-spacing:0.1em">FICHE 7</span></div><div style="height:1.5mm;background:#e0a526"></div></div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(7,1fr);border:1px solid #8a91a3"><sc-for list="{{ jours }}" as="j" hint-placeholder-count="7"><span style="height:8mm;display:flex;align-items:center;justify-content:center;font-size:12pt;border-left:1px solid #c9cfd8">{{ j }}</span></sc-for></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm"><span style="width:12mm;height:12mm;flex:0 0 auto;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/mesure.webp') center/contain no-repeat"></span><span style="width:12mm;height:12mm;flex:0 0 auto;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/ecris.webp') center/contain no-repeat"></span><span style="font-size:16pt;font-weight:700">Mesurez. Écrivez les cm et les mm.</span></div>
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:2mm;border:1.5px dashed #8a91a3;border-radius:2mm;padding:2.5mm 4mm;font-size:13pt">
+<span><b>Exemple</b> — les grands traits : les cm. Les petits traits : les mm.</span>
+<div style="position:relative;width:78mm;height:14mm;border:0.35mm solid #14213d;border-radius:1mm;box-sizing:border-box;background:#fff">
+<div style="position:absolute;left:4mm;top:0;width:70.3mm;height:2.5mm;background-image:repeating-linear-gradient(90deg,#14213d 0 0.25mm,transparent 0.25mm 1mm)"></div>
+<div style="position:absolute;left:4mm;top:0;width:70.3mm;height:5mm;background-image:repeating-linear-gradient(90deg,#14213d 0 0.3mm,transparent 0.3mm 10mm)"></div>
+<sc-for list="{{ graduations7 }}" as="g" hint-placeholder-count="8"><span style="position:absolute;left:{{ g.left }};top:5.5mm;transform:translateX(-50%);font-size:12pt">{{ g.n }}</span></sc-for>
+<span style="position:absolute;left:4mm;width:63mm;top:-1mm;border-top:1mm solid #e0a526;display:block"></span>
+</div>
+<span>6 cm et 3 mm</span>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-rows:repeat(4,minmax(0,1fr));gap:4mm">
+<sc-for list="{{ f7 }}" as="s" hint-placeholder-count="4">
+<div style="display:flex;flex-direction:column;justify-content:center;gap:5mm;border-bottom:1px solid #dde2e9">
+<div style="display:flex;align-items:center;gap:2mm;font-size:16pt;font-weight:700"><span>{{ s.a }}</span><div style="position:relative;width:{{ s.w }};height:5mm"><span style="position:absolute;left:0;right:0;top:50%;border-top:0.6mm solid #14213d;display:block"></span><span style="position:absolute;left:0;top:0;bottom:0;border-left:0.5mm solid #14213d;display:block"></span><span style="position:absolute;right:0;top:0;bottom:0;border-left:0.5mm solid #14213d;display:block"></span></div><span>{{ s.b }}</span></div>
+<div style="display:flex;align-items:flex-end;gap:2mm;font-size:15pt"><span>[{{ s.a }}{{ s.b }}] =</span><span style="width:16mm;border-bottom:1.5px solid #14213d;height:8mm;display:block"></span><span>cm et</span><span style="width:16mm;border-bottom:1.5px solid #14213d;height:8mm;display:block"></span><span>mm</span></div>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;border-top:1px solid #c9cfd8;padding-top:2mm;font-size:12pt;color:#4a5262;display:flex;flex-direction:column;gap:0.5mm"><span>Compétence : Utiliser la règle graduée pour tracer des segments, comparer des longueurs</span><span>Objectif : Mesurer un segment en centimètres et millimètres</span></div>
+<div style="flex:0 0 auto;display:flex;justify-content:space-between;align-items:center;font-size:12pt;color:#4a5262;margin-top:auto"><span style="font-style:italic">D'après Mimi classe</span><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:#14213d">9</span></div>
+</section>
+
+<section class="page" data-screen-label="Fiche 8 · Tracer" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto"><div style="background:#0f6e6e;color:#fff;padding:3mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:4mm"><span style="font-size:20pt;font-weight:700;letter-spacing:0.04em">LES LONGUEURS</span><span style="font-size:12pt;letter-spacing:0.1em">FICHE 8</span></div><div style="height:1.5mm;background:#e0a526"></div></div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(7,1fr);border:1px solid #8a91a3"><sc-for list="{{ jours }}" as="j" hint-placeholder-count="7"><span style="height:8mm;display:flex;align-items:center;justify-content:center;font-size:12pt;border-left:1px solid #c9cfd8">{{ j }}</span></sc-for></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm"><span style="width:12mm;height:12mm;flex:0 0 auto;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/trace.webp') center/contain no-repeat"></span><span style="font-size:16pt;font-weight:700">Tracez le segment avec la règle.</span></div>
+<div style="flex:0 0 auto;font-size:13pt;border:1.5px dashed #8a91a3;border-radius:2mm;padding:2.5mm 4mm">Posez le <b>0</b> sur le point. Tracez jusqu'au bon nombre. Faites un petit trait au bout.</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-rows:repeat(5,minmax(0,1fr));gap:3mm">
+<sc-for list="{{ f8 }}" as="s" hint-placeholder-count="5">
+<div style="display:flex;flex-direction:column;justify-content:center;gap:4mm;border-bottom:1px solid #dde2e9">
+<span style="font-size:15pt;font-weight:700">{{ s.texte }}</span>
+<div style="display:flex;align-items:center;gap:2mm;font-size:16pt;font-weight:700"><span>{{ s.a }}</span><span style="font-size:18pt;line-height:1">×</span></div>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;border-top:1px solid #c9cfd8;padding-top:2mm;font-size:12pt;color:#4a5262;display:flex;flex-direction:column;gap:0.5mm"><span>Compétence : Utiliser la règle graduée pour tracer des segments, comparer des longueurs</span><span>Objectif : Tracer un segment de longueur donnée</span></div>
+<div style="flex:0 0 auto;display:flex;justify-content:space-between;align-items:center;font-size:12pt;color:#4a5262;margin-top:auto"><span style="font-style:italic">D'après Mimi classe</span><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:#14213d">10</span></div>
+</section>
+
+<section class="page" data-screen-label="Bilan" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto"><div style="background:#0f6e6e;color:#fff;padding:3mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:4mm"><span style="font-size:20pt;font-weight:700;letter-spacing:0.04em">LES LONGUEURS</span><span style="font-size:12pt;letter-spacing:0.1em">BILAN</span></div><div style="height:1.5mm;background:#e0a526"></div></div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(7,1fr);border:1px solid #8a91a3"><sc-for list="{{ jours }}" as="j" hint-placeholder-count="7"><span style="height:8mm;display:flex;align-items:center;justify-content:center;font-size:12pt;border-left:1px solid #c9cfd8">{{ j }}</span></sc-for></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm"><span style="width:8mm;height:8mm;flex:0 0 auto;border-radius:50%;background:#14213d;color:#fff;font-size:13pt;font-weight:700;display:flex;align-items:center;justify-content:center">1</span><span style="font-size:16pt;font-weight:700">Entourez la bonne longueur.</span></div>
+<div style="flex:0 0 52mm;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5mm">
+<sc-for list="{{ bilan1 }}" as="m" hint-placeholder-count="3">
+<div style="display:flex;flex-direction:column;align-items:center;gap:1.5mm;border:2px solid #14213d;border-radius:3mm;padding:2.5mm;min-height:0">
+<div style="flex:1;min-height:0;width:100%;background-image:{{ m.img }};background-size:contain;background-repeat:no-repeat;background-position:center"></div>
+<span style="font-size:13pt;font-weight:700">{{ m.nom }}</span>
+<div style="display:flex;gap:3mm;font-size:14pt"><sc-for list="{{ m.choix }}" as="c" hint-placeholder-count="2"><span style="padding:1mm 2mm">{{ c }}</span></sc-for></div>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm;margin-top:2mm"><span style="width:8mm;height:8mm;flex:0 0 auto;border-radius:50%;background:#14213d;color:#fff;font-size:13pt;font-weight:700;display:flex;align-items:center;justify-content:center">2</span><span style="font-size:16pt;font-weight:700">Mesurez. Écrivez la longueur.</span></div>
+<sc-for list="{{ bilan2 }}" as="s" hint-placeholder-count="2">
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:3mm">
+<div style="display:flex;align-items:center;gap:2mm;font-size:16pt;font-weight:700"><span>{{ s.a }}</span><div style="position:relative;width:{{ s.w }};height:5mm"><span style="position:absolute;left:0;right:0;top:50%;border-top:0.6mm solid #14213d;display:block"></span><span style="position:absolute;left:0;top:0;bottom:0;border-left:0.5mm solid #14213d;display:block"></span><span style="position:absolute;right:0;top:0;bottom:0;border-left:0.5mm solid #14213d;display:block"></span></div><span>{{ s.b }}</span></div>
+<div style="display:flex;align-items:flex-end;gap:2mm;font-size:15pt"><span>[{{ s.a }}{{ s.b }}] =</span><span style="width:16mm;border-bottom:1.5px solid #14213d;height:8mm;display:block"></span><span>cm et</span><span style="width:16mm;border-bottom:1.5px solid #14213d;height:8mm;display:block"></span><span>mm</span></div>
+</div>
+</sc-for>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm;margin-top:2mm"><span style="width:8mm;height:8mm;flex:0 0 auto;border-radius:50%;background:#14213d;color:#fff;font-size:13pt;font-weight:700;display:flex;align-items:center;justify-content:center">3</span><span style="font-size:16pt;font-weight:700">Tracez un segment de 7 cm.</span></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:2mm;font-size:16pt;font-weight:700;padding:3mm 0"><span>E</span><span style="font-size:18pt;line-height:1">×</span></div>
+<div style="flex:1"></div>
+<div style="flex:0 0 auto;border-top:1px solid #c9cfd8;padding-top:2mm;font-size:12pt;color:#4a5262;display:flex;flex-direction:column;gap:0.5mm"><span>Compétence : Utiliser la règle graduée pour tracer des segments, comparer des longueurs</span><span>Objectif : Bilan : les longueurs</span></div>
+<div style="flex:0 0 auto;display:flex;justify-content:space-between;align-items:center;font-size:12pt;color:#4a5262;margin-top:auto"><span style="font-style:italic">D'après Mimi classe</span><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:#14213d">11</span></div>
+</section>
+
+<section class="page" data-screen-label="J'ai appris" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:6mm">
+<div style="flex:0 0 auto;display:flex;align-items:baseline;gap:4mm;border-bottom:2.5px solid #0f6e6e;padding-bottom:2mm"><span style="font-size:24pt;font-weight:700">J'ai appris</span><span style="font-size:13pt;color:#4a5262">— je regarde quand j'ai besoin</span></div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5mm">
+<div style="border:2px solid #14213d;border-radius:3mm;padding:4mm;display:flex;flex-direction:column;align-items:center;gap:2mm"><span style="font-size:30pt;font-weight:700">mm</span><span style="font-size:13pt;font-weight:700">le millimètre</span><span style="font-size:12pt;color:#4a5262">très petit</span></div>
+<div style="border:2px solid #14213d;border-radius:3mm;padding:4mm;display:flex;flex-direction:column;align-items:center;gap:2mm"><div style="width:30mm;height:22mm;background:url('clean/mot-crayon.webp') center/contain no-repeat"></div><span style="font-size:30pt;font-weight:700">cm</span><span style="font-size:13pt;font-weight:700">le centimètre</span><span style="font-size:12pt;color:#4a5262">moyen : un crayon</span></div>
+<div style="border:2px solid #14213d;border-radius:3mm;padding:4mm;display:flex;flex-direction:column;align-items:center;gap:2mm"><div style="width:30mm;height:22mm;background:url('clean/mot-table.webp') center/contain no-repeat"></div><span style="font-size:30pt;font-weight:700">m</span><span style="font-size:13pt;font-weight:700">le mètre</span><span style="font-size:12pt;color:#4a5262">grand : une table</span></div>
+</div>
+<div style="flex:0 0 auto;display:flex;justify-content:center;gap:12mm;font-size:20pt;font-weight:700"><span>1 m = 100 cm</span><span>1 cm = 10 mm</span></div>
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:3mm;border:2px solid #14213d;border-radius:3mm;padding:5mm">
+<span style="font-size:15pt;font-weight:700">Mesurer avec la règle</span>
+<div style="display:flex;align-items:center;gap:2mm;font-size:16pt;font-weight:700"><span>A</span><div style="position:relative;width:50mm;height:5mm"><span style="position:absolute;left:0;right:0;top:50%;border-top:0.6mm solid #14213d;display:block"></span><span style="position:absolute;left:0;top:0;bottom:0;border-left:0.5mm solid #14213d;display:block"></span><span style="position:absolute;right:0;top:0;bottom:0;border-left:0.5mm solid #14213d;display:block"></span></div><span>B</span></div>
+<div style="display:flex;gap:2mm"><span style="visibility:hidden;font-size:16pt;font-weight:700">A</span>
+<div style="position:relative;width:78mm;height:14mm;margin-left:-4mm;border:0.35mm solid #14213d;border-radius:1mm;box-sizing:border-box">
+<div style="position:absolute;left:4mm;top:0;width:70.3mm;height:2.5mm;background-image:repeating-linear-gradient(90deg,#14213d 0 0.25mm,transparent 0.25mm 1mm)"></div>
+<div style="position:absolute;left:4mm;top:0;width:70.3mm;height:5mm;background-image:repeating-linear-gradient(90deg,#14213d 0 0.3mm,transparent 0.3mm 10mm)"></div>
+<sc-for list="{{ graduations7 }}" as="g" hint-placeholder-count="8"><span style="position:absolute;left:{{ g.left }};top:5.5mm;transform:translateX(-50%);font-size:12pt">{{ g.n }}</span></sc-for>
+</div>
+</div>
+<span style="font-size:13pt">Le <b>0</b> est sur A. Je lis le nombre sous B : <b>[AB] = 5 cm</b>.</span>
+</div>
+<div style="flex:0 0 auto;font-size:13pt;display:flex;flex-direction:column;gap:2mm"><span><b>[AB]</b> : le segment de A à B.</span><span>Les grands traits de la règle : les <b>cm</b>. Les petits traits : les <b>mm</b>.</span></div>
+<div style="flex:1"></div>
+<div style="flex:0 0 auto;display:flex;justify-content:space-between;align-items:center;font-size:12pt;color:#4a5262"><span style="font-style:italic">D'après Mimi classe</span><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:#14213d">12</span></div>
+</section>
+
+<section class="page" data-screen-label="Les consignes" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:6mm">
+<div style="flex:0 0 auto;font-size:24pt;font-weight:700;border-bottom:2.5px solid #0f6e6e;padding-bottom:2mm">Les consignes</div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5mm">
+<div style="display:flex;align-items:center;gap:4mm;border:2px solid #14213d;border-radius:3mm;padding:4mm"><span style="width:18mm;height:18mm;flex:0 0 auto;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/entoure.webp') center/contain no-repeat"></span><span style="font-size:18pt;font-weight:700">Entourez</span></div>
+<div style="display:flex;align-items:center;gap:4mm;border:2px solid #14213d;border-radius:3mm;padding:4mm"><span style="width:18mm;height:18mm;flex:0 0 auto;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/ecris.webp') center/contain no-repeat"></span><span style="font-size:18pt;font-weight:700">Écrivez · Complétez</span></div>
+<div style="display:flex;align-items:center;gap:4mm;border:2px solid #14213d;border-radius:3mm;padding:4mm"><span style="width:18mm;height:18mm;flex:0 0 auto;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;display:flex;align-items:center;justify-content:center"><span style="width:9mm;height:9mm;box-sizing:border-box;border:2px solid #14213d;border-radius:1mm;display:flex;align-items:center;justify-content:center;font-size:16pt;font-weight:700;line-height:1">✓</span></span><span style="font-size:18pt;font-weight:700">Cochez</span></div>
+<div style="display:flex;align-items:center;gap:4mm;border:2px solid #14213d;border-radius:3mm;padding:4mm"><span style="width:18mm;height:18mm;flex:0 0 auto;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;display:flex;align-items:center;justify-content:center;gap:1mm"><span style="width:2.5mm;height:2.5mm;border-radius:50%;background:#14213d;display:block"></span><span style="width:7mm;border-top:2px solid #14213d;display:block"></span><span style="width:2.5mm;height:2.5mm;border-radius:50%;background:#14213d;display:block"></span></span><span style="font-size:18pt;font-weight:700">Reliez</span></div>
+<div style="display:flex;align-items:center;gap:4mm;border:2px solid #14213d;border-radius:3mm;padding:4mm"><span style="width:18mm;height:18mm;flex:0 0 auto;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;position:relative;overflow:hidden"><span style="position:absolute;left:1.5mm;right:1.5mm;top:5mm;height:7mm;border:1.5px solid #14213d;border-radius:0.5mm;background-image:repeating-linear-gradient(90deg,#14213d 0 0.4mm,transparent 0.4mm 2mm);background-size:100% 2.5mm;background-repeat:no-repeat;display:block"></span></span><span style="font-size:18pt;font-weight:700">Mesurez</span></div>
+<div style="display:flex;align-items:center;gap:4mm;border:2px solid #14213d;border-radius:3mm;padding:4mm"><span style="width:18mm;height:18mm;flex:0 0 auto;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;display:flex;align-items:center;justify-content:center"><span style="width:11mm;border-top:2.5px solid #14213d;display:block"></span></span><span style="font-size:18pt;font-weight:700">Tracez</span></div>
+</div>
+<div style="flex:1"></div>
+<div style="flex:0 0 auto;display:flex;justify-content:space-between;align-items:center;font-size:12pt;color:#4a5262"><span style="font-style:italic">D'après Mimi classe</span><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:#14213d">13</span></div>
+</section>
+
+<section class="page" data-screen-label="Corrigé" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:3mm">
+<div style="flex:0 0 auto;background:#14213d;color:#fff;padding:4mm 5mm;font-size:20pt;font-weight:700;line-height:1">CORRIGÉ — LES LONGUEURS</div>
+<span style="flex:0 0 auto;font-size:12pt;color:#4a5262">Imprimer à 100 % (taille réelle) : sinon les segments n'ont plus la bonne longueur.</span>
+<sc-for list="{{ corrige }}" as="c" hint-placeholder-count="10">
+<div style="flex:0 0 auto;display:grid;grid-template-columns:26mm minmax(0,1fr);gap:3mm;border-bottom:1px solid #e3e6ec;padding:1.5mm 0;font-size:12pt;line-height:1.3"><span style="font-weight:700">{{ c.t }}</span><span>{{ c.r }}</span></div>
+</sc-for>
+</section>
+
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const img = f => "url('clean/mot-" + f + ".webp')";
+    const grad = n => Array.from({ length: n + 1 }, (_, i) => ({ n: String(i), left: (4 + i * 10) + 'mm' }));
+    const mm = v => v + 'mm';
+    const fmt = v => Math.floor(v / 10) + ' cm' + (v % 10 ? ' et ' + (v % 10) + ' mm' : '');
+    const F1 = [['crayon', 'un crayon', ['17 cm', '17 m'], 0], ['immeuble', 'un immeuble', ['30 cm', '30 m'], 1], ['cahier', 'un cahier', ['30 cm', '30 m'], 0], ['camion', 'un camion', ['12 cm', '12 m'], 1], ['telephone', 'un téléphone', ['15 cm', '15 m'], 0], ['table', 'une table', ['2 cm', '2 m'], 1]];
+    const F2 = [['chaise', 'une chaise', '90', 'cm'], ['lit', 'un lit', '2', 'm'], ['ciseaux', 'des ciseaux', '20', 'cm'], ['voiture', 'une voiture', '4', 'm'], ['fenetre', 'une fenêtre', '120', 'cm'], ['immeuble', 'un immeuble', '25', 'm']];
+    const F3 = [[4, 60, true], [0, 70, false], [24, 50, false], [4, 85, true]];
+    const F4 = [['A', 'B', 70], ['C', 'D', 40], ['E', 'F', 110], ['G', 'H', 90]];
+    const F5 = [['A', 'B', 60], ['C', 'D', 100], ['E', 'F', 50], ['G', 'H', 80]];
+    const F5E = ['8 cm', '5 cm', '10 cm', '6 cm'];
+    const F6 = [[40, 30], [60, 20], [50, 50], [70, 40]];
+    const F7 = [['A', 'B', 65], ['C', 'D', 92], ['E', 'F', 48], ['G', 'H', 113]];
+    const F8 = [['A', '5 cm'], ['B', '8 cm'], ['C', '12 cm'], ['D', '3 cm'], ['F', '6 cm et 5 mm']];
+    const B1 = [['lit', 'un lit', ['2 cm', '2 m'], 1], ['crayon', 'un crayon', ['15 cm', '15 m'], 0], ['camion', 'un camion', ['10 cm', '10 m'], 1]];
+    const B2 = [['K', 'L', 80], ['M', 'N', 54]];
+    const choix = r => ({ img: img(r[0]), nom: r[1], choix: r[2] });
+    return {
+      jours: ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'],
+      numeros: [1, 2, 3, 4, 5, 6, 7, 8],
+      graduations10: grad(10), graduations7: grad(7),
+      sommaire: [['Fiche 1', 'Choisir l\'unité', 3], ['Fiche 2', 'cm ou m ?', 4], ['Fiche 3', 'Placer la règle', 5], ['Fiche 4', 'Mesurer en cm', 6], ['Fiche 5', 'Mesurer et relier', 7], ['Fiche 6', 'Bout à bout', 8], ['Fiche 7', 'Mesurer en cm et mm', 9], ['Fiche 8', 'Tracer un segment', 10], ['Bilan', 'Je vérifie ce que je sais', 11], ['J\'ai appris', 'Les longueurs', 12], ['Mémo', 'Les consignes', 13]].map(([a, b, p]) => ({ a, b, p })),
+      point: [['Je choisis l\'unité : cm ou m.', '1, 2'], ['Je place bien la règle.', '3'], ['Je mesure en cm.', '4, 5'], ['J\'additionne deux longueurs.', '6'], ['Je mesure en cm et mm.', '7'], ['Je trace un segment.', '8']].map(([a, f]) => ({ a, f })),
+      f1: F1.map(choix), f2: F2.map(r => ({ img: img(r[0]), nom: r[1], nb: r[2] })),
+      f3: F3.map(([o, l], i) => ({ num: i + 1, offset: mm(o), len: mm(l) })),
+      f4: F4.map(([a, b, w]) => ({ a, b, w: mm(w) })),
+      f5: F5.map(([a, b, w]) => ({ a, b, w: mm(w) })), f5etiq: F5E,
+      f6: F6.map(([a, b]) => ({ w1: mm(a), w2: mm(b) })),
+      f7: F7.map(([a, b, w]) => ({ a, b, w: mm(w) })),
+      f8: F8.map(([a, t]) => ({ a, texte: 'Tracez un segment de ' + t + ' à partir de ' + a + '.' })),
+      bilan1: B1.map(choix), bilan2: B2.map(([a, b, w]) => ({ a, b, w: mm(w) })),
+      corrige: [
+        { t: 'Fiche 1', r: F1.map(r => r[1] + ' : ' + r[2][r[3]]).join(' · ') },
+        { t: 'Fiche 2', r: F2.map(r => r[1] + ' : ' + r[2] + ' ' + r[3]).join(' · ') },
+        { t: 'Fiche 3', r: 'à cocher : ' + F3.map((r, i) => r[2] ? i + 1 : null).filter(Boolean).join(' et ') + ' (le 0 est au début du segment). Pas bien placées : ' + F3.map((r, i) => r[2] ? null : i + 1).filter(Boolean).join(' et ') + '.' },
+        { t: 'Fiche 4', r: F4.map(([a, b, w]) => '[' + a + b + '] = ' + w / 10 + ' cm').join(' · ') },
+        { t: 'Fiche 5', r: F5.map(([a, b, w]) => '[' + a + b + '] → ' + w / 10 + ' cm').join(' · ') },
+        { t: 'Fiche 6', r: F6.map(([a, b]) => a / 10 + ' cm + ' + b / 10 + ' cm = ' + (a + b) / 10 + ' cm').join(' · ') },
+        { t: 'Fiche 7', r: F7.map(([a, b, w]) => '[' + a + b + '] = ' + fmt(w)).join(' · ') },
+        { t: 'Fiche 8', r: 'vérifier à la règle : ' + F8.map(r => r[1]).join(', ') + '.' },
+        { t: 'Bilan', r: '1. ' + B1.map(r => r[1] + ' : ' + r[2][r[3]]).join(' · ') + ' — 2. ' + B2.map(([a, b, w]) => '[' + a + b + '] = ' + fmt(w)).join(' · ') + ' — 3. vérifier : 7 cm.' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

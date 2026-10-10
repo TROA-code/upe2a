@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="polices.css" />
+<style>body{margin:0;font-family:Andika, Archivo, Verdana, sans-serif;color:#12233b}a{color:#2f5d1e}a:hover{color:#12233b}@media print{.bouton{display:none !important}}</style>
+</helmet>
+<button class="bouton" onClick="{{ retour }}" style="position:fixed;top:12px;left:12px;z-index:10;min-height:44px;border:none;border-radius:10px;background:#12233b;color:#fff;padding:0 16px;font-weight:700;font-size:15px;cursor:pointer">← L'accueil</button>
+<button class="bouton" onClick="{{ imprimer }}" style="position:fixed;top:12px;right:12px;z-index:10;min-height:44px;border:none;border-radius:10px;background:#2a9d6e;color:#fff;padding:0 18px;font-weight:700;font-size:15px;cursor:pointer">🖨 Imprimer</button>
+<x-import component-from-global-scope="doc-page" from="./doc-page.js" size="a4" hint-size="100%,100%">
+<sc-for list="{{ pages }}" as="p" hint-placeholder-count="2">
+<section class="page" data-screen-label="{{ p.label }}" style="box-sizing:border-box;padding:20mm;background:#fff">
+<div style="width:100%;height:100%;box-sizing:border-box;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));grid-template-rows:repeat(6,minmax(0,1fr));border:2.5px solid #4f7f2a;background:#4f7f2a;gap:2px">
+<sc-for list="{{ p.cases }}" as="c" hint-placeholder-count="18">
+<div style="grid-area:{{ c.zone }};position:relative;background:#fff;display:flex;align-items:center;justify-content:center;padding:3mm">
+<img src="{{ c.img }}" alt="" style="width:100%;height:100%;object-fit:contain" />
+<sc-if value="{{ c.pastille }}" hint-placeholder-val="{{ false }}">
+<span style="position:absolute;top:2mm;right:2mm;width:11mm;height:11mm;box-sizing:border-box;border-radius:50%;background:#2a9d6e;border:1mm solid #fff;box-shadow:0 0 0 0.4mm #1f7553"></span>
+</sc-if>
+</div>
+</sc-for>
+<div style="grid-area:2 / 2 / 6 / 5;background:#e6f0da;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6mm;text-align:center">
+<sc-if value="{{ p.corrige }}" hint-placeholder-val="{{ false }}">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:20pt;color:#c62828">Corrigé</span>
+</sc-if>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:34pt;color:#2f5d1e;line-height:1">le son</span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:80pt;color:#2f5d1e;line-height:1">{{ p.api }}</span>
+<div style="display:flex;align-items:center;gap:4mm;background:#fff;border:2px solid #4f7f2a;border-radius:3mm;padding:3mm 5mm">
+<img src="{{ p.repereImg }}" alt="" style="width:22mm;height:18mm;object-fit:contain" />
+<span style="font-size:24pt;font-weight:700">{{ p.repere }}</span>
+</div>
+<sc-if value="{{ p.corrige }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:3mm"><span style="width:9mm;height:9mm;border-radius:50%;background:#2a9d6e"></span><span style="font-size:16pt">= on entend {{ p.api }}</span></div>
+</sc-if>
+</div>
+</div>
+</section>
+</sc-for>
+</x-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    // ses sons, dans l'ordre de sa progression (a i o m s) + le l de son modèle
+    // avec = on entend le son ; sans = on ne l'entend pas. Que des photos, aucun piège.
+    const SONS = [
+      { api: '[a]', repere: 'ananas', avec: ['banane','chat','table','carotte','tomate','lapin','vache','avion','ballon'],
+        sans: ['pomme','velo','moto','lit','robot','orange','jambe','fenetre','bus'] },
+      { api: '[i]', repere: 'gris', avec: ['riz','lit','stylo','ciseaux','chemise','citron','radis','cerise','frites'],
+        sans: ['pomme','velo','moto','banane','gateau','chat','tomate','bateau','chaussure'] },
+      { api: '[o]', repere: 'pot', avec: ['velo','moto','robot','bateau','gateau','manteau','eau','drapeau','chaussette'],
+        sans: ['riz','lit','table','banane','chat','lapin','jupe','pied','salade'] },
+      { api: '[m]', repere: 'moto', avec: ['melon','mouton','main','mangue','manteau','tomate','fromage','chemise','pyjama'],
+        sans: ['lit','chat','velo','robot','table','banane','lapin','jupe','pied'] },
+      { api: '[s]', repere: 'salade', avec: ['stylo','bus','sucre','serpent','singe','sel','citron','ciseaux','cerise'],
+        sans: ['lit','chat','robot','table','banane','lapin','jupe','pied','moto'] },
+      { api: '[l]', repere: 'lit', avec: ['lapin','lune','ballon','valise','cheval','fleur','velo','lampe','lion'],
+        sans: ['chat','robot','pomme','moto','banane','chaussure','tomate','pied','mouton'] },
+      /* 09/10 : le U (repère USINE). Affiché « u », pas [y] (les élèves liraient « i grec »). Aucun piège : ni ou, ni un. */
+      { api: 'u', repere: 'usine', avec: ['lune','jupe','bus','sucre','pull','voiture','laitue','bureau','musique'],
+        sans: ['chat','robot','pomme','moto','banane','tomate','pied','lit','lapin'] }
+    ];
+    // 9 avec / 9 sans, mélangés sans alternance régulière ; le motif tourne d'un son à l'autre
+    const MOTIF = [1,0,1,1,0,0,1,0,1,0,0,1,1,0,1,0,0,1];
+    const pos = [];
+    for (let c = 1; c <= 5; c++) pos.push([1, c]);
+    for (let r = 2; r <= 5; r++) pos.push([r, 5]);
+    for (let c = 5; c >= 1; c--) pos.push([6, c]);
+    for (let r = 5; r >= 2; r--) pos.push([r, 1]);
+    const zone = (r, c) => r + ' / ' + c + ' / ' + (r + 1) + ' / ' + (c + 1);
+    const pages = [];
+    const SEUL = 'u';
+    SONS.forEach((s, k) => {
+      if (SEUL && s.api !== SEUL) return;
+      const a = s.avec.slice(), b = s.sans.slice();
+      const cases = pos.map((p, i) => {
+        const oui = MOTIF[(i + k * 5) % 18] === 1;
+        const m = oui ? a.shift() : b.shift();
+        return { m, oui, zone: zone(p[0], p[1]) };
+      });
+      const base = { api: s.api, repere: s.repere, repereImg: 'clean/mot-' + s.repere + '.webp' };
+      pages.push(Object.assign({}, base, { label: s.api + ' plateau', corrige: false,
+        cases: cases.map(c => ({ img: 'clean/mot-' + c.m + '.webp', zone: c.zone, pastille: false })) }));
+      pages.push(Object.assign({}, base, { label: s.api + ' corrigé', corrige: true,
+        cases: cases.map(c => ({ img: 'clean/mot-' + c.m + '.webp', zone: c.zone, pastille: c.oui })) }));
+    });
+    return {
+      retour: () => { const av = location.href; history.back(); setTimeout(() => { if (location.href === av) location.href = 'APPLI - Espace enseignant.dc.html' + location.search; }, 400); },
+      imprimer: () => window.print(),
+      pages
+    };
+  }
+}
+</script>
+</body>
+</html>

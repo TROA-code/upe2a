@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Atkinson+Hyperlegible:wght@400;700&display=swap" />
+<style>
+  doc-page:not(:defined) { visibility: hidden; }
+  @media print { .ecran-seul { display: none !important; } }
+  a { color: #1d5c3a; }
+  a:hover { color: #14213d; }
+</style>
+<script src="doc-page.js"></script>
+</helmet>
+
+<div class="ecran-seul" style="font-family:Verdana,Tahoma,sans-serif;padding:16px 18px 6px;display:flex;flex-direction:column;gap:10px">
+  <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:16px;letter-spacing:.02em">JE LIS, JE FAIS — PARIS</div>
+  <div style="font-size:11.5px;color:#6b7386;line-height:1.5;max-width:74ch">
+    Ses trois fiches, au mot près, rangées du plus fragile au plus solide : A1.1, A1, A2. Deux pages par niveau — la lecture et le
+    dessin d'un côté, les questions de l'autre : à un seul feuillet, l'écriture était trop
+    petite et les lignes de réponse trop courtes.
+  </div>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+    <button onClick="{{ imprimer }}" style="border:none;background:#2a9d6e;color:#fff;border-radius:9px;padding:10px 18px;font-family:'Archivo Black',Verdana,sans-serif;font-size:12px;letter-spacing:.04em;cursor:pointer">IMPRIMER</button>
+    <span style="font-size:11.5px;color:#8595a8">Recto-verso : on n'imprime que le niveau de chacun.</span>
+  </div>
+</div>
+
+<doc-page size="a4" margin="2cm">
+
+  <section class="page" style="padding:2cm;box-sizing:border-box;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;color:#14213d;display:flex;flex-direction:column;gap:6mm">
+    <div style="flex:0 0 auto;display:flex;align-items:flex-end;justify-content:space-between;gap:6mm;font-size:12pt">
+      <span>Prénom : <span style="display:inline-block;width:50mm;border-bottom:1.2px solid #b9bdc9"></span></span>
+      <span>Date : <span style="display:inline-block;width:34mm;border-bottom:1.2px solid #b9bdc9"></span></span>
+    </div>
+    <div style="flex:0 0 auto;display:flex;align-items:baseline;gap:5mm;border-bottom:2px solid #1d5c3a;padding-bottom:3mm">
+      <span style="font-size:16pt;font-weight:700">Texte 1 : Paris</span>
+      <span style="font-size:12pt;color:#1d5c3a;font-weight:700">niveau A1.1</span>
+    </div>
+    <div style="flex:0 0 auto;display:flex;flex-direction:column;gap:4mm;font-size:19pt;line-height:1.35">
+      <span>C’est Paris.</span>
+      <span>C’est la tour Eiffel.</span>
+      <span>C’est la Seine.</span>
+    </div>
+    <div style="flex:0 0 auto;border:1px solid #e2e0da;border-radius:2mm;padding:2mm;box-sizing:border-box">
+      <img src="clean/dessin-paris.webp" alt="Paris au trait : la tour Eiffel, la Seine, un pont, des bateaux, le soleil." style="width:100%;height:auto;display:block" />
+    </div>
+    <div style="flex:1;min-height:0;display:flex;flex-direction:column;gap:4mm">
+      <span style="font-size:13pt;font-weight:700">Je lis, je fais.</span>
+      <div style="display:flex;align-items:flex-start;gap:3mm;font-size:14pt;line-height:1.35"><span style="flex:1"><b>1.</b> <span style="color:#1d4e89">Je</span> <span style="color:#c0392b">co</span><span style="color:#1d4e89">lo</span><span style="color:#c0392b">rie</span> <span style="color:#1d4e89">la</span> <span style="color:#c0392b">tour</span> <span style="color:#1d4e89">Eif</span><span style="color:#c0392b">fel</span>.</span></div>
+      <div style="display:flex;align-items:flex-start;gap:3mm;font-size:14pt;line-height:1.35"><span style="flex:1"><b>2.</b> <span style="color:#1d4e89">Je</span> <span style="color:#c0392b">co</span><span style="color:#1d4e89">lo</span><span style="color:#c0392b">rie</span> <span style="color:#1d4e89">le</span> <span style="color:#c0392b">so</span><span style="color:#1d4e89">leil</span>.</span></div>
+      <div style="display:flex;align-items:flex-start;gap:3mm;font-size:14pt;line-height:1.35"><span style="flex:1"><b>3.</b> <span style="color:#1d4e89">J’en</span><span style="color:#c0392b">tou</span><span style="color:#1d4e89">re</span> <span style="color:#c0392b">un</span> <span style="color:#1d4e89">ba</span><span style="color:#c0392b">teau</span>.</span></div>
+      <div style="display:flex;align-items:flex-start;gap:3mm;font-size:14pt;line-height:1.35"><span style="flex:1"><b>4.</b> <span style="color:#1d4e89">J’é</span><span style="color:#c0392b">cris</span> <span style="color:#1d4e89">Pa</span><span style="color:#c0392b">ris</span> <span style="color:#1d4e89">à</span> <span style="color:#c0392b">droi</span><span style="color:#1d4e89">te</span> <span style="color:#c0392b">de</span> <span style="color:#1d4e89">la</span> <span style="color:#c0392b">tour</span> <span style="color:#1d4e89">Eif</span><span style="color:#c0392b">fel</span>.</span></div>
+    </div>
+  </section>
+
+  <section class="page" style="padding:2cm;box-sizing:border-box;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;color:#14213d;display:flex;flex-direction:column;gap:8mm">
+    <div style="flex:0 0 auto;display:flex;align-items:baseline;gap:5mm;border-bottom:2px solid #1d5c3a;padding-bottom:3mm">
+      <span style="font-size:16pt;font-weight:700">Je relie le mot et l’image.</span>
+      <span style="font-size:12pt;color:#1d5c3a;font-weight:700">A1.1</span>
+    </div>
+    <div style="flex:1;min-height:0;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12mm 0">
+      <span style="display:flex;align-items:center;gap:5mm;font-size:19pt">le soleil<span style="font-size:19pt">&bull;</span></span>
+      <span style="display:block"></span>
+      <span style="display:flex;align-items:center;gap:5mm;font-size:19pt">&bull;<img src="clean/dessin-tour-eiffel.webp" alt="" style="height:30mm;width:auto;display:block" /></span>
+
+      <span style="display:flex;align-items:center;gap:5mm;font-size:19pt">la tour Eiffel<span style="font-size:19pt">&bull;</span></span>
+      <span style="display:block"></span>
+      <span style="display:flex;align-items:center;gap:5mm;font-size:19pt">&bull;<img src="clean/dessin-bateau.webp" alt="" style="height:30mm;width:auto;display:block" /></span>
+
+      <span style="display:flex;align-items:center;gap:5mm;font-size:19pt">le bateau<span style="font-size:19pt">&bull;</span></span>
+      <span style="display:block"></span>
+      <span style="display:flex;align-items:center;gap:5mm;font-size:19pt">&bull;<img src="clean/dessin-soleil.webp" alt="" style="height:30mm;width:auto;display:block" /></span>
+    </div>
+    <div style="flex:0 0 auto;display:flex;flex-direction:column;gap:6mm;border-top:2px solid #1d5c3a;padding-top:6mm">
+      <span style="font-size:16pt;font-weight:700">Je copie.</span>
+      <div style="display:flex;align-items:flex-end;gap:8mm;font-size:22pt">
+        <span>PARIS</span>
+        <span>Paris</span>
+        <span style="flex:1;border-bottom:1.3px solid #8a93a1;height:12mm"></span>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="page" style="padding:2cm;box-sizing:border-box;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;color:#14213d;display:flex;flex-direction:column;gap:5mm">
+    <div style="flex:0 0 auto;display:flex;align-items:flex-end;justify-content:space-between;gap:6mm;font-size:12pt">
+      <span>Prénom : <span style="display:inline-block;width:50mm;border-bottom:1.2px solid #b9bdc9"></span></span>
+      <span>Date : <span style="display:inline-block;width:34mm;border-bottom:1.2px solid #b9bdc9"></span></span>
+    </div>
+    <div style="flex:0 0 auto;display:flex;align-items:baseline;gap:5mm;border-bottom:2px solid #1d5c3a;padding-bottom:3mm">
+      <span style="font-size:16pt;font-weight:700">Texte 2 : Paris</span>
+      <span style="font-size:12pt;color:#1d5c3a;font-weight:700">niveau A1</span>
+    </div>
+    <div style="flex:0 0 auto;display:flex;flex-direction:column;gap:3mm;font-size:14pt;line-height:1.45">
+      <span>Paris est la capitale de la France. C’est une grande ville.</span>
+      <span>À Paris, il y a la tour Eiffel. Elle est très haute.</span>
+      <span>Il y a aussi un fleuve : la Seine. Sur la Seine, il y a des ponts et des bateaux.</span>
+    </div>
+    <div style="flex:0 0 auto;border:1px solid #e2e0da;border-radius:2mm;padding:2mm;box-sizing:border-box">
+      <img src="clean/dessin-paris.webp" alt="Paris au trait : la tour Eiffel, la Seine, un pont, des bateaux, le soleil." style="width:100%;height:auto;display:block" />
+    </div>
+    <div style="flex:1;min-height:0;display:flex;flex-direction:column;gap:3mm">
+      <span style="font-size:13pt;font-weight:700">Je lis, je fais.</span>
+      <div style="display:flex;align-items:flex-start;gap:3mm;font-size:12.5pt;line-height:1.35"><span style="flex:1"><b>1.</b> Je colorie la tour Eiffel en gris.</span></div>
+      <div style="display:flex;align-items:flex-start;gap:3mm;font-size:12.5pt;line-height:1.35"><span style="flex:1"><b>2.</b> Je coche : Paris est &#9744; une petite ville &nbsp; &#9744; une moyenne ville &nbsp; &#9744; une grande ville.</span></div>
+      <div style="display:flex;align-items:flex-start;gap:3mm;font-size:12.5pt;line-height:1.35"><span style="flex:1"><b>3.</b> J’entoure les trois bateaux.</span></div>
+      <div style="display:flex;align-items:flex-start;gap:3mm;font-size:12.5pt;line-height:1.35"><span style="flex:1"><b>4.</b> Je dessine un nuage dans le ciel.</span></div>
+      <div style="display:flex;align-items:flex-start;gap:3mm;font-size:12.5pt;line-height:1.35"><span style="flex:1"><b>5.</b> Je colorie le soleil en jaune.</span></div>
+      <div style="display:flex;align-items:flex-start;gap:3mm;font-size:12.5pt;line-height:1.35"><span style="flex:1"><b>6.</b> J’écris « Paris » à droite de la tour Eiffel.</span></div>
+    </div>
+  </section>
+
+  <section class="page" style="padding:2cm;box-sizing:border-box;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;color:#14213d;display:flex;flex-direction:column;gap:7mm">
+    <div style="flex:0 0 auto;display:flex;align-items:baseline;gap:5mm;border-bottom:2px solid #1d5c3a;padding-bottom:3mm">
+      <span style="font-size:16pt;font-weight:700">Je réponds aux questions. J’écris une phrase.</span>
+      <span style="font-size:12pt;color:#1d5c3a;font-weight:700">A1</span>
+    </div>
+    <div style="flex:1;min-height:0;display:flex;flex-direction:column;gap:11mm;font-size:13.5pt;line-height:1.4">
+      <div style="display:flex;flex-direction:column;gap:6mm">
+        <span><b>1.</b> Comment s’appelle la capitale de la France ?</span>
+        <span style="display:flex;align-items:flex-end;gap:2mm">→ La capitale de la France s’appelle <span style="flex:1;border-bottom:1.3px solid #8a93a1;height:8mm"></span></span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6mm">
+        <span><b>2.</b> Comment s’appelle le fleuve de Paris ?</span>
+        <span style="display:flex;align-items:flex-end;gap:2mm">→ Le fleuve s’appelle <span style="flex:1;border-bottom:1.3px solid #8a93a1;height:8mm"></span></span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6mm">
+        <span><b>3.</b> La tour Eiffel est petite ou très haute ?</span>
+        <span style="display:flex;align-items:flex-end;gap:2mm">→ La tour Eiffel est <span style="flex:1;border-bottom:1.3px solid #8a93a1;height:8mm"></span></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="page" style="padding:2cm;box-sizing:border-box;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;color:#14213d;display:flex;flex-direction:column;gap:5mm">
+    <div style="flex:0 0 auto;display:flex;align-items:flex-end;justify-content:space-between;gap:6mm;font-size:12pt">
+      <span>Prénom : <span style="display:inline-block;width:50mm;border-bottom:1.2px solid #b9bdc9"></span></span>
+      <span>Date : <span style="display:inline-block;width:34mm;border-bottom:1.2px solid #b9bdc9"></span></span>
+    </div>
+    <div style="flex:0 0 auto;display:flex;align-items:baseline;gap:5mm;border-bottom:2px solid #1d5c3a;padding-bottom:3mm">
+      <span style="font-size:16pt;font-weight:700">Texte 3 : Paris</span>
+      <span style="font-size:12pt;color:#1d5c3a;font-weight:700">niveau A2</span>
+    </div>
+    <div style="flex:0 0 auto;display:flex;flex-direction:column;gap:3mm;font-size:12.5pt;line-height:1.4;text-wrap:pretty">
+      <p style="margin:0">Paris est la capitale de la France. C’est une très grande ville : environ deux millions de personnes y habitent, et beaucoup de touristes viennent la visiter chaque année. La Seine traverse la ville et on peut la découvrir en bateau.</p>
+      <p style="margin:0">Le monument le plus célèbre de Paris est la tour Eiffel. Gustave Eiffel l’a construite en 1889 pour l’Exposition universelle. Elle mesure 330 mètres et elle a trois étages. Pour monter, on peut prendre l’ascenseur, mais les sportifs préfèrent l’escalier : il y a plus de 600 marches jusqu’au deuxième étage !</p>
+      <p style="margin:0">Pour se déplacer dans Paris, les habitants prennent le métro, le bus ou le vélo, parce que la voiture est difficile à garer.</p>
+    </div>
+    <div style="flex:0 0 auto;border:1px solid #e2e0da;border-radius:2mm;padding:2mm;box-sizing:border-box">
+      <img src="clean/dessin-paris.webp" alt="Paris au trait : la tour Eiffel, la Seine, un pont, des bateaux, le soleil." style="width:100%;height:auto;display:block" />
+    </div>
+    <div style="flex:1;min-height:0;display:flex;flex-direction:column;gap:2.5mm">
+      <span style="font-size:13pt;font-weight:700">Je lis, je fais.</span>
+      <div style="display:flex;align-items:flex-start;gap:3mm;font-size:12pt;line-height:1.3"><span style="flex:1"><b>1.</b> Je colorie la tour Eiffel en gris et le ciel en bleu.</span></div>
+      <div style="display:flex;align-items:flex-start;gap:3mm;font-size:12pt;line-height:1.3"><span style="flex:1"><b>2.</b> Je dessine deux bateaux sur la Seine, sous le pont.</span></div>
+      <div style="display:flex;align-items:flex-start;gap:3mm;font-size:12pt;line-height:1.3"><span style="flex:1"><b>3.</b> Je dessine un vélo sur le pont.</span></div>
+      <div style="display:flex;align-items:flex-start;gap:3mm;font-size:12pt;line-height:1.3"><span style="flex:1"><b>4.</b> J’écris la date de construction à côté de la tour Eiffel.</span></div>
+      <div style="display:flex;align-items:flex-start;gap:3mm;font-size:12pt;line-height:1.3"><span style="flex:1"><b>5.</b> J’écris la hauteur de la tour en haut du dessin.</span></div>
+      <div style="display:flex;align-items:flex-start;gap:3mm;font-size:12pt;line-height:1.3"><span style="flex:1"><b>6.</b> J’entoure le transport que je prends pour venir au lycée : métro – bus – vélo</span></div>
+    </div>
+  </section>
+
+  <section class="page" style="padding:2cm;box-sizing:border-box;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;color:#14213d;display:flex;flex-direction:column;gap:7mm">
+    <div style="flex:0 0 auto;display:flex;align-items:baseline;gap:5mm;border-bottom:2px solid #1d5c3a;padding-bottom:3mm">
+      <span style="font-size:16pt;font-weight:700">Je réponds aux questions. J’écris une phrase.</span>
+      <span style="font-size:12pt;color:#1d5c3a;font-weight:700">A2</span>
+    </div>
+    <div style="flex:1;min-height:0;display:flex;flex-direction:column;gap:10mm;font-size:13.5pt;line-height:1.4">
+      <div style="display:flex;flex-direction:column;gap:6mm">
+        <span><b>1.</b> Qui a construit la tour Eiffel ?</span>
+        <span style="display:flex;align-items:flex-end;gap:2mm">→ <span style="flex:1;border-bottom:1.3px solid #8a93a1;height:8mm"></span></span>
+        <span style="display:block;border-bottom:1.3px solid #8a93a1;height:8mm"></span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6mm">
+        <span><b>2.</b> Combien mesure la tour Eiffel ?</span>
+        <span style="display:flex;align-items:flex-end;gap:2mm">→ <span style="flex:1;border-bottom:1.3px solid #8a93a1;height:8mm"></span></span>
+        <span style="display:block;border-bottom:1.3px solid #8a93a1;height:8mm"></span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6mm">
+        <span><b>3.</b> Quand a-t-elle été construite ?</span>
+        <span style="display:flex;align-items:flex-end;gap:2mm">→ <span style="flex:1;border-bottom:1.3px solid #8a93a1;height:8mm"></span></span>
+        <span style="display:block;border-bottom:1.3px solid #8a93a1;height:8mm"></span>
+      </div>
+    </div>
+  </section>
+</doc-page>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* JE LIS, JE FAIS — PARIS (20/09). SES trois fiches, reprises au mot près de son Word :
+   ⚠ Ne rien réécrire, ne pas fusionner les niveaux : c'est sa différenciation.
+   ⚠ ORDRE DES NIVEAUX : A1.1, puis A1, puis A2 — du plus fragile au plus solide (20/09,
+     « c'est bizarre de mettre A1 avant A2 »). Son Word donnait A1, A2, A1.1, et mes deux
+     documents n'étaient même pas dans le même ordre. Les numéros suivent : texte 1 = A1.1,
+     texte 2 = A1, texte 3 = A2. Le texte de la semaine est rangé pareil.
+   ⚠ DEUX PAGES PAR NIVEAU, et non une : dans son Word, texte + dessin + six consignes +
+     trois questions tenaient sur un feuillet, ce qui donnait des lignes de réponse de la
+     hauteur d'un mot. Lecture et dessin d'un côté, questions de l'autre.
+   Les quatre images viennent de son document : `clean/dessin-paris.webp` (la scène au trait
+   à colorier) et `dessin-tour-eiffel` · `dessin-bateau` · `dessin-soleil` pour l'exercice
+   « je relie » du A1.1. ⚠ Nouveau préfixe `dessin-` : ce sont des DESSINS AU TRAIT, pas des
+   photos — ne pas les ranger avec les `mot-` ni les `illu-`.
+   ⚠ A1.1 — LES QUATRE CONSIGNES SONT COLORÉES PAR SYLLABE (20/09, sa demande), aux deux
+     couleurs de « Glisse et lis » : bleu nuit #1d4e89 et rouge #c0392b, en alternance, la
+     ponctuation en encre. Découpe : co·lo·rie, Eif·fel, so·leil, J'en·tou·re, ba·teau,
+     J'é·cris, Pa·ris, droi·te. C'est la consigne qu'il doit pouvoir déchiffrer seul — les
+     autres niveaux la lisent déjà. Ne PAS colorer les consignes du A1 ni du A2.
+     ⚠ Syllabes écrites à la main, jamais par expression régulière (règle du projet).
+   ⚠ Le A1.1 relie « le soleil » à une image de tour Eiffel dans l'ordre d'affichage : les
+     trois images ne sont PAS en face de leur mot, c'est le principe de l'exercice. */
+class Component extends DCLogic {
+  renderVals() {
+    return { imprimer: () => window.print() };
+  }
+}
+
+</script>
+</body>
+</html>

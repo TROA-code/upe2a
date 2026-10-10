@@ -1,3 +1,48 @@
+## ✅ 10/10 — `ALPHABET2.html` (fichier ISOLÉ, son oui)
+- Alphabet 2 (a script) seul : 3 séries (9/9/7, h écarté), toucher lettre puis image, voix du navigateur, « À revoir » (≥ 3 erreurs), BRAVO ! + Recommencer. Pas de compteur ni de chrono (mon conseil, elle a dit oui). Aucune sortie.
+- Source : `ALPHABET2-seul.dc.html` + `alphabet2-images.js` (photos `mot-*` en base64). Si une photo de mot repère change → refaire `alphabet2-images.js` puis refabriquer `ALPHABET2.html`.
+- ⚠ Le fichier isolé (photos enfermées) perdait ses images au toucher CHEZ ELLE (pas reproductible ici). Remplacé (son oui) par `ALPHABET2.dc.html` à la RACINE : page seule à l'écran, photos lues dans `clean/`. En ligne : https://troa-code.github.io/upe2a/ALPHABET2.dc.html — ne marche pas hors ligne ni en pièce jointe. `ALPHABET2.html` / `-seul` / `alphabet2-images.js` : à supprimer si elle valide. ⏳ « J'écris l'alphabet » pas inclus.
+- ⏳ VOIX DE STEEVE pour ALPHABET2 (53 phrases : 25 lettres, 25 « A de ananas », consigne, « Maintenant, touche la lettre. », « Essaie encore. »). Plan validé par elle, script PAS encore écrit : elle reprend quand Steeve a fini sur son serveur. ⚠ Son code (`uploads/voice/`) : utiliser POST `/generate/stream` {profile_id, text, language:'fr', engine:'qwen'} → WAV direct, RIEN enregistré chez lui. Une phrase à la fois, 2 s de pause, arrêt net à la 1re erreur, jamais de boucle sur /history (c'est ce qui a planté son serveur). Profil « steeve » (ou steeve2 : à lui demander). Lui redemander son accord pour publier sa voix.
+
+## ⏳ 09-10/10 — Fait et ouvert (noté le 10/10, sa demande « lis instructions »)
+- ✅ Onglet **Lecture → « Les couleurs des sons »** (sous les plateaux à pinces) : diaporama
+  (NOIR, MARRON… une vue par couleur), page des voyelles, réglette (nom de la couleur en tout
+  petit en haut à gauche — sa version préférée), jeu des familles (9 familles, papier BLANC +
+  bandeau de couleur, 10 pages). SON code : violet = è, vert sapin = in. Les élèves COLORIENT.
+  ⚠ Ne jamais ranger un document sans son oui (elle s'est fâchée le 06/10).
+- ✅ Son L : livret cursive + **script**, jeu, plateau. Mot repère LIT.
+- ✅ `ÉTIQUETTES - Codes de session` : ordre alphabétique, NOM puis prénom. Codes **ENT**
+  (≠ codes de session !) de Saifur SAYEM, Anita FAKHILZAI, Bilal CAMARA, Josefina ZANGA :
+  saisis en **localStorage de CET ordinateur seulement** (clé `upe2a-codes-ent`), JAMAIS dans
+  le code ni dans ce fichier (publié). Sur un autre appareil, il faudra les ressaisir.
+- ⚠ **Sortie VALMY — horaires DÉFINITIFS (sa dernière info)** : mardi 13/10, rendez-vous
+  09h10 au lycée, départ 09h30, retour 11h15, élèves libérés à 11h15, cours 13h30-15h20.
+  - ✅ `docs/administratif/2026-10-13 Autorisation parents et droit image - Valmy.pdf` (SON
+    modèle, rempli) : à donner aux FAMILLES, un par élève.
+  - ✅ **Autorisation de sortie (proviseur) + fiche action** : mises aux horaires définitifs le 10/10.
+  - Pour l'administration, 2 documents : fiche action + autorisation de sortie pédagogique.
+  - ✅ 10/10 (son oui) : rubrique **Ressources enseignantes → Administratif**, ORDINATEUR
+    SEULEMENT (cachée sur téléphone). ⚠ **`docs/administratif/` ne part JAMAIS dans le zip
+    d'envoi** (noms, adresses) : en ligne, les liens ne mènent nulle part, c'est voulu.
+    Nouvelle sortie = ajouter ses fichiers dans `docsAdmin` de l'espace enseignant.
+
+## ⏳ 09/10 — LIVRET « SE REPÉRER DANS LE TEMPS » : À FINIR (sa demande)
+Fait aujourd'hui (`HIST - Livret - Se repérer dans le temps.dc.html`) :
+- Rangé aussi dans **Ressources → Découverte du monde et des sciences** (sous-rubrique « Se repérer dans le temps » = collection `histtemps`, `DOMAINES.decouverte`). Reste dans Hist / Géo / EMC.
+- **Page 2** : 5 trous (jour ×3, nuit ×2) ; bandeau **blanc + cadre épais** (2 mm) — on n'écrit pas sur du bleu ; 1re phrase sur une ligne (14 pt) ; consignes écris + colle **regroupées sur une ligne** ; carré remis à **166 mm** (les volets 2 × 75 + 2 × 8 tombent pile — ⚠ ne plus le réduire). Corrigé page 19 complété.
+- **Page 3** : bandeau blanc + cadre épais.
+- Photos : `hist-matin` = **le sac d'école** (sa demande, « pour le matin il y avait un sac ») ; `hist-apres-midi` = **le cahier** (devoirs) ; `hist-bus-avant` = **il monte dans le bus**. Le petit-déjeuner n'est plus utilisé (copie dans `publier/clean/`). URLs en `?v=2` (cache). Ces photos servent AUSSI au diaporama de la journée.
+- ✅ « L'après-midi, je n'ai pas cours » est JUSTE (ses NSA n'ont pas cours l'après-midi). Ne pas corriger.
+À faire :
+- ⏳ Lui proposer le bandeau blanc + cadre épais sur **les autres pages** (semaine, mois, poings, saisons…) — question posée, pas de réponse.
+- ⏳ Relire le reste du livret avec elle, page par page (elle le termine).
+- ⏳ Activité 9 : 8 images toujours attendues (voir 04/10).
+
+## ✅ 09/10 — Autres
+- `FR - Remplir une fiche d'identité.dc.html` (son manuel, exercices 3-4) : 1 page + corrigé, « Adresse (ville) », « Préparation au DELF » en bandeau, pas de case photo. Rangé : DELF → A1 → **Fiches d'entraînement** (côté prof seulement).
+- Tableaux de conjugaison (rempli + à remplir) dans Étude de la langue → LE VERBE ; bouton Imprimer. Livret « Dans Paris » : Imprimer + ← L'accueil.
+- Phrase « Ces documents ne se composent pas page par page… » retirée de l'espace enseignant.
+
 ## 05/10 (soir) — à reprendre
 - ✅ `DELF.html` = fichier ISOLÉ (A1 sujet 1, aucune sortie, tout inclus, 5,4 Mo), fabriqué depuis `DELF-seul.dc.html` (SEUL forcé) + images/sons en base64. En ligne : **https://troa-code.github.io/upe2a/github/DELF.html** (elle l'a déposé dans `github/`, majuscules). Si le sujet 1 change → refabriquer.
 - ✅ Publication 05/10 : `?v=43`. ⚠ Dépôt public contient `A-FAIRE.md`, `DOC-TECHNIQUE.md` et des vieux dossiers (`a-imprimer-22-09`, `appli-22-09`, `export-github`, `github`, `publier`, `autonome`) → lui proposer de les retirer. `uploads/` absent : OK.
@@ -107,14 +152,19 @@ manque et QUI le débloque.
   d'élèves, les ACCOMPAGNATEURS (elle + M. CRESSEN ?). Elle doit aussi valider les 3 objectifs
   proposés. Ensuite **MOI** : autorisation de sortie (PDF) + fiche action (Word, depuis
   `MODELE - Fiche action -vierge-.docx`).
-- ✅ Valmy (12/10, « Roule galette », Mme Audrey COLIN, M. CRESSEN, 7 élèves, départ 08h50) :
+- ✅ Valmy — **date changée le 09/10 : mardi 13/10, 09h30-11h00, départ 09h20, retour 11h00**
+  (fin des cours 11h00, séance 13h30-15h30 notée en « cours annulés : aucun »). PDF renommé
+  `2026-10-13 …`, fiche action mise à jour. (Avant : 12/10, « Roule galette », Mme Audrey COLIN, M. CRESSEN, 7 élèves, départ 08h50) :
   autorisation + fiche action faites. ⚠ La fiche Word avait été abîmée (j'avais coupé le
   XML du tableau) : refaite en vérifiant le fichier. **Règle** : remplir un .docx en
   remplaçant le texte des balises `<w:t>` existantes, ne jamais couper la structure, et
   toujours vérifier que le XML est valide avant d'enregistrer.
 
 ### Le code — sons (elle suit PILOTIS)
-- **Progression décidée le 01/10** : a · i · o · **m** · **s** · u · é · l · r…
+- ✅ **09/10 : ordre PILOTIS remis** (ses fiches semaines 1-4) : a · i · o · u · é · **l** · m · s · r · ch · ou · v · f · p · t · on · an · in. `SONS_INIT` (espace enseignant) + `PROG_DEFAUT` (parcours). L'ordre enregistré sur chaque appareil est remis UNE fois dans cet ordre (clé `upe2a-sons-pilotis`) : plus rien à faire glisser.
+- ✅ **09/10 : le U fait** (repère USINE) : `FR - Livret des sons - son U` (+ script), `JEU - Le son U` (15 avec / 22 sans), `FR - Plateau à pinces - son U` (affiché « u », pas [y]). Rangés + case u du parcours. ⏳ Geste `geste-son-u.webp` à recevoir (prompt donné). ⏳ Page U des étiquettes à trier.
+- ⏳ **À créer (son oui du 09/10, un son à la fois)** : livret (cursive + script) + jeu + plateau pour **É, R, CH, OU, V**. Il faut pour chacun : un mot repère + sa photo, la photo du geste Borel-Maisonny (`geste-son-x`, femme t-shirt blanc), les mots avec photos.
+- (ancien) **Progression décidée le 01/10** : a · i · o · **m** · **s** · u · é · l · r…
   ⏳ **ELLE** : sur son TÉLÉPHONE et sur l'ordinateur du LYCÉE, faire glisser M puis S après le O
   (la progression est enregistrée sur chaque appareil, pas en ligne).
 - ✅ `JEU - Le son M` + `FR - Livret des sons - son M` (repère MOTO, aucun piège, pas de m
@@ -275,7 +325,7 @@ mardi 22 (les documents) et mercredi 23 (l'audio).
 
 Rien ne bouge sans son accord. Ce qui n'est accroché à **aucun menu** :
 
-- `FR - Jeu des syllabes - Je colle et j'écris.dc.html` — deux pistes proposées : « Les planches en images » (Lexique) ou **créer une collection sous Lecture**. Sans réponse.
+- ✅ 09/10 : `FR - Jeu des syllabes - Je colle et j'écris.dc.html` rangé dans **Lecture → Les puzzles des syllabes** (avec le puzzle R, V, L).
 - `FR - Les sports en images.dc.html` — même question.
 - ⚠ **Les planches en images ne sont atteignables depuis aucun menu** : la collection existe dans le code, mais il n'y a pas d'entrée « Fiches à imprimer » sous Lexique (il y en a une sous Écriture et sous Mathématiques). Proposition faite le 18/09, sans réponse.
 - `FR - Livret d'évaluation - Lecture période 1.dc.html` — rangé nulle part.
@@ -394,3 +444,46 @@ foi est `CLAUDE.md`.
 - ⏳ **Où ranger les quiz** côté élève : « QUIZ - Moto, salade, tomate, lit » est pour l'instant sur *Cette semaine* (jeudi 24) seulement. Piste proposée : un coin « Mes quiz » sur la page élève.
 
 - ✅ 03/10 : livret `MATHS - Grandeurs et mesures 2 - La monnaie` FINI et rangé (onglet Grandeurs et mesures). Vrais billets `clean/mot-billet{5,10,20,50}.webp` (anciens billets, son PDF — elle a validé : la couleur suffit) et vraies pièces `clean/mot-piece{1c..50c,1e,2e}.webp` à taille réelle. Exemples = une ligne déjà faite (fond gris 7 %, bord noir 3,5 px, onglet rouge « Exemple », réponses en rouge, entourage à main levée). Picto `clean/pictos/compte.webp` créé (Compte + Écris sur les fiches 2, 3, 6, 7). Fiche 2 : difficulté croissante (rangé → mélangé). Fiche 3 : > ou < dans une case. Pas de jours de la semaine. Dernière page : déroulé des séances + sac mystère (20 c au toucher). « D'après Mimi classe » en italique en bas. Pas de picto « Compare » (proposé, pas demandé). Reste : livret 3 L'heure (GM.36-58), puis 3 évaluations construites. Entrées PDF mimiclass retirées de l'appli.
+
+
+## Ouvert au 06/10
+- ✅ Étude de la langue (menu Ressources) = écran `langue`, même dessin que Moment littéraire. 1re notion LE VERBE : SA vidéo « Au pays des mots, épisode 1 » DANS l'appli (`docs/pays-des-mots-episode-1.mp4`, 8,6 Mo, lecteur), le PDF de l'histoire et le livret d'exercices (`docs/…-livret.pdf`). ⏳ Son livret n'a pas de corrigé (règle « corrigés partout ») : lui proposer. ⏳ Fichiers d'`uploads/` gardés.
+- ✅ Livret refait (son « refais ») : `FR - Le verbe - Livret.dc.html`, 6 pages + 2 de corrigé. Ex. 3 gardé tel quel (« le suivant fait ça »). Ex. 2 en « tu » (Arrête/Sors/Viens/Regarde/Écoute). Ex. 9 NOUVEAU « Comment il est ? » (content, triste, fatigué, en colère) : ⏳ 4 images à recevoir — le ROI (mon conseil) ou photos, pas tranché. Ses images extraites : `clean/gram-verbe-*.webp` ; ses pictos → `clean/pictos/lis, action, relie, rond, barre.webp`. Le PDF d'origine reste dans `docs/`, plus lié. ⏳ À publier (`?v=`).
+- Livret Roule galette : proposer un sommaire (cet après-midi).
+- Dans Paris : ajouter ou non à la séance « en arabe égyptien », « Fluence A2 », « Je lis, je fais — Paris ».
+- Verbes « Moi et les autres » : 8 prompts prêts, images à recevoir ; « siffler » mis de côté.
+- DELF sujet 2 : pas d'épreuve « Je parle ».
+- ✅ Publié le 06/10 : Roule galette (séance complète), jeu du son S, DELF2.
+- ⏳ Elle ne voyait pas le s sur le parcours : cache du navigateur (Ctrl+F5 sur la page du parcours). À confirmer.
+- ⏳ Son S : livret et affiche toujours accrochés à aucun menu. Plus tard : c, ss, ç, x.
+
+## DELF — état au 10/10
+- ✅ A2 SUJET 1 (SJ_02) et SUJET 2 (SJ_03) dans « DELF - Préparation » : J'écoute, Je lis, J'écris rentrés (textes copiés des PDF, images extraites dans clean/delf-a2-s1-… / s2-…). ⏳ PAS de « bonne » : attendre documents correcteur + surveillant (site FEI). ⏳ Je parle A2 à faire (docs/delf/a2-oral-candidat.pdf + examinateur).
+- MANUEL A1 Didier « DELF A1 Réussite » (tout public, didierfle-delfreussite.fr) — captures reçues dans uploads/pasted-*.png : Se préparer activités 5 à 58 ; S'entraîner exercices 1 à 15 (corrigés seulement ex 1, 4, 7, 10, 13 = exemples) ; pages 38-40 (bilan) ; Épreuve blanche 1 A1 (CO ex 1-5, CE ex 1-4 : Pierre aéroport, théâtre remboursement + plans, messages entreprise, Saint-Valentin ; PE ex 1 fiche salle de sport + ex 2 carte de vœux ; PO 3 parties, boulangerie/parfumerie/pharmacie) = épreuve blanche 1 COMPLÈTE.
+  ⚠ Ses 21 fichiers « activité N / Exercice N / épreuve blanche exercice N » (uploads/) viennent très probablement de CE livre A1 (Exercice 3,5,6,8,9,11,12 = les exercices non corrigés de S'entraîner) → le lien son/activité est dans le nom. Elle avait d'abord dit A2 : à lui confirmer.
+  ⏳ Manquent : activités 1-4, transcriptions p.132-143, corrigés p.144+. Pistes DELF_A1_J_S 2-50 (sans 15) et DELF_A2_J&S 1-56 (sans 15) dans uploads/ : origine incertaine (J_S = junior/scolaire ≠ ce livre tout public).
+  ⚠ Manuel = droit d'auteur → hors ligne (proposé, pas encore validé).
+- Restent dans uploads/ : « Copie de DELF 2026.pdf » (dates 11-13/05/2026, rôle surveillant), « Copie de Critères oral.docx », « Copie de Entraînement à la compréhension écrite A2.pdf », 6 scans DOC0303…/DOC0603…/DOC1003… (manuel A2 « Se préparer » + épreuve blanche A2, piste 53), delf-sj-a1-coll/indiv-candidat.
+
+- ✅ 10/10 TRANSCRIPTIONS (p.132-142) + CORRIGÉS (p.144-146, jusqu'à Exercice 5) reçus (uploads/pasted-17916378…-17916380…png). CORRESPONDANCE : Activité N = PISTE N (1 à 58) ; Exercice N (S'entraîner, p.28-37) = piste 58+N (59 à 73) ; Épreuve blanche 1 ex 1-5 = pistes 88-92 ; PO activités = pistes 74-87.
+  → Pistes DELF_A1_J_S 2-50 = activités 2-50 (à confirmer en écoutant UNE). Ses fichiers « activité N », « Exercice N », « épreuve blanche exercice N » couvrent le reste. Corrigés manquants : Exercices 6-15 et épreuve blanche (p.147+).
+
+- ⏳ 10/10 SA DEMANDE : construire le manuel A1, activités 1 à 58 (Compréhension de l'oral), rangé par parties et sous-menus du livre :
+  1 IDENTIFIER UN ÉVÉNEMENT — Comprendre un message (1-4) · Comprendre des informations chiffrées (5-9) · Comprendre des instructions simples (10-13)
+  2 IDENTIFIER UNE ACTIVITÉ — Comprendre la météo et les flashs info (14-18) · Repérer des indices sonores (19-22) · Comprendre une annonce (23-25)
+  3 COMPRENDRE DES INSTRUCTIONS — Comprendre des activités (26-28) · Se situer dans le temps (29-31) · Comprendre une instruction (32-36)
+  4 IDENTIFIER DES SITUATIONS — Identifier une personne (37-42) · Comprendre des relations (43-45) · Repérer le sujet et la situation (46-48)
+  5 IDENTIFIER DES OBJETS — Identifier un objet (49-53) · Comprendre des informations sur des objets (54-58)
+  (bornes des sous-menus déduites des pages : à lui faire valider). Son : piste N = activité N (pistes 1 et 15 manquent). Images à découper dans ses captures uploads/pasted-*.png. Corrigés p.144-146. Pages des activités 1-4 PAS reçues.
+- SUJET 3 A1 = épreuve blanche 1 du manuel, CÔTÉ PROF SEULEMENT (oui le 10/10). Sons = delf_a1_2022_piste_88-92. ⏳ corrigé épreuve blanche du LIVRE à recevoir (p.147+).
+- ✅ 10/10 SOUS-MENU « Les épreuves » (son oui) dans DELF - Préparation, A1 ET A2, au-dessus des sujets : épreuve collective (J'écoute, Je lis, J'écris) / individuelle (Je parle), phrases simples + 🔊, exercices, durée, 25 points, « 100 points. Il faut 50. Au moins 5 dans chaque épreuve ». À l'écran + bouton Imprimer (A4, marges 2 cm).
+- ✅ 10/10 SUJETS 3, 4, 5 A1 FAITS dans DELF - Préparation (prof: true → visibles seulement avec ?prof=1 ; mention « DELF A1 100 % réussite — Didier » sur la vignette et le titre) :
+  · SUJET 3 = épreuve blanche 1 du LIVRE (captures 7788828…7886788, sons 88-92 → audio/delf-a1-s3-oral-N). Oral SANS « bonne » ; écrit : « bonne » lues dans les textes (à vérifier sur le corrigé p.147+), plan ex.2 Q5 sans bonne. ⚠ capture objet 5 (dentifrice) : curseur violet visible.
+  · SUJET 4 = web 1, SUJET 5 = web 2 (pistes 001-005 / 006-010, corrigés officiels, PDF dans docs/delf/a1-web-*.pdf). Images A/B/C rangées selon le corrigé.
+  · ⏳ épreuve blanche 2 du livre = futur SUJET 6 (pages manquantes, sons 93-97).
+  · Nouveau champ question `photo` (une image au-dessus des choix Oui/Non).
+- (ancienne note) 🎯 10/10 SON OUI : « fais avec ce que tu as ». À CONSTRUIRE dans DELF - Préparation (A1, côté prof via ?prof=1 → mettre un drapeau prof: true sur ces sujets et les filtrer côté élève) :
+  · SUJET 3 = épreuve blanche 1 du LIVRE, titre/mention « DELF A1 100 % réussite — Didier » (sa demande). Sons delf_a1_2022_piste_88-92 → audio/delf-a1-s3-oral-N.mp3. Textes = ses captures uploads/pasted-17916378…png (CO ex1-5, CE ex1-4, PE, PO). Pas de corrigé → pas de « bonne ».
+  · SUJET 4 = épreuve blanche 2 du livre : sons 93-97 seulement, pages manquantes → en attente.
+  · SUJETS 5 et 6 = épreuves blanches WEB 1 et 2 : uploads/DELF_A1_epreuves_blanches_web_1_et_2_(enonces|corriges|transcriptions).pdf + piste_001-010.mp3. COMPLETS avec corrigés. (site Didier) : uploads/DELF_A1_epreuves_blanches_web_1_et_2_enonces.pdf + _corriges.pdf + _transcriptions.pdf + piste_001-010.mp3 (sons) → candidats SUJETS 4 et 5, complets avec corrigés. À lui proposer.
+- ✅ 10/10 « DELF A1 - Manuel.dc.html » créé (côté prof, lien dans DELF A1 › Fiches d'entraînement). FAIT : activités 1 à 58 — MANUEL COMPLET (10/10). Onglet « S'entraîner » : exercices 1-3 faits ; ⏳ 4-15 : elle n'a PAS les pages (10/10, « j'ai pas ») — sons 62-73 dans uploads/, ne pas lui redemander, attendre qu'elle les envoie. Elle a envoyé un lien Calaméo (0054194172832aeba48a0…) : site inaccessible pour moi → captures demandées. Formes du livre (sa demande) : RELIER (7, 8, 12, 16, 21, 35), tableau à double entrée (20, 34), tableau + liste déroulante (22), images côte à côte + liste déroulante (10, 14, 30), cocher des images (32 plusieurs, 33 une). ⏳ 38 (tableau dates/âges à écrire) puis 39-58. ⚠ Les pistes DELF_A1_J_S (uploads/) NE SONT PAS celles de ce livre (vérifié par elle) → sons retirés ; ✅ BONS SONS reçus le 10/10 : uploads/delf_a1_2022_piste_01-97 (TOUTES, dont épreuve blanche 88-92) ; activité 7 vérifiée par elle ✅ ; 5-13 branchés dans audio/manuel-a1/. ⏳ Suite : 14-58 (ajouter dans ACT + AUDIO), images (act. 10 en mots pour l'instant), activités 1-4 (pages manquantes), pistes 1 et 15.

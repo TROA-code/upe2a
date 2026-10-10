@@ -7,19 +7,27 @@
 </head>
 <body>
 <x-dc>
-<helmet><style>body{margin:0;background:#f4efe4;font-family:Archivo, sans-serif;color:#12233b}a{color:#12233b}a:hover{color:#8a4b1e}@media print{.no-print{display:none}}</style></helmet>
+<helmet><style>body{margin:0;background:#f4efe4;font-family:Archivo, sans-serif;color:#12233b}a{color:#12233b}a:hover{color:#8a4b1e}@media print{html,body{height:auto !important;overflow:visible !important;background:#fff !important}.no-print{display:none}.seul-ecran{display:none !important}}@media screen{.seul-print{display:none !important}}</style></helmet>
 <div style="min-height:100vh;display:flex;flex-direction:column">
 <div class="no-print" style="display:flex;align-items:center;gap:12px;padding:12px 18px;flex-wrap:wrap">
 <sc-if value="{{ aRetourInterne }}" hint-placeholder-val="{{ false }}"><button onClick="{{ retourInterne }}" style="min-height:44px;padding:0 18px;border:none;border-radius:10px;background:#fff;color:#12233b;font-weight:700;font-size:16px;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,0.2)">{{ libRetourInterne }}</button></sc-if>
 <div style="flex:1"></div>
-<button onClick="{{ accueil }}" style="min-height:44px;padding:0 18px;border:none;border-radius:10px;background:#12233b;color:#fff;font-weight:700;font-size:16px;cursor:pointer">← L'accueil</button>
+<sc-if value="{{ aAccueil }}" hint-placeholder-val="{{ true }}"><button onClick="{{ accueil }}" style="min-height:44px;padding:0 18px;border:none;border-radius:10px;background:#12233b;color:#fff;font-weight:700;font-size:16px;cursor:pointer">← L'accueil</button></sc-if>
 </div>
 <div style="max-width:900px;width:100%;margin:0 auto;padding:0 18px 40px;box-sizing:border-box;display:flex;flex-direction:column;gap:18px">
 <div style="display:flex;flex-direction:column;gap:4px">
-<span style="font-size:14px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#6d5bd0">Manuel DELF A1 · Compréhension de l'oral</span>
+<span style="font-size:14px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#6d5bd0">Manuel DELF A1 · {{ nomLivre }}</span>
 <h1 style="margin:0;font-family:Archivo Black, Archivo, sans-serif;font-size:28px;text-wrap:pretty">{{ titre }}</h1>
 </div>
 
+<sc-if value="{{ aOnglets }}" hint-placeholder-val="{{ true }}">
+<!-- 10/10 (son oui) : deux onglets, comme le livre : Se préparer (activités 1-58) / S'entraîner (exercices 1-15, pistes 59-73). -->
+<div style="display:flex;gap:6px;background:#12233b;border-radius:12px;padding:5px;align-self:flex-start">
+<sc-for list="{{ onglets }}" as="o" hint-placeholder-count="2">
+<button onClick="{{ o.clic }}" style="min-height:44px;padding:0 20px;border:none;border-radius:9px;background:{{ o.fond }};color:{{ o.encre }};font-weight:700;font-size:17px;cursor:pointer">{{ o.t }}</button>
+</sc-for>
+</div>
+</sc-if>
 <sc-if value="{{ estMenu }}" hint-placeholder-val="{{ true }}">
 <div style="display:flex;flex-direction:column;gap:16px">
 <sc-for list="{{ parties }}" as="p" hint-placeholder-count="5">
@@ -36,12 +44,183 @@
 </sc-for>
 </div>
 </sc-if>
+<sc-if value="{{ estCons }}" hint-placeholder-val="{{ false }}">
+<!-- 10/10 (sa demande) : « Prêt pour l'examen ! » p.38-39, recopié tel quel (sans la photo), 🔊 sur chaque ligne. -->
+<button class="no-print bouton" onClick="{{ imprimer }}" style="align-self:flex-start;min-height:44px;padding:0 18px;border:none;border-radius:10px;background:#12233b;color:#fff;font-weight:700;font-size:16px;cursor:pointer">🖨 Imprimer</button>
+<sc-if value="{{ consOral }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;flex-direction:column;gap:14px;font-size:16px;line-height:1.45;color:#12233b">
+<div style="background:#fff;border-radius:14px;border-top:6px solid #12233b;padding:16px 20px;box-shadow:0 2px 8px rgba(0,0,0,0.12);display:flex;flex-direction:column;gap:10px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:18px">L’épreuve</span>
+<span style="font-weight:700">La compréhension de l’oral est la première épreuve de l’examen du DELF A1.</span>
+<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);border-top:1px solid #dde3ea">
+<span style="padding:6px 0;border-bottom:1px solid #dde3ea;font-weight:700">Durée totale de l’épreuve</span><span style="padding:6px 0;border-bottom:1px solid #dde3ea;color:#1d6fa5;font-weight:700">20 minutes</span>
+<span style="padding:6px 0;border-bottom:1px solid #dde3ea;font-weight:700">Nombre de points</span><span style="padding:6px 0;border-bottom:1px solid #dde3ea;color:#1d6fa5;font-weight:700">25 points</span>
+<span style="padding:6px 0;border-bottom:1px solid #dde3ea;font-weight:700">Nombre d’exercices</span><span style="padding:6px 0;border-bottom:1px solid #dde3ea;color:#1d6fa5;font-weight:700">5 exercices</span>
+<span style="padding:6px 0;border-bottom:1px solid #dde3ea;font-weight:700">Nombre de documents à écouter</span><span style="padding:6px 0;border-bottom:1px solid #dde3ea;color:#1d6fa5;font-weight:700">5 documents</span>
+<span style="padding:6px 0;border-bottom:1px solid #dde3ea;font-weight:700">Nombre d’écoutes</span><span style="padding:6px 0;border-bottom:1px solid #dde3ea;color:#1d6fa5;font-weight:700">2 écoutes pour chaque document</span>
+<span style="padding:6px 0;border-bottom:1px solid #dde3ea;font-weight:700">Durée totale des enregistrements</span><span style="padding:6px 0;border-bottom:1px solid #dde3ea;color:#1d6fa5;font-weight:700">3 minutes</span>
+<span style="padding:6px 0;border-bottom:1px solid #dde3ea;font-weight:700">Quand lire les questions ?</span><span style="padding:6px 0;border-bottom:1px solid #dde3ea;color:#1d6fa5;font-weight:700">Avant d’écouter les documents (30 secondes pour lire les questions)</span>
+<span style="padding:6px 0;border-bottom:1px solid #dde3ea;font-weight:700">Quand écrire ses réponses ?</span><span style="padding:6px 0;border-bottom:1px solid #dde3ea;color:#1d6fa5;font-weight:700">Après la 1re écoute</span>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px">
+<div style="background:#fff;border-radius:14px;border-top:6px solid #8e3b8a;padding:16px 20px;box-shadow:0 2px 8px rgba(0,0,0,0.12);display:flex;flex-direction:column;gap:6px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:18px;color:#8e3b8a">Objectifs des exercices</span>
+<div style="display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:16px;row-gap:4px">
+<span style="font-weight:700;color:#c97a2b">Exercice 1</span><span>Identifier un événement</span>
+<span style="font-weight:700;color:#c97a2b">Exercice 2</span><span>Identifier une activité</span>
+<span style="font-weight:700;color:#c97a2b">Exercice 3</span><span>Comprendre des instructions</span>
+<span style="font-weight:700;color:#c97a2b">Exercice 4</span><span>Identifier des situations</span>
+<span style="font-weight:700;color:#c97a2b">Exercice 5</span><span>Identifier des objets</span>
+</div>
+</div>
+<div style="background:#fff;border-radius:14px;border-top:6px solid #c97a2b;padding:16px 20px;box-shadow:0 2px 8px rgba(0,0,0,0.12);display:flex;flex-direction:column;gap:6px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:18px;color:#c97a2b">Conseils</span>
+<span style="font-weight:700">S’entraîner à :</span>
+<span>• écouter et noter des chiffres et des lettres ;</span>
+<span>• repérer des itinéraires ;</span>
+<span>• distinguer les sons du français.</span>
+</div>
+</div>
+<div style="background:#fff;border-radius:14px;border-top:6px solid #2a9d9d;padding:16px 20px;box-shadow:0 2px 8px rgba(0,0,0,0.12);display:flex;flex-direction:column;gap:8px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:18px;color:#2a9d9d">Les savoir-faire</span>
+<span style="font-weight:700">Il faut principalement être capable de :</span>
+<span>• Repérer les informations essentielles d’une annonce publique : nombres, prix, heure, numéro de train ou de vol</span>
+<span>• Comprendre et écrire des informations chiffrées</span>
+<span>• Suivre des indications simples, des instructions</span>
+<span>• Comprendre une invitation et les formules de politesse</span>
+<span>• Repérer une information : une personne, une activité, un événement, un lieu, une destination, départ, voie, un objet</span>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:4px">
+<div style="background:#e6f4f4;border-radius:10px;padding:10px 14px;font-style:italic">« Mesdames, Messieurs. Le train n° 3667 à destination de Besançon partira voie E. »</div>
+<div style="background:#e6f4f4;border-radius:10px;padding:10px 14px;font-style:italic">« Salut ! On se retrouve ce soir à 19 h 30 devant le cinéma, d’accord ? Si tu ne peux pas, appelle-moi au 06.36.25.00.31. À tout à l’heure ! »</div>
+</div>
+</div>
+<div style="background:#fff;border-radius:14px;border-top:6px solid #5b7fa0;padding:16px 20px;box-shadow:0 2px 8px rgba(0,0,0,0.12);display:flex;flex-direction:column;gap:8px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:18px;color:#5b7fa0">Les exercices et les documents</span>
+<div style="overflow-x:auto"><div style="display:grid;grid-template-columns:minmax(150px,1.2fr) minmax(150px,1.5fr) minmax(130px,1fr) auto;min-width:600px;font-size:15px">
+<span style="padding:6px 8px;background:#5b7fa0;color:#fff;font-weight:700">Exercice</span><span style="padding:6px 8px;background:#5b7fa0;color:#fff;font-weight:700">Supports possibles</span><span style="padding:6px 8px;background:#5b7fa0;color:#fff;font-weight:700">Type d’exercice</span><span style="padding:6px 8px;background:#5b7fa0;color:#fff;font-weight:700">Points</span>
+<span style="padding:8px;border-bottom:1px solid #dde3ea"><b>1 · Identifier un événement</b><br>Domaine personnel</span><span style="padding:8px;border-bottom:1px solid #dde3ea">Message sur répondeur</span><span style="padding:8px;border-bottom:1px solid #dde3ea">Un questionnaire (4 questions)</span><span style="padding:8px;border-bottom:1px solid #dde3ea;font-weight:700;color:#d6457a">4</span>
+<span style="padding:8px;border-bottom:1px solid #dde3ea"><b>2 · Identifier une activité</b><br>Domaine public</span><span style="padding:8px;border-bottom:1px solid #dde3ea">Météo à la radio, journal info à la radio, publicités à la radio, annonce publique (aéroport, gare, supermarché)</span><span style="padding:8px;border-bottom:1px solid #dde3ea">Un questionnaire (4 questions)</span><span style="padding:8px;border-bottom:1px solid #dde3ea;font-weight:700;color:#d6457a">4</span>
+<span style="padding:8px;border-bottom:1px solid #dde3ea"><b>3 · Comprendre des instructions</b><br>Domaine professionnel</span><span style="padding:8px;border-bottom:1px solid #dde3ea">Message sur répondeur</span><span style="padding:8px;border-bottom:1px solid #dde3ea">Un questionnaire (4 questions)</span><span style="padding:8px;border-bottom:1px solid #dde3ea;font-weight:700;color:#d6457a">4</span>
+<span style="padding:8px;border-bottom:1px solid #dde3ea"><b>4 · Identifier des situations</b><br>Domaine éducationnel</span><span style="padding:8px;border-bottom:1px solid #dde3ea">Mini-dialogues, images, photos, illustrations</span><span style="padding:8px;border-bottom:1px solid #dde3ea">Appariement (associer des images et des dialogues)</span><span style="padding:8px;border-bottom:1px solid #dde3ea;font-weight:700;color:#d6457a">8</span>
+<span style="padding:8px;border-bottom:1px solid #dde3ea"><b>5 · Identifier des objets</b><br>Domaine professionnel ou personnel</span><span style="padding:8px;border-bottom:1px solid #dde3ea">Messages, images</span><span style="padding:8px;border-bottom:1px solid #dde3ea">Un questionnaire</span><span style="padding:8px;border-bottom:1px solid #dde3ea;font-weight:700;color:#d6457a">5</span>
+</div></div>
+</div>
+<div style="background:#fff;border-radius:14px;border-top:6px solid #12233b;padding:16px 20px;box-shadow:0 2px 8px rgba(0,0,0,0.12);display:flex;flex-direction:column;gap:8px;text-wrap:pretty">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:18px">La consigne</span>
+<span>Une consigne générale est écrite dans la copie d’examen. Cette consigne est également dite oralement. Elle indique que vous allez écouter plusieurs documents.</span>
+<span>Il y a 2 écoutes. Avant chaque écoute, vous entendez le son d’une cloche. Ce son signifie que le document oral va commencer. Ce bruit vous permet de vous concentrer et d’arrêter la lecture des questions.</span>
+<span>Dans les exercices 1, 2, 3 et 5, vous devez cocher la bonne réponse pour répondre aux questions. Dans l’exercice 4, vous notez le numéro de chaque dialogue sous l’image correspondante.</span>
+</div>
+<div style="background:#fff;border-radius:14px;border-top:6px solid #d6457a;padding:16px 20px;box-shadow:0 2px 8px rgba(0,0,0,0.12);display:flex;flex-direction:column;gap:8px;text-wrap:pretty">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:18px;color:#d6457a">Les questions et les réponses</span>
+<span>Les questions sont toujours dans l’ordre du document. Les questions se présentent sous 3 formes :</span>
+<span>– <b style="color:#d6457a">les questions à choix multiples (QCM) avec 3 choix</b> : il faut cocher la bonne réponse parmi les 3 choix. Il y a 1 seule réponse correcte. Les 3 choix peuvent se présenter sous la forme de phrases ou d’images.</span>
+<span>– <b style="color:#d6457a">les questions à choix multiples (QCM) avec 2 choix</b> : il faut cocher la bonne réponse entre « oui » et « non ». Il y a 1 seule réponse correcte.</span>
+<span>– <b style="color:#d6457a">un tableau d’appariement</b> : associer un dialogue à une image. Il y a toujours 4 dialogues mais 6 images. Il y a donc 2 images non utilisées.</span>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ consEcrit }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:14px;font-size:16px;line-height:1.45;color:#12233b">
+<div style="background:#fff;border-radius:14px;border-top:6px solid #12233b;padding:16px 20px;box-shadow:0 2px 8px rgba(0,0,0,0.12);display:flex;flex-direction:column;gap:10px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:18px">L’épreuve</span>
+<span style="font-weight:700">La compréhension des écrits est la deuxième épreuve de l’examen du DELF A1.</span>
+<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);border-top:1px solid #dde3ea">
+<span style="padding:6px 0;border-bottom:1px solid #dde3ea;font-weight:700">Durée totale de l’épreuve</span><span style="padding:6px 0;border-bottom:1px solid #dde3ea;color:#1d6fa5;font-weight:700">30 minutes</span>
+<span style="padding:6px 0;border-bottom:1px solid #dde3ea;font-weight:700">Nombre de points</span><span style="padding:6px 0;border-bottom:1px solid #dde3ea;color:#1d6fa5;font-weight:700">25 points</span>
+<span style="padding:6px 0;border-bottom:1px solid #dde3ea;font-weight:700">Nombre d’exercices</span><span style="padding:6px 0;border-bottom:1px solid #dde3ea;color:#1d6fa5;font-weight:700">4 exercices</span>
+<span style="padding:6px 0;border-bottom:1px solid #dde3ea;font-weight:700">Nombre de documents à lire</span><span style="padding:6px 0;border-bottom:1px solid #dde3ea;color:#1d6fa5;font-weight:700">8 documents</span>
+<span style="padding:6px 0;border-bottom:1px solid #dde3ea;font-weight:700">Quand lire les questions ?</span><span style="padding:6px 0;border-bottom:1px solid #dde3ea;color:#1d6fa5;font-weight:700">Avant de lire les documents</span>
+<span style="padding:6px 0;border-bottom:1px solid #dde3ea;font-weight:700">Quand lire les documents ?</span><span style="padding:6px 0;border-bottom:1px solid #dde3ea;color:#1d6fa5;font-weight:700">Après avoir lu la consigne et les questions</span>
+<span style="padding:6px 0;border-bottom:1px solid #dde3ea;font-weight:700">Quand répondre aux questions ?</span><span style="padding:6px 0;border-bottom:1px solid #dde3ea;color:#1d6fa5;font-weight:700">Après avoir tout lu</span>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px">
+<div style="background:#fff;border-radius:14px;border-top:6px solid #8e3b8a;padding:16px 20px;box-shadow:0 2px 8px rgba(0,0,0,0.12);display:flex;flex-direction:column;gap:6px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:18px;color:#8e3b8a">Objectifs des exercices</span>
+<div style="display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:16px;row-gap:4px">
+<span style="font-weight:700;color:#c97a2b">Exercice 1</span><span>Suivre des instructions simples</span>
+<span style="font-weight:700;color:#c97a2b">Exercice 2</span><span>Lire pour s’orienter dans l’espace</span>
+<span style="font-weight:700;color:#c97a2b">Exercice 3</span><span>Lire pour s’orienter dans le temps</span>
+<span style="font-weight:700;color:#c97a2b">Exercice 4</span><span>Lire pour s’informer</span>
+</div>
+</div>
+<div style="background:#fff;border-radius:14px;border-top:6px solid #c97a2b;padding:16px 20px;box-shadow:0 2px 8px rgba(0,0,0,0.12);display:flex;flex-direction:column;gap:6px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:18px;color:#c97a2b">Conseils</span>
+<span style="font-weight:700">S’entraîner à :</span>
+<span>• observer et identifier les types de document ;</span>
+<span>• découvrir le sens général du texte ;</span>
+<span>• associer des indices aux mots clés (prix = tarif, €) ;</span>
+<span>• repérer des informations de temps, de lieu ;</span>
+<span>• trouver sur un plan des indications pour s’orienter.</span>
+</div>
+</div>
+<div style="background:#fff;border-radius:14px;border-top:6px solid #2a9d9d;padding:16px 20px;box-shadow:0 2px 8px rgba(0,0,0,0.12);display:flex;flex-direction:column;gap:8px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:18px;color:#2a9d9d">Les savoir-faire</span>
+<span style="font-weight:700">Il faut principalement être capable de :</span>
+<span>• Identifier la nature du document</span>
+<span>• Identifier la fonction du document</span>
+<span>• Repérer les mots clés : Qui ? À qui ? Quoi ? Quand ? Où ? Comment ? Pourquoi ?</span>
+<span>• Comprendre des indications simples</span>
+<span>• Trouver des informations importantes mais simples</span>
+<div style="background:#e6f4f4;border-radius:10px;padding:10px 14px;max-width:420px;display:flex;flex-direction:column;gap:6px;font-family:Georgia, serif">
+<span>Chers <b>Saraly et Abriel</b>,</span>
+<span><b>Laure</b> fête ses <b>50 ans</b> le <b>17 juin</b> au <b>restaurant</b> <i>La Petite Arlésienne</i> à <b>Montmartre</b>. Vous venez ? <b>Réponse</b> souhaitée avant le 1er juin.</span>
+<span><b>Laure et Medhi</b><br>LM@courriel.fr<br>06.12.01.23.46</span>
+</div>
+</div>
+<div style="background:#fff;border-radius:14px;border-top:6px solid #5b7fa0;padding:16px 20px;box-shadow:0 2px 8px rgba(0,0,0,0.12);display:flex;flex-direction:column;gap:8px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:18px;color:#5b7fa0">Les exercices et les documents</span>
+<div style="overflow-x:auto"><div style="display:grid;grid-template-columns:minmax(150px,1.2fr) minmax(150px,1.5fr) minmax(130px,1fr) auto;min-width:600px;font-size:15px">
+<span style="padding:6px 8px;background:#5b7fa0;color:#fff;font-weight:700">Exercice</span><span style="padding:6px 8px;background:#5b7fa0;color:#fff;font-weight:700">Supports possibles</span><span style="padding:6px 8px;background:#5b7fa0;color:#fff;font-weight:700">Type d’exercice</span><span style="padding:6px 8px;background:#5b7fa0;color:#fff;font-weight:700">Points</span>
+<span style="padding:8px;border-bottom:1px solid #dde3ea"><b>1 · Suivre des instructions simples</b><br>Domaine personnel</span><span style="padding:8px;border-bottom:1px solid #dde3ea">Lettre, carte postale, courriel, carte d’invitation, mode d’emploi</span><span style="padding:8px;border-bottom:1px solid #dde3ea">Un questionnaire (5 questions)</span><span style="padding:8px;border-bottom:1px solid #dde3ea;font-weight:700;color:#d6457a">6</span>
+<span style="padding:8px;border-bottom:1px solid #dde3ea"><b>2 · Lire pour s’orienter dans l’espace</b><br>Domaine public</span><span style="padding:8px;border-bottom:1px solid #dde3ea">Affiche, publicité, brochure, horaires, prospectus, panneau d’affichage</span><span style="padding:8px;border-bottom:1px solid #dde3ea">Un questionnaire (5 questions)</span><span style="padding:8px;border-bottom:1px solid #dde3ea;font-weight:700;color:#d6457a">6</span>
+<span style="padding:8px;border-bottom:1px solid #dde3ea"><b>3 · Lire pour s’orienter dans le temps</b><br>Domaine professionnel</span><span style="padding:8px;border-bottom:1px solid #dde3ea">Courrier et courriel professionnel, instructions, mode d’emploi, brochure, programme</span><span style="padding:8px;border-bottom:1px solid #dde3ea">Un questionnaire (5 questions)</span><span style="padding:8px;border-bottom:1px solid #dde3ea;font-weight:700;color:#d6457a">6</span>
+<span style="padding:8px;border-bottom:1px solid #dde3ea"><b>4 · Lire pour s’informer</b><br>Domaine éducationnel ou public</span><span style="padding:8px;border-bottom:1px solid #dde3ea">Affiche, brochure, programme d’un événement, article de presse</span><span style="padding:8px;border-bottom:1px solid #dde3ea">Un questionnaire (5 questions)</span><span style="padding:8px;border-bottom:1px solid #dde3ea;font-weight:700;color:#d6457a">7</span>
+</div></div>
+</div>
+<div style="background:#fff;border-radius:14px;border-top:6px solid #12233b;padding:16px 20px;box-shadow:0 2px 8px rgba(0,0,0,0.12);display:flex;flex-direction:column;gap:8px;text-wrap:pretty">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:18px">La consigne</span>
+<span>Dans l’épreuve du DELF A1, il y a une consigne générale pour les quatre exercices.</span>
+<span>La consigne générale est la même pour les quatre exercices : <i>Pour répondre aux questions, cochez la bonne réponse.</i></span>
+<span>Puis, il y a une consigne pour chacun des quatre exercices. Elle donne la situation de l’activité et ce que vous devez faire.</span>
+</div>
+<div style="background:#fff;border-radius:14px;border-top:6px solid #d6457a;padding:16px 20px;box-shadow:0 2px 8px rgba(0,0,0,0.12);display:flex;flex-direction:column;gap:8px;text-wrap:pretty">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:18px;color:#d6457a">Les questions et les réponses</span>
+<span>Les questions sont toujours dans l’ordre du document. Les questions ont le format de <b style="color:#d6457a">questions à choix multiples (QCM) avec 3 choix</b> : il faut cocher la bonne réponse parmi les 3 choix. Il y a 1 seule réponse correcte. Les 3 choix peuvent se présenter sous la forme de phrases, d’images, d’informations chiffrées ou de plans.</span>
+</div>
+</div>
+</sc-if>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px">
+<sc-for list="{{ consBlocs }}" as="b" hint-placeholder-count="6">
+<div class="{{ b.classe }}" style="background:#fff;border-radius:14px;border-top:6px solid {{ b.couleur }};padding:14px 16px;box-shadow:0 2px 8px rgba(0,0,0,0.12);display:flex;flex-direction:column;gap:6px;break-inside:avoid">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:18px;color:{{ b.couleur }}">{{ b.titre }}</span>
+<sc-for list="{{ b.lignes }}" as="l" hint-placeholder-count="4">
+<div style="display:flex;flex-direction:column;gap:4px">
+<div style="display:flex;align-items:center;gap:8px">
+<sc-if value="{{ l.aSous }}" hint-placeholder-val="{{ false }}"><button onClick="{{ l.basculer }}" style="border:none;background:none;padding:0;font-family:inherit;font-size:16px;line-height:1.4;font-weight:700;color:#1d6fa5;cursor:pointer;text-align:left;display:flex;align-items:flex-start;gap:9px"><span style="flex:0 0 auto;width:8px;height:8px;margin-top:8px;border-radius:50%;background:{{ b.couleur }};display:block"></span>{{ l.t }} {{ l.fleche }}</button></sc-if>
+<sc-if value="{{ l.simple }}" hint-placeholder-val="{{ true }}"><span style="display:flex;align-items:flex-start;gap:9px;font-size:16px;line-height:1.4;text-wrap:pretty"><span style="flex:0 0 auto;width:8px;height:8px;margin-top:8px;border-radius:50%;background:{{ b.couleur }};display:block"></span>{{ l.t }}</span></sc-if>
+</div>
+<sc-if value="{{ l.ouvert }}" hint-placeholder-val="{{ false }}">
+<div class="seul-ecran" style="margin-left:38px;padding:8px 10px;border-left:3px solid #1d6fa5;background:#f1f6fb;border-radius:0 8px 8px 0;display:flex;flex-direction:column;gap:4px">
+<sc-for list="{{ l.sous }}" as="m" hint-placeholder-count="3">
+<div style="display:flex;align-items:flex-start;gap:8px"><span style="display:flex;align-items:flex-start;gap:8px;font-size:15px;line-height:1.4"><span style="flex:0 0 auto;width:6px;height:6px;margin-top:8px;border-radius:50%;background:#1d6fa5;display:block"></span>{{ m.t }}</span></div>
+</sc-for>
+</div>
+</sc-if>
+</div>
+</sc-for>
+</div>
+</sc-for>
+</div>
+</sc-if>
 
 <sc-if value="{{ estSous }}" hint-placeholder-val="{{ false }}">
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px">
 <sc-for list="{{ activites }}" as="a" hint-placeholder-count="4">
 <button onClick="{{ a.ouvrir }}" style="min-height:90px;border:none;border-radius:12px;background:#6d5bd0;color:#fff;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;box-shadow:0 3px 8px rgba(0,0,0,0.2)">
-<span style="font-size:14px;letter-spacing:0.06em;text-transform:uppercase">Activité</span>
+<span style="font-size:14px;letter-spacing:0.06em;text-transform:uppercase">{{ libAct }}</span>
 <span style="font-family:Archivo Black, Archivo, sans-serif;font-size:32px">{{ a.n }}</span>
 </button>
 </sc-for>
@@ -55,21 +234,134 @@
 <sc-if value="{{ aAudio }}" hint-placeholder-val="{{ true }}">
 <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
 <button onClick="{{ audioClic }}" style="min-height:56px;min-width:180px;padding:0 22px;border:none;border-radius:12px;background:{{ audioFond }};color:#fff;font-weight:700;font-size:19px;cursor:pointer">{{ audioLibelle }}</button>
-<span style="font-size:15px;color:#4a5468">Piste {{ piste }}</span>
 </div>
 </sc-if>
-<sc-if value="{{ sansAudio }}" hint-placeholder-val="{{ false }}"><span style="font-size:15px;color:#b23a2b">Le son de cette activité manque (piste {{ piste }}).</span></sc-if>
+<sc-if value="{{ sansAudio }}" hint-placeholder-val="{{ false }}"><span style="font-size:15px;color:#b23a2b">Le son de cette activité manque.</span></sc-if>
 </div>
+<sc-if value="{{ aConseils }}" hint-placeholder-val="{{ false }}">
+<!-- Conseils du livre recopiés tels quels (son choix 10/10). -->
+<div style="background:#fbe7ea;border-radius:12px;padding:12px 16px;display:flex;flex-direction:column;gap:6px">
+<sc-for list="{{ conseils }}" as="k" hint-placeholder-count="2"><span style="font-size:16px;line-height:1.4;color:#b0244f;text-wrap:pretty">▸ {{ k.t }}</span></sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ aTableau }}" hint-placeholder-val="{{ false }}">
+<!-- 10/10 (sa demande) : tableau à double entrée, comme le livre (act. 20). On touche la case. -->
+<div style="background:#fff;border-radius:14px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,0.12);overflow-x:auto">
+<div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:12px">
+<sc-for list="{{ listesPhotos }}" as="p" hint-placeholder-count="0"><span style="flex:1 1 160px;max-width:240px;aspect-ratio:{{ p.ratio }};background-color:#fff;background-image:{{ p.src }};background-size:contain;background-repeat:no-repeat;background-position:center;border-radius:8px;display:block"></span></sc-for>
+</div>
+<div style="display:grid;grid-template-columns:minmax(120px,1fr) repeat({{ tabNbCol }},minmax(110px,1fr));border-top:2px solid #5b7fa0;border-left:2px solid #5b7fa0;min-width:360px">
+<span style="border-right:2px solid #5b7fa0;border-bottom:2px solid #5b7fa0;display:block"></span>
+<sc-for list="{{ tabEntetes }}" as="h" hint-placeholder-count="2">
+<span style="background:#5b7fa0;color:#fff;font-weight:700;font-size:18px;padding:10px;text-align:center;border-right:2px solid #5b7fa0;border-bottom:2px solid #5b7fa0">{{ h.t }}</span>
+</sc-for>
+<sc-for list="{{ tabCases }}" as="c" hint-placeholder-count="9">
+<sc-if value="{{ c.estLigne }}" hint-placeholder-val="{{ false }}"><span style="background:#dcefea;font-weight:700;font-size:18px;padding:10px;display:flex;align-items:center;justify-content:center;border-right:2px solid #5b7fa0;border-bottom:2px solid #5b7fa0">{{ c.t }}</span></sc-if>
+<sc-if value="{{ c.estCase }}" hint-placeholder-val="{{ false }}"><button onClick="{{ c.clic }}" style="min-height:52px;border:none;border-right:2px solid #5b7fa0;border-bottom:2px solid #5b7fa0;background:{{ c.fond }};cursor:pointer;display:flex;align-items:center;justify-content:center"><span style="width:28px;height:28px;border:3px solid {{ c.bord }};border-radius:5px;background:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;color:#12233b">{{ c.coche }}</span></button></sc-if>
+</sc-for>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ aListes }}" hint-placeholder-val="{{ false }}">
+<!-- 10/10 : « complétez le tableau » / « indiquez le prénom » = une ou plusieurs listes déroulantes par ligne (act. 38, 40, 42). -->
+<div style="background:#fff;border-radius:14px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,0.12);display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center">
+<sc-for list="{{ listesPhotos }}" as="p" hint-placeholder-count="0"><span style="width:100%;max-width:420px;aspect-ratio:{{ p.ratio }};background-color:#fff;background-image:{{ p.src }};background-size:contain;background-repeat:no-repeat;background-position:center;border-radius:8px;border:2px solid #e6e1d6;display:block"></span></sc-for>
+</div>
+<sc-for list="{{ listesLignes }}" as="l" hint-placeholder-count="4">
+<div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;border:3px solid {{ l.bord }};background:{{ l.fond }}">
+<span style="min-width:120px;font-size:18px;font-weight:700">{{ l.t }}</span>
+<sc-for list="{{ l.listes }}" as="k" hint-placeholder-count="1">
+<label style="display:flex;align-items:center;gap:6px;font-size:17px">{{ k.label }}
+<select value="{{ k.valeur }}" onChange="{{ k.changer }}" disabled="{{ k.bloque }}" style="min-height:44px;min-width:70px;font-size:17px;font-weight:700;border:2px solid #12233b;border-radius:8px;background:#fff;color:#12233b;padding:0 6px">
+<sc-for list="{{ k.options }}" as="o" hint-placeholder-count="4"><option value="{{ o.v }}">{{ o.t }}</option></sc-for>
+</select></label>
+</sc-for>
+</div>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ aCocher }}" hint-placeholder-val="{{ false }}">
+<!-- 10/10 : on COCHE une ou plusieurs images (act. 32 : plusieurs bonnes ; act. 33 : une seule). -->
+<div style="background:#fff;border-radius:14px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,0.12);display:grid;grid-template-columns:repeat(auto-fit,minmax({{ cocherLarg }},1fr));gap:14px">
+<sc-for list="{{ cocherCases }}" as="g" hint-placeholder-count="3">
+<button onClick="{{ g.clic }}" style="display:flex;flex-direction:column;align-items:center;gap:8px;border:3px solid {{ g.bord }};border-radius:12px;padding:8px;background:{{ g.fond }};cursor:pointer">
+<span style="width:100%;aspect-ratio:1;background-color:#fff;background-image:{{ g.img }};background-size:contain;background-repeat:no-repeat;background-position:center;border-radius:6px;display:block"></span>
+<span style="display:flex;align-items:center;gap:8px;font-size:18px;font-weight:700;color:#12233b">{{ g.titre }}<span style="width:28px;height:28px;border:3px solid #12233b;border-radius:5px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;line-height:1">{{ g.coche }}</span></span>
+</button>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ aRelier }}" hint-placeholder-val="{{ false }}">
+<!-- 10/10 (sa demande) : RELIER comme le livre. On touche un message, puis une proposition : un trait les relie. Toucher-puis-toucher (tablette). -->
+<div style="background:#fff;border-radius:14px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,0.12);overflow-x:auto">
+<div style="display:grid;grid-template-columns:minmax(130px,1fr) 140px minmax(150px,1fr);min-width:440px">
+<div style="display:flex;flex-direction:column;gap:8px">
+<sc-for list="{{ relGauche }}" as="g" hint-placeholder-count="3">
+<button onClick="{{ g.clic }}" style="height:{{ relBtn }};box-sizing:border-box;border:3px solid {{ g.bord }};border-radius:10px;background:{{ g.fond }};color:#12233b;font-size:17px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:0 10px"><sc-if value="{{ g.aImg }}" hint-placeholder-val="{{ false }}"><span style="width:76px;height:76px;flex:0 0 auto;background-color:#fff;background-image:{{ g.img }};background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span></sc-if>{{ g.t }}<span style="width:12px;height:12px;border-radius:50%;background:#8e3b8a;display:block"></span></button>
+</sc-for>
+</div>
+<div style="position:relative">
+<sc-for list="{{ relTraits }}" as="l" hint-placeholder-count="0">
+<span style="position:absolute;left:0;top:{{ l.y }};width:{{ l.long }};height:4px;margin-top:-2px;border-radius:2px;background:{{ l.couleur }};transform:rotate({{ l.angle }});transform-origin:0 50%;display:block"></span>
+</sc-for>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px;padding-top:{{ relDecalage }}">
+<sc-for list="{{ relDroite }}" as="d" hint-placeholder-count="3">
+<button onClick="{{ d.clic }}" style="height:{{ relBtn }};box-sizing:border-box;border:3px solid #d9d4c7;border-radius:10px;background:#fff;color:#12233b;font-size:17px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px;padding:0 10px"><span style="width:12px;height:12px;border-radius:50%;background:#8e3b8a;display:block"></span>{{ d.t }}</button>
+</sc-for>
+</div>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ aTabSelect }}" hint-placeholder-val="{{ false }}">
+<!-- 10/10 (sa demande) : act. 22 = tableau du livre (Sentiments | Messages) + liste déroulante n°. -->
+<div style="background:#fff;border-radius:14px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,0.12)">
+<div style="max-width:460px;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);border-top:2px solid #5b7fa0;border-left:2px solid #5b7fa0">
+<span style="background:#5b7fa0;color:#fff;font-weight:700;font-size:18px;padding:10px;text-align:center;border-right:2px solid #5b7fa0;border-bottom:2px solid #5b7fa0">{{ tabSelTitre1 }}</span>
+<span style="background:#5b7fa0;color:#fff;font-weight:700;font-size:18px;padding:10px;text-align:center;border-right:2px solid #5b7fa0;border-bottom:2px solid #5b7fa0">{{ tabSelTitre2 }}</span>
+<sc-for list="{{ grilleCases }}" as="g" hint-placeholder-count="5">
+<span style="font-size:18px;padding:8px 10px;display:flex;align-items:center;justify-content:center;border-right:2px solid #5b7fa0;border-bottom:2px solid #5b7fa0;background:{{ g.fond }}">{{ g.titre }}</span>
+<span style="padding:6px;display:flex;align-items:center;justify-content:center;gap:6px;border-right:2px solid #5b7fa0;border-bottom:2px solid #5b7fa0;background:{{ g.fond }};font-size:18px;font-weight:700">n°
+<select value="{{ g.valeur }}" onChange="{{ g.changer }}" disabled="{{ g.bloque }}" style="min-height:44px;min-width:64px;font-size:18px;font-weight:700;border:2px solid {{ g.bord }};border-radius:8px;background:#fff;color:#12233b;padding:0 6px">
+<sc-for list="{{ g.options }}" as="o" hint-placeholder-count="6"><option value="{{ o.v }}">{{ o.t }}</option></sc-for>
+</select></span>
+</sc-for>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ aGrille }}" hint-placeholder-val="{{ false }}">
+<!-- 10/10 (sa demande) : images CÔTE À CÔTE, un menu déroulant sous chacune (comme « n°… » sur le livre). -->
+<div style="background:#fff;border-radius:14px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,0.12);display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px">
+<sc-for list="{{ grilleCases }}" as="g" hint-placeholder-count="4">
+<div style="display:flex;flex-direction:column;align-items:center;gap:8px;border:3px solid {{ g.bord }};border-radius:12px;padding:8px;background:{{ g.fond }}">
+<span style="width:100%;aspect-ratio:1;background-color:#fff;background-image:{{ g.img }};background-size:contain;background-repeat:no-repeat;background-position:center;border-radius:6px;display:block"></span>
+<label style="display:flex;align-items:center;gap:8px;font-size:18px;font-weight:700">{{ g.titre }}{{ g.sep }}
+<select value="{{ g.valeur }}" onChange="{{ g.changer }}" disabled="{{ g.bloque }}" style="min-height:44px;min-width:64px;font-size:18px;font-weight:700;border:2px solid #12233b;border-radius:8px;background:#fff;color:#12233b;padding:0 6px">
+<sc-for list="{{ g.options }}" as="o" hint-placeholder-count="5"><option value="{{ o.v }}">{{ o.t }}</option></sc-for>
+</select>
+</label>
+</div>
+</sc-for>
+</div>
+</sc-if>
 <sc-for list="{{ questions }}" as="q" hint-placeholder-count="3">
 <div style="background:#fff;border-radius:14px;padding:16px 18px;box-shadow:0 2px 8px rgba(0,0,0,0.12);display:flex;flex-direction:column;gap:12px">
 <span style="font-size:18px;font-weight:700;text-wrap:pretty">{{ q.q }}</span>
+<sc-if value="{{ q.aImg }}" hint-placeholder-val="{{ false }}"><span style="width:220px;max-width:100%;aspect-ratio:1;background-color:#fff;background-image:{{ q.img }};background-size:contain;background-repeat:no-repeat;background-position:center;border:2px solid #e6e1d6;border-radius:8px;display:block"></span></sc-if>
 <div style="display:flex;flex-wrap:wrap;gap:10px">
 <sc-for list="{{ q.choix }}" as="c" hint-placeholder-count="3">
-<button onClick="{{ c.clic }}" style="min-height:52px;padding:0 18px;border:3px solid {{ c.bord }};border-radius:10px;background:{{ c.fond }};color:#12233b;font-size:17px;font-weight:700;cursor:pointer">{{ c.t }}</button>
+<button onClick="{{ c.clic }}" style="min-height:52px;padding:0 18px;border:3px solid {{ c.bord }};border-radius:10px;background:{{ c.fond }};color:#12233b;font-size:17px;font-weight:700;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px"><sc-if value="{{ c.aImg }}" hint-placeholder-val="{{ false }}"><span style="width:130px;height:110px;margin-top:8px;background-color:#fff;background-image:{{ c.img }};background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span></sc-if>{{ c.t }}</button>
 </sc-for>
 </div>
 </div>
 </sc-for>
+<sc-if value="{{ aPretExamen }}" hint-placeholder-val="{{ false }}">
+<div style="background:#fdf3c4;border-radius:12px;padding:12px 16px;display:flex;flex-direction:column;gap:6px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:16px;color:#12233b">PRÊT POUR L’EXAMEN</span>
+<sc-for list="{{ pretExamen }}" as="k" hint-placeholder-count="3"><span style="font-size:16px;line-height:1.4;text-wrap:pretty">● {{ k.t }}</span></sc-for>
+</div>
+</sc-if>
 <div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap">
 <sc-if value="{{ aFini }}" hint-placeholder-val="{{ true }}"><button onClick="{{ finir }}" style="min-height:60px;padding:0 34px;border:none;border-radius:14px;background:#2a9d6e;color:#fff;font-family:Archivo Black, Archivo, sans-serif;font-size:22px;cursor:pointer">J'ai fini</button></sc-if>
 <sc-if value="{{ estCorrige }}" hint-placeholder-val="{{ false }}"><button onClick="{{ recommencer }}" style="min-height:60px;padding:0 28px;border:none;border-radius:14px;background:#12233b;color:#fff;font-weight:700;font-size:19px;cursor:pointer">↻ Recommencer</button></sc-if>
@@ -86,21 +378,126 @@
    Rangement validé par elle : parties → sous-menus du livre → activités. Construit partie par partie.
    ⏳ Activités 1-4 : pages non reçues. Images (act. 10…) : en mots pour l'instant, à découper dans ses captures. */
 const Q = (q, choix, bonne) => ({ q, choix, bonne });
+const MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+const prenoms = (pref, bons) => { const tri = [...bons].sort((a, b) => a.localeCompare(b, 'fr')); return bons.map((p, i) => ({ q: pref + (i + 1), listes: [{ options: tri, bonne: tri.indexOf(p) }] })); };
 const ACT = {
+  /* 10/10 : 1-4 (sa capture p.12, corrigé p.144). */
+  1: { c: 'Écoutez les messages et cochez le prénom correct.', q: [Q('Message 1 · Qui parle ?', ['Julie.', 'Julien.', 'Virginie.'], 2), Q('Message 2 · Qui parle ?', ['Anne.', 'Laura.', 'Josiane.'], 0), Q('Message 3 · Qui parle ?', ['Luigi.', 'Julien.', 'Vincent.'], 2)] },
+  2: { c: 'Écoutez les messages et cochez le prénom correct.', q: [Q('Message 1 · C’est l’anniversaire de qui ?', ['Adrien.', 'Armand.', 'Amandine.'], 0), Q('Message 2 · Qui est en retard ?', ['Juliette.', 'Valérie.', 'Isabelle.'], 2), Q('Message 3 · Qui joue au tennis avec Louis ?', ['Charlie.', 'Pierre.', 'Fabrice.'], 1)] },
+  3: { c: 'Écoutez les messages et cochez les bonnes réponses.', q: [Q('Message 1 · Valentin vous appelle pour aller où ?', ['Au musée.', 'Au cinéma.', 'Au théâtre.'], 0), Q('Message 2 · Qu’est-ce que Léa vous demande de faire ?', ['D’aller au cinéma.', 'D’acheter les billets.', 'De faire des courses.'], 1), Q('Message 3 · Qu’est-ce que vous devez apporter ?', ['Un cadeau.', 'Un gâteau.', 'Une boisson.'], 1)] },
+  4: { c: 'Écoutez les messages et cochez les bonnes réponses.', q: [Q('Message 1 · Qu’est-ce que vous devez apporter ?', ['Un gâteau.', 'Une salade.', 'Un jus de fruits.'], 2), Q('Message 1 · Qu’est-ce que Martine apporte ?', ['Un gâteau.', 'Une salade.', 'Un jus de fruits.'], 1), Q('Message 2 · Avec qui est-ce que vous pouvez aller au concert ?', ['Avec Sophie.', 'Avec Brigitte.', 'Avec Jean-Luc.'], 0), Q('Message 2 · Avec qui est-ce que Jean-Luc va au concert ?', ['Avec Marie.', 'Avec Sophie.', 'Avec Brigitte.'], 2), Q('Message 3 · Quel jour est-ce que vous avez rendez-vous avec Marc ?', ['Mercredi.', 'Jeudi.', 'Vendredi.'], 1), Q('Message 3 · Quel jour Marc a rendez-vous avec Alberto ?', ['Mercredi.', 'Jeudi.', 'Vendredi.'], 0)] },
   5: { c: 'Écoutez les messages et cochez les bonnes réponses.', q: [Q('Message 1 · Martine a combien de frères ?', ['2', '3', '4'], 0), Q('Message 2 · Combien de personnes viennent à la fête ?', ['6', '13', '16'], 2), Q('Message 3 · Combien de tomates est-ce que vous devez acheter ?', ['6', '10', '12'], 1)] },
   6: { c: 'Écoutez les messages et cochez les bonnes réponses.', q: [Q('Message 1 · Combien de kilos de pommes de terre est-ce qu’Alexandre achète ?', ['2 kg', '2,5 kg', '4,5 kg'], 1), Q('Message 2 · Béatrice a combien de paires de chaussures ?', ['12', '20', '21'], 2), Q('Message 3 · Quel est le montant de la réduction ?', ['45 %', '65 %', '75 %'], 2)] },
-  7: { c: 'Écoutez la conversation et reliez les informations.', q: ['Vincent', 'Audrey', 'Alexandra'].map((p, i) => Q(p + ' · Date de naissance ?', ['30 / 05 / 1982', '01 / 03 / 1982', '28 / 08 / 1978'], [2, 1, 0][i])) },
-  8: { c: 'Écoutez les messages et reliez les propositions.', q: ['Sylvain', 'Robert', 'Carole'].map((p, i) => Q(p + ' · Numéro de téléphone ?', ['04.83.72.11.29', '06.41.12.71.39', '03.21.96.55.41'], [1, 2, 0][i])) },
+  7: { relier: true, c: 'Écoutez la conversation et reliez les informations.', q: ['Vincent', 'Audrey', 'Alexandra'].map((p, i) => Q(p + ' · Date de naissance ?', ['30 / 05 / 1982', '01 / 03 / 1982', '28 / 08 / 1978'], [2, 1, 0][i])) },
+  8: { relier: true, c: 'Écoutez les messages et reliez les propositions.', q: ['Sylvain', 'Robert', 'Carole'].map((p, i) => Q(p + ' · Numéro de téléphone ?', ['04.83.72.11.29', '06.41.12.71.39', '03.21.96.55.41'], [1, 2, 0][i])) },
   9: { c: 'Écoutez les messages et cochez les bonnes réponses.', q: [Q('Message 1', ['01.47.72.33.09', '01.47.62.39.90', '01.47.75.34.09'], 0), Q('Message 2', ['03.20.90.01.02', '03.20.94.12.00', '03.20.90.01.00'], 2), Q('Message 3', ['06.09.77.50.91', '06.09.77.50.11', '06.90.77.50.51'], 1)] },
-  10: { c: 'Écoutez les messages et reliez chaque prénom à l’image correspondante.', q: [['A', 'le cinéma'], ['B', 'la piscine'], ['C', 'le théâtre']].map(([l, t], i) => Q('Image ' + l + ' · ' + t, ['Pauline', 'Julien', 'Julie'], [1, 0, 2][i])) },
+  10: { grille: true, c: 'Écoutez les messages et reliez chaque prénom à l’image correspondante.', q: [['A', 'le cinéma'], ['B', 'la piscine'], ['C', 'le théâtre']].map(([l, t], i) => ({ ...Q('Image ' + l, ['Pauline', 'Julien', 'Julie'], [1, 0, 2][i]), img: 'clean/manuel-a1-10-' + l.toLowerCase() + '.webp' })) },
   11: { c: 'Écoutez les messages et cochez les bonnes réponses.', q: [Q('Message 1 · Qu’est-ce que Jacques veut faire samedi au parc ?', ['Faire du vélo.', 'Nettoyer sa moto.', 'Manger des crêpes.'], 0), Q('Message 2 · Pourquoi Clara veut aller au centre commercial avec vous ?', ['Elle veut acheter un pantalon.', 'Elle veut acheter un manteau.', 'Elle veut acheter une chemise.'], 0), Q('Message 3 · Pourquoi Lucie veut aller au marché avec vous ?', ['Pour acheter des fruits.', 'Pour acheter des légumes.', 'Pour acheter des boissons.'], 0)] },
-  12: { c: 'Écoutez les messages et reliez les propositions.', q: [1, 2, 3].map((m, i) => Q('Message ' + m, ['Mer', 'Ville', 'Campagne'], [0, 2, 1][i])) },
-  13: { c: 'Écoutez les messages et cochez les bonnes réponses.', q: [Q('Message 1 · Quel est le lieu du rendez-vous ?', ['Chez vous.', 'Chez Bastien.', 'Chez Sébastien.'], 2), Q('Message 2 · Quel est le lieu du rendez-vous ?', ['Chez Sountou.', 'Devant le marché.', 'Devant le restaurant.'], 1), Q('Message 3 · Quel est le lieu du rendez-vous ?', ['À droite du magasin Dupont.', 'À l’entrée du magasin Dupont.', 'À l’entrée du centre commercial.'], 1)] }
+  12: { relier: true, c: 'Écoutez les messages et reliez les propositions.', q: [1, 2, 3].map((m, i) => Q('Message ' + m, ['Mer', 'Ville', 'Campagne'], [0, 2, 1][i])) },
+  13: { c: 'Écoutez les messages et cochez les bonnes réponses.', q: [Q('Message 1 · Quel est le lieu du rendez-vous ?', ['Chez vous.', 'Chez Bastien.', 'Chez Sébastien.'], 2), Q('Message 2 · Quel est le lieu du rendez-vous ?', ['Chez Sountou.', 'Devant le marché.', 'Devant le restaurant.'], 1), Q('Message 3 · Quel est le lieu du rendez-vous ?', ['À droite du magasin Dupont.', 'À l’entrée du magasin Dupont.', 'À l’entrée du centre commercial.'], 1)] },
+  /* 10/10 : partie 2 + début partie 3 (14-28), textes de ses captures, corrigés p.144-145. */
+  14: { grille: true, c: 'Écoutez les messages et notez le numéro du message sous l’image correspondante.', q: ['A', 'B', 'C', 'D'].map((l, i) => ({ ...Q('Carte ' + l, ['1', '2', '3', '4'], [2, 0, 3, 1][i]), img: 'clean/manuel-a1-14-' + l.toLowerCase() + '.webp' })) },
+  15: { c: 'Écoutez les messages et cochez les bonnes réponses.', q: [Q('Message 1 · Quelle est la température à Paris ?', ['8 degrés.', '16 degrés.', '18 degrés.'], 2), Q('Message 2 · Quelle est la température à Lille ?', ['4 degrés.', '14 degrés.', '24 degrés.'], 0), Q('Message 3 · Quelle est la température à Bordeaux ?', ['15 degrés.', '23 degrés.', '25 degrés.'], 1)] },
+  16: { relier: true, c: 'Écoutez les messages et reliez les propositions.', q: [1, 2, 3].map((m, i) => Q('Message ' + m, ['Invitation', 'Information', 'Recommandation'], [0, 2, 1][i])) },
+  17: { c: 'Écoutez les messages et cochez les bonnes réponses.', q: [Q('Message 1 · Où est-ce que l’exposition est organisée ?', ['Devant la mairie.', 'Dans les bureaux de l’association.', 'Dans la maison des associations.'], 0), Q('Message 2 · Où est-ce que le directeur va ?', ['À l’école.', 'À la mairie.', 'À l’entreprise.'], 0), Q('Message 3 · Quels sont les nouveaux produits au marché ?', ['Des salades.', 'Des pommes de terre.', 'Des pommes et des bananes.'], 2)] },
+  18: { c: 'Écoutez les messages et cochez les bonnes réponses.', q: [Q('Message 1 · Quelle est la date du concert ?', ['Vendredi 2 avril.', 'Vendredi 20 avril.', 'Vendredi 22 avril.'], 2), Q('Message 2 · Où est-ce que vous pouvez acheter un billet ?', ['Sur le site du film.', 'Sur le site de la ville.', 'Sur le site du cinéma.'], 2), Q('Message 3 · Qu’est-ce que vous pouvez envoyer pendant les vacances ?', ['Des colis.', 'Des boîtes.', 'Des lettres.'], 2)] },
+  19: { c: 'Écoutez les messages et cochez les bonnes réponses.', q: [Q('Message 1 · Où sont Brigitte et Catherine ?', ['Chez Brigitte.', 'Chez Catherine.', 'Au restaurant.'], 2), Q('Message 2 · Où est Samuel ?', ['Chez lui.', 'Chez Amélie.', 'Au restaurant.'], 1), Q('Message 3 · Où est Lucie ?', ['Au marché.', 'Au supermarché.', 'À la boucherie.'], 1)] },
+  20: { tableau: true, c: 'Écoutez les messages et remplissez le tableau.', q: [1, 2, 3].map((m, i) => Q('Message n° ' + m, ['À la gare', 'À l’aéroport'], [1, 0, 0][i])) },
+  21: { relier: true, c: 'Écoutez les messages et reliez les propositions.', q: [1, 2, 3, 4, 5, 6].map((m, i) => Q('Message ' + m, ['Affirmation', 'Interrogation', 'Exclamation'], [2, 1, 0, 1, 0, 2][i])) },
+  22: { grille: true, tabSelect: ['Sentiments', 'Messages'], c: 'Écoutez les messages et remplissez le tableau.', q: ['Content(e)', 'Triste', 'Fatigué(e)', 'En colère', 'Malade'].map((t, i) => Q(t, ['1', '2', '3', '4', '5'], [1, 2, 4, 3, 0][i])) },
+  23: { c: 'Écoutez les messages et cochez les bonnes réponses.', q: [Q('Message 1 · Combien de temps est-ce que la promotion dure ?', ['30 minutes.', '40 minutes.', '50 minutes.'], 0), Q('Message 2 · La promotion est pour quels articles ?', ['Les pantalons.', 'Les jouets pour les garçons.', 'Les jouets pour les filles.'], 1), Q('Message 3 · Où est le rendez-vous pour découvrir les promotions ?', ['Dans le magasin.', 'À l’entrée du magasin.', 'À la sortie du magasin.'], 1)] },
+  24: { c: 'Écoutez le message et répondez aux questions.', q: [Q('1. La promotion est pour quels articles ?', ['Les jouets.', 'Les livres.', 'Les légumes.'], 1), Q('2. À quelle heure est-ce que la promotion commence ?', ['À 10 h.', 'À 13 h.', 'À 15 h.'], 0), Q('3. Quel est le pourcentage de réduction ?', ['10 %.', '15 %.', '75 %.'], 1), Q('4. La prochaine promotion est pour quels articles ?', ['Les jouets.', 'Les livres.', 'Les légumes.'], 2)] },
+  25: { c: 'Écoutez les messages et cochez les bonnes réponses.', q: [Q('Message 1 · Quel est le numéro du vol ?', ['AF613.', 'AF713.', 'AF793.'], 2), Q('Message 2 · L’annonce indique un changement…', ['de numéro de train.', 'd’heure de départ du train.', 'de lieu de départ du train.'], 1), Q('Message 3 · Quelle est la destination du TGV 1002 ?', ['Rouen.', 'Rennes.', 'Reims.'], 1)] },
+  26: { c: 'Écoutez les messages et cochez les bonnes réponses.', q: [Q('Message 1 · Quelle est la profession de Clara Dupont ?', ['Médecin.', 'Secrétaire.', 'Directrice.'], 1), Q('Message 2 · Quelle est la profession de Monsieur Legrand ?', ['Secrétaire.', 'Professeur.', 'Vendeur.'], 1), Q('Message 3 · Le rendez-vous est pour un emploi de…', ['Secrétaire.', 'Serveur.', 'Vendeur.'], 1)] },
+  27: { c: 'Écoutez les messages et cochez les bonnes réponses.', q: [Q('Message 1 · L’offre est pour quelle profession ?', ['Pompier.', 'Policier.', 'Plombier.'], 0), Q('Message 2 · Quelle est la profession de Madame Joly ?', ['Professeure de maths.', 'Professeure d’histoire.', 'Professeure de français.'], 2), Q('Message 3 · Pour quelle offre est-ce que vous avez rendez-vous avec Madame Morin ?', ['Serveur.', 'Vendeur.', 'Professeur.'], 1)] },
+  28: { c: 'Écoutez les messages et cochez les bonnes réponses.', q: [Q('Message 1 · Quel document devez-vous envoyer ?', ['La carte d’identité.', 'Le permis de conduire.', 'La carte d’assurance maladie.'], 0), Q('Message 2 · Quel document devez-vous envoyer ?', ['Un CV.', 'Un contrat.', 'Une lettre de motivation.'], 2), Q('Message 3 · Quel document devez-vous envoyer ?', ['La liste des concerts.', 'Le programme du concert.', 'Le programme de la réunion.'], 1)] },
+  /* 10/10 : 29-37 (corrigés p.145). 32 = plusieurs images (A, B, C) ; 33 = un seul plan (A). */
+  29: { c: 'Écoutez les messages et cochez les bonnes réponses.', q: [Q('Message 1 · Vous devez organiser la réunion…', ['avant jeudi.', 'jeudi.', 'après jeudi.'], 0), Q('Message 2 · Avant quelle date est-ce que vous devez répondre ?', ['Le 6 mai.', 'Le 16 mai.', 'Le 26 mai.'], 1), Q('Message 3 · Quel jour est-ce que vous avez rendez-vous ?', ['Mercredi.', 'Jeudi.', 'Vendredi.'], 2)] },
+  30: { grille: true, c: 'Écoutez les messages et notez les numéros sous les horloges correspondantes.', q: ['A', 'B', 'C', 'D', 'E'].map((l, i) => ({ ...Q(l, ['1', '2', '3', '4', '5'], [2, 4, 1, 0, 3][i]), img: 'clean/manuel-a1-30-' + l.toLowerCase() + '.webp' })) },
+  31: { c: 'Écoutez les messages et cochez les bonnes réponses.', q: [Q('Message 1 · À quelle heure est votre rendez-vous ?', ['3 h 40.', '14 h 40.', '15 h 40.'], 2), Q('Message 2 · Quelle est l’heure du message ?', ['9 h 15.', '9 h 30.', '9 h 45.'], 2), Q('Message 3 · À quelle heure est la réunion ?', ['12 h 00.', '13 h 30.', '17 h 30.'], 2)] },
+  32: { cocher: true, c: 'Écoutez le message et cochez les bonnes réponses. Où est-ce que vous allez pour acheter les produits ?', q: ['A', 'B', 'C', 'D', 'E', 'F'].map((l, i) => ({ q: l, img: 'clean/manuel-a1-32-' + l.toLowerCase() + '.webp', bonne: i < 3 })) },
+  33: { cocher: true, unique: true, c: 'Écoutez le message et cochez le plan avec le bon itinéraire.', q: ['A', 'B', 'C'].map((l, i) => ({ q: l, img: 'clean/manuel-a1-33-' + l.toLowerCase() + '.webp', bonne: i === 0 })) },
+  34: { tableau: true, c: 'Écoutez les messages et complétez le tableau. Qui vous laisse le message ?', q: [1, 2, 3].map((m, i) => Q('Message n° ' + m, ['Votre directeur', 'Votre collègue'], [1, 0, 1][i])) },
+  35: { relier: true, c: 'Écoutez les messages et reliez les propositions.', q: ['Maxime téléphone pour…', 'Caroline téléphone pour…', 'Sarah téléphone pour…'].map((t, i) => Q(t, ['s’excuser.', 'vous féliciter.', 'vous souhaiter de bonnes vacances.'], [0, 2, 1][i])) },
+  36: { c: 'Écoutez les messages et cochez les bonnes réponses.', q: [Q('Message 1 · Pour répondre à l’offre, vous devez…', ['écrire à l’agence.', 'aller sur le site Internet.', 'téléphoner à Mme Dupuis.'], 1), Q('Message 2 · Pour répondre à une offre d’emploi à l’aéroport, vous devez…', ['téléphoner à Mme Dupuis.', 'téléphoner à M. Olivier.', 'écrire à Mme Dupuis.'], 1), Q('Message 3 · Qu’est-ce que vous devez apporter à la réunion ?', ['Des stylos.', 'Des crayons.', 'Des stylos et des feuilles.'], 2)] },
+  37: { c: 'Écoutez les dialogues et cochez les bonnes réponses.', q: [Q('Dialogue 1 · Quel âge a Anne ?', ['16 ans.', '17 ans.', '18 ans.'], 1), Q('Dialogue 2 · Quel âge a Marc ?', ['23 ans.', '33 ans.', '43 ans.'], 0), Q('Dialogue 3 · Quel âge a Paul ?', ['59 ans.', '60 ans.', '61 ans.'], 2)] },
+  /* 10/10 : 38-42 (corrigés p.145-146). Listes de prénoms en ordre alphabétique (l'ordre du corrigé donnerait la réponse). */
+  38: { listes: true, c: 'Écoutez le dialogue et complétez le tableau.', q: [['David', 13, 1, 14], ['Margot', 5, 6, 13], ['Emma', 30, 2, 13], ['Victor', 20, 5, 12]].map(([n, j, m, a]) => ({ q: n, listes: [
+    { label: 'Jour', options: Array.from({ length: 31 }, (_, k) => String(k + 1)), bonne: j - 1 },
+    { label: 'Mois', options: MOIS, bonne: m },
+    { label: 'Âge', options: Array.from({ length: 11 }, (_, k) => (k + 10) + ' ans'), bonne: a - 10 }] })) },
+  39: { grille: true, c: 'Écoutez les descriptions et notez le numéro sous l’image correspondante.', q: ['A', 'B', 'C', 'D'].map((l, i) => ({ ...Q(l, ['1', '2', '3', '4'], [1, 2, 3, 0][i]), img: 'clean/manuel-a1-39-' + l.toLowerCase() + '.webp' })) },
+  40: { listes: true, photos: ['clean/manuel-a1-40-1.webp', 'clean/manuel-a1-40-2.webp'], c: 'Écoutez les descriptions et indiquez le prénom des personnes.', q: [
+    ...prenoms('Photo 1 · n° ', ['Arnaud', 'André', 'Philippe', 'Béatrice', 'Monique']),
+    ...prenoms('Photo 2 · n° ', ['Jean-Luc', 'Jacques', 'Sonia', 'Clara', 'Mathilde'])] },
+  41: { c: 'Écoutez les dialogues et cochez les bonnes réponses.', q: [Q('Dialogue 1 · C’est la montre de qui ?', ['De Delphine.', 'De Guillaume.', 'De la professeure.'], 0), Q('Dialogue 2 · Qu’est-ce qu’il y a sur la table de Thomas ?', ['Ses clés.', 'Ses stylos.', 'Son parapluie.'], 2), Q('Dialogue 3 · La professeure aime… de Yasmine.', ['le chapeau', 'le manteau', 'les chaussures'], 1)] },
+  42: { listes: true, photos: ['clean/manuel-a1-42.webp'], c: 'Écoutez la description et indiquez le prénom des personnes. Chantal vous montre une photo des professeurs.', q: prenoms('n° ', ['Isabelle', 'Marie', 'Julien', 'Alexandre', 'Alexis', 'Lucie', 'Chantal']) },
+  /* 10/10 : 43-48 (corrigé p.146). 47-48 : 6 images, 4 dialogues → l'image sans dialogue reste vide (« … »). */
+  43: { tableau: true, c: 'Écoutez les messages et complétez le tableau.', q: [1, 2, 3, 4].map((m, i) => Q('Message n° ' + m, ['Tutoiement', 'Vouvoiement'], [1, 0, 1, 0][i])) },
+  44: { tableau: true, c: 'Écoutez les dialogues et cochez les bonnes réponses.', q: ['Dialogue 1 · Marion et Valentine…', 'Dialogue 2 · Olivia et Anne-Marie…', 'Dialogue 3 · Monsieur Lemaître et le directeur…'].map((t, i) => Q(t, ['se connaissent.', 'ne se connaissent pas.'], [0, 1, 0][i])) },
+  45: { c: 'Écoutez les messages et cochez les bonnes réponses.', q: [Q('Message 1 · Qui est Madame Buisson ?', ['La maman de Julie.', 'La professeure d’histoire de Julie.', 'La directrice de l’école.'], 0), Q('Message 2 · Qui parle ?', ['La maman de Lola.', 'La professeure de dessin de Lola.', 'La directrice de l’école.'], 0), Q('Message 3 · Qui est Clémence ?', ['La maman de Gauthier.', 'La professeure de Gauthier.', 'Une copine de classe de Gauthier.'], 2)] },
+  46: { c: 'Écoutez les dialogues et cochez les bonnes réponses.', q: [Q('Dialogue 1 · Où est Camille ?', ['Dans la salle du cours d’histoire.', 'Dans la salle du cours d’anglais.', 'Dans la salle du cours de français.'], 2), Q('Dialogue 2 · Où va Augustin pour étudier ?', ['Chez lui.', 'À la salle de sport.', 'À la bibliothèque.'], 2), Q('Dialogue 3 · Où sont Lou et Clément ?', ['À l’entrée de l’école.', 'À la sortie de l’école.', 'Dans la classe de mathématiques.'], 1)] },
+  47: { grille: true, c: 'Écrivez le numéro du dialogue sous l’image qui correspond. Attention, il y a quatre dialogues et six images.', q: ['A', 'B', 'C', 'D', 'E', 'F'].map((l, i) => ({ ...Q(l, ['1', '2', '3', '4'], [1, 3, undefined, 2, 0, undefined][i]), img: 'clean/manuel-a1-47-' + l.toLowerCase() + '.webp' })) },
+  48: { grille: true, c: 'Écrivez le numéro du dialogue sous l’image qui correspond. Attention, il y a quatre dialogues et six images.', q: ['A', 'B', 'C', 'D', 'E', 'F'].map((l, i) => ({ ...Q(l, ['1', '2', '3', '4'], [undefined, 0, 2, undefined, 3, 1][i]), img: 'clean/manuel-a1-48-' + l.toLowerCase() + '.webp' })) },
+  /* 10/10 : 49-54 (corrigé p.146). 52 : un tableau objet → lieu (chaque numéro va dans un seul lieu), photos des lieux au-dessus. */
+  49: { c: 'Écoutez les dialogues et cochez les bonnes réponses.', q: [1, 2, 3].map((m, i) => ({ ...Q('Message n° ' + m, ['A', 'B'], [1, 0, 1][i]), images: ['clean/manuel-a1-49-' + m + 'a.webp', 'clean/manuel-a1-49-' + m + 'b.webp'] })) },
+  50: { relier: true, relierImg: 'abcde'.split('').map(l => 'clean/manuel-a1-50-' + l + '.webp'), c: 'Écoutez les noms d’objets et reliez au bon numéro.', q: ['A', 'B', 'C', 'D', 'E'].map((l, i) => Q(l, ['1', '2', '3', '4', '5'], [2, 1, 4, 0, 3][i])) },
+  51: { relier: true, relierImg: 'abcde'.split('').map(l => 'clean/manuel-a1-51-' + l + '.webp'), c: 'Reliez chaque objet à son nom. Écoutez l’audio pour vérifier vos réponses.', q: ['A', 'B', 'C', 'D', 'E'].map((l, i) => Q(l, ['Un jus de fruits', 'Des légumes', 'Des fruits', 'Une tomate', 'Une pomme'], [2, 0, 4, 1, 3][i])) },
+  52: { tableau: true, photos: ['clean/manuel-a1-52-a.webp', 'clean/manuel-a1-52-b.webp', 'clean/manuel-a1-52-c.webp'], ratio: '170 / 108', c: 'Écoutez les noms des 6 objets et cochez leur numéro dans le lieu correspondant.', q: [1, 2, 3, 4, 5, 6].map((m, i) => Q('Objet n° ' + m, ['Le restaurant', 'La chambre', 'La salle de bains'], [2, 0, 1, 2, 0, 1][i])) },
+  53: { cocher: true, c: 'Écoutez les noms d’objets et cochez les objets entendus.', q: 'ABCDEFGH'.split('').map(l => ({ q: l, img: 'clean/manuel-a1-53-' + l.toLowerCase() + '.webp', bonne: 'ACG'.includes(l) })) },
+  54: { c: 'Écoutez les messages et cochez les bonnes réponses.', q: [['Qu’est-ce que Manuela prend toujours en voyage ?', 1], ['Qu’est-ce que Manuela adore ?', 1], ['Qu’est-ce que Manuela doit avoir pour son travail ?', 0]].map(([t, b], i) => ({ ...Q('Message ' + (i + 1) + ' · ' + t, ['A', 'B'], b), images: ['clean/manuel-a1-54-' + (i + 1) + 'a.webp', 'clean/manuel-a1-54-' + (i + 1) + 'b.webp'] })) },
+  /* 10/10 : 55-58 (corrigé p.146). 55 : numéro d'ordre sous chaque objet. 57 : Frida puis Richard (12 cases). */
+  55: { grille: true, c: 'Écoutez le message et classez dans l’ordre (de 1 à 5) les objets que vous entendez.', q: ['A', 'B', 'C', 'D', 'E'].map((l, i) => ({ ...Q(l, ['1', '2', '3', '4', '5'], [4, 2, 0, 1, 3][i]), img: 'clean/manuel-a1-55-' + l.toLowerCase() + '.webp' })) },
+  56: { cocher: true, c: 'Écoutez le message et cochez les objets présents sur le bureau de Salim.', q: 'ABCDEFGH'.split('').map(l => ({ q: l, img: 'clean/manuel-a1-56-' + l.toLowerCase() + '.webp', bonne: 'BCDG'.includes(l) })) },
+  57: { cocher: true, c: 'Écoutez et cochez les plats du déjeuner de Frida et du déjeuner de Richard.', q: [...'ABCDEF'.split('').map(l => ({ q: 'Frida · ' + l, img: 'clean/manuel-a1-57-f' + l.toLowerCase() + '.webp', bonne: 'ACE'.includes(l) })),
+    ...'ABCDEF'.split('').map(l => ({ q: 'Richard · ' + l, img: 'clean/manuel-a1-57-r' + l.toLowerCase() + '.webp', bonne: 'BDF'.includes(l) }))] },
+  58: { c: 'Écoutez les messages. Vous entendez le nom de l’objet ? Cochez « oui » ou « non ».', q: [[1, 'a', 0], [1, 'b', 0], [2, 'a', 0], [2, 'b', 1], [3, 'a', 1], [3, 'b', 0]].map(([m, l, b]) => ({ ...Q('Message ' + m + ' · ' + l.toUpperCase(), ['Oui', 'Non'], b), img: 'clean/manuel-a1-58-' + m + l + '.webp' })) }
 };
 /* 10/10 : les pistes DELF_A1_J_S ne sont PAS celles de ce livre (elle a écouté). ⏳ Vrais sons : didierfle-delfreussite.fr. */
 /* 10/10 : bons sons reçus (delf_a1_2022_piste_NN, site Didier) → audio/manuel-a1/piste-NN.mp3. */
-const AUDIO = [5, 6, 7, 8, 9, 10, 11, 12, 13];
+const AUDIO = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58];
+/* 10/10 : pages 10-11 du livre (l'épreuve de compréhension de l'oral), recopiées, en tête de l'onglet. */
+const EPR = [
+  ['L’épreuve', '#12233b', ['La compréhension de l’oral est la première épreuve de l’examen du DELF A1.', 'Durée totale de l’épreuve — 20 minutes', 'Nombre de points — 25 points', 'Nombre d’exercices — 5 exercices', 'Nombre de documents à écouter — 5 documents', 'Nombre d’écoutes — 2 écoutes pour chaque document', 'Durée totale des enregistrements — 3 minutes', 'Quand lire les questions ? — Avant d’écouter les documents (30 secondes pour lire les questions)', 'Quand écrire ses réponses ? — Après la 1re écoute']],
+  ['Objectifs des exercices', '#8e3b8a', ['Exercice 1 — Identifier un événement', 'Exercice 2 — Identifier une activité', 'Exercice 3 — Comprendre des instructions', 'Exercice 4 — Identifier des situations', 'Exercice 5 — Identifier des objets']],
+  ['Les savoir-faire', '#2a9d9d', ['Il faut principalement être capable de :', 'Repérer les informations essentielles d’une annonce publique : nombres, prix, heure, numéro de train ou de vol', 'Comprendre et écrire des informations chiffrées', 'Suivre des indications simples, des instructions', 'Comprendre une invitation et les formules de politesse', 'Repérer une information : une personne, une activité, un événement, un lieu, une destination, départ, voie, un objet', '« Mesdames, Messieurs. Le train n° 3667 à destination de Besançon partira voie E. »', '« Salut ! On se retrouve ce soir à 19 h 30 devant le cinéma, d’accord ? Si tu ne peux pas, appelle-moi au 06.36.25.00.31. À tout à l’heure ! »']],
+  ['Les exercices et les documents', '#5b7fa0', ['Exercice 1 · Identifier un événement (domaine personnel) — Message sur répondeur — Un questionnaire (4 questions) — 4 points', 'Exercice 2 · Identifier une activité (domaine public) — Météo à la radio, journal info à la radio, publicités à la radio, annonce publique (aéroport, gare, supermarché) — Un questionnaire (4 questions) — 4 points', 'Exercice 3 · Comprendre des instructions (domaine professionnel) — Message sur répondeur — Un questionnaire (4 questions) — 4 points', 'Exercice 4 · Identifier des situations (domaine éducationnel) — Mini-dialogues, images, photos, illustrations — Appariement (associer des images et des dialogues) — 8 points', 'Exercice 5 · Identifier des objets (domaine professionnel ou personnel) — Messages, images — Un questionnaire — 5 points']],
+  ['La consigne', '#12233b', ['Une consigne générale est écrite dans la copie d’examen. Cette consigne est également dite oralement. Elle indique que vous allez écouter plusieurs documents.', 'Il y a 2 écoutes. Avant chaque écoute, vous entendez le son d’une cloche. Ce son signifie que le document oral va commencer. Ce bruit vous permet de vous concentrer et d’arrêter la lecture des questions.', 'Dans les exercices 1, 2, 3 et 5, vous devez cocher la bonne réponse pour répondre aux questions. Dans l’exercice 4, vous notez le numéro de chaque dialogue sous l’image correspondante.']],
+  ['Les questions et les réponses', '#d6457a', ['Les questions sont toujours dans l’ordre du document. Les questions se présentent sous 3 formes :', 'Les questions à choix multiples (QCM) avec 3 choix : il faut cocher la bonne réponse parmi les 3 choix. Il y a 1 seule réponse correcte. Les 3 choix peuvent se présenter sous la forme de phrases ou d’images.', 'Les questions à choix multiples (QCM) avec 2 choix : il faut cocher la bonne réponse entre « oui » et « non ». Il y a 1 seule réponse correcte.', 'Un tableau d’appariement : associer un dialogue à une image. Il y a toujours 4 dialogues mais 6 images. Il y a donc 2 images non utilisées.']],
+  ['Conseils', '#c97a2b', ['S’entraîner à :', 'écouter et noter des chiffres et des lettres ;', 'repérer des itinéraires ;', 'distinguer les sons du français.']]
+];
 const S = (nom, de, a) => ({ nom, de, a });
+/* 10/10 : onglet « Prêt pour l'examen » = bilan p.38-39 du livre, recopié. */
+const CONS = [
+  ['Stratégies', '#6d5bd0', ['1. Quand j’écoute, je pose mon stylo et je me concentre.', '2. Je repère l’intonation dans les phrases pour trouver les questions.', '3. Je repère les différentes voix pour comprendre les rôles de chacun.', '4. Je note des chiffres, des dates ou des mots clés sur mon brouillon.']],
+  ['Je suis prêt(e) ?', '#d63c2f', ['1. Est-ce que j’identifie rapidement la situation ?', '2. Est-ce que je sais repérer des chiffres et des objets ?', '3. Est-ce que je connais au moins 10 mots dans chaque liste de cette page ?', '4. Est-ce que je suis capable de prendre des notes sur mon brouillon ?']],
+  ['Communication', '#c97a2b', ['Annoncer', 'Commencer un message', 'Inviter', 'Préciser', 'Prendre congé', 'Proposer', 'Répéter une information', 'Suivre des indications']],
+  ['Grammaire', '#d6457a', ['Les articles définis et indéfinis (le, la, les, un, une, des)', 'Les verbes en -er', 'Les verbes aller, prendre, descendre, payer, acheter', 'Le présent', 'L’impératif']],
+  ['Vocabulaire', '#5d9b3a', ['Achats', 'Aliments', 'Boissons', 'Commerces', 'Horaires', 'Loisirs', 'Météo', 'Nombres', 'Numéro de train / de téléphone', 'Prix', 'Publicité', 'Téléphoner', 'Vêtements', 'Voyage']],
+  ['Socioculturel · Dire l’heure', '#2a9d6e', ['1 h 30 — Une heure trente OU une heure et demie', '13 h 30 — Treize heures trente', '1 h 15 — Une heure et quart OU treize heures quinze', '18 h 45 — Dix-huit heures quarante-cinq OU sept heures moins le quart', '12 h 00 — Midi OU douze heures', '00 h 00 — Minuit']],
+  ['Annoncer', '#1d6fa5', ['Le train va entrer en gare quai numéro 3.', 'Le TGV 8967 arrivera dans 5 minutes.', 'Le TGV à destination de…']],
+  ['Commencer un message', '#1d6fa5', ['Mesdames, messieurs,', 'Votre attention s’il vous plaît', 'Chers clients,']],
+  ['Inviter', '#1d6fa5', ['Tu veux aller à la piscine avec moi ?', 'Est-ce que tu es disponible ?', 'Je t’invite au restaurant.', 'Tu veux venir avec nous au marché ?']],
+  ['Proposer', '#1d6fa5', ['Tu peux venir avec Camille.', 'Tu es toujours d’accord pour le rendez-vous de 15 heures ?', 'On peut aller au cinéma après le travail.']],
+  ['Achats', '#1d6fa5', ['Un magasin', 'Une promotion spéciale', 'Une remise de 15 %', 'Le rayon jouets', 'Une réduction', 'Les soldes', '75 % (pour cent)']],
+  ['Jour', '#1d6fa5', ['Lundi matin', 'Mardi après-midi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']],
+  ['Message téléphonique', '#1d6fa5', ['Bonjour, Madame Leroi au téléphone.', 'Salut, c’est Aïcha.', 'Ici le secrétariat de l’université…', 'Je vous appelle au sujet de…', 'Je ne peux malheureusement pas venir.', 'Il nous manque des pièces à votre dossier.', 'Pour plus d’information, rappelez-nous au 01 47 12 13 13.', 'Merci de nous rapporter une photocopie.', 'Appelle-moi sur mon téléphone portable !', 'Rendez-vous à 8 heures.']],
+  ['Nombres', '#1d6fa5', ['10 dix', '20 vingt', '21 vingt et un', '30 trente', '40 quarante', '50 cinquante', '60 soixante', '70 soixante-dix', '80 quatre-vingts', '90 quatre-vingt-dix', '96 quatre-vingt-seize', '100 cent', '1000 mille']],
+  ['Poids, mesures, argent', '#1d6fa5', ['Des billets', 'Des pièces', 'Des centimes', 'Des euros', '500 g (cinq cents grammes)', '2,5 kg (deux kilos cinq / et demi)', '25° : 25 degrés', 'Une bouteille de lait', 'Une part de gâteau', 'Une tranche de pain', 'Un kilo de pommes de terre', 'Une barquette de fraises']],
+  ['Voyager', '#1d6fa5', ['L’arrivée', 'Un avion', 'Un bagage', 'Un bateau', 'Le départ', 'La destination', 'L’embarquement', 'L’enregistrement', 'Entrer en gare', 'Porte D', 'Le prochain arrêt', 'En provenance de Lyon', 'Le quai 2', 'Le terminus', 'Un train', 'La voie A']]
+];
+/* 10/10 : S'ENTRAÎNER (p.28-37). Exercice N = piste 58+N. 3 exercices par partie (à confirmer sur les pages suivantes). Corrigés : ex. 1 = exemple coché du livre ; 2-3 p.146. */
+const EAUDIO = [1, 2, 3];
+const EXO = {
+  1: { c: 'Vous allez entendre deux fois un document. Vous avez 30 secondes après la consigne pour lire les questions, 30 secondes de pause entre les deux écoutes puis 30 secondes pour vérifier les réponses. Lisez les questions. Écoutez le document puis répondez. Vous écoutez ce message sur votre répondeur.',
+    conseils: ['Avant la 1re écoute du document audio, préparez votre brouillon et prenez votre stylo. Pendant la 1re écoute, écrivez les mots clés entendus.', 'Lisez les questions et surlignez les mots importants. Hugo vous propose d’aller où ? = la réponse attendue est un lieu. Quel jour est le rendez-vous ? = la réponse attendue est un jour de la semaine.', 'Pour chaque question, il y a 3 choix de réponse : une seule réponse est correcte. Cochez une seule case.', 'Avec qui est-ce que vous pouvez venir ? Sur votre brouillon, notez les prénoms entendus dans le document audio. La question s’adresse à vous. Il faut donc distinguer le prénom de votre ami au téléphone et de ses amis à lui.', 'Le nombre de points est indiqué en face de chaque question. Plus le nombre de points est élevé, plus la question est difficile. Dans cet exercice, chaque question a 1 point.'],
+    q: [Q('1 · Hugo vous propose d’aller où ?', ['Au cinéma.', 'Au théâtre.', 'Au restaurant.'], 0), Q('2 · Quel jour est le rendez-vous ?', ['Mardi.', 'Mercredi.', 'Jeudi.'], 0), Q('3 · À quelle heure est le rendez-vous ?', ['18 h 00.', '18 h 30.', '19 h 00.'], 1), Q('4 · Avec qui est-ce que vous pouvez venir ?', ['Anna.', 'Carlos.', 'Carmen.'], 2)] },
+  2: { c: 'Lisez les questions. Écoutez le document puis répondez. Vous écoutez ce message sur votre répondeur.',
+    q: [Q('1 · C’est l’anniversaire de qui ?', ['Léon.', 'Louis.', 'Jeannette.'], 1), { ...Q('2 · Qu’est-ce que vous devez apporter ?', ['A', 'B', 'C'], 2), images: ['a', 'b', 'c'].map(l => 'clean/manuel-a1-e2-2' + l + '.webp') }, Q('3 · À quelle heure est le rendez-vous chez Jeannette ?', ['14 h 00.', '15 h 00.', '16 h 00.'], 0), Q('4 · Comment allez-vous à l’anniversaire ?', ['En train.', 'En métro.', 'En voiture.'], 2)] },
+  3: { c: 'Lisez les questions. Écoutez le document puis répondez. Vous écoutez ce message sur votre répondeur.',
+    pretEx: ['Avant la 1re écoute, lire toutes les questions et, pendant la 1re écoute, noter les mots compris.', 'Se poser les bonnes questions : Quelle activité ? Avec qui ? Quand ? Où ? Comment ?', 'Être attentif à la 2e écoute et vérifier ses réponses. Faire les croix définitives au stylo. Attention : une seule réponse possible à chaque question !'],
+    q: [Q('1 · Fabiola vous propose d’aller à la plage…', ['ce midi.', 'cet après-midi.', 'ce soir.'], 1), Q('2 · À quelle heure est le rendez-vous ?', ['13 h 30.', '14 h 30.', '16 h 30.'], 0), { ...Q('3 · Fabiola va préparer une salade avec quoi ?', ['A', 'B', 'C'], 2), images: ['a', 'b', 'c'].map(l => 'clean/manuel-a1-e3-3' + l + '.webp') }, Q('4 · Qu’est-ce que Fabiola propose de manger à la plage ?', ['Des fruits.', 'Une glace.', 'Une gaufre.'], 1)] }
+};
 const PARTIES = [
   { nom: '1 · Identifier un événement', sous: [S('Comprendre un message', 1, 4), S('Comprendre des informations chiffrées', 5, 9), S('Comprendre des instructions simples', 10, 13)] },
   { nom: '2 · Identifier une activité', sous: [S('Comprendre la météo et les flashs info', 14, 18), S('Repérer des indices sonores', 19, 22), S('Comprendre une annonce', 23, 25)] },
@@ -108,40 +505,95 @@ const PARTIES = [
   { nom: '4 · Identifier des situations', sous: [S('Identifier une personne', 37, 42), S('Comprendre des relations', 43, 45), S('Repérer le sujet et la situation', 46, 48)] },
   { nom: '5 · Identifier des objets', sous: [S('Identifier un objet', 49, 53), S('Comprendre des informations sur des objets', 54, 58)] }
 ];
+/* 10/10 : ?ecrits=1 → livre « Compréhension des écrits » (menu Je lis). Seul l'onglet Comprendre existe pour l'instant. */
+const ECRITS = /[?&]ecrits=1/.test(location.search);
 class Component extends DCLogic {
-  state = { sous: null, act: null, rep: {}, corrige: false, joue: false };
+  state = { onglet: 'cons', sel: null, sous: null, act: null, rep: {}, corrige: false, joue: false };
   componentWillUnmount() { this.stop(); }
   stop() { if (this.a) { this.a.pause(); this.a = null; } }
   ouvrirAct(n) { this.stop(); this.setState({ act: n, rep: {}, corrige: false, joue: false }); window.scrollTo(0, 0); }
   renderVals() {
-    const s = this.state, act = s.act ? ACT[s.act] : null;
-    const pret = (sous) => { const n = []; for (let i = sous.de; i <= sous.a; i++) if (ACT[i]) n.push(i); return n; };
+    const s = this.state, E = s.onglet === 'entr', T = E ? EXO : ACT, act = s.act ? T[s.act] : null;
+    const pret = (sous) => { const n = []; for (let i = sous.de; i <= sous.a; i++) if (T[i]) n.push(i); return n; };
     const nums = s.sous ? pret(s.sous) : [];
     const idx = nums.indexOf(s.act);
-    const piste = String(s.act || 0).padStart(2, '0');
+    const piste = String((s.act || 0) + (E ? 58 : 0)).padStart(2, '0');
+    const AU = E ? EAUDIO : AUDIO, mot = E ? 'Exercice' : 'Activité';
     return {
-      titre: act ? 'Activité ' + s.act : s.sous ? s.sous.nom : 'Les activités',
-      estMenu: !s.sous, estSous: !!s.sous && !act, estActivite: !!act,
-      aRetourInterne: !!s.sous, libRetourInterne: act ? '← Les activités' : '← Les parties',
+      onglets: (ECRITS ? [['cons', 'Comprendre']] : [['cons', 'Comprendre'], ['prep', 'Se préparer'], ['entr', 'S’entraîner']]).map(([k, t]) => ({ t, fond: (s.onglet || 'prep') === k ? '#fdf3c4' : 'transparent', encre: (s.onglet || 'prep') === k ? '#12233b' : '#fff',
+        clic: () => { this.stop(); this.setState({ onglet: k, sous: null, act: null, rep: {}, corrige: false }); } })),
+      libAct: mot, aConseils: !!act && !!act.conseils, conseils: act && act.conseils ? act.conseils.map(t => ({ t })) : [],
+      aPretExamen: !!act && !!act.pretEx, pretExamen: act && act.pretEx ? act.pretEx.map(t => ({ t })) : [],
+      titre: act ? mot + ' ' + s.act : s.sous ? s.sous.nom : (s.onglet === 'cons' ? 'Comprendre' : E ? 'Les exercices' : 'Les activités'),
+      estMenu: !s.sous && s.onglet !== 'cons', estCons: !s.sous && s.onglet === 'cons', aOnglets: !s.sous, imprimer: () => window.print(),
+      nomLivre: ECRITS ? 'Compréhension des écrits' : 'Compréhension de l’oral', consOral: !ECRITS, consEcrit: ECRITS, consBlocs: ECRITS ? [] : (() => { const dire = t => () => { try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t.replace(/ — /g, ' : ')); u.lang = 'fr-FR'; u.rate = 0.85; speechSynthesis.speak(u); } catch (e) {} };
+        /* 10/10 (son oui) : on touche « Annoncer » → sa liste « Pour comprendre » s'ouvre dessous. À l'impression : listes séparées (2 pages, comme le livre). */
+        const LIEN = { 'Annoncer': 'Annoncer', 'Commencer un message': 'Commencer un message', 'Inviter': 'Inviter', 'Proposer': 'Proposer', 'Achats': 'Achats', 'Nombres': 'Nombres', 'Voyage': 'Voyager', 'Téléphoner': 'Message téléphonique', 'Horaires': 'Jour', 'Prix': 'Poids, mesures, argent' };
+        const PC = {}; CONS.slice(6).forEach(([t, , l]) => { PC[t] = l; });
+        const simple = ([titre, couleur, lignes]) => ({ titre, couleur, classe: '', lignes: lignes.map(t => ({ t, dire: dire(t), aSous: false, simple: true, ouvert: false, fleche: '', sous: [], basculer: () => {} })) });
+        return [].concat(CONS.map(([titre, couleur, lignes], bi) => ({ titre, couleur, classe: bi >= 6 ? 'seul-print' : '', lignes: lignes.map(t => { const k = (bi === 2 || bi === 4) && LIEN[t], cle = bi + '-' + t, ouvert = !!k && !!(s.ouverts || {})[cle];
+          return { t, dire: dire(t), aSous: !!k, simple: !k, ouvert, fleche: ouvert ? '▾' : '▸', sous: k ? PC[k].map(x => ({ t: x, dire: dire(x) })) : [],
+            basculer: () => this.setState(p => ({ ouverts: { ...(p.ouverts || {}), [cle]: !(p.ouverts || {})[cle] } })) }; }) }))); })(),
+      estSous: !!s.sous && !act, estActivite: !!act,
+      aRetourInterne: !!s.sous, libRetourInterne: act ? (E ? '← Les exercices' : '← Les activités') : '← Les parties',
       retourInterne: () => { this.stop(); this.setState(act ? { act: null, joue: false } : { sous: null }); },
+      aAccueil: !/[?&]cadre=1/.test(location.search), /* 10/10 : dans l'espace enseignant (DELF › Entraînements), le menu reste à gauche */
       accueil: () => { this.stop(); if (history.length > 1) history.back(); else location.href = 'index.html' + location.search; },
-      parties: PARTIES.map(p => ({ nom: p.nom, sous: p.sous.map(x => { const n = pret(x).length, tot = x.a - x.de + 1;
-        return { nom: x.nom, info: 'Activités ' + x.de + ' à ' + x.a + (n < tot ? ' · ' + n + '/' + tot + ' prêtes' : ''), bord: n ? '#6d5bd0' : '#c9c3b6', fond: n ? '#f1eefc' : '#f4f2ee',
+      parties: (E ? PARTIES.map((p, k) => ({ nom: p.nom, sous: [S('Exercices', 3 * k + 1, 3 * k + 3)] })) : PARTIES).map(p => ({ nom: p.nom, sous: p.sous.map(x => { const n = pret(x).length, tot = x.a - x.de + 1;
+        return { nom: x.nom, info: mot + 's ' + x.de + ' à ' + x.a + (n < tot ? ' · ' + n + '/' + tot + ' prêtes' : ''), bord: n ? '#6d5bd0' : '#c9c3b6', fond: n ? '#f1eefc' : '#f4f2ee',
           ouvrir: () => n ? this.setState({ sous: x }) : alert('Cette partie n’est pas encore construite.') }; }) })),
       activites: nums.map(n => ({ n, ouvrir: () => this.ouvrirAct(n) })),
-      consigne: act ? act.c : '', piste, aAudio: !!act && AUDIO.includes(s.act), sansAudio: !!act && !AUDIO.includes(s.act),
+      consigne: act ? act.c : '', piste, aAudio: !!act && AU.includes(s.act), sansAudio: !!act && !AU.includes(s.act),
       audioLibelle: s.joue ? '❚❚ Pause' : '▶ J’écoute', audioFond: s.joue ? '#d63c2f' : '#6d5bd0',
       audioClic: () => { if (s.joue) { this.a && this.a.pause(); this.setState({ joue: false }); return; }
         if (!this.a) { this.a = new Audio('audio/manuel-a1/piste-' + piste + '.mp3'); this.a.onended = () => this.setState({ joue: false }); }
         this.a.play(); this.setState({ joue: true }); },
-      questions: act ? act.q.map((q, i) => ({ q: q.q, choix: q.choix.map((t, j) => {
+      aTableau: !!act && !!act.tableau, tabNbCol: act && act.tableau ? act.q[0].choix.length : 1,
+      tabEntetes: act && act.tableau ? act.q[0].choix.map(t => ({ t })) : [],
+      tabCases: act && act.tableau ? act.q.flatMap((q, i) => [{ estLigne: true, estCase: false, t: q.q }].concat(q.choix.map((t, j) => {
+        const choisi = s.rep[i] === j, bon = q.bonne === j;
+        let fond = choisi ? '#e5e0fb' : '#fff', bord = choisi ? '#6d5bd0' : '#12233b';
+        if (s.corrige && choisi) { fond = bon ? '#d6f2e4' : '#fbdcd7'; bord = bon ? '#2a9d6e' : '#d63c2f'; }
+        return { estLigne: false, estCase: true, coche: choisi ? '✕' : '', fond, bord, clic: () => !s.corrige && this.setState(p => ({ rep: { ...p.rep, [i]: p.rep[i] === j ? undefined : j } })) }; }))) : [],
+      ...(() => { if (!act || !act.relier) return { aRelier: false, relGauche: [], relDroite: [], relTraits: [], relDecalage: '0px', relBtn: '48px' };
+        const H = act.relierImg ? 96 : 56, nL = act.q.length, nR = act.q[0].choix.length, dec = Math.max(0, (nL - nR) * H / 2), W = 140, mi = (H - 8) / 2;
+        const relier = (i, j) => this.setState(p => { const r = { ...p.rep }; if (r[i] === j) delete r[i]; else r[i] = j; return { rep: r, sel: null }; });
+        return { aRelier: true, relDecalage: dec + 'px', relBtn: (H - 8) + 'px',
+          relGauche: act.q.map((q, i) => { const pris = s.sel === i, lie = s.rep[i] != null, bon = s.rep[i] === q.bonne;
+            return { t: q.q, aImg: !!act.relierImg, img: act.relierImg ? "url('" + act.relierImg[i] + "')" : 'none', fond: pris ? '#e5e0fb' : (s.corrige && lie ? (bon ? '#d6f2e4' : '#fbdcd7') : '#fff'), bord: pris ? '#6d5bd0' : (s.corrige && lie ? (bon ? '#2a9d6e' : '#d63c2f') : '#d9d4c7'),
+              clic: () => !s.corrige && this.setState({ sel: s.sel === i ? null : i }) }; }),
+          relDroite: act.q[0].choix.map((t, j) => ({ t, clic: () => { if (!s.corrige && s.sel != null) relier(s.sel, j); } })),
+          relTraits: act.q.map((q, i) => { const j = s.rep[i]; if (j == null) return null;
+            const y1 = i * H + mi, y2 = dec + j * H + mi, dy = y2 - y1;
+            return { y: y1 + 'px', long: Math.sqrt(W * W + dy * dy) + 'px', angle: Math.atan2(dy, W) + 'rad', couleur: s.corrige ? (j === q.bonne ? '#2a9d6e' : '#d63c2f') : '#8e3b8a' }; }).filter(Boolean) }; })(),
+      aListes: !!act && !!act.listes, listesPhotos: act && act.photos ? act.photos.map(src => ({ src: "url('" + src + "')", ratio: act.ratio || (act.photos.length > 1 ? '134 / 124' : '230 / 178') })) : [],
+      listesLignes: act && act.listes ? act.q.map((q, i) => { const ok = q.listes.every((k, n) => s.rep[i + '-' + n] === k.bonne);
+        return { t: q.q, bord: s.corrige ? (ok ? '#2a9d6e' : '#d63c2f') : '#e6e1d6', fond: s.corrige ? (ok ? '#d6f2e4' : '#fbdcd7') : '#faf8f4',
+          listes: q.listes.map((k, n) => { const cle = i + '-' + n, r = s.rep[cle];
+            return { label: k.label || '', valeur: r == null ? '' : String(r), bloque: s.corrige,
+              options: [{ v: '', t: '…' }].concat(k.options.map((t, j) => ({ v: String(j), t }))),
+              changer: e => { const v = e.target.value; this.setState(p => ({ rep: { ...p.rep, [cle]: v === '' ? undefined : Number(v) } })); } }; }) }; }) : [],
+      aCocher: !!act && !!act.cocher, cocherLarg: act && act.unique ? '200px' : '140px',
+      cocherCases: act && act.cocher ? act.q.map((q, i) => { const pris = !!s.rep[i], bon = pris === !!q.bonne;
+        return { titre: q.q, img: "url('" + q.img + "')", coche: pris ? '✕' : '',
+          fond: s.corrige && (pris || q.bonne) ? (bon ? '#d6f2e4' : '#fbdcd7') : (pris ? '#e5e0fb' : '#fff'),
+          bord: s.corrige && (pris || q.bonne) ? (bon ? '#2a9d6e' : '#d63c2f') : (pris ? '#6d5bd0' : '#d9d4c7'),
+          clic: () => !s.corrige && this.setState(p => ({ rep: act.unique ? (p.rep[i] ? {} : { [i]: true }) : { ...p.rep, [i]: !p.rep[i] } })) }; }) : [],
+      aGrille: !!act && !!act.grille && !act.tabSelect, aTabSelect: !!act && !!act.tabSelect,
+      tabSelTitre1: act && act.tabSelect ? act.tabSelect[0] : '', tabSelTitre2: act && act.tabSelect ? act.tabSelect[1] : '',
+      grilleCases: act && act.grille ? act.q.map((q, i) => { const r = s.rep[i], bon = r === q.bonne;
+        return { titre: q.q, sep: /^\d+$/.test(q.choix[0]) ? ' · n°' : ' ·', img: "url('" + q.img + "')", valeur: r == null ? '' : String(r), bloque: s.corrige,
+          bord: s.corrige ? (bon ? '#2a9d6e' : '#d63c2f') : '#d9d4c7', fond: s.corrige ? (bon ? '#d6f2e4' : '#fbdcd7') : '#fff',
+          options: [{ v: '', t: '…' }].concat(q.choix.map((t, j) => ({ v: String(j), t }))),
+          changer: e => { const v = e.target.value; this.setState(p => ({ rep: { ...p.rep, [i]: v === '' ? undefined : Number(v) } })); } }; }) : [],
+      questions: act && !act.grille && !act.tableau && !act.relier && !act.cocher && !act.listes ? act.q.map((q, i) => ({ q: q.q, aImg: !!q.img, img: q.img ? "url('" + q.img + "')" : 'none', choix: q.choix.map((t, j) => {
         const choisi = s.rep[i] === j, bon = q.bonne === j;
         let fond = choisi ? '#e5e0fb' : '#fff', bord = choisi ? '#6d5bd0' : '#d9d4c7';
         if (s.corrige && choisi) { fond = bon ? '#d6f2e4' : '#fbdcd7'; bord = bon ? '#2a9d6e' : '#d63c2f'; }
-        return { t, fond, bord, clic: () => !s.corrige && this.setState({ rep: { ...s.rep, [i]: j } }) }; }) })) : [],
+        return { t, aImg: !!q.images, img: q.images ? "url('" + q.images[j] + "')" : 'none', fond, bord, clic: () => !s.corrige && this.setState({ rep: { ...s.rep, [i]: j } }) }; }) })) : [],
       aFini: !!act && !s.corrige, estCorrige: !!act && s.corrige,
       finir: () => this.setState({ corrige: true }),
-      recommencer: () => this.setState({ rep: {}, corrige: false }),
+      recommencer: () => this.setState({ rep: {}, corrige: false, sel: null }),
       aSuivante: !!act && s.corrige && idx >= 0 && idx < nums.length - 1,
       suivante: () => this.ouvrirAct(nums[idx + 1])
     };

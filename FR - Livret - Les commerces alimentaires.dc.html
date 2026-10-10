@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#14213d}
+a:hover{color:#000}
+</style>
+<script src="./doc-page.js"></script>
+</helmet>
+<doc-page size="a4">
+
+<section class="page" data-screen-label="Couverture" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:6mm">
+<div style="flex:0 0 auto;border:2mm solid #14213d;color:#14213d;padding:6mm 7mm;display:flex;flex-direction:column;gap:2mm">
+<span style="font-size:40pt;font-weight:700;letter-spacing:0.02em;line-height:1.05">LES COMMERCES ALIMENTAIRES</span>
+<span style="font-size:20pt">Les commerces de bouche</span>
+</div>
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center">
+<div style="display:grid;grid-template-columns:repeat(3,38mm);gap:4mm">
+<sc-for list="{{ commerces }}" as="c" hint-placeholder-count="6">
+<div style="height:26mm;border:1.5px solid #14213d;border-radius:2mm;{{ c.fond }}"></div>
+</sc-for>
+</div>
+</div>
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:5mm;font-size:14pt">
+<div style="display:flex;align-items:flex-end;gap:3mm"><span style="font-weight:700">Nom :</span><span style="flex:1;border-bottom:1.5px solid #14213d;height:7mm"></span></div>
+<div style="display:flex;align-items:flex-end;gap:3mm"><span style="font-weight:700">Prénom :</span><span style="flex:1;border-bottom:1.5px solid #14213d;height:7mm"></span></div>
+<div style="display:flex;align-items:flex-end;gap:3mm"><span style="font-weight:700">Classe :</span><span style="flex:1;border-bottom:1.5px solid #14213d;height:7mm"></span></div>
+</div>
+</section>
+
+<section class="page" data-screen-label="Activité 1 - Je dis où j'achète" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:5mm">
+<div style="flex:0 0 auto"><div style="border:2mm solid #14213d;color:#14213d;padding:2mm 4mm"><span style="font-size:17pt;font-weight:700;line-height:1.2">Activité 1 : Les différents commerces</span></div></div>
+<div style="flex:0 0 auto;font-size:12pt;color:#4a5262;font-style:italic;margin-top:-2mm">Compétence : dire où j'achète un aliment.</div>
+<div style="flex:0 0 auto;font-size:18pt;font-weight:700">1. J'apprends à dire où j'achète un aliment</div>
+<div style="flex:0 0 auto;border:2mm solid #14213d;color:#14213d;padding:4mm 5mm;display:flex;flex-direction:column;gap:4mm">
+<span style="font-size:12pt;letter-spacing:0.2em;font-weight:700">PHRASE À RETENIR</span>
+<div style="border:2px solid #14213d;border-radius:2mm;padding:3mm 4mm;font-size:17pt;line-height:1.35">Pour acheter <b>du PAIN</b>, je vais <u><b>À LA</b></u> <b>BOULANGERIE</b>.</div>
+<div style="border:2px solid #14213d;border-radius:2mm;padding:3mm 4mm;font-size:17pt;line-height:1.35">Pour acheter <b>du PAIN</b>, je vais <u><b>CHEZ LE</b></u> <b>BOULANGER</b>.</div>
+</div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:2px solid #14213d;border-radius:3mm;overflow:hidden">
+<div style="display:flex;flex-direction:column;align-items:center;gap:1mm;padding:3mm;text-align:center">
+<span style="font-size:12pt;color:#c21f1f;font-weight:700">féminin · la · une</span>
+<span style="font-size:24pt;font-weight:700;color:#c21f1f">À LA</span>
+<span style="font-size:12pt;color:#c21f1f;font-weight:700">+ le commerce</span>
+<span style="font-size:13pt;line-height:1.35">à la boulangerie<br/>à la poissonnerie</span>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:1mm;padding:3mm;border-left:2px solid #14213d;text-align:center">
+<span style="font-size:12pt;color:#1f5fbf;font-weight:700">masculin · le · un</span>
+<span style="font-size:24pt;font-weight:700;color:#1f5fbf">AU</span>
+<span style="font-size:12pt;color:#1f5fbf;font-weight:700">+ le commerce</span>
+<span style="font-size:13pt;line-height:1.35">au marché<br/>(jamais « à le »)</span>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:1mm;padding:3mm;border-left:2px solid #14213d;text-align:center">
+<span style="font-size:12pt;font-weight:700">une personne</span>
+<span style="font-size:24pt;font-weight:700">CHEZ LE</span>
+<span style="font-size:12pt;font-weight:700">+ le nom du métier</span>
+<span style="font-size:13pt;line-height:1.35">chez le boulanger<br/>chez le primeur</span>
+</div>
+</div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm;margin-top:2mm">
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/camarade.webp') center/contain no-repeat"></span>
+<span style="font-size:16pt;font-weight:700">À l'oral, je pose la question à un camarade.</span>
+</div>
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:4mm;border:1.5px solid #c9cfd8;border-radius:3mm;padding:5mm 6mm">
+<div style="font-size:18pt;line-height:1.3">— Où vas-tu pour acheter du pain ?</div>
+<div style="font-size:18pt;line-height:1.3;border:2px solid #14213d;border-radius:2mm;padding:2mm 4mm;align-self:flex-start">— Je vais à la boulangerie.</div>
+<div style="font-size:18pt;line-height:1.3;border:2px solid #14213d;border-radius:2mm;padding:2mm 4mm;align-self:flex-start">— Je vais chez le boulanger.</div>
+</div>
+<div style="flex:0 0 auto;display:flex;justify-content:flex-end"><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12pt;font-weight:700">2</span></div>
+</section>
+
+<section class="page" data-screen-label="Activité 1 - Je découvre les commerces" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto"><div style="border:2mm solid #14213d;color:#14213d;padding:2mm 4mm"><span style="font-size:17pt;font-weight:700;line-height:1.2">Activité 1 : Les différents commerces</span></div></div>
+<div style="flex:0 0 auto;font-size:12pt;color:#4a5262;font-style:italic;margin-top:-1mm">Compétence : connaître les commerces et ce qu'on y achète.</div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm">
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/lis.webp') center/contain no-repeat"></span>
+<span style="font-size:16pt;font-weight:700">2. Je découvre les commerces.</span>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr));gap:4mm">
+<sc-for list="{{ commerces }}" as="c" hint-placeholder-count="6">
+<div style="border:1.5px solid #14213d;border-radius:2mm;padding:2.5mm;display:flex;flex-direction:column;gap:1.5mm;min-height:0;overflow:hidden">
+<div style="flex:1;min-height:0;border-radius:1.5mm;{{ c.fond }}"></div>
+<span style="flex:0 0 auto;font-size:15pt;font-weight:700">{{ c.nom }}</span>
+<span style="flex:0 0 auto;font-size:12pt;line-height:1.25">{{ c.exemples }}</span>
+<span style="flex:0 0 auto;font-size:12pt;line-height:1.25;font-weight:700">{{ c.phrase }}</span>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;display:flex;justify-content:flex-end"><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12pt;font-weight:700">3</span></div>
+</section>
+
+<section class="page" data-screen-label="Activité 1 - Je classe et je parle" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:3mm">
+<div style="flex:0 0 auto"><div style="border:2mm solid #14213d;color:#14213d;padding:2mm 4mm"><span style="font-size:17pt;font-weight:700;line-height:1.2">Activité 1 : Les différents commerces</span></div></div>
+<div style="flex:0 0 auto;font-size:16pt;font-weight:700">3. Je classe les aliments et je parle.</div>
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:2mm">
+<div style="display:flex;align-items:center;gap:3mm">
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/colle.webp') center/contain no-repeat"></span>
+<span style="font-size:14pt">Je prends une étiquette. Je trouve le commerce. Je colle.</span>
+</div>
+<div style="display:flex;align-items:center;gap:3mm">
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/camarade.webp') center/contain no-repeat"></span>
+<span style="font-size:14pt">Je dis : « Pour acheter <b>…</b>, je vais <b>à la / au / chez le …</b> »</span>
+</div>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-rows:repeat(6,minmax(0,1fr));gap:2.5mm">
+<sc-for list="{{ commerces }}" as="c" hint-placeholder-count="6">
+<div style="border:2px solid #14213d;border-radius:2mm;display:flex;min-height:0;overflow:hidden">
+<div style="flex:0 0 44mm;display:flex;flex-direction:column;justify-content:center;gap:1mm;padding:1.5mm 2.5mm;border-right:1.5px solid #14213d">
+<span style="flex:1;min-height:0;border-radius:1mm;{{ c.fond }}"></span>
+<span style="flex:0 0 auto;font-size:12pt;font-weight:700;line-height:1.1">{{ c.nom }}</span>
+</div>
+<div style="flex:1;min-height:0"></div>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;display:flex;justify-content:flex-end"><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12pt;font-weight:700">4</span></div>
+</section>
+
+<section class="page" data-screen-label="Étiquettes - Activité 1" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:6mm">
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:5mm">
+<span style="flex:0 0 auto;width:22mm;height:22mm;border-radius:50%;border:2mm solid #14213d;box-sizing:border-box;color:#14213d;display:flex;align-items:center;justify-content:center;font-size:36pt;font-weight:700">1</span>
+<div style="display:flex;flex-direction:column;gap:1mm">
+<span style="font-size:18pt;font-weight:700">Activité 1 : les étiquettes</span>
+<div style="display:flex;align-items:center;gap:3mm">
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/decoupe.webp') center/contain no-repeat"></span>
+<span style="font-size:14pt">Je découpe sur les tirets.</span>
+</div>
+</div>
+</div>
+<div style="flex:1;min-height:0;display:flex;align-items:flex-start;justify-content:center;position:relative">
+<span style="position:absolute;top:-6mm;left:calc(50% - 61mm);width:9mm;height:9mm;background:url('clean/pictos/ciseaux.webp') center/contain no-repeat"></span>
+<div style="display:grid;grid-template-columns:repeat(4,28mm);border-top:2px dashed #14213d;border-left:2px dashed #14213d">
+<sc-for list="{{ aliments }}" as="a" hint-placeholder-count="12">
+<div style="width:28mm;height:24mm;box-sizing:border-box;border-right:2px dashed #14213d;border-bottom:2px dashed #14213d;padding:1mm;display:flex;flex-direction:column;gap:0.5mm">
+<div style="flex:1;min-height:0;{{ a.fond }}"></div>
+<span style="flex:0 0 auto;font-size:12pt;text-align:center;line-height:1.05">{{ a.t }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+<div style="flex:0 0 auto;display:flex;justify-content:flex-end"><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12pt;font-weight:700">5</span></div>
+</section>
+
+<section class="page" data-screen-label="Corrigé" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto"><div style="border:2mm solid #14213d;color:#14213d;padding:2mm 4mm"><span style="font-size:17pt;font-weight:700;line-height:1.2">Corrigé — Activité 1</span></div></div>
+<div style="flex:0 0 auto;font-size:13pt;line-height:1.35">Plusieurs réponses sont possibles : on accepte un aliment dans un autre commerce si l'élève justifie son choix à l'oral (au marché, on trouve aussi du fromage, du poisson, de la viande).</div>
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;gap:3mm">
+<sc-for list="{{ corrige }}" as="c" hint-placeholder-count="6">
+<div style="border:1.5px solid #14213d;border-radius:2mm;padding:3mm 4mm;display:flex;flex-direction:column;gap:1mm">
+<span style="font-size:14pt;font-weight:700">{{ c.nom }}</span>
+<span style="font-size:13pt;line-height:1.3">{{ c.reponses }}</span>
+<span style="font-size:12pt;line-height:1.3;color:#4a5262;font-style:italic">{{ c.phrase }}</span>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;display:flex;justify-content:flex-end"><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12pt;font-weight:700">6</span></div>
+</section>
+
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* 10/10 (sa demande) : livret « Les commerces alimentaires — les commerces de bouche ».
+   6 commerces : supermarché RETIRÉ, boulangerie AJOUTÉE. Phrase à retenir : à la / au + le
+   commerce, chez le + le nom du MÉTIER. Étiquettes en du / de la / des (recopiées telles
+   quelles dans « Pour acheter… »). Photos : ses planches découpées. Enseigne POISSONNERIE
+   gardée (son oui). Étiquettes 28 × 24 mm, cases de collage plus grandes. */
+const L = k => "background:#fff url('clean/" + k + ".webp') center/cover no-repeat";
+const P = k => "background:#fff url('clean/" + k + ".webp') center/contain no-repeat";
+const COMMERCES = [
+  ['lieu-boucherie', 'La boucherie-charcuterie', 'la viande, le jambon, les saucisses…', 'à la boucherie · chez le boucher', 'de la viande, du jambon, des saucisses'],
+  ['lieu-poissonnerie', 'La poissonnerie', 'le poisson, les crevettes…', 'à la poissonnerie · chez le poissonnier', 'du poisson, des crevettes, des moules'],
+  ['lieu-fromagerie', 'La fromagerie', 'le fromage…', 'à la fromagerie · chez le fromager', 'du fromage'],
+  ['lieu-primeur', 'Le primeur', 'les pommes, les carottes…', 'chez le primeur', 'des pommes, des carottes, des tomates'],
+  ['lieu-marche', 'Le marché', 'les fruits, les légumes, le fromage…', 'au marché', 'des pommes, des carottes, des tomates — et aussi du fromage, du poisson, de la viande…'],
+  ['lieu-boulangerie', 'La boulangerie', 'le pain, la baguette…', 'à la boulangerie · chez le boulanger', 'du pain']
+];
+const ALIMENTS = [['mot-pain', 'du pain'], ['mot-viande', 'de la viande'], ['mot-jambon', 'du jambon'], ['mot-saucisse', 'des saucisses'],
+  ['mot-poisson-entier', 'du poisson'], ['mot-crevette', 'des crevettes'], ['mot-moule', 'des moules'], ['mot-fromage', 'du fromage'],
+  ['mot-pomme', 'des pommes'], ['mot-carotte', 'des carottes'], ['mot-tomate-photo', 'des tomates'], ['mot-poulet', 'du poulet']];
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      commerces: COMMERCES.map(([k, nom, exemples, phrase]) => ({ fond: L(k), nom, exemples, phrase: 'Je vais ' + phrase.split(' · ').join(' / ') + '.' })),
+      aliments: ALIMENTS.map(([k, t]) => ({ fond: P(k), t })),
+      corrige: COMMERCES.map(([k, nom, ex, phrase, rep]) => ({ nom, reponses: rep + (k === 'lieu-boucherie' ? ', du poulet' : ''),
+        phrase: 'Pour acheter ' + rep.split(',')[0] + ', je vais ' + phrase.split(' · ').join(' ou je vais ') + '.' }))
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="fr" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Positionnement Mathématiques CASNAV - Pro</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: { extend: {} }
+        }
+    </script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Scrollbar customisation pour les onglets */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white !important; color: black !important; }
+            .print-break-inside-avoid { break-inside: avoid; }
+            .shadow-sm, .shadow-lg { box-shadow: none !important; border: 1px solid #e2e8f0 !important; }
+            #radarContainer { max-width: 400px; margin: 0 auto; }
+        }
+
+        .btn-score.active {
+            outline: 2px solid #3b82f6;
+            outline-offset: 2px;
+            transform: scale(1.1);
+            z-index: 10;
+        }
+        
+        /* Dark mode table specific fixes */
+        .dark .btn-score:not(.active) { background-color: #1e293b; border: 1px solid #334155; }
+        .dark .btn-score:not(.active):hover { background-color: #334155; }
+        .dark td, .dark th { border-color: #334155; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 min-h-screen pb-12 flex flex-col">
+
+    <!-- NAVBAR & TABS -->
+    <nav class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 sticky top-0 z-50 no-print">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex items-center justify-between h-14">
+                <div class="flex items-center gap-2 font-bold text-blue-600 dark:text-blue-400">
+                    <i data-lucide="calculator" class="w-5 h-5"></i>
+                    <span class="hidden sm:inline">CASNAV Profiler</span>
+                </div>
+                
+                <div class="flex items-center gap-2 sm:gap-4">
+                    <!-- Exports -->
+                    <div class="flex bg-slate-100 dark:bg-slate-700 rounded-lg p-1">
+                        <button onclick="exportData('csv')" class="px-2 py-1 text-xs font-semibold rounded hover:bg-white dark:hover:bg-slate-600 shadow-sm transition-all" title="Exporter en CSV">CSV</button>
+                        <button onclick="exportData('xml')" class="px-2 py-1 text-xs font-semibold rounded hover:bg-white dark:hover:bg-slate-600 shadow-sm transition-all" title="Exporter en XML">XML</button>
+                    </div>
+                    
+                    <button onclick="toggleDarkMode()" class="p-2 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white rounded-full hover:bg-slate-100 dark:hover:bg-slate-700 transition-all">
+                        <i data-lucide="moon" id="themeIcon" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tabs Container -->
+            <div class="flex items-center gap-2 pb-2 overflow-x-auto hide-scrollbar" id="tabsContainer">
+                <!-- Tabs injected by JS -->
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto w-full px-4 pt-6 space-y-6 flex-grow">
+        
+        <!-- HEADER ELEVE -->
+        <header class="bg-white dark:bg-slate-800 p-4 sm:p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div class="space-y-1 print:hidden">
+                <h1 class="text-xl sm:text-2xl font-bold flex items-center gap-2">
+                    Dossier Élève
+                </h1>
+                <p class="text-slate-500 dark:text-slate-400 text-xs sm:text-sm italic">Évaluation de positionnement mathématiques (> 16 ans)</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full md:w-auto no-print">
+                <div class="flex flex-col">
+                    <label class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase mb-1">Nom / Prénom</label>
+                    <input type="text" id="studentName" oninput="updateCurrentStudent('name', this.value)" placeholder="Ex: Naimur R." class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none transition-all">
+                </div>
+                <div class="flex flex-col">
+                    <label class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase mb-1">Date du test</label>
+                    <input type="date" id="testDate" onchange="updateCurrentStudent('date', this.value)" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none transition-all">
+                </div>
+            </div>
+
+            <!-- Print only header -->
+            <div class="hidden print:block text-center w-full pb-4 border-b border-slate-200 mb-4">
+                <h1 class="text-2xl font-bold mb-2 uppercase">Bilan de Positionnement Mathématiques</h1>
+                <div class="flex justify-center gap-8 text-lg">
+                    <p>Élève : <span class="font-bold" id="printNameDisplay"></span></p>
+                    <p>Date : <span class="font-bold" id="printDateDisplay"></span></p>
+                </div>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+            
+            <!-- TABLEAU DES EXERCICES -->
+            <section class="lg:col-span-2 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden">
+                <div class="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-100 dark:border-slate-700 px-4 sm:px-6 py-4 flex justify-between items-center">
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="list-checks" class="text-blue-500 w-5 h-5"></i>
+                        <h2 class="font-bold">Grille d'évaluation</h2>
+                    </div>
+                    <button onclick="resetCurrentScores()" class="text-[10px] uppercase font-bold text-slate-400 hover:text-red-500 transition-colors no-print flex items-center gap-1">
+                        <i data-lucide="rotate-ccw" class="w-3 h-3"></i> RAZ
+                    </button>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm" id="exerciseTable">
+                        <thead class="bg-slate-50/50 dark:bg-slate-800/50 text-slate-400 dark:text-slate-500 uppercase text-[10px] font-bold tracking-widest border-b border-slate-100 dark:border-slate-700">
+                            <tr>
+                                <th class="px-4 sm:px-6 py-3 min-w-[200px]">Capacité & Exercice</th>
+                                <th class="px-2 sm:px-4 py-3 text-center hidden sm:table-cell">Niveau</th>
+                                <th class="px-4 sm:px-6 py-3 text-right">Score</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 dark:divide-slate-700" id="exerciseTbody">
+                            <!-- JS Will inject rows here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- SIDEBAR: CHART, STATS & REPORT -->
+            <aside class="space-y-6">
+                
+                <!-- RADAR CHART -->
+                <div class="bg-white dark:bg-slate-800 p-4 sm:p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 print-break-inside-avoid">
+                    <div class="flex items-center gap-2 mb-4">
+                        <i data-lucide="pie-chart" class="text-indigo-500 w-5 h-5"></i>
+                        <h2 class="font-bold">Profil de Compétences</h2>
+                    </div>
+                    <div class="relative w-full aspect-square max-w-[300px] mx-auto" id="radarContainer">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- PROGRESS BARS -->
+                <div class="bg-white dark:bg-slate-800 p-4 sm:p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 print-break-inside-avoid">
+                    <div class="flex items-center gap-2 mb-6">
+                        <i data-lucide="graduation-cap" class="text-emerald-500 w-5 h-5"></i>
+                        <h2 class="font-bold">Acquisition par Palier</h2>
+                    </div>
+                    <div id="statsContainer" class="space-y-4">
+                        <!-- JS Will inject progress bars here -->
+                    </div>
+                </div>
+
+                <!-- COMPTE RENDU -->
+                <div class="bg-blue-900 dark:bg-slate-950 text-white rounded-xl shadow-lg border border-blue-800 dark:border-slate-800 overflow-hidden flex flex-col print-break-inside-avoid">
+                    <div class="p-4 border-b border-blue-800/50 dark:border-slate-800 flex justify-between items-center no-print">
+                        <h3 class="font-bold text-sm flex items-center gap-2">
+                            <i data-lucide="file-text" class="w-4 h-4 text-blue-300"></i>
+                            Bilan Synthétique
+                        </h3>
+                        <button onclick="copyReport()" class="p-1.5 hover:bg-blue-800 dark:hover:bg-slate-800 rounded-md transition-all" title="Copier le texte">
+                            <i data-lucide="copy" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                    <div class="p-5 bg-blue-950/40 dark:bg-slate-900/50 flex-grow">
+                        <div id="reportArea" class="text-xs sm:text-sm leading-relaxed font-mono opacity-90 whitespace-pre-wrap"></div>
+                    </div>
+                    <div class="p-4 bg-blue-900 dark:bg-slate-950 grid grid-cols-1 gap-3 no-print">
+                        <button onclick="window.print()" class="bg-blue-600 hover:bg-blue-500 text-white text-xs py-2 px-3 rounded-lg flex items-center justify-center gap-2 transition-all">
+                            <i data-lucide="printer" class="w-4 h-4"></i> Imprimer le Dossier
+                        </button>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- App Logic -->
+    <script>
+        // --- DATA CONSTANTS ---
+        const EXERCISES_DATA = [
+            { id: 1, title: "Ex. 1", capacity: "Effectuer des opérations", level: "CAP" },
+            { id: 2, title: "Ex. 2", capacity: "Ranger des nombres", level: "CAP" },
+            { id: 3, title: "Ex. 3", capacity: "Convertir des grandeurs", level: "CAP" },
+            { id: 4, title: "Ex. 4", capacity: "Calculer avec des fractions", level: "CAP" },
+            { id: 5, title: "Ex. 5", capacity: "Lire un tableau à double entrée", level: "CAP" },
+            { id: 6, title: "Ex. 6", capacity: "Appliquer un pourcentage d'évolution", level: "CAP" },
+            { id: 7, title: "Ex. 7", capacity: "Calculer des grandeurs proportionnelles", level: "CAP" },
+            { id: 8, title: "Ex. 8", capacity: "Reconnaître une situation de proportionnalité", level: "CAP" },
+            { id: 9, title: "Ex. 9", capacity: "Calculer avec des puissances", level: "2de BAC PRO" },
+            { id: 10, title: "Ex. 10", capacity: "Résoudre des problèmes d'échelles", level: "2de BAC PRO" },
+            { id: 11, title: "Ex. 11", capacity: "Estimer un ordre de grandeur (aires)", level: "2de BAC PRO" },
+            { id: 12, title: "Ex. 12", capacity: "Utiliser un diagramme", level: "2de BAC PRO" },
+            { id: 13, title: "Ex. 13", capacity: "Se repérer dans le plan", level: "2de GT" },
+            { id: 14, title: "Ex. 14", capacity: "Résoudre une équation", level: "2de GT" },
+            { id: 15, title: "Ex. 15", capacity: "Développer une expression littérale", level: "2de GT" },
+            { id: 16, title: "Ex. 16", capacity: "Théorème de Pythagore / Aires", level: "2de GT" },
+            { id: 17, title: "Ex. 17", capacity: "Image et antécédent d'une fonction", level: "1ère GT" },
+            { id: 18, title: "Ex. 18", capacity: "Tableaux de valeurs et variations", level: "1ère GT" },
+            { id: 19, title: "Ex. 19", capacity: "Coordonnées et vecteurs", level: "1ère GT" },
+            { id: 20, title: "Ex. 20", capacity: "Calculer une dérivée", level: "Terminale" }
+        ];
+
+        const LEVELS = [
+            { value: 'NE', label: 'NE', classes: 'text-slate-500 dark:text-slate-400' },
+            { value: '--', label: '--', classes: 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400' },
+            { value: '-', label: '-', classes: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400' },
+            { value: '+', label: '+', classes: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400' },
+            { value: '++', label: '++', classes: 'bg-emerald-200 dark:bg-emerald-900/50 text-emerald-800 dark:text-emerald-300' }
+        ];
+        const ORIENTATIONS = ["CAP", "2de BAC PRO", "2de GT", "1ère GT", "Terminale"];
+
+        // --- STATE MANAGEMENT ---
+        let students = [];
+        let activeStudentId = null;
+        let radarChartInstance = null;
+        let isDarkMode = false;
+
+        function getToday() {
+            return new Date().toISOString().split('T')[0];
+        }
+
+        function createNewStudent(name = "Nouvel Élève") {
+            const id = 'student_' + Date.now();
+            const newStudent = {
+                id,
+                name: name,
+                date: getToday(),
+                scores: {}
+            };
+            EXERCISES_DATA.forEach(ex => newStudent.scores[ex.id] = 'NE');
+            return newStudent;
+        }
+
+        function initApp() {
+            // Theme init
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                isDarkMode = true;
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+            updateThemeIcon();
+
+            // Setup first student
+            const s1 = createNewStudent("Élève 1");
+            students.push(s1);
+            activeStudentId = s1.id;
+
+            buildTableHTML();
+            renderTabs();
+            renderActiveStudent();
+            lucide.createIcons();
+        }
+
+        // --- UI RENDERING ---
+
+        function renderTabs() {
+            const container = document.getElementById('tabsContainer');
+            container.innerHTML = '';
+            
+            students.forEach(student => {
+                const isActive = student.id === activeStudentId;
+                const tab = document.createElement('button');
+                tab.onclick = () => switchTab(student.id);
+                tab.className = `flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-t-lg border-b-2 whitespace-nowrap transition-colors
+                    ${isActive 
+                        ? 'border-blue-500 text-blue-600 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-900/20' 
+                        : 'border-transparent text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800'}`;
+                
+                tab.innerHTML = `
+                    <span class="truncate max-w-[120px]">${student.name || 'Sans nom'}</span>
+                    ${students.length > 1 ? `<span onclick="deleteStudent(event, '${student.id}')" class="ml-1 p-0.5 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-400 hover:text-red-500"><i data-lucide="x" class="w-3 h-3"></i></span>` : ''}
+                `;
+                container.appendChild(tab);
+            });
+
+            // Add button
+            const addBtn = document.createElement('button');
+            addBtn.onclick = addStudent;
+            addBtn.className = "flex items-center justify-center w-9 h-9 rounded-full hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-400 hover:text-blue-500 transition-colors shrink-0";
+            addBtn.innerHTML = '<i data-lucide="plus" class="w-5 h-5"></i>';
+            container.appendChild(addBtn);
+            
+            lucide.createIcons();
+        }
+
+        function buildTableHTML() {
+            const tbody = document.getElementById('exerciseTbody');
+            tbody.innerHTML = '';
+            EXERCISES_DATA.forEach(ex => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50/80 dark:hover:bg-slate-700/30 transition-colors";
+                tr.innerHTML = `
+                    <td class="px-4 sm:px-6 py-3">
+                        <div class="font-semibold text-slate-700 dark:text-slate-200">${ex.title}</div>
+                        <div class="text-[11px] text-slate-500 dark:text-slate-400 font-medium">${ex.capacity}</div>
+                        <!-- Mobile Level Badge -->
+                        <span class="sm:hidden mt-1 inline-block rounded bg-blue-50 dark:bg-blue-900/30 px-1.5 py-0.5 text-[9px] font-bold text-blue-700 dark:text-blue-400 border border-blue-100 dark:border-blue-800 uppercase">
+                            ${ex.level}
+                        </span>
+                    </td>
+                    <td class="px-2 sm:px-4 py-3 text-center hidden sm:table-cell">
+                        <span class="inline-flex items-center rounded-md bg-blue-50 dark:bg-blue-900/30 px-2 py-0.5 text-[10px] font-bold text-blue-700 dark:text-blue-400 border border-blue-100 dark:border-blue-800 uppercase tracking-tighter">
+                            ${ex.level}
+                        </span>
+                    </td>
+                    <td class="px-4 sm:px-6 py-3">
+                        <div class="flex justify-end gap-1 flex-wrap sm:flex-nowrap w-[90px] sm:w-auto ml-auto" id="group-${ex.id}">
+                            ${LEVELS.map(lvl => `
+                                <button onclick="setScore(${ex.id}, '${lvl.value}')" 
+                                    id="btn-${ex.id}-${lvl.value}"
+                                    class="btn-score w-7 h-7 sm:w-8 sm:h-8 rounded-md text-[10px] sm:text-xs font-bold transition-all ${lvl.classes}">
+                                    ${lvl.label}
+                                </button>
+                            `).join('')}
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function renderActiveStudent() {
+            const student = students.find(s => s.id === activeStudentId);
+            if (!student) return;
+
+            // Form
+            document.getElementById('studentName').value = student.name === "Nouvel Élève" || student.name.startsWith("Élève ") ? "" : student.name;
+            document.getElementById('testDate').value = student.date;
+            
+            // Print Info
+            document.getElementById('printNameDisplay').innerText = student.name || "Non renseigné";
+            document.getElementById('printDateDisplay').innerText = student.date;
+
+            // Table Buttons
+            EXERCISES_DATA.forEach(ex => {
+                const val = student.scores[ex.id];
+                const buttons = document.querySelectorAll(`#group-${ex.id} .btn-score`);
+                buttons.forEach(btn => btn.classList.remove('active', 'ring-2', 'ring-blue-500', 'shadow-md'));
+                const activeBtn = document.getElementById(`btn-${ex.id}-${val}`);
+                if (activeBtn) activeBtn.classList.add('active', 'ring-2', 'ring-blue-500', 'shadow-md');
+            });
+
+            updateStatsAndReport();
+        }
+
+        // --- ACTIONS ---
+
+        function switchTab(id) {
+            activeStudentId = id;
+            renderTabs();
+            renderActiveStudent();
+        }
+
+        function addStudent() {
+            const newStudent = createNewStudent(`Élève ${students.length + 1}`);
+            students.push(newStudent);
+            activeStudentId = newStudent.id;
+            renderTabs();
+            renderActiveStudent();
+        }
+
+        function deleteStudent(e, id) {
+            e.stopPropagation();
+            if(!confirm("Supprimer ce dossier élève ?")) return;
+            
+            students = students.filter(s => s.id !== id);
+            if (students.length === 0) {
+                const s1 = createNewStudent("Élève 1");
+                students.push(s1);
+                activeStudentId = s1.id;
+            } else if (activeStudentId === id) {
+                activeStudentId = students[students.length - 1].id;
+            }
+            renderTabs();
+            renderActiveStudent();
+        }
+
+        function updateCurrentStudent(field, value) {
+            const student = students.find(s => s.id === activeStudentId);
+            if(student) {
+                student[field] = value;
+                if(field === 'name') renderTabs(); // Update tab title
+                renderActiveStudent(); // Update print view & report
+            }
+        }
+
+        function setScore(exId, value) {
+            const student = students.find(s => s.id === activeStudentId);
+            if(student) {
+                student.scores[exId] = value;
+                renderActiveStudent();
+            }
+        }
+
+        function resetCurrentScores() {
+            if(!confirm("Effacer toutes les saisies pour cet élève ?")) return;
+            const student = students.find(s => s.id === activeStudentId);
+            if(student) {
+                EXERCISES_DATA.forEach(ex => student.scores[ex.id] = 'NE');
+                renderActiveStudent();
+            }
+        }
+
+        // --- CALCULATIONS, CHARTS & REPORTS ---
+
+        function updateStatsAndReport() {
+            const student = students.find(s => s.id === activeStudentId);
+            const container = document.getElementById('statsContainer');
+            container.innerHTML = '';
+
+            const chartData = [];
+
+            ORIENTATIONS.forEach(lvlName => {
+                const group = EXERCISES_DATA.filter(ex => ex.level === lvlName);
+                const countAcquired = group.filter(ex => student.scores[ex.id] === '+' || student.scores[ex.id] === '++').length;
+                const percent = Math.round((countAcquired / group.length) * 100);
+                
+                chartData.push(percent);
+
+                // Progress Bar
+                const div = document.createElement('div');
+                div.className = "space-y-1.5";
+                div.innerHTML = `
+                    <div class="flex justify-between items-end">
+                        <span class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide">${lvlName}</span>
+                        <span class="text-[10px] font-bold ${percent >= 50 ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-500 dark:text-slate-400'}">
+                            ${percent}%
+                        </span>
+                    </div>
+                    <div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-2 overflow-hidden">
+                        <div class="h-full transition-all duration-500 ${percent >= 50 ? 'bg-emerald-500 dark:bg-emerald-400' : 'bg-slate-300 dark:bg-slate-500'}" style="width: ${percent}%"></div>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+
+            updateRadarChart(chartData);
+            generateReportText(student, chartData);
+        }
+
+        function updateRadarChart(data) {
+            const ctx = document.getElementById('radarChart').getContext('2d');
+            const textColor = isDarkMode ? '#cbd5e1' : '#64748b'; // slate-300 / slate-500
+            const gridColor = isDarkMode ? '#334155' : '#e2e8f0'; // slate-700 / slate-200
+
+            if (radarChartInstance) {
+                radarChartInstance.data.datasets[0].data = data;
+                // Update theme colors dynamically
+                radarChartInstance.options.scales.r.pointLabels.color = textColor;
+                radarChartInstance.options.scales.r.grid.color = gridColor;
+                radarChartInstance.options.scales.r.angleLines.color = gridColor;
+                radarChartInstance.update();
+                return;
+            }
+
+            radarChartInstance = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ORIENTATIONS,
+                    datasets: [{
+                        label: 'Acquisition (%)',
+                        data: data,
+                        backgroundColor: 'rgba(99, 102, 241, 0.2)', // Indigo transparent
+                        borderColor: 'rgb(99, 102, 241)',
+                        pointBackgroundColor: 'rgb(99, 102, 241)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgb(99, 102, 241)',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            min: 0,
+                            max: 100,
+                            ticks: { display: false, stepSize: 25 },
+                            pointLabels: {
+                                font: { family: 'Inter', size: 10, weight: 'bold' },
+                                color: textColor
+                            },
+                            grid: { color: gridColor },
+                            angleLines: { color: gridColor }
+                        }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+
+        function generateReportText(student, statsArray) {
+            const name = student.name && student.name !== "Nouvel Élève" && !student.name.startsWith("Élève ") ? student.name : "l'élève";
+            const acquired = EXERCISES_DATA.filter(ex => student.scores[ex.id] === '+' || student.scores[ex.id] === '++');
+            const reportArea = document.getElementById('reportArea');
+            
+            let text = `Bilan rédigé automatiquement\nDate : ${student.date}\n\n`;
+            
+            if (acquired.length > 0) {
+                text += `POINTS FORTS OBSERVÉS :\n${name.charAt(0).toUpperCase() + name.slice(1)} a démontré une maîtrise satisfaisante sur les capacités suivantes : ${acquired.map(e => e.capacity.toLowerCase()).join(', ')}.\n\n`;
+            } else {
+                text += `BILAN GÉNÉRAL :\nLes fondamentaux du cycle 4 ne sont pas encore stabilisés. L'évaluation met en évidence des fragilités sur l'ensemble des thématiques mathématiques abordées lors de ce test de positionnement.\n\n`;
+            }
+
+            // Determine best level
+            let bestLevel = null;
+            for (let i = ORIENTATIONS.length - 1; i >= 0; i--) {
+                if (statsArray[i] >= 50) { bestLevel = ORIENTATIONS[i]; break; }
+            }
+
+            text += `PROFIL D'ORIENTATION :\n`;
+            if (bestLevel) {
+                text += `Au vu des résultats obtenus (notamment le score de franchissement de seuil), une orientation vers un cursus de type [${bestLevel}] constitue un palier de référence cohérent pour la poursuite d'études de ${name}.`;
+            } else {
+                text += `Un parcours adapté de type CAP, ou une année de consolidation des acquis, apparaît nécessaire afin de sécuriser les bases mathématiques avant d'envisager une filière qualifiante de niveau supérieur.`;
+            }
+
+            reportArea.innerText = text;
+        }
+
+        // --- UTILS & EXPORTS ---
+
+        function toggleDarkMode() {
+            isDarkMode = !isDarkMode;
+            if(isDarkMode) {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            } else {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            }
+            updateThemeIcon();
+            if(radarChartInstance) updateStatsAndReport(); // trigger chart color update
+        }
+
+        function updateThemeIcon() {
+            const icon = document.getElementById('themeIcon');
+            if(isDarkMode) {
+                icon.setAttribute('data-lucide', 'sun');
+            } else {
+                icon.setAttribute('data-lucide', 'moon');
+            }
+            lucide.createIcons();
+        }
+
+        function copyReport() {
+            const text = document.getElementById('reportArea').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                alert("Compte-rendu copié !");
+            }).catch(err => {
+                // Fallback
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                alert("Compte-rendu copié !");
+            });
+        }
+
+        function exportData(format) {
+            if(students.length === 0) return;
+            
+            let content = '';
+            let filename = `export_casnav_${getToday()}`;
+            let mimeType = '';
+
+            if (format === 'csv') {
+                mimeType = 'text/csv;charset=utf-8;';
+                filename += '.csv';
+                // Headers
+                content += 'ID,Nom,Date,';
+                content += EXERCISES_DATA.map(ex => `Ex${ex.id}_${ex.level.replace(/ /g, '')}`).join(',') + '\n';
+                // Rows
+                students.forEach(s => {
+                    let row = `${s.id},"${s.name}",${s.date},`;
+                    row += EXERCISES_DATA.map(ex => `"${s.scores[ex.id]}"`).join(',');
+                    content += row + '\n';
+                });
+            } else if (format === 'xml') {
+                mimeType = 'application/xml;charset=utf-8;';
+                filename += '.xml';
+                content = '<?xml version="1.0" encoding="UTF-8"?>\n<evaluations>\n';
+                students.forEach(s => {
+                    content += `  <student id="${s.id}">\n    <name><![CDATA[${s.name}]]></name>\n    <date>${s.date}</date>\n    <scores>\n`;
+                    EXERCISES_DATA.forEach(ex => {
+                        content += `      <exercise id="${ex.id}" level="${ex.level}"><![CDATA[${s.scores[ex.id]}]]></exercise>\n`;
+                    });
+                    content += `    </scores>\n  </student>\n`;
+                });
+                content += '</evaluations>';
+            }
+
+            const blob = new Blob([content], { type: mimeType });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Boot
+        window.onload = initApp;
+    </script>
+</body>
+</html>

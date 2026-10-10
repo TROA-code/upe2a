@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="polices.css" />
+<style>body{margin:0;font-family:Arial, Helvetica, sans-serif;color:#14213d}a{color:#1d4e89}a:hover{color:#14213d}@media print{.bouton{display:none !important}}</style>
+</helmet>
+<button class="bouton" onClick="{{ retour }}" style="position:fixed;top:12px;left:12px;z-index:10;min-height:44px;border:none;border-radius:10px;background:#12233b;color:#fff;padding:0 16px;font-weight:700;font-size:15px;font-family:Arial, Helvetica, sans-serif;cursor:pointer">← L'accueil</button>
+<button class="bouton" onClick="{{ imprimer }}" style="position:fixed;top:12px;right:12px;z-index:10;min-height:44px;border:none;border-radius:10px;background:#2a9d6e;color:#fff;padding:0 18px;font-weight:700;font-size:15px;font-family:Arial, Helvetica, sans-serif;cursor:pointer">🖨 Imprimer</button>
+<x-import component-from-global-scope="doc-page" from="./doc-page.js" size="a4" hint-size="100%,100%">
+<sc-for list="{{ planches }}" as="pl" hint-placeholder-count="2">
+<section class="page" data-screen-label="{{ pl.label }}" style="box-sizing:border-box;padding:20mm;background:#fff;display:flex;flex-direction:column;gap:5mm;font-family:Arial, Helvetica, sans-serif;color:#14213d">
+<div style="flex:0 0 auto;background:#14213d;color:#fff;padding:3mm 6mm;display:flex;align-items:center;justify-content:space-between;gap:6mm"><span style="font-size:20pt;font-weight:700;letter-spacing:0.04em">LES SYLLABES <span style="font-size:14pt;font-weight:400;letter-spacing:0">(les sons R, V et L)</span></span><span style="font-size:12pt;letter-spacing:0.1em;white-space:nowrap">{{ pl.coin }}</span></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:4mm"><span style="width:12mm;height:12mm;flex:0 0 auto;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:url('clean/pictos/colle.webp') center/contain no-repeat"></span><span style="font-size:16pt;font-weight:700">Je colle les syllabes : je fabrique le mot.</span></div>
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:space-around">
+<sc-for list="{{ pl.mots }}" as="m" hint-placeholder-count="4">
+<div style="display:flex;align-items:center;gap:4mm">
+<span style="flex:0 0 auto;width:36mm;height:36mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('{{ m.img }}') center/contain no-repeat;display:block"></span>
+<div style="display:flex;gap:2mm">
+<sc-for list="{{ m.cases }}" as="c" hint-placeholder-count="2"><span style="width:41mm;height:38mm;box-sizing:border-box;border:1.5px solid #8a91a3;border-radius:2mm;background:#f6f6f6;display:flex;align-items:center;justify-content:center;font-family:'BA Script', Arial, sans-serif;font-size:30pt;color:#14213d">{{ c }}</span></sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+</section>
+</sc-for>
+<section class="page" data-screen-label="03 Étiquettes" style="box-sizing:border-box;padding:20mm;background:#fff;display:flex;flex-direction:column;gap:5mm;font-family:Arial, Helvetica, sans-serif;color:#14213d">
+<div style="flex:0 0 auto;background:#14213d;color:#fff;padding:3mm 6mm;display:flex;align-items:center;justify-content:space-between;gap:6mm"><span style="font-size:20pt;font-weight:700;letter-spacing:0.04em">LES ÉTIQUETTES</span><span style="font-size:12pt;letter-spacing:0.1em">à découper</span></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:4mm"><span style="width:12mm;height:12mm;flex:0 0 auto;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:url('clean/pictos/ciseaux.webp') center/contain no-repeat"></span><span style="font-size:16pt;font-weight:700">Je découpe les syllabes.</span></div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:repeat(4,38mm);justify-content:space-between;align-content:space-evenly;row-gap:4mm">
+<sc-for list="{{ etiquettes }}" as="e" hint-placeholder-count="18">
+<div style="position:relative;width:38mm;height:34mm">
+<svg viewBox="0 0 100 90" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible"><polygon points="{{ e.forme }}" fill="#fff" stroke="#14213d" stroke-width="1.2" stroke-dasharray="4 3" vector-effect="non-scaling-stroke"></polygon></svg>
+<span style="position:absolute;top:-4mm;left:1mm;width:8mm;height:6mm;background:#fff url('clean/pictos/ciseaux.webp') center/contain no-repeat;display:block"></span>
+<span style="position:absolute;inset:0;padding-left:{{ e.decal }};padding-right:4mm;display:flex;align-items:center;justify-content:center;font-family:'BA Script', Arial, sans-serif;font-size:28pt;color:#14213d">{{ e.s }}</span>
+</div>
+</sc-for>
+</div>
+</section>
+<section class="page" data-screen-label="04 Corrigé" style="box-sizing:border-box;padding:20mm;background:#fff;display:flex;flex-direction:column;gap:4mm;font-family:Arial, Helvetica, sans-serif;color:#14213d">
+<div style="flex:0 0 auto;background:#14213d;color:#fff;padding:3mm 6mm;font-size:20pt;font-weight:700;letter-spacing:0.04em">CORRIGÉ</div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5mm 8mm">
+<sc-for list="{{ corrige }}" as="m" hint-placeholder-count="8">
+<div style="display:flex;align-items:center;gap:4mm;border:1.5px solid #14213d;border-radius:2mm;padding:2mm 3mm">
+<span style="flex:0 0 auto;width:22mm;height:22mm;background:#fff url('{{ m.img }}') center/contain no-repeat;display:block"></span>
+<span style="font-family:'BA Script', Arial, sans-serif;font-size:22pt">{{ m.decoupe }}</span>
+</div>
+</sc-for>
+</div>
+</section>
+</x-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* Puzzle des syllabes (09/10, sa demande) : pour les élèves en difficulté, comme tomate/robot/lit.
+   Ses 8 mots : radio, radis, robot, rideau (+ lavabo, vélo, salade, livre). Pas rasoir (oi trop dur).
+   Planches à coller (cases 41×38 > étiquettes 38×34), étiquettes mélangées en flèches (tirets +
+   ciseaux), corrigé. Photos manquantes : mot-radio, mot-rideau, mot-lavabo (prompts donnés). */
+const MOTS = [
+  ['radio', ['ra', 'dio']], ['radis', ['ra', 'dis']], ['robot', ['ro', 'bot']], ['rideau', ['ri', 'deau']],
+  ['lavabo', ['la', 'va', 'bo']], ['velo', ['vé', 'lo']], ['salade', ['sa', 'la', 'de']], ['livre', ['li', 'vre']], ['lune', ['lu', 'ne']]
+];
+const PREMIER = '2,2 82,2 98,45 82,88 2,88';
+const SUITE = '2,2 82,2 98,45 82,88 2,88 18,45';
+class Component extends DCLogic {
+  renderVals() {
+    const mot = ([m, syl]) => ({ img: 'clean/mot-' + m + '.webp', cases: syl.map(() => ''), syl });
+    const pieces = [];
+    MOTS.forEach(([, syl]) => syl.forEach((s, i) => pieces.push({ s, forme: i ? SUITE : PREMIER, decal: i ? '7mm' : '2mm' })));
+    const ordre = [5, 12, 0, 16, 18, 8, 3, 14, 10, 1, 17, 6, 13, 19, 2, 9, 15, 4, 11, 7];
+    return {
+      planches: [
+        { label: '01 Planche 1', coin: '1 / 2', mots: MOTS.slice(0, 4).map(mot) },
+        { label: '02 Planche 2', coin: '2 / 2', mots: MOTS.slice(4).map(mot) }
+      ],
+      etiquettes: ordre.map(i => pieces[i]),
+      corrige: MOTS.map(([m, syl]) => ({ img: 'clean/mot-' + m + '.webp', decoupe: syl.join(' · ') })),
+      imprimer: () => window.print(),
+      retour: () => { const av = location.href; history.back(); setTimeout(() => { if (location.href === av) location.href = 'APPLI - Espace enseignant.dc.html' + location.search; }, 400); }
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#6d5bd0"/><text x="50" y="62" font-size="30" text-anchor="middle" fill="#fff" font-family="Arial" font-weight="700">DELF</text></svg></template>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&amp;family=Archivo+Black&amp;display=swap" rel="stylesheet" />
+<style>
+html,body{margin:0;height:100%;font-family:Archivo, sans-serif;color:#12233b}
+a{color:#1d4e89}
+a:hover{color:#12233b}
+input,textarea,button{font-family:inherit}
+@media print{.no-print{display:none !important}}
+</style>
+</helmet>
+<div style="position:fixed;inset:0;display:flex;flex-direction:column;background:url('clean/mur-briques.webp') repeat;overflow:auto">
+
+<div class="no-print" style="flex:0 0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 18px">
+<sc-if value="{{ aRetour }}" hint-placeholder-val="{{ true }}"><button onClick="{{ retour }}" style="min-height:44px;border:none;border-radius:10px;background:#12233b;color:#fff;padding:0 16px;font-weight:700;font-size:15px;cursor:pointer;box-shadow:0 3px 0 #050d18">{{ libelleRetour }}</button></sc-if>
+<div style="flex:1"></div>
+<sc-if value="{{ aNiveaux }}" hint-placeholder-val="{{ true }}"><div style="display:flex;gap:4px;background:rgba(18,35,59,0.9);border-radius:12px;padding:4px">
+<sc-for list="{{ niveaux }}" as="n" hint-placeholder-count="2">
+<button onClick="{{ n.choisir }}" style="min-width:64px;min-height:40px;border:none;border-radius:9px;background:{{ n.fond }};color:{{ n.encre }};font-family:Archivo Black, Archivo, sans-serif;font-size:17px;cursor:pointer">{{ n.nom }}</button>
+</sc-for>
+</div></sc-if>
+</div>
+
+<sc-if value="{{ estMenu }}" hint-placeholder-val="{{ true }}">
+<div style="flex:1 0 auto;display:flex;flex-direction:column;align-items:center;gap:22px;padding:6px 18px 30px">
+<div style="position:relative;background:#fdf3c4;padding:12px 34px;transform:rotate(-1deg);box-shadow:0 4px 10px rgba(0,0,0,0.3)">
+<span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:block"></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:22px;letter-spacing:0.02em;text-transform:uppercase;color:#8a4b1e;display:block;text-align:center">Préparation au DELF {{ niveau }}</span>
+</div>
+<sc-if value="{{ estA2 }}" hint-placeholder-val="{{ false }}">
+<div style="background:#fff;border-radius:12px;padding:18px 26px;box-shadow:0 6px 16px rgba(0,0,0,0.25);font-family:Archivo Black, Archivo, sans-serif;font-size:20px;color:#6b7386">A2 · bientôt</div>
+</sc-if>
+<div style="width:100%;max-width:980px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,320px));justify-content:center;gap:22px">
+<sc-for list="{{ sujetsMenu }}" as="sj" hint-placeholder-count="0">
+<div style="display:flex;flex-direction:column;gap:10px">
+<button onClick="{{ sj.ouvrir }}" style="border:none;cursor:pointer;background-image:url('clean/liege.webp');background-size:100% 100%;box-shadow:0 12px 28px rgba(0,0,0,0.3);padding:18px 16px 18px;display:flex;flex-direction:column;align-items:center;gap:12px" style-hover="transform:translateY(-3px)">
+<span style="position:relative;background:#fdf3c4;padding:8px 22px;transform:rotate(-1deg);box-shadow:0 4px 10px rgba(0,0,0,0.3);display:block">
+<span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:block"></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:26px;letter-spacing:0.03em;color:#8a4b1e;display:block">{{ sj.titre }}</span>
+</span>
+<span style="width:100%;aspect-ratio:1000/545;background-image:{{ sj.img }};background-size:cover;background-position:center;border:4px solid #fff;border-radius:8px;box-shadow:0 3px 10px rgba(0,0,0,0.25);box-sizing:border-box;display:block"></span>
+<span style="width:100%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px">
+<sc-for list="{{ sj.pictos }}" as="p" hint-placeholder-count="4">
+<span style="background:#fff;border:3px solid {{ p.couleur }};border-radius:8px;aspect-ratio:1;background-image:{{ p.img }};background-size:contain;background-repeat:no-repeat;background-position:center;background-origin:content-box;padding:4px;display:block"></span>
+</sc-for>
+</span>
+</button>
+<!-- 05/10 : documents papier, CÔTÉ PROF seulement (?prof=1 posé par l'espace enseignant déverrouillé). Jamais target="_blank". -->
+<sc-if value="{{ sj.aDocs }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center">
+<sc-for list="{{ sj.docs }}" as="d" hint-placeholder-count="0">
+<a href="{{ d.href }}" onClick="{{ d.clic }}" style="min-height:44px;display:flex;align-items:center;gap:6px;background:#fff;border-radius:10px;padding:0 14px;font-weight:700;font-size:15px;color:#12233b;text-decoration:none;box-shadow:0 2px 6px rgba(0,0,0,0.2)">📄 {{ d.nom }}</a>
+</sc-for>
+</div>
+</sc-if>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ estSujet }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1 0 auto;display:flex;flex-direction:column;align-items:center;gap:22px;padding:6px 18px 30px">
+<div style="position:relative;background:#fdf3c4;padding:12px 34px;transform:rotate(-1deg);box-shadow:0 4px 10px rgba(0,0,0,0.3)">
+<span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:block"></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:22px;letter-spacing:0.02em;text-transform:uppercase;color:#8a4b1e;display:block;text-align:center">DELF {{ niveau }} · {{ titreSujet }}</span>
+</div>
+<div style="width:100%;max-width:980px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px">
+<sc-for list="{{ epreuvesMenu }}" as="e" hint-placeholder-count="4">
+<button onClick="{{ e.ouvrir }}" style="border:none;cursor:pointer;background-image:url('clean/liege.webp');background-size:100% 100%;box-shadow:0 12px 28px rgba(0,0,0,0.3);padding:16px 16px 18px;display:flex;flex-direction:column;align-items:center;gap:12px;opacity:{{ e.opacite }}" style-hover="transform:translateY(-3px)">
+<span style="width:100%;aspect-ratio:1;box-sizing:border-box;background:#fff;border:5px solid {{ e.couleur }};border-radius:12px;box-shadow:0 3px 10px rgba(0,0,0,0.2);background-image:{{ e.img }};background-size:contain;background-repeat:no-repeat;background-position:center;background-origin:content-box;padding:16px;display:block"></span>
+<span style="background:{{ e.couleur }};color:#fff;border-radius:9px;padding:8px 14px;font-family:Archivo Black, Archivo, sans-serif;font-size:21px;text-transform:uppercase;letter-spacing:0.02em">{{ e.nom }}</span>
+<span style="display:flex;align-items:center;gap:8px;background:#fdf3c4;border-radius:8px;padding:6px 12px;box-shadow:0 2px 6px rgba(0,0,0,0.25)">
+<span style="font-size:20px;line-height:1">⏱</span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:20px;color:#12233b">{{ e.duree }}</span>
+</span>
+</button>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ estEpreuve }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1 0 auto;display:flex;justify-content:center;padding:4px 14px 30px">
+<div style="width:100%;max-width:1000px;box-sizing:border-box;background-image:url('clean/liege.webp');background-size:100% 100%;box-shadow:0 12px 28px rgba(0,0,0,0.3);padding:18px;display:flex;flex-direction:column;gap:14px">
+
+<div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+<span style="width:64px;height:64px;flex:0 0 auto;box-sizing:border-box;background:#fff;border:4px solid {{ ep.couleur }};border-radius:10px;background-image:{{ ep.img }};background-size:contain;background-repeat:no-repeat;background-position:center;background-origin:content-box;padding:6px;display:block"></span>
+<span style="background:{{ ep.couleur }};color:#fff;border-radius:9px;padding:8px 14px;font-family:Archivo Black, Archivo, sans-serif;font-size:24px;text-transform:uppercase">{{ ep.nom }}</span>
+<div style="flex:1"></div>
+<button onClick="{{ chronoClic }}" class="no-print" style="min-height:48px;border:none;border-radius:10px;background:{{ chronoFond }};color:#fff;padding:0 18px;display:flex;align-items:center;gap:8px;cursor:pointer;box-shadow:0 3px 0 rgba(0,0,0,0.3)">
+<span style="font-size:20px;line-height:1">⏱</span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:20px">{{ chronoLibelle }}</span>
+</button>
+</div>
+
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<sc-for list="{{ onglets }}" as="o" hint-placeholder-count="4">
+<button onClick="{{ o.aller }}" style="min-height:46px;border:none;border-radius:10px;background:{{ o.fond }};color:{{ o.encre }};padding:0 18px;font-family:Archivo Black, Archivo, sans-serif;font-size:17px;cursor:pointer;box-shadow:0 3px 8px rgba(0,0,0,0.25)">{{ o.titre }}</button>
+</sc-for>
+</div>
+
+<div style="background:#fff;border-radius:12px;box-shadow:0 4px 14px rgba(0,0,0,0.22);padding:20px 22px 24px;display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;align-items:flex-start;gap:12px">
+<button onClick="{{ exo.direConsigne }}" title="Écouter" style="flex:0 0 auto;width:46px;height:46px;border:none;border-radius:50%;background:{{ ep.couleur }};color:#fff;font-size:20px;cursor:pointer">🔊</button>
+<div style="font-size:21px;font-weight:700;line-height:1.35;text-wrap:pretty;padding-top:8px">{{ exo.consigne }}</div>
+</div>
+
+<sc-if value="{{ exo.aAudio }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:14px;background:#f1effb;border-radius:12px;padding:12px 14px">
+<button onClick="{{ audioClic }}" style="flex:0 0 auto;min-width:150px;min-height:56px;border:none;border-radius:12px;background:#6d5bd0;color:#fff;font-family:Archivo Black, Archivo, sans-serif;font-size:19px;cursor:pointer;box-shadow:0 3px 0 #4c3ea0">{{ audioLibelle }}</button>
+<div onClick="{{ audioSaut }}" title="Toucher pour aller à cet endroit" style="flex:1;min-width:120px;padding:16px 0;cursor:pointer">
+<div style="height:14px;background:#d9d4f3;border-radius:7px;overflow:hidden;pointer-events:none">
+<div style="height:100%;width:{{ audioPct }};background:#6d5bd0"></div>
+</div>
+</div>
+<span style="flex:0 0 auto;font-family:Archivo Black, Archivo, sans-serif;font-size:16px;color:#4c3ea0;min-width:90px;text-align:right">{{ audioTemps }}</span>
+</div>
+</sc-if>
+
+<!-- 05/10 (sa capture) : un article de site internet se montre DANS une fenêtre de navigateur, comme sur le sujet papier. -->
+<sc-if value="{{ exo.aNav }}" hint-placeholder-val="{{ false }}">
+<div style="align-self:center;width:100%;max-width:820px;box-sizing:border-box;border:1px solid #9aa0a8;border-radius:8px;overflow:hidden;box-shadow:0 8px 20px rgba(0,0,0,0.25);background:#fff">
+<div style="background:linear-gradient(#e9e9eb,#c9cacd);padding:8px 12px;display:flex;flex-direction:column;gap:8px;border-bottom:1px solid #9aa0a8">
+<div style="display:flex;gap:7px"><span style="width:13px;height:13px;border-radius:50%;background:#ec5f57;display:block"></span><span style="width:13px;height:13px;border-radius:50%;background:#f4bd4f;display:block"></span><span style="width:13px;height:13px;border-radius:50%;background:#5fc454;display:block"></span></div>
+<div style="display:flex;align-items:center;gap:10px">
+<span style="font-size:14px;color:#6b7386;display:flex;gap:6px">◀ ▶</span>
+<span style="flex:1;min-width:0;background:#fff;border:1px solid #9aa0a8;border-radius:12px;padding:3px 12px;font-size:15px;color:#12233b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">🌐 {{ exo.navUrl }}</span>
+<span style="flex:0 1 160px;background:#fff;border:1px solid #9aa0a8;border-radius:12px;padding:3px 12px;font-size:14px;color:#9aa3b2">🔍 Google</span>
+</div>
+</div>
+<div style="padding:16px 26px 20px;display:flex;flex-direction:column;gap:10px;font-family:Georgia, 'Times New Roman', serif">
+<sc-for list="{{ exo.doc }}" as="l" hint-placeholder-count="4">
+<div style="font-size:21px;line-height:1.45;font-weight:{{ l.poids }};font-style:{{ l.style }};text-align:{{ l.align }};color:#12233b">{{ l.t }}</div>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ exo.aDoc }}" hint-placeholder-val="{{ false }}">
+<div style="align-self:center;width:100%;max-width:560px;box-sizing:border-box;background:#fbfaf6;border:2px solid #d8d3c4;border-radius:6px;padding:18px 22px;box-shadow:0 3px 8px rgba(0,0,0,0.12);display:flex;flex-direction:column;gap:8px">
+<sc-for list="{{ exo.doc }}" as="l" hint-placeholder-count="4">
+<div style="font-size:19px;line-height:1.45;font-weight:{{ l.poids }};text-align:{{ l.align }}">{{ l.t }}</div>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ exo.aMail }}" hint-placeholder-val="{{ false }}">
+<div style="align-self:center;width:100%;max-width:760px;background:#d4d6db;border:1px solid #8c9099;border-radius:6px;box-shadow:0 6px 16px rgba(0,0,0,0.2);overflow:hidden">
+<div style="display:flex;align-items:center;gap:10px;background:#7d8494;color:#fff;padding:8px 12px">
+<span style="width:22px;height:15px;border:2px solid #fff;border-radius:2px;box-sizing:border-box;background:linear-gradient(to bottom right,transparent 46%,#fff 47%,#fff 53%,transparent 54%),linear-gradient(to bottom left,transparent 46%,#fff 47%,#fff 53%,transparent 54%);display:block"></span>
+<span style="font-weight:700;font-size:17px;flex:1">Nouveau message</span>
+<span style="display:flex;gap:5px"><span style="width:20px;height:20px;background:#e9eaed;border-radius:3px;display:block"></span><span style="width:20px;height:20px;background:#e9eaed;border-radius:3px;display:block"></span><span style="width:20px;height:20px;background:#e9eaed;border-radius:3px;display:block"></span></span>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:6px;padding:7px 10px;border-bottom:1px solid #b3b6bd">
+<span style="background:#eceef1;border:1px solid #9a9ea7;border-radius:3px;padding:3px 10px;font-size:14px;color:#3a4558">Envoyer</span>
+<span style="background:#eceef1;border:1px solid #9a9ea7;border-radius:3px;padding:3px 10px;font-size:14px;color:#3a4558">Enregistrer</span>
+<span style="background:#eceef1;border:1px solid #9a9ea7;border-radius:3px;padding:3px 10px;font-size:14px;color:#3a4558">Imprimer</span>
+<span style="background:#eceef1;border:1px solid #9a9ea7;border-radius:3px;padding:3px 10px;font-size:14px;color:#3a4558">Joindre</span>
+<span style="background:#eceef1;border:1px solid #9a9ea7;border-radius:3px;padding:3px 10px;font-size:14px;color:#3a4558">Contacts</span>
+</div>
+<div style="display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 10px;align-items:center;padding:10px 12px 6px">
+<span style="font-weight:700;font-size:16px">De :</span><span style="height:28px;background:#fff;border:1px solid #9a9ea7;display:block"></span>
+<span style="font-weight:700;font-size:16px">Copie :</span><span style="height:28px;background:#fff;border:1px solid #9a9ea7;display:block"></span>
+<span style="font-weight:700;font-size:16px">Objet :</span><span style="min-height:28px;background:#fff;border:1px solid #9a9ea7;padding:3px 8px;box-sizing:border-box;font-family:ui-monospace, Menlo, Consolas, monospace;font-size:17px">{{ exo.mailObjet }}</span>
+</div>
+<div style="margin:6px 12px 12px;background:#fff;border:1px solid #9a9ea7;padding:12px 14px 22px;display:flex;flex-direction:column;gap:14px">
+<sc-for list="{{ exo.mailCorps }}" as="l" hint-placeholder-count="4">
+<div style="font-family:ui-monospace, Menlo, Consolas, monospace;font-size:17px;line-height:1.5;text-wrap:pretty">{{ l.t }}</div>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ exo.aAnnonces }}" hint-placeholder-val="{{ false }}">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
+<sc-for list="{{ exo.annonces }}" as="a" hint-placeholder-count="4">
+<div style="background:#fbfaf6;border:2px solid #d8d3c4;border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:6px">
+<div style="font-family:Archivo Black, Archivo, sans-serif;font-size:16px;color:#2a9d6e">Annonce n° {{ a.n }}</div>
+<div style="font-size:17px;line-height:1.4">{{ a.t }}</div>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ exo.aTableau }}" hint-placeholder-val="{{ false }}">
+<div style="width:100%;overflow-x:auto">
+<div style="min-width:620px;display:grid;grid-template-columns:90px repeat(5,minmax(0,1fr));border-top:2px solid #12233b;border-left:2px solid #12233b;font-size:16px;line-height:1.2">
+<span style="border-right:2px solid #12233b;border-bottom:2px solid #12233b;display:block"></span>
+<sc-for list="{{ exo.tabJours }}" as="j" hint-placeholder-count="5">
+<span style="border-right:2px solid #12233b;border-bottom:2px solid #12233b;padding:10px 6px;text-align:center;font-weight:700;font-size:17px">{{ j.t }}</span>
+</sc-for>
+<sc-for list="{{ exo.tabLignes }}" as="l" hint-placeholder-count="8">
+<span style="border-right:2px solid #12233b;border-bottom:2px solid #12233b;min-height:{{ l.hauteur }};padding:4px;background:{{ l.fondH }};display:flex;align-items:center;justify-content:center;font-weight:700">{{ l.h }}</span>
+<sc-for list="{{ l.cases }}" as="c" hint-placeholder-count="5">
+<span style="border-right:2px solid #12233b;border-bottom:2px solid #12233b;min-height:{{ l.hauteur }};padding:4px;background:{{ c.fond }};display:flex;align-items:center;justify-content:center;text-align:center">{{ c.t }}</span>
+</sc-for>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ exo.aImageDoc }}" hint-placeholder-val="{{ false }}">
+<div style="align-self:center;width:100%;max-width:640px;aspect-ratio:16/9;border-radius:8px;border:2px dashed #b9bfca;background:repeating-linear-gradient(45deg,#f3f4f6 0 10px,#e9ebef 10px 20px);display:flex;align-items:center;justify-content:center;padding:12px;box-sizing:border-box">
+<span style="font-family:ui-monospace, Menlo, monospace;font-size:14px;color:#6b7386;text-align:center">{{ exo.imageDoc }}</span>
+</div>
+</sc-if>
+
+<sc-if value="{{ exo.aCartes }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:12px">
+<button onClick="{{ tirerCarte }}" style="align-self:flex-start;min-height:48px;border:none;border-radius:10px;background:#e8654f;color:#fff;padding:0 18px;font-family:Archivo Black, Archivo, sans-serif;font-size:17px;cursor:pointer;box-shadow:0 3px 0 #b54a37">Une carte au hasard</button>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px">
+<sc-for list="{{ cartes }}" as="c" hint-placeholder-count="10">
+<button onClick="{{ c.toucher }}" style="min-height:96px;border:3px solid {{ c.bord }};border-radius:12px;background:{{ c.fond }};color:{{ c.encre }};font-family:Archivo Black, Archivo, sans-serif;font-size:22px;cursor:pointer;box-shadow:0 3px 8px rgba(0,0,0,0.15)">{{ c.t }}</button>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ exo.aProduits }}" hint-placeholder-val="{{ false }}">
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px">
+<sc-for list="{{ exo.produits }}" as="p" hint-placeholder-count="8">
+<div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+<div style="width:100%;aspect-ratio:1;border-radius:8px;border:2px dashed #b9bfca;background:repeating-linear-gradient(45deg,#f3f4f6 0 10px,#e9ebef 10px 20px);display:flex;align-items:center;justify-content:center"><span style="font-family:ui-monospace, Menlo, monospace;font-size:12px;color:#6b7386">image du sujet</span></div>
+<span style="background:#fdf3c4;border-radius:6px;padding:4px 10px;font-family:Archivo Black, Archivo, sans-serif;font-size:20px">{{ p.prix }}</span>
+</div>
+</sc-for>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="font-size:18px;font-weight:700">Pour payer :</div>
+<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center">
+<sc-for list="{{ exo.pieces }}" as="pc" hint-placeholder-count="0">
+<span title="{{ pc.alt }}" style="width:{{ pc.taille }};aspect-ratio:1;background-image:{{ pc.src }};background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ aGrille }}" hint-placeholder-val="{{ false }}">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));border-top:2px solid #12233b;border-left:2px solid #12233b">
+<sc-for list="{{ grilleCases }}" as="g" hint-placeholder-count="0">
+<div style="border-right:2px solid #12233b;border-bottom:2px solid #12233b;padding:14px;display:flex;flex-direction:column;align-items:center;gap:10px;box-shadow:inset 0 0 0 3px {{ g.bord }}">
+<span style="font-size:20px;font-weight:700">{{ g.titre }}</span>
+<span style="width:100%;aspect-ratio:{{ g.ratio }};background-color:#fff;background-image:{{ g.src }};background-size:{{ g.fit }};background-repeat:no-repeat;background-position:center;display:block;border-radius:4px"></span>
+<span style="display:flex;align-items:center;gap:8px">
+<span style="font-size:20px">Situation n°</span>
+<span style="min-width:44px;height:44px;border-bottom:3px solid #12233b;font-family:Archivo Black, Archivo, sans-serif;font-size:26px;display:flex;align-items:center;justify-content:center">{{ g.num }}</span>
+<sc-if value="{{ g.aVerdict }}" hint-placeholder-val="{{ false }}">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:17px;color:{{ g.verdictCouleur }}">{{ g.verdict }}</span>
+</sc-if>
+</span>
+<span style="width:100%;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:4px">
+<sc-for list="{{ g.choix }}" as="c" hint-placeholder-count="6">
+<button onClick="{{ c.choisir }}" style="min-width:0;height:40px;padding:0;border:2px solid {{ c.bord }};border-radius:7px;background:{{ c.fond }};font-family:Archivo Black, Archivo, sans-serif;font-size:17px;color:#12233b;cursor:pointer">{{ c.t }}</button>
+</sc-for>
+</span>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ exo.aHasard }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ questionHasard }}" style="align-self:flex-start;min-height:48px;border:none;border-radius:10px;background:#e8654f;color:#fff;padding:0 18px;font-family:Archivo Black, Archivo, sans-serif;font-size:17px;cursor:pointer;box-shadow:0 3px 0 #b54a37">🔊 Une question au hasard</button>
+</sc-if>
+
+<!-- 05/10 : « Répondez aux questions. » SOUS le document, juste avant les questions, comme sur le sujet papier. -->
+<sc-if value="{{ exo.aRepondez }}" hint-placeholder-val="{{ false }}">
+<div style="font-size:21px;font-weight:700">Répondez aux questions.</div>
+</sc-if>
+<div style="display:flex;flex-direction:column;gap:20px">
+<sc-for list="{{ questions }}" as="q" hint-placeholder-count="3">
+<div style="display:flex;flex-direction:column;gap:10px;padding-top:14px;border-top:1px solid #e6e8ec">
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+<button onClick="{{ q.dire }}" title="Écouter" style="flex:0 0 auto;width:40px;height:40px;border:none;border-radius:50%;background:#eef0f4;font-size:17px;cursor:pointer">🔊</button>
+<span style="font-size:20px;font-weight:700;line-height:1.35;text-wrap:pretty">{{ q.q }}</span>
+<sc-if value="{{ q.aVerdict }}" hint-placeholder-val="{{ false }}">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:20px;color:{{ q.verdictCouleur }}">{{ q.verdict }}</span>
+</sc-if>
+</div>
+<sc-if value="{{ q.aImg }}" hint-placeholder-val="{{ false }}">
+<div style="width:200px;aspect-ratio:4/3;border-radius:8px;border:2px dashed #b9bfca;background:repeating-linear-gradient(45deg,#f3f4f6 0 10px,#e9ebef 10px 20px);display:flex;align-items:center;justify-content:center"><span style="font-family:ui-monospace, Menlo, monospace;font-size:12px;color:#6b7386">{{ q.imgTexte }}</span></div>
+</sc-if>
+<div style="display:flex;flex-wrap:wrap;gap:10px">
+<sc-for list="{{ q.choix }}" as="c" hint-placeholder-count="0">
+<button onClick="{{ c.choisir }}" style="min-height:52px;min-width:56px;display:flex;align-items:center;gap:10px;border:3px solid {{ c.bord }};border-radius:10px;background:{{ c.fond }};color:#12233b;padding:6px 14px;font-size:19px;cursor:pointer;text-align:left">
+<span style="width:22px;height:22px;flex:0 0 auto;border:2.5px solid #12233b;border-radius:4px;background:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;line-height:1">{{ c.coche }}</span>
+<span>{{ c.t }}</span>
+</button>
+</sc-for>
+</div>
+<sc-if value="{{ q.aPlan }}" hint-placeholder-val="{{ false }}">
+<!-- 05/10 : plan REDESSINÉ (la capture du PDF était floue) — mêmes pièces, mêmes positions que le sujet. -->
+<div style="position:relative;width:100%;max-width:600px;aspect-ratio:4 / 3;background:#fff;border:2px solid #c9cfd8;border-radius:8px;font-family:Archivo, sans-serif">
+<span style="position:absolute;left:50%;top:4%;width:46%;height:58%;border:2px solid #12233b;border-bottom:none;box-sizing:border-box;display:block"></span>
+<span style="position:absolute;left:66%;top:4%;width:12%;height:58%;border-left:2px dashed #12233b;border-right:2px dashed #12233b;box-sizing:border-box;display:block;background:#f4f5f7"></span>
+<span style="position:absolute;left:6%;top:62%;width:90%;height:28%;border:2px solid #12233b;box-sizing:border-box;display:block"></span>
+<span style="position:absolute;left:66%;top:61%;width:12%;height:2%;background:#f4f5f7;display:block"></span>
+<span style="position:absolute;left:9%;top:66%;height:20%;display:flex;align-items:center;font-weight:700;font-size:13px;letter-spacing:2px;writing-mode:vertical-rl;transform:rotate(180deg);color:#12233b">LIVRES</span>
+<span style="position:absolute;left:15%;top:66%;width:48%;height:20%;display:flex;justify-content:space-between;pointer-events:none">
+<span style="width:3px;background:#c9cfd8;display:block"></span><span style="width:3px;background:#c9cfd8;display:block"></span><span style="width:3px;background:#c9cfd8;display:block"></span><span style="width:3px;background:#c9cfd8;display:block"></span><span style="width:3px;background:#c9cfd8;display:block"></span><span style="width:3px;background:#c9cfd8;display:block"></span>
+</span>
+<span style="position:absolute;left:78%;top:83%;width:16%;height:6%;border:2px solid #12233b;box-sizing:border-box;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;background:#fff">ACCUEIL</span>
+<span style="position:absolute;left:1%;top:80%;width:7%;height:10%;background:repeating-linear-gradient(180deg,#5b6170 0 3px,#9aa3b2 3px 6px);clip-path:polygon(0 100%,100% 0,100% 100%);display:block"></span>
+<span style="position:absolute;left:0%;top:91%;padding:2px 6px;border:2px solid #12233b;border-radius:4px;background:#fdf3c4;font-weight:700;font-size:12px">↑ Vous partez d’ici</span>
+<sc-for list="{{ q.planZones }}" as="z" hint-placeholder-count="0">
+<button onClick="{{ z.choisir }}" style="position:absolute;left:{{ z.x }};top:{{ z.y }};width:{{ z.w }};height:{{ z.h }};border:2px solid #12233b;box-sizing:border-box;box-shadow:inset 0 0 0 3px {{ z.bord }};border-radius:0;background:{{ z.fond }};cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:40px;color:#12233b;padding:0;gap:4px"><span style="font-size:26px">{{ z.icone }}</span><span>{{ z.coche }}</span></button>
+</sc-for>
+</div>
+</sc-if>
+<div style="display:flex;flex-wrap:wrap;gap:14px">
+<sc-for list="{{ q.choixImg }}" as="c" hint-placeholder-count="0">
+<button onClick="{{ c.choisir }}" style="width:170px;display:flex;flex-direction:column;align-items:center;gap:10px;border:3px solid {{ c.bord }};border-radius:12px;background:{{ c.fond }};padding:10px;cursor:pointer">
+<span style="width:100%;aspect-ratio:1;background-color:#fff;background-image:{{ c.src }};background-size:contain;background-repeat:no-repeat;background-position:center;border-radius:8px;display:block"></span>
+<span style="width:28px;height:28px;border:3px solid #12233b;border-radius:5px;background:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;line-height:1;color:#12233b">{{ c.coche }}</span>
+</button>
+</sc-for>
+</div>
+<sc-if value="{{ q.aJh }}" hint-placeholder-val="{{ false }}">
+<div style="width:100%;overflow-x:auto">
+<div style="min-width:560px;max-width:760px;display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr) minmax(0,1fr);border-top:2px solid #12233b;border-left:2px solid #12233b">
+<sc-for list="{{ q.jh }}" as="c" hint-placeholder-count="0">
+<div style="grid-column:{{ c.col }};grid-row:span {{ c.span }};border-right:2px solid #12233b;border-bottom:2px solid #12233b;display:flex;align-items:center;justify-content:center;min-height:52px;padding:4px;box-sizing:border-box">
+<sc-if value="{{ c.estEntete }}" hint-placeholder-val="{{ false }}"><span style="font-weight:700;font-size:18px">{{ c.t }}</span></sc-if>
+<sc-if value="{{ c.estLabel }}" hint-placeholder-val="{{ false }}"><span style="font-size:18px;text-align:center;padding:0 8px">{{ c.t }}</span></sc-if>
+<sc-if value="{{ c.estChamp }}" hint-placeholder-val="{{ false }}"><input value="{{ c.valeur }}" onChange="{{ c.changer }}" readOnly="{{ c.donne }}" style="width:100%;min-height:44px;box-sizing:border-box;border:none;background:{{ c.fond }};text-align:center;font-size:19px" /></sc-if>
+</div>
+</sc-for>
+</div>
+</div>
+<sc-if value="{{ q.aJhCorrige }}" hint-placeholder-val="{{ false }}">
+<sc-for list="{{ q.jhReponses }}" as="r" hint-placeholder-count="0">
+<span style="font-size:17px;font-weight:700;color:#1f8a4c">→ {{ r.t }}</span>
+</sc-for>
+</sc-if>
+</sc-if>
+<div style="display:flex;flex-wrap:wrap;gap:10px 18px;align-items:flex-end">
+<sc-for list="{{ q.champs }}" as="f" hint-placeholder-count="0">
+<label style="display:flex;flex-direction:column;gap:4px;flex:{{ f.flex }}">
+<span style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+<span style="font-size:17px;font-weight:700;color:#3a4558">{{ f.avant }}</span>
+<input value="{{ f.valeur }}" onChange="{{ f.changer }}" readOnly="{{ f.donne }}" style="min-height:46px;width:{{ f.largeur }};max-width:100%;box-sizing:border-box;border:2px solid #9aa3b2;border-radius:8px;padding:0 10px;font-size:19px;background:{{ f.fond }}" />
+<span style="font-size:17px;font-weight:700;color:#3a4558">{{ f.apres }}</span>
+</span>
+<sc-if value="{{ f.aCorrige }}" hint-placeholder-val="{{ false }}">
+<span style="font-size:17px;font-weight:700;color:#1f8a4c">→ {{ f.bonne }}</span>
+</sc-if>
+</label>
+</sc-for>
+</div>
+<sc-if value="{{ q.estRedac }}" hint-placeholder-val="{{ false }}">
+<textarea value="{{ q.texte }}" onChange="{{ q.changerTexte }}" rows="5" style="width:100%;box-sizing:border-box;border:2px solid #9aa3b2;border-radius:10px;padding:12px;font-size:20px;line-height:1.5;resize:vertical"></textarea>
+<span style="font-size:16px;color:#6b7386">{{ q.nbMots }}</span>
+</sc-if>
+</div>
+</sc-for>
+</div>
+
+<sc-if value="{{ exo.aCorriger }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;gap:12px;flex-wrap:wrap;padding-top:6px">
+<button onClick="{{ finir }}" style="min-height:56px;border:none;border-radius:12px;background:{{ ep.couleur }};color:#fff;padding:0 26px;font-family:Archivo Black, Archivo, sans-serif;font-size:20px;cursor:pointer;box-shadow:0 3px 0 rgba(0,0,0,0.3)">{{ finiLibelle }}</button>
+</div>
+</sc-if>
+</div>
+
+</div>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* 06/10 : copie de DELF-seul pour le SUJET 2 → fichier isolé « DELF2.html » (A1, sujet 2, aucune sortie).
+   05/10 (son oui) : MODE SEUL — ?seul=1 ou window.DELF_SEUL. */
+const SEUL = true || /[?&]seul=1/.test(location.search);
+class Component extends DCLogic {
+  state = { niveau: 'A1', sujet: SEUL ? 1 : null, ecran: SEUL ? 'sujet' : 'menu', exoIdx: 0, rep: {}, fini: {}, cartesVues: {}, carteTiree: -1, chronoFin: 0, chronoMin: 0, audioPct: 0, audioJoue: false };
+
+  data() {
+    const qcm = (q, choix, bonne) => ({ q, choix, bonne });
+    const ligne = (t, poids, align) => ({ t, poids: poids || 400, align: align || 'left' });
+    const sit = ['1','2','3','4','5','6'];
+    return {
+      A1: [{ titre: 'SUJET 1', img: 'clean/delf-a1-oral3-a.webp',
+        docs: [['Sujet papier', 'docs/delf/a1-sujet1-candidat.pdf'], ['Corrigé', 'docs/delf/a1-sujet1-corrige.pdf'], ['Transcription', 'docs/delf/a1-sujet1-transcription.pdf']], epreuves: [
+        { cle: 'oral', nom: "J'écoute", couleur: '#6d5bd0', img: 'pictos/delf-ecoute', duree: '20 min', min: 20, exos: [
+          { titre: 'Exercice 1', audio: 'audio/delf-a1-ex2-oral-1.mp3', consigne: 'Vous voulez réserver vos places pour le concert de Placebo. Répondez aux questions.', questions: [
+            qcm('1. Pour réserver :', ['vous écrivez.', 'vous allez sur place.', 'vous téléphonez.'], 2),
+            { q: '2. Complétez le numéro de téléphone :', champs: [{ avant: '01 48', bonne: '26', l: '80px' }, { avant: '30', bonne: '75', l: '80px' }] } ] },
+          { titre: 'Exercice 2', audio: 'audio/delf-a1-ex2-oral-2.mp3', consigne: 'Répondez aux questions.', questions: [
+            qcm('1. Le métier de cette personne, c’est :', ['faire des gâteaux.', 'faire du pain.', 'faire du vin.'], 1),
+            qcm('2. La personne :', ['aime beaucoup son métier.', 'n’aime pas beaucoup son métier.', 'On ne sait pas.'], 0),
+            qcm('3. La personne travaille :', ['le jour.', 'la nuit.', 'On ne sait pas.'], 1) ] },
+          { titre: 'Exercice 3', audio: 'audio/delf-a1-ex2-oral-3.mp3', consigne: 'Associez chaque situation à une image.', questions:
+            [['A',0],['B',5],['C',2],['D',4],['E',1],['F',3]].map(([l, b]) => ({ q: 'Image ' + l, src: 'clean/delf-a1-oral3-' + l.toLowerCase() + '.webp', choix: sit, bonne: b })), grille: true },
+          { titre: 'Exercice 4', audio: 'audio/delf-a1-ex2-oral-4.mp3', consigne: 'Pour chaque situation, répondez à la question en cochant la bonne réponse.', questions: [
+            /* 04/10 : l'audio a 5 situations (le papier 4). Ajout validé par elle : situation 1 « Ces élèves me fatiguent »,
+               situation 2 = sa question « À quelle heure sortent-ils demain ? » (distracteurs 2/4/5 h de moi, validés). */
+            qcm('Situation n°1 · Où est-ce ?', ['Dans un restaurant', 'Dans un zoo', 'Dans un magasin', 'À l’école'], 3),
+            qcm('Situation n°2 · À quelle heure sortent-ils demain ?', ['À 2 heures', 'À 3 heures', 'À 4 heures', 'À 5 heures'], 1),
+            qcm('Situation n°3 · Qui parle ?', ['Une mère et sa fille', 'Deux amies', 'Un père et sa fille', 'Deux collègues'], 0),
+            qcm('Situation n°4 · Où est-ce ?', ['Dans une classe', 'Dans un café', 'Dans un cinéma', 'Dans un magasin'], 1),
+            qcm('Situation n°5 · De quoi ils parlent ?', ['D’un objet', 'D’un ami', 'D’un animal', 'D’un parent'], 2) ] } ] },
+        { cle: 'lire', nom: 'Je lis', couleur: '#2a9d6e', img: 'pictos/delf-lis', duree: '30 min', min: 30, exos: [
+          { titre: 'Exercice 1', consigne: 'Vous venez de recevoir ce message. Répondez aux questions.', mail: { objet: 'on va s’amuser', corps: [
+            'Coucou mes amis,',
+            'Je réunis tous ceux que j’aime bien pour fêter l’arrivée de l’été le 21 juin et j’espère vous avoir près de moi pour une jolie fête. Je propose que tout le monde apporte quelque chose à manger. On va manger dans le jardin. Et après, on peut prendre un bain dans la piscine, l’eau est bonne !',
+            'J’attends votre réponse. À bientôt.', 'Caroline' ].map(t => ({ t })) }, questions: [
+            qcm('1. Ce message s’adresse :', ['à Caroline.', 'à une amie en particulier.', 'à plusieurs personnes.'], 2),
+            qcm('2. La fête est :', ['le jour.', 'la nuit.', 'On ne sait pas.'], 2),
+            { q: '3. Qu’est-ce que les invités doivent apporter ?', images: ['clean/delf-a1-lire1-repas.webp', 'clean/delf-a1-lire1-enceinte.webp', 'clean/mot-badminton.webp'], choix: ['', '', ''], bonne: 0 },
+            qcm('4. Caroline propose de manger :', ['dans la maison.', 'dans le jardin.', 'près de la piscine.'], 1) ] },
+          { titre: 'Exercice 2', insec: true, consigne: 'Vous habitez Lyon et vous voulez acheter un vélo VTT. Vous trouvez plusieurs annonces sur Internet. Répondez aux questions.', annonces: [
+            { n: 1, t: 'Essayez le nouveau VTT desperado PRODO, 21 vitesses. 20 % de réduction aux juniors. Visitez notre magasin 18, rue de la République 69002 Lyon' },
+            { n: 2, t: 'À VENDRE vélo VTT tracker, 18 vitesses, suspension. Prix mini 110 €. gil@internet.com' },
+            { n: 3, t: 'Je vends un VTT de marque RALEIGH, acheté en 2003, au prix de 99 €. Appelez le 04 10 25 30 08 / Michel Latour. 3, place Bellecour 69001 Lyon' },
+            { n: 4, t: 'Vends SCOTT VTT Junior 240, état neuf, 155 €, équipement complet. Contact : 01 28 16 74 70' } ], questions: [
+            qcm('1. Vous avez 100 €, quel vélo achetez-vous ?', ['Annonce n° 1', 'Annonce n° 2', 'Annonce n° 3', 'Annonce n° 4'], 2),
+            qcm('2. Vous voulez un vélo 21 vitesses, lequel achetez-vous ?', ['Annonce n° 1', 'Annonce n° 2', 'Annonce n° 3', 'Annonce n° 4'], 0) ] },
+          { titre: 'Exercice 3', consigne: 'Serge arrive chez lui et trouve le message suivant. Répondez aux questions.', doc: [
+            ligne('Serge,'), ligne('Papa est en voyage jusqu’à demain. Je suis encore au bureau, je vais rentrer plus tard. Ne m’attends pas.'),
+            ligne('J’ai préparé le repas, il est dans la cuisine. Pour le dessert il y a de la mousse au chocolat.'),
+            ligne('Ne te couche pas trop tard, tu vas à l’école demain.'), ligne('Bises.'), ligne('Maman', 700) ], questions: [
+            qcm('1. Le père de Serge va rentrer :', ['le soir même.', 'le lendemain.', 'dans quelques jours.'], 1),
+            qcm('2. Serge va manger avec :', ['ses parents.', 'sa mère.', 'tout seul.'], 2),
+            qcm('3. Sa mère est :', ['au bureau.', 'au cinéma.', 'On ne sait pas.'], 0) ] },
+          { titre: 'Exercice 4', consigne: 'Voici l’emploi du temps de Robert, un élève français. Répondez aux questions.', tableau: { jours: ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi'], lignes: [
+              ['8h-9h', 'maths', 'maths', 'anglais', 'français', 'histoire / géographie'],
+              ['9h-10h', 'anglais', 'sciences', 'français', 'arts plastiques', 'maths'],
+              ['10h-11h', 'éducation physique', 'histoire / géographie', 'espagnol', 'anglais', 'sciences'],
+              ['11h-12h', 'éducation physique', 'histoire / géographie', 'français', 'français', ''],
+              ['', '', '', '', '', ''],
+              ['14h-15h', 'technologie', 'sciences', '', 'espagnol', 'espagnol'],
+              ['15h-16h', 'technologie', 'éducation physique', '', 'français', ''],
+              ['16h-17h', '', '', '', 'musique', ''] ] }, questions: [
+            /* Tableau Jour / Heure comme le sujet (sa capture du 04/10). Les maths se corrigent dans n'importe quel ordre. */
+            { q: '1. Complétez le tableau :', jh: [
+              { label: 'Robert a cours de maths :', lignes: [[null, null], [null, null], [null, null]], bonnes: [['lundi', '8 h – 9 h'], ['mardi', '8 h – 9 h'], ['vendredi', '9 h – 10 h']] },
+              { label: 'Il a cours d’histoire et géographie :', lignes: [['mardi', null], [null, '8 h – 9 h']], bonnes: [['mardi', '10 h – 12 h'], ['vendredi', '8 h – 9 h']] } ] },
+            { q: '2. Robert apprend deux langues étrangères :', libre: true, champs: [{ bonne: 'l’anglais', l: '170px' }, { avant: 'et', bonne: 'l’espagnol', l: '170px' }] },
+            { q: '3. Combien d’heures de français ?', champs: [{ avant: 'Il a', bonne: '5', apres: 'heures de français par semaine.', l: '70px' }] },
+            { q: '4. Il n’a pas cours l’après-midi du :', champs: [{ bonne: 'mercredi', l: '170px' }] } ] } ] },
+        { cle: 'ecrire', nom: "J'écris", couleur: '#e59a2b', img: 'pictos/delf-ecris', duree: '30 min', min: 30, exos: [
+          { titre: 'Exercice 1', consigne: 'Vous voulez profiter de cette offre. Complétez la fiche.', doc: [
+            ligne('Découvrez', 400, 'center'), ligne('L’Hebdo junior international', 700, 'center'),
+            ligne('Le journal de tous les jeunes qui aiment le français', 400, 'center'), ligne('Cadeau !', 700, 'center'),
+            ligne('Renvoyez cette fiche avant le 1er juillet 2005, et recevez deux numéros gratuits de L’Hebdo junior international !') ], questions: [
+            { q: 'La fiche', champs: ['NOM :', 'PRÉNOM :', 'NATIONALITÉ :', 'ÂGE :', 'ADRESSE :', 'CODE POSTAL :', 'VILLE :', 'PAYS :', 'E-MAIL OU N° DE TÉLÉPHONE :', 'DATE ET SIGNATURE :'].map(a => ({ avant: a, l: '260px' })) } ] },
+          { titre: 'Exercice 2', consigne: 'Écrivez les deux messages.', questions: [
+            { q: 'a) Vous êtes en vacances à la mer avec les élèves de votre classe. Vous écrivez à vos parents pour donner de vos nouvelles (20 mots environ).', redac: true },
+            { q: 'b) Vous écrivez à votre amie Sylvie pour son anniversaire (20 mots environ).', redac: true } ] } ] },
+        { cle: 'parler', nom: 'Je parle', couleur: '#e8654f', img: 'pictos/delf-parle', duree: '5 à 7 min', min: 10, prep: true, exos: [
+          { titre: '1 · Entretien', consigne: 'Vous répondez aux questions sur vous-même, votre famille, vos goûts, ou vos activités.', hasard: true, questions: [
+            'Vous vous appelez comment ?', 'Votre nom, comment ça s’écrit ?', 'Quelle est votre nationalité ?', 'Quelle est votre ville d’origine ?',
+            'Vous avez des frères et sœurs ? Ils habitent où ?', 'Parlez-moi de votre appartement, de votre maison.', 'Vous habitez loin d’ici ?',
+            'Vous vous levez à quelle heure ?', 'Qu’est-ce que vous mangez pour le petit déjeuner ?', 'Vous rentrez à quelle heure ?',
+            'Qu’est-ce que vous faites le soir ?', 'Qu’est-ce que vous faites le week-end ?', 'Vous aimez le sport ? Quel sport est-ce que vous faites ?',
+            'Vous regardez la télévision ?', 'Qu’est-ce que vous aimez faire en général ?' ].map(q => ({ q })) },
+          { titre: '2 · Échange', consigne: 'À partir des cartes, vous posez des questions.', cartes: ['Nom ?', 'Profession ?', 'Nationalité ?', 'Situation de famille ?', 'Enfants ?', 'Téléphone ?', 'Sport ?', 'Télévision ?', 'Week-end ?', 'Déjeuner ?'], questions: [] },
+          { titre: '3 · Dialogue', consigne: 'Vous voulez acheter. Vous demandez les produits, le prix, puis vous payez. Vous dites bonjour, merci, au revoir.',
+            produits: ['3,10 €', '1,70 €', '4,10 € le kg', '2,50 €', '0,80 €', '1,95 €', '1,25 € le paquet', '2,90 € le kg'].map(prix => ({ prix })),
+            pieces: [['20c', '20 cents', '52px'], ['20c', '20 cents', '52px'], ['50c', '50 cents', '58px'], ['50c', '50 cents', '58px'], ['1e', '1 euro', '56px'], ['1e', '1 euro', '56px'], ['2e', '2 euros', '62px'], ['2e', '2 euros', '62px']]
+              .map(([f, alt, taille]) => ({ src: "url('clean/mot-piece" + f + ".webp')", alt, taille })), questions: [] } ] } ] }, { titre: 'SUJET 2', img: 'clean/delf-a1-s2-oral4-f.webp',
+        docs: [['Sujet papier', 'docs/delf/a1-sujet2-candidat.pdf'], ['Corrigé', 'docs/delf/a1-sujet2-corrige.pdf'], ['Surveillant', 'docs/delf/a1-sujet2-surveillant.pdf']], epreuves: [
+        /* 05/10 : sujet démo officiel A1 tout public (FEI), copié du PDF candidat qu'elle a fourni. ⏳ Corrigé de l'ORAL à recevoir
+           (document correcteur ou ses réponses) : d'ici là, les QCM de l'oral n'ont pas de « bonne » → pas de correction affichée. */
+        { cle: 'oral', nom: "J'écoute", couleur: '#6d5bd0', img: 'pictos/delf-ecoute', duree: '20 min', min: 20, exos: [
+          { titre: 'Exercice 1', audio: 'audio/delf-a1-s2-oral-1.mp3', consigne: 'Votre amie Solange laisse un message sur votre répondeur téléphonique. Répondez aux questions.', questions: [
+            /* Corrigé dicté par elle le 05/10. */
+            qcm('1. Solange vous invite à…', ['prendre le petit-déjeuner.', 'dîner.', 'déjeuner.'], 1),
+            { q: '2. Quel jour est le rendez-vous ?', champs: [{ bonne: 'samedi', l: '260px' }] },
+            qcm('3. À quelle heure est le rendez-vous ?', ['08:00', '12:00', '20:00'], 2),
+            { q: '4. Qu’est-ce que vous devez apporter ?', champs: [{ bonne: 'deux baguettes|baguettes|baguette|pain', l: '320px' }] } ] },
+          { titre: 'Exercice 2', audio: 'audio/delf-a1-s2-oral-2.mp3', consigne: 'Vous êtes en France. Vous entendez l’annonce suivante dans un aéroport. Répondez aux questions.', questions: [
+            /* Corrigé officiel (document correcteur, 05/10). */
+            qcm('1. Quel est le numéro du vol ?', ['AF335.', 'AS305.', 'AR315.'], 0),
+            qcm('2. L’avion part de…', ['Lille.', 'Paris.', 'Nice.'], 1),
+            { q: '3. À quelle heure est le vol ?', champs: [{ bonne: '15 h 40|15h40|15:40', l: '200px' }] },
+            { q: '4. Où doivent aller les passagers ?', champs: [{ bonne: 'Porte 28|28', l: '320px' }] } ] },
+          { titre: 'Exercice 3', audio: 'audio/delf-a1-s2-oral-3.mp3', consigne: 'Vous travaillez en France. Votre assistant vous laisse un message sur votre répondeur téléphonique. Répondez aux questions.', questions: [
+            qcm('1. C’est le programme de la journée de…', ['lundi.', 'mercredi.', 'mardi.'], 2),
+            qcm('2. À 11 h, vous avez rendez-vous…', ['au bureau.', 'chez Madame Seguin.', 'chez le dentiste.'], 2),
+            { q: '3. Où déjeunez-vous ?', champs: [{ bonne: 'Au club des arts|club des arts', l: '320px' }] },
+            { q: '4. À quelle heure est votre réunion avec l’entreprise Nysol ?', champs: [{ bonne: '16 h|16h|16 heures|16:00', l: '200px' }] } ] },
+          { titre: 'Exercice 4', audio: 'audio/delf-a1-s2-oral-4.mp3', consigne: 'Vous allez entendre 5 petits dialogues. Notez, sous chaque image, le numéro du dialogue. Attention : 6 images, mais seulement 5 dialogues.', questions:
+            /* A : aucun dialogue (corrigé officiel). B 1 · C 4 · D 3 · E 5 · F 2. */
+            /* 05/10 : plus de « aucun » — comme sur le papier, l'image en trop reste VIDE (vide: true = juste si rien n'est coché). */
+            [['A',null],['B',0],['C',3],['D',2],['E',4],['F',1]].map(([l, b]) => ({ q: 'Image ' + l, src: 'clean/delf-a1-s2-oral4-' + l.toLowerCase() + '.webp', choix: ['1','2','3','4','5'], bonne: b, vide: b == null })), grille: true, ratio: '1 / 1' } ] },
+        { cle: 'lire', nom: 'Je lis', couleur: '#2a9d6e', img: 'pictos/delf-lis', duree: '30 min', min: 30, exos: [
+          { titre: 'Exercice 1', consigne: 'Vous habitez en France. Vous lisez cette annonce dans un centre commercial. Répondez aux questions.', doc: [
+            ligne('Bonjour,'), ligne('Je recherche une personne pour garder mes enfants de 1 et 7 ans.'),
+            ligne('Il faut être disponible pour travailler les jeudis, vendredis et samedis soirs après 17 heures.'),
+            ligne('Vous devez habiter dans le centre de Limoges ou avoir une voiture.'), ligne('Tarifs : 45 € pour une soirée.'),
+            ligne('Expérience avec les enfants souhaitée.'), ligne('Si vous êtes intéressé, appelez-moi au 06 38 46 27 11.'), ligne('Anna Lemaître', 700) ], questions: [
+            { q: '1. Cette annonce concerne quel travail ?', images: ['clean/delf-a1-s2-ecrit1-a.webp', 'clean/delf-a1-s2-ecrit1-b.webp', 'clean/delf-a1-s2-ecrit1-c.webp'], choix: ['', '', ''], bonne: 0 },
+            qcm('2. Quel jour devez-vous travailler ?', ['Le lundi.', 'Le mercredi.', 'Le vendredi.'], 2),
+            qcm('3. Il faut être disponible…', ['le matin.', 'le midi.', 'le soir.'], 2),
+            { q: '4. Combien est-on payé pour une soirée ?', champs: [{ bonne: '45 €|45|45 euros', l: '160px' }] },
+            { q: '5. Si vous êtes intéressé par l’annonce, que devez-vous faire ?', champs: [{ bonne: 'Appeler Anna Lemaître au 06 38 46 27 11|appeler|téléphoner|telephoner|appelle|téléphone|06 38 46 27 11', l: '340px' }] } ] },
+          { titre: 'Exercice 2', consigne: 'Vous êtes en France, dans une bibliothèque. Vous lisez le panneau suivant. Répondez aux questions.', doc: [
+            ligne('BIENVENUE À LA BIBLIOTHÈQUE MUNICIPALE !', 700, 'center'),
+            ligne('• Au premier étage : les livres pour enfants, les journaux.'),
+            ligne('• Au deuxième étage : les livres pour adultes, une salle de travail, une salle Internet et la cafétéria.'),
+            ligne('Pour aller à la salle Internet à partir de l’escalier, marchez jusqu’à l’accueil, puis tournez à gauche. La salle Internet est la deuxième salle après les toilettes, à gauche.'),
+            ligne('Horaires d’ouverture :', 700, 'center'), ligne('- du lundi au vendredi : 8 h - 12 h', 400, 'center'), ligne('- le samedi : 8 h - 19 h', 400, 'center') ], questions: [
+            qcm('1. Les livres pour enfants sont…', ['au premier étage, avec les journaux.', 'au deuxième étage, à côté des toilettes.', 'au deuxième étage, derrière la salle Internet.'], 0),
+            qcm('2. Dans la bibliothèque, il y a…', ['une cafétéria.', 'une salle de cinéma.', 'une salle de spectacle.'], 0),
+            /* Sujet papier : « Dessinez le chemin… et marquez d'une croix la salle Internet ». Sur tablette : on touche la salle. */
+            { q: '3. Touchez la salle Internet sur le plan.', plan: 'clean/delf-a1-s2-plan.webp', choix: ['', '', '', '', '', '', ''], bonne: 1,
+              icones: ['', '', '', '🚻', '', '', '☕'],
+              zones: [[50, 4, 16, 14], [50, 18, 16, 14], [50, 32, 16, 14], [50, 46, 16, 16], [78, 4, 18, 14], [78, 18, 18, 14], [78, 32, 18, 30]] },
+            { q: '4. À quelle heure la bibliothèque ouvre-t-elle le matin ?', champs: [{ bonne: '8 h|8h|8 heures|8', l: '140px' }] },
+            { q: '5. Quel jour est-ce que la bibliothèque est ouverte l’après-midi ?', champs: [{ bonne: 'le samedi|samedi', l: '200px' }] } ] },
+          { titre: 'Exercice 3', consigne: 'Vous êtes en France. Vous cherchez du travail. Vous lisez ces annonces dans le journal. Répondez aux questions.', annonces: [
+            { n: 1, t: '« Sport plus » cherche un vendeur de chaussures à partir d’octobre.' },
+            { n: 2, t: 'Le restaurant « Bon appétit » recherche des serveurs pour l’été (juin - septembre).' },
+            { n: 3, t: 'Médecin recherche une secrétaire pour 3 semaines en août. Tel : 04 44 57 65 00.' },
+            { n: 4, t: 'URGENT ! Jeune homme cherche un/une professeur de danse pour apprendre la valse avant la date du mariage, le 30 mai. Tel : 06 89 64 53 20.' },
+            { n: 5, t: 'Le club de football de Briançon recherche un joueur (15-17 ans) du 1er septembre au 30 février. Contacter Michel au 04 92 21 43 28.' } ], questions: [
+            { q: '1. Qui propose un travail de serveur ?', champs: [{ bonne: 'Le restaurant « Bon appétit »|bon appétit|bon appetit', l: '320px' }] },
+            { q: '2. Le docteur offre un travail pour combien de temps ?', champs: [{ bonne: '3 semaines|trois semaines', l: '200px' }] },
+            { q: '3. Quelle est la date du mariage ?', champs: [{ bonne: 'le 30 mai|30 mai', l: '200px' }] },
+            { q: '4. Quand commence le travail à « Sport plus » ?', champs: [{ bonne: 'en octobre|octobre', l: '200px' }] },
+            qcm('5. Michel travaille…', ['dans un restaurant.', 'dans un magasin de chaussures.', 'dans un club de sport.'], 2) ] },
+          { titre: 'Exercice 4', consigne: 'Vous faites des études à Paris. Vous voulez faire une sortie avec d’autres étudiants. Vous lisez cet article sur le site internet de l’université. Répondez aux questions.', nav: 'http/:www.universite.fr', doc: [
+            ligne('Que faire à Paris ?', 700),
+            ligne('S’il fait beau, l’après-midi vous pouvez aller au jardin du Luxembourg et, le soir vous pouvez faire un tour en bateau jusqu’à la Tour Eiffel.'),
+            ligne('S’il pleut, allez visiter le musée Carnavalet sur l’Histoire de Paris et finissez la journée avec une pièce de théâtre à la Comédie-Française…'),
+            ligne('Au restaurant Paris Musical, près des Champs Élysées, vous pouvez voir des spectacles et manger pour 21 €.'),
+            ligne('Réservez vos billets dans le bureau 127 de l’université du lundi au vendredi (10 h - 18 h).') ], questions: [
+            qcm('1. L’après-midi, s’il y a du soleil, dans l’article on vous conseille…', ['de visiter un musée.', 'de faire un tour de bateau sur la Seine.', 'd’aller dans un parc.'], 2),
+            { q: '2. Quel musée on vous conseille de visiter s’il pleut ?', champs: [{ bonne: 'le musée Carnavalet|carnavalet', l: '260px' }] },
+            /* ⏳ Q3 : 3 images A B C dans le sujet, que je n'ai pas → question libre en attendant. */
+            { q: '3. Le soir, s’il ne fait pas beau, on vous propose…', champs: [{ bonne: 'une pièce de théâtre|théâtre|theatre|comédie-française', l: '260px' }] },
+            qcm('4. Le restaurant proposé dans l’article est à côté…', ['de la Tour Eiffel.', 'du musée Carnavalet.', 'des Champs-Élysées.'], 2),
+            { q: '5. Où pouvez-vous réserver ?', champs: [{ bonne: 'au bureau 127 de l’université|bureau 127|127', l: '320px' }] } ] } ] },
+        { cle: 'ecrire', nom: "J'écris", couleur: '#e59a2b', img: 'pictos/delf-ecris', duree: '30 min', min: 30, exos: [
+          { titre: 'Exercice 1', consigne: 'Vous êtes en vacances en France. Vous remplissez ce formulaire dans un hôtel.', questions: [
+            { q: 'Le formulaire', champs: ['Nom :', 'Prénom :', 'Date de naissance :', 'Nationalité :', 'Courriel :', 'Adresse :', 'Code postal :', 'Pays :', 'Téléphone :', 'Profession :', 'Date :'].map(a => ({ avant: a, l: '260px' })) } ] },
+          { titre: 'Exercice 2', consigne: 'Écrivez la lettre (40 mots minimum).', questions: [
+            { q: 'Vous écrivez une lettre à un(e) ami(e) français(e) pour l’inviter dans votre pays pendant les vacances. Vous lui parlez des activités que vous pouvez faire ensemble.', redac: true } ] } ] } ] }],
+      A2: []
+    };
+  }
+
+  componentWillUnmount() { this.stopAudio(); clearInterval(this.tic); }
+  dire(t) { try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t); u.lang = 'fr-FR'; u.rate = 0.85; speechSynthesis.speak(u); } catch (e) {} }
+  stopAudio() { if (this.aud) { this.aud.pause(); this.aud = null; } }
+  allerExo(i) { this.stopAudio(); try { speechSynthesis.cancel(); } catch (e) {} this.setState({ exoIdx: i, audioPct: 0, audioJoue: false, carteTiree: -1 }); }
+  audioClic(src) {
+    if (this.aud) { if (this.aud.paused) { this.aud.play(); this.setState({ audioJoue: true }); } else { this.aud.pause(); this.setState({ audioJoue: false }); } return; }
+    const a = new Audio(src); this.aud = a;
+    a.ontimeupdate = () => this.setState({ audioPct: a.duration ? a.currentTime / a.duration : 0 });
+    a.onended = () => { this.aud = null; this.setState({ audioJoue: false, audioPct: 1 }); };
+    a.play(); this.setState({ audioJoue: true });
+  }
+  chronoClic(min) {
+    if (this.state.chronoFin) { clearInterval(this.tic); this.setState({ chronoFin: 0 }); return; }
+    this.setState({ chronoFin: Date.now() + min * 60000, chronoMin: min });
+    clearInterval(this.tic); this.tic = setInterval(() => this.forceUpdate(), 500);
+  }
+  retour() {
+    const e = this.state.ecran;
+    if (e !== 'menu' && e !== 'sujet') { this.stopAudio(); clearInterval(this.tic); this.setState({ ecran: 'sujet', chronoFin: 0, audioJoue: false, audioPct: 0 }); return; }
+    if (SEUL) return;
+    if (e === 'sujet') { this.setState({ ecran: 'menu', sujet: null }); return; }
+    const repli = 'APPLI - Espace enseignant.dc.html' + (location.search || '');
+    if (history.length > 1) { history.back(); setTimeout(() => { location.href = repli; }, 400); } else location.href = repli;
+  }
+  /* 05/10 : « bonne » peut lister des variantes (a|b|c), comme le corrigé officiel (« toute reformulation cohérente »). */
+  egal(v, bonne) { const n = this.norm(v); if (!n) return false; return String(bonne).split('|').some(b => { const m = this.norm(b); return n === m || (m.length >= 4 && n.indexOf(m) >= 0); }); }
+  norm(s) { return String(s || '').toLowerCase().replace(/[’']/g, '').replace(/[–-]/g, '').replace(/\s+/g, '').replace(/^(l|le|la)(?=[a-z])/, '').replace(/deux/g, '2').replace(/(\d)(heures?|:)/g, '$1h').replace(/(\d)h00(?!\d)/g, '$1h').replace(/(^|[^\d])0(\d)(?=h)/g, '$1$2'); } /* 08h00 = 8 h */ /* 05/10 : 16h00 = 16 h = 16:00 = 16 heures */ /* « 2 baguettes » = « deux baguettes » */
+
+  renderVals() {
+    const s = this.state, D = this.data(), sujets = D[s.niveau] || [];
+    const suj = s.sujet != null ? sujets[s.sujet] : null, liste = suj ? suj.epreuves : [];
+    const ep = (!suj || s.ecran === 'menu' || s.ecran === 'sujet') ? null : liste.find(e => e.cle === s.ecran);
+    const exo = ep ? ep.exos[s.exoIdx] || ep.exos[0] : null;
+    const kx = ep ? s.niveau + '-' + s.sujet + '-' + ep.cle + '-' + s.exoIdx : '';
+    const mini = e => ({ couleur: e.couleur, img: "url('clean/" + e.img + ".webp')" });
+    const fini = !!s.fini[kx];
+    const setRep = (k, v) => this.setState(p => ({ rep: { ...p.rep, [k]: v } }));
+    let reste = 0; if (s.chronoFin) reste = Math.max(0, s.chronoFin - Date.now());
+    const mm = Math.floor(reste / 60000), ss = Math.floor(reste / 1000) % 60;
+    const questions = exo ? exo.questions.map((q, qi) => {
+      const k = kx + '-' + qi, r = s.rep[k];
+      const choix = (q.choix || []).map((t, ci) => {
+        const pris = r === ci, bon = q.bonne === ci;
+        let fond = pris ? '#fdf3c4' : '#fff', bord = pris ? '#12233b' : '#c9cfd8';
+        if (fini && pris && bon) { fond = '#d8f3e2'; bord = '#1f8a4c'; }
+        if (fini && pris && !bon && (q.bonne != null || q.vide)) { fond = '#fbdcd8'; bord = '#d0453a'; }
+        if (fini && !pris && bon) { bord = '#1f8a4c'; }
+        return { t, fond, bord, coche: pris ? '✕' : '', choisir: () => { if (!fini) setRep(k, r === ci ? undefined : ci); } }; /* retoucher = décocher */
+      });
+      /* q.libre : réponses acceptées dans n'importe quel ordre (« anglais et espagnol » = « espagnol et anglais »). */
+      const valsC = (q.champs || []).map((f, fi) => f.donne != null ? f.donne : (s.rep[k + '-' + fi] || ''));
+      let justesC = (q.champs || []).map((f, fi) => !!f.bonne && this.egal(valsC[fi], f.bonne));
+      let bonnesC = (q.champs || []).map(f => (f.bonne || '').split('|')[0]);
+      if (q.libre) {
+        const reste = q.champs.map(f => f.bonne);
+        justesC = valsC.map(v => { const p = reste.findIndex(b => this.norm(b) === this.norm(v)); if (p < 0) return false; reste.splice(p, 1); return true; });
+        bonnesC = justesC.map(j => j ? '' : (reste.shift() || ''));
+      }
+      const champs = (q.champs || []).map((f, fi) => {
+        const kk = k + '-' + fi, v = valsC[fi];
+        const juste = justesC[fi];
+        return { avant: f.avant || '', apres: f.apres || '', valeur: v, donne: f.donne != null, bonne: bonnesC[fi],
+          largeur: f.l || '200px', flex: q.champs.length > 4 ? '1 1 300px' : '0 0 auto',
+          fond: f.donne != null ? '#eef0f4' : (fini && f.bonne ? (juste ? '#d8f3e2' : '#fbdcd8') : '#fff'),
+          aCorrige: fini && !!f.bonne && !juste, changer: e => setRep(kk, e.target.value) };
+      });
+      let jh = [], jhOk = true, jhReponses = [];
+      if (q.jh) {
+        const ent = t => ({ estEntete: true, estLabel: false, estChamp: false, t, col: t ? (t === 'Jour' ? 2 : 3) : 1, span: 1 });
+        jh = [ent(''), ent('Jour'), ent('Heure')];
+        q.jh.forEach((g, gi) => {
+          jh.push({ estEntete: false, estLabel: true, estChamp: false, t: g.label, col: 1, span: g.lignes.length });
+          const restantes = g.bonnes.map(b => this.norm(b[0]) + '|' + this.norm(b[1]));
+          g.lignes.forEach((ln, li) => {
+            const vals = ln.map((d, ci) => d != null ? d : (s.rep[k + '-' + gi + '-' + li + '-' + ci] || ''));
+            const cle = this.norm(vals[0]) + '|' + this.norm(vals[1]), pos = restantes.indexOf(cle), juste = pos >= 0;
+            if (juste) restantes.splice(pos, 1); else jhOk = false;
+            ln.forEach((d, ci) => jh.push({ estEntete: false, estLabel: false, estChamp: true, col: ci + 2, span: 1,
+              valeur: vals[ci], donne: d != null, fond: d != null ? '#eef0f4' : (fini ? (juste ? '#d8f3e2' : '#fbdcd8') : '#fff'),
+              changer: e => setRep(k + '-' + gi + '-' + li + '-' + ci, e.target.value) }));
+          });
+          jhReponses.push({ t: g.label + ' ' + g.bonnes.map(b => b[0] + ' ' + b[1]).join(' · ') });
+        });
+      }
+      const gradable = (!!q.choix && (q.bonne != null || !!q.vide)) || !!q.jh || (q.champs || []).some(f => f.bonne);
+      let ok = false;
+      if (q.jh) ok = jhOk;
+      else if (q.libre) ok = justesC.every(Boolean);
+      if (q.choix && q.vide) ok = r == null;
+      else if (q.choix && q.bonne != null) ok = r === q.bonne;
+      else if (gradable && !q.jh && !q.libre) ok = q.champs.every((f, fi) => !f.bonne || this.egal(s.rep[k + '-' + fi], f.bonne));
+      const txt = typeof s.rep[k] === 'string' ? s.rep[k] : '', nb = txt.trim() ? txt.trim().split(/\s+/).length : 0;
+      /* q.plan (sujet 2, écrit ex. 2) : l'élève TOUCHE la salle sur le plan au lieu de dessiner le chemin ; une croix s'y pose. */
+      const planZones = q.plan ? choix.map((c, ci) => { const [x, y, w, hh] = q.zones[ci]; return { ...c, x: x + '%', y: y + '%', w: w + '%', h: hh + '%', icone: (q.icones || [])[ci] || '' }; }) : [];
+      const choixImg = q.images ? choix.map((c, ci) => ({ ...c, src: "url('" + q.images[ci] + "')" })) : [];
+      return { q: q.q, dire: () => this.dire(q.q.replace(/^[a-z0-9]+[).]\s*/i, '')), choix: (q.images || q.plan) ? [] : choix, choixImg, aPlan: !!q.plan, planSrc: q.plan ? "url('" + q.plan + "')" : 'none', planZones, champs, aJh: !!q.jh, jh, aJhCorrige: fini && !!q.jh && !jhOk, jhReponses,
+        aImg: !!q.img, imgTexte: q.img || '', estRedac: !!q.redac, texte: txt,
+        changerTexte: e => setRep(k, e.target.value), nbMots: nb + (nb > 1 ? ' mots' : ' mot'),
+        aVerdict: fini && gradable, verdict: ok ? 'BRAVO !' : 'OH ZUT !', verdictCouleur: ok ? '#1f8a4c' : '#d0453a' };
+    }) : [];
+    /* 05/10 : un exercice d'écoute a toujours son « J'ai fini », même sans corrigé (sujet 2 en attente du corrigé de l'oral). */
+    const aCorriger = !!exo && (!!exo.audio || exo.questions.some(q => (q.choix && q.bonne != null) || q.jh || (q.champs || []).some(f => f.bonne)));
+    return {
+      niveau: s.niveau, estA2: !sujets.length && !suj, estMenu: !suj, estSujet: !!suj && !ep, estEpreuve: !!ep,
+      titreSujet: suj ? suj.titre : '',
+      aRetour: !SEUL || !!ep, aNiveaux: !SEUL,
+      libelleRetour: ep ? '← ' + suj.titre : (suj ? '← Les sujets' : '← L’accueil'), retour: () => this.retour(),
+      niveaux: ['A1', 'A2'].map(n => ({ nom: n, fond: s.niveau === n ? '#fdf3c4' : 'transparent', encre: s.niveau === n ? '#12233b' : '#fff',
+        choisir: () => { this.stopAudio(); this.setState({ niveau: n, sujet: null, ecran: 'menu', chronoFin: 0, audioJoue: false, audioPct: 0 }); } })),
+      sujetsMenu: sujets.map((sj, i) => ({ titre: sj.titre, img: "url('" + sj.img + "')", pictos: sj.epreuves.map(mini),
+        aDocs: /[?&]prof=1/.test(location.search) && !!(sj.docs || []).length, /* Un PDF se TÉLÉCHARGE (ouvert dans le cadre : « bloquée par Chrome ») — même méthode que pdfClic de l'Espace enseignant. */
+        docs: (sj.docs || []).map(([nom, href]) => ({ nom: nom + ' ↓', href, clic: async e => { e.preventDefault();
+          try { const r = await fetch(href); if (!r.ok) throw new Error(r.status); const b = await r.blob(); const a = document.createElement('a');
+            a.href = URL.createObjectURL(b); a.download = 'DELF-' + href.split('/').pop(); document.body.appendChild(a); a.click(); document.body.removeChild(a);
+            setTimeout(() => URL.revokeObjectURL(a.href), 4000); } catch (err) { alert("Le PDF n'a pas pu être téléchargé."); } } })),
+        ouvrir: () => this.setState({ sujet: i, ecran: 'sujet' }) })),
+      epreuvesMenu: liste.map(e => ({ nom: e.nom, couleur: e.couleur, duree: e.duree, img: "url('clean/" + e.img + ".webp')",
+        opacite: 1, ouvrir: () => this.setState({ ecran: e.cle, exoIdx: 0, audioPct: 0, chronoFin: 0 }) })),
+      ep: ep ? { nom: ep.nom, couleur: ep.couleur, img: "url('clean/" + ep.img + ".webp')" } : { nom: '', couleur: '#999', img: 'none' },
+      chronoLibelle: s.chronoFin ? (reste ? mm + ':' + String(ss).padStart(2, '0') : 'Fini !') : (ep ? (ep.prep ? 'Préparation 10 min' : ep.duree) : ''),
+      chronoFond: s.chronoFin ? (reste ? '#f08a24' : '#d0453a') : '#12233b',
+      chronoClic: () => ep && this.chronoClic(ep.min),
+      onglets: ep ? ep.exos.map((x, i) => ({ titre: x.titre, fond: i === s.exoIdx ? ep.couleur : '#fff', encre: i === s.exoIdx ? '#fff' : '#12233b', aller: () => this.allerExo(i) })) : [],
+      exo: exo ? { consigne: exo.consigne.replace(/\s+Répondez aux questions\.\s*$/, ''), aRepondez: /\S\s+Répondez aux questions\.\s*$/.test(exo.consigne), /* seule, la phrase reste en haut */ direConsigne: () => this.dire(exo.consigne), aAudio: !!exo.audio, aDoc: !!exo.doc && !exo.nav, aNav: !!exo.nav, navUrl: exo.nav || '',
+        doc: (exo.doc || []).map(l => ({ ...l, style: exo.nav && l.poids >= 700 ? 'italic' : 'normal' })), aMail: !!exo.mail, mailObjet: exo.mail ? exo.mail.objet : '', mailCorps: exo.mail ? exo.mail.corps : [], aAnnonces: !!exo.annonces, annonces: (exo.annonces || []).map(a => ({ n: a.n, t: a.t.replace(/(\d) (€|%|vitesses)/g, '$1\u00a0$2') })), aImageDoc: !!exo.imageDoc, imageDoc: exo.imageDoc || '',
+        aTableau: !!exo.tableau, tabJours: exo.tableau ? exo.tableau.jours.map(t => ({ t })) : [],
+        tabLignes: exo.tableau ? exo.tableau.lignes.map(l => ({ h: l[0], hauteur: l[0] ? '46px' : '18px', fondH: l[0] ? '#fff' : '#eef0f4', cases: l.slice(1).map(t => ({ t, fond: l[0] ? '#fff' : '#eef0f4' })) })) : [],
+        aCartes: !!exo.cartes, aProduits: !!exo.produits, produits: exo.produits || [], pieces: exo.pieces || [], aHasard: !!exo.hasard, aCorriger }
+        : { consigne: '', aRepondez: false, aAudio: false, aDoc: false, aNav: false, navUrl: '', doc: [], aMail: false, mailCorps: [], aTableau: false, tabJours: [], tabLignes: [], aAnnonces: false, annonces: [], aImageDoc: false, aCartes: false, aProduits: false, produits: [], pieces: [], aHasard: false, aCorriger: false },
+      audioLibelle: s.audioJoue ? '❚❚ Pause' : '▶ J’écoute',
+      audioPct: Math.round(s.audioPct * 100) + '%', audioClic: () => exo && this.audioClic(exo.audio),
+      audioTemps: (() => { const a = this.aud, f = t => Math.floor(t / 60) + ':' + String(Math.floor(t % 60)).padStart(2, '0');
+        return a && a.duration ? f(a.currentTime) + ' / ' + f(a.duration) : ''; })(),
+      audioRecul: () => { if (this.aud) { this.aud.currentTime = Math.max(0, this.aud.currentTime - 10); this.forceUpdate(); } },
+      audioStop: () => { this.stopAudio(); this.setState({ audioJoue: false, audioPct: 0 }); },
+      audioSaut: e => { const r = e.currentTarget.getBoundingClientRect(), x = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width));
+        if (!this.aud && exo) { this.audioClic(exo.audio); }
+        const a = this.aud; if (!a) return;
+        const go = () => { a.currentTime = x * a.duration; this.setState({ audioPct: x }); };
+        if (a.duration) go(); else a.addEventListener('loadedmetadata', go, { once: true }); },
+      questions: exo && exo.grille ? [] : questions,
+      aGrille: !!(exo && exo.grille),
+      grilleCases: exo && exo.grille ? questions.map((q, i) => {
+        const r = s.rep[kx + '-' + i], src = exo.questions[i].src;
+        /* 05/10 : les dessins du sujet 2 sont carrés → entiers (contain), sans recadrage. Sujet 1 inchangé. */
+        return { titre: q.q, src: "url('" + src + "')", ratio: exo.ratio || '1000 / 545', fit: exo.ratio ? 'contain' : 'cover', choix: q.choix, num: r != null ? String(r + 1) : '',
+          bord: q.aVerdict ? q.verdictCouleur : '#12233b', aVerdict: q.aVerdict, verdict: q.verdict, verdictCouleur: q.verdictCouleur };
+      }) : [],
+      finiLibelle: fini ? 'Je recommence' : 'J’ai fini',
+      finir: () => this.setState(p => {
+        if (!p.fini[kx]) return { fini: { ...p.fini, [kx]: true } };
+        const rep = {}; Object.keys(p.rep).forEach(k => { if (!k.startsWith(kx + '-')) rep[k] = p.rep[k]; });
+        return { fini: { ...p.fini, [kx]: false }, rep };
+      }),
+      cartes: exo && exo.cartes ? exo.cartes.map((t, i) => {
+        const vue = !!s.cartesVues[kx + i], tiree = s.carteTiree === i;
+        return { t, fond: tiree ? '#e8654f' : (vue ? '#eef0f4' : '#fff'), encre: tiree ? '#fff' : (vue ? '#9aa3b2' : '#12233b'), bord: tiree ? '#b54a37' : '#e8654f',
+          toucher: () => this.setState(p => ({ carteTiree: i, cartesVues: { ...p.cartesVues, [kx + i]: true } })) };
+      }) : [],
+      tirerCarte: () => { const c = (exo && exo.cartes) || []; const libres = c.map((_, i) => i).filter(i => !s.cartesVues[kx + i]);
+        const pool = libres.length ? libres : c.map((_, i) => i); const i = pool[Math.floor(Math.random() * pool.length)];
+        this.setState(p => ({ carteTiree: i, cartesVues: libres.length ? { ...p.cartesVues, [kx + i]: true } : { [kx + i]: true } })); },
+      questionHasard: () => { const q = exo.questions[Math.floor(Math.random() * exo.questions.length)]; this.dire(q.q); }
+    };
+  }
+}
+</script>
+</body>
+</html>

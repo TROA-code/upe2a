@@ -5338,3 +5338,45 @@ poitrine pour se désigner (photo à elle, fond blanc, 1000 × 1000, `clean/mot-
   (*tu, il, elle, nous, vous, ils*), garder la MÊME personne et le MÊME cadrage, sinon
   l'élève lit le visage au lieu du geste.
 Corrigé dans les six mêmes fichiers que le y.
+
+
+## 06/10 — Roule galette (Moment littéraire) et publication
+- Moment littéraire : une VIGNETTE par texte (Dans Paris, Roule galette), clic → ses documents. ⚠ La liste
+  « sequences » était écrasée par celle de « Mes documents utiles » (renommée `sequencesDocs`).
+- Séance Roule galette : vidéo (lien Digiview, sans pub) · texte complet (`FR - Roule galette - Le texte`) ·
+  diaporama 11 vues (couverture + 10 pages de l'album, questions dans les notes) · l'ordre de l'histoire
+  (`JEU - Roule galette - L'ordre`, jeu 1 = 5 images A-E, jeu 2 = 6 images F-K ; version papier) ·
+  « Je lis » d'après sa fiche 01-1 (écran avec petites lettres A, B, C… ; papier SANS lettres) · QCM.
+- Images `clean/diapo-galette-*.webp` = illustrations Père Castor : POUR LA CLASSE SEULEMENT (son choix).
+- « Je lis » : « fauteuil » et « fôret » retirés des mots du texte (trompeurs). Suivant toujours visible,
+  vert si réussi, rouge sinon. Mot choisi = bleu (le rouge-orangé passait pour une erreur).
+- Publication : VS Code relié à GitHub (Commit → Sync Changes). On crée ICI, VS Code ne sert qu'à envoyer.
+  « zip léger » = fichiers .dc.html/.js/.html seulement ; images/sons nouveaux à part. Ne jamais publier `uploads/`.
+- ⚠ run_script refuse les noms de fichier avec parenthèses : passer par une copie dans work/.
+
+## 06/10 (fin de journée) — DELF2 isolé, son S, publication
+- **DELF2.html** (sujet 2 seul, `github/DELF2.html` en ligne) = copie `DELF2-seul.dc.html` (sujet: 1) + script en tête
+  `window.DA` (images ET audios en data-URI) + patch Audio/style, PUIS super_inline. ⚠ Sans ce script, les images
+  et sons construits en JS ne sont pas embarqués (erreur du 05/10). Même méthode pour un futur DELF3.
+- **JEU - Le son S** (copie du M) : « le s de SALADE pour l'instant » = seulement s écrit s (9 mots : salade, sac,
+  soleil, stylo, bus, sucre, serpent, singe, sel). Pas de c, ç, ss, x ; aucun piège [z] ni s muet.
+  ⚠ En copiant un jeu de son, remplacer AUSSI les « m » minuscules (onglets, consignes, titre J'ENTENDS).
+  Accroché : JEUX_APPLI (parcours) + VIGNETTE_JEUX (espace enseignant). index.html ?v=44.
+- Publication : « zip léger » = seulement les fichiers changés + nouvelles images (dossier `zip-envoi/`, à vider
+  avant le suivant). Si elle ne voit pas un changement : Ctrl+F5 SUR LA PAGE concernée (le ?v ne vaut que pour
+  l'accueil), ou fenêtre privée. GitHub : vérifier github.com/troa-code/upe2a/actions (coche verte).
+- VS Code : écrire le message dans la case AVANT Commit (sinon une page COMMIT_EDITMSG s'ouvre).
+- Adresses : appli https://troa-code.github.io/upe2a/ · DELF https://troa-code.github.io/upe2a/github/DELF.html ·
+  DELF2 …/github/DELF2.html
+
+## 10/10 — DELF A1 : sujets 3 à 5 (épreuves blanches Didier), SES DÉCISIONS
+- **Numérotation validée** : SUJET 3 = épreuve blanche 1 du LIVRE · SUJET 4 = web 1 · SUJET 5 = web 2 ·
+  **SUJET 6 = épreuve blanche 2 du livre** (à faire quand les pages arrivent ; sons pistes 93-97).
+  ⚠ Elle a dit « garde ça, je vais zapper » : c'est à moi de m'en souvenir.
+- Sujets 3-5 : `prof: true` → visibles seulement avec `?prof=1`. Mention « DELF A1 100 % réussite — Didier ».
+- Sujet 3, Je parle : la carte « Marié ? » est **gardée** (son choix, 10/10) — ne pas la retirer.
+- Image `clean/delf-a1-s3-oral5-5.webp` (dentifrice) : curseur violet effacé à la main (elle a demandé de l'effacer
+  plutôt que de renvoyer l'image). Méthode possible pour les prochaines captures.
+- **Manuel A1 : on reproduit la FORME du livre** (10/10, « relier, c'est relier »). « Reliez » = traits à relier
+  (toucher-puis-toucher) ; « remplissez le tableau » = tableau à double entrée ; « notez le n° sous l'image » =
+  images côte à côte + liste déroulante ; « cochez » plusieurs images = cases à cocher + « J'ai fini ».

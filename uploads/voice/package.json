@@ -1,0 +1,12 @@
+{
+  "name": "voice-educai-studio",
+  "version": "1.0.0",
+  "description": "Interface web de synthèse vocale pour voice.educ-ai.fr",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": ["tts", "voice", "educ-ai", "qwen-tts"],
+  "author": "",
+  "license": "MIT"
+}

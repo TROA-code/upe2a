@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&amp;family=Archivo+Black&amp;display=swap" rel="stylesheet" />
+<style>
+html,body{margin:0;height:100%;font-family:Archivo, sans-serif;color:#12233b}
+a{color:#1d4e89}
+a:hover{color:#12233b}
+button{font-family:inherit}
+</style>
+</helmet>
+<div style="position:fixed;inset:0;display:flex;flex-direction:column;background:url('clean/mur-briques.webp') repeat;overflow:auto">
+
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 18px">
+<button onClick="{{ retour }}" style="min-height:44px;border:none;border-radius:10px;background:#12233b;color:#fff;padding:0 16px;font-weight:700;font-size:15px;cursor:pointer;box-shadow:0 3px 0 #050d18">{{ libelleRetour }}</button>
+<div style="flex:1"></div>
+<sc-if value="{{ estMenu }}" hint-placeholder-val="{{ true }}">
+<button onClick="{{ ouvrirReglage }}" style="min-height:44px;border:none;border-radius:10px;background:rgba(18,35,59,0.9);color:#fff;padding:0 16px;font-weight:700;font-size:15px;cursor:pointer">⚙ Les lettres</button>
+</sc-if>
+</div>
+
+<div style="flex:1 0 auto;display:flex;justify-content:center;padding:0 14px 30px">
+<div style="width:100%;max-width:980px;box-sizing:border-box;background-image:url('clean/liege.webp');background-size:100% 100%;box-shadow:0 12px 28px rgba(0,0,0,0.3);padding:20px;display:flex;flex-direction:column;gap:18px">
+
+<div style="align-self:center;position:relative;background:#fdf3c4;padding:10px 30px;transform:rotate(-1deg);box-shadow:0 4px 10px rgba(0,0,0,0.3)">
+<span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:block"></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:22px;letter-spacing:0.02em;text-transform:uppercase;color:#8a4b1e;display:block;text-align:center">{{ titre }}</span>
+</div>
+
+<sc-if value="{{ estMenu }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center">
+<sc-for list="{{ niveaux }}" as="nv" hint-placeholder-count="2">
+<button onClick="{{ nv.choisir }}" style="min-width:230px;min-height:84px;border:3px solid #1d4e89;border-radius:14px;background:{{ nv.fond }};color:{{ nv.encre }};box-shadow:0 6px 16px rgba(0,0,0,0.25);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:8px 18px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:22px">{{ nv.nom }}</span>
+<sc-if value="{{ nv.aAcquis }}" hint-placeholder-val="{{ false }}"><span style="font-family:Archivo Black, Archivo, sans-serif;font-size:16px;letter-spacing:4px;opacity:0.55">{{ nv.acquis }}</span></sc-if>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:20px;letter-spacing:4px">{{ nv.lettres }}</span>
+</button>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ estMenu }}" hint-placeholder-val="{{ true }}">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px">
+<button onClick="{{ j1 }}" style="border:none;border-radius:14px;background:#fff;box-shadow:0 6px 16px rgba(0,0,0,0.25);padding:14px;display:flex;flex-direction:column;align-items:center;gap:12px;cursor:pointer" style-hover="transform:translateY(-3px)">
+<span style="width:100%;aspect-ratio:1;border-radius:10px;background:#efeafd;display:flex;align-items:center;justify-content:center;gap:8px"><span style="font-size:34px">🔊</span><span style="font-family:Archivo Black, Archivo, sans-serif;font-size:44px;color:#6d5bd0">mo</span></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:16px;text-align:center;line-height:1.2">J'entends,<br />je touche</span>
+</button>
+<button onClick="{{ j2 }}" style="border:none;border-radius:14px;background:#fff;box-shadow:0 6px 16px rgba(0,0,0,0.25);padding:14px;display:flex;flex-direction:column;align-items:center;gap:12px;cursor:pointer" style-hover="transform:translateY(-3px)">
+<span style="width:100%;aspect-ratio:1;border-radius:10px;background:#e3f4ec;display:flex;align-items:center;justify-content:center;gap:0px;font-family:Archivo Black, Archivo, sans-serif;font-size:44px"><span style="color:#1d4e89">m</span><span style="color:#c1440e">a</span></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:16px;text-align:center;line-height:1.2">Je fabrique</span>
+</button>
+<button onClick="{{ j3 }}" style="border:none;border-radius:14px;background:#fff;box-shadow:0 6px 16px rgba(0,0,0,0.25);padding:14px;display:flex;flex-direction:column;align-items:center;gap:12px;cursor:pointer" style-hover="transform:translateY(-3px)">
+<span style="width:100%;aspect-ratio:1;border-radius:10px;background:#fdf0e1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px"><span style="width:60%;aspect-ratio:1.4;background:url('clean/mot-moto.webp') center/contain no-repeat;display:block"></span><span style="display:flex;gap:6px;font-family:Archivo Black, Archivo, sans-serif;font-size:22px"><span style="background:#fff;border:2px solid #e59a2b;border-radius:6px;padding:2px 8px">to</span><span style="background:#fff;border:2px solid #e59a2b;border-radius:6px;padding:2px 8px">mo</span></span></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:16px;text-align:center;line-height:1.2">Je reconstruis<br />le mot</span>
+</button>
+<button onClick="{{ j4 }}" style="border:none;border-radius:14px;background:#fff;box-shadow:0 6px 16px rgba(0,0,0,0.25);padding:14px;display:flex;flex-direction:column;align-items:center;gap:12px;cursor:pointer" style-hover="transform:translateY(-3px)">
+<span style="width:100%;aspect-ratio:1;border-radius:10px;background:#fde7e3;display:flex;align-items:center;justify-content:center;gap:6px;font-family:Archivo Black, Archivo, sans-serif;font-size:30px"><span>to</span><span style="color:#6b7386">–</span><span style="min-width:44px;border:3px dashed #e8654f;border-radius:8px;color:#e8654f;text-align:center">?</span></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:16px;text-align:center;line-height:1.2">La syllabe<br />qui manque</span>
+</button>
+<button onClick="{{ j5 }}" style="border:none;border-radius:14px;background:#fff;box-shadow:0 6px 16px rgba(0,0,0,0.25);padding:14px;display:flex;flex-direction:column;align-items:center;gap:12px;cursor:pointer" style-hover="transform:translateY(-3px)">
+<span style="width:100%;aspect-ratio:1;border-radius:10px;background:#e4eef8;display:flex;align-items:center;justify-content:center;gap:10px;font-family:Archivo Black, Archivo, sans-serif"><span style="font-size:18px;color:#9aa3b2">ma</span><span style="font-size:40px;color:#1d4e89">si</span><span style="font-size:18px;color:#9aa3b2">lo</span></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:16px;text-align:center;line-height:1.2">Je lis vite</span>
+</button>
+<button onClick="{{ j6 }}" style="border:none;border-radius:14px;background:#fff;box-shadow:0 6px 16px rgba(0,0,0,0.25);padding:14px;display:flex;flex-direction:column;align-items:center;gap:12px;cursor:pointer" style-hover="transform:translateY(-3px)">
+<span style="width:100%;aspect-ratio:1;border-radius:10px;background:#e4eef8;display:flex;align-items:center;justify-content:center;gap:6px;font-family:Archivo Black, Archivo, sans-serif;font-size:30px"><span style="font-size:26px">🔊</span><span style="color:#1d4e89">f</span><span style="color:#c1440e">i</span></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:16px;text-align:center;line-height:1.2">J’entends,<br />je fabrique</span>
+</button>
+</div>
+<div style="align-self:center;background:rgba(18,35,59,0.85);color:#fff;border-radius:10px;padding:8px 16px;font-size:15px">{{ resumeLettres }}</div>
+</sc-if>
+
+<sc-if value="{{ estReglage }}" hint-placeholder-val="{{ false }}">
+<div style="background:#fff;border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;flex-wrap:wrap;gap:12px">
+<sc-for list="{{ niveaux }}" as="nv" hint-placeholder-count="2">
+<button onClick="{{ nv.choisir }}" style="min-width:220px;min-height:84px;border:3px solid #1d4e89;border-radius:14px;background:{{ nv.fond }};color:{{ nv.encre }};cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:8px 18px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:22px">{{ nv.nom }}</span>
+<sc-if value="{{ nv.aAcquis }}" hint-placeholder-val="{{ false }}"><span style="font-family:Archivo Black, Archivo, sans-serif;font-size:16px;letter-spacing:4px;opacity:0.55">{{ nv.acquis }}</span></sc-if>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:20px;letter-spacing:4px">{{ nv.lettres }}</span>
+</button>
+</sc-for>
+</div>
+<div style="font-size:18px;font-weight:700">Les consonnes</div>
+<div style="display:flex;flex-wrap:wrap;gap:8px">
+<sc-for list="{{ chipsCons }}" as="c" hint-placeholder-count="0">
+<button onClick="{{ c.basculer }}" style="min-width:52px;min-height:52px;border:3px solid {{ c.bord }};border-radius:10px;background:{{ c.fond }};color:{{ c.encre }};font-family:Archivo Black, Archivo, sans-serif;font-size:24px;cursor:pointer">{{ c.t }}</button>
+</sc-for>
+</div>
+<div style="font-size:18px;font-weight:700">Les voyelles</div>
+<div style="display:flex;flex-wrap:wrap;gap:8px">
+<sc-for list="{{ chipsVoy }}" as="c" hint-placeholder-count="0">
+<button onClick="{{ c.basculer }}" style="min-width:52px;min-height:52px;border:3px solid {{ c.bord }};border-radius:10px;background:{{ c.fond }};color:{{ c.encre }};font-family:Archivo Black, Archivo, sans-serif;font-size:24px;cursor:pointer">{{ c.t }}</button>
+</sc-for>
+</div>
+<div style="font-size:16px;color:#3a4558;line-height:1.5">{{ resumeLettres }}</div>
+<sc-for list="{{ apercuSyl }}" as="a" hint-placeholder-count="0">
+<span style="font-size:15px;color:#6b7386;line-height:1.5">{{ a.t }}</span>
+</sc-for>
+<button onClick="{{ fermerReglage }}" style="align-self:flex-start;min-height:52px;border:none;border-radius:12px;background:#2a9d6e;color:#fff;padding:0 24px;font-family:Archivo Black, Archivo, sans-serif;font-size:19px;cursor:pointer;box-shadow:0 3px 0 #1f7553">C'est prêt</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ estJeu }}" hint-placeholder-val="{{ false }}">
+<div style="background:#fff;border-radius:12px;box-shadow:0 4px 14px rgba(0,0,0,0.22);padding:20px;display:flex;flex-direction:column;align-items:center;gap:20px;min-height:380px">
+
+<div style="align-self:stretch;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+<!-- 05/10 : la barre du haut sort de l'écran pendant le jeu → un retour DANS la carte, toujours visible. -->
+<button onClick="{{ retour }}" style="flex:0 0 auto;min-height:46px;border:none;border-radius:10px;background:#eef0f4;color:#12233b;padding:0 14px;font-weight:700;font-size:16px;cursor:pointer">{{ libelleRetour }}</button>
+<button onClick="{{ direConsigne }}" title="Écouter" style="flex:0 0 auto;width:46px;height:46px;border:none;border-radius:50%;background:#12233b;color:#fff;font-size:20px;cursor:pointer">🔊</button>
+<span style="font-size:21px;font-weight:700;flex:1">{{ consigne }}</span>
+<span style="display:flex;gap:6px">
+<sc-for list="{{ points }}" as="p" hint-placeholder-count="0"><span style="width:14px;height:14px;border-radius:50%;border:2px solid #12233b;background:{{ p.fond }};display:block"></span></sc-for>
+</span>
+</div>
+
+<!-- 05/10 : BRAVO / Suivant à DROITE des tuiles (coupé en bas sur son écran). Colonne réservée, rien ne saute ; sur téléphone elle passe dessous. -->
+<div style="align-self:stretch;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:20px">
+<div style="flex:1 1 320px;min-width:0;display:flex;flex-direction:column;align-items:center;gap:20px">
+<sc-if value="{{ estFin }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:34px">C'est fini.</span>
+<button onClick="{{ relancer }}" style="min-height:58px;border:none;border-radius:12px;background:#1d4e89;color:#fff;padding:0 28px;font-family:Archivo Black, Archivo, sans-serif;font-size:21px;cursor:pointer;box-shadow:0 3px 0 #133a68">↻ Six autres</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ vueJ1 }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ ecouter }}" style="min-width:150px;min-height:90px;border:none;border-radius:18px;background:#6d5bd0;color:#fff;font-size:44px;cursor:pointer;box-shadow:0 4px 0 #4c3ea0">🔊</button>
+<div style="display:grid;grid-template-columns:repeat(2,minmax(130px,190px));gap:14px">
+<sc-for list="{{ choix }}" as="c" hint-placeholder-count="0">
+<button onClick="{{ c.toucher }}" style="min-height:110px;border:4px solid {{ c.bord }};border-radius:16px;background:{{ c.fond }};font-family:Archivo Black, Archivo, sans-serif;font-size:52px;color:#12233b;cursor:pointer">{{ c.t }}</button>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ vueJ2 }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ direFab }}" title="Écouter la syllabe" style="display:flex;align-items:center;justify-content:center;gap:{{ fabGap }};padding:10px 14px;border:4px solid {{ fabBord }};border-radius:20px;background:{{ fabFond }};cursor:pointer;transition:gap 0.5s ease, background 0.4s ease, border-color 0.4s ease;font-family:Archivo Black, Archivo, sans-serif;font-size:72px;line-height:1">
+<span style="min-width:{{ fabMinW }};padding:0 {{ fabPadL }};min-height:110px;box-sizing:border-box;border:4px solid {{ fabBordC }};border-radius:16px;display:flex;align-items:center;justify-content:center;color:#1d4e89;background:{{ fabFondL }};transition:border-color 0.4s ease, background 0.4s ease, min-width 0.5s ease, padding 0.5s ease">{{ fabC }}</span>
+<span style="min-width:{{ fabMinW }};padding:0 {{ fabPadL }};min-height:110px;box-sizing:border-box;border:4px solid {{ fabBordV }};border-radius:16px;display:flex;align-items:center;justify-content:center;color:#c1440e;background:{{ fabFondL }};transition:border-color 0.4s ease, background 0.4s ease, min-width 0.5s ease, padding 0.5s ease">{{ fabV }}</span>
+</button>
+<div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center">
+<sc-for list="{{ tuilesC }}" as="c" hint-placeholder-count="0">
+<button onClick="{{ c.toucher }}" style="min-width:72px;min-height:72px;border:3px solid #1d4e89;border-radius:12px;background:{{ c.fond }};color:{{ c.encre }};font-family:Archivo Black, Archivo, sans-serif;font-size:34px;cursor:pointer">{{ c.t }}</button>
+</sc-for>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center">
+<sc-for list="{{ tuilesV }}" as="c" hint-placeholder-count="0">
+<button onClick="{{ c.toucher }}" style="min-width:72px;min-height:72px;border:3px solid #c1440e;border-radius:12px;background:{{ c.fond }};color:{{ c.encre }};font-family:Archivo Black, Archivo, sans-serif;font-size:34px;cursor:pointer">{{ c.t }}</button>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ vueJ6 }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;align-items:center;gap:14px;width:100%">
+<button onClick="{{ ecouter }}" title="Réécouter" style="width:64px;height:64px;border:none;border-radius:14px;background:#12233b;color:#fff;font-size:28px;cursor:pointer">▶</button>
+<div style="display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;width:100%">
+<div style="display:flex;flex-direction:column;gap:12px">
+<sc-for list="{{ tuilesC }}" as="c" hint-placeholder-count="1">
+<button onClick="{{ c.toucher }}" style="width:92px;height:92px;border:3px solid #1d4e89;border-radius:14px;background:{{ c.fond }};color:{{ c.encre }};font-family:Archivo Black, Archivo, sans-serif;font-size:44px;cursor:pointer">{{ c.t }}</button>
+</sc-for>
+</div>
+<div style="width:min(440px, 80vw);aspect-ratio:3 / 2;box-sizing:border-box;padding:16px;border-radius:18px;background:#d8b98a;box-shadow:0 8px 20px rgba(0,0,0,0.25)">
+<div style="width:100%;height:100%;border-radius:10px;background:#2f3a36;display:flex;align-items:center;justify-content:center">
+<span style="display:flex;font-family:Archivo Black, Archivo, sans-serif;font-size:110px;color:#f4f1e8;line-height:1">
+<span style="display:inline-block;transform:translateX({{ ardoiseG }});opacity:{{ ardoiseO }};transition:transform 0.6s ease, opacity 0.3s ease">{{ ardoiseC }}</span>
+<span style="display:inline-block;transform:translateX({{ ardoiseD }});opacity:{{ ardoiseO }};transition:transform 0.6s ease, opacity 0.3s ease">{{ ardoiseV }}</span>
+</span>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(2, 92px);gap:12px">
+<sc-for list="{{ tuilesV }}" as="c" hint-placeholder-count="6">
+<button onClick="{{ c.toucher }}" style="width:92px;height:92px;border:3px solid #c1440e;border-radius:14px;background:{{ c.fond }};color:{{ c.encre }};font-family:Archivo Black, Archivo, sans-serif;font-size:44px;cursor:pointer">{{ c.t }}</button>
+</sc-for>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ vueDicChoix }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;align-items:center;gap:16px">
+<span style="font-size:18px;font-weight:700;color:#12233b">Une lettre, ou deux lettres à ne pas confondre</span>
+<div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;max-width:720px">
+<sc-for list="{{ dicOptions }}" as="o" hint-placeholder-count="6">
+<button onClick="{{ o.choisir }}" style="min-width:96px;min-height:84px;border:3px solid #1d4e89;border-radius:14px;background:#fff;color:#1d4e89;font-family:Archivo Black, Archivo, sans-serif;font-size:36px;cursor:pointer;padding:0 16px">{{ o.t }}</button>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ vueMot }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ ecouter }}" title="Écouter le mot" style="width:220px;aspect-ratio:1.2;border:3px solid #c9cfd8;border-radius:14px;background-color:#fff;background-image:{{ photo }};background-size:contain;background-repeat:no-repeat;background-position:center;background-origin:content-box;padding:8px;cursor:pointer"></button>
+<div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;align-items:center">
+<sc-for list="{{ cases }}" as="c" hint-placeholder-count="0">
+<button onClick="{{ c.toucher }}" style="min-width:96px;min-height:84px;border:4px {{ c.trait }} {{ c.bord }};border-radius:14px;background:{{ c.fond }};font-family:Archivo Black, Archivo, sans-serif;font-size:40px;color:{{ c.encre }};cursor:pointer;padding:0 10px">{{ c.t }}</button>
+</sc-for>
+</div>
+<div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
+<sc-for list="{{ tuiles }}" as="c" hint-placeholder-count="0">
+<button onClick="{{ c.toucher }}" style="min-width:96px;min-height:84px;border:3px solid #12233b;border-radius:14px;background:{{ c.fond }};font-family:Archivo Black, Archivo, sans-serif;font-size:40px;color:{{ c.encre }};cursor:pointer;padding:0 10px;opacity:{{ c.opacite }}">{{ c.t }}</button>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ vueJ5 }}" hint-placeholder-val="{{ false }}">
+<div style="width:100%;max-width:520px;aspect-ratio:2;border-radius:18px;background:#f0f5fb;border:4px solid #1d4e89;display:flex;align-items:center;justify-content:center">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:120px;color:#12233b;line-height:1">{{ sylVite }}</span>
+</div>
+<div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;align-items:center">
+<button onClick="{{ playVite }}" style="min-width:150px;min-height:58px;border:none;border-radius:12px;background:#1d4e89;color:#fff;font-family:Archivo Black, Archivo, sans-serif;font-size:20px;cursor:pointer;box-shadow:0 3px 0 #133a68">{{ libellePlay }}</button>
+<button onClick="{{ ecouter }}" style="min-width:58px;min-height:58px;border:none;border-radius:12px;background:#eef0f4;font-size:24px;cursor:pointer">🔊</button>
+<span style="display:flex;gap:4px;background:#eef0f4;border-radius:12px;padding:4px">
+<sc-for list="{{ vitesses }}" as="v" hint-placeholder-count="0">
+<button onClick="{{ v.choisir }}" style="min-height:50px;border:none;border-radius:9px;background:{{ v.fond }};color:{{ v.encre }};padding:0 14px;font-weight:700;font-size:16px;cursor:pointer">{{ v.t }}</button>
+</sc-for>
+</span>
+<button onClick="{{ relancer }}" style="min-height:58px;border:none;border-radius:12px;background:#eef0f4;padding:0 16px;font-weight:700;font-size:16px;cursor:pointer">↻ D'autres</button>
+</div>
+</sc-if>
+
+</div>
+<div style="flex:0 0 200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;min-height:60px">
+<sc-if value="{{ aRetour }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;align-items:center;gap:14px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:34px;color:{{ retourCouleur }}">{{ retourTexte }}</span>
+<sc-if value="{{ aSuivant }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ suivant }}" style="min-height:58px;border:none;border-radius:12px;background:#12233b;color:#fff;padding:0 26px;font-family:Archivo Black, Archivo, sans-serif;font-size:20px;cursor:pointer;box-shadow:0 3px 0 #050d18">Suivant →</button>
+</sc-if>
+</div>
+</sc-if>
+
+</div>
+</div>
+
+<sc-if value="{{ aVide }}" hint-placeholder-val="{{ false }}">
+<div style="font-size:19px;text-align:center;line-height:1.5;color:#3a4558">{{ texteVide }}</div>
+</sc-if>
+
+</div>
+</sc-if>
+
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* JEU - Les syllabes (04/10, sa demande) : 5 jeux, lettres choisies par l'enseignante (⚙, gardées en localStorage
+   « syllabes-lettres »). Toucher, jamais glisser. Pas de score : BRAVO / OH ZUT au coup. Une manche = 6.
+   Les mots des jeux 3 et 4 viennent des banques des jeux de sons (A, I, O, M) : mêmes photos clean/mot-*. */
+const CONS = ['m','s','l','r','t','p','n','d','v','f','b','c','j','g','z'];
+const VOY = ['a','i','o','u','e','é'];
+const MOTS = [['banane','ba-na-ne'],['ananas','a-na-nas'],['table','ta-ble'],['carotte','ca-rot-te'],['tomate','to-ma-te'],['lapin','la-pin'],
+  ['cartable','car-ta-ble'],['avion','a-vion'],['arbre','ar-bre'],['salade','sa-la-de'],['vache','va-che'],['papier','pa-pier'],['ballon','bal-lon'],
+  ['chocolat','cho-co-lat'],['fromage','fro-ma-ge'],['pantalon','pan-ta-lon'],['nuage','nu-a-ge'],['cafe','ca-fé','café'],['gare','ga-re'],
+  ['image','i-ma-ge'],['pyjama','py-ja-ma'],['taxi','ta-xi'],['camion','ca-mion'],['abricot','a-bri-cot'],['papaye','pa-pa-ye'],['pomme','pom-me'],
+  ['velo','vé-lo','vélo'],['moto','mo-to'],['robot','ro-bot'],['porte','por-te'],['livre','li-vre'],['orange','o-ran-ge'],['jambe','jam-be'],
+  ['maison','mai-son'],['stylo','sty-lo'],['chemise','che-mi-se'],['citron','ci-tron'],['radis','ra-dis'],['figue','fi-gue'],['lire','li-re'],
+  ['cerise','ce-ri-se'],['frites','fri-tes'],['bateau','ba-teau'],['raisin','rai-sin'],['manteau','man-teau'],['haricot','ha-ri-cot'],
+  ['bureau','bu-reau'],['toboggan','to-bog-gan'],['robinet','ro-bi-net'],['bonnet','bon-net'],['jupe','ju-pe'],['mouton','mou-ton'],['melon','me-lon'],
+  ['mangue','man-gue'],['soleil','so-leil'],
+  /* 04/10, niveau 1 validé par elle : robe, bébé, rame (+ lire). Refusés : lama, lime, mule. ⏳ photo clean/mot-rame.webp à recevoir. */
+  ['robe','ro-be'],['bebe','bé-bé','bébé'],['rose','ro-se'],
+  ['mare','ma-re'],['valise','va-li-se'],['pile','pi-le'],['lune','lu-ne'],['farine','fa-ri-ne'],['dame','da-me']]
+/* ⏳ À ajouter dans MOTS dès que la photo arrive (sans photo, la case serait vide) :
+   ['rame','ra-me'] (niveau 1) · ['numero','nu-mé-ro','numéro'], ['menu','me-nu'], ['vase','va-se'] (niveau 2, validés le 04/10).
+   Niveau 2 validé : tomate, salade, vélo, moto, banane, jupe, numéro, menu, vase. Refusés : tulipe, domino, lavabo, sofa, pipe, dune, tutu. */.map(([m, s, e]) => ({ m, syl: s.split('-'), ecrit: e || m }));
+const CONSIGNES = { 1: 'Écoute. Touche la syllabe.', 2: 'Touche une consonne, puis une voyelle.', 3: 'Remets les syllabes dans l’ordre.', 4: 'Trouve la syllabe qui manque.', 5: 'Lis les syllabes.', 6: 'Fabrique la syllabe' };
+const TITRES = { 1: 'J’entends, je touche', 2: 'Je fabrique', 3: 'Je reconstruis le mot', 4: 'La syllabe qui manque', 5: 'Je lis vite', 6: 'J’entends, je fabrique' };
+/* 04/10, son choix : progression en 2 niveaux. b avant p et f avant v (son élève arabophone) ; b et d séparés (lettres miroirs). */
+/* 04/10 : le niveau 2 GARDE les lettres du niveau 1 (12 consonnes) ; le bouton n'affiche que les nouvelles, précédées de « + ». */
+const NIVEAUX = [{ nom: 'NIVEAU 1', cons: ['m','f','l','j','b','r'], montre: 'm f l j b r' },
+  { nom: 'NIVEAU 2', cons: ['m','f','l','j','b','r','t','p','v','n','d','s'], montre: 't p v n d s', acquis: 'm f l j b r' }]; /* 05/10 : plus de « + » ; les lettres du niveau 1 en gris au-dessus */
+const SYL_AUDIO = new Set([].concat(...'mslrtpndfbjv'.split('').map(c => ['a','i','o','u','e','é'].map(v => c + v))));
+/* Consignes + « Bravo » avec la voix de Steeve (04/10) : audio/syl-phrase-<clé>.wav. Fichier absent → voix du navigateur. */
+const PHRASES_AUDIO = { 'Écoute. Touche la syllabe.': 'ecoute', 'Touche une consonne, puis une voyelle.': 'fabrique', 'Remets les syllabes dans l’ordre.': 'ordre',
+  'Trouve la syllabe qui manque.': 'manque', 'Lis les syllabes.': 'lis', 'Bravo': 'bravo' };
+const VITESSES = [['Lent', 3200], ['Moyen', 2200], ['Vite', 1300]];
+const melange = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+
+class Component extends DCLogic {
+  state = { ecran: 'menu', cons: ['m','l','r','f','b','j'], voy: ['a','i','o','u','e','é'], manche: [], i: 0, rep: null, pris: [], fabC: '', fabV: '', vite: 1, play: false, nbVu: {} };
+
+  componentDidMount() {
+    try { const r = JSON.parse(localStorage.getItem('syllabes-lettres') || 'null'); if (r && r.cons && r.voy) this.setState({ cons: r.cons, voy: r.voy }); } catch (e) {}
+  }
+  componentWillUnmount() { clearInterval(this.tic); try { speechSynthesis.cancel(); } catch (e) {} }
+  garder(cons, voy) { try { localStorage.setItem('syllabes-lettres', JSON.stringify({ cons, voy })); } catch (e) {} }
+
+  /* 04/10 : les 48 syllabes (m s l r t p n d × a i o u e é) ont un vrai son, voix de Steeve (voicebox),
+     dans audio/syl-<syllabe>.wav (é → -aigu). Les autres textes gardent la voix du navigateur. */
+  /* Fusion : '~f' = consonne TENUE (audio/syl-tenu-f.wav), '°i' = voyelle seule (audio/syl-voy-i.wav, é → e-aigu).
+     Fichiers pas encore enregistrés → la voix du navigateur prend le relais (« ffff », « i »). */
+  fichierSyl(x) { if (x[0] === '~') return 'audio/syl-tenu-' + x.slice(1) + '.wav'; if (x[0] === '°') return 'audio/syl-voy-' + (x[1] === 'é' ? 'e-aigu' : x.slice(1)) + '.wav'; if (PHRASES_AUDIO[x]) return 'audio/syl-phrase-' + PHRASES_AUDIO[x] + '.wav'; return SYL_AUDIO.has(x) ? 'audio/syl-' + x.normalize('NFD').replace(/[\u0300-\u036f]/g, '') + (/é/.test(x) ? '-aigu' : '') + '.wav' : null; }
+  dire(t) {
+    const suite = [].concat(t).map(String);
+    try { speechSynthesis.cancel(); } catch (e) {}
+    try { this.lecteur && this.lecteur.pause(); } catch (e) {}
+    const jeton = this.jeton = (this.jeton || 0) + 1;
+    const jouer = k => {
+      if (k >= suite.length || jeton !== this.jeton) return;
+      const f = this.fichierSyl(suite[k]);
+      if (f) { const a = this.lecteur = new Audio(f); a.onended = () => jouer(k + 1); a.onerror = () => { this.direTTS([suite[k]]); jouer(k + 1); }; a.play().catch(() => { this.direTTS([suite[k]]); }); return; }
+      this.direTTS([suite[k]], () => jouer(k + 1));
+    };
+    jouer(0);
+  }
+  direTTS(t, fin) {
+    try {
+      const v = speechSynthesis.getVoices().filter(x => /^fr/i.test(x.lang || ''));
+      const bonne = v.find(x => /natural|premium|enhanced|google/i.test(x.name)) || v[0];
+      /* 04/10 : « pe » était épelé « P - E ». Une syllabe consonne + e se dit « peu » (c → ce, g → je). */
+      const pron0 = x => /^[a-z]e$/.test(x) ? (x[0] === 'c' ? 'ce' : x[0] === 'g' ? 'je' : x[0] + 'eu') : x;
+      const pron = x => x[0] === '~' ? x.slice(1).repeat(4) : x[0] === '°' ? (x[1] === 'e' ? 'eu' : x.slice(1)) : pron0(x);
+      [].concat(t).forEach(x => { const u = new SpeechSynthesisUtterance(pron(String(x))); u.lang = 'fr-FR'; u.rate = 0.8; if (bonne) u.voice = bonne; if (fin) u.onend = fin; speechSynthesis.speak(u); });
+    } catch (e) {}
+  }
+  sonRate() {
+    try { const C = window.AudioContext || window.webkitAudioContext; const c = this.ac || (this.ac = new C());
+      const o = c.createOscillator(), g = c.createGain(); o.type = 'sine'; o.frequency.setValueAtTime(420, c.currentTime); o.frequency.exponentialRampToValueAtTime(180, c.currentTime + 0.35);
+      g.gain.setValueAtTime(0.18, c.currentTime); g.gain.exponentialRampToValueAtTime(0.001, c.currentTime + 0.4); o.connect(g); g.connect(c.destination); o.start(); o.stop(c.currentTime + 0.42); } catch (e) {}
+  }
+
+  syllabes() { const s = this.state; const out = []; s.cons.forEach(c => s.voy.forEach(v => out.push(c + v))); return out; }
+  motsOk() {
+    /* 04/10 : « bureau » passait (toutes ses lettres étaient choisies) alors que « eau » arrive trop tôt.
+       Un mot n'entre que si CHAQUE syllabe est exactement une consonne choisie + une voyelle choisie. */
+    const C = new Set(this.state.cons), V = new Set(this.state.voy);
+    return MOTS.filter(w => w.syl.length >= 2 && w.syl.every(x => [...x].length === 2 && C.has([...x][0]) && V.has([...x][1])));
+  }
+
+  lancer(n) {
+    clearInterval(this.tic);
+    const syl = this.syllabes();
+    let manche = [];
+    if (n === 1) manche = melange(syl).slice(0, 6).map(cible => {
+      const proches = syl.filter(x => x !== cible && (x[0] === cible[0] || x.slice(1) === cible.slice(1)));
+      const autres = syl.filter(x => x !== cible && proches.indexOf(x) < 0);
+      return { cible, choix: melange([cible].concat(melange(proches).concat(melange(autres)).slice(0, 3))) };
+    });
+    if (n === 3 || n === 4) {
+      const vus = this.state.nbVu[n] || [];
+      let pool = this.motsOk(); const neufs = pool.filter(w => vus.indexOf(w.m) < 0);
+      if (neufs.length >= 6) pool = neufs;
+      /* 04/10 : avec peu de mots (filtre strict CV), la manche n'avait qu'un mot. On complète à 6 en faisant revenir les mots,
+         jamais deux fois de suite. */
+      let tirage = melange(pool).slice(0, 6);
+      while (pool.length && tirage.length < 6) { const s2 = melange(pool); if (s2.length > 1 && s2[0] === tirage[tirage.length - 1]) s2.push(s2.shift()); tirage = tirage.concat(s2).slice(0, 6); }
+      if (pool.length > 1) for (let k = 1; k < tirage.length; k++) if (tirage[k] === tirage[k - 1]) { const j = tirage.findIndex((x, q) => q > k && x !== tirage[k]); if (j > 0) [tirage[k], tirage[j]] = [tirage[j], tirage[k]]; }
+      manche = tirage.map(w => {
+        if (n === 3) { let t = melange(w.syl.map((x, k) => k)); if (t.every((x, k) => x === k) && t.length > 1) t = t.slice(1).concat(t[0]); return { w, tuiles: t }; }
+        const trou = Math.floor(Math.random() * w.syl.length), bonne = w.syl[trou];
+        const leurres = melange(syl.concat(...this.motsOk().map(x => x.syl)).filter(x => x !== bonne && w.syl.indexOf(x) < 0)).filter((x, k, a) => a.indexOf(x) === k).slice(0, 2);
+        return { w, trou, choix: melange([bonne].concat(leurres)) };
+      });
+      this.setState(p => ({ nbVu: { ...p.nbVu, [n]: manche.map(x => x.w.m) } }));
+    }
+    if (n === 5) manche = Array.from({ length: 12 }, () => syl[Math.floor(Math.random() * syl.length)]).filter(Boolean);
+    if (n === 6) { this.setState({ ecran: 'j6', dicC: null, manche: [], i: 0, rep: null, fabC: '', fabV: '' }); setTimeout(() => this.dire('Choisis les lettres.'), 350); return; }
+    this.setState({ ecran: 'j' + n, manche, i: 0, rep: null, pris: [], fabC: '', fabV: '', play: false });
+    setTimeout(() => {
+      if (n === 1 && manche[0]) this.dire(manche[0].cible);
+      else if (n === 6 && manche[0]) this.dire([CONSIGNES[6], manche[0]]);
+      else if (n === 2 || n === 5) this.dire(CONSIGNES[n]);
+      else if (manche[0]) this.dire(manche[0].w.ecrit);
+    }, 350);
+  }
+  /* Jeu 6 « J'entends, je fabrique » (04/10, d'après la Classe de Florent) : dictée de syllabes sur UNE consonne
+     ou une PAIRE à contraster (f/v, b/p…). Juste → la voix fait la fusion « ffff… i… fi », puis Bravo. */
+  dicter(cons) {
+    const voy = this.state.voy, tout = []; cons.forEach(c => voy.forEach(v => tout.push(c + v)));
+    let manche = melange(tout).slice(0, 6); while (manche.length < 6 && tout.length) manche = manche.concat(melange(tout)).slice(0, 6);
+    this.setState({ dicC: cons, manche, i: 0, rep: null, fabC: cons.length === 1 ? cons[0] : '', fabV: '' });
+    setTimeout(() => this.dire([CONSIGNES[6], manche[0]]), 300);
+  }
+  toucherDic(t, f) {
+    const s = this.state, m = s.manche[s.i]; if (!m || s.rep === 'ok') return;
+    if (f === 'c') { this.setState({ fabC: t, fabV: '', rep: null }); return; }
+    if (!s.fabC) return;
+    const juste = s.fabC + t === m;
+    this.setState({ fabV: t, rep: juste ? 'ok' : 'zut' });
+    /* b t p d ne se tiennent pas : pas de « ~ » pour elles, la fusion devient « a… ba ». */
+    if (juste) this.dire(('btpd'.indexOf(s.fabC) >= 0 ? [] : ['~' + s.fabC]).concat(['°' + t, m, 'Bravo']));
+    else { this.sonRate(); this.dire([m]); setTimeout(() => { if (this.state.rep === 'zut') this.setState({ fabV: '', rep: null, fabC: s.dicC && s.dicC.length === 1 ? s.dicC[0] : '' }); }, 1600); }
+  }
+  suivant() {
+    const n = +this.state.ecran.slice(1), i = this.state.i + 1, m = this.state.manche[i];
+    if (n === 6) { const d = this.state.dicC || []; this.setState({ i, rep: null, fabC: d.length === 1 ? d[0] : '', fabV: '' }); if (m) setTimeout(() => this.dire(m), 250); return; }
+    this.setState({ i, rep: null, pris: [] });
+    if (m) setTimeout(() => this.dire(n === 1 ? m.cible : m.w.ecrit), 250);
+  }
+  repondre(juste, dit) {
+    if (!juste) this.sonRate();
+    this.dire(juste ? [dit, 'Bravo'] : [dit]);
+    this.setState({ rep: juste ? 'ok' : 'zut' });
+  }
+  tickVite() {
+    clearInterval(this.tic);
+    this.tic = setInterval(() => {
+      const s = this.state;
+      if (s.i + 1 >= s.manche.length) { clearInterval(this.tic); this.setState({ play: false }); return; }
+      this.setState({ i: s.i + 1 });
+    }, VITESSES[this.state.vite][1]);
+  }
+  retour() {
+    const s = this.state; clearInterval(this.tic); try { speechSynthesis.cancel(); } catch (e) {}
+    if (s.ecran === 'j6' && s.dicC) { this.setState({ dicC: null, manche: [], i: 0, rep: null }); return; }
+    if (s.ecran !== 'menu') { this.setState({ ecran: 'menu', play: false }); return; }
+    const repli = 'APPLI - Espace enseignant.dc.html' + (location.search || '');
+    if (history.length > 1) { history.back(); setTimeout(() => { location.href = repli; }, 400); } else location.href = repli;
+  }
+
+  renderVals() {
+    const s = this.state, n = s.ecran[0] === 'j' ? +s.ecran.slice(1) : 0;
+    const syl = this.syllabes(), mots = this.motsOk();
+    const m = s.manche[s.i], fin = (n === 1 || n === 3 || n === 4 || n === 6) && s.manche.length > 0 && s.i >= s.manche.length;
+    const dicChoix = n === 6 && !s.dicC, dicJeu = n === 6 && !!s.dicC && !fin;
+    const PAIRES = [['f','v'],['b','p'],['t','d'],['m','n'],['s','z'],['j','ch']];
+    const dicOptions = s.cons.map(c => ({ t: c, choisir: () => this.dicter([c]) }))
+      .concat(PAIRES.filter(p => p.every(c => s.cons.indexOf(c) >= 0)).map(p => ({ t: p.join(' / '), choisir: () => this.dicter(p) })));
+    const vide = (n === 1 && syl.length < 2) || ((n === 3 || n === 4) && !s.manche.length) || (n === 5 && !syl.length);
+    const chip = (liste, cle) => (cle === 'cons' ? CONS : VOY).map(t => { const on = liste.indexOf(t) >= 0;
+      return { t, fond: on ? (cle === 'cons' ? '#1d4e89' : '#c1440e') : '#fff', encre: on ? '#fff' : '#9aa3b2', bord: on ? (cle === 'cons' ? '#1d4e89' : '#c1440e') : '#c9cfd8',
+        basculer: () => this.setState(p => { const l = on ? p[cle].filter(x => x !== t) : p[cle].concat(t); const o = { ...p, [cle]: (cle === 'cons' ? CONS : VOY).filter(x => l.indexOf(x) >= 0) }; this.garder(o.cons, o.voy); return { [cle]: o[cle] }; }) }; });
+    let choix = [], cases = [], tuiles = [], photo = 'none';
+    if (n === 1 && m && !fin) choix = m.choix.map(t => {
+      const pris = s.rep && s.repT === t, bon = t === m.cible;
+      return { t, fond: s.rep && bon && (pris || s.rep === 'zut') ? '#d8f3e2' : (pris ? '#fbdcd8' : '#fff'), bord: s.rep && bon ? '#1f8a4c' : (pris ? '#d0453a' : '#c9cfd8'),
+        toucher: () => { if (s.rep) { this.dire(t); return; } this.setState({ repT: t }); this.repondre(bon, t); } };
+    });
+    if ((n === 3 || n === 4) && m && !fin) {
+      photo = "url('clean/mot-" + m.w.m + ".webp')";
+      if (n === 3) {
+        const plein = s.pris.length === m.w.syl.length, juste = plein && s.pris.every((k, j) => m.w.syl[k] === m.w.syl[j]);
+        cases = m.w.syl.map((x, j) => { const k = s.pris[j], t = k != null ? m.w.syl[k] : '';
+          return { t, trait: t ? 'solid' : 'dashed', bord: s.rep === 'ok' ? '#1f8a4c' : (s.rep === 'zut' ? '#d0453a' : '#12233b'), fond: s.rep === 'ok' ? '#d8f3e2' : (s.rep === 'zut' ? '#fbdcd8' : '#fdf3c4'), encre: '#12233b',
+            toucher: () => { if (s.rep || k == null) return; this.dire(t); this.setState({ pris: s.pris.filter((y, z) => z !== j) }); } }; });
+        tuiles = m.tuiles.map(k => { const utilise = s.pris.indexOf(k) >= 0;
+          return { t: m.w.syl[k], fond: '#fff', encre: '#12233b', opacite: utilise ? 0.2 : 1,
+            toucher: () => { if (s.rep || utilise) return; this.dire(m.w.syl[k]); const pris = s.pris.concat(k);
+              if (pris.length === m.w.syl.length) { const ok = pris.every((y, z) => m.w.syl[y] === m.w.syl[z]); this.setState({ pris });
+                setTimeout(() => { this.repondre(ok, m.w.ecrit); if (!ok) setTimeout(() => this.setState({ pris: [], rep: null }), 1600); }, 500); }
+              else this.setState({ pris }); } }; });
+        void juste;
+      } else {
+        cases = m.w.syl.map((x, j) => { const trou = j === m.trou, t = trou ? (s.rep ? s.repT : '?') : x;
+          return { t, trait: trou && !s.rep ? 'dashed' : 'solid', bord: trou ? (s.rep === 'ok' ? '#1f8a4c' : s.rep === 'zut' ? '#d0453a' : '#e8654f') : '#c9cfd8',
+            fond: trou ? (s.rep === 'ok' ? '#d8f3e2' : s.rep === 'zut' ? '#fbdcd8' : '#fff') : '#f4f5f7', encre: trou && !s.rep ? '#e8654f' : '#12233b', toucher: () => this.dire(m.w.ecrit) }; });
+        tuiles = m.choix.map(t => ({ t, fond: s.rep && t === m.w.syl[m.trou] ? '#d8f3e2' : '#fff', encre: '#12233b', opacite: 1,
+          toucher: () => { if (s.rep) return; this.setState({ repT: t }); this.repondre(t === m.w.syl[m.trou], m.w.ecrit); } }));
+      }
+    }
+    const tuile = (t, on, f) => ({ t, fond: on ? (n === 6 && f === 'v' && s.rep === 'zut' ? '#d0453a' : (f === 'c' ? '#1d4e89' : '#c1440e')) : '#fff', encre: on ? '#fff' : '#12233b',
+      /* 04/10 : une nouvelle consonne efface la voyelle — l'élève refait le geste complet consonne puis voyelle. */
+      toucher: () => { if (n === 6) { this.toucherDic(t, f); return; } const o = f === 'c' ? { fabC: t, fabV: '' } : { fabV: t }; this.setState(o); const c = f === 'c' ? t : s.fabC, v = f === 'v' ? t : ''; if (c && v) setTimeout(() => this.dire(c + v), 150); } });
+    const nbPoints = (n === 1 || n === 3 || n === 4 || n === 5 || dicJeu) ? s.manche.length : 0;
+    return {
+      titre: n ? TITRES[n] : (s.ecran === 'reglage' ? 'Les lettres' : 'Les syllabes'),
+      estMenu: s.ecran === 'menu', estReglage: s.ecran === 'reglage', estJeu: !!n,
+      libelleRetour: s.ecran === 'menu' ? '← L’accueil' : '← Les jeux', retour: () => this.retour(),
+      ouvrirReglage: () => this.setState({ ecran: 'reglage' }), fermerReglage: () => this.setState({ ecran: 'menu' }),
+      niveaux: NIVEAUX.map(nv => { const on = nv.cons.length === s.cons.length && nv.cons.every(c => s.cons.indexOf(c) >= 0);
+        return { nom: nv.nom, lettres: nv.montre, acquis: nv.acquis || '', aAcquis: !!nv.acquis, fond: on ? '#1d4e89' : '#fff', encre: on ? '#fff' : '#1d4e89',
+          choisir: () => { const cons = CONS.filter(c => nv.cons.indexOf(c) >= 0); this.setState({ cons }); this.garder(cons, s.voy); } }; }),
+      chipsCons: chip(s.cons, 'cons'), chipsVoy: chip(s.voy, 'voy'),
+      resumeLettres: s.cons.join(' ') + '  ·  ' + s.voy.join(' ') + '  →  ' + syl.length + ' syllabes, ' + mots.length + ' mots',
+      apercuSyl: [{ t: 'Syllabes : ' + (syl.join(' ') || '—') }, { t: 'Mots (jeux 3 et 4) : ' + (mots.map(w => w.ecrit).join(', ') || 'aucun — ajoute des lettres') }],
+      j1: () => this.lancer(1), j2: () => this.lancer(2), j3: () => this.lancer(3), j4: () => this.lancer(4), j5: () => this.lancer(5), j6: () => this.lancer(6), vueDicChoix: dicChoix, dicOptions,
+      consigne: CONSIGNES[n] || '', direConsigne: () => this.dire(n === 6 && m ? [CONSIGNES[6], m] : (CONSIGNES[n] || '')),
+      points: Array.from({ length: nbPoints }, (x, k) => ({ fond: k < s.i || (k === s.i && n === 5) ? '#12233b' : '#fff' })),
+      estFin: fin && !vide, relancer: () => this.lancer(n),
+      vueJ1: n === 1 && !fin && !vide, vueJ2: n === 2 && !vide, vueJ6: dicJeu, ardoiseC: s.rep === 'ok' ? s.fabC : '', ardoiseV: s.rep === 'ok' ? s.fabV : '',
+      ardoiseG: s.rep === 'ok' ? '0px' : '-140px', ardoiseD: s.rep === 'ok' ? '0px' : '140px', ardoiseO: s.rep === 'ok' ? 1 : 0, vueMot: (n === 3 || n === 4) && !fin && !vide, vueJ5: n === 5 && !vide,
+      choix, cases, tuiles, photo,
+      ecouter: () => { if (n === 1 && m) this.dire(m.cible); else if ((n === 3 || n === 4) && m) this.dire(m.w.ecrit); else if ((n === 5 || n === 6) && m) this.dire(m); },
+      /* 05/10, son choix (d'après sa « Machine à syllabes ») : plus de + ni de = ; les deux lettres glissent et se collent en une tuile. */
+      ...(() => { const colle = !!(s.fabC && s.fabV);
+        return { fabGap: colle ? '0px' : '70px', fabBord: colle ? '#12233b' : 'transparent', fabFond: colle ? '#fdf3c4' : 'transparent',
+          fabMinW: colle ? '0px' : '100px', fabPadL: colle ? '0px' : '8px', fabBordC: colle ? 'transparent' : '#1d4e89', fabBordV: colle ? 'transparent' : '#c1440e', fabFondL: colle ? 'transparent' : '#fff' }; })(),
+      fabC: s.fabC || '?', fabV: s.fabV || '?', fabRes: s.fabC && s.fabV ? s.fabC + s.fabV : '',
+      direFab: () => { if (s.fabC && s.fabV) this.dire(s.fabC + s.fabV); },
+      tuilesC: (n === 6 && s.dicC ? s.dicC : s.cons).map(t => tuile(t, s.fabC === t, 'c')), tuilesV: s.voy.map(t => tuile(t, s.fabV === t, 'v')),
+      sylVite: n === 5 ? (m || '') : '', libellePlay: s.play ? '❚❚ Pause' : (s.i > 0 && s.i < s.manche.length - 1 ? '▶ Continuer' : '▶ Je lis'),
+      playVite: () => { if (s.play) { clearInterval(this.tic); this.setState({ play: false }); return; }
+        if (s.i >= s.manche.length - 1) this.setState({ i: 0 }); this.setState({ play: true }); this.tickVite(); },
+      vitesses: VITESSES.map(([t], k) => ({ t, fond: s.vite === k ? '#1d4e89' : 'transparent', encre: s.vite === k ? '#fff' : '#12233b',
+        choisir: () => { this.setState({ vite: k }); if (s.play) setTimeout(() => this.tickVite(), 0); } })),
+      aRetour: !!s.rep && !fin, retourTexte: s.rep === 'ok' ? 'BRAVO !' : 'OH ZUT !', retourCouleur: s.rep === 'ok' ? '#1f8a4c' : '#d0453a',
+      aSuivant: !!s.rep && (n === 1 || n === 4 || ((n === 3 || n === 6) && s.rep === 'ok')), suivant: () => this.suivant(),
+      aVide: !!n && vide, texteVide: n === 3 || n === 4 ? 'Pas assez de mots avec ces lettres. Ajoute des lettres avec ⚙ Les lettres.' : 'Choisis des lettres avec ⚙ Les lettres.'
+    };
+  }
+}
+</script>
+</body>
+</html>

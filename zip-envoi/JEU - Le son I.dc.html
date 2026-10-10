@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Atkinson+Hyperlegible:wght@400;700&display=swap" />
+<style>
+  html, body { margin: 0; height: 100%; background: #0d1b2e; }
+  a { color: #7fb2e5; }
+  a:hover { color: #a8ccf0; }
+</style>
+</helmet>
+
+<div style="min-height:100vh;display:flex;flex-direction:column;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;background:#0d1b2e;color:#12233b">
+
+  <div style="flex:0 0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:#12233b;color:#fff;padding:11px 18px;box-shadow:0 2px 10px rgba(0,0,0,.25)">
+    <button onClick="{{ accueil }}" style="flex:0 0 auto;border:2px solid #fff;border-radius:11px;background:transparent;color:#fff;min-height:44px;padding:9px 16px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:16px;cursor:pointer">← L'accueil</button>
+    <span style="font-family:'Archivo Black',Verdana,sans-serif;font-size:18px;text-transform:uppercase;letter-spacing:.02em">Le son I</span>
+    <span style="flex:1"></span>
+    <div style="flex:0 0 auto;display:flex;gap:8px;flex-wrap:wrap">
+      <button onClick="{{ jeu1 }}" style="{{ styleOnglet1 }}">1 · J'entends i ?</button>
+      <button onClick="{{ jeu2 }}" style="{{ styleOnglet2 }}">2 · Où est le i ?</button>
+      <button onClick="{{ jeu4 }}" style="{{ styleOnglet4 }}">3 · Je trie</button>
+    </div>
+  </div>
+
+  <div style="flex:0 0 auto;background:#1d4e89;color:#fff;padding:12px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+    <span style="font-size:19px;font-weight:700">{{ consigne }}</span>
+    <span style="flex:1"></span>
+    <div style="flex:0 0 auto;display:flex;gap:7px;align-items:center">
+      <sc-for list="{{ pastilles }}" as="p" hint-placeholder-count="0">
+        <span style="{{ p.style }}"></span>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:16px 18px;background:#f4f1ea">
+
+    <sc-if value="{{ tri }}" hint-placeholder-val="{{ true }}">
+      <div style="width:100%;max-width:940px;display:flex;flex-direction:column;gap:14px">
+
+        <div style="flex:0 0 auto;min-height:118px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center;align-items:center">
+          <sc-for list="{{ aTrier }}" as="v" hint-placeholder-count="0">
+            <button onClick="{{ v.toucher }}" draggable="{{ vrai }}" onDragStart="{{ v.prendre }}" style="{{ v.style }}"></button>
+          </sc-for>
+          <sc-if value="{{ triFini }}" hint-placeholder-val="{{ true }}">
+            <button onClick="{{ rejouer }}" style="border:none;border-radius:12px;background:#2a9d6e;color:#fff;min-height:56px;padding:14px 30px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:20px;font-weight:700;cursor:pointer;box-shadow:0 3px 0 #1f7553">↻ Six autres images</button>
+          </sc-if>
+          <sc-if value="{{ triZut }}" hint-placeholder-val="{{ true }}">
+            <span style="font-family:'Archivo Black',Verdana,sans-serif;font-size:34px;letter-spacing:.04em;color:#c1440e">OH ZUT !</span>
+          </sc-if>
+          <sc-if value="{{ triBravo }}" hint-placeholder-val="{{ true }}">
+            <span style="font-family:'Archivo Black',Verdana,sans-serif;font-size:34px;letter-spacing:.04em;color:#1f7553">BRAVO !</span>
+          </sc-if>
+        </div>
+
+        <div style="flex:1;min-height:0;display:flex;gap:16px;align-items:stretch">
+
+          <div onClick="{{ poserOui }}" onDragOver="{{ survol }}" onDrop="{{ lacherOui }}" style="{{ styleOui }}">
+            <div style="flex:0 0 auto;height:44px;background:#1f7553;clip-path:polygon(50% 0,100% 100%,0 100%)"></div>
+            <div style="flex:0 0 auto;background:#1f7553;color:#fff;padding:8px 10px;display:flex;align-items:center;justify-content:center;gap:10px">
+              <span style="font-size:52px;line-height:1">👂</span>
+              <span style="font-family:'Archivo Black',Verdana,sans-serif;font-size:21px;letter-spacing:.03em">J'ENTENDS I</span>
+            </div>
+            <div style="flex:1;min-height:132px;display:flex;gap:10px;flex-wrap:wrap;align-content:flex-start;justify-content:center;padding:12px">
+              <sc-for list="{{ boiteOui }}" as="v" hint-placeholder-count="0">
+                <span style="{{ v.style }}"><sc-if value="{{ v.faux }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;left:8%;right:8%;top:50%;height:10px;margin-top:-5px;background:#c1440e;border-radius:5px;transform:rotate(45deg);box-shadow:0 0 0 3px #fff"></span><span style="position:absolute;left:8%;right:8%;top:50%;height:10px;margin-top:-5px;background:#c1440e;border-radius:5px;transform:rotate(-45deg);box-shadow:0 0 0 3px #fff"></span></sc-if></span>
+              </sc-for>
+            </div>
+          </div>
+
+          <div onClick="{{ poserNon }}" onDragOver="{{ survol }}" onDrop="{{ lacherNon }}" style="{{ styleNon }}">
+            <div style="flex:0 0 auto;height:44px;background:#c1440e;clip-path:polygon(50% 0,100% 100%,0 100%)"></div>
+            <div style="flex:0 0 auto;background:#c1440e;color:#fff;padding:8px 10px;display:flex;align-items:center;justify-content:center;gap:10px">
+              <span style="position:relative;display:inline-flex;align-items:center;justify-content:center;width:56px;height:56px">
+                <span style="font-size:52px;line-height:1">👂</span>
+                <span style="position:absolute;left:2px;right:2px;top:50%;height:6px;background:#fff;border-radius:3px;transform:rotate(-38deg);box-shadow:0 0 0 2px #c1440e"></span>
+              </span>
+              <span style="font-family:'Archivo Black',Verdana,sans-serif;font-size:21px;letter-spacing:.03em">JE N'ENTENDS PAS</span>
+            </div>
+            <div style="flex:1;min-height:132px;display:flex;gap:10px;flex-wrap:wrap;align-content:flex-start;justify-content:center;padding:12px">
+              <sc-for list="{{ boiteNon }}" as="v" hint-placeholder-count="0">
+                <span style="{{ v.style }}"><sc-if value="{{ v.faux }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;left:8%;right:8%;top:50%;height:10px;margin-top:-5px;background:#c1440e;border-radius:5px;transform:rotate(45deg);box-shadow:0 0 0 3px #fff"></span><span style="position:absolute;left:8%;right:8%;top:50%;height:10px;margin-top:-5px;background:#c1440e;border-radius:5px;transform:rotate(-45deg);box-shadow:0 0 0 3px #fff"></span></sc-if></span>
+              </sc-for>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ montreRepere }}" hint-placeholder-val="{{ false }}">
+      <div style="{{ styleRepere }}"></div>
+    </sc-if>
+
+    <sc-if value="{{ enCours }}" hint-placeholder-val="{{ true }}">
+      <button onClick="{{ ecouter }}" style="flex:0 0 auto;border:none;border-radius:999px;background:#1d4e89;color:#fff;min-height:60px;padding:14px 30px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:21px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:12px;box-shadow:0 3px 0 #123a6b">🔊 Écouter le mot</button>
+    </sc-if>
+
+    <sc-if value="{{ enCours }}" hint-placeholder-val="{{ true }}">
+      <div style="{{ cadrePhoto }}"></div>
+    </sc-if>
+
+    <sc-if value="{{ montreMot }}" hint-placeholder-val="{{ true }}">
+      <span style="flex:0 0 auto;font-size:30px;font-weight:700;letter-spacing:.02em">{{ motAffiche }}</span>
+    </sc-if>
+
+    <div style="{{ styleCadreChoix }}">
+      <sc-for list="{{ choix }}" as="c" hint-placeholder-count="3">
+        <button onClick="{{ c.toucher }}" style="{{ c.style }}">{{ c.texte }}</button>
+      </sc-for>
+    </div>
+
+    <!-- ⚠ COLONNE CENTRÉE, l'un SOUS l'autre (sa demande du 22/09) : en ligne, ÉCOUTE
+         ENCORE et « Le mot suivant » se retrouvaient côte à côte et décalés à gauche, hors
+         de l'axe de l'image et des boutons. Ne pas revenir à `flex-direction:row`. -->
+    <div style="flex:0 0 auto;min-height:44px;display:flex;flex-direction:column;align-items:center;gap:12px">
+      <sc-if value="{{ gagne }}" hint-placeholder-val="{{ true }}">
+        <span style="flex:0 0 auto;font-family:'Archivo Black',Verdana,sans-serif;font-size:clamp(26px,5.5vh,46px);white-space:nowrap;letter-spacing:.04em;color:#1f7553">BRAVO !</span>
+      </sc-if>
+      <sc-if value="{{ rate }}" hint-placeholder-val="{{ true }}">
+        <span style="flex:0 0 auto;font-family:'Archivo Black',Verdana,sans-serif;font-size:clamp(26px,5.5vh,46px);white-space:nowrap;letter-spacing:.04em;color:#c1440e">ÉCOUTE ENCORE</span>
+      </sc-if>
+      <sc-if value="{{ repondu }}" hint-placeholder-val="{{ true }}">
+        <span style="font-size:20px;font-weight:700;color:{{ couleurBilan }}">{{ bilan }}</span>
+      </sc-if>
+      <sc-if value="{{ valider }}" hint-placeholder-val="{{ true }}">
+        <button onClick="{{ jaiFini }}" style="border:none;border-radius:12px;background:#1d4e89;color:#fff;min-height:52px;padding:12px 28px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:19px;font-weight:700;cursor:pointer;box-shadow:0 3px 0 #123a6b">J'ai fini</button>
+      </sc-if>
+      <sc-if value="{{ montreSuivant }}" hint-placeholder-val="{{ true }}">
+        <button onClick="{{ suivant }}" style="border:none;border-radius:12px;background:#2a9d6e;color:#fff;min-height:52px;padding:12px 28px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:19px;font-weight:700;cursor:pointer;box-shadow:0 3px 0 #1f7553">Le mot suivant →</button>
+      </sc-if>
+      <sc-if value="{{ fini }}" hint-placeholder-val="{{ true }}">
+        <button onClick="{{ refaire }}" style="border:none;border-radius:12px;background:#1d4e89;color:#fff;min-height:56px;padding:14px 30px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:20px;font-weight:700;cursor:pointer;box-shadow:0 3px 0 #123a6b">↻ Les mêmes</button>
+      </sc-if>
+      <sc-if value="{{ fini }}" hint-placeholder-val="{{ true }}">
+        <button onClick="{{ rejouer }}" style="border:none;border-radius:12px;background:#2a9d6e;color:#fff;min-height:56px;padding:14px 30px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:20px;font-weight:700;cursor:pointer;box-shadow:0 3px 0 #1f7553">↻ Cinq autres images</button>
+      </sc-if>
+    </div>
+
+  </div>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* JEU — LE SON I (23/09, sa demande : « même logique d'exercice » que le son A).
+   Copie conforme de « JEU - Le son A » : mêmes trois jeux, mêmes règles, seuls les mots
+   et le son changent. Toute règle écrite dans le fichier du son A vaut ici.
+   ⚠ Le [i] noté ici est le son [i] pur. N'en sont PAS : ai, ei, oi (poire, lait, oiseau),
+     in / ain (lapin, main, train), ni le i devant voyelle qui se lie (avion, papier,
+     cahier, camion, violon : écartés). Le y de pyjama se dit [i] : gardé.
+   ⚠ Les carrés ROUGES de progression sont repris du son A (sa demande du 22/09 pour ce
+     jeu-là) : « même logique » — à lui confirmer.
+   ⚠ ÉCARTÉS parce que l'image n'est pas une photo réaliste ou trompe l'oreille (23/09,
+     chaque image regardée) : samedi/dimanche (calendrier ÉCRIT), image, kilo, ami, île,
+     ville, ordinateur, olive, kiwi, livre, girafe, oiseau, sac, porte (dessins ou pictos),
+     musique (un casque : l'élève dit « casque »), visage (il dit « femme »), et taxi,
+     bus, nuage, maison. Ne pas les remettre sans photo nouvelle. */
+const MOTS = [
+  { m:'riz',       syl:['riz'],                 a:[0] },
+  { m:'lit',       syl:['lit'],                 a:[0] },
+  { m:'stylo',     syl:['sty','lo'],            a:[0] },
+  { m:'ciseaux',   syl:['ci','seaux'],          a:[0] },
+  { m:'chemise',   syl:['che','mi','se'],       a:[1] },
+  { m:'citron',    syl:['ci','tron'],           a:[0] },
+  { m:'litchi',    syl:['lit','chi'],           a:[0,1] },
+  { m:'radis',     syl:['ra','dis'],            a:[1] },
+  { m:'figue',     syl:['fi','gue'],            a:[0] },
+  { m:'pyjama',    syl:['py','ja','ma'],        a:[0] },
+  { m:'lire',      syl:['li','re'],             a:[0] },
+  { m:'cerise',    syl:['ce','ri','se'],        a:[1] },
+  { m:'frites',    syl:['fri','tes'],           a:[0] },
+  /* sans aucun [i] — dont des PIÈGES À L'ŒIL : un i écrit mais pas entendu
+     (poire, train, pain, raisin, lait, main, lapin) */
+  { m:'pomme',     syl:['pom','me'],            a:[] },
+  { m:'velo',      syl:['vé','lo'],             a:[], ecrit:'vélo' },
+  { m:'moto',      syl:['mo','to'],             a:[] },
+  { m:'table',     syl:['ta','ble'],            a:[] },
+  { m:'banane',    syl:['ba','na','ne'],        a:[] },
+  { m:'gateau',    syl:['gâ','teau'],           a:[], ecrit:'gâteau' },
+  { m:'chat',      syl:['chat'],                a:[] },
+  { m:'tomate',    syl:['to','ma','te'],        a:[] },
+  { m:'bateau',    syl:['ba','teau'],           a:[] },
+  { m:'chaussure', syl:['chaus','su','re'],     a:[] },
+  { m:'poire',     syl:['poi','re'],            a:[] },
+  { m:'train',     syl:['train'],               a:[] },
+  { m:'pain',      syl:['pain'],                a:[] },
+  { m:'raisin',    syl:['rai','sin'],           a:[] },
+  { m:'lait',      syl:['lait'],                a:[] },
+  { m:'main',      syl:['main'],                a:[] },
+  { m:'lapin',     syl:['la','pin'],            a:[] }
+];
+
+class Component extends DCLogic {
+  state = { jeu: 1, i: 0, rep: null, ordre: null, choisie: null, posees: {}, zut: false, pret: false, resultats: {} };
+
+  componentDidMount() { this.melanger(1); }
+
+  /* Un ordre tiré au sort À CHAQUE fois : deux élèves côte à côte n'ont pas la même
+     série, et le même élève ne réapprend pas la place des réponses. */
+  melanger(jeu) {
+    /* Seul le jeu 2 (« où est le a ? ») exige des mots QUI contiennent [a] ; les jeux 1,
+       3 et 4 ont besoin des deux sortes. */
+    let pool = MOTS.map((x, k) => k).filter(k => jeu === 2 ? MOTS[k].a.length > 0 : true);
+    /* « ↻ Cinq autres images » = D'AUTRES images (sa remarque du 23/09 : elle retombait sur
+       les mêmes). Les mots de la manche qu'on vient de finir sont écartés du tirage
+       suivant ; ils reviendront plus tard. Repli sans exclusion si la banque est trop courte. */
+    const avant = (this.state.jeu === jeu && this.state.ordre) || [];
+    const neufs = pool.filter(k => avant.indexOf(k) < 0);
+    const assez = (m) => neufs.filter(k => MOTS[k].a.length > 0).length >= m && neufs.filter(k => MOTS[k].a.length === 0).length >= m;
+    if (jeu === 2 ? neufs.length >= 5 : assez(jeu === 4 ? 4 : 3)) pool = neufs;
+    /* ⚠ LE PARTAGE AVEC / SANS EST TIRÉ AU SORT (sa décision du 23/09) : toujours 3 et 3,
+       l'élève comptait au lieu d'écouter. Règle : AU MOINS 2 de chaque côté.
+       Tri (6 images) : 2, 3 ou 4 avec le son. Jeu 1 (5 images) : 2 ou 3 OUI. */
+    const nbAvec = jeu === 4 ? 2 + Math.floor(Math.random() * 3) : 2 + Math.floor(Math.random() * 2);
+    for (let n = pool.length - 1; n > 0; n--) { const r = Math.floor(Math.random() * (n + 1)); [pool[n], pool[r]] = [pool[r], pool[n]]; }
+    /* Une manche = CINQ images (sa demande du 21/09 : 44 d'affilée, « ça me saoule »).
+       On finit, on voit qu'on a fini, et on choisit de recommencer. */
+    if (jeu === 1) {
+      const avec = pool.filter(k => MOTS[k].a.length > 0).slice(0, nbAvec);
+      const sans = pool.filter(k => MOTS[k].a.length === 0).slice(0, 5 - nbAvec);
+      pool = avec.concat(sans);
+      for (let n = pool.length - 1; n > 0; n--) { const r = Math.floor(Math.random() * (n + 1)); [pool[n], pool[r]] = [pool[r], pool[n]]; }
+    } else if (jeu === 4) {
+      /* Le TRI (sa demande du 21/09, d'après un jeu du commerce en glisser-déposer) :
+         SIX images, trois avec [a] et trois sans, pour que les deux boîtes se remplissent
+         pareil — sinon l'élève déduit la réponse du nombre de places restantes. */
+      const avec = pool.filter(k => MOTS[k].a.length > 0).slice(0, nbAvec);
+      const sans = pool.filter(k => MOTS[k].a.length === 0).slice(0, 6 - nbAvec);
+      pool = avec.concat(sans);
+      for (let n = pool.length - 1; n > 0; n--) { const r = Math.floor(Math.random() * (n + 1)); [pool[n], pool[r]] = [pool[r], pool[n]]; }
+    } else pool = pool.slice(0, 5);
+    if (this.minuteur) clearTimeout(this.minuteur);
+    this.setState({ jeu, ordre: pool, i: 0, rep: null, valide: false, pret: false, choisie: null, posees: {}, zut: false, bravo: false, resultats: {} });
+  }
+
+  /* On TOUCHE l'image, puis on TOUCHE la boîte — jamais de glissé (règle du projet).
+     Une erreur ne renvoie pas l'image en haut : elle se pose quand même, en rouge, avec
+     la bonne réponse visible. L'élève voit son erreur au lieu de la refaire au hasard. */
+  poser(veutA) {
+    const k = this.state.choisie;
+    if (k === null || k === undefined) return;
+    const bon = MOTS[k].a.length > 0;
+    const posees = Object.assign({}, this.state.posees);
+    posees[k] = { boite: veutA, juste: veutA === bon, n: Object.keys(posees).length };
+    if (veutA !== bon) this.sonRate();
+    this.dire(MOTS[k].ecrit || MOTS[k].m);
+    this.setState({ posees, choisie: null, zut: veutA !== bon, bravo: veutA === bon });
+  }
+
+  /* `dire` accepte un mot ou une SUITE de mots, dits l'un après l'autre : au jeu 1 on
+     rejoue le mot puis on dit « Oui » ou « Non ». ⚠ Un seul `cancel()`, au début : un
+     cancel entre deux phrases couperait la première. */
+  dire(txt) {
+    const suite = Array.isArray(txt) ? txt : [txt];
+    try {
+      speechSynthesis.cancel();
+      const v = speechSynthesis.getVoices().filter(x => /^fr/i.test(x.lang || ''));
+      const bonne = v.find(x => /natural|premium|enhanced|google/i.test(x.name)) || v[0];
+      suite.forEach(t => {
+        const u = new SpeechSynthesisUtterance(String(t));
+        u.lang = 'fr-FR'; u.rate = 0.85;
+        if (bonne) u.voice = bonne;
+        speechSynthesis.speak(u);
+      });
+    } catch (e) {}
+  }
+
+  componentWillUnmount() { if (this.minuteur) clearTimeout(this.minuteur); }
+
+  /* Un petit son en cas d'erreur (sa demande du 22/09) : deux notes qui descendent, court
+     et doux. ⚠ Pas de son sur une bonne réponse — le BRAVO et la voix suffisent, et deux
+     signaux sonores à chaque coup fatiguent vite une classe.
+     Fabriqué à la volée (WebAudio), donc aucun fichier à charger. */
+  sonRate() {
+    try {
+      const C = window.AudioContext || window.webkitAudioContext;
+      if (!C) return;
+      this.audio = this.audio || new C();
+      const a = this.audio, t = a.currentTime;
+      [[392, 0], [294, 0.14]].forEach(([f, d]) => {
+        const o = a.createOscillator(), g = a.createGain();
+        o.type = 'sine'; o.frequency.value = f;
+        g.gain.setValueAtTime(0, t + d);
+        g.gain.linearRampToValueAtTime(0.17, t + d + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.001, t + d + 0.16);
+        o.connect(g); g.connect(a.destination);
+        o.start(t + d); o.stop(t + d + 0.18);
+      });
+    } catch (e) {}
+  }
+
+  motCourant() {
+    const o = this.state.ordre;
+    if (!o || !o.length) return MOTS[0];
+    return MOTS[o[this.state.i % o.length]];
+  }
+
+  boutonChoix(actif, juste, repondu) {
+    const fond = !repondu ? '#fff' : (juste ? '#2a9d6e' : (actif ? '#c1440e' : '#fff'));
+    const encre = (repondu && (juste || actif)) ? '#fff' : '#12233b';
+    const bord = !repondu ? '#12233b' : (juste ? '#2a9d6e' : (actif ? '#c1440e' : '#c9cfd8'));
+    return 'border:3px solid ' + bord + ';border-radius:14px;background:' + fond + ';color:' + encre +
+      ';min-height:76px;min-width:110px;padding:14px 26px;font-family:inherit;font-size:26px;font-weight:700;cursor:pointer';
+  }
+
+  /* Les petits carrés de progression (sa demande du 21/09) : on voit où on en est et
+     combien il reste. Vert = réussi, ROUGE = raté, blanc = en cours, gris = à venir.
+     ⚠ LE ROUGE EST SA DEMANDE EXPLICITE DU 22/09 (« je veux qu'il voie ses erreurs »),
+       maintenue après que je lui ai opposé sa propre règle « pas de compteur d'erreurs »
+       de CLAUDE.md. C'est donc une exception assumée, pas un oubli : ne pas la « corriger »
+       en revenant au tout-vert, et ne pas l'étendre aux autres jeux sans le lui demander. */
+  pastilles(total, faits, res) {
+    const t = [];
+    for (let k = 0; k < total; k++) {
+      const etat = k < faits ? 'fait' : (k === faits ? 'ici' : 'reste');
+      const rate = etat === 'fait' && res && res[k] === false;
+      t.push({ style: 'width:20px;height:20px;border-radius:5px;display:block;background:' +
+        (etat === 'fait' ? (rate ? '#c1440e' : '#2a9d6e') : (etat === 'ici' ? '#fff' : 'rgba(255,255,255,.25)')) +
+        ';border:2px solid ' + (etat === 'reste' ? 'rgba(255,255,255,.35)' : '#fff') });
+    }
+    return t;
+  }
+
+  styleOnglet(n) {
+    const on = this.state.jeu === n;
+    return 'border:2px solid ' + (on ? '#f4f1ea' : 'rgba(255,255,255,.45)') + ';border-radius:11px;background:' +
+      (on ? '#f4f1ea' : 'transparent') + ';color:' + (on ? '#12233b' : '#fff') +
+      ';min-height:44px;padding:9px 15px;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer';
+  }
+
+  renderVals() {
+    const s = this.state;
+    /* Fin de manche : cinq images vues, on s'arrête net. Pas de score, juste le choix
+       de recommencer avec cinq AUTRES images ou de passer à un autre jeu. */
+    if (s.ordre && s.i >= s.ordre.length) {
+      return {
+        consigne: "C'est fini.", position: '',
+        pastilles: this.pastilles(s.ordre.length, s.ordre.length, s.resultats),
+        photo: 'clean/mot-' + MOTS[s.ordre[s.ordre.length - 1]].m + '.webp',
+        cadrePhoto: 'display:none', valider: false, jaiFini: () => {},
+        montreSuivant: false, montreRepere: false, styleRepere: 'display:none',
+        styleCadreChoix: 'display:none',
+        motAffiche: '', montreMot: false, fini: true, enCours: false, gagne: false, rate: false,
+        tri: false, aTrier: [], boiteOui: [], boiteNon: [], styleOui: '', styleNon: '',
+        poserOui: () => {}, poserNon: () => {}, triZut: false, triBravo: false, triFini: false,
+        survol: () => {}, lacherOui: () => {}, lacherNon: () => {}, vrai: true,
+        jeu4: () => this.melanger(4), styleOnglet4: this.styleOnglet(4),
+        choix: [], repondu: false, bilan: '', couleurBilan: '#1f7553',
+        ecouter: () => {}, suivant: () => {},
+        /* « ↻ Les mêmes » (sa demande du 22/09) : les carrés rouges ne servent à rien si
+           l'élève ne revoit jamais les mots qu'il a ratés. Même série, même ordre, les
+           carrés repartent à blanc. */
+        refaire: () => { if (this.minuteur) clearTimeout(this.minuteur); this.setState({ i: 0, rep: null, valide: false, pret: false, resultats: {} }); },
+        rejouer: () => this.melanger(s.jeu),
+        jeu1: () => this.melanger(1), jeu2: () => this.melanger(2), jeu3: () => this.melanger(3),
+        styleOnglet1: this.styleOnglet(1), styleOnglet2: this.styleOnglet(2), styleOnglet3: this.styleOnglet(3),
+        accueil: () => {
+          if (typeof history !== 'undefined' && history.length > 1) history.back();
+          else location.href = 'APPLI - Espace enseignant.dc.html' + location.search;
+        }
+      };
+    }
+    /* ---- jeu 4 : le tri ---- */
+    if (s.jeu === 4) {
+      const ordre = s.ordre || [];
+      const reste = ordre.filter(k => !s.posees[k]);
+      /* ⚠ La photo passe par `background-image` dans le STYLE, jamais par un `src="{{ }}"` :
+         pendant le flux le navigateur lit le template brut et irait chercher l'URL
+         « {{ v.photo }} » (404 à chaque chargement). Même procédé que « Maison des sons ». */
+      const vignette = (k, ph) => ({
+        photo: 'clean/mot-' + MOTS[k].m + '.webp',
+        mot: MOTS[k].ecrit || MOTS[k].m,
+        /* ⚠ UNE IMAGE MAL RANGÉE EST BARRÉE d'une grande croix rouge (sa demande du 23/09 :
+           le cadre rouge seul « c'est chelou » — on croyait que le jeu classait raisin dans
+           J'ENTENDS I). La croix dit « pas ici », sans un mot écrit. */
+        faux: !!(ph && !ph.juste),
+        /* 132 px : sa demande du 21/09 (« augmente la taille des étiquettes »).
+           Aussi la taille minimale confortable au doigt sur tablette. */
+        style: 'width:132px;height:132px;box-sizing:border-box;border:4px solid ' +
+          (ph ? (ph.juste ? '#2a9d6e' : '#c1440e') : (s.choisie === k ? '#1d4e89' : '#c9cfd8')) +
+          ';border-radius:12px;background-color:#fff;background-image:url(clean/mot-' + MOTS[k].m +
+          '.webp);background-size:contain;background-repeat:no-repeat;background-position:center' +
+          ';padding:0;overflow:hidden;cursor:pointer;display:block;position:relative;' +
+          (s.choisie === k ? 'box-shadow:0 0 0 6px rgba(29,78,137,.3);' : ''),
+        toucher: () => { this.dire(MOTS[k].ecrit || MOTS[k].m); this.setState({ choisie: k, zut: false, bravo: false }); },
+        prendre: (e) => { try { e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text/plain', String(k)); } catch (err) {} this.setState({ choisie: k, zut: false, bravo: false }); }
+      });
+      /* Deux MAISONS (sa demande du 21/09, reprise de « La maison des sons ») : le toit
+         est un triangle en clip-path, donc il s'adapte à la largeur — pas la bordure en
+         px de l'autre fichier, qui ne suivrait pas une colonne souple. */
+      const zone = (veutA) => 'flex:1;min-width:0;border:4px solid ' + (veutA ? '#1f7553' : '#c1440e') +
+        ';border-radius:14px;overflow:hidden;background:' + (veutA ? '#eaf6f0' : '#fbeeea') +
+        ';display:flex;flex-direction:column;cursor:' +
+        (s.choisie !== null && s.choisie !== undefined ? 'pointer' : 'default');
+      const tout = reste.length === 0;
+      return {
+        tri: true, enCours: false, fini: false, gagne: false, rate: false, repondu: false,
+        consigne: tout ? "C'est fini." : "Je touche une image, puis je touche la maison. (Je peux aussi la glisser.)",
+        /* ⚠ Les carrés suivent l'ORDRE DES COUPS et passent au ROUGE sur une erreur, comme aux
+           jeux 1 et 2 (23/09 : tout restait vert malgré quatre croix — « c'est bizarre »). */
+        position: '', pastilles: this.pastilles(ordre.length, ordre.length - reste.length,
+          ordre.filter(k => s.posees[k]).sort((x, y) => s.posees[x].n - s.posees[y].n).map(k => s.posees[k].juste)),
+        photo: '', cadrePhoto: 'display:none', motAffiche: '', montreMot: false, choix: [], bilan: '', couleurBilan: '#1f7553',
+        valider: false, jaiFini: () => {},
+        montreSuivant: false, montreRepere: false, styleRepere: 'display:none',
+        styleCadreChoix: 'display:none', refaire: () => {},
+        aTrier: reste.map(k => vignette(k, null)),
+        boiteOui: ordre.filter(k => s.posees[k] && s.posees[k].boite).map(k => vignette(k, s.posees[k])),
+        boiteNon: ordre.filter(k => s.posees[k] && !s.posees[k].boite).map(k => vignette(k, s.posees[k])),
+        styleOui: zone(true), styleNon: zone(false),
+        poserOui: () => this.poser(true), poserNon: () => this.poser(false),
+        /* Le GLISSÉ à la souris en plus du toucher (sa demande du 21/09, façon H5P).
+           ⚠ Ne JAMAIS supprimer le toucher-puis-toucher : sur tablette le glisser-déposer
+             HTML5 ne se déclenche pas, et c'est là que les élèves travaillent. */
+        survol: (e) => { try { e.preventDefault(); e.dataTransfer.dropEffect = 'move'; } catch (err) {} },
+        lacherOui: (e) => { try { e.preventDefault(); } catch (err) {} this.poser(true); },
+        lacherNon: (e) => { try { e.preventDefault(); } catch (err) {} this.poser(false); },
+        vrai: true,
+        /* À la fin de la manche, plus de BRAVO ni d'OH ZUT : il saluait le DERNIER coup et
+           s'affichait à côté de quatre croix (23/09). Les carrés et les croix disent le reste. */
+        triZut: s.zut && !tout, triBravo: !!s.bravo && !tout, triFini: tout,
+        ecouter: () => {}, suivant: () => {},
+        rejouer: () => this.melanger(4),
+        jeu1: () => this.melanger(1), jeu2: () => this.melanger(2), jeu4: () => this.melanger(4),
+        styleOnglet1: this.styleOnglet(1), styleOnglet2: this.styleOnglet(2),
+        styleOnglet3: this.styleOnglet(3), styleOnglet4: this.styleOnglet(4),
+        accueil: () => {
+          if (typeof history !== 'undefined' && history.length > 1) history.back();
+          else location.href = 'APPLI - Espace enseignant.dc.html' + location.search;
+        }
+      };
+    }
+
+    const mot = this.motCourant();
+    const ecrit = mot.ecrit || mot.m;
+    const rep = s.rep;
+    /* Au jeu 2 la réponse n'est validée qu'au bouton « J'ai fini » (plusieurs croix à
+       poser) ; ailleurs, toucher un choix suffit. */
+    const repondu = s.jeu === 2 ? !!s.valide : rep !== null;
+    let choix = [], consigne = '', bilan = '', juste = false;
+
+    if (s.jeu === 1) {
+      /* ⚠ AUCUN RETOUR ÉCRIT DANS CE JEU (sa refonte du 22/09) : ni BRAVO, ni OH ZUT, ni
+         « il n'y a pas de a ». Le travail est auditif — un mot écrit, même une lettre,
+         donne la réponse par l'œil (« au » a un a écrit et aucun son [a]). Le retour passe
+         par le BOUTON et par la VOIX, jamais par du texte. Pas de rouge, pas de capitales,
+         pas de point d'exclamation. Ne pas remettre de message ici.
+         ⚠ Le bilan et les mots BRAVO/OH ZUT restent pour les jeux 2 et 4 — ce n'est que
+           dans ce jeu d'écoute qu'ils ont été retirés.
+         ⚠ Le 22/09 elle a RÉTABLI le BRAVO sur une bonne réponse : on félicite. Mais
+           TOUJOURS PAS de OH ZUT ici — l'erreur se voit au bouton rouge et s'entend à la
+           voix (« on entend a »), jamais en texte. */
+      consigne = "J'entends i dans le mot ?";
+      const bonneRep = mot.a.length > 0;
+      juste = rep === bonneRep;
+      choix = [
+        { texte: 'OUI', v: true },
+        { texte: 'NON', v: false }
+      ].map(c => {
+        const cliquee = repondu && rep === c.v;
+        const bonne = c.v === bonneRep;
+        /* Après le clic : le bouton touché se grise, LE BON s'allume et grossit (1.1) et
+           reste visible tout le temps du retour. Bonne réponse = c'est le même bouton, il
+           s'allume, simplement. */
+        /* ⚠ UNE SEULE COULEUR À L'ÉCRAN (sa décision du 22/09, sur capture) : le BON bouton
+           en vert plein, l'autre ÉTEINT en gris. Un temps le bouton cliqué à tort passait
+           en rouge : deux cadres colorés côte à côte, et l'élève ne savait plus lequel
+           était sa réponse (« on s'y perd »). ÉCOUTE ENCORE dit déjà que c'est raté — il ne
+           reste qu'à montrer la bonne réponse. Ne pas remettre de rouge sur les boutons ;
+           le rouge sert aux carrés de progression, où il dit autre chose. */
+        let fond = '#fff', encre = '#12233b', bord = '#12233b', ep = 3, ech = 1, ombre = '';
+        if (repondu) {
+          if (bonne) { fond = '#2a9d6e'; encre = '#fff'; bord = '#1f7553'; ep = 5; ech = 1.1; ombre = ';box-shadow:0 0 0 6px rgba(31,117,83,.18)'; }
+          else { fond = '#eceff3'; encre = '#9aa4b2'; bord = '#dde2e8'; }
+        }
+        return {
+          texte: c.texte,
+          style: 'border:' + ep + 'px solid ' + bord + ';border-radius:14px;background:' + fond +
+            ';color:' + encre + ';min-height:76px;min-width:110px;padding:14px 26px;font-family:inherit' +
+            ';font-size:26px;font-weight:700;transform:scale(' + ech + ')' +
+            ';transition:transform .18s ease,border-color .18s ease,background .18s ease' +
+            ';cursor:' + (repondu ? 'default' : 'pointer') + ombre,
+          toucher: () => {
+            if (repondu) return;
+            /* ⚠ LA VOIX DIT LA PHRASE ENTIÈRE, PAS « Oui » / « Non » (22/09) : un « Oui »
+               juste après un clic sur NON s'entend comme « oui, c'est ça » — elle s'y est
+               trompée elle-même sur « gâteau ». On nomme le son. */
+            /* ⚠ LE SON SE DIT DANS UNE PHRASE À PART. Collé à la fin, « on n'entend pas a »
+               se prononçait « pas ZA » : la synthèse fait la liaison. Deux phrases = pas de
+               liaison possible. Ne jamais recoller le « a » à la phrase. */
+            if (c.v !== bonneRep) this.sonRate();
+            const res = Object.assign({}, s.resultats); res[s.i] = c.v === bonneRep;
+            this.dire(c.v === bonneRep
+              ? [ecrit, 'Bravo']
+              : [ecrit, bonneRep ? 'on entend le son' : "on n'entend pas le son", 'i']);
+            this.setState({ rep: c.v, pret: false, resultats: res });
+            if (this.minuteur) clearTimeout(this.minuteur);
+            /* Le mot suivant n'apparaît qu'au bout d'1,5 s — le temps d'entendre — et
+               c'est l'ÉLÈVE qui clique : jamais de passage automatique. */
+            this.minuteur = setTimeout(() => this.setState({ pret: true }), 1500);
+          }
+        };
+      });
+      bilan = '';
+    }
+
+    else if (s.jeu === 2) {
+      /* ⚠ PLUSIEURS CROIX POSSIBLES (sa demande du 21/09) : « cartable » a deux [a], et
+         c'est à l'élève de poser LES DEUX. On coche autant de cases qu'on veut, puis on
+         valide avec « J'ai fini ». Surtout ne pas revenir à une seule case = fin du tour :
+         les croix s'affichaient toutes seules et l'élève n'avait rien cherché. */
+      consigne = mot.a.length > 1 ? 'Je touche toutes les cases où on entend i.' : 'Je touche la case où on entend i.';
+      const bon = mot.a;
+      const pris = Array.isArray(rep) ? rep : [];
+      juste = repondu && pris.length === bon.length && bon.every(k => pris.indexOf(k) >= 0);
+      /* ⚠ DES CASES VIDES, pas les syllabes écrites (sa demande du 21/09, d'après le jeu
+         du commerce qu'elle m'a montré) : une case par syllabe, rien d'écrit dedans.
+         Écrire « ba · na · ne » donnerait la réponse par la lettre a, et le travail est
+         auditif. La syllabe n'est dite qu'au moment où l'élève touche sa case. */
+      /* ⚠ La bonne case se marque d'une CROIX, elle ne se remplit pas de vert (sa demande
+         du 21/09) : c'est le geste du jeu papier — on coche la case où on entend le son. */
+      choix = mot.syl.map((sy, k) => {
+        const coche = pris.indexOf(k) >= 0;
+        const bonneCase = bon.indexOf(k) >= 0;
+        /* ⚠ LA CASE ELLE-MÊME SE REMPLIT DE COULEUR (sa demande du 22/09 : « c'est
+           visuel ») : rouge plein là où l'élève a coché à tort, vert plein sur les bonnes
+           cases. Un simple contour de 4 px se lit comme un cadre, pas comme une réponse.
+           Le contour seul avait été essayé le 21/09 — insuffisant. */
+        let bord = '#12233b', encre = '#12233b', fond = '#fff', croix = coche;
+        if (repondu) {
+          if (bonneCase) { bord = '#1f7553'; encre = '#1f7553'; fond = '#eaf6f0'; }
+          else if (coche) { bord = '#c1440e'; encre = '#c1440e'; fond = '#fbe3db'; }
+          else { bord = '#c9cfd8'; encre = '#7b8594'; fond = '#f7f8fa'; }
+        } else if (coche) { bord = '#1d4e89'; encre = '#1d4e89'; }
+        return {
+          /* ⚠ LES SYLLABES NE S'ÉCRIVENT QU'APRÈS LA RÉPONSE (sa demande du 22/09) : la
+             case du son passe en vert avec « ga », les autres en gris avec « re ». Avant,
+             des cases VIDES — « ga » écrit donnerait la réponse par la lettre, et pour
+             « orange » l'élève lirait un a qu'il n'entend pas. Ne jamais remonter l'écrit
+             avant le clic. */
+          texte: repondu ? sy : (croix ? '✗' : ''),
+          style: 'border:4px solid ' + bord + ';border-radius:12px;background:' + fond + ';color:' + encre +
+            ';min-width:86px;min-height:86px;padding:' + (repondu ? '0 12px' : '0') +
+            ';box-sizing:border-box;font-family:inherit' +
+            ';font-size:' + (repondu ? '38px' : '52px') + ';font-weight:700;line-height:1;cursor:pointer',
+          toucher: () => {
+            if (repondu) return;
+            this.dire(sy);
+            const t = pris.slice();
+            const p = t.indexOf(k);
+            if (p >= 0) t.splice(p, 1); else t.push(k);
+            this.setState({ rep: t });
+          }
+        };
+      });
+      bilan = '';
+    }
+
+    /* ⚠ Le jeu « Combien de syllabes ? » A ÉTÉ RETIRÉ le 21/09 (« aucun intérêt »).
+       Ne pas le remettre. Les onglets restants sont 1, 2 et 4 — le 4 (le tri) s'affiche
+       sous le libellé « 3 · Je trie », mais son numéro interne reste 4. */
+
+    return {
+      consigne,
+      position: '',
+      pastilles: this.pastilles(s.ordre ? s.ordre.length : 5, s.i + (repondu ? 1 : 0), s.resultats),
+      photo: 'clean/mot-' + mot.m + '.webp',
+      /* ⚠ La photo passe par le STYLE, jamais par un `src="{{ }}"` : pendant le flux le
+         navigateur lirait le trou comme une URL et déclencherait un 404 à chaque ouverture. */
+      cadrePhoto: 'flex:1 1 auto;min-height:0;box-sizing:border-box;height:min(340px,70vw)' +
+        ';max-height:27vh;aspect-ratio:1;background-color:#fff;border:3px solid #12233b' +
+        ';border-radius:14px;background-image:url(clean/mot-' + mot.m + '.webp)' +
+        ';background-size:contain;background-repeat:no-repeat;background-position:center',
+      motAffiche: ecrit,
+      /* ⚠ LE MOT ÉCRIT NE S'AFFICHE JAMAIS (sa demande du 21/09) : la lettre trompe.
+         « orange » s'écrit avec un a mais ne contient aucun [a] — l'élève lirait la
+         lettre au lieu d'écouter le son. Tout ce jeu passe par l'oreille. */
+      montreMot: false,
+      choix, repondu, bilan, fini: false, enCours: true, tri: false, refaire: () => {},
+      /* ⚠ AU JEU 2, C'EST TOUT LE CADRE QUI CHANGE DE COULEUR, pas seulement la case
+         (sa demande du 22/09, d'après le jeu du commerce qu'elle m'a montré : le panneau
+         entier passe en rouge hachuré). Rouge pâle si c'est faux, vert pâle si c'est juste,
+         hachuré plutôt qu'un aplat — plus doux sur une grande surface. Les croix restent
+         visibles par-dessus, donc on voit toujours la case oubliée.
+         ⚠ Leur jeu écrit le mot sous les cases : chez nous JAMAIS. */
+      styleCadreChoix: 'flex:0 0 auto;display:flex;gap:14px;flex-wrap:wrap;justify-content:center' +
+        ';max-width:900px;box-sizing:border-box;border-radius:16px' +
+        (s.jeu === 2
+          ? ';padding:20px 24px;border:4px solid ' +
+            (!repondu ? 'transparent' : (juste ? '#2a9d6e' : '#c1440e')) +
+            (!repondu ? '' : ';background-color:' + (juste ? '#eaf6f0' : '#fbe3db') +
+              ';background-image:repeating-linear-gradient(45deg,' +
+              (juste ? 'rgba(42,157,110,.22)' : 'rgba(193,68,14,.22)') +
+              ' 0 2px,transparent 2px 9px)')
+          : ''),
+      valider: s.jeu === 2 && !repondu && Array.isArray(rep) && rep.length > 0,
+      jaiFini: () => {
+        const bon = mot.a, pris = Array.isArray(rep) ? rep : [];
+        const ok = pris.length === bon.length && bon.every(k => pris.indexOf(k) >= 0);
+        if (!ok) this.sonRate();
+        const res = Object.assign({}, s.resultats); res[s.i] = ok;
+        this.setState({ valide: true, resultats: res });
+      },
+      aTrier: [], boiteOui: [], boiteNon: [], styleOui: '', styleNon: '',
+      poserOui: () => {}, poserNon: () => {}, triZut: false, triBravo: false, triFini: false,
+      survol: () => {}, lacherOui: () => {}, lacherNon: () => {}, vrai: true,
+      jeu4: () => this.melanger(4), styleOnglet4: this.styleOnglet(4),
+      /* Le BRAVO est sa demande du 21/09. Il ne s'affiche QUE sur une bonne réponse, et
+         il n'y a toujours AUCUN score : on félicite le coup, on ne compte rien.
+         ⚠ Sauf au jeu 1 : plus aucun mot à l'écran depuis sa refonte du 22/09. */
+      gagne: repondu && juste,
+      /* ⚠ « ÉCOUTE ENCORE » en rouge, PAS « OH ZUT » (sa décision du 22/09) : pour des
+         16-18 ans, « oh zut » vient du primaire et sonne infantilisant. Une consigne
+         remet au travail, une exclamation plaint. Vaut pour les jeux 1 et 2. */
+      rate: repondu && !juste,
+      /* Au jeu 1 le bouton attend 1,5 s ; ailleurs il suit la réponse. */
+      montreSuivant: s.jeu === 1 ? !!s.pret : repondu,
+      /* ⚠ PAS DE MOT REPÈRE À L'ÉCRAN : l'ananas en haut a été proposé le 22/09 puis
+         RETIRÉ le même jour, à sa demande. Ne pas le remettre. */
+      montreRepere: false,
+      styleRepere: 'flex:0 0 auto;width:74px;height:74px;border-radius:12px;background-color:#fff' +
+        ';border:2px solid #d8dde4;background-image:url(clean/mot-riz.webp)' +
+        ';background-size:contain;background-repeat:no-repeat;background-position:center',
+      couleurBilan: juste ? '#1f7553' : '#c1440e',
+      rejouer: () => this.melanger(s.jeu),
+      ecouter: () => this.dire(ecrit),
+      suivant: () => { if (this.minuteur) clearTimeout(this.minuteur); this.setState({ i: s.i + 1, rep: null, valide: false, pret: false }); },
+      jeu1: () => this.melanger(1),
+      jeu2: () => this.melanger(2),
+      jeu3: () => this.melanger(3),
+      styleOnglet1: this.styleOnglet(1),
+      styleOnglet2: this.styleOnglet(2),
+      styleOnglet3: this.styleOnglet(3),
+      accueil: () => {
+        if (typeof history !== 'undefined' && history.length > 1) history.back();
+        else location.href = 'APPLI - Espace enseignant.dc.html' + location.search;
+      }
+    };
+  }
+}
+
+</script>
+</body>
+</html>

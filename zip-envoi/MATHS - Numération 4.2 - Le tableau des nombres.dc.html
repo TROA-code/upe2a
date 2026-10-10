@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#1d4e89}
+a:hover{color:#163a68}
+</style>
+<script src="./doc-page.js"></script>
+</helmet>
+<doc-page size="a4">
+<sc-for list="{{ pages }}" as="pg" hint-placeholder-count="2">
+<section class="page" data-screen-label="{{ pg.label }}" style="background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Helvetica,'Helvetica Neue',Arial,sans-serif;color:#14213d;gap:5mm">
+<div style="flex:0 0 auto;display:flex;align-items:flex-end;justify-content:space-between;gap:4mm;border-bottom:2.5px solid #14213d;padding-bottom:2.5mm">
+<div style="display:flex;flex-direction:column;gap:1mm;min-width:0">
+<span style="font-size:12pt;letter-spacing:0.12em;text-transform:uppercase;color:#4a5262;white-space:nowrap">Numération 4.2</span>
+<span style="font-size:22pt;font-weight:700;line-height:1.1;white-space:nowrap">{{ pg.titre }}</span>
+</div>
+<div style="flex:0 0 auto;display:flex;align-items:flex-end;gap:2mm;font-size:13pt;font-weight:700;white-space:nowrap">Prénom :<span style="width:40mm;border-bottom:2px solid #14213d;display:block"></span></div>
+</div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:4mm;font-size:16pt;font-weight:700"><span style="width:10mm;height:10mm;border-radius:50%;background:#14213d;color:#fff;display:flex;align-items:center;justify-content:center;font-size:14pt;flex:0 0 auto">{{ pg.num }}</span>{{ pg.consigne }}</div>
+<!-- 02/10 (sa demande) : la colonne du nombre est DÉTACHÉE du tableau, un blanc entre les deux. -->
+<div style="flex:1;min-height:0;display:flex;gap:8mm">
+<div style="flex:0 0 38mm;display:grid;grid-template-rows:11mm 13mm repeat(6,minmax(0,1fr));padding:2.5px 0;box-sizing:border-box">
+<div style="grid-row:1/3;display:flex;align-items:flex-end;justify-content:center;padding-bottom:2mm;font-size:13pt;font-weight:700">le nombre</div>
+<sc-for list="{{ pg.lignes }}" as="r" hint-placeholder-count="6">
+<div style="display:flex;align-items:center;justify-content:flex-end;min-width:0">
+<sc-if value="{{ r.nombreEcrit }}" hint-placeholder-val="{{ true }}"><span style="font-size:22pt;font-weight:700;white-space:nowrap">{{ r.nombre }}</span></sc-if>
+<sc-if value="{{ r.nombreVide }}" hint-placeholder-val="{{ false }}"><span style="width:100%;height:12mm;border:2px solid #8a91a3;border-radius:2mm;display:block;box-sizing:border-box"></span></sc-if>
+</div>
+</sc-for>
+</div>
+<div style="flex:1;min-width:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-template-rows:11mm 13mm repeat(6,minmax(0,1fr));border:2.5px solid #14213d">
+<div style="grid-column:1/4;display:flex;align-items:center;justify-content:center;background:#fde8c8;border-right:2.5px solid #14213d;border-bottom:1.5px solid #14213d;padding:1.5mm;font-size:14pt;font-weight:700">mille</div>
+<div style="grid-column:4/7;display:flex;align-items:center;justify-content:center;background:#d9ebf7;border-bottom:1.5px solid #14213d;padding:1.5mm;font-size:14pt;font-weight:700">unités</div>
+<sc-for list="{{ entetes }}" as="h" hint-placeholder-count="6">
+<div style="display:flex;align-items:center;justify-content:center;background:{{ h.fond }};border-right:{{ h.bord }};border-bottom:2px solid #14213d;padding:1.5mm;font-size:20pt;font-weight:700;color:{{ h.couleur }}">{{ h.l }}</div>
+</sc-for>
+<sc-for list="{{ pg.lignes }}" as="r" hint-placeholder-count="6">
+<sc-for list="{{ r.cases }}" as="c" hint-placeholder-count="6">
+<div style="border-right:{{ c.bord }};border-bottom:1px solid #8a91a3;display:flex;align-items:center;justify-content:center;font-size:24pt;font-weight:700;color:#1d4e89">{{ c.v }}</div>
+</sc-for>
+</sc-for>
+</div>
+</div>
+<span style="flex:0 0 auto;font-size:12pt;color:#4a5262">Aide : le tableau des nombres, dans mon cahier.</span>
+</section>
+</sc-for>
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* NUMÉRATION 4.2 (02/10, son oui « les deux ») : d'après son document n° 7, réduit à mille +
+   unités. Page 1 : j'écris le nombre dans le tableau. Page 2 : je lis le tableau, j'écris le
+   nombre. Nombres jusqu'à 9 999 (sa Numération 4), avec des zéros pièges (2 008, 1 050, 306). */
+const AVEC_TABLEAU = ['4 725', '1 250', '806', '3 049', '9 999', '2 008'];
+const A_LIRE = ['5 318', '1 050', '7 402', '306', '6 090', '8 777'];
+class Component extends DCLogic {
+  renderVals() {
+    const sep = i => i === 2 ? '2.5px solid #14213d' : (i === 5 ? 'none' : '1px solid #8a91a3');
+    /* Couleurs c d u (02/10, son oui « les couleurs partout ») : c bleu · d vert · u orange. */
+    const COUL = { c: '#2f6fca', d: '#4d7f22', u: '#c8620f' };
+    const entetes = ['c', 'd', 'u', 'c', 'd', 'u'].map((l, i) => ({ l, couleur: COUL[l], fond: i < 3 ? '#fff6e8' : '#eef6fb', bord: sep(i) }));
+    const cases = (s, rempli) => s.replace(/\s/g, '').padStart(6, ' ').split('').map((v, i) => ({ v: rempli ? v.trim() : '', bord: sep(i) }));
+    return {
+      entetes,
+      pages: [
+        { label: '1 · J\u2019écris dans le tableau', num: 1, titre: 'Le tableau des nombres', consigne: 'J\u2019écris le nombre dans le tableau.',
+          lignes: AVEC_TABLEAU.map(n => ({ nombre: n, nombreEcrit: true, nombreVide: false, cases: cases(n, false) })) },
+        { label: '2 · Je lis le tableau', num: 2, titre: 'Le tableau des nombres', consigne: 'Je lis le tableau. J\u2019écris le nombre.',
+          lignes: A_LIRE.map(n => ({ nombre: '', nombreEcrit: false, nombreVide: true, cases: cases(n, true) })) },
+        /* CORRIGÉS (02/10, sa règle : « tu mets les corrigés partout ») — calculés, jamais tapés. */
+        { label: 'Corrigé 1', num: 1, titre: 'Corrigé', consigne: 'J\u2019écris le nombre dans le tableau.',
+          lignes: AVEC_TABLEAU.map(n => ({ nombre: n, nombreEcrit: true, nombreVide: false, cases: cases(n, true) })) },
+        { label: 'Corrigé 2', num: 2, titre: 'Corrigé', consigne: 'Je lis le tableau. J\u2019écris le nombre.',
+          lignes: A_LIRE.map(n => ({ nombre: n, nombreEcrit: true, nombreVide: false, cases: cases(n, true) })) }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" />
+<style>
+  doc-page:not(:defined) { visibility: hidden; }
+  @media print { .ecran-seul { display: none !important; } }
+</style>
+<script src="doc-page.js"></script>
+</helmet>
+
+<div class="ecran-seul" style="font-family:Verdana,Tahoma,sans-serif;background:#eef1f5;padding:20px 22px;display:flex;flex-direction:column;gap:13px;border-bottom:2px solid #c3d2e2">
+  <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:baseline;justify-content:space-between">
+    <div style="display:flex;flex-direction:column;gap:4px">
+      <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:16px;color:#1d4e89">MA CARTE — VERSION SOBRE</div>
+      <div style="font-size:12.5px;color:#556;line-height:1.55">Deux cartes par page, sur le modèle d'une carte d'identité. Gardée de côté : la version visuelle est dans « CARTE - se présenter (visuelle) ».</div>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button onClick="{{ basculerModele }}" style="border:2px solid {{ modeleBord }};background:{{ modeleFond }};color:{{ modeleEncre }};border-radius:9px;padding:9px 14px;font-size:12.5px;font-weight:bold;cursor:pointer">{{ modeleTexte }}</button>
+      <button onClick="{{ basculerPersonne }}" style="border:2px solid {{ persBord }};background:{{ persFond }};color:{{ persEncre }};border-radius:9px;padding:9px 14px;font-size:12.5px;font-weight:bold;cursor:pointer">{{ persTexte }}</button>
+      <button onClick="{{ imprimer }}" style="border:none;background:#2a9d6e;color:#fff;border-radius:9px;padding:10px 18px;font-family:'Archivo Black',Verdana,sans-serif;font-size:12px;letter-spacing:.04em;cursor:pointer">IMPRIMER</button>
+    </div>
+  </div>
+  <div style="font-size:12px;color:#6b7a8d;line-height:1.55">{{ aide }}</div>
+</div>
+
+<doc-page margin="0.5in">
+  <div style="font-family:Verdana,Tahoma,sans-serif;color:#1c2430;display:flex;flex-direction:column;gap:8mm">
+    <sc-for list="{{ cartes }}" as="k" hint-placeholder-count="2">
+      <div style="border:2.5px solid #1c2430;border-radius:4mm;padding:5mm;display:flex;gap:5mm;break-inside:avoid;background:#f7f9fc">
+        <div style="flex:0 0 34mm;display:flex;flex-direction:column;gap:2mm">
+          <div style="border:1.5px solid #1c2430;background:#fff;height:44mm;display:flex;align-items:center;justify-content:center;text-align:center;font-size:8pt;color:#8a8a8a;padding:2mm;line-height:1.3">{{ k.photo }}</div>
+          <div style="font-size:7.5pt;color:#555;text-align:center;line-height:1.3">photo ou dessin</div>
+        </div>
+        <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3mm">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;border-bottom:1.5px solid #1c2430;padding-bottom:1.5mm">
+            <div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:12pt;letter-spacing:.02em">{{ k.titre }}</div>
+            <div style="font-size:8pt;color:#555">{{ k.sousTitre }}</div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:2.5mm 5mm">
+            <sc-for list="{{ k.champs }}" as="c" hint-placeholder-count="8">
+              <div style="display:flex;flex-direction:column;gap:0.8mm">
+                <div style="font-size:7.5pt;color:#555;letter-spacing:.02em">{{ c.libelle }}</div>
+                <div style="font-size:12pt;border-bottom:1px solid #1c2430;min-height:7mm;line-height:1.3">{{ c.valeur }}</div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:1.5mm">
+            <div style="font-size:7.5pt;color:#555">{{ k.gout }}</div>
+            <div style="display:flex;gap:3mm">
+              <div style="flex:1;border:1px solid #1c2430;background:#fff;min-height:14mm;padding:1.5mm;font-size:11pt;line-height:1.3">{{ k.aime }}</div>
+              <div style="flex:1;border:1px solid #1c2430;background:#fff;min-height:14mm;padding:1.5mm;font-size:11pt;line-height:1.3">{{ k.aimePas }}</div>
+            </div>
+            <div style="display:flex;gap:3mm;font-size:7.5pt;color:#555">
+              <div style="flex:1">{{ k.etiqAime }}</div>
+              <div style="flex:1">{{ k.etiqAimePas }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:900,&quot;height&quot;:1180}}">
+/* VERSION SOBRE, mise de côté le 03/09 à sa demande (« garde ton document pour plus
+   tard ») : format carte d'identité, sans images. La version qu'elle veut utiliser est
+   `CARTE - se présenter (visuelle).dc.html`, plus visuelle, sur le modèle des primaires.
+   Rubriques adaptées aux 16-18 ans NSA : ni animal de compagnie ni couleur préférée, mais
+   le pays, les langues, la famille, et « plus tard, je voudrais ». Première personne ;
+   la troisième sert à présenter un camarade. */
+const CHAMPS = [
+  ['NOM', 'nom'], ['PRÉNOM', 'prenom'], ['FILLE  □      GARÇON  □', 'sexe'],
+  ["J'AI … ANS", 'age'], ['JE VIENS DE (pays, ville)', 'origine'],
+  ['JE PARLE', 'langues'], ['DANS MA FAMILLE (frères, sœurs)', 'famille'],
+  ['PLUS TARD, JE VOUDRAIS', 'projet']
+];
+const MODELES = [
+  { nom: 'DIALLO', prenom: 'Amadou', sexe: 'GARÇON ✗', age: '17 ans',
+    origine: 'la Guinée, Conakry', langues: 'le peul, le français',
+    famille: '2 frères, 1 sœur', projet: 'être mécanicien',
+    aime: 'le football, le riz au poisson, la musique',
+    aimePas: 'le froid, se lever tôt' },
+  { nom: 'YEAMIN', prenom: 'Nasrin', sexe: 'FILLE ✗', age: '16 ans',
+    origine: 'le Bangladesh, Dacca', langues: "le bengali, un peu l'anglais",
+    famille: '1 sœur', projet: 'travailler dans un salon de coiffure',
+    aime: 'le thé, dessiner, ma sœur',
+    aimePas: 'les chiens, le bruit' }
+];
+
+class Component extends DCLogic {
+  state = { modele: false, troisieme: false };
+
+  renderVals() {
+    const troisieme = this.state.troisieme;
+    const libelle = (l) => {
+      if (!troisieme) return l;
+      return l.replace("J'AI … ANS", 'IL / ELLE A … ANS')
+        .replace('JE VIENS DE', 'IL / ELLE VIENT DE')
+        .replace('JE PARLE', 'IL / ELLE PARLE')
+        .replace('DANS MA FAMILLE', 'DANS SA FAMILLE')
+        .replace('PLUS TARD, JE VOUDRAIS', 'PLUS TARD, IL / ELLE VOUDRAIT');
+    };
+    const carte = (m) => ({
+      titre: troisieme ? 'JE PRÉSENTE UN CAMARADE' : 'MA CARTE',
+      sousTitre: 'UPE2A · classe de français',
+      photo: m ? "photo de l'élève" : '',
+      champs: CHAMPS.map(([l, cle]) => ({ libelle: libelle(l), valeur: m ? (m[cle] || '') : '' })),
+      gout: troisieme ? "CE QU'IL OU ELLE AIME, ET CE QU'IL OU ELLE N'AIME PAS" : "CE QUE J'AIME, ET CE QUE JE N'AIME PAS",
+      aime: m ? m.aime : '', aimePas: m ? m.aimePas : '',
+      etiqAime: troisieme ? 'IL / ELLE AIME' : "J'AIME",
+      etiqAimePas: troisieme ? "IL / ELLE N'AIME PAS" : "JE N'AIME PAS"
+    });
+    const cartes = this.state.modele ? MODELES.map(carte) : [carte(null), carte(null)];
+    const bt = (actif) => ({
+      fond: actif ? '#1d4e89' : '#fff',
+      encre: actif ? '#fff' : '#48586b',
+      bord: actif ? '#1d4e89' : '#c3d2e2'
+    });
+    const m = bt(this.state.modele), p = bt(this.state.troisieme);
+    return {
+      cartes,
+      modeleTexte: this.state.modele ? 'Cartes modèles remplies' : 'Cartes vierges',
+      modeleFond: m.fond, modeleEncre: m.encre, modeleBord: m.bord,
+      persTexte: this.state.troisieme ? 'Je présente un camarade' : 'Je me présente',
+      persFond: p.fond, persEncre: p.encre, persBord: p.bord,
+      aide: this.state.modele
+        ? 'Deux cartes remplies : à afficher au tableau, ou à donner comme exemple avant de distribuer les vierges.'
+        : 'Deux cartes vierges, version sobre. Pour la version visuelle, ouvre « CARTE - se présenter (visuelle) ».',
+      basculerModele: () => this.setState({ modele: !this.state.modele }),
+      basculerPersonne: () => this.setState({ troisieme: !this.state.troisieme }),
+      imprimer: () => window.print()
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="polices.css" />
+<style>body{margin:0;background:#f4f1ea;font-family:Archivo, Verdana, sans-serif;color:#12233b}a{color:#1d4e89}a:hover{color:#12233b}</style>
+</helmet>
+<div style="min-height:100vh;display:flex;flex-direction:column">
+<div style="display:flex;align-items:center;gap:12px;padding:10px 16px;background:#12233b;flex-wrap:wrap">
+<button class="bouton" onClick="{{ retour }}" style="min-height:44px;border:none;border-radius:10px;background:#fff;color:#12233b;padding:0 14px;font-weight:700;font-size:16px;cursor:pointer">← L’accueil</button>
+<span style="flex:1;font-family:Archivo Black, Archivo, sans-serif;font-size:20px;color:#fff">Roule galette — je lis</span>
+<div style="display:flex;gap:6px">
+<sc-for list="{{ points }}" as="p" hint-placeholder-count="8"><span style="width:14px;height:14px;border-radius:50%;background:{{ p.fond }};display:block"></span></sc-for>
+</div>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:22px;padding:24px 16px 130px">
+<div style="display:flex;align-items:center;gap:14px;max-width:900px">
+<span style="width:56px;height:56px;flex:0 0 auto;background-image:{{ pictoFond }};background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:26px;line-height:1.25">{{ consigne }}</span>
+</div>
+
+<sc-if value="{{ estChoix }}" hint-placeholder-val="{{ true }}">
+<div style="width:100%;max-width:900px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px">
+<sc-for list="{{ choix }}" as="c" hint-placeholder-count="3">
+<button class="bouton" onClick="{{ c.toucher }}" style="min-height:84px;border:4px solid {{ c.bord }};border-radius:16px;background:{{ c.fond }};color:{{ c.encre }};font-family:Andika, Archivo, sans-serif;font-weight:700;font-size:30px;cursor:pointer;padding:10px;position:relative"><span style="position:absolute;top:5px;left:8px;font-family:Archivo Black, Archivo, sans-serif;font-size:15px;color:{{ c.encre }};opacity:0.75">{{ c.lettre }}</span>{{ c.t }}</button>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ estPhrase }}" hint-placeholder-val="{{ false }}">
+<div style="width:100%;max-width:1000px;display:flex;gap:22px;align-items:center;flex-wrap:wrap;justify-content:center">
+<span style="width:280px;max-width:100%;aspect-ratio:16 / 10;border-radius:12px;box-shadow:0 3px 10px rgba(0,0,0,0.15);background-color:#fff;background-image:{{ imageFond }};background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+<div style="flex:1 1 420px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 8px;font-family:Andika, Archivo, sans-serif;font-size:30px;line-height:1.4">
+<sc-for list="{{ morceaux }}" as="m" hint-placeholder-count="6">
+<sc-if value="{{ m.texte }}" hint-placeholder-val="{{ true }}"><span>{{ m.t }}</span></sc-if>
+<sc-if value="{{ m.trou }}" hint-placeholder-val="{{ false }}"><button class="bouton" onClick="{{ m.toucher }}" onDragOver="{{ m.survol }}" onDrop="{{ m.lacher }}" style="min-width:150px;min-height:56px;border:3px {{ m.trait }} {{ m.bord }};border-radius:10px;background:#fff;color:#12233b;font-family:Andika, Archivo, sans-serif;font-weight:700;font-size:28px;cursor:pointer;padding:0 12px">{{ m.mot }}</button></sc-if>
+</sc-for>
+</div>
+</div>
+<div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;border-top:2px solid #d9d3c4;padding-top:16px;width:100%;max-width:1000px;min-height:70px">
+<sc-for list="{{ etiquettes }}" as="e" hint-placeholder-count="4">
+<button class="bouton" draggable="true" onDragStart="{{ e.prendre }}" onClick="{{ e.toucher }}" style="min-height:60px;border:3px solid {{ e.bord }};border-radius:12px;background:#fdf3c4;color:#12233b;font-family:Andika, Archivo, sans-serif;font-weight:700;font-size:28px;cursor:grab;padding:0 18px">{{ e.t }}</button>
+</sc-for>
+</div>
+</sc-if>
+</div>
+<div style="position:fixed;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;padding:12px 16px;background:#fff;box-shadow:0 -4px 14px rgba(0,0,0,0.12)">
+<sc-if value="{{ aMessage }}" hint-placeholder-val="{{ false }}"><span style="font-family:Archivo Black, Archivo, sans-serif;font-size:40px;color:{{ couleurMessage }}">{{ message }}</span></sc-if>
+<sc-if value="{{ peutFinir }}" hint-placeholder-val="{{ false }}"><button class="bouton" onClick="{{ finir }}" style="min-height:60px;border:none;border-radius:14px;background:#2a9d6e;color:#fff;padding:0 28px;font-family:Archivo Black, Archivo, sans-serif;font-size:22px;cursor:pointer">J’ai fini</button></sc-if>
+<sc-if value="{{ peutSuivre }}" hint-placeholder-val="{{ false }}"><button class="bouton" onClick="{{ suivant }}" style="min-height:60px;border:none;border-radius:14px;background:{{ couleurSuivant }};color:#fff;padding:0 28px;font-family:Archivo Black, Archivo, sans-serif;font-size:22px;cursor:pointer">{{ libelleSuivant }}</button></sc-if>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* 06/10 (son oui) : sa fiche « Roule galette 01-1 » en jeu sur écran. Contenu RECOPIÉ de la fiche.
+   Choix unique → touché juste = BRAVO ! ; faux = rouge + OH ZUT !, on recommence.
+   Plusieurs réponses (les mots du texte, les trous) → « J'ai fini ». Rien n'est compté. */
+const E = 'clean/pictos/entoure.webp', W = 'clean/pictos/ecris.webp';
+const ETAPES = [
+  { k: 'un', picto: E, c: 'Je touche le vrai titre de l’histoire.', l: ['Poule Galette', 'Roule Gallette', 'Proule Galette', 'Roule Galete', 'Roule Galette', 'La Galette'], ok: [4] },
+  { k: 'plusieurs', picto: E, c: 'Je touche les mots que l’on trouve dans le texte.', l: ['maison', 'grande', 'forêt', 'village', 'galette', 'farine', 'table', 'manger', 'chat', 'vieux', 'jour', 'chaise', 'petite'], ok: [0, 2, 4, 5, 7, 9, 10, 12] }, /* « fôret » retiré aussi (06/10) : l'orthographe se travaille à l'étape 5. */ /* « fauteuil » retiré (06/10) : on le voit sur l'image du vieux, c'était trompeur. */
+  { k: 'phrase', picto: W, c: 'Je complète la phrase.', img: 'clean/diapo-galette-1.webp', p: ['Dans une', 0, 'maison, tout près de la', 1, ', vivaient un', 2, 'et une', 3, '.'], m: ['petite', 'forêt', 'vieux', 'vieille'] },
+  { k: 'phrase', picto: W, c: 'Je complète la phrase.', img: 'clean/diapo-galette-3.webp', p: ['La', 0, 'pourrait', 1, 'une', 2, ', si elle avait de la', 3, '.'], m: ['vieille', 'faire', 'galette', 'farine'] },
+  { k: 'un', picto: E, c: 'Je touche la bonne réponse.', l: ['la fôret', 'la forêt', 'la fêrot'], ok: [1] },
+  { k: 'un', picto: E, c: 'Je touche la bonne réponse.', l: ['la veille', 'une vieille', 'une abeille'], ok: [1] },
+  { k: 'un', picto: E, c: 'Je touche la bonne réponse.', l: ['un vieux', 'les cieux', 'mieux'], ok: [0] },
+  { k: 'un', picto: E, c: 'Je touche la bonne réponse.', l: ['une petite saison', 'une petite maison', 'une petite raison'], ok: [1] }];
+const melange = a => a.map(v => [Math.random(), v]).sort((x, y) => x[0] - y[0]).map(x => x[1]);
+class Component extends DCLogic {
+  state = { i: 0, pris: [], faux: [], fini: false, ok: false, trous: [], reserve: [], sel: null };
+  aller(i) { const e = ETAPES[i] || {}; this.setState({ i, pris: [], faux: [], fini: false, ok: false, sel: null,
+    ordre: e.l ? (e.k === 'un' ? melange(e.l.map((x, j) => j)) : e.l.map((x, j) => j)) : [],
+    trous: e.m ? e.m.map(() => null) : [], reserve: e.m ? melange(e.m.map((x, j) => j)) : [] }); }
+  componentDidMount() { this.aller(0); }
+  poser(t, j) { this.setState(s => { const trous = s.trous.slice(), reserve = s.reserve.filter(x => x !== j);
+    if (trous[t] != null) reserve.push(trous[t]); trous[t] = j; return { trous, reserve, sel: null, fini: false }; }); }
+  renderVals() {
+    const s = this.state, e = ETAPES[s.i] || ETAPES[0], fin = s.i >= ETAPES.length - 1;
+    const v = { consigne: e.c, pictoFond: "url('" + e.picto + "')", imageFond: e.img ? "url('" + e.img + "')" : 'none', estChoix: e.k !== 'phrase', estPhrase: e.k === 'phrase', image: e.img || '',
+      points: ETAPES.map((x, j) => ({ fond: j < s.i ? '#2a9d6e' : j === s.i ? '#fdf3c4' : '#44546a' })),
+      retour: () => { if (history.length > 1) history.back(); else location.href = 'APPLI - Espace enseignant.dc.html' + (location.search || ''); },
+      aMessage: s.fini, message: s.ok ? 'BRAVO !' : 'OH ZUT !', couleurMessage: s.ok ? '#1f8a4c' : '#d0453a',
+      /* 06/10 (sa demande) : « Suivant » toujours là — on peut passer une étape sans l'avoir réussie. */
+      peutSuivre: true, couleurSuivant: s.ok ? '#1f8a4c' : '#d0453a', /* vert si réussi, rouge sinon (sa demande) */libelleSuivant: fin ? '↻ Recommencer' : 'Suivant →', suivant: () => this.aller(fin ? 0 : s.i + 1),
+      peutFinir: false, finir: () => {}, choix: [], morceaux: [], etiquettes: [] };
+    /* Petites lettres A, B, C… en haut de chaque étiquette (sa demande) : on révise l'alphabet. */
+    const L = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    if (e.k === 'un') v.choix = (s.ordre || []).map((j, n) => { const faux = s.faux.includes(j), juste = s.ok && e.ok.includes(j);
+      return { lettre: L[n], t: e.l[j], bord: juste ? '#1f8a4c' : faux ? '#d0453a' : '#12233b', fond: juste ? '#1f8a4c' : faux ? '#d0453a' : '#fff', encre: juste || faux ? '#fff' : '#12233b',
+        toucher: () => { if (s.ok) return; if (e.ok.includes(j)) this.setState({ fini: true, ok: true }); else this.setState({ fini: true, ok: false, faux: s.faux.concat(j) }); } }; });
+    if (e.k === 'plusieurs') {
+      v.choix = (s.ordre || []).map((j, n) => { const pris = s.pris.includes(j), faux = s.fini && !s.ok && pris && !e.ok.includes(j);
+        return { lettre: L[n], t: e.l[j], /* choisi = BLEU (le rouge-orangé passait pour une erreur : « maison en rouge ?? »). Rouge = faux, après « J'ai fini » seulement. */
+        bord: faux ? '#d0453a' : pris ? (s.ok ? '#1f8a4c' : '#1d4e89') : '#12233b', fond: faux ? '#d0453a' : pris ? (s.ok ? '#1f8a4c' : '#1d4e89') : '#fff', encre: pris || faux ? '#fff' : '#12233b',
+          toucher: () => { if (s.ok) return; this.setState({ fini: false, pris: pris ? s.pris.filter(x => x !== j) : s.pris.concat(j) }); } }; });
+      v.peutFinir = !s.ok && s.pris.length > 0;
+      v.finir = () => { const ok = s.pris.length === e.ok.length && e.ok.every(x => s.pris.includes(x)); this.setState({ fini: true, ok }); };
+    }
+    if (e.k === 'phrase') {
+      v.morceaux = e.p.map(x => typeof x === 'string' ? { texte: true, trou: false, t: x } : (() => { const j = s.trous[x], faux = s.fini && !s.ok && j != null && e.m[j] !== e.m[x];
+        return { texte: false, trou: true, mot: j != null ? e.m[j] : '', trait: j != null ? 'solid' : 'dashed', bord: faux ? '#d0453a' : s.ok ? '#1f8a4c' : '#12233b',
+          toucher: () => { if (s.ok) return; if (s.sel != null) return this.poser(x, s.sel); if (j != null) this.setState(p => { const trous = p.trous.slice(); trous[x] = null; return { trous, reserve: p.reserve.concat(j), fini: false }; }); },
+          survol: ev => ev.preventDefault(), lacher: ev => { ev.preventDefault(); const k = +ev.dataTransfer.getData('text/plain'); if (!s.ok && !isNaN(k)) this.poser(x, k); } }; })());
+      v.etiquettes = s.reserve.map(j => ({ t: e.m[j], bord: s.sel === j ? '#c1440e' : '#e59a2b', toucher: () => this.setState({ sel: s.sel === j ? null : j }), prendre: ev => ev.dataTransfer.setData('text/plain', String(j)) }));
+      v.peutFinir = !s.ok && s.trous.length > 0 && s.trous.every(x => x != null);
+      v.finir = () => { const ok = s.trous.every((j, t) => e.m[j] === e.m[t]); this.setState({ fini: true, ok }); };
+    }
+    return v;
+  }
+}
+</script>
+</body>
+</html>

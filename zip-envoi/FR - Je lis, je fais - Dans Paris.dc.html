@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Atkinson+Hyperlegible:wght@400;700&display=swap" />
+<style>
+@media print { .ecran-seul { display: none !important; } }
+body{margin:0}
+a { color: #1d5c3a; }
+a:hover { color: #14213d; }
+</style>
+<script src="doc-page.js"></script>
+</helmet>
+
+<div class="ecran-seul" style="font-family:Verdana,Tahoma,sans-serif;padding:16px 18px 6px;display:flex;flex-direction:column;gap:10px">
+<div style="font-family:'Archivo Black',Verdana,sans-serif;font-size:16px;letter-spacing:.02em">JE LIS, JE FAIS — DANS PARIS</div>
+<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+<button onClick="{{ imprimer }}" style="border:none;background:#2a9d6e;color:#fff;border-radius:9px;padding:10px 18px;font-family:'Archivo Black',Verdana,sans-serif;font-size:12px;letter-spacing:.04em;cursor:pointer">IMPRIMER</button>
+<span style="font-size:11.5px;color:#8595a8">A1.1 · A1 · A2 — deux pages par niveau. Recto-verso : on n'imprime que le niveau de chacun.</span>
+</div>
+</div>
+
+<doc-page size="a4">
+
+<section class="page" data-screen-label="A1.1 — je lis, je fais" style="padding:20mm;box-sizing:border-box;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;color:#14213d;display:flex;flex-direction:column;gap:5mm">
+<div style="flex:0 0 auto;display:flex;align-items:flex-end;justify-content:space-between;gap:6mm;font-size:12pt">
+<div style="display:flex;align-items:flex-end;gap:2mm"><span>Prénom :</span><span style="width:50mm;border-bottom:1.2px solid #b9bdc9;height:5mm"></span></div>
+<div style="display:flex;align-items:flex-end;gap:2mm"><span>Date :</span><span style="width:34mm;border-bottom:1.2px solid #b9bdc9;height:5mm"></span></div>
+</div>
+<div style="flex:0 0 auto;display:flex;align-items:baseline;gap:5mm;border-bottom:2px solid #1d5c3a;padding-bottom:3mm">
+<span style="font-size:16pt;font-weight:700">Texte 1 : Dans Paris</span>
+<span style="font-size:12pt;color:#1d5c3a;font-weight:700">niveau A1.1</span>
+</div>
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:3mm;font-size:19pt;line-height:1.3">
+<span>Sur cette table, il y a un tapis.</span>
+<span>Sur ce tapis, il y a une cage.</span>
+</div>
+<div style="flex:0 0 auto;border:1px solid #e2e0da;border-radius:2mm;padding:2mm;box-sizing:border-box">
+<img src="clean/dessin-dans-paris-chambre.webp" alt="La chambre au trait : une table ronde, un tapis, une cage, un nid, un œuf." style="width:100%;height:auto;display:block" />
+</div>
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:space-between;gap:3mm">
+<span style="font-size:13pt;font-weight:700">Je lis, je fais.</span>
+<sc-for list="{{ c11 }}" as="c" hint-placeholder-count="4">
+<div style="display:flex;align-items:center;gap:3mm">
+<span style="flex:0 0 auto;font-size:14pt;font-weight:700;width:6mm">{{ c.n }}.</span>
+<span style="{{ c.p1 }}"></span>
+<span style="{{ c.p2 }}"></span>
+<span style="{{ c.p3 }}"></span>
+<span style="flex:1;min-width:0;font-size:15pt;line-height:1.3;padding-left:2mm">
+<sc-for list="{{ c.syl }}" as="s" hint-placeholder-count="8"><span style="{{ s.st }}">{{ s.t }}</span></sc-for>
+</span>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section class="page" data-screen-label="A1.1 — je relie" style="padding:20mm;box-sizing:border-box;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;color:#14213d;display:flex;flex-direction:column;gap:8mm">
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:4mm;border-bottom:2px solid #1d5c3a;padding-bottom:3mm">
+<span style="flex:0 0 auto;width:14mm;height:14mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;display:flex;align-items:center;justify-content:center;gap:1mm"><span style="width:2.5mm;height:2.5mm;border-radius:50%;background:#14213d;display:block"></span><span style="width:5mm;border-top:2px solid #14213d;display:block"></span><span style="width:2.5mm;height:2.5mm;border-radius:50%;background:#14213d;display:block"></span></span>
+<span style="font-size:16pt;font-weight:700;flex:1">
+<sc-for list="{{ relieSyl }}" as="s" hint-placeholder-count="6"><span style="{{ s.st }}">{{ s.t }}</span></sc-for>
+</span>
+<span style="font-size:12pt;color:#1d5c3a;font-weight:700">A1.1</span>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:auto 1fr auto;align-items:center;row-gap:10mm">
+<sc-for list="{{ relie }}" as="r" hint-placeholder-count="4">
+<span style="display:flex;align-items:center;gap:5mm;font-size:19pt">{{ r.mot }}<span style="font-size:19pt">&bull;</span></span>
+<span style="display:block"></span>
+<span style="display:flex;align-items:center;gap:5mm;font-size:19pt">&bull;<span style="{{ r.img }}"></span></span>
+</sc-for>
+</div>
+</section>
+
+<section class="page" data-screen-label="A1 — je lis, je fais" style="padding:20mm;box-sizing:border-box;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;color:#14213d;display:flex;flex-direction:column;gap:5mm">
+<div style="flex:0 0 auto;display:flex;align-items:flex-end;justify-content:space-between;gap:6mm;font-size:12pt">
+<div style="display:flex;align-items:flex-end;gap:2mm"><span>Prénom :</span><span style="width:50mm;border-bottom:1.2px solid #b9bdc9;height:5mm"></span></div>
+<div style="display:flex;align-items:flex-end;gap:2mm"><span>Date :</span><span style="width:34mm;border-bottom:1.2px solid #b9bdc9;height:5mm"></span></div>
+</div>
+<div style="flex:0 0 auto;display:flex;align-items:baseline;gap:5mm;border-bottom:2px solid #1d5c3a;padding-bottom:3mm">
+<span style="font-size:16pt;font-weight:700">Texte 2 : Dans Paris</span>
+<span style="font-size:12pt;color:#1d5c3a;font-weight:700">niveau A1</span>
+</div>
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:1.5mm;font-size:14pt;line-height:1.4">
+<span>Dans cette chambre, il y a une table.</span>
+<span>Sur cette table, il y a un tapis.</span>
+<span>Sur ce tapis, il y a une cage.</span>
+<span>Dans cette cage, il y a un nid.</span>
+</div>
+<div style="flex:0 0 auto;border:1px solid #e2e0da;border-radius:2mm;padding:2mm;box-sizing:border-box">
+<img src="clean/dessin-dans-paris-chambre.webp" alt="La chambre au trait : une table ronde, un tapis, une cage, un nid, un œuf." style="width:100%;height:auto;display:block" />
+</div>
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;gap:3mm">
+<span style="font-size:13pt;font-weight:700">Je lis, je fais.</span>
+<sc-for list="{{ c1 }}" as="c" hint-placeholder-count="5">
+<div style="font-size:12.5pt;line-height:1.35"><b>{{ c.n }}.</b> {{ c.t }}</div>
+</sc-for>
+</div>
+</section>
+
+<section class="page" data-screen-label="A1 — je complète" style="padding:20mm;box-sizing:border-box;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;color:#14213d;display:flex;flex-direction:column;gap:7mm">
+<div style="flex:0 0 auto;display:flex;align-items:baseline;gap:5mm;border-bottom:2px solid #1d5c3a;padding-bottom:3mm">
+<span style="font-size:16pt;font-weight:700;flex:1">Je complète avec le bon mot.</span>
+<span style="font-size:12pt;color:#1d5c3a;font-weight:700">A1</span>
+</div>
+<div style="flex:0 0 auto;display:flex;justify-content:center;gap:8mm;border:2px dashed #1d5c3a;border-radius:3mm;padding:3mm 5mm;font-size:15pt;font-weight:700">
+<span>tapis</span><span>nid</span><span>table</span><span>cage</span>
+</div>
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:space-around">
+<sc-for list="{{ comp1 }}" as="c" hint-placeholder-count="4">
+<div style="display:flex;align-items:flex-end;gap:3mm;font-size:15pt">
+<span style="flex:0 0 auto;padding-bottom:1mm">{{ c.pre }}</span>
+<span style="flex:0 0 auto;width:40mm;border-bottom:1.5px solid #14213d;height:10mm"></span>
+<span style="flex:0 0 auto;padding-bottom:1mm">.</span>
+<span style="flex:1"></span>
+<span style="{{ c.img }}"></span>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section class="page" data-screen-label="A2 — je lis, je fais" style="padding:20mm;box-sizing:border-box;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;color:#14213d;display:flex;flex-direction:column;gap:4mm">
+<div style="flex:0 0 auto;display:flex;align-items:flex-end;justify-content:space-between;gap:6mm;font-size:12pt">
+<div style="display:flex;align-items:flex-end;gap:2mm"><span>Prénom :</span><span style="width:50mm;border-bottom:1.2px solid #b9bdc9;height:5mm"></span></div>
+<div style="display:flex;align-items:flex-end;gap:2mm"><span>Date :</span><span style="width:34mm;border-bottom:1.2px solid #b9bdc9;height:5mm"></span></div>
+</div>
+<div style="flex:0 0 auto;display:flex;align-items:baseline;gap:5mm;border-bottom:2px solid #1d5c3a;padding-bottom:3mm">
+<span style="font-size:16pt;font-weight:700">Texte 3 : Dans Paris</span>
+<span style="font-size:12pt;color:#1d5c3a;font-weight:700">niveau A2</span>
+</div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:6mm;row-gap:0.5mm;font-size:12pt;line-height:1.4">
+<sc-for list="{{ texteA2 }}" as="v" hint-placeholder-count="10"><span>{{ v }}</span></sc-for>
+</div>
+<div style="flex:0 0 auto;border:1px solid #e2e0da;border-radius:2mm;padding:2mm;box-sizing:border-box">
+<img src="clean/dessin-dans-paris-chambre.webp" alt="La chambre au trait : une table ronde, un tapis, une cage, un nid, un œuf." style="width:100%;height:auto;display:block" />
+</div>
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;gap:2.5mm">
+<span style="font-size:13pt;font-weight:700">Je lis, je fais.</span>
+<sc-for list="{{ c2 }}" as="c" hint-placeholder-count="5">
+<div style="font-size:12.5pt;line-height:1.35"><b>{{ c.n }}.</b> {{ c.t }}</div>
+</sc-for>
+</div>
+</section>
+
+<section class="page" data-screen-label="A2 — je réponds" style="padding:20mm;box-sizing:border-box;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;color:#14213d;display:flex;flex-direction:column;gap:8mm">
+<div style="flex:0 0 auto;display:flex;align-items:baseline;gap:5mm;border-bottom:2px solid #1d5c3a;padding-bottom:3mm">
+<span style="font-size:16pt;font-weight:700;flex:1">Je réponds aux questions. J’écris une phrase.</span>
+<span style="font-size:12pt;color:#1d5c3a;font-weight:700">A2</span>
+</div>
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;gap:10mm;font-size:13.5pt;line-height:1.4">
+<sc-for list="{{ questions }}" as="q" hint-placeholder-count="3">
+<div style="display:flex;flex-direction:column;gap:3mm">
+<span><b>{{ q.n }}.</b> {{ q.t }}</span>
+<span style="height:11mm;border-bottom:1.3px solid #8a93a1;display:block"></span>
+<span style="height:11mm;border-bottom:1.3px solid #8a93a1;display:block"></span>
+</div>
+</sc-for>
+</div>
+</section>
+
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* JE LIS, JE FAIS — DANS PARIS (24/09, son oui). Même principe que sa fiche « Paris » :
+   A1.1 · A1 · A2, deux pages par niveau, le dessin au trait AU CENTRE de la page 1.
+   ⚠ Pas de découpage, pas de collage (sa demande) : colorier, dessiner, entourer, relier.
+   Dessin : clean/dessin-dans-paris-chambre.webp (SON image Gemini). Il n'y a PAS d'oiseau :
+   c'est l'élève qui le dessine.
+   ⚠ A1.1 — LES PICTOS PORTENT LA CONSIGNE (sa demande) : le geste (crayon / entoure),
+   la pastille de la couleur, la petite image de l'objet. Consignes colorées par syllabe,
+   bleu #1d4e89 / rouge #c0392b en alternance comme sa fiche Paris.
+   ⚠ Syllabes découpées À LA MAIN, jamais par expression régulière (règle du projet). */
+const BOX = 'flex:0 0 auto;width:13mm;height:13mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;';
+const img = f => BOX + "background:#fff url('" + f + "') center/contain no-repeat;display:block";
+const pastille = c => BOX + 'background:#fff;display:flex;align-items:center;justify-content:center;background-image:radial-gradient(circle,' + c + ' 0 4.2mm,transparent 4.4mm)';
+const vide = 'display:none';
+const obj = k => img('clean/poeme-paris-' + k + '.webp');
+const B = '#1d4e89', R = '#c0392b';
+const syl = (parts) => { let i = 0; return parts.map(p => {
+  if (p === ' ' || p === '.' || p === '’') return { t: p, st: 'color:#14213d' };
+  return { t: p, st: 'color:' + ((i++ % 2) ? R : B) }; }); };
+const MARRON = '#7a4a26', ROUGE = '#c0392b', JAUNE = '#f2c200';
+const C11 = [
+  { p1: img('clean/mot-crayon.webp'), p2: pastille(MARRON), p3: obj('table'),
+    syl: syl(['Je',' ','co','lo','rie',' ','la',' ','ta','ble',' ','en',' ','mar','ron','.']) },
+  { p1: img('clean/mot-crayon.webp'), p2: pastille(ROUGE), p3: obj('tapis'),
+    syl: syl(['Je',' ','co','lo','rie',' ','le',' ','ta','pis',' ','en',' ','rou','ge','.']) },
+  { p1: img('clean/mot-crayon.webp'), p2: pastille(JAUNE), p3: obj('cage'),
+    syl: syl(['Je',' ','co','lo','rie',' ','la',' ','ca','ge',' ','en',' ','jau','ne','.']) },
+  { p1: img('clean/pictos/entoure.webp'), p2: obj('oeuf'), p3: vide,
+    syl: syl(['J’en','tou','re',' ','l’œuf','.']) }];
+class Component extends DCLogic {
+  renderVals() {
+    const im = k => 'width:30mm;height:30mm;display:block;' + "background:#fff url('clean/poeme-paris-" + k + ".webp') center/contain no-repeat";
+    const pt = k => 'flex:0 0 auto;width:20mm;height:20mm;display:block;' + "background:#fff url('clean/poeme-paris-" + k + ".webp') center/contain no-repeat";
+    return {
+      imprimer: () => window.print(),
+      c11: C11.map((c, i) => ({ n: i + 1, ...c })),
+      relieSyl: syl(['Je',' ','re','lie',' ','le',' ','mot',' ','et',' ','l’i','ma','ge','.']),
+      /* Les images ne sont PAS en face de leur mot : c'est le principe de l'exercice. */
+      relie: [['la table','cage'], ['le tapis','nid'], ['la cage','table'], ['le nid','tapis']]
+        .map(([mot, k]) => ({ mot, img: im(k) })),
+      c1: ['Je colorie la table en marron.', 'Je colorie le tapis en rouge.', 'Je colorie la cage en jaune.',
+           'J’entoure le nid.', 'Je dessine un oiseau dans la cage.'].map((t, i) => ({ n: i + 1, t })),
+      comp1: [['Dans cette chambre, il y a une', 'table'], ['Sur cette table, il y a un', 'tapis'],
+              ['Sur ce tapis, il y a une', 'cage'], ['Dans cette cage, il y a un', 'nid']]
+        .map(([pre, k]) => ({ pre, img: pt(k) })),
+      texteA2: ['Dans Paris, il y a une rue.', 'Dans cette rue, il y a une maison.', 'Dans cette maison, il y a un escalier.',
+        'Dans cet escalier, il y a une chambre.', 'Dans cette chambre, il y a une table.', 'Sur cette table, il y a un tapis.',
+        'Sur ce tapis, il y a une cage.', 'Dans cette cage, il y a un nid.', 'Dans ce nid, il y a un œuf.', 'Dans cet œuf, il y a un oiseau.'],
+      /* A2 complexifié (24/09, son oui) : l'objet se trouve par sa PLACE (dans, à côté de,
+         derrière, sur) — les prépositions de la fiche « Où est l'oiseau ? ». Une seule
+         préposition par consigne de dessin (« pas convaincu » par « à côté de l'œuf, dans
+         le nid »). */
+      c2: ['Je colorie la table en marron et le tapis en rouge.', 'Je colorie la cage en jaune, mais pas le nid.',
+           'J’entoure l’objet qui est dans le nid.', 'Je colorie en vert les plantes qui sont à côté de la fenêtre.',
+           'Je fais une croix sur l’objet qui est derrière la table.', 'Je dessine un oiseau sur la cage.'].map((t, i) => ({ n: i + 1, t })),
+      questions: ['Qu’est-ce qu’il y a sur la table ?', 'Où est le nid ?', 'Qu’est-ce qu’il y a dans l’œuf ?']
+        .map((t, i) => ({ n: i + 1, t }))
+    };
+  }
+}
+</script>
+</body>
+</html>

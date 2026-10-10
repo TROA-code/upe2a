@@ -1,0 +1,8 @@
+<!doctype html><html><body style="margin:0;background:#fff"><div id="o" style="display:flex;flex-wrap:wrap"></div>
+<script type="module">
+import * as pdfjs from 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.4.168/build/pdf.min.mjs';
+pdfjs.GlobalWorkerOptions.workerSrc='https://cdn.jsdelivr.net/npm/pdfjs-dist@4.4.168/build/pdf.worker.min.mjs';
+const q=new URLSearchParams(location.search);const doc=await pdfjs.getDocument('../'+q.get('f')).promise;
+for(const n of q.get('p').split(',').map(Number)){const pg=await doc.getPage(n);const vp=pg.getViewport({scale:+(q.get('s')||1)});const c=document.createElement('canvas');c.width=vp.width;c.height=vp.height;await pg.render({canvasContext:c.getContext('2d'),viewport:vp}).promise;const im=new Image();im.src=c.toDataURL('image/jpeg',0.9);document.getElementById('o').appendChild(im);}
+document.title='ok';
+</script></body></html>

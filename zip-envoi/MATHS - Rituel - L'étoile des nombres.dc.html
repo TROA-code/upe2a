@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+html,body{margin:0;height:100%;background:#12233b}
+a{color:#c1440e}
+a:hover{color:#8a2f08}
+@media screen{.zone-impression{display:none}}
+@media print{@page{size:A4 landscape;margin:0}html,body{height:auto;background:#fff}.zone-ecran{display:none !important}.barre-retour{display:none !important}}
+</style>
+</helmet>
+<div class="zone-impression">
+<sc-for list="{{ pages }}" as="p" hint-placeholder-count="0">
+<div style="width:297mm;height:210mm;padding:20mm;box-sizing:border-box;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;break-after:page;font-family:Helvetica, Arial, sans-serif;color:#14213d">
+<sc-for list="{{ p.moities }}" as="m" hint-placeholder-count="2">
+<div style="display:flex;flex-direction:column;align-items:center;gap:3mm;padding:0 4mm;border-right:{{ m.trait }}">
+<div style="width:100%;display:flex;align-items:baseline;justify-content:space-between;gap:4mm;font-size:12pt"><b style="font-size:14pt">{{ m.titre }}</b><span>{{ m.prenom }}</span></div>
+<div style="position:relative;width:118mm;height:142.7mm">
+<svg viewBox="-3 -3 129 156" style="position:absolute;inset:0;width:100%;height:100%">
+<path d="M61.5 80 L19 80 M61.5 80 L104 80 M61.5 80 L30 32 M61.5 80 L93 32 M61.5 80 L30 128 M61.5 80 L93 128" stroke="#14213d" stroke-width="0.5" fill="none"></path>
+<sc-for list="{{ m.cercles }}" as="c" hint-placeholder-count="6">
+<circle cx="{{ c.x }}" cy="{{ c.y }}" r="19" fill="#fff" stroke="#14213d" stroke-width="0.6"></circle>
+<sc-for list="{{ c.rects }}" as="r" hint-placeholder-count="0"><rect x="{{ r.x }}" y="{{ r.y }}" width="{{ r.w }}" height="{{ r.h }}" fill="#fff" stroke="#14213d" stroke-width="0.35"></rect></sc-for>
+</sc-for>
+<circle cx="61.5" cy="80" r="17" fill="#fff" stroke="#14213d" stroke-width="1.4"></circle>
+</svg>
+<sc-for list="{{ m.cercles }}" as="c" hint-placeholder-count="6">
+<span style="position:absolute;left:{{ c.px }};top:{{ c.pty }};transform:translate(-50%,-50%);font-size:12pt;font-weight:700;white-space:nowrap">{{ c.titre }}</span>
+<span style="position:absolute;left:{{ c.px }};top:{{ c.pvy }};transform:translate(-50%,-50%);width:31mm;display:flex;flex-direction:column;align-items:center;gap:0.5mm;text-align:center"><sc-for list="{{ c.lignes }}" as="l" hint-placeholder-count="0"><span style="font-size:{{ l.fs }};font-weight:700;line-height:1.15">{{ l.t }}</span></sc-for></span>
+</sc-for>
+<span style="position:absolute;left:50%;top:53.21%;transform:translate(-50%,-50%);font-size:{{ m.fsCentre }};font-weight:700;line-height:1">{{ m.nombre }}</span>
+</div>
+</div>
+</sc-for>
+</div>
+</sc-for>
+</div>
+<div class="zone-ecran" style="position:fixed;inset:0;display:flex;flex-direction:column;background:#fdfbef;font-family:Helvetica, Arial, sans-serif;color:#14213d">
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:#12233b;color:#fff;padding:10px 16px">
+<span style="display:flex;flex-direction:column;gap:2px;margin-right:auto">
+<span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#9db6ce;font-weight:700">Rituel maths</span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:19px">L’étoile des nombres</span>
+</span>
+<sc-if value="{{ vueEtoile }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ versChoix }}" style="border:1px solid rgba(255,255,255,0.4);border-radius:9px;background:none;color:#fff;padding:9px 14px;font-size:15px;font-weight:700;cursor:pointer;white-space:nowrap">Niveau</button>
+<button onClick="{{ toutMontrer }}" style="border:none;border-radius:9px;background:#fff;color:#12233b;padding:9px 14px;font-size:15px;font-weight:700;cursor:pointer">Tout montrer</button>
+<button onClick="{{ imprimer }}" style="border:1px solid rgba(255,255,255,0.4);border-radius:9px;background:none;color:#fff;padding:9px 14px;font-size:15px;font-weight:700;cursor:pointer;white-space:nowrap">Imprimer</button>
+<button onClick="{{ auHasard }}" style="border:none;border-radius:9px;background:#f08a24;color:#fff;padding:9px 16px;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 3px 0 #c96f14">Un autre</button>
+</sc-if>
+<button class="barre-retour" onClick="{{ retourAccueil }}" style="border:none;border-radius:9px;background:#1d4e89;color:#fff;padding:9px 14px;font-size:15px;font-weight:700;cursor:pointer">← L’accueil</button>
+</div>
+
+<sc-if value="{{ vueChoix }}" hint-placeholder-val="{{ true }}">
+<div style="flex:1;min-height:0;overflow:auto;padding:28px 20px;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:22px;text-align:center">Choisissez le niveau</span>
+<div style="width:100%;max-width:820px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px">
+<sc-for list="{{ niveaux }}" as="v" hint-placeholder-count="3">
+<button onClick="{{ v.choisir }}" style="border:4px solid {{ v.bord }};border-radius:16px;background:{{ v.fond }};color:{{ v.encre }};padding:22px 14px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.12)">
+<span style="font-size:15px;letter-spacing:0.1em;text-transform:uppercase;font-weight:700">jusqu’à</span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:52px;line-height:1">{{ v.max }}</span>
+<span style="font-size:14px">{{ v.detail }}</span>
+</button>
+</sc-for>
+</div>
+<button onClick="{{ auHasard }}" style="border:none;border-radius:14px;background:#f08a24;color:#fff;padding:18px 44px;font-family:Archivo Black, Archivo, sans-serif;font-size:24px;cursor:pointer;box-shadow:0 5px 0 #c96f14">Au hasard</button>
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center">
+<span style="font-size:17px;font-weight:700">ou je choisis le nombre :</span>
+<input type="number" min="1" max="999" value="{{ saisie }}" onChange="{{ setSaisie }}" placeholder="ex. 47" style="width:120px;border:2px solid #cdd7e3;border-radius:10px;padding:10px 12px;font-size:22px;font-weight:700;text-align:center;color:#14213d;background:#fff" />
+<button onClick="{{ montrerSaisie }}" style="border:none;border-radius:10px;background:#1d4e89;color:#fff;padding:12px 20px;font-size:17px;font-weight:700;cursor:pointer">Montrer</button>
+</div>
+<sc-if value="{{ aErreur }}" hint-placeholder-val="{{ false }}"><span style="font-size:15px;color:#c1440e;font-weight:700">Tapez un nombre entre 1 et 999.</span></sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ vueEtoile }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:12px;box-sizing:border-box">
+<div style="position:relative;width:min(100%, calc((100vh - 110px) * 1.92));aspect-ratio:1920/1000;container-type:inline-size">
+<svg viewBox="0 0 1920 1000" style="position:absolute;inset:0;width:100%;height:100%">
+<path d="M960 510 L385 510 M960 510 L1535 510 M960 510 L615 240 M960 510 L1305 240 M960 510 L615 780 M960 510 L1305 780" stroke="#cdd7e3" stroke-width="8" fill="none"></path>
+</svg>
+<sc-for list="{{ branches }}" as="b" hint-placeholder-count="6">
+<button onClick="{{ b.toucher }}" style="position:absolute;left:{{ b.x }};top:{{ b.y }};width:16.7cqw;height:16.7cqw;transform:translate(-50%,-50%);border-radius:50%;border:0.36cqw solid #1d4e89;background:{{ b.fond }};box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.4cqw;padding:1.3cqw;cursor:pointer;overflow:hidden;font-family:Helvetica, Arial, sans-serif;color:#14213d">
+<span style="font-size:1.1cqw;letter-spacing:0.05em;text-transform:uppercase;font-weight:700;color:#1d4e89;text-align:center;line-height:1.15;max-width:12cqw">{{ b.titre }}</span>
+<sc-if value="{{ b.cache }}" hint-placeholder-val="{{ true }}"><span style="font-size:5cqw;font-weight:700;color:#9fb4cb;line-height:1">?</span></sc-if>
+<sc-if value="{{ b.texte }}" hint-placeholder-val="{{ false }}"><span style="font-size:{{ b.taille }};font-weight:700;line-height:1.2;text-align:center;word-break:break-word">{{ b.valeur }}</span></sc-if>
+<sc-if value="{{ b.lignes }}" hint-placeholder-val="{{ false }}"><span style="display:flex;flex-direction:column;align-items:center;gap:0.2cqw"><sc-for list="{{ b.liste }}" as="l" hint-placeholder-count="2"><span style="font-size:1.7cqw;font-weight:700;line-height:1.25">{{ l }}</span></sc-for></span></sc-if>
+<sc-if value="{{ b.dessin }}" hint-placeholder-val="{{ false }}">
+<span style="display:flex;align-items:flex-end;justify-content:center;gap:0.4cqw;flex-wrap:wrap;max-width:13cqw">
+<sc-for list="{{ centaines }}" as="c" hint-placeholder-count="0"><span style="width:{{ tailleCent }};height:{{ tailleCent }};box-sizing:border-box;border:0.12cqw solid #2a9d6e;background-color:#d6efe3;background-image:linear-gradient(#2a9d6e 0.06cqw,transparent 0.06cqw),linear-gradient(90deg,#2a9d6e 0.06cqw,transparent 0.06cqw);background-size:10% 10%;display:block"></span></sc-for>
+<sc-for list="{{ dizaines }}" as="d" hint-placeholder-count="2"><span style="width:0.5cqw;height:{{ hautDiz }};box-sizing:border-box;border:0.1cqw solid #1d4e89;background-color:#cfe0f2;background-image:linear-gradient(#1d4e89 0.06cqw,transparent 0.06cqw);background-size:100% 10%;display:block"></span></sc-for>
+<span style="display:grid;grid-template-columns:repeat(3,0.55cqw);gap:0.1cqw;align-content:end"><sc-for list="{{ unites }}" as="u" hint-placeholder-count="3"><span style="width:0.55cqw;height:0.55cqw;box-sizing:border-box;border:0.1cqw solid #c1440e;background:#fbe3d2;display:block"></span></sc-for></span>
+</span>
+</sc-if>
+</button>
+</sc-for>
+<button onClick="{{ suivante }}" style="position:absolute;left:50%;top:51%;width:17.7cqw;height:17.7cqw;transform:translate(-50%,-50%);border-radius:50%;border:0.62cqw solid #c1440e;background:#fbe3d2;box-sizing:border-box;display:flex;align-items:center;justify-content:center;cursor:pointer;font-family:Helvetica, Arial, sans-serif"><span style="font-size:{{ tailleCentre }};font-weight:700;color:#14213d;line-height:1">{{ nombre }}</span></button>
+</div>
+</div>
+<div style="flex:0 0 auto;text-align:center;font-size:14px;color:#5a6270;padding:0 0 10px">Touchez un cercle pour le montrer, ou le nombre du milieu pour montrer le suivant.</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const NIVEAUX = [
+  { max: 20, min: 2, detail: 'la dizaine et les unités' },
+  { max: 100, min: 10, detail: 'les dizaines, soixante-dix, quatre-vingts' },
+  { max: 1000, min: 100, detail: 'les centaines' }
+];
+const CLE = 'rituel-etoile-niveau';
+const U = ['zéro','un','deux','trois','quatre','cinq','six','sept','huit','neuf','dix','onze','douze','treize','quatorze','quinze','seize'];
+const DIZ = {2:'vingt',3:'trente',4:'quarante',5:'cinquante',6:'soixante'};
+function lettres(n) {
+  if (n < 17) return U[n];
+  if (n < 20) return 'dix-' + U[n - 10];
+  if (n < 100) {
+    const t = Math.floor(n / 10), r = n % 10;
+    if (t === 7) return r === 1 ? 'soixante et onze' : 'soixante-' + lettres(10 + r);
+    if (t === 9) return 'quatre-vingt-' + lettres(10 + r);
+    if (t === 8) return r === 0 ? 'quatre-vingts' : 'quatre-vingt-' + U[r];
+    if (r === 0) return DIZ[t];
+    if (r === 1) return DIZ[t] + ' et un';
+    return DIZ[t] + '-' + U[r];
+  }
+  const c = Math.floor(n / 100), r = n % 100;
+  const tete = c === 1 ? 'cent' : U[c] + (r ? ' cent' : ' cents');
+  return tete + (r ? ' ' + lettres(r) : '');
+}
+const pl = (k, mot) => k + ' ' + mot + (k > 1 ? 's' : '');
+/* Rituel maths (03/10, sa demande) : plus de grille ni de nombres « faits » — on choisit un
+   niveau (jusqu'à 20 / 100 / 1 000) et on tire au hasard, ou on tape un nombre. Les branches
+   sont calculées et dévoilées une par une. Pas de score. */
+class Component extends DCLogic {
+  state = { niveau: this.lireNiveau(), n: null, vus: {}, saisie: '', erreur: false };
+  lireNiveau() { try { const v = +localStorage.getItem(CLE); return NIVEAUX.some(x => x.max === v) ? v : 20; } catch (e) { return 20; } }
+  montrer(n) { this.setState({ n, vus: {}, erreur: false }); }
+  renderVals() {
+    const s = this.state, n = s.n;
+    const niv = NIVEAUX.find(x => x.max === s.niveau) || NIVEAUX[0];
+    const ordre = ['avant','apres','decomp','lettres','du','dessin'];
+    const vals = {
+      vueChoix: n == null, vueEtoile: n != null, saisie: s.saisie, aErreur: !!s.erreur,
+      niveaux: NIVEAUX.map(x => { const on = x.max === s.niveau; return { max: x.max === 1000 ? '1 000' : String(x.max), detail: x.detail,
+        fond: on ? '#1d4e89' : '#fff', encre: on ? '#fff' : '#14213d', bord: on ? '#1d4e89' : '#cdd7e3',
+        choisir: () => { try { localStorage.setItem(CLE, String(x.max)); } catch (e) {} this.setState({ niveau: x.max }); } }; }),
+      auHasard: () => {
+        const hi = niv.max === 1000 ? 999 : niv.max;
+        let k; do { k = niv.min + Math.floor(Math.random() * (hi - niv.min + 1)); } while (k === n && hi > niv.min);
+        this.montrer(k);
+      },
+      setSaisie: e => this.setState({ saisie: e.target.value, erreur: false }),
+      montrerSaisie: () => { const k = Math.floor(+s.saisie); if (k >= 1 && k <= 999) this.montrer(k); else this.setState({ erreur: true }); },
+      versChoix: () => this.setState({ n: null }),
+      toutMontrer: () => this.setState({ vus: { avant: 1, apres: 1, decomp: 1, lettres: 1, du: 1, dessin: 1 } }),
+      suivante: () => { const k = ordre.find(o => !s.vus[o]); if (k) this.setState({ vus: Object.assign({}, s.vus, { [k]: 1 }) }); },
+      /* history.back() ne suffisait pas (03/10) : si la page ne change pas en 400 ms, on
+         repart par le lien, en gardant location.search. */
+      retourAccueil: () => {
+        const ici = location.href;
+        try { history.back(); } catch (e) {}
+        setTimeout(() => { if (location.href === ici) location.href = 'APPLI - Espace enseignant.dc.html' + location.search; }, 400);
+      },
+      branches: [], centaines: [], dizaines: [], unites: [], nombre: '', tailleCentre: '9cqw', tailleCent: '4.5cqw', hautDiz: '4.5cqw',
+      pages: [], imprimer: () => {}
+    };
+    if (n == null) return vals;
+    const c = Math.floor(n / 100), d = Math.floor((n % 100) / 10), u = n % 10;
+    const parts = [c * 100, d * 10, u].filter(x => x > 0);
+    const decomp = parts.length > 1 ? parts.join(' + ') : parts[0] + ' + 0';
+    const du = (c ? [pl(c, 'centaine')] : []).concat(d || c ? [pl(d, 'dizaine')] : [], [pl(u, 'unité')]);
+    const lt = lettres(n);
+    const def = [
+      ['avant', 'juste avant', 385, 510, String(n - 1), '4.2cqw'],
+      ['apres', 'juste après', 1535, 510, String(n + 1), '4.2cqw'],
+      ['decomp', 'décomposition', 615, 240, decomp, decomp.length > 12 ? '2cqw' : decomp.length > 8 ? '2.5cqw' : '3.2cqw'],
+      ['lettres', 'en lettres', 1305, 240, lt, lt.length > 24 ? '1.35cqw' : lt.length > 15 ? '1.7cqw' : '2.2cqw'],
+      ['du', c ? 'c · d · u' : 'dizaines et unités', 615, 780, '', ''],
+      ['dessin', 'dessin', 1305, 780, '', '']
+    ];
+    vals.branches = def.map(([id, titre, x, y, valeur, taille]) => {
+      const vu = !!s.vus[id];
+      return { titre, x: (x / 19.2) + '%', y: (y / 10) + '%', valeur, taille,
+        cache: !vu, texte: vu && id !== 'du' && id !== 'dessin', lignes: vu && id === 'du', dessin: vu && id === 'dessin',
+        liste: du, fond: vu ? '#eaf1f9' : '#fff',
+        toucher: () => this.setState({ vus: Object.assign({}, s.vus, { [id]: vu ? 0 : 1 }) }) };
+    });
+    vals.centaines = Array.from({ length: c }, (_, i) => i);
+    vals.dizaines = Array.from({ length: d }, (_, i) => i);
+    vals.unites = Array.from({ length: u }, (_, i) => i);
+    const t = c <= 1 ? 4.5 : c <= 2 ? 3.6 : c <= 4 ? 2.6 : 1.9;
+    vals.tailleCent = t + 'cqw';
+    vals.hautDiz = (c ? Math.max(t, 2.6) : 4.5) + 'cqw';
+    vals.nombre = String(n);
+    vals.tailleCentre = n >= 100 ? '7cqw' : '9cqw';
+    /* IMPRESSION (03/10, sa demande) : A4 paysage, 2 cm de marge, deux étoiles A5 à
+       couper (page élèves, cercles vides) + une page corrigé. Pas de gris (encre). */
+    const coupe = (txt, max) => { const mots = txt.split(/(?<=[- ])/); const out = []; let cur = '';
+      mots.forEach(m => { if ((cur + m).length > max && cur) { out.push(cur.trim()); cur = m; } else cur += m; }); if (cur) out.push(cur.trim()); return out; };
+    const pos = { avant: [19, 80], apres: [104, 80], decomp: [30, 32], lettres: [93, 32], du: [30, 128], dessin: [93, 128] };
+    const titres = { avant: 'avant', apres: 'après', decomp: 'décomposition', lettres: 'en lettres', du: c ? 'c, d, u' : 'dizaines, unités', dessin: 'dessin' };
+    const valeurs = { avant: [String(n - 1)], apres: [String(n + 1)], decomp: coupe(decomp, 13), lettres: coupe(lt, 13), du: du };
+    /* Dessin du corrigé : centaines sur une rangée à part, dizaines + unités dessous,
+       chaque rangée centrée et limitée à ~28 mm pour rester dans le cercle (r = 19). */
+    const dessinRects = (cx, cy) => { const r = [];
+      if (c) { const g = 0.8, tc = Math.min(6, (26 - (c - 1) * g) / c); let x = cx - (c * tc + (c - 1) * g) / 2;
+        for (let i = 0; i < c; i++) { r.push({ x: x, y: cy - 2.5, w: tc, h: tc }); x += tc + g; } }
+      const top = c ? cy + 4.5 : cy - 1, h = c ? 8 : 12, base = top + h;
+      const lu = u ? Math.min(u, 3) * 2.1 : 0, larg = d * 2.3 + (u ? 0.8 + lu : 0);
+      let x = cx - larg / 2;
+      for (let i = 0; i < d; i++) { r.push({ x: x, y: top, w: 1.6, h: h }); x += 2.3; }
+      if (u) x += 0.8;
+      for (let i = 0; i < u; i++) { r.push({ x: x + (i % 3) * 2.1, y: base - 1.7 - Math.floor(i / 3) * 2.1, w: 1.7, h: 1.7 }); }
+      return r; };
+    const etoile = rempli => ({
+      titre: rempli ? 'Corrigé · ' + n : 'L’étoile des nombres', prenom: rempli ? '' : 'Prénom : ………………',
+      nombre: String(n), fsCentre: n >= 100 ? '34pt' : '42pt',
+      cercles: Object.keys(pos).map(id => { const [x, y] = pos[id]; const L = rempli && id !== 'dessin' ? valeurs[id] : [];
+        const fs = L.length > 2 ? '12pt' : '15pt';
+        return { x, y, titre: titres[id],
+          /* viewBox -3 -3 129 156 : 3 unités de marge pour que les traits ne soient pas rognés ;
+             titre à y-6, là où la corde du cercle (≈ 36 mm) dépasse la largeur du mot. */
+          px: ((x + 3) / 1.29) + '%', pty: ((y - 6 + 3) / 1.56) + '%', pvy: ((y + 5 + 3) / 1.56) + '%',
+          lignes: L.map(t => ({ fs, t })),
+          rects: rempli && id === 'dessin' ? dessinRects(x, y) : [] }; })
+    });
+    vals.pages = [
+      { moities: [Object.assign(etoile(false), { trait: '0.3mm dashed #14213d' }), Object.assign(etoile(false), { trait: 'none' })] },
+      { moities: [Object.assign(etoile(true), { trait: 'none' })] }
+    ];
+    vals.imprimer = () => window.print();
+    return vals;
+  }
+}
+</script>
+</body>
+</html>

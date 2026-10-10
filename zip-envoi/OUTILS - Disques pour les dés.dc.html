@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;600;700&display=swap" />
+<style>
+body{margin:0;background:#e8edf3}
+.om-src section.page{width:210mm;height:297mm;box-sizing:border-box;display:flex;flex-direction:column;overflow:hidden;background:#fff;margin:0 auto}
+@page{size:A4;margin:0}
+@media print{html,body{background:#fff;margin:0;padding:0;height:auto;min-height:0}.om-bar{display:none !important}
+.om-page{display:block !important;min-height:0 !important;padding:0 !important;gap:0 !important}
+.om-src{display:block !important;gap:0 !important;margin:0 !important;padding:0 !important}
+.om-src section.page{break-inside:avoid;break-after:page;margin:0 !important;height:296mm;width:210mm}
+.om-src section.page:last-child{break-after:auto}}
+</style>
+<link rel="stylesheet" href="polices.css" />
+<script src="disques.js"></script>
+</helmet>
+<div class="om-page" style="min-height:100vh;display:flex;flex-direction:column;align-items:center;gap:8px;padding:0 0 40px;font-family:Archivo, Arial, sans-serif">
+<div class="om-bar" style="align-self:stretch;display:flex;align-items:center;gap:18px;background:#14213d;color:#fff;padding:14px 22px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:17px;letter-spacing:0.02em">Disques pour les gros dés</span>
+<span style="flex:1;font-size:12px;color:#a9b6ca">une page = un dé = 6 disques &middot; disques de 81 mm</span>
+<div style="flex:0 0 auto;display:flex;gap:8px">
+<sc-for list="{{ tailles }}" as="t" hint-placeholder-count="4">
+<button onClick="{{ t.choisir }}" style="border:1.5px solid {{ t.bord }};background:{{ t.fond }};color:{{ t.encre }};border-radius:8px;padding:7px 11px;font-size:12px;font-weight:700;cursor:pointer">{{ t.nom }}</button>
+</sc-for>
+</div>
+<button onClick="{{ imprimer }}" style="flex:0 0 auto;border:none;background:#2a9d6e;color:#fff;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer">Imprimer</button>
+</div>
+<div class="om-src" style="display:flex;flex-direction:column;gap:14px">{{ planches }}</div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { d: 81 };
+  series() {
+    return [
+      { titre: 'Le dé du temps', sousTitre: 'quand ?', couleur: '#c4479e', forme: 'mot',
+        question: "Qu'est-ce que tu fais / as fait / vas faire ?", items: [
+        { haut: 'HIER', bas: 'hier' },
+        { haut: "AUJOURD'HUI", bas: "aujourd'hui" },
+        { haut: 'CE SOIR', bas: 'ce soir' },
+        { haut: 'DEMAIN', bas: 'demain' },
+        { haut: 'DIMANCHE PROCHAIN', bas: 'dimanche prochain' },
+        { haut: 'CET ÉTÉ', bas: 'cet été' }
+      ] },
+      { titre: 'Le dé des consonnes', sousTitre: 'on entend', couleur: '#1d4e89', forme: 'son',
+        items: ['d', 'm', 'f', 'b', 'l', 'j'].map(c => ({ haut: c, encre: '#1d4e89' })) },
+      { titre: 'Le dé des voyelles', sousTitre: 'on entend', couleur: '#1d4e89', forme: 'son',
+        items: ['a', 'e', 'i', 'o', 'u', 'ou'].map(c => ({ haut: c, encre: '#1d4e89' })) }
+    ];
+  }
+  renderVals() {
+    const D = window.DISQUES;
+    const d = this.state.d;
+    const html = D ? this.series().map((s, i) => D.planche(Object.assign({}, s, {
+      diametre: d, no: i + 1, sur: this.series().length,
+      note: 'Colle une pastille de scratch au centre du disque.'
+    }))).join('') : '';
+    return {
+      planches: React.createElement('div', { dangerouslySetInnerHTML: { __html: html } }),
+      imprimer: () => window.print(),
+      tailles: [70, 76, 81, 86].map(k => {
+        const on = d === k;
+        return { nom: k + ' mm', fond: on ? '#e59a2b' : 'transparent', encre: on ? '#14213d' : '#dbe3ee',
+          bord: on ? '#e59a2b' : '#41536e', choisir: () => this.setState({ d: k }) };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>

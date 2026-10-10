@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#1d4e89}
+a:hover{color:#123560}
+</style>
+<script src="./doc-page.js"></script>
+</helmet>
+<doc-page size="a4">
+<section class="page" data-screen-label="Étiquettes — l'ordre du poème" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm">
+<span style="flex:0 0 auto;width:12mm;height:12mm;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/mot-ciseaux.webp') center/contain no-repeat"></span>
+<span style="font-size:16pt;font-weight:700">Je découpe. Je colle dans mon livret, fiche 1.</span>
+<span style="flex:1"></span>
+<span style="font-size:12pt;color:#4a5262">Dans Paris — 4 élèves</span>
+</div>
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:space-between">
+<sc-for list="{{ jeux }}" as="j" hint-placeholder-count="4">
+<div style="display:grid;grid-template-columns:repeat(6,26mm);justify-content:center;border-top:1.5px dashed #14213d;border-left:1.5px dashed #14213d;width:max-content;margin:0 auto">
+<sc-for list="{{ j.e }}" as="m" hint-placeholder-count="11">
+<div style="width:26mm;height:26mm;box-sizing:border-box;border-right:1.5px dashed #14213d;border-bottom:1.5px dashed #14213d;{{ m.fond }}"></div>
+</sc-for>
+</div>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;font-size:12pt;color:#4a5262;text-align:center">Étiquettes de 26 mm pour les cases de 30 mm du livret.</div>
+</section>
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* Étiquettes de l'ordre du poème (24/09) — feuille À PART du livret « Dans Paris » (A4
+   recto-verso agrafé : découper une page du livret trouerait la frise au dos).
+   Quatre jeux par feuille, chacun MÉLANGÉ autrement, jamais dans l'ordre du poème.
+   26 mm ici, cases de 30 mm dans le livret. */
+const ph = m => "background:#fff url('clean/poeme-paris-" + m + ".webp') center/contain no-repeat";
+const ORDRES = [
+  ['nid','maison','oiseau','table','paris','cage','escalier','oeuf','rue','tapis','chambre'],
+  ['cage','rue','oeuf','chambre','nid','paris','tapis','maison','oiseau','escalier','table'],
+  ['tapis','escalier','paris','oiseau','maison','table','rue','nid','chambre','oeuf','cage'],
+  ['oeuf','chambre','cage','rue','table','oiseau','nid','escalier','paris','maison','tapis']];
+class Component extends DCLogic {
+  renderVals() {
+    return { jeux: ORDRES.map(o => ({ e: o.map(k => ({ fond: ph(k) })) })) };
+  }
+}
+</script>
+</body>
+</html>

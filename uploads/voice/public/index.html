@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voice Educ-AI — Synthèse Vocale (Mode API Direct)</title>
+  <meta name="description" content="Interface web simple et éphémère pour générer et télécharger des voix naturelles sans sauvegarde sur le serveur Educ-AI.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="background-glow glow-1"></div>
+  <div class="background-glow glow-2"></div>
+
+  <main class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-badge">
+        <span class="status-dot"></span>
+        <span>Mode API Direct &bull; Non sauvegardé sur le serveur</span>
+      </div>
+      <h1 class="header-title">Studio Voix <span>Educ-AI</span></h1>
+      <p class="header-subtitle">Synthèse vocale à la volée. Téléchargez votre audio directement : aucune donnée n'est conservée sur la plateforme.</p>
+    </header>
+
+    <!-- Main Studio Card -->
+    <div class="studio-card">
+      <form id="tts-form" onsubmit="return false;">
+        <!-- Step 1: Voice Selection -->
+        <section class="form-section">
+          <div class="section-label-row">
+            <label for="voice-select" class="section-label">
+              <span class="step-num">1</span>
+              <span>Choisir la voix</span>
+            </label>
+            <button type="button" id="refresh-voices-btn" class="text-btn" title="Rafraîchir les voix">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
+              <span>Actualiser</span>
+            </button>
+          </div>
+
+          <div class="voice-picker-container">
+            <select id="voice-select" class="custom-select" required>
+              <option value="" disabled selected>Chargement des voix disponibles...</option>
+            </select>
+          </div>
+
+          <!-- Quick Voice Cards -->
+          <div id="voice-chips" class="voice-chips-grid"></div>
+        </section>
+
+        <!-- Step 2: Text Input -->
+        <section class="form-section">
+          <div class="section-label-row">
+            <label for="text-input" class="section-label">
+              <span class="step-num">2</span>
+              <span>Texte à fabriquer</span>
+            </label>
+            <div class="char-count-wrapper">
+              <span id="char-count">0</span> / 5000 caractères
+            </div>
+          </div>
+
+          <div class="textarea-wrapper">
+            <textarea 
+              id="text-input" 
+              class="custom-textarea" 
+              rows="4" 
+              maxlength="5000"
+              placeholder="Tapez ou collez ici le texte à faire prononcer par la voix..."
+              required></textarea>
+            <div class="textarea-actions">
+              <button type="button" id="clear-text-btn" class="mini-btn" title="Effacer le texte">Effacer</button>
+            </div>
+          </div>
+
+          <!-- Suggestion pills -->
+          <div class="quick-prompts-row">
+            <span class="prompts-tag">Exemples :</span>
+            <button type="button" class="prompt-chip" data-prompt="Bonjour et bienvenue dans ce module de formation interactif conçu pour vous accompagner pas à pas.">👋 Accueil</button>
+            <button type="button" class="prompt-chip" data-prompt="Aujourd'hui, nous allons découvrir ensemble le fonctionnement des réseaux neuronaux et de l'intelligence artificielle.">🎓 Pédagogie</button>
+            <button type="button" class="prompt-chip" data-prompt="Le succès n'est pas final, l'échec n'est pas fatal : c'est le courage de continuer qui compte.">💡 Citation</button>
+          </div>
+        </section>
+
+        <!-- Optional Parameters (Collapsible) -->
+        <details class="advanced-details">
+          <summary class="advanced-summary">
+            <span>⚙️ Options avancées (instruction de ton, langue)</span>
+            <svg class="chevron-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <div class="advanced-content">
+            <div class="advanced-grid">
+              <div class="field-group">
+                <label for="instruct-input">Instruction de style / émotion</label>
+                <input type="text" id="instruct-input" class="custom-input" placeholder="ex: Parler d'un ton calme et posé">
+              </div>
+              <div class="field-group">
+                <label for="lang-select">Langue</label>
+                <select id="lang-select" class="custom-select">
+                  <option value="fr" selected>Français (fr)</option>
+                  <option value="en">Anglais (en)</option>
+                  <option value="es">Espagnol (es)</option>
+                  <option value="de">Allemand (de)</option>
+                  <option value="it">Italien (it)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Ephemeral Notice Banner -->
+        <div class="ephemeral-alert">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+          <span><strong>Mode éphémère actif :</strong> Le fichier sonore est généré en flux direct. Si vous ne le téléchargez pas, il ne sera conservé nulle part et sera perdu.</span>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="action-row">
+          <button type="button" id="generate-btn" class="primary-btn">
+            <svg class="btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+            <span class="btn-label">Fabriquer le son</span>
+          </button>
+        </div>
+      </form>
+
+      <!-- Progress / Loading Banner -->
+      <div id="loading-card" class="loading-state hidden">
+        <div class="spinner"></div>
+        <div class="loading-info">
+          <div class="loading-title">Synthèse vocale en cours...</div>
+          <div class="loading-sub" id="loading-timer">Génération du flux audio éphémère (0s)</div>
+        </div>
+      </div>
+
+      <!-- Result Card -->
+      <div id="result-card" class="result-card hidden">
+        <div class="result-header">
+          <div class="result-meta">
+            <span class="result-tag" id="res-voice-tag">Voix : Boris</span>
+            <span class="result-duration" id="res-duration">0.0s</span>
+          </div>
+          <a id="direct-download-btn" class="download-btn" href="#" download="voix-educai.wav">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            <span>Télécharger le WAV</span>
+          </a>
+        </div>
+
+        <!-- Custom Audio Player Bar -->
+        <div class="player-box">
+          <audio id="audio-element" preload="auto" class="native-audio"></audio>
+          
+          <div class="player-controls">
+            <button id="play-pause-btn" class="play-btn" aria-label="Lire ou mettre en pause">
+              <svg id="play-icon" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              <svg id="pause-icon" class="hidden" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+            </button>
+
+            <div class="waveform-anim" id="waveform">
+              <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+            </div>
+
+            <div class="time-display">
+              <span id="current-time">0:00</span> / <span id="total-time">0:00</span>
+            </div>
+
+            <div class="speed-control">
+              <button type="button" id="speed-btn" class="speed-badge" title="Changer la vitesse">1.0x</button>
+            </div>
+          </div>
+
+          <div class="progress-container" id="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+          </div>
+        </div>
+
+        <div class="result-text-preview" id="res-text-preview"></div>
+      </div>
+    </div>
+
+    <!-- Ephemeral Session History (Memory Only) -->
+    <section id="history-section" class="history-section hidden">
+      <div class="history-header">
+        <h2 class="history-title">Sons de la session courante (en mémoire temporaire)</h2>
+        <span class="history-warn">Effacés si vous quittez la page</span>
+      </div>
+      <div id="history-list" class="history-grid"></div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <p>Connecté à l'API <a href="https://voice.educ-ai.fr" target="_blank" rel="noopener">voice.educ-ai.fr</a> via <code>/generate/stream</code> &bull; Aucune sauvegarde sur disque</p>
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
