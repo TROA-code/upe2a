@@ -39,26 +39,26 @@ input,textarea,button{font-family:inherit}
 <sc-if value="{{ estA2 }}" hint-placeholder-val="{{ false }}">
 <div style="background:#fff;border-radius:12px;padding:18px 26px;box-shadow:0 6px 16px rgba(0,0,0,0.25);font-family:Archivo Black, Archivo, sans-serif;font-size:20px;color:#6b7386">A2 · bientôt</div>
 </sc-if>
-<div style="width:100%;max-width:980px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,320px));justify-content:center;gap:22px">
+<div style="width:100%;max-width:1180px;display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,135px));justify-content:center;gap:10px">
 <sc-for list="{{ sujetsMenu }}" as="sj" hint-placeholder-count="0">
-<div style="display:flex;flex-direction:column;gap:10px">
-<button onClick="{{ sj.ouvrir }}" style="border:none;cursor:pointer;background-image:url('clean/liege.webp');background-size:100% 100%;box-shadow:0 12px 28px rgba(0,0,0,0.3);padding:18px 16px 18px;display:flex;flex-direction:column;align-items:center;gap:12px" style-hover="transform:translateY(-3px)">
-<span style="position:relative;background:#fdf3c4;padding:8px 22px;transform:rotate(-1deg);box-shadow:0 4px 10px rgba(0,0,0,0.3);display:block">
-<span style="position:absolute;top:-8px;left:calc(50% - 7px);width:14px;height:14px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:block"></span>
-<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:26px;letter-spacing:0.03em;color:#8a4b1e;display:block">{{ sj.titre }}</span>
+<div style="display:flex;flex-direction:column;gap:7px">
+<button onClick="{{ sj.ouvrir }}" style="border:none;cursor:pointer;background-image:url('clean/liege.webp');background-size:100% 100%;box-shadow:0 5px 12px rgba(0,0,0,0.28);padding:8px 7px;display:flex;flex-direction:column;align-items:center;gap:5px" style-hover="transform:translateY(-3px)">
+<span style="position:relative;background:#fdf3c4;padding:3px 9px;transform:rotate(-1deg);box-shadow:0 3px 8px rgba(0,0,0,0.3);display:block">
+<span style="position:absolute;top:-6px;left:calc(50% - 5px);width:10px;height:10px;border-radius:50%;background:#d63c2f;box-shadow:0 2px 4px rgba(0,0,0,0.4);display:block"></span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:13px;letter-spacing:0.03em;color:#8a4b1e;display:block">{{ sj.titre }}</span>
 </span>
-<span style="width:100%;aspect-ratio:1000/545;background-image:{{ sj.img }};background-size:cover;background-position:center;border:4px solid #fff;border-radius:8px;box-shadow:0 3px 10px rgba(0,0,0,0.25);box-sizing:border-box;display:block"></span>
-<span style="width:100%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px">
+<span style="width:100%;aspect-ratio:1000/545;background-image:{{ sj.img }};background-size:cover;background-position:center;border:3px solid #fff;border-radius:6px;box-shadow:0 2px 6px rgba(0,0,0,0.25);box-sizing:border-box;display:block"></span>
+<span style="width:100%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px">
 <sc-for list="{{ sj.pictos }}" as="p" hint-placeholder-count="4">
-<span style="background:#fff;border:3px solid {{ p.couleur }};border-radius:8px;aspect-ratio:1;background-image:{{ p.img }};background-size:contain;background-repeat:no-repeat;background-position:center;background-origin:content-box;padding:4px;display:block"></span>
+<span style="background:#fff;border:2px solid {{ p.couleur }};border-radius:6px;aspect-ratio:1;background-image:{{ p.img }};background-size:contain;background-repeat:no-repeat;background-position:center;background-origin:content-box;padding:2px;display:block"></span>
 </sc-for>
 </span>
 </button>
 <!-- 05/10 : documents papier, CÔTÉ PROF seulement (?prof=1 posé par l'espace enseignant déverrouillé). Jamais target="_blank". -->
 <sc-if value="{{ sj.aDocs }}" hint-placeholder-val="{{ false }}">
-<div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center">
+<div style="display:flex;gap:5px;justify-content:center">
 <sc-for list="{{ sj.docs }}" as="d" hint-placeholder-count="0">
-<a href="{{ d.href }}" onClick="{{ d.clic }}" style="min-height:44px;display:flex;align-items:center;gap:6px;background:#fff;border-radius:10px;padding:0 14px;font-weight:700;font-size:15px;color:#12233b;text-decoration:none;box-shadow:0 2px 6px rgba(0,0,0,0.2)">📄 {{ d.nom }}</a>
+<a href="{{ d.href }}" onClick="{{ d.clic }}" title="{{ d.nom }}" aria-label="{{ d.nom }}" style="width:34px;height:34px;display:block;background-color:#fff;background-image:{{ d.icone }};background-size:22px 22px;background-repeat:no-repeat;background-position:center;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,0.25);text-decoration:none" style-hover="background-color:#fdf3c4"></a>
 </sc-for>
 </div>
 </sc-if>
@@ -76,6 +76,8 @@ input,textarea,button{font-family:inherit}
 </div>
 </div>
 </sc-if>
+<!-- 10/10 (sa demande) : la source des sujets officiels. Adresse http → nouvel onglet (règle du CLAUDE.md). -->
+<a href="https://www.france-education-international.fr/diplome/delf-junior-scolaire" target="_blank" rel="noopener" style="margin-top:6px;background:rgba(253,243,196,0.95);padding:6px 14px;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,0.25);font-size:13px;color:#12233b;text-decoration:none;text-align:center">Sujets officiels : <strong>France Éducation International</strong> · france-education-international.fr</a>
 </div>
 </sc-if>
 
@@ -390,7 +392,20 @@ input,textarea,button{font-family:inherit}
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 /* 05/10 (son oui) : MODE SEUL — fichier isolé « DELF.html » (A1, sujet 1, aucune sortie). ?seul=1 ou window.DELF_SEUL. */
+/* 10/10 : documents prof en ICÔNES (nom en bulle au survol, title). Trait bleu nuit. */
+const ICONE_DOC = nom => {
+  const c = '#12233b', n = (nom || '').toLowerCase();
+  const p = n.includes('grille') ? '<rect x="4" y="4" width="16" height="16" rx="1.5"/><path d="M4 9.5h16M4 15h16M10 4v16"/>'
+    : n.includes('examinat') ? '<circle cx="12" cy="8" r="3.5"/><path d="M5 21c0-4 3-6.5 7-6.5s7 2.5 7 6.5"/>'
+    : n.includes('corrig') ? '<path d="M6 3h9l4 4v14H6z"/><path d="M9 14l3 3 5-6"/>'
+    : n.includes('transcri') ? '<path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/>'
+    : n.includes('surveil') ? '<circle cx="12" cy="8" r="3.5"/><path d="M5 21c0-4 3-6.5 7-6.5s7 2.5 7 6.5"/>'
+    : '<path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9 11h7M9 14.5h7M9 18h5"/>';
+  return 'url("data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="' + c + '" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + p + '</svg>') + '")';
+};
 const SEUL = window.DELF_SEUL === true || /[?&]seul=1/.test(location.search);
+/* 10/10 : ouvert DANS l'espace enseignant (cadre à droite, ?cadre=1) → pas de « ← L'accueil » : le menu de l'appli reste à gauche. */
+const CADRE = /[?&]cadre=1/.test(location.search);
 class Component extends DCLogic {
   state = { niveau: 'A1', sujet: SEUL ? 0 : null, ecran: SEUL ? 'sujet' : 'menu', exoIdx: 0, rep: {}, fini: {}, cartesVues: {}, carteTiree: -1, chronoFin: 0, chronoMin: 0, audioPct: 0, audioJoue: false };
 
@@ -557,7 +572,182 @@ class Component extends DCLogic {
             { q: 'Le formulaire', champs: ['Nom :', 'Prénom :', 'Date de naissance :', 'Nationalité :', 'Courriel :', 'Adresse :', 'Code postal :', 'Pays :', 'Téléphone :', 'Profession :', 'Date :'].map(a => ({ avant: a, l: '260px' })) } ] },
           { titre: 'Exercice 2', consigne: 'Écrivez la lettre (40 mots minimum).', questions: [
             { q: 'Vous écrivez une lettre à un(e) ami(e) français(e) pour l’inviter dans votre pays pendant les vacances. Vous lui parlez des activités que vous pouvez faire ensemble.', redac: true } ] } ] } ] }],
-      A2: []
+      /* 10/10 (sa demande) : les vignettes A2, comme l'A1. Sujets démo officiels FEI : SUJET 1 = SJ_02, SUJET 2 = SJ_03.
+         ⏳ Les questions ne sont PAS encore dans l'appli (images A/B/C à extraire, corrigés et transcriptions à recevoir) :
+         d'ici là, chaque exercice donne sa consigne + son audio, et l'élève répond sur le sujet papier. */
+      A2: [1, 2].map(n => ({ titre: 'SUJET ' + n, img: 'clean/delf-a2-s' + n + '.webp',
+        docs: [['Sujet papier', 'docs/delf/a2-sujet' + n + '-candidat.pdf'], ['Grille de l’écrit', 'docs/delf/a2-grille-ecrit.pdf'], ['Grille de l’oral', 'docs/delf/a2-grille-oral.pdf'], ['Oral · examinateur', 'docs/delf/a2-oral-examinateur.pdf']],
+        epreuves: [
+          { cle: 'oral', nom: "J'écoute", couleur: '#6d5bd0', img: 'pictos/delf-ecoute', duree: '25 min', min: 25, exos: n === 1 ? (() => {
+            /* 10/10 : SUJET 1 = SJ_02, questions copiées du sujet candidat, images extraites du PDF.
+               ⏳ Pas de « bonne » tant que le document correcteur n'est pas arrivé → pas de correction affichée. */
+            const im = (k, q) => ({ q, images: ['a', 'b', 'c'].map(l => 'clean/delf-a2-s1-' + k + '-' + l + '.webp'), choix: ['', '', ''] });
+            const A = 'audio/delf-a2-s1-oral-';
+            return [
+              { titre: 'Exercice 1', audio: A + '1.mp3', consigne: 'Vous écoutez des annonces publiques. Lisez la question. Écoutez le document puis répondez.', questions: [
+                im('oral1-1', 'Document 1 · Que devez-vous faire ?'),
+                qcm('Document 2 · Qu’est-ce qui est interdit ?', ['Entrer avec un sac.', 'Prendre des photos.', 'Poser des questions.']),
+                im('oral1-3', 'Document 3 · Que devez-vous faire pour avoir des informations ?'),
+                qcm('Document 4 · Cet été, la piscine propose de nouveaux horaires…', ['le matin.', 'le midi.', 'le soir.']),
+                qcm('Document 5 · Où devez-vous attendre ?', ['Dans l’entrée.', 'Dans la cafétéria.', 'Dans la salle de danse.']),
+                im('oral1-6', 'Document 6 · Quel service de transport est gratuit aujourd’hui ?') ] },
+              { titre: 'Exercice 2', audio: A + '2.mp3', consigne: 'Vous écoutez la radio. Lisez les questions. Écoutez le document puis répondez.', questions: [
+                im('oral2-1', 'Document 1 · 1. Quel événement est organisé ?'),
+                qcm('Document 1 · 2. Sur Internet, vous pouvez…', ['acheter plus de places.', 'gagner une place gratuite.', 'payer les places moins cher.']),
+                qcm('Document 2 · 3. L’événement se passe chaque jour…', ['le matin.', 'l’après-midi.', 'le soir.']),
+                qcm('Document 2 · 4. Pour gagner un cadeau, il faut… des textes.', ['lire', 'écrire', 'reconnaître']),
+                im('oral2-5', 'Document 3 · 5. Quel est le thème de l’émission ?'),
+                qcm('Document 3 · 6. Vous pouvez…', ['gagner un livre.', 'rencontrer l’invité.', 'poser des questions.']) ] },
+              { titre: 'Exercice 3', audio: A + '3.mp3', consigne: 'Vous écoutez ce message sur un répondeur téléphonique. Lisez les questions. Écoutez le document puis répondez.', questions: [
+                qcm('1. Qu’est-ce qui a changé ?', ['Le lieu.', 'L’horaire.', 'L’activité.']),
+                qcm('2. Que fait la professeure à 16 heures ?', ['Elle va donner un cours.', 'Elle a un rendez-vous personnel.', 'Elle rencontre d’autres professeurs.']),
+                im('oral3-3', '3. Qu’est-ce que vous devez apporter ?'),
+                qcm('4. Malika vous propose…', ['de travailler ensemble.', 'd’aller au cours avec elle.', 'de prendre des costumes chez elle.']),
+                qcm('5. Où est-ce que Malika vous donne rendez-vous ?', ['Devant le théâtre.', 'Devant sa maison.', 'Devant l’arrêt de bus.']),
+                im('oral3-6', '6. Que devez-vous faire pour répondre à Malika ?') ] },
+              { titre: 'Exercice 4', audio: A + '4.mp3', consigne: 'Vous écoutez 4 dialogues. Associez chaque dialogue à la situation correspondante. Attention : il y a 6 situations mais seulement 4 dialogues.', questions:
+                [1, 2, 3, 4].map(d => qcm('Dialogue ' + d, ['A. Proposer de l’aide', 'B. Refuser une invitation', 'C. Inviter quelqu’un', 'D. S’excuser', 'E. Se renseigner sur un horaire', 'F. Choisir un cadeau'])) } ];
+          })() : (() => {
+            /* 10/10 : SUJET 2 = SJ_03, questions copiées du sujet candidat, images extraites du PDF.
+               ⏳ Pas de « bonne » tant que le document correcteur n'est pas arrivé. Questions ouvertes = case à écrire. */
+            const im = (k, q) => ({ q, images: ['a', 'b', 'c'].map(l => 'clean/delf-a2-s2-' + k + '-' + l + '.webp'), choix: ['', '', ''] });
+            const ec = (q, l) => ({ q, champs: [{ l: l || '280px' }] });
+            const A = 'audio/delf-a2-s2-oral-';
+            return [
+              { titre: 'Exercice 1', audio: A + '1.mp3', consigne: 'Vous entendez cette annonce. Lisez les questions. Écoutez le document puis répondez.', questions: [
+                im('oral1-1', '1. Où entendez-vous ce message ?'),
+                ec('2. Ça va commencer dans combien de temps ?'),
+                im('oral1-3', '3. Il est interdit d’entrer avec…'),
+                ec('4. Que devez-vous faire avant d’entrer ?', '340px'),
+                qcm('5. Ce message est diffusé…', ['le matin.', 'l’après-midi.', 'le soir.']) ] },
+              { titre: 'Exercice 2', audio: A + '2.mp3', consigne: 'Vous entendez ce message sur votre répondeur. Lisez les questions. Écoutez le document puis répondez.', questions: [
+                im('oral2-1', '1. Où avez-vous rendez-vous avec Julie ?'),
+                qcm('2. À quelle heure est le rendez-vous ?', ['18 heures.', '19 heures.', '20 heures.']),
+                qcm('3. Qui va venir vous chercher en voiture ?', ['La mère de Julie.', 'Le père de Julie.', 'Le frère de Julie.']),
+                ec('4. À quelle heure vient-on vous chercher ?'),
+                ec('5. Où allez-vous dormir ?'),
+                ec('6. Que devez-vous apporter ? (2 réponses possibles, une seule attendue)', '340px') ] },
+              { titre: 'Exercice 3', audio: A + '3.mp3', consigne: 'Vous entendez cette information à la radio. Lisez les questions. Écoutez le document puis répondez.', questions: [
+                im('oral3-1', '1. Quel temps fait-il ?'),
+                qcm('2. La Fête de la musique, c’est…', ['le 20 juin.', 'le 21 juin.', 'le 25 juin.']),
+                qcm('3. Depuis quand existe cette fête ?', ['1923.', '1943.', '1983.']),
+                ec('4. Où s’installent les musiciens pour jouer de la musique ?', '340px'),
+                ec('5. Combien de pays célèbrent la Fête de la musique ?'),
+                ec('6. Combien de villes célèbrent la Fête de la musique ?') ] },
+              { titre: 'Exercice 4', audio: A + '4.mp3', consigne: 'Vous êtes dans une famille d’accueil en France. Vous entendez ces conversations. Reliez chaque dialogue à la situation correspondante.', questions:
+                [1, 2, 3, 4].map(d => qcm('Dialogue n° ' + d, ['A. Donner un ordre.', 'B. Demander un service.', 'C. Proposer une sortie.', 'D. Décrire quelque chose.'])) } ];
+          })() },
+          { cle: 'lire', nom: 'Je lis', couleur: '#2a9d6e', img: 'pictos/delf-lis', duree: '30 min', min: 30, exos: (() => {
+            /* 10/10 : textes et questions copiés du sujet candidat. ⏳ Pas de « bonne » avant le corrigé officiel. */
+            const im = (k, q) => ({ q, images: ['a', 'b', 'c'].map(l => 'clean/delf-a2-s' + n + '-' + k + '-' + l + '.webp'), choix: ['', '', ''] });
+            const ec = (q, l) => ({ q, champs: [{ l: l || '300px' }] });
+            const vf = q => qcm(q, ['Vrai', 'Faux']);
+            if (n === 1) return [
+              { titre: 'Exercice 1', consigne: 'Vous voulez proposer des films à vos amis français. Vous lisez ces descriptions. À quelle personne allez-vous proposer chaque film ? Attention, il y a 8 personnes mais seulement 6 documents.', annonces: [
+                { n: 1, t: 'Mars 2199 — Une équipe de chercheurs va sur la planète Mars pour construire une ville, mais, sur cette planète, il y a un danger.' },
+                { n: 2, t: 'Jules et Monica — Monica, avocate à Bruxelles, tombe amoureuse de Jules, le serveur de son café. Vont-ils pouvoir vivre leur amour ?' },
+                { n: 3, t: 'Le grand voyage — C’est les vacances. Trois amis de 15 ans décident de partir en voyage en train pour découvrir la France.' },
+                { n: 4, t: 'SOS éléphants — Des vétérinaires expliquent comment les activités humaines mettent en danger les grands éléphants d’Afrique.' },
+                { n: 5, t: 'La folie des étudiants — Dernière année d’études pour les étudiants en droit de l’université de Montréal. Un film drôle pour tous les âges.' },
+                { n: 6, t: 'Les deux soldats — 1915, guerre entre la France et l’Allemagne. Un soldat français et un soldat allemand se rencontrent et deviennent amis.' } ], questions:
+                [1, 2, 3, 4, 5, 6].map(d => qcm('Document ' + d, ['A. Samir a envie de rire.', 'B. Patricia s’intéresse à l’histoire.', 'C. Gabriela adore la science-fiction.', 'D. Yasmine aime les films policiers.', 'E. Thomas voudrait regarder un dessin animé.', 'F. Kevin préfère les histoires avec des adolescents.', 'G. Christophe aime les histoires romantiques.', 'H. Sabrina veut voir un film sur les animaux.'])) },
+              { titre: 'Exercice 2', consigne: 'Votre ami français Nicolas veut vous inviter en vacances. Vous recevez cette lettre. Répondez aux questions.', doc: [
+                ligne('Salut,'),
+                ligne('C’est bientôt les vacances ! Tu veux venir dans la maison de vacances de mes parents, à la montagne ? Elle est tout équipée : il y a des draps, des couvertures et des serviettes ; pense à prendre des habits chauds et des gants. Il y a beaucoup d’activités gratuites et si tu veux nous ferons des promenades à pied en forêt.'),
+                ligne('J’arriverai le 4 décembre, mais la première semaine ma tante va venir avec mon oncle. Tu peux venir le 11 décembre et rester jusqu’au 18 ? Mon frère part le 18. Il peut te ramener chez toi en voiture après.'),
+                ligne('Je ne peux pas voir mes messages électroniques dans la maison. Contacte-moi par SMS parce qu’il est difficile de recevoir des appels.'),
+                ligne('Nicolas', 700) ], questions: [
+                im('lire2-1', '1. Où est la maison des parents de Nicolas ?'),
+                qcm('2. Nicolas vous demande d’apporter…', ['un jeu de société.', 'une serviette de bain.', 'des vêtements d’hiver.']),
+                im('lire2-3', '3. Quelle activité est-ce que Nicolas vous propose ?'),
+                qcm('4. Nicolas vous propose d’arriver le…', ['4 décembre.', '11 décembre.', '18 décembre.']),
+                qcm('5. Qui peut vous conduire chez vous après les vacances ?', ['L’oncle de Nicolas.', 'Le frère de Nicolas.', 'La mère de Nicolas.']),
+                qcm('6. Nicolas vous demande de lui répondre par…', ['texto.', 'courriel.', 'téléphone.']) ] },
+              { titre: 'Exercice 3', consigne: 'Vous êtes dans une famille d’accueil. Vous lisez ces documents. Répondez aux questions.', doc: [
+                ligne('Document 1 · Écrans et vie de famille : règles de la maison', 700),
+                ligne('1 - Jeux vidéo : Vous pouvez jouer aux jeux vidéo sur la télévision du salon, mais seulement l’après-midi et le samedi matin. Ne laissez pas les jeux sur la table basse. Rangez-les dans l’armoire sous la télévision.'),
+                ligne('2 - Téléphones portables : Il est interdit de les utiliser pendant les repas.'),
+                ligne('3 - Wi-Fi : La nuit, le Wi-Fi est débranché dans la maison. Alors, dormez bien !'),
+                ligne('Document 2 · Chocolats aux céréales — une recette facile, sans four !', 700),
+                ligne('Ingrédients : 250 g de beurre, 250 g de sucre, 250 g de chocolat noir, 250 g de céréales.'),
+                ligne('Préparation : Faire fondre le beurre et le chocolat dans une casserole. Ajouter le sucre et mélanger. Ajouter les céréales et bien mélanger. Former des petites boules, et mettre au frigo pendant 2 heures. Quand les boules sont dures, c’est prêt !'),
+                ligne('Document 3', 700),
+                ligne('Bonjour, je suis au travail. La poste m’a appelé, le livreur va passer entre 10 h et midi. Reste à la maison et ouvre-lui s’il te plaît, j’attends un colis urgent et Sophie est à l’école. Signe le document quand tu prends le colis. Il faut aussi mon numéro de carte d’identité, il est sur un papier avec le numéro de la commande, près du téléphone. Merci ! Marc') ], questions: [
+                qcm('Document 1 · 1. Il faut mettre les jeux vidéo…', ['sur la table.', 'dans l’armoire.', 'à côté de la télévision.']),
+                qcm('Document 1 · 2. Quand les parents arrêtent-ils le Wi-Fi dans la maison ?', ['Toutes les nuits.', 'Le samedi matin.', 'Pendant les repas.']),
+                qcm('Document 2 · 3. Que devez-vous mélanger en premier avec le beurre ?', ['Le sucre.', 'Le chocolat.', 'Les céréales.']),
+                qcm('Document 2 · 4. Avant de manger ce dessert, vous devez le laisser reposer…', ['sur la table.', 'dans le four.', 'au réfrigérateur.']),
+                qcm('Document 3 · 5. Marc vous demande…', ['de recevoir un paquet important.', 'de répondre à un appel téléphonique.', 'de prendre un rendez-vous pour Sophie.']),
+                qcm('Document 3 · 6. Vous avez besoin du numéro…', ['de téléphone de Marc.', 'de la carte d’identité de Marc.', 'du bon de commande de Marc.']) ] },
+              { titre: 'Exercice 4', consigne: 'Vous lisez cet article dans un journal en ligne. Répondez aux questions.', doc: [
+                ligne('Sorties en forêt à l’école de Fabas', 700, 'center'),
+                ligne('À Fabas, une petite ville dans le sud de la France, les élèves de l’école vont jouer en forêt et observer la nature. Les enfants y découvrent les animaux et les plantes.'),
+                ligne('La forêt n’est pas loin de l’école, à seulement 5 minutes de marche. Quand la météo est bonne, ils y vont 2 à 3 fois par semaine pour la pause de midi, à la place de la cantine.'),
+                ligne('Au début du projet, certains parents n’étaient pas d’accord. Mais ils voient maintenant que leurs enfants sont plus concentrés pendant les cours et ils ont plein d’histoires à raconter. Et les professeurs voient aussi que les élèves améliorent leurs notes à l’école.'),
+                ligne('L’école de Fabas est un exemple que de plus en plus d’écoles veulent suivre.') ], questions: [
+                qcm('1. Avec les sorties en forêt, les enfants peuvent…', ['faire du sport.', 'connaître la nature.', 'travailler ensemble.']),
+                vf('2. La forêt est proche de l’école.'),
+                vf('3. Les enfants vont à la forêt tous les jours.'),
+                qcm('4. Les enfants vont dans la forêt pendant…', ['les cours.', 'le déjeuner.', 'le week-end.']),
+                qcm('5. Avec les sorties en forêt, les élèves…', ['sont plus en forme.', 'ont de meilleurs résultats.', 'jouent mieux avec les autres.']) ] } ];
+            return [
+              { titre: 'Exercice 1', consigne: 'Vous êtes au restaurant en France avec la famille de votre ami français. Vous lisez les menus suivants. Associez à chaque personne le menu qui correspond à ses goûts.', annonces: [
+                { n: 1, t: 'Salade du jardin · Poisson en sauce et pommes de terre en gratin · Tarte aux pommes · 13 euros' },
+                { n: 2, t: 'Pâté · Rôti de veau avec riz · Mousse au chocolat · 15 euros' },
+                { n: 3, t: 'Assiette de crudités (carottes, tomates, olives, concombre) · Spaghetti à la viande · Dessert du jour · 11 euros' },
+                { n: 4, t: 'Assiette de charcuterie (saucisson, jambon) · Bifteck et légumes à la vapeur · Clafoutis aux cerises · 17 euros' },
+                { n: 5, t: 'Soupe froide de légumes · Saumon aux pâtes fraîches · Flan maison · 14 euros' } ], questions: [
+                ['A. Votre ami aime beaucoup la viande et les desserts aux fruits.', 'B. La mère de votre ami adore le poisson mais n’aime pas beaucoup les pâtes.', 'C. Le frère de votre ami aime les pâtes mais n’aime pas le poisson.', 'D. Le père de votre ami n’aime pas beaucoup les légumes et adore le chocolat.', 'E. La sœur de votre ami aime le poisson et les pâtes.']
+                  .map(p => qcm(p, ['Menu 1', 'Menu 2', 'Menu 3', 'Menu 4', 'Menu 5']))][0] },
+              { titre: 'Exercice 2', consigne: 'Vous recevez ce message électronique. Répondez aux questions.', mail: { objet: 'Vacances d’été', corps: [
+                'Bonjour !',
+                'Comment ça va ? Pour moi, tout va bien. Je t’écris pour te dire que je vais partir cet été en Corse avec ma famille. La Corse est une petite île au sud de la France, dans la mer Méditerranée. Mes parents disent que l’île est très jolie : il y a de très belles plages, on va pouvoir nager. Il paraît qu’on mange bien : l’une des spécialités de l’île est le fromage de chèvre. J’adore ça. Nous partons le 2 juillet en bateau, après les examens de mon frère et nous rentrons en France le 30 juillet.',
+                'Et toi, qu’est-ce que tu vas faire ?', 'Bises', 'Gabrielle' ] }, questions: [
+                qcm('1. Où Gabrielle va-t-elle passer ses vacances d’été ?', ['Sur une île.', 'Dans un bateau.', 'Dans le nord de la France.']),
+                qcm('2. En Corse, Gabrielle va pouvoir faire…', ['du ski.', 'de la natation.', 'de la gymnastique.']),
+                ec('3. Que va pouvoir manger Gabrielle en Corse ?'),
+                ec('4. Quand Gabrielle part-elle en vacances ?'),
+                qcm('5. Le frère de Gabrielle…', ['part en vacances juste après ses examens.', 'ne part pas en vacances parce qu’il doit étudier.', 'part en vacances mais doit rentrer tôt pour ses examens.']) ] },
+              { titre: 'Exercice 3', consigne: 'Vous lisez la recette suivante. Répondez aux questions.', doc: [
+                ligne('Recette de la tarte Tatin', 700, 'center'),
+                ligne('Durée de la préparation : environ 50 minutes. Pour 8 personnes.'),
+                ligne('Ingrédients : 8 à 10 pommes, 150 g de beurre, 150 à 200 g de sucre, 200 à 250 g de pâte, un peu de cannelle.'),
+                ligne('1. Faire fondre le beurre et le sucre pour former du caramel. Verser dans un moule.'),
+                ligne('2. Couper les pommes en petits morceaux et les mettre sur le caramel (Attention : le caramel doit être déjà froid).'),
+                ligne('3. Ajouter un peu de cannelle.'),
+                ligne('4. Étaler la pâte au rouleau à pâtisserie et la mettre sur les pommes.'),
+                ligne('5. Cuire environ 30 minutes au four à 180-200 °C.'),
+                ligne('6. Quand la tarte est cuite, la sortir du four et la retourner pour la servir.'),
+                ligne('La tarte Tatin est délicieuse tiède, accompagnée d’une boule de glace à la vanille ou encore d’une cuillère de crème.') ], questions: [
+                im('lire3-1', '1. Dans cette recette, il y a…'),
+                qcm('2. Pour faire le caramel, il faut…', ['du beurre.', 'des pommes.', 'de la cannelle.']),
+                ec('3. Comment doit être le caramel au moment de mettre les pommes dans le moule ?'),
+                ec('4. Combien de temps faut-il pour cuire la tarte ?'),
+                qcm('5. On vous conseille de manger la tarte accompagnée de…', ['glace.', 'chocolat.', 'jus de fruits.']) ] },
+              { titre: 'Exercice 4', consigne: 'Vous lisez cet article sur un site internet québécois. Répondez aux questions.', nav: 'http://www.expo-sciences.com', doc: [
+                ligne('Compétition Expo-sciences, finale régionale, la Mauricie, Centre-du-Québec', 700),
+                ligne('Du 17 au 18 mars, découvrez les sciences avec de jeunes Québécois !'),
+                ligne('La compétition Expo-sciences permet à des jeunes âgés de 15 à 20 ans de présenter pendant deux jours aux visiteurs un projet scientifique qui les passionne. Elle permet aussi de montrer que les sciences et les technologies sont faciles et intéressantes.'),
+                ligne('Rendez-vous au cégep* de Drummondville pour participer à cet événement organisé chaque année par le Conseil du loisir scientifique.'),
+                ligne('Heures d’ouverture au public', 700),
+                ligne('Samedi 17 mars, de 13 h à 16 h 45. Dimanche 18 mars, de 9 h 30 à 12 h et de 13 h à 14 h 15. Cérémonie de remise de prix le dimanche à 14 h 30.'),
+                ligne('De nombreux prix', 700),
+                ligne('Huit projets vont être sélectionnés pour la finale québécoise, du 19 au 22 avril, au centre culturel de l’université de Sherbrooke. Au total, des prix d’une valeur de 20 000 $ sont à gagner !'),
+                ligne('* cégep : l’équivalent du lycée au Québec.') ], questions: [
+                qcm('1. Combien de temps va durer la compétition Expo-sciences en Mauricie ?', ['2 jours.', '3 jours.', '4 jours.']),
+                ec('2. Quel âge minimum doit-on avoir pour participer à la compétition ?'),
+                ec('3. Que doit-on présenter pour participer ?'),
+                vf('4. La compétition a lieu tous les ans.'), ec('Justification :', '420px'),
+                vf('5. La compétition est ouverte au public le samedi matin.'), ec('Justification :', '420px'),
+                qcm('6. Les huit gagnants de Mauricie vont recevoir…', ['Un prix de 20 000 $ chacun.', 'Une place pour la finale québécoise.', 'Une visite du centre culturel de Sherbrooke.']) ] } ];
+          })() },
+          { cle: 'ecrire', nom: "J'écris", couleur: '#e59a2b', img: 'pictos/delf-ecris', duree: '45 min', min: 45, exos: [
+            { titre: 'Exercice 1', consigne: 'Écrivez un texte de 60 mots minimum.', questions: [
+              { q: 'Vous êtes parti(e) en vacances pendant une semaine. Vous écrivez à un(e) ami(e) francophone pour lui raconter vos vacances. Vous lui expliquez où vous êtes allé(e), avec qui et ce que vous avez fait. Vous donnez vos impressions sur vos vacances.', redac: true } ] },
+            { titre: 'Exercice 2', consigne: 'Vous avez reçu ce courriel de votre amie Sarah.', mail: { objet: 'Invitation', corps: [
+              'Salut !', 'Comment ça va ?', 'Tu veux venir avec moi demain soir au concert du chanteur M ? Il me reste une place.', 'Réponds-moi vite !', 'Sarah' ] }, questions: [
+              { q: 'Vous répondez à Sarah. Vous ne pouvez pas accepter son invitation. Vous vous excusez et vous lui expliquez pourquoi vous ne pouvez pas venir. Vous lui proposez une autre sortie. (60 mots minimum)', redac: true } ] } ] },
+          { cle: 'parler', nom: 'Je parle', couleur: '#e8654f', img: 'pictos/delf-parle', duree: '6 à 8 min', min: 10, exos: [{ titre: '3 parties', consigne: 'Entretien dirigé, monologue suivi, exercice en interaction. 10 minutes de préparation.', questions: [] }] } ] }))
     };
   }
 
@@ -582,6 +772,7 @@ class Component extends DCLogic {
     if (e !== 'menu' && e !== 'sujet') { this.stopAudio(); clearInterval(this.tic); this.setState({ ecran: 'sujet', chronoFin: 0, audioJoue: false, audioPct: 0 }); return; }
     if (SEUL) return;
     if (e === 'sujet') { this.setState({ ecran: 'menu', sujet: null }); return; }
+    if (CADRE) return;
     const repli = 'APPLI - Espace enseignant.dc.html' + (location.search || '');
     if (history.length > 1) { history.back(); setTimeout(() => { location.href = repli; }, 400); } else location.href = repli;
   }
@@ -665,16 +856,16 @@ class Component extends DCLogic {
     const aCorriger = !!exo && (!!exo.audio || exo.questions.some(q => (q.choix && q.bonne != null) || q.jh || (q.champs || []).some(f => f.bonne)));
     return {
       aFiches: !suj && s.niveau === 'A1' && /[?&]prof=1/.test(location.search),
-      fiches: [{ nom: "Remplir une fiche d'identité", href: "FR - Remplir une fiche d'identité.dc.html" }],
+      fiches: [{ nom: "Remplir une fiche d'identité", href: "FR - Remplir une fiche d'identité.dc.html" }, { nom: 'Manuel A1 · Compréhension de l’oral', href: 'DELF A1 - Manuel.dc.html?prof=1' }],
       niveau: s.niveau, estA2: !sujets.length && !suj, estMenu: !suj, estSujet: !!suj && !ep, estEpreuve: !!ep,
       titreSujet: suj ? suj.titre : '',
-      aRetour: !SEUL || !!ep, aNiveaux: !SEUL,
+      aRetour: (!SEUL && !(CADRE && !suj)) || !!ep, aNiveaux: !SEUL,
       libelleRetour: ep ? '← ' + suj.titre : (suj ? '← Les sujets' : '← L’accueil'), retour: () => this.retour(),
       niveaux: ['A1', 'A2'].map(n => ({ nom: n, fond: s.niveau === n ? '#fdf3c4' : 'transparent', encre: s.niveau === n ? '#12233b' : '#fff',
         choisir: () => { this.stopAudio(); this.setState({ niveau: n, sujet: null, ecran: 'menu', chronoFin: 0, audioJoue: false, audioPct: 0 }); } })),
       sujetsMenu: sujets.map((sj, i) => ({ titre: sj.titre, img: "url('" + sj.img + "')", pictos: sj.epreuves.map(mini),
         aDocs: /[?&]prof=1/.test(location.search) && !!(sj.docs || []).length, /* Un PDF se TÉLÉCHARGE (ouvert dans le cadre : « bloquée par Chrome ») — même méthode que pdfClic de l'Espace enseignant. */
-        docs: (sj.docs || []).map(([nom, href]) => ({ nom: nom + ' ↓', href, clic: async e => { e.preventDefault();
+        docs: (sj.docs || []).map(([nom, href]) => ({ nom, href, icone: ICONE_DOC(nom), clic: async e => { e.preventDefault();
           try { const r = await fetch(href); if (!r.ok) throw new Error(r.status); const b = await r.blob(); const a = document.createElement('a');
             a.href = URL.createObjectURL(b); a.download = 'DELF-' + href.split('/').pop(); document.body.appendChild(a); a.click(); document.body.removeChild(a);
             setTimeout(() => URL.revokeObjectURL(a.href), 4000); } catch (err) { alert("Le PDF n'a pas pu être téléchargé."); } } })),

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><style>body{margin:0;background:#f4efe4;font-family:Archivo, sans-serif;color:#12233b}a{color:#12233b}a:hover{color:#8a4b1e}@media print{.no-print{display:none}}</style></helmet>
+<div style="min-height:100vh;display:flex;flex-direction:column">
+<div class="no-print" style="display:flex;align-items:center;gap:12px;padding:12px 18px;flex-wrap:wrap">
+<sc-if value="{{ aRetourInterne }}" hint-placeholder-val="{{ false }}"><button onClick="{{ retourInterne }}" style="min-height:44px;padding:0 18px;border:none;border-radius:10px;background:#fff;color:#12233b;font-weight:700;font-size:16px;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,0.2)">{{ libRetourInterne }}</button></sc-if>
+<div style="flex:1"></div>
+<button onClick="{{ accueil }}" style="min-height:44px;padding:0 18px;border:none;border-radius:10px;background:#12233b;color:#fff;font-weight:700;font-size:16px;cursor:pointer">← L'accueil</button>
+</div>
+<div style="max-width:900px;width:100%;margin:0 auto;padding:0 18px 40px;box-sizing:border-box;display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;flex-direction:column;gap:4px">
+<span style="font-size:14px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#6d5bd0">Manuel DELF A1 · Compréhension de l'oral</span>
+<h1 style="margin:0;font-family:Archivo Black, Archivo, sans-serif;font-size:28px;text-wrap:pretty">{{ titre }}</h1>
+</div>
+
+<sc-if value="{{ estMenu }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;flex-direction:column;gap:16px">
+<sc-for list="{{ parties }}" as="p" hint-placeholder-count="5">
+<div style="background:#fff;border-radius:14px;padding:16px 18px;box-shadow:0 2px 8px rgba(0,0,0,0.12);display:flex;flex-direction:column;gap:10px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:19px;text-transform:uppercase;color:#12233b">{{ p.nom }}</span>
+<div style="display:flex;flex-direction:column;gap:8px">
+<sc-for list="{{ p.sous }}" as="s" hint-placeholder-count="3">
+<button onClick="{{ s.ouvrir }}" style="min-height:52px;display:flex;align-items:center;gap:12px;padding:0 16px;border:2px solid {{ s.bord }};border-radius:10px;background:{{ s.fond }};color:#12233b;font-size:17px;font-weight:700;text-align:left;cursor:pointer">
+<span style="flex:1">{{ s.nom }}</span><span style="font-size:14px;font-weight:400;color:#4a5468">{{ s.info }}</span>
+</button>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ estSous }}" hint-placeholder-val="{{ false }}">
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px">
+<sc-for list="{{ activites }}" as="a" hint-placeholder-count="4">
+<button onClick="{{ a.ouvrir }}" style="min-height:90px;border:none;border-radius:12px;background:#6d5bd0;color:#fff;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;box-shadow:0 3px 8px rgba(0,0,0,0.2)">
+<span style="font-size:14px;letter-spacing:0.06em;text-transform:uppercase">Activité</span>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:32px">{{ a.n }}</span>
+</button>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ estActivite }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="background:#fff;border-radius:14px;padding:16px 18px;box-shadow:0 2px 8px rgba(0,0,0,0.12);display:flex;flex-direction:column;gap:14px">
+<p style="margin:0;font-size:19px;font-weight:700;text-wrap:pretty">{{ consigne }}</p>
+<sc-if value="{{ aAudio }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+<button onClick="{{ audioClic }}" style="min-height:56px;min-width:180px;padding:0 22px;border:none;border-radius:12px;background:{{ audioFond }};color:#fff;font-weight:700;font-size:19px;cursor:pointer">{{ audioLibelle }}</button>
+<span style="font-size:15px;color:#4a5468">Piste {{ piste }}</span>
+</div>
+</sc-if>
+<sc-if value="{{ sansAudio }}" hint-placeholder-val="{{ false }}"><span style="font-size:15px;color:#b23a2b">Le son de cette activité manque (piste {{ piste }}).</span></sc-if>
+</div>
+<sc-for list="{{ questions }}" as="q" hint-placeholder-count="3">
+<div style="background:#fff;border-radius:14px;padding:16px 18px;box-shadow:0 2px 8px rgba(0,0,0,0.12);display:flex;flex-direction:column;gap:12px">
+<span style="font-size:18px;font-weight:700;text-wrap:pretty">{{ q.q }}</span>
+<div style="display:flex;flex-wrap:wrap;gap:10px">
+<sc-for list="{{ q.choix }}" as="c" hint-placeholder-count="3">
+<button onClick="{{ c.clic }}" style="min-height:52px;padding:0 18px;border:3px solid {{ c.bord }};border-radius:10px;background:{{ c.fond }};color:#12233b;font-size:17px;font-weight:700;cursor:pointer">{{ c.t }}</button>
+</sc-for>
+</div>
+</div>
+</sc-for>
+<div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap">
+<sc-if value="{{ aFini }}" hint-placeholder-val="{{ true }}"><button onClick="{{ finir }}" style="min-height:60px;padding:0 34px;border:none;border-radius:14px;background:#2a9d6e;color:#fff;font-family:Archivo Black, Archivo, sans-serif;font-size:22px;cursor:pointer">J'ai fini</button></sc-if>
+<sc-if value="{{ estCorrige }}" hint-placeholder-val="{{ false }}"><button onClick="{{ recommencer }}" style="min-height:60px;padding:0 28px;border:none;border-radius:14px;background:#12233b;color:#fff;font-weight:700;font-size:19px;cursor:pointer">↻ Recommencer</button></sc-if>
+<sc-if value="{{ aSuivante }}" hint-placeholder-val="{{ false }}"><button onClick="{{ suivante }}" style="min-height:60px;padding:0 28px;border:none;border-radius:14px;background:#6d5bd0;color:#fff;font-weight:700;font-size:19px;cursor:pointer">Activité suivante →</button></sc-if>
+</div>
+</div>
+</sc-if>
+<span style="font-size:13px;color:#4a5468;text-align:center">Source : Le DELF A1 100 % réussite, Didier (2e édition) · usage en classe, côté prof.</span>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* 10/10 : manuel A1 (Didier, 100 % réussite), CÔTÉ PROF. Activité N = piste N. Corrigés p.144-146.
+   Rangement validé par elle : parties → sous-menus du livre → activités. Construit partie par partie.
+   ⏳ Activités 1-4 : pages non reçues. Images (act. 10…) : en mots pour l'instant, à découper dans ses captures. */
+const Q = (q, choix, bonne) => ({ q, choix, bonne });
+const ACT = {
+  5: { c: 'Écoutez les messages et cochez les bonnes réponses.', q: [Q('Message 1 · Martine a combien de frères ?', ['2', '3', '4'], 0), Q('Message 2 · Combien de personnes viennent à la fête ?', ['6', '13', '16'], 2), Q('Message 3 · Combien de tomates est-ce que vous devez acheter ?', ['6', '10', '12'], 1)] },
+  6: { c: 'Écoutez les messages et cochez les bonnes réponses.', q: [Q('Message 1 · Combien de kilos de pommes de terre est-ce qu’Alexandre achète ?', ['2 kg', '2,5 kg', '4,5 kg'], 1), Q('Message 2 · Béatrice a combien de paires de chaussures ?', ['12', '20', '21'], 2), Q('Message 3 · Quel est le montant de la réduction ?', ['45 %', '65 %', '75 %'], 2)] },
+  7: { c: 'Écoutez la conversation et reliez les informations.', q: ['Vincent', 'Audrey', 'Alexandra'].map((p, i) => Q(p + ' · Date de naissance ?', ['30 / 05 / 1982', '01 / 03 / 1982', '28 / 08 / 1978'], [2, 1, 0][i])) },
+  8: { c: 'Écoutez les messages et reliez les propositions.', q: ['Sylvain', 'Robert', 'Carole'].map((p, i) => Q(p + ' · Numéro de téléphone ?', ['04.83.72.11.29', '06.41.12.71.39', '03.21.96.55.41'], [1, 2, 0][i])) },
+  9: { c: 'Écoutez les messages et cochez les bonnes réponses.', q: [Q('Message 1', ['01.47.72.33.09', '01.47.62.39.90', '01.47.75.34.09'], 0), Q('Message 2', ['03.20.90.01.02', '03.20.94.12.00', '03.20.90.01.00'], 2), Q('Message 3', ['06.09.77.50.91', '06.09.77.50.11', '06.90.77.50.51'], 1)] },
+  10: { c: 'Écoutez les messages et reliez chaque prénom à l’image correspondante.', q: [['A', 'le cinéma'], ['B', 'la piscine'], ['C', 'le théâtre']].map(([l, t], i) => Q('Image ' + l + ' · ' + t, ['Pauline', 'Julien', 'Julie'], [1, 0, 2][i])) },
+  11: { c: 'Écoutez les messages et cochez les bonnes réponses.', q: [Q('Message 1 · Qu’est-ce que Jacques veut faire samedi au parc ?', ['Faire du vélo.', 'Nettoyer sa moto.', 'Manger des crêpes.'], 0), Q('Message 2 · Pourquoi Clara veut aller au centre commercial avec vous ?', ['Elle veut acheter un pantalon.', 'Elle veut acheter un manteau.', 'Elle veut acheter une chemise.'], 0), Q('Message 3 · Pourquoi Lucie veut aller au marché avec vous ?', ['Pour acheter des fruits.', 'Pour acheter des légumes.', 'Pour acheter des boissons.'], 0)] },
+  12: { c: 'Écoutez les messages et reliez les propositions.', q: [1, 2, 3].map((m, i) => Q('Message ' + m, ['Mer', 'Ville', 'Campagne'], [0, 2, 1][i])) },
+  13: { c: 'Écoutez les messages et cochez les bonnes réponses.', q: [Q('Message 1 · Quel est le lieu du rendez-vous ?', ['Chez vous.', 'Chez Bastien.', 'Chez Sébastien.'], 2), Q('Message 2 · Quel est le lieu du rendez-vous ?', ['Chez Sountou.', 'Devant le marché.', 'Devant le restaurant.'], 1), Q('Message 3 · Quel est le lieu du rendez-vous ?', ['À droite du magasin Dupont.', 'À l’entrée du magasin Dupont.', 'À l’entrée du centre commercial.'], 1)] }
+};
+/* 10/10 : les pistes DELF_A1_J_S ne sont PAS celles de ce livre (elle a écouté). ⏳ Vrais sons : didierfle-delfreussite.fr. */
+/* 10/10 : bons sons reçus (delf_a1_2022_piste_NN, site Didier) → audio/manuel-a1/piste-NN.mp3. */
+const AUDIO = [5, 6, 7, 8, 9, 10, 11, 12, 13];
+const S = (nom, de, a) => ({ nom, de, a });
+const PARTIES = [
+  { nom: '1 · Identifier un événement', sous: [S('Comprendre un message', 1, 4), S('Comprendre des informations chiffrées', 5, 9), S('Comprendre des instructions simples', 10, 13)] },
+  { nom: '2 · Identifier une activité', sous: [S('Comprendre la météo et les flashs info', 14, 18), S('Repérer des indices sonores', 19, 22), S('Comprendre une annonce', 23, 25)] },
+  { nom: '3 · Comprendre des instructions', sous: [S('Comprendre des activités', 26, 28), S('Se situer dans le temps', 29, 31), S('Comprendre une instruction', 32, 36)] },
+  { nom: '4 · Identifier des situations', sous: [S('Identifier une personne', 37, 42), S('Comprendre des relations', 43, 45), S('Repérer le sujet et la situation', 46, 48)] },
+  { nom: '5 · Identifier des objets', sous: [S('Identifier un objet', 49, 53), S('Comprendre des informations sur des objets', 54, 58)] }
+];
+class Component extends DCLogic {
+  state = { sous: null, act: null, rep: {}, corrige: false, joue: false };
+  componentWillUnmount() { this.stop(); }
+  stop() { if (this.a) { this.a.pause(); this.a = null; } }
+  ouvrirAct(n) { this.stop(); this.setState({ act: n, rep: {}, corrige: false, joue: false }); window.scrollTo(0, 0); }
+  renderVals() {
+    const s = this.state, act = s.act ? ACT[s.act] : null;
+    const pret = (sous) => { const n = []; for (let i = sous.de; i <= sous.a; i++) if (ACT[i]) n.push(i); return n; };
+    const nums = s.sous ? pret(s.sous) : [];
+    const idx = nums.indexOf(s.act);
+    const piste = String(s.act || 0).padStart(2, '0');
+    return {
+      titre: act ? 'Activité ' + s.act : s.sous ? s.sous.nom : 'Les activités',
+      estMenu: !s.sous, estSous: !!s.sous && !act, estActivite: !!act,
+      aRetourInterne: !!s.sous, libRetourInterne: act ? '← Les activités' : '← Les parties',
+      retourInterne: () => { this.stop(); this.setState(act ? { act: null, joue: false } : { sous: null }); },
+      accueil: () => { this.stop(); if (history.length > 1) history.back(); else location.href = 'index.html' + location.search; },
+      parties: PARTIES.map(p => ({ nom: p.nom, sous: p.sous.map(x => { const n = pret(x).length, tot = x.a - x.de + 1;
+        return { nom: x.nom, info: 'Activités ' + x.de + ' à ' + x.a + (n < tot ? ' · ' + n + '/' + tot + ' prêtes' : ''), bord: n ? '#6d5bd0' : '#c9c3b6', fond: n ? '#f1eefc' : '#f4f2ee',
+          ouvrir: () => n ? this.setState({ sous: x }) : alert('Cette partie n’est pas encore construite.') }; }) })),
+      activites: nums.map(n => ({ n, ouvrir: () => this.ouvrirAct(n) })),
+      consigne: act ? act.c : '', piste, aAudio: !!act && AUDIO.includes(s.act), sansAudio: !!act && !AUDIO.includes(s.act),
+      audioLibelle: s.joue ? '❚❚ Pause' : '▶ J’écoute', audioFond: s.joue ? '#d63c2f' : '#6d5bd0',
+      audioClic: () => { if (s.joue) { this.a && this.a.pause(); this.setState({ joue: false }); return; }
+        if (!this.a) { this.a = new Audio('audio/manuel-a1/piste-' + piste + '.mp3'); this.a.onended = () => this.setState({ joue: false }); }
+        this.a.play(); this.setState({ joue: true }); },
+      questions: act ? act.q.map((q, i) => ({ q: q.q, choix: q.choix.map((t, j) => {
+        const choisi = s.rep[i] === j, bon = q.bonne === j;
+        let fond = choisi ? '#e5e0fb' : '#fff', bord = choisi ? '#6d5bd0' : '#d9d4c7';
+        if (s.corrige && choisi) { fond = bon ? '#d6f2e4' : '#fbdcd7'; bord = bon ? '#2a9d6e' : '#d63c2f'; }
+        return { t, fond, bord, clic: () => !s.corrige && this.setState({ rep: { ...s.rep, [i]: j } }) }; }) })) : [],
+      aFini: !!act && !s.corrige, estCorrige: !!act && s.corrige,
+      finir: () => this.setState({ corrige: true }),
+      recommencer: () => this.setState({ rep: {}, corrige: false }),
+      aSuivante: !!act && s.corrige && idx >= 0 && idx < nums.length - 1,
+      suivante: () => this.ouvrirAct(nums[idx + 1])
+    };
+  }
+}
+</script>
+</body>
+</html>
