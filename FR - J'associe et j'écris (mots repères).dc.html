@@ -76,7 +76,7 @@ a:hover{color:#14213d}
     <sc-for list="{{ p.lignes }}" as="l" hint-placeholder-count="9">
     <div style="flex:0 0 auto;height:25mm;display:flex;align-items:stretch;gap:4mm">
       <div style="flex:0 0 auto;width:13mm;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5mm;border-right:0.3mm solid #d8dbe4">
-        <span style="font-size:20pt;font-weight:700;line-height:1">{{ l.capitale }}</span>
+        <span style="font-family:{{ l.capPolice }};font-size:20pt;font-weight:700;line-height:1">{{ l.capitale }}</span>
         <span style="font-family:'BA Script',Helvetica,sans-serif;font-size:13pt;line-height:1;color:#1d5c3a">{{ l.lettre }}</span>
       </div>
       <div style="flex:0 0 auto;width:56mm;border:0.4mm dashed #8a91a3;border-radius:1mm;box-sizing:border-box"></div>
@@ -108,7 +108,7 @@ a:hover{color:#14213d}
    découpage qui mélange. */
 const LETTRES = [
   ['a',['ananas']],['b',['ballon']],['c',['carotte','cerise']],['d',['deux']],['e',['je']],
-  ['f',['fenetre']],['g',['gateau','gilet']],['i',['immeuble']],['j',['jaune']],
+  ['f',['fenetre']],['g',['gateau','gilet']],['i',['immeuble']],['j',['jupe']],
   ['k',['kiwi']],['l',['lit']],['m',['moto']],['n',['nuage']],['o',['ordinateur','pot']],
   ['p',['pied']],['q',['quatre']],['r',['robot']],['s',['salade','rose']],['t',['table']],
   ['u',['usine']],['v',['velo']],['w',['wagon']],['x',['xylophone']],['y',['pyjama']],
@@ -122,7 +122,7 @@ class Component extends DCLogic {
     LETTRES.forEach(([l, mots]) => mots.forEach(m => etiquettes.push({
       img: 'clean/mot-' + m + '.webp', mot: ECRIT[m] || m
     })));
-    const lignes = LETTRES.map(([l]) => ({ lettre: l, capitale: l.toUpperCase() }));
+    const lignes = LETTRES.map(([l]) => ({ lettre: l, capitale: l.toUpperCase(), capPolice: 'ij'.includes(l) ? "'Times New Roman', Georgia, serif" : 'inherit' /* I et J à barres, règle du 06/10 */ }));
     const parPage = 9, pagesEleve = [];
     for (let i = 0; i < lignes.length; i += parPage) {
       pagesEleve.push({ lignes: lignes.slice(i, i + parPage) });

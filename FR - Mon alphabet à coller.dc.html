@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="polices.css" />
+<style>body{margin:0;font-family:Andika, Archivo, Verdana, sans-serif;color:#12233b;background:#e9ecf1}a{color:#1d4e89}a:hover{color:#12233b}@media print{.bouton{display:none !important}}</style>
+</helmet>
+<div class="bouton" style="position:fixed;top:0;left:0;right:0;z-index:10;display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:8px 12px;background:#12233b;font-family:Arial, Helvetica, sans-serif">
+<button class="bouton" onClick="{{ retour }}" style="min-height:44px;border:none;border-radius:10px;background:#fff;color:#12233b;padding:0 16px;font-weight:700;font-size:14px;cursor:pointer">← L'accueil</button>
+<sc-for list="{{ reglages }}" as="g" hint-placeholder-count="3">
+<div style="display:flex;align-items:center;gap:4px;margin-left:8px">
+<span style="color:#fff;font-size:13px;font-weight:700">{{ g.nom }}</span>
+<sc-for list="{{ g.choix }}" as="c" hint-placeholder-count="2">
+<button class="bouton" onClick="{{ c.choisir }}" style="min-height:44px;border:2px solid #fff;border-radius:22px;background:{{ c.fond }};color:{{ c.encre }};padding:0 12px;font-size:13px;font-weight:700;cursor:pointer">{{ c.nom }}</button>
+</sc-for>
+</div>
+</sc-for>
+<button class="bouton" onClick="{{ imprimer }}" style="margin-left:auto;min-height:44px;border:none;border-radius:10px;background:#2a9d6e;color:#fff;padding:0 18px;font-weight:700;font-size:14px;cursor:pointer">Imprimer</button>
+</div>
+<div style="height:76px"></div>
+<x-import component-from-global-scope="doc-page" from="./doc-page.js" size="a4" hint-size="100%,100%">
+<sc-for list="{{ pages }}" as="p" hint-placeholder-count="4">
+<section class="page" data-screen-label="{{ p.label }}" style="box-sizing:border-box;padding:20mm;font-family:Andika, Archivo, Verdana, sans-serif;font-size:12pt;color:#12233b;background:#fff;display:flex;flex-direction:column;gap:4mm;overflow:hidden">
+<div style="flex:0 0 auto;background:#12233b;color:#fff;padding:2.5mm 6mm;display:flex;align-items:baseline;justify-content:space-between;gap:6mm">
+<span style="font-size:18pt;font-weight:700;letter-spacing:0.04em">{{ p.titre }}</span>
+<span style="font-size:12pt">{{ p.sous }}</span>
+</div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:4mm"><img src="{{ p.picto }}" alt="" style="width:12mm;height:12mm;object-fit:contain;flex:0 0 auto" /><span style="font-size:14pt;font-weight:700">{{ p.consigne }}</span></div>
+
+<sc-if value="{{ p.estPlanche }}" hint-placeholder-val="{{ true }}">
+<div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2mm">
+<sc-for list="{{ p.cases }}" as="c" hint-placeholder-count="26">
+<div style="display:flex;flex-direction:column;gap:0.8mm;height:29.8mm;box-sizing:border-box;border:0.4mm solid #12233b;border-radius:2mm;padding:0.6mm 1.2mm">
+<div style="display:flex;gap:1mm;height:{{ c.him }};justify-content:center;align-items:center">
+<sc-for list="{{ c.images }}" as="im" hint-placeholder-count="1"><img src="{{ im }}" alt="" style="width:{{ c.lim }};height:{{ c.him }};object-fit:contain" /></sc-for>
+</div>
+<sc-if value="{{ c.motVu }}" hint-placeholder-val="{{ true }}"><span style="font-family:Arial, Helvetica, sans-serif;font-size:12pt;line-height:1.1;white-space:nowrap;text-align:center">{{ c.mot }}</span></sc-if>
+<div style="display:flex;flex-direction:column;justify-content:center">
+<div style="display:flex;gap:1mm;justify-content:center">
+<sc-for list="{{ c.cases }}" as="k" hint-placeholder-count="3">
+<div style="width:{{ k.l }};height:12mm;box-sizing:border-box;border:0.4mm solid #9aa3b0;border-radius:1mm;display:flex;align-items:center;justify-content:space-evenly">
+<sc-for list="{{ k.lettres }}" as="L" hint-placeholder-count="0"><span style="font-family:{{ L.police }};font-size:{{ L.taille }};line-height:1;color:#c62828">{{ L.t }}</span></sc-for>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ p.estEtiq }}" hint-placeholder-val="{{ false }}">
+<div style="position:relative;align-self:flex-start;margin-top:8mm">
+<img src="clean/pictos/ciseaux.webp" alt="" style="position:absolute;left:0;top:-8.2mm;width:8mm;height:8mm;object-fit:contain" />
+<div style="display:grid;grid-template-columns:repeat({{ p.colonnes }}, {{ p.l }});border-top:0.3mm dashed #12233b;border-left:0.3mm dashed #12233b">
+<sc-for list="{{ p.etiq }}" as="e" hint-placeholder-count="12">
+<div style="width:{{ p.l }};height:11mm;box-sizing:border-box;border-right:0.3mm dashed #12233b;border-bottom:0.3mm dashed #12233b;display:flex;align-items:center;justify-content:space-evenly">
+<sc-for list="{{ e.lettres }}" as="L" hint-placeholder-count="1"><span style="font-family:{{ L.police }};font-size:{{ L.taille }};line-height:1">{{ L.t }}</span></sc-for>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-if>
+</section>
+</sc-for>
+</x-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* 11/10 (sa demande, modèle « mon alphabet des mots repères ») : planche de ses mots repères (ALPHA_IMG de
+   l'Espace enseignant, 13 et 15/09 — c, g, o, s portent deux images ; le h n'a pas d'image) où l'élève COLLE
+   les 3 écritures : majuscule, minuscule d'imprimerie (BA Script), minuscule cursive (BA Cursive).
+   Réglages : 3 étiquettes séparées OU 1 bande ; mot écrit ou non ; étiquettes dans l'ordre, mélangées ou les deux.
+   Case 16 mm > étiquette 14 mm (bande : 54 > 48 mm). Corrigé = la planche remplie, en fin de fichier. */
+const A = [['a','ananas','ananas'],['b','ballon','ballon'],['c','carotte','carotte et cerise','cerise'],['d','deux','deux'],['e','je','je'],['f','fenetre','fenêtre'],['g','gateau','gâteau et gilet','gilet'],['h','',''],['i','immeuble','immeuble'],['j','jupe','jupe'],['k','kiwi','kiwi'],['l','lit','lit'],['m','moto','moto'],['n','nuage','nuage'],['o','ordinateur','ordinateur et pot','pot'],['p','pied','pied'],['q','quatre','quatre'],['r','robot','robot'],['s','salade','salade et rose','rose'],['t','table','table'],['u','usine','usine'],['v','velo','vélo'],['w','wagon','wagon'],['x','xylophone','xylophone'],['y','pyjama','pyjama'],['z','zero','zéro']];
+/* 11/10 (2e modèle) : TOUT SUR UNE PAGE, 4 × 7 cases comme son PDF. Case 12,5 mm > étiquette 10 mm (bande 39 > 35 mm). */
+/* ⚠ I MAJUSCULE À BARRES (06/10, sa règle) : en bâton, I et l se confondent → police à empattements pour le I. */
+const ECR = [l => ({ t: l.toUpperCase(), police: 'ij'.includes(l) ? "'Times New Roman', Georgia, serif" : 'Archivo, Arial, sans-serif', taille: 'ij'.includes(l) ? '19pt' : '17pt' }), l => ({ t: l, police: "'BA Script', Andika, sans-serif", taille: '18pt' }), l => ({ t: l, police: "'BA Cursive', cursive", taille: '12pt' })]; /* 11/10 : le b cursif sortait de l'étiquette à 21 pt (boucles hautes et basses). */
+const melange = (a, graine) => { const b = a.slice(); let s = graine; for (let i = b.length - 1; i > 0; i--) { s = (s * 9301 + 49297) % 233280; const j = Math.floor(s / 233280 * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; } return b; };
+class Component extends DCLogic {
+  state = (() => { try { return Object.assign({ forme: 'separees', mot: 'oui', ordre: 'deux' }, JSON.parse(localStorage.getItem('alphabet-a-coller') || '{}')); } catch (e) { return { forme: 'separees', mot: 'oui', ordre: 'deux' }; } })();
+  regler(k, v) { this.setState({ [k]: v }, () => { try { localStorage.setItem('alphabet-a-coller', JSON.stringify(this.state)); } catch (e) {} }); }
+  renderVals() {
+    const s = this.state, bande = s.forme === 'bande', motVu = s.mot === 'oui';
+    const cases = rempli => A.map(([l, f, mot, f2]) => ({
+      images: f ? [f, f2].filter(Boolean).map(x => 'clean/mot-' + x + '.webp') : [], /* 11/10 : le mot passe SOUS la photo, sur une ligne, jamais coupé (« ordinate-ur » : « pas possible de voir ça »). */
+      lim: f2 ? '16mm' : '30mm', him: motVu ? '10mm' : '15mm', mot, motVu: motVu && !!mot,
+      cases: bande ? [{ l: '38mm', lettres: rempli ? ECR.map(e => e(l)) : [] }] : ECR.map(e => ({ l: '12mm', lettres: rempli ? [e(l)] : [] })) }));
+    const planches = (rempli) => [[0, 26]].map(([a, b], n) => ({ estPlanche: true, estEtiq: false, cases: cases(rempli).slice(a, b),
+      titre: rempli ? 'CORRIGÉ — MON ALPHABET' : 'MON ALPHABET', sous: 'Les mots repères',
+      picto: 'clean/pictos/colle.webp', consigne: bande ? 'Je colle la bande des 3 écritures.' : 'Je colle les 3 écritures de chaque lettre.',
+      label: rempli ? 'Corrigé' : 'Planche' }));
+    const unites = bande ? A.map(([l]) => ({ lettres: ECR.map(e => e(l)) })) : A.flatMap(([l]) => ECR.map(e => ({ lettres: [e(l)] })));
+    const etiq = (mel) => ({ estPlanche: false, estEtiq: true, etiq: mel ? melange(unites, bande ? 7 : 11) : unites,
+      colonnes: bande ? 4 : 15, l: bande ? '35mm' : '10mm', titre: 'LES ÉTIQUETTES', sous: mel ? 'mélangées' : 'dans l’ordre',
+      picto: 'clean/pictos/ciseaux.webp', consigne: 'Je découpe les étiquettes.', label: 'Étiquettes ' + (mel ? 'mélangées' : 'dans l’ordre') });
+    const pages = [...planches(false), ...(s.ordre !== 'melange' ? [etiq(false)] : []), ...(s.ordre !== 'ordre' ? [etiq(true)] : []), ...planches(true)];
+    const G = (nom, k, opts) => ({ nom, choix: opts.map(([v, t]) => ({ nom: t, fond: s[k] === v ? '#fff' : 'transparent', encre: s[k] === v ? '#12233b' : '#fff', choisir: () => this.regler(k, v) })) });
+    return {
+      pages,
+      reglages: [G('Étiquettes :', 'forme', [['separees', '3 séparées'], ['bande', '1 bande']]), G('Mot :', 'mot', [['oui', 'écrit'], ['non', 'sans']]), G('À découper :', 'ordre', [['ordre', 'dans l’ordre'], ['melange', 'mélangées'], ['deux', 'les deux']])],
+      imprimer: () => window.print(),
+      retour: () => { const av = location.href; history.back(); setTimeout(() => { if (location.href === av) location.href = 'APPLI - Espace enseignant.dc.html' + location.search; }, 400); }
+    };
+  }
+}
+</script>
+</body>
+</html>

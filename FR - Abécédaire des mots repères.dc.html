@@ -28,7 +28,7 @@ a:hover{color:#14213d}
 <div style="flex:1;min-height:0;display:grid;gap:1.5mm;grid-auto-rows:minmax(0,1fr);grid-template-columns:repeat(13,minmax(0,1fr))">
 <sc-for list="{{ cells }}" as="c" hint-placeholder-count="26">
 <div style="display:flex;flex-direction:column;align-items:stretch;min-height:0;overflow:hidden;border:1px solid #d8dbe4;border-radius:1mm">
-<span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;height:5.2mm;text-align:center;font-family:'BA Script',Helvetica,sans-serif;font-size:9pt;line-height:1;color:#14213d;background:#fafbfc">{{ c.capitale }}</span>
+<span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;height:5.2mm;text-align:center;font-family:{{ c.capPolice }};font-size:9pt;line-height:1;color:#14213d;background:#fafbfc">{{ c.capitale }}</span>
 <span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;gap:1mm;height:5.2mm;text-align:center;font-family:'BA Script',Helvetica,sans-serif;font-size:9pt;line-height:1;color:#14213d;background:#fafbfc;border-top:1px solid #eceef3">{{ c.lettre }}</span>
 <span style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;height:6mm;text-align:center;font-family:'BA Cursive','BA Script',cursive;font-size:9pt;line-height:1;color:#1d5c3a;background:#fafbfc;border-top:1px solid #eceef3;border-bottom:1px solid #eceef3">{{ c.cursive }}</span>
 <div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:0.6mm;padding:0.8mm 0.5mm 0">
@@ -59,7 +59,7 @@ a:hover{color:#14213d}
    13 colonnes × 2 rangées = les 26 lettres dans une demi-feuille. */
 const MOTS = [
   ['a','ananas'],['b','ballon'],['c','carotte','cerise'],['d','deux'],['e','je'],
-  ['f','fenetre'],['g','gateau','gilet'],['h'],['i','immeuble'],['j','jaune'],
+  ['f','fenetre'],['g','gateau','gilet'],['h'],['i','immeuble'],['j','jupe'],
   ['k','kiwi'],['l','lit'],['m','moto'],['n','nuage'],['o','ordinateur','pot'],['p','pied'],
   ['q','quatre'],['r','robot'],['s','salade','rose'],['t','table'],['u','usine'],
   ['v','velo'],['w','wagon'],['x','xylophone'],['y','pyjama'],['z','zero']
@@ -75,6 +75,7 @@ class Component extends DCLogic {
       lettre: DEUX_GRAPHIES[m[0]] || m[0],
       cursive: m[0],
       capitale: m[0].toUpperCase(),
+      capPolice: 'ij'.includes(m[0]) ? "'Times New Roman', Georgia, serif" : "'BA Script',Helvetica,sans-serif", /* I et J à barres, règle du 06/10 */
       images: m.slice(1).map(f => ({ mot: ECRIT[f] || f, img: 'clean/mot-' + f + '.webp' }))
     }));
     const deux = this.props.deuxCopies ?? true;

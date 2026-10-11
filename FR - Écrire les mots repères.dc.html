@@ -13,9 +13,14 @@ doc-page:not(:defined){visibility:hidden}
 body{margin:0}
 a{color:#1d5c3a}
 a:hover{color:#14213d}
+@media print{[data-noprint]{display:none !important}}
 </style>
 <script src="./doc-page.js"></script>
 </helmet>
+<div class="bouton" style="position:fixed;top:12px;right:12px;z-index:50;display:flex;gap:8px" data-noprint="1">
+<button class="bouton" onClick="{{ imprimer }}" style="min-height:44px;border:none;border-radius:10px;background:#2a7d4f;color:#fff;padding:0 16px;font-weight:700;font-size:15px;cursor:pointer;font-family:Arial, sans-serif">Imprimer</button>
+<button class="bouton" onClick="{{ retour }}" style="min-height:44px;border:none;border-radius:10px;background:#12233b;color:#fff;padding:0 16px;font-weight:700;font-size:15px;cursor:pointer;font-family:Arial, sans-serif">← L'accueil</button>
+</div>
 <doc-page size="a4">
 <sc-for list="{{ pages }}" as="p" hint-placeholder-count="2">
 <section class="page" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:12mm 12mm 12mm;box-sizing:border-box;font-family:Helvetica,'Helvetica Neue',Arial,sans-serif;color:#14213d">
@@ -52,7 +57,7 @@ a:hover{color:#14213d}
 const MOTS = [
   ['a','ananas'],['b','ballon'],['c','carotte','cerise'],['d','deux'],['e','je'],
   ['f','fenetre'],/* Le h n'a pas de son : case volontairement VIDE, l'élève n'écrit que la lettre (11/09). */
-  ['g','gateau','gilet'],['h'],['i','immeuble'],['j','jaune'],
+  ['g','gateau','gilet'],['h'],['i','immeuble'],['j','jupe'],
   ['k','kiwi'],['l','lit'],['m','moto'],['n','nuage'],['o','ordinateur','pot'],['p','pied'],
   ['q','quatre'],['r','robot'],['s','salade','rose'],['t','table'],['u','usine'],
   ['v','velo'],['w','wagon'],['x','xylophone'],['y','pyjama'],['z','zero']
@@ -69,7 +74,10 @@ class Component extends DCLogic {
     const pages = [];
     for (let i = 0; i < cells.length; i += parPage)
       pages.push({ num: pages.length + 1, cells: cells.slice(i, i + parPage) });
-    return { pages, titre: this.props.titre ?? "J'écris les mots repères" };
+    /* 11/10 : la feuille était un cul-de-sac (aucun bouton de retour). */
+    return { pages, titre: this.props.titre ?? "J'écris les mots repères",
+      imprimer: () => window.print(),
+      retour: () => { const av = location.href; history.back(); setTimeout(() => { if (location.href === av) location.href = 'APPLI - Espace enseignant.dc.html' + location.search; }, 400); } };
   }
 }
 </script>

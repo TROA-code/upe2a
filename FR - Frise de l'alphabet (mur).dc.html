@@ -56,7 +56,7 @@ a:hover{color:#14213d}
 <div style="flex:1.6;min-height:0;display:flex;flex-direction:column;border:1.2px solid #14213d;padding:3mm 2mm">
 <div style="flex:0 0 auto;display:grid;grid-template-columns:{{ p.colonnesCss }}">
 <sc-for list="{{ p.cells }}" as="c" hint-placeholder-count="7">
-<span style="text-align:center;font-family:'Century Gothic','Didact Gothic','BA Script',sans-serif;font-size:{{ tailleCapitale }};line-height:1;color:{{ c.encre }}">{{ c.capitale }}</span>
+<span style="text-align:center;font-family:{{ c.capPolice }};font-size:{{ tailleCapitale }};line-height:1;color:{{ c.encre }}">{{ c.capitale }}</span>
 </sc-for>
 </div>
 <div style="flex:1;min-height:0;display:grid;grid-template-columns:{{ p.colonnesCss }};padding-top:1mm">
@@ -108,7 +108,7 @@ a:hover{color:#14213d}
    Le h reste vide : il n'a pas de son. */
 const MOTS = [
   ['a','ananas'],['b','ballon'],['c','carotte','cerise'],['d','deux'],['e','je'],
-  ['f','fenetre'],['g','gateau','gilet'],['h'],['i','immeuble'],['j','jaune'],
+  ['f','fenetre'],['g','gateau','gilet'],['h'],['i','immeuble'],['j','jupe'],
   ['k','kiwi'],['l','lit'],['m','moto'],['n','nuage'],['o','ordinateur','pot'],['p','pied'],
   ['q','quatre'],['r','robot'],['s','salade','rose'],['t','table'],['u','usine'],
   ['v','velo'],['w','wagon'],['x','xylophone'],['y','pyjama'],['z','zero']
@@ -130,6 +130,8 @@ class Component extends DCLogic {
     const cells = MOTS.map(m => ({
       lettre: m[0],
       capitale: m[0].toUpperCase(),
+      /* ⚠ I et J majuscules À BARRES (règle du 06/10) : police à empattements pour ces deux lettres. */
+      capPolice: 'ij'.includes(m[0]) ? "'Times New Roman', Georgia, serif" : "'Century Gothic','Didact Gothic','BA Script',sans-serif",
       encre: VOYELLES.includes(m[0]) ? rouge : '#14213d',
       images: (this.props.avecImages ?? true)
         ? m.slice(1).map(f => ({ mot: ECRIT[f] || f, img: 'clean/mot-' + f + '.webp' }))

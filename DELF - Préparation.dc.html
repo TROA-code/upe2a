@@ -1192,12 +1192,12 @@ class Component extends DCLogic {
     const aCorriger = !!exo && (!!exo.audio || exo.questions.some(q => (q.choix && q.bonne != null) || q.jh || (q.champs || []).some(f => f.bonne)));
     return {
       aFiches: !suj && s.niveau === 'A1' && /[?&]prof=1/.test(location.search),
-      fiches: [{ nom: "Remplir une fiche d'identité", href: "FR - Remplir une fiche d'identité.dc.html" }, { nom: 'Manuel A1 · Compréhension de l’oral', href: 'DELF A1 - Manuel.dc.html?prof=1' }],
+      fiches: [{ nom: "Remplir une fiche d'identité", href: "FR - Remplir une fiche d'identité.dc.html" }, { nom: "Remplir une fiche d'identité 2 · l'adresse complète", href: "FR - Remplir une fiche d'identité 2.dc.html" }, { nom: 'Manuel A1 · Compréhension de l’oral', href: 'DELF A1 - Manuel.dc.html?prof=1' }],
       niveau: s.niveau, estA2: !sujets.length && !suj, estMenu: !suj && !s.infos && !s.entr, estEntr: !suj && !!s.entr, estInfos: !suj && !!s.infos, estSujet: !!suj && !ep, estEpreuve: !!ep,
       ...this.infos(s.niveau),
       entrCartes: (() => { const O = { oral: ['J’écoute', 'Compréhension de l’oral', '#6d5bd0', 'delf-ecoute'], lire: ['Je lis', 'Compréhension des écrits', '#2a9d6e', 'delf-lis'], ecrire: ['J’écris', 'Production écrite', '#e59a2b', 'delf-ecris'], parler: ['Je parle', 'Production orale', '#e8654f', 'delf-parle'] };
         /* Le manuel ouvert SANS cadre=1 : son « ← L'accueil » (history.back) ramène ici. */
-        const L = { oral: [['Manuel A1 · les activités', 'DELF A1 - Manuel.dc.html?prof=1']], lire: [['Manuel A1 · Comprendre', 'DELF A1 - Manuel.dc.html?prof=1&ecrits=1']], ecrire: [["Remplir une fiche d'identité", "FR - Remplir une fiche d'identité.dc.html"]], parler: [] };
+        const L = { oral: [['Manuel A1 · les activités', 'DELF A1 - Manuel.dc.html?prof=1']], lire: [['Manuel A1 · Comprendre', 'DELF A1 - Manuel.dc.html?prof=1&ecrits=1']], ecrire: [["Remplir une fiche d'identité", "FR - Remplir une fiche d'identité.dc.html"], ["Remplir une fiche d'identité 2 · l'adresse complète", "FR - Remplir une fiche d'identité 2.dc.html"]], parler: [] };
         return Object.keys(O).map(k => ({ nom: O[k][0], officiel: O[k][1], couleur: O[k][2], img: "url('clean/pictos/" + O[k][3] + ".webp')",
           liens: L[k].map(([nom, href]) => ({ nom, href })), vide: !L[k].length })); })(),
       ouvrirInfos: () => this.setState({ infos: true }), imprimer: () => window.print(),

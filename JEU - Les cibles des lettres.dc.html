@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="polices.css" />
+<style>body{margin:0;background:#12233b;color:#fff;font-family:Archivo, Arial, sans-serif;overflow:hidden;-webkit-user-select:none;user-select:none}a{color:#fdf3c4}a:hover{color:#fff}</style>
+</helmet>
+<div style="position:fixed;inset:0;display:flex;flex-direction:column;background:#12233b">
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:10px;padding:10px 14px;flex-wrap:wrap">
+<button class="bouton" onClick="{{ ouvrirReglages }}" style="min-height:44px;border:2px solid #fff;border-radius:10px;background:transparent;color:#fff;padding:0 16px;font-weight:700;font-size:15px;cursor:pointer">⚙ Réglages</button>
+<span style="flex:1"></span>
+<button class="bouton" onClick="{{ retour }}" style="min-height:44px;border:none;border-radius:10px;background:#fff;color:#12233b;padding:0 16px;font-weight:700;font-size:15px;cursor:pointer">← L'accueil</button>
+</div>
+
+<sc-if value="{{ enJeu }}" hint-placeholder-val="{{ true }}">
+<div style="flex:1;min-height:0;display:flex;gap:16px;padding:0 16px 16px;flex-wrap:wrap">
+<div style="flex:0 0 auto;width:180px;max-width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:#fff;border-radius:18px;padding:18px;color:#12233b">
+<span style="font-size:15px;font-weight:700;text-align:center">Je touche les</span>
+<span style="font-family:{{ capPolice }};font-size:140px;line-height:1;-webkit-text-stroke:1.5px #12233b">{{ capitale }}</span>
+<button class="bouton" onClick="{{ redire }}" style="width:72px;height:72px;border-radius:50%;border:none;background:#2a7d4f;color:#fff;font-size:32px;cursor:pointer">🔊</button>
+<div style="display:flex;gap:6px">
+<sc-for list="{{ carres }}" as="c" hint-placeholder-count="5"><span style="width:18px;height:18px;border-radius:4px;background:{{ c.fond }};border:2px solid #12233b"></span></sc-for>
+</div>
+</div>
+<div ref="{{ arene }}" style="flex:1;min-width:280px;min-height:320px;position:relative;border-radius:18px;background:#1b3150;overflow:hidden">
+<sc-for list="{{ cibles }}" as="t" hint-placeholder-count="10">
+<button class="bouton" onClick="{{ t.toucher }}" style="position:absolute;left:{{ t.x }};top:{{ t.y }};width:{{ t.d }};height:{{ t.d }};margin:0;padding:0;border-radius:50%;border:5px solid {{ t.anneau }};box-sizing:border-box;cursor:pointer;background:#fff;box-shadow:0 6px 16px rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center;opacity:{{ t.opacite }};transform:scale({{ t.echelle }});transition:transform 0.18s, opacity 0.18s">
+<span style="font-family:{{ t.police }};font-size:{{ t.taille }};line-height:1;color:#12233b;pointer-events:none;-webkit-text-stroke:0.6px #12233b;transform:translateY(-4%)">{{ t.l }}</span>
+</button>
+</sc-for>
+<sc-if value="{{ bravo }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none"><span style="font-family:Archivo Black, Archivo, sans-serif;font-size:96px;color:#ffd23f;text-shadow:0 6px 0 #12233b">BRAVO !</span></div>
+</sc-if>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ finManche }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:20px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:80px;color:#ffd23f;text-align:center">BRAVO !</span>
+<button class="bouton" onClick="{{ nouvelleManche }}" style="min-height:64px;border:none;border-radius:14px;background:#2a7d4f;color:#fff;padding:0 32px;font-weight:700;font-size:24px;cursor:pointer">▶ Encore 5 lettres</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ aAccueil }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;padding:20px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:44px;text-align:center">Les cibles des lettres</span>
+<button class="bouton" onClick="{{ nouvelleManche }}" style="min-height:72px;border:none;border-radius:16px;background:#2a7d4f;color:#fff;padding:0 40px;font-weight:700;font-size:28px;cursor:pointer">▶ Je joue</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ reglagesOuverts }}" hint-placeholder-val="{{ false }}">
+<div style="position:fixed;inset:0;background:rgba(10,20,35,0.7);display:flex;align-items:center;justify-content:center;padding:16px;z-index:20">
+<div style="background:#fff;color:#12233b;border-radius:16px;padding:22px;max-width:640px;width:100%;max-height:90vh;overflow:auto;display:flex;flex-direction:column;gap:16px">
+<span style="font-size:22px;font-weight:800">Réglages</span>
+<sc-for list="{{ groupes }}" as="g" hint-placeholder-count="3">
+<div style="display:flex;flex-direction:column;gap:8px">
+<span style="font-size:14px;font-weight:700;color:#4a5568">{{ g.nom }}</span>
+<div style="display:flex;flex-wrap:wrap;gap:8px">
+<sc-for list="{{ g.choix }}" as="c" hint-placeholder-count="3">
+<button class="bouton" onClick="{{ c.choisir }}" style="min-height:44px;border:2px solid #12233b;border-radius:22px;background:{{ c.fond }};color:{{ c.encre }};padding:0 16px;font-weight:700;font-size:15px;cursor:pointer">{{ c.nom }}</button>
+</sc-for>
+</div>
+</div>
+</sc-for>
+<sc-if value="{{ choixLibre }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:8px">
+<span style="font-size:14px;font-weight:700;color:#4a5568">Les lettres de la manche (touche pour choisir)</span>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(48px,1fr));gap:6px">
+<sc-for list="{{ grille }}" as="k" hint-placeholder-count="26">
+<button class="bouton" onClick="{{ k.basculer }}" style="min-height:48px;border:2px solid #12233b;border-radius:10px;background:{{ k.fond }};color:{{ k.encre }};font-family:{{ k.police }};font-size:22px;font-weight:700;cursor:pointer">{{ k.L }}</button>
+</sc-for>
+</div>
+</div>
+</sc-if>
+<button class="bouton" onClick="{{ fermerReglages }}" style="align-self:flex-end;min-height:48px;border:none;border-radius:12px;background:#2a7d4f;color:#fff;padding:0 24px;font-weight:700;font-size:16px;cursor:pointer">OK, on joue</button>
+</div>
+</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* 11/10 (son oui) : JEU DE CIBLES. La lettre s'affiche en MAJUSCULE (I et J à barres) et la voix la dit ;
+   l'élève touche vite toutes les cibles qui portent la bonne MINUSCULE (script, cursive ou les deux).
+   Règles : toucher (pas de glisser) · pas de score ni de chrono · BRAVO ! au coup · erreur = cible rouge,
+   son qui descend, la voix redit la lettre DANS UNE PHRASE À PART · manche de 5 lettres + « Encore ».
+   Lettres : au hasard ou choisies par la prof (réglages gardés en localStorage). */
+const ABC = 'abcdefghijklmnopqrstuvwxyz'.split('');
+const NOMS = { a:'a', b:'bé', c:'cé', d:'dé', e:'eu', f:'effe', g:'gé', h:'ache', i:'i', j:'ji', k:'ka', l:'elle', m:'emme', n:'enne', o:'o', p:'pé', q:'ku', r:'erre', s:'esse', t:'té', u:'u', v:'vé', w:'double vé', x:'ixe', y:'i grec', z:'zède' };
+const PIEGES = { a:'odeq', b:'dpqh', c:'eoa', d:'bpqa', e:'cao', f:'tlj', g:'qpj', h:'nbk', i:'ljt', j:'igy', k:'hx', l:'itf', m:'nwu', n:'mhu', o:'aec', p:'qbd', q:'pdg', r:'nv', s:'zc', t:'fl', u:'nvw', v:'wuy', w:'vm', x:'kz', y:'vgj', z:'sx' };
+const SCRIPT = "'BA Script', Andika, sans-serif", CURSIVE = "'BA Cursive', cursive";
+const CLE = 'jeu-cibles-lettres';
+const alea = a => a[Math.floor(Math.random() * a.length)];
+const melange = a => { const b = a.slice(); for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; } return b; };
+
+class Component extends DCLogic {
+  state = Object.assign({ ecriture: 'script', mode: 'hasard', vitesse: 'lente', choisies: ['b', 'd', 'p', 'q', 'm', 'n'],
+    etape: 'accueil', manche: [], rang: 0, cibles: [], bravo: false, reglages: false, resultats: [] },
+    (() => { try { return JSON.parse(localStorage.getItem(CLE) || '{}'); } catch (e) { return {}; } })());
+  arene = React.createRef();
+  componentDidMount() { this.boucle = () => { this.bouger(); this.raf = requestAnimationFrame(this.boucle); }; this.raf = requestAnimationFrame(this.boucle); }
+  componentWillUnmount() { cancelAnimationFrame(this.raf); clearTimeout(this.t1); try { speechSynthesis.cancel(); } catch (e) {} }
+  garder(p) { this.setState(p, () => { const { ecriture, mode, vitesse, choisies } = this.state; try { localStorage.setItem(CLE, JSON.stringify({ ecriture, mode, vitesse, choisies })); } catch (e) {} }); }
+  dire(t) { try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t); u.lang = 'fr-FR'; u.rate = 0.85; const v = speechSynthesis.getVoices().find(x => /^fr/i.test(x.lang)); if (v) u.voice = v; speechSynthesis.speak(u); } catch (e) {} }
+  direSuite(a, b) { this.dire(a); setTimeout(() => { try { const u = new SpeechSynthesisUtterance(b); u.lang = 'fr-FR'; u.rate = 0.8; const v = speechSynthesis.getVoices().find(x => /^fr/i.test(x.lang)); if (v) u.voice = v; speechSynthesis.speak(u); } catch (e) {} }, 50); }
+  bip(monte) { try { const C = this.ac || (this.ac = new (window.AudioContext || window.webkitAudioContext)()); const o = C.createOscillator(), g = C.createGain(); o.connect(g); g.connect(C.destination);
+    const t = C.currentTime; o.frequency.setValueAtTime(monte ? 520 : 330, t); o.frequency.exponentialRampToValueAtTime(monte ? 880 : 160, t + 0.25); g.gain.setValueAtTime(0.18, t); g.gain.exponentialRampToValueAtTime(0.001, t + 0.3); o.start(t); o.stop(t + 0.32); } catch (e) {} }
+  nouvelleManche = () => {
+    const s = this.state, base = s.mode === 'choix' && s.choisies.length ? s.choisies : ABC;
+    let m = melange(base); while (m.length < 5) m = m.concat(melange(base));
+    this.setState({ etape: 'jeu', manche: m.slice(0, 5), rang: 0, resultats: [], reglages: false }, () => this.lancerLettre());
+  };
+  lancerLettre() {
+    const s = this.state, l = s.manche[s.rang], nBons = 3 + Math.floor(Math.random() * 2), total = 10;
+    const pieges = PIEGES[l].split(''), autres = ABC.filter(x => x !== l && !pieges.includes(x));
+    const lettres = melange([...Array(nBons).fill(l), ...Array(total - nBons).fill(0).map((_, i) => i < 4 ? alea(pieges) : alea(autres))]);
+    const v = { immobile: 0, lente: 0.06, rapide: 0.14 }[s.vitesse];
+    /* Placement SANS chevauchement, en px : une bonne cible cachée sous un piège rendait la manche impossible. */
+    const el = this.arene.current, W = el ? el.clientWidth : 800, H = el ? el.clientHeight : 500, d = this.diam(W, H);
+    const pts = [];
+    if (s.vitesse === 'immobile') {
+      /* Immobiles (sa demande) : bien espacées, une par case d'une grille qui remplit l'arène, léger décalage pour ne pas faire « tableau ». */
+      const cols = W >= H * 1.6 ? 5 : W >= H ? 4 : 3, rows = Math.ceil(lettres.length / cols), cw = W / cols, ch = H / rows;
+      const jx = Math.max(0, (cw - d) * 0.3), jy = Math.max(0, (ch - d) * 0.3);
+      lettres.forEach((_, i) => { const c = i % cols, r = Math.floor(i / cols);
+        pts.push([c * cw + (cw - d) / 2 + (Math.random() - 0.5) * jx, r * ch + (ch - d) / 2 + (Math.random() - 0.5) * jy]); });
+    } else lettres.forEach(() => { let p, essai = 0;
+      do { p = [Math.random() * Math.max(1, W - d), Math.random() * Math.max(1, H - d)]; essai++; }
+      while (essai < 400 && pts.some(q => Math.hypot(q[0] - p[0], q[1] - p[1]) < d * 1.25)); pts.push(p); });
+    const cibles = lettres.map((x, i) => { const a = Math.random() * Math.PI * 2;
+      return { id: i + '-' + Date.now(), l: x, bon: x === l, x: pts[i][0] / W * 100, y: pts[i][1] / H * 100,
+        vx: Math.cos(a) * v, vy: Math.sin(a) * v, police: s.ecriture === 'cursive' ? CURSIVE : s.ecriture === 'script' ? SCRIPT : alea([SCRIPT, CURSIVE]), etat: '' }; });
+    this.setState({ cibles, bravo: false }, () => this.dire(NOMS[l]));
+  }
+  bouger() {
+    if (this.state.etape !== 'jeu' || this.state.vitesse === 'immobile' || this.state.bravo) return;
+    const now = performance.now(), dt = Math.min(40, now - (this.last || now)); this.last = now;
+    const el = this.arene.current, W = el ? el.clientWidth : 800, H = el ? el.clientHeight : 500, dpx = this.diam(W, H);
+    const mx = 100 - dpx / W * 100, my = 100 - dpx / H * 100;
+    this.setState(s => {
+      const cs = s.cibles.map(c => { if (c.etat === 'parti') return c; let x = c.x + c.vx * dt / 16 * 6, y = c.y + c.vy * dt / 16 * 6 * W / H, vx = c.vx, vy = c.vy;
+        if (x < 0) { x = 0; vx = Math.abs(vx); } if (x > mx) { x = mx; vx = -Math.abs(vx); } if (y < 0) { y = 0; vy = Math.abs(vy); } if (y > my) { y = my; vy = -Math.abs(vy); }
+        return Object.assign({}, c, { x, y, vx, vy }); });
+      /* Rebond entre cibles (en px) : elles ne se recouvrent jamais. */
+      for (let i = 0; i < cs.length; i++) for (let j = i + 1; j < cs.length; j++) {
+        const a = cs[i], b = cs[j]; if (a.etat === 'parti' || b.etat === 'parti') continue;
+        const dx = (b.x - a.x) * W / 100, dy = (b.y - a.y) * H / 100, dist = Math.hypot(dx, dy) || 0.01;
+        if (dist < dpx) { const nx = dx / dist, ny = dy / dist, pousse = (dpx - dist) / 2;
+          a.x -= nx * pousse / W * 100; a.y -= ny * pousse / H * 100; b.x += nx * pousse / W * 100; b.y += ny * pousse / H * 100;
+          [a.vx, b.vx] = [b.vx, a.vx]; [a.vy, b.vy] = [b.vy, a.vy]; } }
+      return { cibles: cs }; });
+  }
+  diam(W, H) { return Math.max(84, Math.min(130, Math.min(W, H) / 4)); }
+  toucher(id) {
+    const s = this.state, c = s.cibles.find(x => x.id === id); if (!c || c.etat || s.bravo) return;
+    const l = s.manche[s.rang];
+    if (c.bon) {
+      this.bip(true);
+      const cibles = s.cibles.map(x => x.id === id ? Object.assign({}, x, { etat: 'parti' }) : x);
+      const fini = !cibles.some(x => x.bon && x.etat !== 'parti');
+      this.setState({ cibles, bravo: fini });
+      if (fini) { const res = s.resultats.concat([!s.erreur]); this.t1 = setTimeout(() => {
+        if (s.rang + 1 >= s.manche.length) this.setState({ etape: 'fin', resultats: res, erreur: false, bravo: false });
+        else this.setState({ rang: s.rang + 1, resultats: res, erreur: false }, () => this.lancerLettre()); }, 1300); }
+    } else {
+      this.bip(false);
+      this.setState({ cibles: s.cibles.map(x => x.id === id ? Object.assign({}, x, { etat: 'faux' }) : x), erreur: true });
+      this.direSuite('On cherche cette lettre.', NOMS[l]);
+      setTimeout(() => this.setState(t => ({ cibles: t.cibles.map(x => x.id === id && x.etat === 'faux' ? Object.assign({}, x, { etat: '' }) : x) })), 700);
+    }
+  }
+  renderVals() {
+    const s = this.state, l = s.manche[s.rang] || 'a';
+    const el = this.arene.current, W = el ? el.clientWidth : 800, H = el ? el.clientHeight : 500, d = this.diam(W, H);
+    const G = (nom, k, opts) => ({ nom, choix: opts.map(([v, t]) => ({ nom: t, fond: s[k] === v ? '#12233b' : '#fff', encre: s[k] === v ? '#fff' : '#12233b', choisir: () => this.garder({ [k]: v }) })) });
+    return {
+      arene: this.arene,
+      enJeu: s.etape === 'jeu', finManche: s.etape === 'fin', aAccueil: s.etape === 'accueil',
+      capitale: l.toUpperCase(), capPolice: 'ij'.includes(l) ? "'Times New Roman', Georgia, serif" : SCRIPT, /* capitales d'école (BA Script, comme le livret des mots repères) ; I et J à barres */
+      carres: s.manche.map((_, i) => ({ fond: i < s.rang ? '#2a9d6e' : i === s.rang ? '#ffd23f' : '#e2e6ec' })),
+      /* 11/10 « le w… moyen moyen » : en BA Script le w est mal dessiné → w script en bâton simple. */
+      cibles: s.cibles.map(c => ({ l: c.l, police: c.police === SCRIPT && c.l === 'w' ? "Arial, Helvetica, sans-serif" : c.police, taille: Math.round(d * (c.police === CURSIVE ? 0.5 : 0.62)) + 'px', /* 11/10 « fais des belles lettres script » : la lettre remplit le centre blanc */
+        x: c.x + '%', y: c.y + '%', d: d + 'px', anneau: c.etat === 'faux' ? '#d63c2f' : '#12233b',
+        opacite: c.etat === 'parti' ? 0 : 1, echelle: c.etat === 'parti' ? 1.5 : c.etat === 'faux' ? 0.9 : 1, toucher: () => this.toucher(c.id) })),
+      bravo: s.bravo,
+      redire: () => this.dire(NOMS[l]),
+      nouvelleManche: this.nouvelleManche,
+      reglagesOuverts: s.reglages, ouvrirReglages: () => this.setState({ reglages: true }), fermerReglages: () => this.setState({ reglages: false }),
+      groupes: [G('Les minuscules sur les cibles', 'ecriture', [['script', 'Script'], ['cursive', 'Cursive'], ['deux', 'Les deux']]),
+                G('Les lettres', 'mode', [['hasard', 'Au hasard'], ['choix', 'Je choisis']]),
+                G('Les cibles', 'vitesse', [['immobile', 'Immobiles'], ['lente', 'Lentes'], ['rapide', 'Rapides']])],
+      choixLibre: s.mode === 'choix',
+      grille: ABC.map(x => { const on = s.choisies.includes(x); return { L: x.toUpperCase() + ' ' + x, police: 'ij'.includes(x) ? "'Times New Roman', Georgia, serif" : SCRIPT,
+        fond: on ? '#12233b' : '#fff', encre: on ? '#fff' : '#12233b', basculer: () => this.garder({ choisies: on ? s.choisies.filter(y => y !== x) : s.choisies.concat([x]) }) }; }),
+      retour: () => { const av = location.href; history.back(); setTimeout(() => { if (location.href === av) location.href = 'APPLI - Espace enseignant.dc.html' + location.search; }, 400); }
+    };
+  }
+}
+</script>
+</body>
+</html>

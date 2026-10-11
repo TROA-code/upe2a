@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="polices.css" />
+<style>body{margin:0;background:#3a0d1d;color:#fff;font-family:Archivo, Arial, sans-serif;-webkit-user-select:none;user-select:none}a{color:#ffd23f}a:hover{color:#fff}</style>
+</helmet>
+<div style="min-height:100vh;display:flex;flex-direction:column;background:radial-gradient(ellipse at 50% 0%,#7a1d3c 0%,#3a0d1d 70%)">
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:10px;padding:10px 14px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:20px;letter-spacing:0.03em;color:#f05a9a">LE BOWLING DES VERBES</span>
+<span style="flex:1"></span>
+<div style="display:flex;gap:6px">
+<sc-for list="{{ carres }}" as="c" hint-placeholder-count="6"><span style="width:18px;height:18px;border-radius:4px;background:{{ c.fond }};border:2px solid #fff"></span></sc-for>
+</div>
+<button class="bouton" onClick="{{ retour }}" style="min-height:44px;border:none;border-radius:10px;background:#fff;color:#1f1b2e;padding:0 16px;font-weight:700;font-size:15px;cursor:pointer;margin-left:10px">← L'accueil</button>
+</div>
+
+<sc-if value="{{ aAccueil }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;position:relative;overflow:hidden;min-height:540px;background:linear-gradient(180deg,#4a0f24 0 16%,#f2d1a6 16%,#dca673 100%)">
+<div style="position:absolute;left:50%;top:0;bottom:0;width:min(96vw,820px);transform:translateX(-50%)">
+<div style="position:absolute;inset:0;background:linear-gradient(180deg,#4a0f24 0 16%,#f2d1a6 16%,#dca673 100%)"></div>
+<div style="position:absolute;inset:0;background:repeating-linear-gradient(180deg,#ffffff 0 52px,#e8508f 52px 55px);clip-path:polygon(23% 12%,77% 12%,100% 100%,0 100%)"></div>
+<div style="position:absolute;inset:0;background:#6e1440;clip-path:polygon(26.00% 8%,27.00% 8%,9.00% 100%,7.00% 100%)"></div>
+<div style="position:absolute;inset:0;background:#6e1440;clip-path:polygon(73.00% 8%,74.00% 8%,93.00% 100%,91.00% 100%)"></div>
+<div style="position:absolute;inset:0;background:#a8285f;clip-path:polygon(27.00% 8%,28.00% 8%,11.00% 100%,9.00% 100%)"></div>
+<div style="position:absolute;inset:0;background:#a8285f;clip-path:polygon(72.00% 8%,73.00% 8%,91.00% 100%,89.00% 100%)"></div>
+<div style="position:absolute;inset:0;background:#e0679a;clip-path:polygon(28.00% 8%,29.00% 8%,13.00% 100%,11.00% 100%)"></div>
+<div style="position:absolute;inset:0;background:#e0679a;clip-path:polygon(71.00% 8%,72.00% 8%,89.00% 100%,87.00% 100%)"></div>
+<div style="position:absolute;inset:0;background:#f6a9c9;clip-path:polygon(29.00% 8%,30.00% 8%,15.00% 100%,13.00% 100%)"></div>
+<div style="position:absolute;inset:0;background:#f6a9c9;clip-path:polygon(70.00% 8%,71.00% 8%,87.00% 100%,85.00% 100%)"></div>
+<div style="position:absolute;inset:0;background:#d6487f;clip-path:polygon(30.00% 8%,31.00% 8%,17.00% 100%,15.00% 100%)"></div>
+<div style="position:absolute;inset:0;background:#d6487f;clip-path:polygon(69.00% 8%,70.00% 8%,85.00% 100%,83.00% 100%)"></div>
+<div style="position:absolute;inset:0;background:#7a1a45;clip-path:polygon(31.00% 8%,32.00% 8%,19.00% 100%,17.00% 100%)"></div>
+<div style="position:absolute;inset:0;background:#7a1a45;clip-path:polygon(68.00% 8%,69.00% 8%,83.00% 100%,81.00% 100%)"></div>
+<div style="position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(150,95,45,0.10) 0 2px,transparent 2px 26px),linear-gradient(180deg,#e6bb8b,#f9e4c8);clip-path:polygon(32% 8%,68% 8%,81% 100%,19% 100%)"></div>
+<div style="position:absolute;left:27%;right:27%;top:0;height:23%;background:linear-gradient(180deg,#fff 0%,#fff 70%,rgba(255,255,255,0) 100%)"></div>
+<div style="position:absolute;left:30.5%;right:30.5%;top:3%;height:20%;background:linear-gradient(180deg,#1f040c 0%,#3d0b1c 75%,rgba(61,11,28,0) 100%)"></div>
+<sc-for list="{{ quillesAccueil }}" as="q" hint-placeholder-count="10">
+<span style="position:absolute;left:{{ q.x }};top:{{ q.y }};width:{{ q.w }};margin-left:{{ q.m }};z-index:{{ q.z }};filter:drop-shadow(0 5px 4px rgba(0,0,0,0.3))"><svg viewBox="0 0 40 110" style="display:block;width:100%;height:auto"><path d="M20 4 C27 4 31 9 31 16 C31 23 26 27 25 33 C24 40 37 52 37 72 C37 90 30 102 28 108 L12 108 C10 102 3 90 3 72 C3 52 16 40 15 33 C14 27 9 23 9 16 C9 9 13 4 20 4 Z" fill="#f4f4f6" stroke="#b9bcc4" stroke-width="1"></path><path d="M24 8 C29 12 29 22 24 30 C30 44 35 56 35 72 C35 88 30 100 27 106 L22 106 C26 96 30 86 30 72 C30 56 24 46 21 36 C24 26 25 14 24 8 Z" fill="#c9ccd3" opacity="0.7"></path><rect x="14.5" y="27" width="11" height="3.2" fill="#e8508f"></rect><rect x="14.5" y="33" width="11" height="3.2" fill="#e8508f"></rect></svg></span>
+</sc-for>
+</div>
+<div style="position:absolute;left:0;right:0;top:36%;display:flex;flex-direction:column;align-items:center;gap:4px;transform:rotate(-4deg)">
+<span style="font-family:'Arial Black', Archivo Black, sans-serif;font-size:min(16vw,110px);line-height:1;color:#e8508f;text-shadow:0 5px 0 #8a1f4a">QUIZ</span>
+<span style="font-family:'Arial Black', Archivo Black, sans-serif;font-size:min(7vw,52px);line-height:1;color:#1f1f1f;text-align:center">LES VERBES D'ACTION</span>
+</div>
+<div style="position:absolute;left:50%;bottom:-230px;width:380px;height:380px;margin-left:-190px;border-radius:50%;background:radial-gradient(circle at 62% 20%,#2a0510 0 6%,transparent 6.5%),radial-gradient(circle at 48% 36%,#2a0510 0 6%,transparent 6.5%),radial-gradient(circle at 70% 40%,#2a0510 0 6%,transparent 6.5%),radial-gradient(circle at 40% 30%,#e86fa3 0%,#b8336d 40%,#5e1230 100%)"></div>
+<button class="bouton" onClick="{{ nouvellePartie }}" style="position:absolute;left:50%;bottom:44px;transform:translateX(-50%);min-height:64px;border:none;border-radius:12px;background:#222;color:#fff;padding:0 54px;font-size:30px;cursor:pointer;box-shadow:0 6px 14px rgba(0,0,0,0.4)">START</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ enJeu }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:18px;padding:0 16px 16px;align-items:stretch">
+<div style="position:relative;min-height:460px;border-radius:18px;overflow:hidden;background:#4a0f24">
+<div style="position:absolute;inset:0;background:linear-gradient(180deg,#4a0f24 0 16%,#f2d1a6 16%,#dca673 100%)"></div>
+<div style="position:absolute;inset:0;background:repeating-linear-gradient(180deg,#ffffff 0 52px,#e8508f 52px 55px);clip-path:polygon(23% 12%,77% 12%,100% 100%,0 100%)"></div>
+<div style="position:absolute;inset:0;background:#6e1440;clip-path:polygon(26.00% 8%,27.00% 8%,9.00% 100%,7.00% 100%)"></div>
+<div style="position:absolute;inset:0;background:#6e1440;clip-path:polygon(73.00% 8%,74.00% 8%,93.00% 100%,91.00% 100%)"></div>
+<div style="position:absolute;inset:0;background:#a8285f;clip-path:polygon(27.00% 8%,28.00% 8%,11.00% 100%,9.00% 100%)"></div>
+<div style="position:absolute;inset:0;background:#a8285f;clip-path:polygon(72.00% 8%,73.00% 8%,91.00% 100%,89.00% 100%)"></div>
+<div style="position:absolute;inset:0;background:#e0679a;clip-path:polygon(28.00% 8%,29.00% 8%,13.00% 100%,11.00% 100%)"></div>
+<div style="position:absolute;inset:0;background:#e0679a;clip-path:polygon(71.00% 8%,72.00% 8%,89.00% 100%,87.00% 100%)"></div>
+<div style="position:absolute;inset:0;background:#f6a9c9;clip-path:polygon(29.00% 8%,30.00% 8%,15.00% 100%,13.00% 100%)"></div>
+<div style="position:absolute;inset:0;background:#f6a9c9;clip-path:polygon(70.00% 8%,71.00% 8%,87.00% 100%,85.00% 100%)"></div>
+<div style="position:absolute;inset:0;background:#d6487f;clip-path:polygon(30.00% 8%,31.00% 8%,17.00% 100%,15.00% 100%)"></div>
+<div style="position:absolute;inset:0;background:#d6487f;clip-path:polygon(69.00% 8%,70.00% 8%,85.00% 100%,83.00% 100%)"></div>
+<div style="position:absolute;inset:0;background:#7a1a45;clip-path:polygon(31.00% 8%,32.00% 8%,19.00% 100%,17.00% 100%)"></div>
+<div style="position:absolute;inset:0;background:#7a1a45;clip-path:polygon(68.00% 8%,69.00% 8%,83.00% 100%,81.00% 100%)"></div>
+<div style="position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(150,95,45,0.10) 0 2px,transparent 2px 26px),linear-gradient(180deg,#e6bb8b,#f9e4c8);clip-path:polygon(32% 8%,68% 8%,81% 100%,19% 100%)"></div>
+<div style="position:absolute;left:27%;right:27%;top:0;height:23%;background:linear-gradient(180deg,#fff 0%,#fff 70%,rgba(255,255,255,0) 100%)"></div>
+<div style="position:absolute;left:30.5%;right:30.5%;top:3%;height:20%;background:linear-gradient(180deg,#1f040c 0%,#3d0b1c 75%,rgba(61,11,28,0) 100%)"></div>
+<sc-for list="{{ quilles }}" as="q" hint-placeholder-count="10">
+<span style="position:absolute;left:{{ q.x }};top:{{ q.y }};width:{{ q.w }};margin-left:{{ q.m }};z-index:{{ q.z }};filter:drop-shadow(0 4px 3px rgba(0,0,0,0.3));transform:{{ q.tr }};transform-origin:50% 100%;opacity:{{ q.op }};transition:transform 0.5s cubic-bezier(.3,.6,.4,1) {{ q.delai }}, opacity 0.4s {{ q.delaiOp }}"><svg viewBox="0 0 40 110" style="display:block;width:100%;height:auto"><path d="M20 4 C27 4 31 9 31 16 C31 23 26 27 25 33 C24 40 37 52 37 72 C37 90 30 102 28 108 L12 108 C10 102 3 90 3 72 C3 52 16 40 15 33 C14 27 9 23 9 16 C9 9 13 4 20 4 Z" fill="#f4f4f6" stroke="#b9bcc4" stroke-width="1"></path><path d="M24 8 C29 12 29 22 24 30 C30 44 35 56 35 72 C35 88 30 100 27 106 L22 106 C26 96 30 86 30 72 C30 56 24 46 21 36 C24 26 25 14 24 8 Z" fill="#c9ccd3" opacity="0.7"></path><rect x="14.5" y="27" width="11" height="3.2" fill="#e8508f"></rect><rect x="14.5" y="33" width="11" height="3.2" fill="#e8508f"></rect></svg></span>
+</sc-for>
+<span style="position:absolute;z-index:{{ bouleZ }};left:{{ bouleX }};bottom:{{ bouleBas }};width:{{ bouleTaille }};height:{{ bouleTaille }};transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle at 60% 24%,#2a0510 0 9%,transparent 10%),radial-gradient(circle at 42% 38%,#2a0510 0 9%,transparent 10%),radial-gradient(circle at 68% 46%,#2a0510 0 9%,transparent 10%),radial-gradient(circle at 38% 30%,#e86fa3 0%,#b8336d 45%,#5e1230 100%);box-shadow:0 6px 12px rgba(0,0,0,0.45);opacity:{{ bouleOp }};transition:left {{ bouleDuree }} ease-in, bottom {{ bouleDuree }} ease-in, width {{ bouleDuree }} ease-in, height {{ bouleDuree }} ease-in, opacity {{ bouleDuree }} ease-in"></span>
+<sc-if value="{{ aMessage }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none"><span style="font-family:Archivo Black, Archivo, sans-serif;font-size:64px;color:{{ messageCouleur }};text-shadow:0 4px 0 #fff, 0 0 18px rgba(255,255,255,0.8);font-family:'Arial Black', Archivo Black, sans-serif;text-align:center;line-height:1.05">{{ message }}</span></div>
+</sc-if>
+</div>
+<div style="display:flex;flex-direction:column;gap:14px;min-width:0">
+<div style="flex:1;min-height:320px;background:#fff;border-radius:18px;display:flex;align-items:center;justify-content:center;padding:10px">
+<img src="{{ image }}" alt="" style="width:100%;height:100%;max-height:52vh;object-fit:contain;display:block" />
+</div>
+<sc-for list="{{ phrases }}" as="p" hint-placeholder-count="3">
+<div style="display:flex;gap:10px;align-items:stretch">
+<button class="bouton" onClick="{{ p.ecouter }}" style="flex:0 0 auto;width:64px;min-height:64px;border:none;border-radius:14px;background:#2a7d4f;color:#fff;font-size:26px;cursor:pointer">🔊</button>
+<button class="bouton" onClick="{{ p.choisir }}" style="flex:1;min-height:64px;border:3px solid {{ p.bord }};border-radius:14px;background:{{ p.fond }};color:{{ p.encre }};font-family:'BA Script', Arial, sans-serif;font-size:30px;text-align:left;padding:4px 20px;cursor:pointer;opacity:{{ p.op }}"><span style="font-family:'Times New Roman', Georgia, serif">{{ p.debut }}</span>{{ p.reste }}</button>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ finPartie }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:20px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:72px;color:#f05a9a;text-shadow:0 5px 0 #1f1f1f;text-align:center;line-height:1.05">BRAVO À TOUS !</span>
+<button class="bouton" onClick="{{ nouvellePartie }}" style="min-height:68px;border:none;border-radius:14px;background:#222;color:#fff;padding:0 34px;font-weight:800;font-size:24px;cursor:pointer">▶ Encore 6 images</button>
+</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* 11/10 (sa demande, d'après son Genially « BOWLING - VERBES ») : une image, 3 phrases, l'élève touche la bonne.
+   Bonne réponse → la boule roule et fait tomber les quilles + BRAVO ! ; erreur → la boule part dans la rigole,
+   OH ZUT !, la phrase fausse se grise et il recommence. Pas de score. Manche de 6 images, « Encore ».
+   Images = SES images de verbes (clean/mot-*.webp). Pièges : un autre verbe (même pronom) + le même verbe
+   avec l'autre pronom (comme « Elle va à l'école / Il va à l'école » dans son Genially). 🔊 lit chaque phrase. */
+const V = [
+  ['boire', 'elle', 'boit'], ['dormir', 'elle', 'dort'], ['laver', 'elle', 'se lave'], ['manger', 'elle', 'mange'],
+  ['rever', 'il', 'rêve'], ['lire', 'il', 'lit'], ['ecrire', 'elle', 'écrit'], ['ecouter', 'il', 'écoute'],
+  ['reveiller', 'il', 'se réveille'], ['aller-ecole', 'il', 'va à l’école'], ['habiller', 'il', 's’habille', 'sans-pronom'], ['parler', 'elle', 'parle'], ['marcher', 'il', 'marche'], ['course', 'il', 'court'], ['regarder', 'il', 'regarde']];
+const BRAVOS = ['Super !', 'Bravo !', 'Génial !', 'Très bien !', 'Parfait !', 'Gagné !'];
+/* Triangle vu de face, en perspective : rangée du fond plus haute et plus petite. [x %, y %, largeur px] */
+const QUILLES = [[50, 19, 42], [46, 15.5, 38], [54, 15.5, 38], [42, 12, 34], [50, 12, 34], [58, 12, 34], [38, 8.5, 30], [46, 8.5, 30], [54, 8.5, 30], [62, 8.5, 30]];
+const melange = a => { const b = a.slice(); for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; } return b; };
+const phrase = (pr, v) => (pr === 'il' ? 'Il ' : 'Elle ') + v + '.';
+
+class Component extends DCLogic {
+  state = { etape: 'accueil', liste: [], rang: 0, choix: [], faux: [], phase: 'q', bravo: '' };
+  componentWillUnmount() { clearTimeout(this.t); clearTimeout(this.tf); try { speechSynthesis.cancel(); } catch (e) {} }
+  dire(t) { try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t); u.lang = 'fr-FR'; u.rate = 0.85; const v = speechSynthesis.getVoices().find(x => /^fr/i.test(x.lang)); if (v) u.voice = v; speechSynthesis.speak(u); } catch (e) {} }
+  /* 11/10 « le bruit comme si j'étais dans un bowling » : grondement de la boule qui roule (bruit filtré grave),
+     puis fracas des quilles (claquements de bois + éclat) — ou, dans la rigole, roulement creux et « clonk ». */
+  son(bon) {
+    try {
+      const C = this.ac || (this.ac = new (window.AudioContext || window.webkitAudioContext)()); if (C.state === 'suspended') C.resume();
+      const t = C.currentTime, sr = C.sampleRate;
+      const bruit = d => { const b = C.createBuffer(1, Math.ceil(sr * d), sr), x = b.getChannelData(0); for (let i = 0; i < x.length; i++) x[i] = Math.random() * 2 - 1; const s = C.createBufferSource(); s.buffer = b; return s; };
+      const roule = (debut, duree, coupure, fort) => { const s = bruit(duree), f = C.createBiquadFilter(), g = C.createGain(); f.type = 'lowpass'; f.frequency.setValueAtTime(coupure * 0.6, t + debut); f.frequency.linearRampToValueAtTime(coupure, t + debut + duree);
+        g.gain.setValueAtTime(0.0001, t + debut); g.gain.exponentialRampToValueAtTime(fort, t + debut + 0.12); g.gain.setValueAtTime(fort, t + debut + duree - 0.12); g.gain.exponentialRampToValueAtTime(0.0001, t + debut + duree);
+        s.connect(f); f.connect(g); g.connect(C.destination); s.start(t + debut); s.stop(t + debut + duree);
+        const o = C.createOscillator(), go = C.createGain(); o.type = 'sine'; o.frequency.setValueAtTime(48, t + debut); o.frequency.linearRampToValueAtTime(62, t + debut + duree); go.gain.setValueAtTime(0.0001, t + debut); go.gain.exponentialRampToValueAtTime(fort * 0.5, t + debut + 0.15); go.gain.exponentialRampToValueAtTime(0.0001, t + debut + duree); o.connect(go); go.connect(C.destination); o.start(t + debut); o.stop(t + debut + duree); };
+      const choc = (quand, f0, f1, fort, d) => { const o = C.createOscillator(), g = C.createGain(); o.frequency.setValueAtTime(f0, t + quand); o.frequency.exponentialRampToValueAtTime(f1, t + quand + d); g.gain.setValueAtTime(fort, t + quand); g.gain.exponentialRampToValueAtTime(0.0001, t + quand + d); o.connect(g); g.connect(C.destination); o.start(t + quand); o.stop(t + quand + d + 0.02); };
+      const clac = (quand, freq, fort) => { const s = bruit(0.09), f = C.createBiquadFilter(), g = C.createGain(); f.type = 'bandpass'; f.frequency.value = freq; f.Q.value = 9; g.gain.setValueAtTime(fort, t + quand); g.gain.exponentialRampToValueAtTime(0.0001, t + quand + 0.09); s.connect(f); f.connect(g); g.connect(C.destination); s.start(t + quand); s.stop(t + quand + 0.1); };
+      if (bon) {
+        roule(0, 0.88, 420, 0.5);
+        /* 11/10 « le bruit contre les quilles ça ne va pas » : plus de souffle (il faisait « grésillement »).
+           Une quille = un coup de BOIS creux : impulsion très courte dans 3 résonateurs accordés (≈ 1 : 2,3 : 4,1),
+           un peu désaccordés d'une quille à l'autre. Gros impact sur la quille de tête, puis cascade qui s'éteint,
+           et les quilles qui retombent au sol (coups plus graves). */
+        const bois = (quand, base, fort, duree) => {
+          const s = bruit(0.012), sortie = C.createGain(); sortie.gain.value = fort; sortie.connect(C.destination);
+          [[1, 1, 22], [2.31, 0.55, 26], [4.1, 0.28, 30]].forEach(([r, a, q]) => { const f = C.createBiquadFilter(), g = C.createGain(); f.type = 'bandpass'; f.frequency.value = base * r; f.Q.value = q;
+            g.gain.setValueAtTime(a * 9, t + quand); g.gain.exponentialRampToValueAtTime(0.0001, t + quand + duree); s.connect(f); f.connect(g); g.connect(sortie); });
+          s.start(t + quand); s.stop(t + quand + 0.02); };
+        choc(0.85, 120, 60, 0.5, 0.16);
+        bois(0.855, 720, 1.0, 0.22); bois(0.87, 660, 0.9, 0.2); bois(0.885, 790, 0.8, 0.2);
+        for (let i = 0; i < 16; i++) { const q = 0.9 + Math.pow(Math.random(), 1.6) * 0.55; bois(q, 560 + Math.random() * 420, 0.75 * (1 - (q - 0.9) / 0.75), 0.12 + Math.random() * 0.1); }
+        for (let i = 0; i < 6; i++) { const q = 1.1 + Math.random() * 0.4; bois(q, 230 + Math.random() * 90, 0.45, 0.14); }
+      } else {
+        choc(0.28, 95, 45, 0.55, 0.2);
+        roule(0.3, 1.25, 260, 0.38);
+        const o = C.createOscillator(), g = C.createGain(); o.connect(g); g.connect(C.destination); o.frequency.setValueAtTime(300, t + 1.55); o.frequency.exponentialRampToValueAtTime(130, t + 1.95); g.gain.setValueAtTime(0.12, t + 1.55); g.gain.exponentialRampToValueAtTime(0.0001, t + 2); o.start(t + 1.55); o.stop(t + 2.05);
+      }
+    } catch (e) {}
+  }
+  sonAncien(bon) { try { const C = this.ac || (this.ac = new (window.AudioContext || window.webkitAudioContext)()), t = C.currentTime;
+    if (bon) { for (let i = 0; i < 6; i++) { const o = C.createOscillator(), g = C.createGain(); o.type = 'square'; o.frequency.value = 120 + Math.random() * 240; o.connect(g); g.connect(C.destination); g.gain.setValueAtTime(0.06, t + 0.9 + i * 0.03); g.gain.exponentialRampToValueAtTime(0.001, t + 1.1 + i * 0.03); o.start(t + 0.9 + i * 0.03); o.stop(t + 1.15 + i * 0.03); } }
+    else { const o = C.createOscillator(), g = C.createGain(); o.connect(g); g.connect(C.destination); o.frequency.setValueAtTime(330, t + 0.6); o.frequency.exponentialRampToValueAtTime(140, t + 1); g.gain.setValueAtTime(0.16, t + 0.6); g.gain.exponentialRampToValueAtTime(0.001, t + 1.05); o.start(t + 0.6); o.stop(t + 1.1); } } catch (e) {} }
+  nouvellePartie = () => { this.setState({ etape: 'jeu', liste: melange(V).slice(0, 6), rang: 0 }, () => this.question()); };
+  question() {
+    const s = this.state, [, pr, v] = s.liste[s.rang], proches = [['marche', 'va à l’école']], interdit = (proches.find(p => p.includes(v)) || []), autre = melange(V.filter(x => x[2] !== v && !interdit.includes(x[2])))[0];
+    /* « s'habille » : la tête est cachée dans le pull, on ne voit pas si c'est il ou elle → pas de piège sur le pronom, deux autres verbes. */
+    const sansPr = s.liste[s.rang][3] === 'sans-pronom', autre2 = melange(V.filter(x => x[2] !== v && x[2] !== autre[2] && !interdit.includes(x[2])))[0];
+    const choix = melange([{ t: phrase(pr, v), bon: true }, { t: phrase(pr, autre[2]), bon: false }, sansPr ? { t: phrase(pr, autre2[2]), bon: false } : { t: phrase(pr === 'il' ? 'elle' : 'il', v), bon: false }]);
+    this.setState({ choix, faux: [], phase: 'q', bravo: '' });
+  }
+  choisir(i) {
+    const s = this.state; if (s.phase !== 'q' || s.faux.includes(i)) return;
+    if (s.choix[i].bon) {
+      this.son(true); this.setState({ phase: 'roule', fond: false, bravo: BRAVOS[Math.floor(Math.random() * BRAVOS.length)] });
+      this.tf = setTimeout(() => this.setState({ fond: true }), 860);
+      this.t = setTimeout(() => { if (s.rang + 1 >= s.liste.length) this.setState({ etape: 'fin' }); else this.setState({ rang: s.rang + 1 }, () => this.question()); }, 2600);
+    } else {
+      this.son(false); this.setState({ phase: 'rigole', faux: s.faux.concat([i]) });
+      this.t = setTimeout(() => { this.setState({ phase: 'rigole2' }); this.t = setTimeout(() => this.setState({ phase: 'q' }), 1500); }, 320);
+    }
+  }
+  renderVals() {
+    const s = this.state, q = s.liste[s.rang] || V[0], ph = s.phase;
+    const cote = this.cote || (this.cote = 1); if ((ph === 'rigole' || ph === 'rigole2') && !this.dejaCote) { this.cote = Math.random() < 0.5 ? -1 : 1; this.dejaCote = true; } if (ph !== 'rigole' && ph !== 'rigole2') this.dejaCote = false;
+    return {
+      aAccueil: s.etape === 'accueil', enJeu: s.etape === 'jeu', finPartie: s.etape === 'fin',
+      carres: (s.liste.length ? s.liste : Array(6).fill(0)).map((_, i) => ({ fond: s.etape === 'fin' || i < s.rang || (i === s.rang && ph === 'roule') ? '#2a9d6e' : i === s.rang && s.etape === 'jeu' ? '#ffd23f' : 'transparent' })),
+      image: 'clean/mot-' + q[0] + '.webp',
+      phrases: s.choix.map((c, i) => { const f = s.faux.includes(i), ok = ph === 'roule' && c.bon;
+        return { texte: c.t, debut: /^Il /.test(c.t) ? 'I' : '', reste: /^Il /.test(c.t) ? c.t.slice(1) : c.t, fond: ok ? '#2a9d6e' : f ? '#f3d3cf' : '#fff', encre: ok ? '#fff' : '#1f1b2e', bord: ok ? '#2a9d6e' : f ? '#e2463a' : '#fff', op: f ? 0.55 : 1,
+          ecouter: () => this.dire(c.t), choisir: () => this.choisir(i) }; }),
+      /* Les quilles tombent QUAND la boule arrive (0,85 s) : la tête d'abord, puis le fond, chacune vers l'extérieur. */
+      quilles: QUILLES.map(([x, y, w], i) => { const tombe = ph === 'roule', sens = x < 50 ? -1 : x > 50 ? 1 : (i ? 1 : -1);
+        return { x: x + '%', y: y + '%', w: w + 'px', m: (-w / 2) + 'px', z: Math.round(y), tr: tombe ? 'translate(' + (sens * (18 + Math.abs(x - 50) * 4)) + 'px,' + (-6 - (19 - y) * 2) + 'px) rotate(' + (sens * (75 + i * 6)) + 'deg)' : 'none', op: tombe ? 0 : 1, delai: tombe ? (0.82 + (19 - y) * 0.018).toFixed(2) + 's' : '0s', delaiOp: tombe ? (1.5 + (19 - y) * 0.018).toFixed(2) + 's' : '0s' }; }),
+      /* La boule roule JUSQU'AUX quilles (sa demande) : elle s'arrête sur la quille de tête, puis les quilles tombent. */
+      /* Erreur : la boule TOMBE dans la rigole (incurvée), puis roule dedans jusqu'au fond, sans toucher les quilles. */
+      bouleX: ph === 'rigole' ? (50 + this.cote * 37) + '%' : ph === 'rigole2' ? (50 + this.cote * 24.5) + '%' : '50%',
+      /* Gagné : la boule arrive aux quilles, les renverse, puis CONTINUE et tombe dans la fosse derrière (elle ne reste plus devant). */
+      bouleBas: ph === 'roule' ? (s.fond ? '84%' : '66%') : ph === 'rigole' ? '10px' : ph === 'rigole2' ? '70%' : '22px',
+      bouleTaille: ph === 'q' ? '70px' : ph === 'rigole' ? '54px' : ph === 'roule' && s.fond ? '20px' : '30px',
+      bouleZ: ph === 'roule' ? (s.fond ? 5 : 30) : 25,
+      bouleOp: ph === 'roule' && s.fond ? 0 : 1,
+      bouleDuree: ph === 'q' ? '0s' : ph === 'rigole' ? '0.3s' : ph === 'roule' && s.fond ? '0.45s' : '0.9s',
+      aMessage: ph === 'roule' || ph === 'rigole' || ph === 'rigole2',
+      message: ph === 'roule' ? s.bravo : 'OH ZUT !', messageCouleur: ph === 'roule' ? '#e8508f' : '#1f1f1f',
+      quillesAccueil: QUILLES.map(([x, y, w]) => ({ x: x + '%', y: (y - 2) + '%', w: Math.round(w * 1.5) + 'px', m: Math.round(-w * 0.75) + 'px', z: Math.round(y) })),
+      nouvellePartie: this.nouvellePartie,
+      retour: () => { const av = location.href; history.back(); setTimeout(() => { if (location.href === av) location.href = 'APPLI - Espace enseignant.dc.html' + location.search; }, 400); }
+    };
+  }
+}
+</script>
+</body>
+</html>
