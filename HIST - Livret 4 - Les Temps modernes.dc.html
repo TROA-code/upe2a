@@ -11,7 +11,7 @@
 <style>body{margin:0}a{color:#0f6e6e}a:hover{color:#14213d}@media print{.barre-doc{display:none!important}}</style>
 <script src="./doc-page.js"></script>
 </helmet>
-<div class="barre-doc" style="position:fixed;top:14px;left:14px;z-index:50;display:flex;gap:9px"><button onClick="{{ accueil }}" style="border:none;border-radius:11px;background:#14213d;color:#fff;min-height:44px;padding:9px 16px;font-family:Arial, Helvetica, sans-serif;font-size:15px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.25)" style-hover="background:#0f6e6e">← L'accueil</button></div>
+<div class="barre-doc" style="position:fixed;top:14px;left:14px;z-index:50;display:flex;gap:9px"><button onClick="{{ accueil }}" style="border:none;border-radius:11px;background:#14213d;color:#fff;min-height:44px;padding:9px 16px;font-family:Arial, Helvetica, sans-serif;font-size:15px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.25)" style-hover="background:#0f6e6e">← Retour</button></div>
 <doc-page size="a4">
 <section class="page" data-screen-label="01 Couverture" style="background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:7mm">
 <div style="flex:0 0 auto;background:#0f6e6e;color:#fff;padding:9mm 8mm 8mm;display:flex;flex-direction:column;gap:2.5mm"><span style="font-size:13pt;letter-spacing:0.3em">H I S T O I R E</span><span style="font-size:16pt;font-weight:700;letter-spacing:0.1em">LIVRET N° 4</span><span style="font-size:38pt;font-weight:700;line-height:1">Les Temps modernes</span></div>
@@ -153,7 +153,7 @@
 </doc-page>
 </x-dc>
 <script type="text/x-dc" data-dc-script>
-/* Livret d'histoire : bouton « ← L'accueil » (règle « aucun cul-de-sac », 03/10). */
+/* Livret d'histoire : bouton « ← Retour » (règle « aucun cul-de-sac », 03/10). */
 class Component extends DCLogic {
   renderVals() {
     return {

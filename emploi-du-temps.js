@@ -50,12 +50,12 @@
     /* Ajoutés le 28/09 (sa capture) : orthographe exacte.
        `pasArrive` (02/10, sa demande) : pas encore en classe — grisé et hors de la roue.
        Retirer le drapeau le jour où l'élève arrive. */
-    { id: 'e-sumaya', nom: 'Sumaya', famille: 'ORYAKKHIL', pasArrive: true },
+    { id: 'e-sumaya', nom: 'Sumaya', famille: 'ORYAKKHIL' },
     { id: 'e-david', nom: 'David', famille: 'MAMINGI MABOTE', pasArrive: true },
     { id: 'e-bilal', nom: 'Bilal', famille: 'CAMARA' },
     { id: 'e-saifur', nom: 'Saifur', famille: 'SAYEM', prenoms: 'Saifur Rahman' },
     /* Ajouté le 02/10 (sa demande). */
-    { id: 'e-alpha', nom: 'Alpha', famille: 'TOURE', pasArrive: true }
+    { id: 'e-alpha', nom: 'Alpha', famille: 'TOURE' }
   ];
 
   /* ⚠ Le MERCREDI fait partie de ses jours de classe (ajouté à sa demande le 06/09) :

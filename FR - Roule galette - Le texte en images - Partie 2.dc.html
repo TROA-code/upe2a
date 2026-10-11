@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" />
+<style>
+  html, body { margin: 0; height: 100%; background: #0d1b2e; }
+  @media print { .barre-diapo { display: none !important; } }
+  a { color: #7fb2e5; }
+  a:hover { color: #a8ccf0; }
+</style>
+</helmet>
+
+<div class="barre-diapo" style="position:fixed;top:14px;right:14px;z-index:50;display:flex;gap:9px;align-items:center">
+  <button onClick="{{ accueil }}" style="border:2px solid rgba(255,255,255,.55);border-radius:11px;background:rgba(18,35,59,.72);color:#fff;min-height:44px;padding:9px 16px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:15px;cursor:pointer" style-hover="background:#12233b">← Retour</button>
+  <button onClick="{{ basculeVignettes }}" style="border:2px solid rgba(255,255,255,.35);border-radius:11px;background:rgba(18,35,59,.5);color:#fff;min-height:44px;padding:9px 16px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:15px;cursor:pointer" style-hover="background:#12233b">{{ libelleVignettes }}</button>
+</div>
+
+<x-import component-from-global-scope="deck-stage" from="./deck-stage.js" width="1920" height="1080" hint-size="100%,100%">
+
+  <section data-label="Partie 2" data-screen-label="00" data-speaker-notes="On rappelle la partie 1 : la galette est partie. Qui va-t-elle rencontrer ?" style="width:100%;height:100%;box-sizing:border-box;background:#12233b;display:flex;align-items:center;justify-content:center;gap:90px;padding:80px">
+    <span style="flex:0 0 640px;height:800px;background-image:url(clean/diapo-galette-couverture.webp);background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+    <div style="display:flex;flex-direction:column;gap:36px;color:#fff">
+      <span style="font-family:'Archivo Black',Verdana,sans-serif;font-size:120px;line-height:1">Roule galette</span>
+      <span style="font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:64px;color:#f4c542;font-weight:700">Partie 2</span>
+      <span style="font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:44px;color:#c9d6e8">Le lapin, le loup et l'ours.</span>
+    </div>
+  </section>
+
+  <section data-label="page 6" data-screen-label="06" data-speaker-notes="Qui est-ce ? (un lapin) Où est la galette ?" style="width:100%;height:100%;box-sizing:border-box;background:#12233b;display:flex;flex-direction:column;gap:30px;padding:50px 70px 50px">
+    <div style="flex:1;min-height:0;position:relative;background:#fff;border-radius:18px">
+      <span style="position:absolute;inset:20px;background-image:url(clean/diapo-galette-page06.webp);background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+      <span style="position:absolute;top:18px;left:24px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:30px;font-weight:700;color:#12233b">Page 6</span>
+    </div>
+    <div style="flex:0 0 auto;background:#fff;border-radius:18px;padding:26px 50px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:46px;line-height:1.3;color:#12233b;text-align:center;text-wrap:pretty">
+      Elle roule, elle roule toujours plus loin…<br />Et voilà qu'elle rencontre un lapin.
+    </div>
+  </section>
+
+  <section data-label="page 7" data-screen-label="07" data-speaker-notes="Qu'est-ce que le lapin veut faire ? (manger la galette)" style="width:100%;height:100%;box-sizing:border-box;background:#12233b;display:flex;flex-direction:column;gap:30px;padding:50px 70px 50px">
+    <div style="flex:1;min-height:0;position:relative;background:#fff;border-radius:18px">
+      <span style="position:absolute;inset:20px;background-image:url(clean/diapo-galette-page07.webp);background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+      <span style="position:absolute;top:18px;left:24px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:30px;font-weight:700;color:#12233b">Page 7</span>
+    </div>
+    <div style="flex:0 0 auto;background:#fff;border-radius:18px;padding:26px 50px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:46px;line-height:1.3;color:#12233b;text-align:center;text-wrap:pretty">
+      – <i>Galette, galette, je vais te manger,</i> crie le lapin.<br />– <i>Non,</i> dit la galette, <i>écoute plutôt ma petite chanson.</i><br />Et le lapin dresse ses longues oreilles.
+    </div>
+  </section>
+
+  <section data-label="page 8" data-screen-label="08" data-speaker-notes="La chanson en chœur." style="width:100%;height:100%;box-sizing:border-box;background:#12233b;display:flex;flex-direction:column;gap:30px;padding:50px 70px 50px">
+    <div style="flex:1;min-height:0;position:relative;background:#fff;border-radius:18px">
+      <span style="position:absolute;inset:20px;background-image:url(clean/diapo-galette-page08.webp);background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+      <span style="position:absolute;top:18px;left:24px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:30px;font-weight:700;color:#12233b">Page 8</span>
+    </div>
+    <div style="flex:0 0 auto;background:#fff;border-radius:18px;padding:26px 50px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:46px;line-height:1.3;color:#12233b;text-align:center;text-wrap:pretty">
+      <b><i>Je suis la galette, la galette,<br />Je suis faite avec le blé ramassé dans le grenier.<br />On m'a mise à refroidir, mais j'ai mieux aimé courir !<br />Attrape-moi si tu peux !</i></b>
+    </div>
+  </section>
+
+  <section data-label="page 9" data-screen-label="09" data-speaker-notes="Le lapin a mangé la galette ? (non)" style="width:100%;height:100%;box-sizing:border-box;background:#12233b;display:flex;flex-direction:column;gap:30px;padding:50px 70px 50px">
+    <div style="flex:1;min-height:0;position:relative;background:#fff;border-radius:18px">
+      <span style="position:absolute;inset:20px;background-image:url(clean/diapo-galette-page09.webp);background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+      <span style="position:absolute;top:18px;left:24px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:30px;font-weight:700;color:#12233b">Page 9</span>
+    </div>
+    <div style="flex:0 0 auto;background:#fff;border-radius:18px;padding:26px 50px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:46px;line-height:1.3;color:#12233b;text-align:center;text-wrap:pretty">
+      Et elle se sauve si vite si vite qu'elle disparaît dans la forêt.
+    </div>
+  </section>
+
+  <section data-label="page 10" data-screen-label="10" data-speaker-notes="Qui est-ce ? (le loup) Il est de quelle couleur ? (gris)" style="width:100%;height:100%;box-sizing:border-box;background:#12233b;display:flex;flex-direction:column;gap:30px;padding:50px 70px 50px">
+    <div style="flex:1;min-height:0;position:relative;background:#fff;border-radius:18px">
+      <span style="position:absolute;inset:20px;background-image:url(clean/diapo-galette-page10.webp);background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+      <span style="position:absolute;top:18px;left:24px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:30px;font-weight:700;color:#12233b">Page 10</span>
+    </div>
+    <div style="flex:0 0 auto;background:#fff;border-radius:18px;padding:26px 50px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:46px;line-height:1.3;color:#12233b;text-align:center;text-wrap:pretty">
+      Elle roule, elle roule sur le sentier, et voilà qu'elle rencontre le loup gris.
+    </div>
+  </section>
+
+  <section data-label="page 11" data-screen-label="11" data-speaker-notes="Qu'est-ce que le loup veut faire ?" style="width:100%;height:100%;box-sizing:border-box;background:#12233b;display:flex;flex-direction:column;gap:30px;padding:50px 70px 50px">
+    <div style="flex:1;min-height:0;position:relative;background:#fff;border-radius:18px">
+      <span style="position:absolute;inset:20px;background-image:url(clean/diapo-galette-page11.webp);background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+      <span style="position:absolute;top:18px;left:24px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:30px;font-weight:700;color:#12233b">Page 11</span>
+    </div>
+    <div style="flex:0 0 auto;background:#fff;border-radius:18px;padding:26px 50px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:46px;line-height:1.3;color:#12233b;text-align:center;text-wrap:pretty">
+      – <i>Galette, galette, je vais te manger,</i> dit le loup.<br />– <i>Non, non,</i> dit la galette ; <i>écoute ma petite chanson.</i>
+    </div>
+  </section>
+
+  <section data-label="page 12" data-screen-label="12" data-speaker-notes="La chanson en chœur." style="width:100%;height:100%;box-sizing:border-box;background:#12233b;display:flex;flex-direction:column;gap:30px;padding:50px 70px 50px">
+    <div style="flex:1;min-height:0;position:relative;background:#fff;border-radius:18px">
+      <span style="position:absolute;inset:20px;background-image:url(clean/diapo-galette-page12.webp);background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+      <span style="position:absolute;top:18px;left:24px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:30px;font-weight:700;color:#12233b">Page 12</span>
+    </div>
+    <div style="flex:0 0 auto;background:#fff;border-radius:18px;padding:26px 50px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:46px;line-height:1.3;color:#12233b;text-align:center;text-wrap:pretty">
+      <b><i>Je suis la galette, la galette,<br />Je suis faite avec le blé ramassé dans le grenier.<br />On m'a mise à refroidir, mais j'ai mieux aimé courir !<br />Attrape-moi si tu peux !</i></b>
+    </div>
+  </section>
+
+  <section data-label="page 13" data-screen-label="13" data-speaker-notes="Le loup a mangé la galette ? (non)" style="width:100%;height:100%;box-sizing:border-box;background:#12233b;display:flex;flex-direction:column;gap:30px;padding:50px 70px 50px">
+    <div style="flex:1;min-height:0;position:relative;background:#fff;border-radius:18px">
+      <span style="position:absolute;inset:20px;background-image:url(clean/diapo-galette-page13.webp);background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+      <span style="position:absolute;top:18px;left:24px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:30px;font-weight:700;color:#12233b">Page 13</span>
+    </div>
+    <div style="flex:0 0 auto;background:#fff;border-radius:18px;padding:26px 50px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:46px;line-height:1.3;color:#12233b;text-align:center;text-wrap:pretty">
+      Et elle se sauve si vite, si vite que le loup ne peut la rattraper.
+    </div>
+  </section>
+
+  <section data-label="page 14" data-screen-label="14" data-speaker-notes="Qui est-ce ? (un ours) Il est petit ou gros ?" style="width:100%;height:100%;box-sizing:border-box;background:#12233b;display:flex;flex-direction:column;gap:30px;padding:50px 70px 50px">
+    <div style="flex:1;min-height:0;position:relative;background:#fff;border-radius:18px">
+      <span style="position:absolute;inset:20px;background-image:url(clean/diapo-galette-page14.webp);background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+      <span style="position:absolute;top:18px;left:24px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:30px;font-weight:700;color:#12233b">Page 14</span>
+    </div>
+    <div style="flex:0 0 auto;background:#fff;border-radius:18px;padding:26px 50px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:46px;line-height:1.3;color:#12233b;text-align:center;text-wrap:pretty">
+      Elle court, elle court dans la forêt et voilà qu'elle rencontre un gros ours.
+    </div>
+  </section>
+
+  <section data-label="page 15" data-screen-label="15" data-speaker-notes="Qu'est-ce que l'ours veut faire ?" style="width:100%;height:100%;box-sizing:border-box;background:#12233b;display:flex;flex-direction:column;gap:30px;padding:50px 70px 50px">
+    <div style="flex:1;min-height:0;position:relative;background:#fff;border-radius:18px">
+      <span style="position:absolute;inset:20px;background-image:url(clean/diapo-galette-page15.webp);background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+      <span style="position:absolute;top:18px;left:24px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:30px;font-weight:700;color:#12233b">Page 15</span>
+    </div>
+    <div style="flex:0 0 auto;background:#fff;border-radius:18px;padding:26px 50px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:46px;line-height:1.3;color:#12233b;text-align:center;text-wrap:pretty">
+      – <i>Galette, galette, je vais te manger</i> grogne l'ours de sa grosse voix.<br />– <i>Non, non,</i> dit la galette ; <i>écoute plutôt ma chanson !</i>
+    </div>
+  </section>
+
+  <section data-label="page 16" data-screen-label="16" data-speaker-notes="La chanson en chœur." style="width:100%;height:100%;box-sizing:border-box;background:#12233b;display:flex;flex-direction:column;gap:30px;padding:50px 70px 50px">
+    <div style="flex:1;min-height:0;position:relative;background:#fff;border-radius:18px">
+      <span style="position:absolute;inset:20px;background-image:url(clean/diapo-galette-page16.webp);background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+      <span style="position:absolute;top:18px;left:24px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:30px;font-weight:700;color:#12233b">Page 16</span>
+    </div>
+    <div style="flex:0 0 auto;background:#fff;border-radius:18px;padding:26px 50px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:46px;line-height:1.3;color:#12233b;text-align:center;text-wrap:pretty">
+      <b><i>Je suis la galette, la galette,<br />Je suis faite avec le blé ramassé dans le grenier.<br />On m'a mise à refroidir, mais j'ai mieux aimé courir !<br />Attrape-moi si tu peux !</i></b>
+    </div>
+  </section>
+
+  <section data-label="page 17" data-screen-label="17" data-speaker-notes="L'ours a mangé la galette ? (non) Et après ? — avant de cliquer." style="width:100%;height:100%;box-sizing:border-box;background:#12233b;display:flex;flex-direction:column;gap:30px;padding:50px 70px 50px">
+    <div style="flex:1;min-height:0;position:relative;background:#fff;border-radius:18px">
+      <span style="position:absolute;inset:20px;background-image:url(clean/diapo-galette-page17.webp);background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+      <span style="position:absolute;top:18px;left:24px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:30px;font-weight:700;color:#12233b">Page 17</span>
+    </div>
+    <div style="flex:0 0 auto;background:#fff;border-radius:18px;padding:26px 50px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:46px;line-height:1.3;color:#12233b;text-align:center;text-wrap:pretty">
+      Et elle se sauve si vite, si vite que l'ours ne peut la retenir.
+    </div>
+  </section>
+
+</x-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* ROULE GALETTE — LE TEXTE EN IMAGES, PARTIE 2 (11/10, sa demande, sur le modèle de
+   soutien67) : de la demande du vieux jusqu'à la chute de la galette. Une page = une image
+   de l'album + le texte du livre en dessous, dialogues en italique.
+   ⚠ Texte du livre (Père Castor) : c'est elle qui l'a choisi, pour la classe. */
+const CLE_VIGNETTES = 'upe2a-diapo-galette-p2-vignettes';
+class Component extends DCLogic {
+  state = { vignettes: true };
+  componentDidMount() {
+    let v = true;
+    try { v = localStorage.getItem(CLE_VIGNETTES) !== 'non'; } catch (e) {}
+    this.setState({ vignettes: v });
+    this.appliquer(v);
+    this._clic = (e) => {
+      const chemin = e.composedPath ? e.composedPath() : [];
+      for (const n of chemin) {
+        const c = n && n.classList;
+        if (c && (c.contains('barre-diapo') || c.contains('rail') || c.contains('rail-resize') || c.contains('overlay'))) return;
+      }
+      const d = document.querySelector('deck-stage');
+      if (!d || typeof d.goTo !== 'function') return;
+      const vues = Array.prototype.slice.call(d.querySelectorAll('section'));
+      let i = vues.findIndex(s => s.hasAttribute('data-deck-active'));
+      if (i < 0) i = 0;
+      if (i < vues.length - 1) d.goTo(i + 1);
+    };
+    document.addEventListener('click', this._clic);
+  }
+  componentWillUnmount() { if (this._clic) document.removeEventListener('click', this._clic); }
+  appliquer(v) {
+    const d = document.querySelector('deck-stage');
+    if (!d) return;
+    if (v) d.removeAttribute('no-rail'); else d.setAttribute('no-rail', '');
+  }
+  renderVals() {
+    const v = this.state.vignettes;
+    return {
+      libelleVignettes: v ? 'Masquer les vignettes' : 'Voir les vignettes',
+      basculeVignettes: () => {
+        const n = !v;
+        this.setState({ vignettes: n });
+        try { localStorage.setItem(CLE_VIGNETTES, n ? 'oui' : 'non'); } catch (e) {}
+        this.appliquer(n);
+      },
+      accueil: () => {
+        if (typeof history !== 'undefined' && history.length > 1) history.back();
+        else location.href = 'APPLI - Espace enseignant.dc.html' + location.search;
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

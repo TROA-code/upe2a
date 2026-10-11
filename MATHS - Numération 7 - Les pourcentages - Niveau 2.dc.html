@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#1d4e89}
+a:hover{color:#163a68}
+@media print{.bouton{display:none !important}}
+</style>
+<script src="./doc-page.js"></script>
+</helmet>
+<button class="bouton" onClick="{{ retour }}" style="position:fixed;top:12px;right:12px;z-index:10;min-height:44px;border:none;border-radius:10px;background:#14213d;color:#fff;padding:0 16px;font-weight:700;font-size:15px;cursor:pointer;font-family:Helvetica,Arial,sans-serif">← L'accueil</button>
+<doc-page size="a4">
+
+<section class="page" data-screen-label="Couverture" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:7mm">
+<div style="flex:0 0 auto;background:#fff;color:#1f6fb2;border:3px solid #1f6fb2;padding:9mm 8mm 8mm;display:flex;flex-direction:column;gap:2.5mm">
+<span style="font-size:13pt;letter-spacing:0.3em">L I V R E T</span>
+<div style="display:flex;align-items:baseline;gap:4mm;white-space:nowrap;line-height:1"><span style="font-size:22pt;font-weight:700">NUMÉRATION</span><span style="font-size:22pt;font-weight:700">N° 7</span></div>
+<span style="font-size:30pt;font-weight:700">Les pourcentages</span>
+<span style="font-size:18pt;font-weight:700;letter-spacing:0.08em">NIVEAU 2</span>
+</div>
+<div style="flex:0 0 auto;height:1.5mm;background:#e0a526;margin-top:-7mm"></div>
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10mm">
+<div style="display:flex;align-items:center;gap:12mm">
+<div style="flex:0 0 auto;width:70mm;height:70mm;display:grid;grid-template-columns:repeat(10,minmax(0,1fr));grid-template-rows:repeat(10,minmax(0,1fr));border:2px solid #14213d">
+<sc-for list="{{ grille }}" as="c" hint-placeholder-count="100"><span style="border:0.5px solid #8a91a3;background:{{ c.fond }}"></span></sc-for>
+</div>
+<span style="font-size:60pt;font-weight:700;white-space:nowrap">25 %</span>
+</div>
+<span style="font-size:28pt;font-weight:700;white-space:nowrap">25 % de 128 = ?</span>
+</div>
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:5mm;font-size:14pt">
+<div style="display:flex;align-items:flex-end;gap:3mm"><span style="font-weight:700">Prénom :</span><span style="flex:1;border-bottom:1.5px solid #14213d;height:7mm"></span></div>
+<div style="display:flex;align-items:flex-end;gap:3mm"><span style="font-weight:700">Classe :</span><span style="flex:1;border-bottom:1.5px solid #14213d;height:7mm"></span></div>
+</div>
+</section>
+
+<section class="page" data-screen-label="01 Calculs 1 à 4" style="background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Helvetica,'Helvetica Neue',Arial,sans-serif;color:#14213d;gap:3mm">
+<div style="flex:0 0 auto;display:flex;align-items:flex-end;justify-content:space-between;gap:4mm;border-bottom:2.5px solid #14213d;padding-bottom:2.5mm">
+<div style="display:flex;flex-direction:column;gap:1mm;min-width:0"><span style="font-size:12pt;letter-spacing:0.12em;text-transform:uppercase;color:#4a5262">Numération 7 · Niveau 2</span><span style="font-size:22pt;font-weight:700;line-height:1.1;white-space:nowrap">Les pourcentages</span></div>
+<div style="flex:0 0 auto;display:flex;align-items:flex-end;gap:2mm;font-size:13pt;font-weight:700;white-space:nowrap">Prénom :<span style="width:40mm;border-bottom:2px solid #14213d;display:block"></span></div>
+</div>
+<div style="flex:0 0 auto;border:2px solid #8a91a3;border-radius:3mm;padding:3mm 6mm;display:flex;align-items:center;gap:4mm;font-size:14pt;flex-wrap:wrap"><span>Quand on a <b>15 %</b> de quelque chose, c'est qu'il faut multiplier ce quelque chose par la fraction</span><span style="display:inline-flex;flex-direction:column;align-items:center;font-weight:700;line-height:1.1"><span>15</span><span style="width:12mm;border-top:2px solid #14213d"></span><span>100</span></span></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:4mm;font-size:15pt;font-weight:700"><img src="clean/pictos/ecris.webp" alt="" style="width:12mm;height:12mm;object-fit:contain" />Je calcule.</div>
+<sc-for list="{{ page1 }}" as="p" hint-placeholder-count="4">
+<div style="flex:1 1 auto;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:3mm;border-top:2px dashed #8a91a3;padding:1mm 0">
+<span style="font-size:18pt"><b>{{ p.n }}.</b> Calcule {{ p.pc }} % de {{ p.tot }}.</span>
+<div style="display:flex;align-items:center;gap:5mm;font-size:18pt;padding-left:10mm">
+<span style="display:inline-flex;flex-direction:column;align-items:center;gap:1mm"><span style="width:18mm;height:10mm;border:2px solid #8a91a3;border-radius:2mm;display:block"></span><span style="width:22mm;border-top:2px solid #14213d"></span><span style="width:18mm;height:10mm;border:2px solid #8a91a3;border-radius:2mm;display:block"></span></span>
+<span>×</span><span style="width:28mm;height:13mm;border:2px solid #8a91a3;border-radius:2mm;display:block"></span>
+<span>=</span><span style="width:32mm;height:13mm;border:2px solid #14213d;border-radius:2mm;display:block"></span>
+</div>
+<div style="display:flex;align-items:baseline;gap:2mm;font-size:14pt;padding-left:10mm">{{ p.pc }} % de {{ p.tot }} est égal à<span style="width:28mm;border-bottom:1.5px solid #14213d;display:inline-block"></span></div>
+</div>
+</sc-for>
+</section>
+
+<section class="page" data-screen-label="02 Calculs 5 à 8" style="background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Helvetica,'Helvetica Neue',Arial,sans-serif;color:#14213d;gap:5mm">
+<div style="flex:0 0 auto;display:flex;align-items:flex-end;justify-content:space-between;gap:4mm;border-bottom:2.5px solid #14213d;padding-bottom:2.5mm">
+<div style="display:flex;flex-direction:column;gap:1mm;min-width:0"><span style="font-size:12pt;letter-spacing:0.12em;text-transform:uppercase;color:#4a5262">Numération 7 · Niveau 2</span><span style="font-size:22pt;font-weight:700;line-height:1.1;white-space:nowrap">Les pourcentages</span></div>
+<div style="flex:0 0 auto;display:flex;align-items:flex-end;gap:2mm;font-size:13pt;font-weight:700;white-space:nowrap">Prénom :<span style="width:40mm;border-bottom:2px solid #14213d;display:block"></span></div>
+</div>
+
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:4mm;font-size:15pt;font-weight:700"><img src="clean/pictos/ecris.webp" alt="" style="width:12mm;height:12mm;object-fit:contain" />Je calcule.</div>
+<sc-for list="{{ page2 }}" as="p" hint-placeholder-count="4">
+<div style="flex:1 1 auto;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:3mm;border-top:2px dashed #8a91a3;padding:1mm 0">
+<span style="font-size:18pt"><b>{{ p.n }}.</b> Calcule {{ p.pc }} % de {{ p.tot }}.</span>
+<div style="display:flex;align-items:center;gap:5mm;font-size:18pt;padding-left:10mm">
+<span style="display:inline-flex;flex-direction:column;align-items:center;gap:1mm"><span style="width:18mm;height:10mm;border:2px solid #8a91a3;border-radius:2mm;display:block"></span><span style="width:22mm;border-top:2px solid #14213d"></span><span style="width:18mm;height:10mm;border:2px solid #8a91a3;border-radius:2mm;display:block"></span></span>
+<span>×</span><span style="width:28mm;height:13mm;border:2px solid #8a91a3;border-radius:2mm;display:block"></span>
+<span>=</span><span style="width:32mm;height:13mm;border:2px solid #14213d;border-radius:2mm;display:block"></span>
+</div>
+<div style="display:flex;align-items:baseline;gap:2mm;font-size:14pt;padding-left:10mm">{{ p.pc }} % de {{ p.tot }} est égal à<span style="width:28mm;border-bottom:1.5px solid #14213d;display:inline-block"></span></div>
+</div>
+</sc-for>
+</section>
+
+<section class="page" data-screen-label="05 Corrigé" style="background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Helvetica,'Helvetica Neue',Arial,sans-serif;color:#14213d;gap:5mm">
+<div style="flex:0 0 auto;border-bottom:2.5px solid #14213d;padding-bottom:2.5mm;display:flex;flex-direction:column;gap:1mm"><span style="font-size:12pt;letter-spacing:0.12em;text-transform:uppercase;color:#4a5262">Numération 7 · Niveau 2</span><span style="font-size:22pt;font-weight:700">CORRIGÉ</span></div>
+<sc-for list="{{ corrige }}" as="p" hint-placeholder-count="8">
+<div style="display:flex;flex-direction:column;gap:1.5mm;border-bottom:1px solid #c9cdd6;padding-bottom:3mm">
+<span style="font-size:15pt"><b>{{ p.n }}.</b> {{ p.pc }} % de {{ p.tot }} → {{ p.calcul }}</span>
+</div>
+</sc-for>
+</section>
+
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    // 11/10 : ses 8 calculs nus, dans l'ordre de sa fiche.
+    const C = [[25, 128], [75, 240], [10, 4500], [40, 125], [75, 150], [88, 400], [20, 45], [50, 180]];
+    const fiches = C.map(([pc, tot], i) => ({ n: i + 1, pc, tot, calcul: pc + '/100 × ' + tot + ' = ' + String(pc * tot / 100).replace('.', ',') }));
+    return {
+      retour: () => { const av = location.href; history.back(); setTimeout(() => { if (location.href === av) location.href = 'APPLI - Espace enseignant.dc.html' + location.search; }, 400); },
+      grille: Array.from({ length: 100 }, (_, i) => ({ fond: i < 25 ? '#14213d' : '#fff' })),
+      page1: fiches.slice(0, 4), page2: fiches.slice(4), corrige: fiches
+    };
+  }
+}
+</script>
+</body>
+</html>

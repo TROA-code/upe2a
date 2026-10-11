@@ -25,13 +25,14 @@
     mots.forEach(function (m) { lmax = Math.max(lmax, m.length); });
     var lignes = mots.length <= 1 ? 1 : (mots.length <= 2 ? 2 : 3);
     var largeur = d * 0.78, mm = Math.min(largeur / (0.66 * lmax), (d * 0.62) / (1.25 * lignes));
-    return Math.max(9, Math.min(28, mm / 0.3528));
+    // 11/10 (sa demande) : une lettre seule s'écrit en très gros
+    return Math.max(9, Math.min(lmax <= 2 ? 90 : 40, mm / 0.3528));
   }
   function contenuMot(it, d) {
     var haut = String(it.haut || ''), bas = String(it.bas || '');
     var taille = tailleMot(haut, d);
     return '<span style="font-size:' + taille.toFixed(1) + 'pt;font-weight:700;color:#14213d;line-height:1.05;letter-spacing:0.01em">' + esc(haut) + '</span>' +
-      (bas ? '<span style="font-size:' + (taille * 0.62).toFixed(1) + 'pt;color:#4a5468;line-height:1.15">' + esc(bas) + '</span>' : '');
+      (bas ? '<span style="font-size:' + (taille * (haut.length <= 2 ? 0.55 : 0.62)).toFixed(1) + 'pt;color:#4a5468;line-height:1.15">' + esc(bas) + '</span>' : '');
   }
   function contenuImage(it, d) {
     var lg = it.haut ? d * 0.62 : d * 0.76;

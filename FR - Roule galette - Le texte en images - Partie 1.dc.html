@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" />
+<style>
+  html, body { margin: 0; height: 100%; background: #0d1b2e; }
+  @media print { .barre-diapo { display: none !important; } }
+  a { color: #7fb2e5; }
+  a:hover { color: #a8ccf0; }
+</style>
+</helmet>
+
+<div class="barre-diapo" style="position:fixed;top:14px;right:14px;z-index:50;display:flex;gap:9px;align-items:center">
+  <button onClick="{{ accueil }}" style="border:2px solid rgba(255,255,255,.55);border-radius:11px;background:rgba(18,35,59,.72);color:#fff;min-height:44px;padding:9px 16px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:15px;cursor:pointer" style-hover="background:#12233b">← Retour</button>
+  <button onClick="{{ basculeVignettes }}" style="border:2px solid rgba(255,255,255,.35);border-radius:11px;background:rgba(18,35,59,.5);color:#fff;min-height:44px;padding:9px 16px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:15px;cursor:pointer" style-hover="background:#12233b">{{ libelleVignettes }}</button>
+</div>
+
+<x-import component-from-global-scope="deck-stage" from="./deck-stage.js" width="1920" height="1080" hint-size="100%,100%">
+
+  <section data-label="Partie 1" data-screen-label="00" data-speaker-notes="On annonce : aujourd'hui, le début de l'histoire. Qui est sur la couverture ?" style="width:100%;height:100%;box-sizing:border-box;background:#12233b;display:flex;align-items:center;justify-content:center;gap:90px;padding:80px">
+    <span style="flex:0 0 640px;height:800px;background-image:url(clean/diapo-galette-couverture.webp);background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+    <div style="display:flex;flex-direction:column;gap:36px;color:#fff">
+      <span style="font-family:'Archivo Black',Verdana,sans-serif;font-size:120px;line-height:1">Roule galette</span>
+      <span style="font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:64px;color:#f4c542;font-weight:700">Partie 1</span>
+      <span style="font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:44px;color:#c9d6e8">La galette tombe de la fenêtre.</span>
+    </div>
+  </section>
+
+  <section data-label="page 1" data-screen-label="01" data-speaker-notes="Qui est-ce ? Qu'est-ce que le vieux veut manger ? Qu'est-ce qui manque à la vieille ?" style="width:100%;height:100%;box-sizing:border-box;background:#12233b;display:flex;flex-direction:column;gap:30px;padding:50px 70px 50px">
+    <div style="flex:1;min-height:0;position:relative;background:#fff;border-radius:18px">
+      <span style="position:absolute;inset:20px;background-image:url(clean/diapo-galette-1.webp);background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+      <span style="position:absolute;top:18px;left:24px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:30px;font-weight:700;color:#12233b">Page 1</span>
+    </div>
+    <div style="flex:0 0 auto;background:#fff;border-radius:18px;padding:26px 50px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:46px;line-height:1.3;color:#12233b;text-align:center;text-wrap:pretty">
+      Dans une petite maison, tout près de la forêt, vivaient un vieux et une vieille. Un jour, le vieux dit à la vieille :<br />– <i>J'aimerais bien manger une galette…</i><br />– <i>Je pourrais t'en faire une,</i> répond la vieille, <i>si seulement j'avais de la farine.</i>
+    </div>
+  </section>
+
+  <section data-label="page 2" data-screen-label="02" data-speaker-notes="Où va la vieille ? (au grenier) Qu'est-ce qu'elle fait ? (elle balaie) Qu'est-ce qu'elle trouve ? (des grains de blé)" style="width:100%;height:100%;box-sizing:border-box;background:#12233b;display:flex;flex-direction:column;gap:30px;padding:50px 70px 50px">
+    <div style="flex:1;min-height:0;position:relative;background:#fff;border-radius:18px">
+      <span style="position:absolute;inset:20px;background-image:url(clean/diapo-galette-2.webp);background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+      <span style="position:absolute;top:18px;left:24px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:30px;font-weight:700;color:#12233b">Page 2</span>
+    </div>
+    <div style="flex:0 0 auto;background:#fff;border-radius:18px;padding:26px 50px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:46px;line-height:1.3;color:#12233b;text-align:center;text-wrap:pretty">
+      – <i>On va bien en trouver un peu,</i> dit le vieux : <i>monte au grenier, balaie le plancher, tu trouveras sûrement des grains de blé.</i><br />– <i>C'est une idée,</i> dit la vieille, qui monte au grenier, balaie le plancher et ramasse les grains de blé.
+    </div>
+  </section>
+
+  <section data-label="page 3" data-screen-label="03" data-speaker-notes="Avec le blé, elle fait quoi ? (de la farine) Avec la farine ? (une galette) Où met-elle la galette ? (au four)" style="width:100%;height:100%;box-sizing:border-box;background:#12233b;display:flex;flex-direction:column;gap:30px;padding:50px 70px 50px">
+    <div style="flex:1;min-height:0;position:relative;background:#fff;border-radius:18px">
+      <span style="position:absolute;inset:20px;background-image:url(clean/diapo-galette-3.webp);background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+      <span style="position:absolute;top:18px;left:24px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:30px;font-weight:700;color:#12233b">Page 3</span>
+    </div>
+    <div style="flex:0 0 auto;background:#fff;border-radius:18px;padding:26px 50px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:46px;line-height:1.3;color:#12233b;text-align:center;text-wrap:pretty">
+      Avec les grains de blé elle fait de la farine ; avec la farine elle fait une galette et puis elle met la galette à cuire au four.
+    </div>
+  </section>
+
+  <section data-label="page 4" data-screen-label="04" data-speaker-notes="La galette est chaude ou froide ? Où la vieille la pose-t-elle ? (sur la fenêtre)" style="width:100%;height:100%;box-sizing:border-box;background:#12233b;display:flex;flex-direction:column;gap:30px;padding:50px 70px 50px">
+    <div style="flex:1;min-height:0;position:relative;background:#fff;border-radius:18px">
+      <span style="position:absolute;inset:20px;background-image:url(clean/diapo-galette-4.webp);background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+      <span style="position:absolute;top:18px;left:24px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:30px;font-weight:700;color:#12233b">Page 4</span>
+    </div>
+    <div style="flex:0 0 auto;background:#fff;border-radius:18px;padding:26px 50px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:46px;line-height:1.3;color:#12233b;text-align:center;text-wrap:pretty">
+      Et voilà la galette cuite.<br />« <i>Elle est trop chaude !</i> crie le vieux. <i>Il faut la mettre à refroidir !</i> »<br />Et la vieille pose la galette sur la fenêtre.
+    </div>
+  </section>
+
+  <section data-label="page 5" data-screen-label="05" data-speaker-notes="La galette s'ennuie. Qu'est-ce qu'elle fait ? (elle tombe dans le jardin, elle part) Et après ? — avant de cliquer." style="width:100%;height:100%;box-sizing:border-box;background:#12233b;display:flex;flex-direction:column;gap:30px;padding:50px 70px 50px">
+    <div style="flex:1;min-height:0;position:relative;background:#fff;border-radius:18px">
+      <span style="position:absolute;inset:20px;background-image:url(clean/diapo-galette-5.webp);background-size:contain;background-repeat:no-repeat;background-position:center;display:block"></span>
+      <span style="position:absolute;top:18px;left:24px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:30px;font-weight:700;color:#12233b">Page 5</span>
+    </div>
+    <div style="flex:0 0 auto;background:#fff;border-radius:18px;padding:26px 50px;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:46px;line-height:1.3;color:#12233b;text-align:center;text-wrap:pretty">
+      Au bout d'un moment la galette commence à s'ennuyer. Tout doucement elle se laisse glisser du rebord de la fenêtre, tombe dans le jardin et continue son chemin.
+    </div>
+  </section>
+
+</x-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* ROULE GALETTE — LE TEXTE EN IMAGES, PARTIE 1 (11/10, sa demande, sur le modèle de
+   soutien67) : de la demande du vieux jusqu'à la chute de la galette. Une page = une image
+   de l'album + le texte du livre en dessous, dialogues en italique.
+   ⚠ Texte du livre (Père Castor) : c'est elle qui l'a choisi, pour la classe. */
+const CLE_VIGNETTES = 'upe2a-diapo-galette-p1-vignettes';
+class Component extends DCLogic {
+  state = { vignettes: true };
+  componentDidMount() {
+    let v = true;
+    try { v = localStorage.getItem(CLE_VIGNETTES) !== 'non'; } catch (e) {}
+    this.setState({ vignettes: v });
+    this.appliquer(v);
+    this._clic = (e) => {
+      const chemin = e.composedPath ? e.composedPath() : [];
+      for (const n of chemin) {
+        const c = n && n.classList;
+        if (c && (c.contains('barre-diapo') || c.contains('rail') || c.contains('rail-resize') || c.contains('overlay'))) return;
+      }
+      const d = document.querySelector('deck-stage');
+      if (!d || typeof d.goTo !== 'function') return;
+      const vues = Array.prototype.slice.call(d.querySelectorAll('section'));
+      let i = vues.findIndex(s => s.hasAttribute('data-deck-active'));
+      if (i < 0) i = 0;
+      if (i < vues.length - 1) d.goTo(i + 1);
+    };
+    document.addEventListener('click', this._clic);
+  }
+  componentWillUnmount() { if (this._clic) document.removeEventListener('click', this._clic); }
+  appliquer(v) {
+    const d = document.querySelector('deck-stage');
+    if (!d) return;
+    if (v) d.removeAttribute('no-rail'); else d.setAttribute('no-rail', '');
+  }
+  renderVals() {
+    const v = this.state.vignettes;
+    return {
+      libelleVignettes: v ? 'Masquer les vignettes' : 'Voir les vignettes',
+      basculeVignettes: () => {
+        const n = !v;
+        this.setState({ vignettes: n });
+        try { localStorage.setItem(CLE_VIGNETTES, n ? 'oui' : 'non'); } catch (e) {}
+        this.appliquer(n);
+      },
+      accueil: () => {
+        if (typeof history !== 'undefined' && history.length > 1) history.back();
+        else location.href = 'APPLI - Espace enseignant.dc.html' + location.search;
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

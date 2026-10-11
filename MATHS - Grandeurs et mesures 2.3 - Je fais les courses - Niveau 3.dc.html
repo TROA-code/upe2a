@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#1f6fb2}
+a:hover{color:#14213d}
+</style>
+<script src="./doc-page.js"></script>
+</helmet>
+<doc-page size="a4">
+
+<section class="page" data-screen-label="Couverture" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:7mm">
+<div style="flex:0 0 auto;background:#fff;color:#1f6fb2;border:3px solid #1f6fb2;padding:9mm 8mm 8mm;display:flex;flex-direction:column;gap:2.5mm">
+<span style="font-size:13pt;letter-spacing:0.3em">L I V R E T</span>
+<div style="display:flex;align-items:baseline;gap:4mm;white-space:nowrap;line-height:1"><span style="font-size:22pt;font-weight:700">GRANDEURS ET MESURES</span><span style="font-size:22pt;font-weight:700">N° 2.3</span></div>
+<span style="font-size:30pt;font-weight:700">Je fais les courses – Niveau 3</span>
+</div>
+<div style="flex:0 0 auto;height:1.5mm;background:#e0a526;margin-top:-7mm"></div>
+<div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8mm">
+<div style="display:flex;align-items:flex-end;gap:10mm;border-bottom:3mm solid #14213d;padding:0 10mm">
+<span style="width:50mm;height:50mm;background:#fff url('clean/mot-stylo.webp') center/contain no-repeat;display:block"></span>
+<div style="display:flex;flex-direction:column;align-items:center"><span style="background:#fff;color:#14213d;border:2.5px solid #14213d;border-radius:3mm;padding:4mm 7mm;font-size:20pt;font-weight:700;text-align:center;line-height:1.25">un stylo<br>0 € 90</span><span style="width:2mm;height:14mm;background:#14213d;display:block"></span></div>
+</div>
+<div style="display:flex;align-items:center;gap:3mm"><span style="width:40mm;height:21mm;background:#fff url('clean/mot-billet10.webp') center / 100% 100% no-repeat;border:1px solid #8a91a3;border-radius:1mm;display:block"></span><span style="font-size:22pt;font-weight:700">→</span><span style="width:19mm;height:19mm;border-radius:50%;background:#fff url('clean/mot-piece2e.webp') center / 100% 100% no-repeat;display:block"></span><span style="width:19mm;height:19mm;border-radius:50%;background:#fff url('clean/mot-piece2e.webp') center / 100% 100% no-repeat;display:block"></span><span style="width:19mm;height:19mm;border-radius:50%;background:#fff url('clean/mot-piece2e.webp') center / 100% 100% no-repeat;display:block"></span><span style="width:19mm;height:19mm;border-radius:50%;background:#fff url('clean/mot-piece2e.webp') center / 100% 100% no-repeat;display:block"></span><span style="width:17mm;height:17mm;border-radius:50%;background:#fff url('clean/mot-piece1e.webp') center / 100% 100% no-repeat;display:block"></span><span style="width:14.5mm;height:14.5mm;border-radius:50%;background:#fff url('clean/mot-piece10c.webp') center / 100% 100% no-repeat;display:block"></span></div>
+</div>
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:5mm;font-size:14pt">
+<div style="display:flex;align-items:flex-end;gap:3mm"><span style="font-weight:700">Prénom :</span><span style="flex:1;border-bottom:1.5px solid #14213d;height:7mm"></span></div>
+<div style="display:flex;align-items:flex-end;gap:3mm"><span style="font-weight:700">Classe :</span><span style="flex:1;border-bottom:1.5px solid #14213d;height:7mm"></span></div>
+</div>
+</section>
+
+<sc-for list="{{ fiches }}" as="f" hint-placeholder-count="2">
+<section class="page" data-screen-label="{{ f.label }}" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto"><div style="background:#fff;color:#1f6fb2;border:2.5px solid #1f6fb2;padding:3mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:4mm"><span style="font-size:20pt;font-weight:700;letter-spacing:0.04em">JE FAIS LES COURSES</span><span style="font-size:12pt;letter-spacing:0.1em">{{ f.tag }}</span></div><div style="height:1.5mm;background:#e0a526"></div></div>
+<div style="flex:0 0 auto;display:flex;justify-content:center">
+<div style="display:flex;align-items:flex-end;gap:10mm;border-bottom:2.5mm solid #14213d;padding:0 8mm">
+<sc-if value="{{ f.aImg }}" hint-placeholder-val="{{ true }}"><span style="width:44mm;height:44mm;background-image:{{ f.img }};background-size:contain;background-repeat:no-repeat;background-position:center bottom;display:block"></span></sc-if>
+<sc-if value="{{ f.sansImg }}" hint-placeholder-val="{{ false }}"><span style="width:44mm;height:44mm;box-sizing:border-box;border:1.5px solid #c9cfd8;background:repeating-linear-gradient(45deg,#f3f4f7 0 3mm,#fff 3mm 6mm);display:flex;align-items:center;justify-content:center;text-align:center;font-family:monospace;font-size:9pt;color:#8a91a3;padding:2mm">photo à venir<br>{{ f.fichier }}</span></sc-if>
+<div style="display:flex;flex-direction:column;align-items:center"><span style="background:#fff;color:#14213d;border:2.5px solid #14213d;border-radius:3mm;padding:3mm 6mm;font-size:18pt;font-weight:700;text-align:center;line-height:1.25;max-width:52mm;text-wrap:balance">{{ f.etiquette }}<br>{{ f.prixAff }}</span><span style="width:1.8mm;height:10mm;background:#14213d;display:block"></span></div>
+</div>
+</div>
+<div style="flex:0 0 auto;font-size:16pt;margin-top:2mm">J'achète {{ f.art }}.</div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm"><span style="width:12mm;height:12mm;flex:0 0 auto;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/ecris.webp') center/contain no-repeat"></span><span style="font-size:16pt;font-weight:700;text-decoration:underline;text-underline-offset:1.5mm">Quel est le prix {{ f.du }} ?</span></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;justify-content:flex-end;gap:3mm;font-size:16pt"><span>{{ f.sujet }} {{ f.verbe }} :</span><span style="width:40mm;height:14mm;box-sizing:border-box;border:2px solid #14213d;display:flex;align-items:center;justify-content:flex-end;padding-right:3mm;font-weight:700">€</span></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:6mm;font-size:16pt"><span>Je donne un billet de 10 € à la caissière :</span><span style="width:48mm;height:25.5mm;flex:0 0 auto;background:#fff url('clean/mot-billet10.webp') center / 100% 100% no-repeat;border:1px solid #8a91a3;border-radius:1mm;display:block"></span></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm"><span style="width:12mm;height:12mm;flex:0 0 auto;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/colle.webp') center/contain no-repeat"></span><span style="font-size:16pt;font-weight:700;text-decoration:underline;text-underline-offset:1.5mm">Colle les pièces qu'elle va me donner pour me rendre la monnaie.</span></div>
+<div style="flex:1;min-height:42mm;box-sizing:border-box;border:2px solid #8a91a3;border-radius:3mm;background:#fff;display:flex;align-items:flex-start;justify-content:flex-end;padding:2mm 3mm"><span style="font-size:12pt;color:#4a5262">la monnaie</span></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm"><span style="width:12mm;height:12mm;flex:0 0 auto;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/ecris.webp') center/contain no-repeat"></span><span style="flex:1;font-size:16pt;font-weight:700">La caissière m'a rendu :</span><span style="width:40mm;height:14mm;box-sizing:border-box;border:2px solid #14213d;display:flex;align-items:center;justify-content:flex-end;padding-right:3mm;font-size:16pt;font-weight:700">€</span></div>
+<div style="flex:0 0 auto;border-top:1px solid #c9cfd8;padding-top:2mm;font-size:12pt;color:#4a5262;display:flex;justify-content:space-between;align-items:center;gap:4mm"><span>Objectif : Calculer la monnaie à rendre sur 10 €</span><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:#14213d">{{ f.page }}</span></div>
+</section>
+</sc-for>
+
+<sc-for list="{{ planches }}" as="p" hint-placeholder-count="2">
+<section class="page" data-screen-label="{{ p.label }}" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto;background:#fff;color:#14213d;border:2.5px solid #14213d;padding:3mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:4mm"><span style="font-size:18pt;font-weight:700">LES PIÈCES À DÉCOUPER</span><span style="font-size:26pt;font-weight:700;line-height:1">{{ p.niv }}</span></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm"><span style="width:12mm;height:12mm;flex:0 0 auto;box-sizing:border-box;border:2px solid #14213d;border-radius:2mm;background:#fff url('clean/pictos/ciseaux.webp') center/contain no-repeat"></span><span style="font-size:16pt;font-weight:700">Découpe les pièces sur les tirets.</span></div>
+<div style="flex:0 0 auto;position:relative;align-self:center;margin-top:2mm">
+<span style="position:absolute;left:-9mm;top:-9mm;width:9mm;height:9mm;background:#fff url('clean/pictos/ciseaux.webp') center/contain no-repeat;display:block"></span>
+<div style="display:grid;grid-template-columns:repeat(5,28mm);grid-auto-rows:28mm;border-top:1.5px dashed #14213d;border-left:1.5px dashed #14213d">
+<sc-for list="{{ p.pieces }}" as="x" hint-placeholder-count="35"><div style="box-sizing:border-box;border-right:1.5px dashed #14213d;border-bottom:1.5px dashed #14213d;display:flex;align-items:center;justify-content:center"><span style="width:{{ x.s }};height:{{ x.s }};border-radius:50%;background-image:{{ x.bg }};background-size:100% 100%;display:block"></span></div></sc-for>
+</div>
+</div>
+<div style="flex:1"></div>
+<div style="flex:0 0 auto;font-size:12pt;color:#4a5262;display:flex;justify-content:space-between;align-items:center"><span>{{ p.note }}</span><span style="min-width:9mm;height:9mm;box-sizing:border-box;border:1.5px solid #14213d;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:#14213d">{{ p.page }}</span></div>
+</section>
+</sc-for>
+
+<section class="page" data-screen-label="Corrigé" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:2mm">
+<div style="flex:0 0 auto;background:#fff;color:#14213d;border:2.5px solid #14213d;padding:4mm 5mm;font-size:20pt;font-weight:700;line-height:1;margin-bottom:2mm">CORRIGÉ — JE FAIS LES COURSES</div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:20mm minmax(0,1fr) 22mm 22mm minmax(0,1.3fr);font-size:12pt;border-bottom:2px solid #14213d;padding:1.5mm 0;font-weight:700"><span>Fiche</span><span>Objet</span><span>Prix</span><span>Rendu</span><span>Pièces</span></div>
+<sc-for list="{{ corrige }}" as="c" hint-placeholder-count="18">
+<div style="flex:0 0 auto;display:grid;grid-template-columns:20mm minmax(0,1fr) 22mm 22mm minmax(0,1.3fr);font-size:12pt;border-bottom:1px solid #e3e6ec;padding:1.6mm 0;line-height:1.25"><span style="font-weight:700">{{ c.n }}</span><span>{{ c.objet }}</span><span>{{ c.prix }}</span><span style="font-weight:700">{{ c.rendu }}</span><span>{{ c.pieces }}</span></div>
+</sc-for>
+<div style="flex:0 0 auto;font-size:12pt;color:#4a5262;margin-top:3mm;line-height:1.35">Les pièces indiquées sont la façon la plus courte. D'autres façons sont justes si le total est bon (par exemple 1 € + 1 € à la place de 2 €).</div>
+</section>
+
+<section class="page" data-screen-label="Déroulé" style="position:relative;background:#fff;display:flex;flex-direction:column;padding:20mm;box-sizing:border-box;overflow:hidden;font-family:Arial, Helvetica, sans-serif;color:#14213d;gap:4mm">
+<div style="flex:0 0 auto;display:flex;align-items:baseline;justify-content:space-between;gap:4mm;border-bottom:2.5px solid #1f6fb2;padding-bottom:2mm"><span style="font-size:24pt;font-weight:700">Déroulé</span><span style="font-size:12pt">pour l'enseignant·e</span></div>
+<div style="flex:0 0 auto;font-size:13pt;display:flex;flex-direction:column;gap:3mm;line-height:1.4">
+<span><b>Avant :</b> le livret 2.2, niveau 2 (des prix avec 50 c).</span>
+<span><b>Niveau 3</b> (12 fiches) : des prix en 90 c. On pose d'abord une pièce de 10 c pour arriver à un nombre rond, puis 1 € si besoin, puis des pièces de 2 €.</span>
+<span><b>Les pièces</b> : imprimer les planches (pages {{ pagePlanche }} et {{ pagePlanche2 }}). L'élève découpe toute la planche au début, puis garde ses pièces dans une enveloppe.</span>
+<span><b>À l'oral</b> : l'élève rend en comptant à partir du prix, comme à la caisse : « 6,90… 7, 8, 10 ».</span>
+</div>
+<div style="flex:1"></div>
+</section>
+
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    // [fichier, étiquette, prix en centimes, art (J'achète …), du (le prix …), sujet, pluriel]
+    const DISPO = ['arrosoir', 'bol', 'tire-bouchon', 'spatule', 'dessous-de-plat', 'bougie', 'boite', 'ours-peluche', 'bouquet-fleurs', 'stylo', 'verre', 'ciseaux', 'crayons-couleur', 'seau', 'poupee', 'canard', 'casserole', 'tasse', 'porte-monnaie', 'shampoing', 'cuilleres', 'poulet-roti', 'paquet-cafe', 'livre', 'feutre', 'ballon', 'crayon', 'glace', 'hist-montre', 'hist-horloge'];
+    const N1 = [
+      ['seau', 'un seau', 400, 'un seau', 'du seau', 'Le seau'],
+      ['poupee', 'une poupée', 800, 'une poupée', 'de la poupée', 'La poupée'],
+      ['canard', 'un canard en plastique', 200, 'un canard en plastique', 'du canard', 'Le canard'],
+      ['livre', 'un livre', 300, 'un livre', 'du livre', 'Le livre'],
+      ['feutre', 'des feutres', 500, 'des feutres', 'des feutres', 'Les feutres', 1],
+      ['casserole', 'une casserole', 800, 'une casserole', 'de la casserole', 'La casserole'],
+      ['tasse', 'une tasse', 900, 'une tasse', 'de la tasse', 'La tasse'],
+      ['ballon', 'un ballon', 400, 'un ballon', 'du ballon', 'Le ballon'],
+      ['porte-monnaie', 'un porte-monnaie', 700, 'un porte-monnaie', 'du porte-monnaie', 'Le porte-monnaie'],
+      ['poulet-roti', 'un poulet rôti', 900, 'un poulet rôti', 'du poulet', 'Le poulet'],
+      ['shampoing', 'un shampoing', 300, 'un shampoing', 'du shampoing', 'Le shampoing'],
+      ['hist-horloge', 'une horloge', 600, 'une horloge', "de l'horloge", "L'horloge"]];
+    const N2 = [
+      ['bol', 'un bol', 690, 'un bol', 'du bol', 'Le bol'],
+      ['stylo', 'un stylo', 90, 'un stylo', 'du stylo', 'Le stylo'],
+      ['tire-bouchon', 'un tire-bouchon', 490, 'un tire-bouchon', 'du tire-bouchon', 'Le tire-bouchon'],
+      ['spatule', 'une spatule', 590, 'une spatule', 'de la spatule', 'La spatule'],
+      ['verre', 'un verre', 290, 'un verre', 'du verre', 'Le verre'],
+      ['ciseaux', 'des ciseaux', 790, 'des ciseaux', 'des ciseaux', 'Les ciseaux', 1],
+      ['dessous-de-plat', 'un dessous de plat', 890, 'un dessous de plat', 'du dessous de plat', 'Le dessous de plat'],
+      ['bougie', 'une bougie', 390, 'une bougie', 'de la bougie', 'La bougie'],
+      ['boite', 'une boîte', 190, 'une boîte', 'de la boîte', 'La boîte'],
+      ['ours-peluche', 'un ours en peluche', 990, 'un ours en peluche', "de l'ours en peluche", "L'ours en peluche"],
+      ['bouquet-fleurs', 'un bouquet de fleurs', 890, 'un bouquet de fleurs', 'du bouquet de fleurs', 'Le bouquet de fleurs'],
+      ['arrosoir', 'un arrosoir', 790, 'un arrosoir', "de l'arrosoir", "L'arrosoir"]];
+    const prix = c => c % 100 ? Math.floor(c / 100) + ' € ' + (c % 100) : c / 100 + ' €';
+    const virg = c => c % 100 ? Math.floor(c / 100) + ',' + (c % 100) + ' €' : c / 100 + ' €';
+    const rendre = c => { let r = 1000 - c; const out = []; for (const [v, n] of [[200, '2 €'], [100, '1 €'], [50, '50 c'], [20, '20 c'], [10, '10 c']]) while (r >= v) { out.push(n); r -= v; } return out; };
+    const url = f => f.startsWith('hist-') ? "url('clean/" + f + ".webp')" : "url('clean/mot-" + f + ".webp')";
+    const NIV = 3;
+    const tous = NIV === 1 ? N1.map(r => [1, r]) : N2.map(r => [NIV, r]);
+    const fiches = tous.map(([niv, r], i) => {
+      const [f, etiq, c, art, du, sujet, pl] = r;
+      const dispo = DISPO.includes(f);
+      return { label: 'Niveau ' + niv + ' · fiche ' + (i + 1) + ' · ' + etiq, tag: 'NIVEAU ' + niv + ' · FICHE ' + (i + 1),
+        aImg: dispo, sansImg: !dispo, img: url(f), fichier: 'mot-' + f + '.webp',
+        etiquette: etiq, prixAff: prix(c), art, du, sujet, verbe: pl ? 'coûtent' : 'coûte', page: i + 2 };
+    });
+    const coin = (k, s) => ({ s, bg: "url('clean/mot-piece" + k + ".webp')" });
+    const P1 = [...Array(28).fill(coin('2e', '25.75mm')), ...Array(7).fill(coin('1e', '23.25mm'))];
+    const P2 = [...Array(18).fill(coin('2e', '25.75mm')), ...Array(5).fill(coin('1e', '23.25mm')), ...Array(12).fill(coin('10c', '19.75mm'))];
+    const P3 = [...Array(15).fill(coin('2e', '25.75mm')), ...Array(10).fill(coin('1e', '23.25mm')), ...Array(10).fill(coin('10c', '19.75mm'))];
+    const p0 = fiches.length + 2;
+    return {
+            fiches,
+      planches: NIV === 1
+        ? [{ label: 'Pièces · niveau 1', niv: 'NIVEAU 1', pieces: P1, page: p0, note: 'Pour les fiches 1 à 12 · 28 pièces de 2 €, 7 pièces de 1 €' }]
+        : [{ label: 'Pièces · niveau 3', niv: 'NIVEAU 3', pieces: P2, page: p0, note: 'Pour les fiches 1 à 12 · 18 pièces de 2 €, 5 de 1 €, 12 de 10 c' },
+           { label: 'Pièces en plus · niveau 3', niv: 'NIVEAU 3', pieces: P3, page: p0 + 1, note: 'À imprimer aussi : il faut 21 pièces de 2 € et 6 de 1 € en tout' }],
+      pagePlanche: p0, pagePlanche2: p0 + 1,
+      corrige: tous.map(([niv, r], i) => ({ n: (i + 1) + '', objet: r[1], prix: virg(r[2]), rendu: virg(1000 - r[2]), pieces: rendre(r[2]).join(' + ') }))
+    };
+  }
+}
+</script>
+</body>
+</html>

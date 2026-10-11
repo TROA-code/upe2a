@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="polices.css" />
+<style>body{margin:0;background:#e7eaef;font-family:Andika, Archivo, Verdana, sans-serif;color:#12233b}a{color:#1d4e89}a:hover{color:#12233b}@page{size:A3 landscape;margin:0}@media print{body{background:#fff}.bouton{display:none !important}.plateau{box-shadow:none !important;margin:0 !important}}</style>
+</helmet>
+<div class="bouton" style="position:fixed;top:12px;left:12px;z-index:10;display:flex;gap:10px">
+<button class="bouton" onClick="{{ retour }}" style="min-height:44px;border:none;border-radius:10px;background:#12233b;color:#fff;padding:0 16px;font-weight:700;font-size:15px;cursor:pointer">← Retour</button>
+<button class="bouton" onClick="{{ imprimer }}" style="min-height:44px;border:none;border-radius:10px;background:#6d5bd0;color:#fff;padding:0 16px;font-weight:700;font-size:15px;cursor:pointer">🖨 Imprimer en A3</button>
+</div>
+<div style="overflow:auto;padding:70px 20px 20px">
+<div class="plateau" style="width:420mm;height:297mm;box-sizing:border-box;padding:20mm;background:#fff;margin:0 auto;box-shadow:0 10px 30px rgba(0,0,0,0.15);display:grid;grid-template-columns:repeat(11,minmax(0,1fr));grid-template-rows:repeat(7,minmax(0,1fr))">
+<div style="grid-column:7 / 12;grid-row:1;display:flex;align-items:center;justify-content:center;font-family:Archivo Black, Archivo, sans-serif;font-size:34pt;line-height:1;white-space:nowrap">À LA RÉCEPTION DE L'HÔTEL</div>
+<div style="grid-column:9 / 11;grid-row:4 / 7;display:flex;align-items:center;justify-content:center;padding:6mm;text-align:center;font-size:14pt;color:#4a5568;line-height:1.4;text-wrap:pretty"><div style="display:flex;flex-direction:column;gap:4mm;text-align:left"><span>Tu tombes sur une case : tu dis la phrase, un camarade répond.</span><span style="display:flex;align-items:center;gap:3mm"><span style="flex:0 0 9mm;height:9mm;background:#fbe8a6;border:1.5px solid #12233b"></span>Le réceptionniste parle.</span><span style="display:flex;align-items:center;gap:3mm"><span style="flex:0 0 9mm;height:9mm;background:#dcedc1;border:1.5px solid #12233b"></span>Le client parle.</span><span style="display:flex;align-items:center;gap:3mm"><span style="flex:0 0 9mm;height:9mm;background:#e3e6eb;border:1.5px solid #12233b"></span>Je réponds à la question.</span></div></div>
+<sc-for list="{{ cases }}" as="c" hint-placeholder-count="40">
+<div style="grid-column:{{ c.col }};grid-row:{{ c.row }};margin:-0.75px;border:1.5px solid #12233b;background:{{ c.fond }};padding:5.5mm 1.8mm 1.5mm;position:relative;display:flex;flex-direction:column;overflow:hidden">
+<span style="position:absolute;top:1mm;left:2mm;right:2mm;font-size:12pt;line-height:1;font-weight:700;color:#4a5568;display:flex;justify-content:space-between"><span>{{ c.num }}</span></span>
+<span style="flex:1;display:flex;align-items:center;justify-content:center;text-align:center;font-size:{{ c.taille }};font-weight:{{ c.gras }};line-height:1.15;text-wrap:pretty;hyphens:none">{{ c.texte }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const L = [
+      ['S', 'DÉPART'],
+      ['R', 'Hôtel du Parc, bonjour ! Que puis-je faire pour vous ?'],
+      ['C', 'Est-ce que les chiens sont acceptés ?'],
+      ['C', 'Est-ce qu\'il y a un sèche-cheveux dans la chambre ?'],
+      ['X', 'Va à la case 10'],
+      ['R', 'Pour combien de personnes ?'],
+      ['R', 'Quand souhaitez-vous arriver ?'],
+      ['X', 'Passe un tour'],
+      ['C', 'Où est-ce que je peux laisser mes bagages, s\'il vous plaît ?'],
+      ['R', 'Combien de nuits souhaitez-vous rester ?'],
+      ['C', 'Quelles chambres avez-vous ?'],
+      ['X', 'Va à la case 2'],
+      ['C', 'Où est-ce que je peux mettre mon argent et mes papiers, s\'il vous plaît ?'],
+      ['B', 'Dis 3 choses qu\'on trouve dans un hôtel.'],
+      ['C', 'Est-ce que le petit-déjeuner est compris ?'],
+      ['X', 'Passe un tour'],
+      ['R', 'Quel type de chambre souhaitez-vous ?'],
+      ['R', 'Préférez-vous une baignoire ou une douche ?'],
+      ['X', 'Change de place avec un joueur'],
+      ['C', 'Est-ce qu\'on peut fumer dans l\'hôtel ?'],
+      ['R', 'Comment souhaitez-vous régler ?'],
+      ['B', 'Explique : « l\'arrivée » et « le départ » à l\'hôtel.'],
+      ['C', 'Est-ce qu\'il y a le wifi ?'],
+      ['X', 'Change de place avec un joueur de ton choix'],
+      ['C', 'Est-ce que je peux payer par carte ?'],
+      ['B', 'Qu\'est-ce qu\'on mange au petit-déjeuner ? Dis 3 choses.'],
+      ['X', 'Change de place avec un joueur'],
+      ['C', 'Est-ce que je peux prendre le petit-déjeuner dans ma chambre ?'],
+      ['R', 'Souhaitez-vous une chambre avec vue sur la tour Eiffel ?'],
+      ['X', 'Recule de 2'],
+      ['C', 'Est-ce que je peux garer ma voiture à l\'hôtel ?'],
+      ['X', 'Avance de 3'],
+      ['C', 'Est-ce qu\'il y a un minibar dans la chambre ?'],
+      ['C', 'Je voudrais faire laver mes vêtements, s\'il vous plaît.'],
+      ['X', 'Va à la case 12'],
+      ['C', 'Est-ce qu\'on peut dîner à l\'hôtel ?'],
+      ['C', 'Est-ce qu\'il y a une navette pour l\'aéroport ?'],
+      ['X', 'Passe un tour'],
+      ['R', 'Puis-je avoir votre nom, s\'il vous plaît ?'],
+      ['F', 'ARRIVÉE']
+    ];
+    const CH = [[1,1],[2,1],[2,2],[2,3],[3,3],[4,3],[4,2],[4,1],[5,1],[6,1],[6,2],[6,3],[6,4],[6,5],[5,5],[4,5],[3,5],[2,5],[1,5],[1,6],[1,7],[2,7],[3,7],[4,7],[5,7],[6,7],[7,7],[8,7],[8,6],[8,5],[8,4],[8,3],[8,2],[9,2],[10,2],[11,2],[11,3],[11,4],[11,5],[11,6]];
+    const FOND = { S: '#f6c9c4', F: '#f6c9c4', X: '#ffffff', B: '#e3e6eb', R: '#fbe8a6', C: '#dcedc1' };
+    let q = 0;
+    const cases = L.map(([t, texte], i) => {
+      const [col, row1] = CH[i], row = row1 - 1;
+      
+      const fond = FOND[t];
+      const nx = CH[i + 1], sens = !nx ? '' : nx[0] > col ? '→' : nx[0] < col ? '←' : nx[1] > row1 ? '↓' : '↑';
+      return { col, row: row + 1, num: (t === 'S' || t === 'F') ? '' : String(i), fleche: sens, texte, fond,
+        taille: 'RCB'.includes(t) ? '12pt' : '14pt', gras: 'RCB'.includes(t) ? 400 : 700 };
+    });
+    return {
+      cases,
+      imprimer: () => window.print(),
+      retour: () => { const av = location.href; history.back(); setTimeout(() => { if (location.href === av) location.href = 'APPLI - Espace enseignant.dc.html' + location.search; }, 400); }
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -2123,6 +2123,31 @@ Le trait d'union sépare les mots</label>
 </sc-if>
 <div style="min-width:0;min-height:0;display:flex;flex-direction:column;gap:14px;overflow:auto">
 <sc-if value="{{ aDocsColl }}" hint-placeholder-val="{{ false }}">
+<sc-if value="{{ aThemes }}" hint-placeholder-val="{{ false }}">
+<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px">
+<sc-for list="{{ themesColl }}" as="q" hint-placeholder-count="3">
+<button class="bouton" onClick="{{ q.ouvrir }}" style="min-width:0;display:flex;flex-direction:column;background:#fff;border:none;border-radius:16px;box-shadow:0 3px 12px rgba(20,33,61,0.16);padding:0;overflow:hidden;cursor:pointer;text-align:left;border-top:6px solid {{ q.couleur }}" style-hover="transform:translateY(-3px)">
+<span style="width:100%;aspect-ratio:4 / 3;background-color:#fff;background-image:{{ q.img }};background-size:{{ q.taille }};background-position:{{ q.pos }};background-repeat:no-repeat;display:flex;align-items:center;justify-content:center">
+<sc-if value="{{ q.sansImage }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;font-weight:700;color:#8a93a6;border:2px dashed #c9d1dc;border-radius:12px;padding:10px 16px">photo à venir</span></sc-if>
+</span>
+<span style="display:flex;flex-direction:column;gap:4px;padding:14px 16px;border-top:1px solid #eef0f4">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:18px;color:#12233b">{{ q.nom }}</span>
+<span style="font-size:12.5px;color:{{ q.couleur }};font-weight:700">{{ q.sous }}</span>
+</span>
+</button>
+</sc-for>
+</div>
+</sc-if>
+<sc-for list="{{ themesOuverts }}" as="q" hint-placeholder-count="0">
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:12px">
+<button class="bouton" onClick="{{ themesRetour }}" style="align-self:flex-start;min-height:40px;border:none;border-radius:10px;background:#eef0f4;color:#12233b;padding:0 14px;font-weight:700;font-size:14px;cursor:pointer">← Les thèmes</button>
+<div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;border-left:5px solid {{ q.couleur }};padding-left:11px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:15px;color:#12233b">{{ q.nom }}</span>
+<span style="font-size:12.5px;color:{{ q.couleur }};font-weight:700">{{ q.sous }}</span>
+</div>
+<sc-if value="{{ q.vide }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#6b7386">Les fiches de ce thème arrivent bientôt.</span></sc-if>
+</div>
+</sc-for>
 
 <div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px">
 <sc-for list="{{ docsColl }}" as="d" hint-placeholder-count="2">
@@ -2188,6 +2213,32 @@ Le trait d'union sépare les mots</label>
 
 <sc-if value="{{ estAdmin }}" hint-placeholder-val="{{ false }}">
 <div style="flex:1;min-height:0;overflow-y:auto;padding:18px 20px;display:flex;flex-direction:column;gap:14px">
+<sc-if value="{{ admAccueil }}" hint-placeholder-val="{{ true }}">
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px">
+<sc-for list="{{ admSorties }}" as="v" hint-placeholder-count="6">
+<button class="bouton" onClick="{{ v.ouvrir }}" style="min-width:0;display:flex;flex-direction:column;text-align:left;background:#fff;border:none;border-radius:14px;box-shadow:0 2px 8px rgba(20,33,61,0.14);padding:0;overflow:hidden;cursor:pointer;border-top:6px solid {{ v.couleur }}">
+<span style="display:block;width:100%;aspect-ratio:3 / 2;background:#e9edf2 center / cover no-repeat;background-image:{{ v.fond }}"></span>
+<span style="display:flex;flex-direction:column;gap:6px;padding:14px 16px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:18px;color:#12233b;line-height:1.25">{{ v.nom }}</span>
+<span style="font-size:12px;color:#6b7386">{{ v.compte }}</span>
+</span>
+</button>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ admDedans }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+<button class="bouton" onClick="{{ admFermer }}" style="min-height:44px;border:none;border-radius:11px;background:#12233b;color:#fff;padding:0 18px;font-weight:700;font-size:14px;cursor:pointer">← Les sorties</button>
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:20px;color:#12233b">{{ admNom }}</span>
+</div>
+<sc-if value="{{ admVide }}" hint-placeholder-val="{{ false }}"><span style="font-size:14px;color:#6b7386">Aucun document pour l’instant.</span></sc-if>
+<sc-if value="{{ admPagnol }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:#fff;border:3px solid #2a9d6e;border-radius:14px;padding:12px 16px">
+<span style="flex:1;min-width:220px;font-size:13px;color:#12233b;line-height:1.5"><b>Sortie Pagnol — autorisations des parents</b><br />Remplies avec tes contacts (responsable, adresse, éducateur). Fabriquées sur cet ordinateur, jamais enregistrées dans l’appli.</span>
+<button class="bouton" onClick="{{ remplirPagnol }}" style="flex:0 0 auto;min-height:44px;border:none;border-radius:11px;background:#2a9d6e;color:#fff;padding:0 20px;font-family:Archivo Black, Archivo, sans-serif;font-size:13px;cursor:pointer">Remplir avec mes contacts</button>
+<span style="flex:1 1 100%;font-size:12px;color:#c0392b">{{ msgRemplir }}</span>
+</div>
+</sc-if>
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px">
 <sc-for list="{{ docsAdmin }}" as="d" hint-placeholder-count="3">
 <a href="{{ d.url }}" style="min-width:0;display:flex;flex-direction:column;gap:7px;background:#fff;border-radius:14px;box-shadow:0 2px 8px rgba(20,33,61,0.14);padding:16px 17px;text-decoration:none;border-top:5px solid {{ d.couleur }}">
@@ -2197,6 +2248,7 @@ Le trait d'union sépare les mots</label>
 </a>
 </sc-for>
 </div>
+</sc-if>
 </div>
 </sc-if>
 
@@ -2279,11 +2331,20 @@ Le trait d'union sépare les mots</label>
 <sc-if value="{{ estLangue }}" hint-placeholder-val="{{ false }}">
 <div style="flex:1;min-height:0;overflow-y:auto;padding:18px 20px;display:flex;flex-direction:column;gap:22px">
 <span style="font-size:12.5px;color:#6b7386;line-height:1.5;max-width:640px">Une notion à la fois : la vidéo à regarder ensemble, puis les documents. Tout se lance d'ici.</span>
+<sc-for list="{{ langBranche }}" as="q" hint-placeholder-count="0">
+<div style="display:flex;flex-direction:column;gap:12px">
+<button class="bouton" onClick="{{ langRetour }}" style="align-self:flex-start;min-height:40px;border:none;border-radius:10px;background:#eef0f4;color:#12233b;padding:0 14px;font-weight:700;font-size:14px;cursor:pointer">← Retour</button>
+<div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;border-left:5px solid {{ q.couleur }};padding-left:11px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:15px;letter-spacing:.02em;color:#12233b">{{ q.nom }}</span>
+<span style="font-size:12.5px;color:{{ q.couleur }};font-weight:700">{{ q.sous }}</span>
+</div>
+</div>
+</sc-for>
 <sc-if value="{{ langChoix }}" hint-placeholder-val="{{ true }}">
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px">
 <sc-for list="{{ notions }}" as="q" hint-placeholder-count="1">
 <button class="bouton" onClick="{{ q.ouvrir }}" style="min-width:0;display:flex;flex-direction:column;background:#fff;border:none;border-radius:16px;box-shadow:0 3px 12px rgba(20,33,61,0.16);padding:0;overflow:hidden;cursor:pointer;text-align:left;border-top:6px solid {{ q.couleur }}" style-hover="transform:translateY(-3px)">
-<span style="width:100%;aspect-ratio:4 / 3;background:{{ q.couleur }};display:flex;align-items:center;justify-content:center;font-family:Archivo Black, Archivo, sans-serif;font-size:34px;letter-spacing:.04em;color:#fff">{{ q.nom }}</span>
+<span style="width:100%;aspect-ratio:4 / 3;background:{{ q.couleur }};display:flex;align-items:center;justify-content:center;font-family:Archivo Black, Archivo, sans-serif;font-size:26px;letter-spacing:.04em;line-height:1.2;text-align:center;padding:0 16px;box-sizing:border-box;text-wrap:balance;color:#fff">{{ q.nom }}</span>
 <span style="display:flex;flex-direction:column;gap:4px;padding:14px 16px">
 <span style="font-family:Archivo Black, Archivo, sans-serif;font-size:18px;color:#12233b">{{ q.nom }}</span>
 <span style="font-size:12.5px;color:{{ q.couleur }};font-weight:700">{{ q.sous }}</span>
@@ -2294,11 +2355,12 @@ Le trait d'union sépare les mots</label>
 </sc-if>
 <sc-for list="{{ notionsOuvertes }}" as="q" hint-placeholder-count="0">
 <div style="display:flex;flex-direction:column;gap:12px">
-<button class="bouton" onClick="{{ langRetour }}" style="align-self:flex-start;min-height:40px;border:none;border-radius:10px;background:#eef0f4;color:#12233b;padding:0 14px;font-weight:700;font-size:14px;cursor:pointer">← Les notions</button>
+<button class="bouton" onClick="{{ langRetour }}" style="align-self:flex-start;min-height:40px;border:none;border-radius:10px;background:#eef0f4;color:#12233b;padding:0 14px;font-weight:700;font-size:14px;cursor:pointer">← Retour</button>
 <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;border-left:5px solid {{ q.couleur }};padding-left:11px">
 <span style="font-family:Archivo Black, Archivo, sans-serif;font-size:15px;letter-spacing:.02em;color:#12233b">{{ q.nom }}</span>
 <span style="font-size:12.5px;color:{{ q.couleur }};font-weight:700">{{ q.sous }}</span>
 </div>
+<sc-if value="{{ q.vide }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#6b7386">Les documents de cette notion arrivent bientôt.</span></sc-if>
 <sc-for list="{{ q.videos }}" as="v" hint-placeholder-count="0">
 <div style="display:flex;flex-direction:column;gap:9px;background:#12233b;border-radius:14px;padding:15px 17px">
 <span style="font-family:Archivo Black, Archivo, sans-serif;font-size:13.5px;color:#fff;line-height:1.35">{{ v.titre }}</span>
@@ -2364,80 +2426,112 @@ Le trait d'union sépare les mots</label>
 <sc-if value="{{ estDisques }}" hint-placeholder-val="{{ false }}">
 <div style="flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden">
 
-<div style="flex:0 0 auto;display:flex;gap:8px;padding:14px 20px 0;overflow-x:auto">
+<div style="flex:0 0 auto;display:flex;gap:8px;padding:14px 20px 10px;overflow-x:auto">
 <sc-for list="{{ dsqOutils }}" as="o" hint-placeholder-count="4">
-<button onClick="{{ o.choisir }}" style="flex:0 0 auto;display:flex;flex-direction:column;align-items:flex-start;gap:3px;text-align:left;min-width:150px;border:2px solid {{ o.bord }};border-bottom:none;border-radius:12px 12px 0 0;background:{{ o.fond }};padding:11px 15px 12px;cursor:{{ o.curseur }}">
-<span style="font-size:13px;font-weight:700;color:{{ o.encre }};line-height:1.25">{{ o.nom }}</span>
+<button onClick="{{ o.choisir }}" style="flex:0 0 auto;display:flex;align-items:center;gap:10px;text-align:left;min-width:170px;max-width:240px;border:3px solid {{ o.bord }};border-radius:14px;background:{{ o.fond }};padding:9px 14px 9px 9px;cursor:{{ o.curseur }};opacity:{{ o.opacite }};box-shadow:{{ o.ombre }}">
+<span style="flex:0 0 auto;width:46px;height:46px;border-radius:12px;background-color:#fff;background-image:{{ o.image }};background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;font-size:28px;line-height:1">{{ o.icone }}</span>
+<span style="display:flex;flex-direction:column;gap:2px;min-width:0">
+<span style="font-size:13.5px;font-weight:700;color:{{ o.encre }};line-height:1.2">{{ o.nom }}</span>
 <span style="font-size:10.5px;color:{{ o.encreNote }};line-height:1.3">{{ o.note }}</span>
+</span>
 </button>
 </sc-for>
 </div>
 <div style="flex:0 0 auto;height:2px;background:#6d5bd0"></div>
+<div style="flex:0 0 auto;padding:16px 20px 0;font-family:Archivo Black, Archivo, sans-serif;font-size:30px;line-height:1.1;letter-spacing:0.02em;color:{{ dsqCouleur }}">{{ dsqTitreGros }}</div>
 
 <sc-if value="{{ dsqOutilDes }}" hint-placeholder-val="{{ true }}">
 <div style="flex:1;min-height:0;display:grid;grid-template-columns:minmax(240px,300px) minmax(320px,1fr);gap:16px;padding:18px 20px;overflow:hidden">
 
-<div style="min-height:0;display:flex;flex-direction:column;gap:12px;overflow:auto">
-<span style="flex:0 0 auto;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#8a91a3;font-weight:700">Mes dés prêts</span>
+<div style="min-height:0;min-width:0;display:flex;flex-direction:column;gap:12px;overflow-y:auto;overflow-x:hidden">
+<span style="flex:0 0 auto;font-family:Archivo Black, Archivo, sans-serif;font-size:22px;letter-spacing:0.02em;color:#e0533d;line-height:1.1">JE FABRIQUE</span>
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:8px">
+<button onClick="{{ srcPret.choisir }}" style="display:flex;flex-direction:column;gap:2px;text-align:left;border:2px solid {{ srcPret.bord }};border-radius:11px;background:{{ srcPret.fond }};padding:10px 12px;cursor:pointer">
+<span style="font-size:12.5px;font-weight:700;color:{{ srcPret.encre }}">{{ srcPret.nom }}</span>
+<span style="font-size:11px;color:{{ srcPret.encreNote }}">{{ srcPret.note }}</span>
+</button>
+<sc-if value="{{ dsqSurPret }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:8px;margin:-4px 0 2px 4px;padding:8px 0 8px 8px;border-left:4px solid #e0533d;min-width:0">
 <div style="flex:0 0 auto;display:flex;flex-direction:column;gap:6px">
 <sc-for list="{{ dsqModeles }}" as="m" hint-placeholder-count="3">
 <button onClick="{{ m.poser }}" style="display:flex;align-items:center;gap:9px;text-align:left;border:2px solid {{ m.bord }};border-radius:11px;background:{{ m.fond }};padding:10px 12px;cursor:pointer">
 <span style="flex:1;min-width:0;font-size:12.5px;font-weight:700;color:#12233b">{{ m.nom }}</span>
-<span style="flex:0 0 auto;font-size:11px;color:#7d8a9c">{{ m.apercu }}</span>
+<span style="flex:0 1 auto;min-width:0;font-size:11px;color:#7d8a9c;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ m.apercu }}</span>
 </button>
 </sc-for>
 </div>
-<span style="flex:0 0 auto;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#8a91a3;font-weight:700">Ou je fabrique</span>
-<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:6px">
-<sc-for list="{{ dsqSources }}" as="o" hint-placeholder-count="3">
-<button onClick="{{ o.choisir }}" style="display:flex;flex-direction:column;gap:2px;text-align:left;border:2px solid {{ o.bord }};border-radius:11px;background:{{ o.fond }};padding:10px 12px;cursor:{{ o.curseur }}">
-<span style="font-size:12.5px;font-weight:700;color:{{ o.encre }}">{{ o.nom }}</span>
-<span style="font-size:11px;color:{{ o.encreNote }}">{{ o.note }}</span>
-</button>
-</sc-for>
 </div>
-
-<sc-if value="{{ dsqSurTheme }}" hint-placeholder-val="{{ true }}">
+</sc-if>
+<button onClick="{{ srcListe.choisir }}" style="display:flex;flex-direction:column;gap:2px;text-align:left;border:2px solid {{ srcListe.bord }};border-radius:11px;background:{{ srcListe.fond }};padding:10px 12px;cursor:pointer">
+<span style="font-size:12.5px;font-weight:700;color:{{ srcListe.encre }}">{{ srcListe.nom }}</span>
+<span style="font-size:11px;color:{{ srcListe.encreNote }}">{{ srcListe.note }}</span>
+</button>
+<sc-if value="{{ dsqSurListe }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:8px;margin:-4px 0 2px 4px;padding:8px 0 8px 8px;border-left:4px solid #e0533d;min-width:0">
+<span style="font-size:12.5px;font-weight:700;color:#e0533d">→ J'écris à droite, un mot par ligne.</span>
+</div>
+</sc-if>
+<button onClick="{{ srcTheme.choisir }}" style="display:flex;flex-direction:column;gap:2px;text-align:left;border:2px solid {{ srcTheme.bord }};border-radius:11px;background:{{ srcTheme.fond }};padding:10px 12px;cursor:pointer">
+<span style="font-size:12.5px;font-weight:700;color:{{ srcTheme.encre }}">{{ srcTheme.nom }}</span>
+<span style="font-size:11px;color:{{ srcTheme.encreNote }}">{{ srcTheme.note }}</span>
+</button>
+<sc-if value="{{ dsqSurTheme }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:8px;margin:-4px 0 2px 4px;padding:8px 0 8px 8px;border-left:4px solid #e0533d;min-width:0">
 <span style="flex:0 0 auto;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#8a91a3;font-weight:700">Le thème</span>
 <div style="flex:0 0 auto;display:flex;flex-direction:column">
 <sc-for list="{{ dsqThemes }}" as="t" hint-placeholder-count="8">
 <button onClick="{{ t.choisir }}" style="display:flex;align-items:center;gap:8px;border:none;border-left:4px solid {{ t.trait }};border-bottom:1px solid #eef1f5;background:{{ t.fond }};padding:8px 9px;padding-left:{{ t.indent }};font-size:12px;font-weight:700;color:{{ t.encre }};cursor:pointer;text-align:left">
+<span style="flex:0 0 auto;width:10px;font-size:11px">{{ t.fleche }}</span>
 <span style="flex:1;min-width:0">{{ t.nom }}</span>
 <span style="flex:0 0 auto;font-size:10px;font-weight:400;color:{{ t.encreEtat }}">{{ t.etat }}</span>
 </button>
 </sc-for>
 </div>
-<span style="flex:0 0 auto;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#8a91a3;font-weight:700">Sur le disque</span>
-<div style="flex:0 0 auto;display:flex;border:1.5px solid #c9cfd8;border-radius:9px;overflow:hidden">
+
+</div>
+</sc-if>
+</div>
+
+
+</div>
+
+<div style="min-height:0;min-width:0;display:flex;flex-direction:column;gap:10px;overflow-y:auto;overflow-x:hidden">
+<sc-if value="{{ dsqSurListe }}" hint-placeholder-val="{{ false }}">
+<div style="flex:0 0 auto;align-self:flex-start;width:100%;max-width:380px;box-sizing:border-box;display:flex;flex-direction:column;gap:4px;border:3px solid #e0533d;border-radius:12px;padding:8px 10px;background:#fff">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:13px;color:#e0533d">MES MOTS — un par ligne, six par dé</span>
+<textarea value="{{ dsqListe }}" onChange="{{ setDsqListe }}" placeholder="un mot ici&#10;un autre mot ici&#10;…" rows="3" style="border:1.5px solid #c9cfd8;border-radius:8px;padding:6px 10px;font-family:Verdana, Tahoma, sans-serif;font-size:14px;line-height:1.45;color:#12233b;resize:vertical"></textarea>
+</div>
+</sc-if>
+<sc-if value="{{ dsqOuvert }}" hint-placeholder-val="{{ false }}">
+<div style="flex:0 0 auto;display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px 16px">
+<sc-if value="{{ dsqSurTheme }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:4px;min-width:220px"><span style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#8a91a3;font-weight:700">Sur le disque</span>
+<div style="display:flex;border:1.5px solid #c9cfd8;border-radius:9px;overflow:hidden">
 <sc-for list="{{ dsqContenus }}" as="c" hint-placeholder-count="3">
 <button onClick="{{ c.choisir }}" style="flex:1;border:none;background:{{ c.fond }};color:{{ c.encre }};padding:9px 4px;font-size:11.5px;font-weight:700;cursor:pointer">{{ c.nom }}</button>
 </sc-for>
 </div>
+</div>
 </sc-if>
-
-<sc-if value="{{ dsqSurListe }}" hint-placeholder-val="{{ false }}">
-<span style="flex:0 0 auto;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#8a91a3;font-weight:700">Un mot par ligne — six par dé</span>
-<textarea value="{{ dsqListe }}" onChange="{{ setDsqListe }}" rows="9" style="flex:0 0 auto;border:1.5px solid #c9cfd8;border-radius:10px;padding:10px 11px;font-family:Verdana, Tahoma, sans-serif;font-size:12.5px;line-height:1.5;color:#12233b;resize:vertical"></textarea>
-</sc-if>
-
-<span style="flex:0 0 auto;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#8a91a3;font-weight:700">Diamètre du disque</span>
-<div style="flex:0 0 auto;display:flex;border:1.5px solid #c9cfd8;border-radius:9px;overflow:hidden">
+<div style="display:flex;flex-direction:column;gap:4px;min-width:240px"><span style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#8a91a3;font-weight:700">Diamètre — une face du dé moins 5 mm</span>
+<div style="display:flex;border:1.5px solid #c9cfd8;border-radius:9px;overflow:hidden">
 <sc-for list="{{ dsqTailles }}" as="d" hint-placeholder-count="4">
 <button onClick="{{ d.choisir }}" style="flex:1;border:none;background:{{ d.fond }};color:{{ d.encre }};padding:9px 3px;font-size:11.5px;font-weight:700;cursor:pointer">{{ d.nom }}</button>
 </sc-for>
 </div>
-<span style="flex:0 0 auto;font-size:11px;color:#7d8a9c;line-height:1.45">Mesure une face du dé et retire 5 mm.</span>
-
-<span style="flex:0 0 auto;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#8a91a3;font-weight:700">La question posée sur la planche</span>
-<input value="{{ dsqQuestion }}" onChange="{{ setDsqQuestion }}" placeholder="Qu'est-ce que tu fais / as fait / vas faire ?" style="flex:0 0 auto;border:1.5px solid #c9cfd8;border-radius:10px;padding:10px 11px;font-size:12.5px;color:#12233b" />
 </div>
-
-<div style="min-height:0;min-width:0;display:flex;flex-direction:column;gap:12px;overflow:hidden">
+</div>
+<sc-if value="{{ dsqAvecQuestion }}" hint-placeholder-val="{{ false }}">
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:8px"><span style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#8a91a3;font-weight:700">Question</span>
+<input value="{{ dsqQuestion }}" onChange="{{ setDsqQuestion }}" placeholder="Qu'est-ce que tu fais / as fait / vas faire ?" style="flex:1;min-width:0;border:1.5px solid #c9cfd8;border-radius:10px;padding:10px 11px;font-size:12.5px;color:#12233b" />
+</div>
+</sc-if>
+</sc-if>
 <div style="flex:0 0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
 <span style="flex:1;min-width:120px;font-size:12.5px;color:#6b7386">{{ dsqResume }}</span>
 <button onClick="{{ dsqImprimer }}" style="flex:0 0 auto;border:none;border-radius:11px;background:#2a9d6e;color:#fff;padding:12px 24px;font-family:Archivo Black, Archivo, sans-serif;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer">Imprimer</button>
 </div>
-<div class="om-apercu" style="flex:1;min-height:0;overflow:auto;display:flex;flex-direction:column;align-items:center;gap:16px;padding:4px 0 14px">{{ dsqApercu }}</div>
+<div class="om-apercu" style="flex:1 0 auto;min-height:260px;overflow:visible;display:flex;flex-direction:column;align-items:center;gap:16px;padding:4px 0 14px">{{ dsqApercu }}</div>
 </div>
 
 </div>
@@ -2468,6 +2562,10 @@ Le trait d'union sépare les mots</label>
 <span style="font-size:12.5px;color:#5d6879;line-height:1.6">Tous les plateaux sur une même page : <b>les mots-outils</b> (je, il, la, dans, avec…) et <b>les mots repères</b> (ananas, ballon, carotte… avec leur photo). On lance le dé, le pion avance, <b>on lit le mot de la case</b> ; le 🔊 sert à vérifier après. Sur un 🎲, on rejoue.</span>
 <span style="font-size:12.5px;color:#5d6879;line-height:1.6">De 1 à 4 joueurs ou équipes. Le bouton <b>🖨 Imprimer</b> sort le plateau seul, en A3.</span>
 <a href="{{ urlOie }}" style="align-self:flex-start;background:#6d5bd0;color:#fff;text-decoration:none;border-radius:10px;padding:11px 16px;font-family:Archivo Black, Archivo, sans-serif;font-size:12px;letter-spacing:0.05em;text-transform:uppercase">Ouvrir le jeu</a>
+<!-- 11/10 : son plateau « At the reception desk » refait en français, imprimé en A3. -->
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:15px;color:#12233b;margin-top:10px">À la réception de l'hôtel</span>
+<span style="font-size:12.5px;color:#5d6879;line-height:1.6">38 cases : on lance le dé, on avance, on répond à la question ou on joue la scène client / réceptionniste. Plateau à imprimer en A3.</span>
+<a href="{{ urlHotel }}" style="align-self:flex-start;background:#6d5bd0;color:#fff;text-decoration:none;border-radius:10px;padding:11px 16px;font-family:Archivo Black, Archivo, sans-serif;font-size:12px;letter-spacing:0.05em;text-transform:uppercase">Ouvrir le plateau</a>
 </div>
 </sc-if>
 
@@ -2731,20 +2829,19 @@ const BANQUE={
  'La météo':[['le soleil','soleil'],['un nuage','nuage'],['la pluie','pluie'],['la neige','neige'],['le vent','vent'],["l'orage",'orage'],['le brouillard','brouillard'],['il fait chaud','chaud'],['il fait froid','froid']],
  'La maison':[['une maison','maison'],['une porte','porte'],['une table','table'],['une chaise','chaise'],['un lit','lit'],['un livre','livre'],['un mur','mur'],['une lampe','lampe'],['un sac','sac'],['une douche','douche'],['une fenêtre','fenetre'],['une assiette','assiette'],['un verre','verre'],['un robinet','robinet']],
  'Le lycée':[['un professeur','professeur'],['une salle','salle'],['un tableau','tableau'],['une cantine','cantine'],['une cour','cour'],['un bureau','bureau'],['une chaise','chaise'],['un cahier','cahier'],['une porte','porte'],['un emploi du temps','emploidutemps'],['une note','note']],
- 'Le matériel scolaire':[['un stylo','stylo'],['un crayon','crayon'],['une gomme','gomme'],['une règle','regle'],['un taille-crayon','taille-crayon'],['des ciseaux','ciseaux'],['un feutre','feutre'],['la colle','colle'],['une trousse','trousse'],['un surligneur','surligneur'],['un cartable','cartable'],['un classeur','classeur'],['une feuille','feuille'],['un cahier','cahier'],['un livre','livre'],['un tableau','tableau'],['un bureau','bureau'],['une chaise','chaise'],['un ordinateur','ordinateur'],['une poubelle','poubelle']],
+ 'Le matériel scolaire':[['un stylo','stylo'],['un crayon','crayon'],['une gomme','gomme'],['une règle','regle'],['un taille-crayon','taille-crayon'],['des ciseaux','ciseaux'],['un feutre','feutre'],['la colle','colle'],['une trousse','trousse'],['un surligneur','surligneur'],['un cartable','cartable'],['un classeur','classeur'],['une feuille','feuille'],['un cahier','cahier'],['un livre','livre'],['un tableau','tableau'],['un bureau','bureau'],['une chaise','chaise'],['un ordinateur','ordinateur'],['une poubelle','poubelle'],['des crayons de couleur','crayons-couleur'],['du papier','papier']],
  "Le vocabulaire de l'école":[["l'école",'ecole'],['la cour','cour'],['le couloir','couloir'],['la cantine','cantine'],["l'emploi du temps",'emploidutemps'],['un banc','banc'],['une note','note'],['une lettre','lettre'],['le prénom','prenom'],['le nom','nom'],['une question','question'],['une image','image']],
- 'Le corps':[['la bouche','bouche'],["l'oreille",'oreille'],['les yeux','yeux'],['les cheveux','cheveux'],['le visage','visage'],['la jambe','jambe'],['la main','main'],['le nez','nez'],['le pied','pied'],['le bras','bras'],['le dos','dos'],['le genou','genou'],['les dents','dents']],
- 'Les vêtements':[['un pantalon','pantalon'],['une chemise','chemise'],['une robe','robe'],['une veste','veste'],['un pull','pull'],['une jupe','jupe'],['un manteau','manteau'],['un tee-shirt','teeshirt'],['une chaussure','chaussure'],['une chaussette','chaussette'],['des lunettes','lunettes'],['un bonnet','bonnet']],
+ 'Le corps':[['la bouche','bouche'],["l'oreille",'oreille'],['les yeux','yeux'],['les cheveux','cheveux'],['le visage','visage'],['la jambe','jambe'],['la main','main'],['le nez','nez'],['le pied','pied'],['le bras','bras'],['le dos','dos'],['le genou','genou'],['les dents','dents'],['le cou','cou'],['la joue','joue'],['la lèvre','levre']],
+ 'Les vêtements':[['un pantalon','pantalon'],['une chemise','chemise'],['une robe','robe'],['une veste','veste'],['un pull','pull'],['une jupe','jupe'],['un manteau','manteau'],['un tee-shirt','teeshirt'],['une chaussure','chaussure'],['une chaussette','chaussette'],['des lunettes','lunettes'],['un bonnet','bonnet'],['des gants','gants']],
  'Les animaux domestiques':[['un chat','chat'],['un chien','chien'],['un lapin','lapin'],['une poule','poule'],['une vache','vache'],['un mouton','mouton'],['un cheval','cheval'],['un oiseau','oiseau'],['un poisson','poisson-rouge']],
- 'Les animaux sauvages':[['un lion','lion'],['un éléphant','elephant'],['un ours','ours'],['un loup','loup'],['un singe','singe'],['un serpent','serpent'],['un hippopotame','hippopotame']],
+ 'Les animaux sauvages':[['un lion','lion'],['un éléphant','elephant'],['un ours','ours'],['un loup','loup'],['un singe','singe'],['un serpent','serpent'],['un hippopotame','hippopotame'],['une girafe','girafe'],['un renard','renard'],['un zèbre','zebre'],['un koala','koala'],['un kangourou','kangourou']],
  'La ville':[['un magasin','magasin'],['la mairie','mairie'],["l'hôpital",'hopital'],['un hôtel','hotel'],['la pharmacie','pharmacie'],['la poste','poste'],['la banque','banque'],['la gare','gare'],['une usine','usine'],['la ville','ville'],['le marché','marche'],['une poubelle','poubelle'],['une rue','rue']],
- 'Les actions':[['manger','manger'],['boire','boire'],['dormir','dormir'],['courir','courir'],['marcher','marcher'],['lire','lire'],['écrire','ecrire'],['écouter','ecouter'],['parler','parler'],['dessiner','dessiner']],
+ 'Les actions':[['manger','manger'],['boire','boire'],['dormir','dormir'],['courir','courir'],['marcher','marcher'],['lire','lire'],['écrire','ecrire'],['écouter','ecouter'],['parler','parler'],['dessiner','dessiner'],["s'accroupir",'accroupir'],['acheter','acheter'],['appeler','appeler'],['attraper','attraper'],['casser','casser'],['chanter','chanter'],['crier','crier'],['demander','demander'],['descendre','descendre'],['donner','donner'],['embrasser','embrasser'],['fermer','fermer'],['grimper','grimper'],['lancer','lancer'],['laver','laver'],['monter','monter'],['ouvrir','ouvrir'],['partir','partir'],['pleurer','pleurer'],['prendre','prendre'],['raconter','raconter'],['regarder','regarder'],['remercier','remercier'],['rêver','rever'],['sauter','sauter'],['tomber','tomber'],['tourner','tourner']],
  /* Thème créé le 16/09 à sa demande, avec trois photos qui dormaient dans clean/ sans
     thème. Des NOMS, pas des verbes (« la course », pas « courir ») : le verbe courir est
     déjà juste au-dessus dans « Les actions », et c'est le nom qu'on emploie pour dire ce
     qu'on aime — « j'aime la musique ». Ne pas fusionner les deux thèmes.
     La photo « dessiner » reste orpheline : c'est un verbe, sa place est dans les actions. */
- 'Les loisirs':[['la course','course'],['la danse','danse'],['la musique','musique']],
  /* ⚠ THÈME OUVERT LE 18/09, LES PHOTOS ARRIVENT ENSUITE : ce sont les cinq sports du
     planning UNSS du lycée (créneaux du midi), qu'elle veut montrer en images. Les fichiers
     clean/mot-basket.webp, -flechettes, -boxe-francaise, -badminton, -foot N'EXISTENT PAS
@@ -2752,7 +2849,6 @@ const BANQUE={
     apparaissent dans les réglages mais pas dans les fiches ni les jeux : tirer() écarte les
     mots sans photo. C'est voulu, ne pas les retirer d'ici pour autant.
     Séparé des loisirs : on parle des activités du midi au lycée, pas de ce qu'on aime. */
- 'Les sports':[['le basket','basket'],['les fléchettes','flechettes'],['la boxe française','boxe-francaise'],['le badminton','badminton'],['le foot','foot']],
  'Les positions':[['dans','dans'],['sur','sur'],['sous','sous'],['devant','devant'],['derrière','derriere'],['entre','entre'],['à gauche','gauche'],['à droite','droite'],['ici','ici'],['à côté de','cote']],
  'Les contraires':[['grand','grand'],['petit','petit'],['chaud','chaud'],['froid','froid'],['lourd','lourd'],['léger','leger'],['rapide','rapide'],['lent','lent'],['propre','propre'],['sale','sale']],
  'Les saisons':[['le printemps','printemps'],["l'été",'ete'],["l'automne",'automne'],["l'hiver",'hiver']],
@@ -2762,25 +2858,30 @@ const BANQUE={
     poire, orange, cerise, citron. À ajouter ici quand elle le décidera — ils ne sont pas
     ajoutés d'office, « orange » est aussi une couleur et « cerise » sert de mot repère
     du c dans l'alphabet, donc c'est un choix pédagogique, pas un oubli technique. */
- 'Les fruits':[['une banane','banane'],['une fraise','fraise'],['un kiwi','kiwi'],['un melon','melon'],['une mangue','mangue'],['une figue','figue'],['un ananas','ananas'],['une pastèque','pasteque'],['une prune','prune'],['une pêche','peche'],['un abricot','abricot'],['une framboise','framboise'],['un raisin','raisin'],['une pomme','pomme'],['une poire','poire'],['un citron','citron'],['une orange','orange'],['une clémentine','clementine'],['une cerise','cerise']],
- 'Les légumes':[['un poireau','poireau'],['un radis','radis'],['un oignon','oignon'],['une courgette','courgette'],['un haricot','haricot'],['un navet','navet'],['un poivron','poivron'],['un concombre','concombre'],['un chou','chou'],['une betterave','betterave'],['un avocat','avocat'],['un champignon','champignon'],['de la salade','salade'],['une tomate','tomate'],['un petit pois','petitpois'],['une aubergine','aubergine'],['un chou-fleur','choufleur'],['une carotte','carotte'],['une pomme de terre','pommedeterre']],
+ 'Les fruits':[['une banane','banane'],['une fraise','fraise'],['un kiwi','kiwi'],['un melon','melon'],['une mangue','mangue'],['une figue','figue'],['un ananas','ananas'],['une pastèque','pasteque'],['une prune','prune'],['une pêche','peche'],['un abricot','abricot'],['une framboise','framboise'],['un raisin','raisin'],['une pomme','pomme'],['une poire','poire'],['un citron','citron'],['une orange','orange'],['une clémentine','clementine'],['une cerise','cerise'],['une groseille','groseille'],['un litchi','litchi'],['une mûre','mure'],['une papaye','papaye'],['une noix de coco','coco']],
+ 'Les légumes':[['un poireau','poireau'],['un radis','radis'],['un oignon','oignon'],['une courgette','courgette'],['un haricot','haricot'],['un navet','navet'],['un poivron','poivron'],['un concombre','concombre'],['un chou','chou'],['une betterave','betterave'],['un avocat','avocat'],['un champignon','champignon'],['de la salade','salade'],['une tomate','tomate'],['un petit pois','petitpois'],['une aubergine','aubergine'],['un chou-fleur','choufleur'],['une carotte','carotte'],['une pomme de terre','pommedeterre'],["de l'ail",'ail'],['un artichaut','artichaut'],['une échalote','echalote'],['un fenouil','fenouil'],['une laitue','laitue'],['du maïs','mais'],['une olive','olive']],
  /* Pâtes et frites rattachées le 16/09 : leurs photos dormaient dans clean/ sans thème.
     Les partitifs (du, des) sont voulus — c'est ainsi qu'on en parle à table, et c'est un
     déterminant qu'ils ne croisent nulle part ailleurs dans les thèmes. */
  'Les féculents':[['du pain','pain'],['du riz','riz'],['une pomme de terre','pommedeterre'],['des pâtes','pates'],['des frites','frites']],
  'Les légumineuses':[],
- 'La viande, le poisson, les œufs':[['de la viande','viande'],['du poisson','poisson'],['un œuf','oeuf']],
+ 'La viande, le poisson, les œufs':[['de la viande','viande'],['du poisson','poisson'],['un œuf','oeuf'],['du jambon','jambon'],['une saucisse','saucisse'],['du saucisson','saucisson'],['un steak','steak'],['un rôti','roti'],['un poulet','poulet'],['un poulet rôti','poulet-roti'],['une sardine','sardine'],['du saumon','saumon'],['une crevette','crevette'],['un crabe','crabe'],['une moule','moule'],['un poisson','poisson-entier']],
  'Les produits laitiers':[['du lait','lait'],['du fromage','fromage'],['un yaourt','yaourt']],
  'Les matières grasses':[["de l'huile",'huile']],
  'Les produits sucrés':[['du sucre','sucre'],['un gâteau','gateau'],['un bonbon','bonbon'],['du chocolat','chocolat']],
- 'Les boissons':[["de l'eau",'eau'],['du café','cafe'],['du thé','the']],
+ 'Les boissons':[["de l'eau",'eau'],['du café','cafe'],['du thé','the'],['un paquet de café','paquet-cafe']],
  'Les moments du repas':[],
- 'À table':[['la table','table'],['une assiette','assiette'],['un verre','verre']],
+ 'Les ustensiles':[['une spatule','spatule'],['un tire-bouchon','tire-bouchon'],['une casserole','casserole'],['des cuillères','cuilleres'],['une tasse','tasse']],
+ 'À table':[['la table','table'],['une assiette','assiette'],['un verre','verre'],['un bol','bol'],['un dessous de plat','dessous-de-plat']],
  'Les couleurs':[['rouge','rouge'],['jaune','jaune'],['bleu','bleu'],['vert','vert-peinture'],['noir','noir'],['blanc','blanc'],['gris','gris'],['orange','orange-peinture'],['marron','marron']],
+ 'Les jouets':[['une poupée','poupee'],['un ours en peluche','ours-peluche'],['un canard en plastique','canard']],
+ 'Les sports':[['le basket','basket'],['les fléchettes','flechettes'],['la boxe française','boxe-francaise'],['le badminton','badminton'],['le foot','foot'],['la course','course'],['le karaté','karate'],['le yoga','yoga'],['la danse','danse']],
+ 'La musique':[['la musique','musique'],['le piano','piano'],['le violon','violon']],
  'Les transports':[['un vélo','velo'],['une voiture','voiture'],['un bus','bus'],['un train','train'],['un avion','avion'],['un taxi','taxi'],['un wagon','wagon'],['un tramway','tramway'],['un camion','camion'],['un bateau','bateau'],['le métro','metro'],['une moto','moto']],
 /* Thème publié le 05/09. 16 métiers de CAP / apprentissage — le coiffeur, le docteur et
    l'informatique réutilisent des images déjà là. Filles sur l'électricité et la soudure. */
- 'Les métiers':[['un maçon','macon'],['un peintre','peintre'],['un électricien','electricien'],['un plombier','plombier'],['un menuisier','menuisier'],['un soudeur','soudeur'],['un mécanicien','mecanicien'],['un cuisinier','cuisinier'],['un serveur','serveur'],['un boulanger','boulanger'],['un pâtissier','patissier'],['un vendeur','vendeur'],['un caissier','caissier'],['un magasinier','magasinier'],['un aide-soignant','aidesoignant'],['un agent d\'entretien','agententretien'],['un coiffeur','coiffeur']],
+ 'Les métiers du CAP':[['un maçon','macon'],['un peintre','peintre'],['un électricien','electricien'],['un plombier','plombier'],['un menuisier','menuisier'],['un soudeur','soudeur'],['un mécanicien','mecanicien'],['un cuisinier','cuisinier'],['un serveur','serveur'],['un boulanger','boulanger'],['un pâtissier','patissier'],['un vendeur','vendeur'],['un caissier','caissier'],['un magasinier','magasinier'],['un aide-soignant','aidesoignant'],['un agent d\'entretien','agententretien'],['un coiffeur','coiffeur'],['un barman','barman'],['un boucher','boucher'],['un charcutier','charcutier'],['un chauffagiste','chauffagiste'],['un fleuriste','fleuriste'],['un mécanicien poids lourds','mecaniciencamion'],['un agent de maintenance des bâtiments','maintenancebatiment']],
+ 'Les autres métiers':[['un pompier','pompier'],['un docteur','docteur'],['un policier','policier'],['un infirmier','infirmier'],['un chauffeur de bus','chauffeur-bus'],['un facteur','facteur']],
 /* Thème publié le 19/09. Les lieux où l'on travaille, en appui du projet d'orientation :
    ce sont les mêmes images que la ligne « Où je travaille » des fiches métier.
    ⚠ Leurs fichiers sont préfixés `lieu-` et non `mot-` — voir PREF juste en dessous.
@@ -2865,7 +2966,7 @@ const COLL_DOCS=[
  ['mathsnum','Numération','#e59a2b','ses livrets de 0 à 9 999, le tracé, l’étoile'],
  ['mathsgeo','Géométrie','#2a9d6e','droites, polygones, quadrilatères'],
  /* 02/10 (sa demande) : son PDF mimiclass coupé en 3 livrets au gabarit des siens. */
- ['mathsgm','Grandeurs et mesures','#1f6fb2','les longueurs, la monnaie, l’heure, la marchande'],
+ ['mathsgm','Grandeurs et mesures','#1f6fb2','les longueurs, la monnaie, les masses'],
  /* AUTOMATISMES (02/10, sa demande) : « pas calcul mental, automatismes ». */
  ['mathsauto','Automatismes','#d81b60','la progression et les 8 livrets Top Chrono'],
  /* LES GRANDS THÈMES D'HISTOIRE (03/10, sa demande) : 6 livrets, un par période. */
@@ -3007,20 +3108,30 @@ const DOCS_COLL={
   ["Je lis, je fais — le restaurant","Douze consignes sur la même scène, mais c’est le mot de lexique qui est en gras. Les trois dernières font écrire le mot.","FR - Je lis, je fais - Le restaurant (2).dc.html"]
  ],
  mathsnum:[
+  ["¤De 0 à 10","compter, écrire, tracer les chiffres","num1"],
   ["Numération 1 — De 0 à 10","13 pages : associer quantités et nombres, compter et écrire, comparer, ranger, reconnaître vite. Bilan, J’ai appris, consignes.","docs/numeration-1.pdf"],
   ["Numération 1.1 — Jusqu’à 20","10 pages : les nombres de 11 à 20, le plus, le moins, ranger, compléter une collection. Bilan, J’ai appris, consignes.","docs/numeration-1-1.pdf"],
+  ["Tracer les chiffres","Couverture et dix pages, un chiffre par page, de 0 à 9. Le geste du tracé.","MATHS - Livret 1 bis - Tracer les chiffres.dc.html"],
+  ["¤De 0 à 99","dizaines et unités","num2"],
   ["Numération 2 — De 0 à 99","24 pages, 18 fiches : chiffres et lettres, compter par 1, 2, 5 et 10, billets de 10 € et pièces, dizaines et unités, comparer, ranger, faire 10 € et 20 €.","docs/numeration-2.pdf"],
   ["Numération 2.1 — L’enquête","8 suspects jusqu’à 100, 5 cartes-indices à découper, la fiche du voleur, corrigé.","MATHS - Numération 2.1 - L'enquête.dc.html"],
+  ["¤De 0 à 999","les centaines","num3"],
   ["Numération 3 — De 0 à 999","21 pages, 15 fiches : même trame avec les centaines et les billets de 100 €.","docs/numeration-3.pdf"],
+  ["¤De 0 à 9 999","les milliers","num4"],
   ["Numération 4 — De 0 à 9 999","17 pages, 11 fiches : tableau m c d u, l’espace entre les milliers, comparer, ranger, la droite graduée, juste avant et juste après.","docs/numeration-4.pdf"],
   /* 02/10 : d'après son document n° 5, sur le modèle d'un vrai chèque. Étiquettes en option (réglage). */
   ["Numération 4.1 — Le chèque","2 pages, 4 chèques : écrire une somme en chiffres et en lettres (15 € à 1 250 €). Étiquettes « les mots de la somme » si besoin.","MATHS - Numération 4.1 - Le chèque.dc.html"],
   ["Numération 4.2 — Le tableau des nombres","2 pages : j’écris le nombre dans le tableau, puis je lis le tableau et j’écris le nombre. Jusqu’à 9 999, avec des zéros.","MATHS - Numération 4.2 - Le tableau des nombres.dc.html"],
+  ["¤Les centaines de mille","jusqu’à 999 999","num5"],
   ["Numération 5 — Les centaines de mille","Jusqu’à 999 999 : le tableau des nombres, comparer, ranger, les suites. Corrigé.","MATHS - Numération 5 - Les centaines de mille.dc.html"],
+  ["¤Millions et milliards","les 4 classes","num6"],
   ["Numération 6 — Millions et milliards","Les 4 classes : le tableau des nombres, comparer, ranger, les suites. Corrigé.","MATHS - Numération 6 - Millions et milliards.dc.html"],
   /* 02/10 : son doc n° 6 (Mme 657) refait en FALC, suspects à plaque numérotée, corrigé calculé. */
   ["Numération 6.1 — L’enquête","7 suspects jusqu’aux milliards, 4 cartes-indices à découper, la fiche du voleur, corrigé.","MATHS - Numération 6.1 - L'enquête.dc.html"],
-  ["Tracer les chiffres","Couverture et dix pages, un chiffre par page, de 0 à 9. Le geste du tracé.","MATHS - Livret 1 bis - Tracer les chiffres.dc.html"]
+  /* 11/10 : ses deux séries « Appliquer un pourcentage » refaites, histoires d'ados, 10/100 × 300. */
+  ["¤Les pourcentages","appliquer un pourcentage","num7"],
+  ["Numération 7 — Les pourcentages · Niveau 2","8 calculs : 25 % de 128, 75 % de 240, 10 % de 4500… Corrigé.","MATHS - Numération 7 - Les pourcentages - Niveau 2.dc.html"],
+  ["Numération 7.1 — Les pourcentages · Niveau 3","10 %, 20 %, 25 %, 40 %, 50 %, 60 %. 8 problèmes de la vie courante. Corrigé.","MATHS - Numération 7.1 - Les pourcentages - Niveau 3.dc.html"]
  ],
  /* RITUELS (03/10, sa demande) : l'étoile des nombres y passe depuis Numération. */
  mathsrituels:[
@@ -3028,19 +3139,33 @@ const DOCS_COLL={
   ["L’étoile des nombres — diaporama","34 étoiles à projeter, de 12 à 150. Six branches autour du nombre : juste avant, juste après, la décomposition, les dizaines et les unités, le nombre en lettres, le dessin. Ce qui est donné change d’une étoile à l’autre.","MATHS - L'étoile des nombres (diaporama).dc.html"]
  ],
  mathsgeo:[
+  ["¤Le vocabulaire","droite, segment, angle droit","geovocab"],
   ["Géométrie 1 — Le vocabulaire de base","15 pages : droite, segment, angle droit, alignement, programme de construction. Règle et équerre.","docs/geometrie-1.pdf"],
+  ["¤Les polygones","côtés, sommets, triangles","geopoly"],
   ["Géométrie 2 — Les polygones","11 pages : polygone ou pas, côtés et sommets, triangle rectangle.","docs/geometrie-2.pdf"],
+  ["¤Les quadrilatères","carré, rectangle, losange","geoquad"],
   ["Géométrie 3 — Les quadrilatères","17 pages : carré, rectangle, losange — reconnaître, vérifier, tracer.","docs/geometrie-3.pdf"]
  ],
  mathsgm:[
+  /* 10/10 (sa demande) : des VIGNETTES par thème, comme le Moment littéraire. Une entrée
+     ['¤Nom','sous-titre','clé du visuel'] ouvre un thème ; les documents qui suivent lui
+     appartiennent. Un thème sans document s'affiche « à venir ». */
+  ["¤Les longueurs","mesurer et tracer","longueurs"],
   ["Grandeurs et mesures 1 — Les longueurs","13 pages, 8 fiches : choisir l’unité, placer la règle, mesurer en cm puis en cm et mm, bout à bout, tracer. Bilan, J’ai appris, consignes, corrigé. Imprimer à 100 %.","MATHS - Grandeurs et mesures 1 - Les longueurs.dc.html"],
+  ["¤La monnaie","payer, rendre la monnaie","monnaie"],
   ["Grandeurs et mesures 2 — La monnaie","14 pages, 8 fiches : pièces et billets, compter, comparer, payer le prix, au restaurant, les centimes, euros et centimes, rendre la monnaie. Bilan, J’ai appris, consignes, corrigé.","MATHS - Grandeurs et mesures 2 - La monnaie.dc.html"],
+  /* 10/10 : « Je fais les courses », ses anciennes fiches refaites, un livret par niveau. */
+  ["Grandeurs et mesures 2.1 — Je fais les courses · Niveau 1","17 pages, 12 fiches : des prix ronds, je paie avec 10 €, je colle la monnaie (2 € et 1 €). Deux planches de pièces à découper, corrigé.","MATHS - Grandeurs et mesures 2.1 - Je fais les courses - Niveau 1.dc.html"],
+  ["Grandeurs et mesures 2.2 — Je fais les courses · Niveau 2","10 pages, 6 fiches : des prix avec 50 c, je paie avec 10 €, je colle la monnaie. Planche de pièces à découper, corrigé.","MATHS - Grandeurs et mesures 2.2 - Je fais les courses - Niveau 2.dc.html"],
+  ["Grandeurs et mesures 2.3 — Je fais les courses · Niveau 3","17 pages, 12 fiches : des prix en 90 c, je paie avec 10 €, je colle la monnaie (avec 10 c). Deux planches de pièces à découper, corrigé.","MATHS - Grandeurs et mesures 2.3 - Je fais les courses - Niveau 3.dc.html"],
+  ["Grandeurs et mesures 2.4 — Je fais les courses · Niveau 4","12 fiches : tous les centimes (1 c, 2 c, 5 c, 20 c, 50 c), je paie avec 10 €, je colle la monnaie. Planches de pièces à découper, corrigé.","MATHS - Grandeurs et mesures 2.4 - Je fais les courses - Niveau 4.dc.html"],
   /* Le jeu de la marchande (22/09) : PDF trouvé par elle (mimiclass.fr, partagé par
      Coralie), gardé TEL QUEL — ne pas le refabriquer. 30 pages : 11 planches d'articles
      étiquetés en euros, les panneaux de rayons, les listes de course, six recettes, les
      paniers à chiffrer (petit déjeuner, déjeuner, dîner, goûter, trousse de toilette,
      j'adopte un chat), les étiquettes de promotion et le bon de commande. */
-  ["Le jeu de la marchande — 30 pages","Les articles avec leur prix à ranger dans les rayons, les listes de course, les recettes, les paniers à chiffrer, les promotions et le bon de commande. Pour aller chercher les articles, calculer un total, rendre la monnaie. Source : mimiclass.fr, partagé par Coralie.","docs/jeu-marchande.pdf"]
+  ["Le jeu de la marchande — 30 pages","Les articles avec leur prix à ranger dans les rayons, les listes de course, les recettes, les paniers à chiffrer, les promotions et le bon de commande. Pour aller chercher les articles, calculer un total, rendre la monnaie. Source : mimiclass.fr, partagé par Coralie.","docs/jeu-marchande.pdf"],
+  ["¤Les masses","peser, comparer","masses"]
  ],
  mathsauto:[
   /* Image reçue d'elle le 02/10, gardée à sa largeur (1348 px) : réduite à 1000 le texte devient illisible. */
@@ -3151,8 +3276,10 @@ const PARENTS={
   'Les aliments':['Les fruits','Les légumes','Les féculents','Les légumineuses',
     'La viande, le poisson, les œufs','Les produits laitiers','Les matières grasses',
     'Les produits sucrés','Les boissons'],
-  'Les repas':['Les moments du repas','À table'],
-  'Le temps':['Les jours','Les mois','Les saisons']};
+  'Les repas':['Les moments du repas','À table','Les ustensiles'],
+  'Le temps':['Les jours','Les mois','Les saisons'],
+  'Les métiers':['Les métiers du CAP','Les autres métiers'],
+  'Les loisirs':['Les sports','La musique']};
 // politesse : situation entendue, l'élève choisit la bonne réponse
 const SITUATIONS=[
  ["C'est le matin. Tu arrives.","Bonjour !",["Bonjour !","Bonne nuit !","Au revoir !"],'soleil'],
@@ -3365,6 +3492,13 @@ class Component extends DCLogic {
     return liste.map(([nom,type])=>({nom,type}));
   }
   componentDidMount(){
+    /* 11/10 (son oui) : au retour d'un document, l'appli rouvre l'écran, la matière, la
+       collection et le thème qu'elle avait laissés (mémoire de l'onglet, effacée à sa fermeture). */
+    try{ const n=JSON.parse(sessionStorage.getItem('upe2a-nav')||'null');
+      if(n){ const SURS=['themeAccueil','sousTheme','eleve','niveau','tableauThemes','tableauCode','sons','son','semaine'];
+        if(!SURS.includes(n.ecran)&&!ECRANS_PROF.includes(n.ecran)) n.ecran=n.themeEleve?'eleve':'themeAccueil';
+        if(ECRANS_PROF.includes(n.ecran)&&n.verrou) n.ecran='themeAccueil';
+        this.setState(n); } }catch(e){}
     this._maj=()=>{
       const l=Math.min(document.body.clientWidth||9999, window.innerWidth||9999);
       if(l&&l!==this.state.largeur) this.setState({largeur:l});
@@ -3681,7 +3815,8 @@ class Component extends DCLogic {
         indent:entete?'11px':'22px',
         encre:actif?'#12233b':'#7d8a9c',
         etat:entete?(nbVides?nbVides+' à remplir':''):(vide?'à remplir':((s.perso&&(s.perso.mots[n]||s.perso.phrases[n]))?'modifié':'')),
-        encreEtat:vide?'#a3adbb':'#c1440e'
+        encreEtat:vide?'#a3adbb':'#c1440e',
+        entete:!!entete, vide, actif, enfant:!entete&&!!ENFANTS[n]
       };
     });
   }
@@ -3695,11 +3830,12 @@ class Component extends DCLogic {
     const k=Math.max(0.25, Math.min(0.9, dispo/mm));
     n.style.setProperty('--om-ap', k.toFixed(3));
   }
-  componentDidUpdate(){ this.ajusterApercu(); }
+  componentDidUpdate(){ this.ajusterApercu();
+    const s=this.state; try{ sessionStorage.setItem('upe2a-nav',JSON.stringify({ecran:s.ecran,verrou:s.verrou,outilsDomaine:s.outilsDomaine,outilsColl:s.outilsColl,outilsPage:s.outilsPage||0,themeSel:s.themeSel||null,themeParent:s.themeParent||'',themeEleve:s.themeEleve||'',champEleve:s.champEleve||'',sonCle:s.sonCle||''})); }catch(e){} }
   planchesDisques(){
     const s=this.state, D=window.DISQUES;
     if(!D) return [];
-    const d=s.dsqTaille||81, source=s.dsqSource===undefined?'theme':s.dsqSource;
+    const d=s.dsqTaille||81, source=s.dsqSource||'';
     if(!source) return [];
     let titre='', items=[], forme='mot';
     if(source==='theme'){
@@ -3715,7 +3851,7 @@ class Component extends DCLogic {
       });
     } else {
       titre=s.dsqTitre?('Le dé — '+s.dsqTitre.toLowerCase()):'Les dés';
-      const brut=(s.dsqListe===undefined?"HIER\nAUJOURD'HUI\nCE SOIR\nDEMAIN\nDIMANCHE PROCHAIN\nCET ÉTÉ":s.dsqListe)
+      const brut=(s.dsqListe||'')
         .split('\n').map(l=>l.trim()).filter(Boolean);
       const lettres=brut.every(l=>l.length<=3);
       forme=lettres?'son':'mot';
@@ -3727,7 +3863,7 @@ class Component extends DCLogic {
       pages.push({id:'dsq-'+k+'-'+d, coll:'disques', nom:titre+(nb>1?(' — dé '+(k+1)):''),
         html:D.planche({titre, couleur:'#6d5bd0', diametre:d, forme,
           items:items.slice(k*6,k*6+6), no:k+1, sur:nb,
-          question:s.dsqQuestion||''})});
+          question:(s.dsqSource==='liste'&&s.dsqTitre==='Le temps')?(s.dsqQuestion||''):''})});
     }
     return pages;
   }
@@ -4474,12 +4610,13 @@ class Component extends DCLogic {
       if(s.ecran==='tableauThemes'||s.ecran==='tableauCode'||s.ecran==='semaine') return ['themeAccueil','Le choix'];
       return null;
     }
-    return null;
+    /* 11/10 : côté enseignant, plus de cul-de-sac — « ← L'accueil » sur tout écran autre que l'accueil. */
+    return s.ecran&&s.ecran!=='groupes'?['groupes',"L'accueil"]:null;
   }
   retourUnCran(){
     if((this.state.serie||[]).length) this.quitterSerie();
     const p=this.parentEcran();
-    if(!p){ this.go(this.state.verrou?'themeAccueil':'groupes'); return; }
+    if(!p||p[0]==='groupes'){ this.go(this.state.verrou?'themeAccueil':'groupes'); return; }
     try{ speechSynthesis.cancel(); }catch(e){}
     this.setState((p[0]==='themeAccueil'||p[0]==='tableauThemes')
       ? {ecran:p[0],themeParent:'',msgEleve:'',retour:'',repondu:false}
@@ -5125,12 +5262,12 @@ class Component extends DCLogic {
     const TITRES={accueil:'Espace enseignant',eleve:'Espace élève',groupes:'Gestion des groupes et des élèves',reglages:'Réglages des thèmes',reglagesCode:'Réglages lettres et sons',fabrique:'Fiches et jeux — à fabriquer et à imprimer',bilan:'Bilan des exercices',oral:'Productions orales des thèmes',themes:'Création de thèmes',mdp:'Mot de passe sécurisé',
       sons:'Les sons — la progression de la classe', son:'Le son « '+(s.sonCle||'')+' »', texte:'Lire des textes — les aides à la lecture', creer:'Créer une fiche', outils:TITRES_DOM[s.outilsDomaine]||'Fiches à imprimer', competences:'Bilan des compétences', devoirs:'Je continue chez moi — préparer le travail du soir',
       alpha:"L'alphabet",alphaEcrire:'Écris la lettre',resultatAlpha:'Résultat',
-      disques:'Jeux de classe — on joue ensemble, rien à écrire, rien à noter',
+      disques:'Jeux de classe — je fabrique, j\'imprime, on joue',
       docsUtiles:'Mes documents utiles — mes séances et mes références',
       admin:'Administratif — mes papiers de sortie (sur cet ordinateur seulement)',
       affichages:'Affichages de la classe — ce qui reste au mur ou sur la table',
       litteraire:'Moment littéraire — les séquences, leurs documents et leurs audios',
-      langue:'Étude de la langue — une notion, ses documents et sa vidéo',
+      langue:'Grammaire — la phrase, sujet · verbe · complément, les classes de mots',
       delfInfos:'Préparation au DELF — explications des épreuves',
       delfEntrainement:'Préparation au DELF — entraînements',
       delfProf:'Préparation au DELF — les sujets A1 et A2',
@@ -5166,7 +5303,7 @@ class Component extends DCLogic {
          enseignantes » et deviennent des rubriques du menu. Le reste de la réorganisation
          proposée (Moment littéraire, Découverte, Administratif…) ATTEND sa réponse. */
       ['Langue','#a23b72',[
-        ['Les notions','langue']]],
+        ['Grammaire','langue']]],
       ['Mathématiques','#e59a2b',[
         /* 03/10 (son oui) : « Fiches à imprimer » remplacé par les rubriques elles-mêmes ;
            4e valeur = la collection ouverte directement. */
@@ -5962,11 +6099,38 @@ class Component extends DCLogic {
          d'afficher un PDF dans un cadre et rend la page « bloquée par Chrome ». C'est ce
          qu'elle a vu sur le lexique de maths. Les documents .dc.html, eux, restent dans
          l'onglet courant. */
-      docsColl:(DOCS_COLL[s.outilsColl]||[]).map(([titre,detail,url])=>{
+      ...(()=>{
+        const L=DOCS_COLL[s.outilsColl]||[], themes=[];
+        L.forEach((e,k)=>{ if(e[0].charAt(0)==='¤') themes.push({k,nom:e[0].slice(1),sous:e[1],cle:e[2]}); });
+        const VIS={
+          longueurs:{img:"url('clean/mot-regle.webp')",taille:'86% auto',pos:'center'},
+          num1:{img:"url('clean/mot-num-cubes.webp')",taille:'auto 100%',pos:'center'},
+          num2:{img:"url('clean/mot-num-batonnets.webp')",taille:'auto 100%',pos:'center'},
+          num3:{img:"url('clean/mot-num-centaine.webp')",taille:'auto 100%',pos:'center'},
+          num4:{img:"url('clean/mot-num-millier.webp')",taille:'auto 100%',pos:'center'},
+          num5:{img:"url('clean/mot-num-stade.webp')",taille:'cover',pos:'center'},
+          num6:{img:"url('clean/mot-num-ville.webp')",taille:'cover',pos:'center'},
+          num7:{img:"url('clean/mot-num-pourcentage.webp')",taille:'auto 100%',pos:'center'},
+          geovocab:{img:"url('clean/mot-geometrie-outils.webp')",taille:'auto 96%',pos:'center'},
+          geoquad:{img:"url('clean/mot-quadrilateres.webp')",taille:'auto 92%',pos:'center'},
+          geopoly:{img:"url('clean/mot-polygones.webp')",taille:'auto 92%',pos:'center'},
+          masses:{img:"url('clean/mot-balance.webp')",taille:'cover',pos:'center 62%'},
+          monnaie:{img:"url('clean/mot-piece2e.webp'), url('clean/mot-piece50c.webp'), url('clean/mot-billet10.webp')",taille:'30% auto, 23% auto, 60% auto',pos:'80% 78%, 93% 22%, 16% 40%'}};
+        const sel=s.themeSel&&s.themeSel.coll===s.outilsColl?s.themeSel.i:null;
+        const fin=i=>i+1<themes.length?themes[i+1].k:L.length;
+        const cartes=themes.map((t,i)=>{const v=VIS[t.cle]; const n=L.slice(t.k+1,fin(i)).length;
+          return {nom:t.nom,couleur:({mathsgeo:'#2a9d6e',mathsnum:'#c97a12'})[s.outilsColl]||'#1f6fb2',sous:n?t.sous:t.sous+' · à venir',aImage:!!v,sansImage:!v,img:v?v.img:'none',taille:v?v.taille:'auto',pos:v?v.pos:'center',
+            ouvrir:()=>this.setState({themeSel:{coll:s.outilsColl,i}})};});
+        return {aThemes:!!themes.length&&sel==null, themesColl:sel==null?cartes:[],
+          themesOuverts:sel==null?[]:[{nom:cartes[sel].nom,couleur:cartes[sel].couleur,sous:themes[sel].sous,vide:fin(sel)===themes[sel].k+1}],
+          themesRetour:()=>this.setState({themeSel:null}),
+          _comp:this, _docsListe:!themes.length?L:sel==null?[]:L.slice(themes[sel].k+1,fin(sel))};
+      })(),
+      get docsColl(){ const c=this._comp; return this._docsListe.map(([titre,detail,url])=>{
         /* Intertitre (02/10) : une entrée ['§Titre'] ouvre une sous-rubrique. */
         if(titre.charAt(0)==='§') return {intertitre:true,doc:false,titre:titre.slice(1)};
         const pdf=/\.pdf$/i.test(url);
-        return {intertitre:false,doc:true,titre,detail,cible:pdf?'_blank':'_self',url:encodeURI(url)+this.jeton(),
+        return {intertitre:false,doc:true,titre,detail,cible:pdf?'_blank':'_self',url:encodeURI(url)+c.jeton(),
           action: pdf?'Télécharger le PDF \u2193':'Ouvrir le document \u2192',
           /* ⚠ UN PDF SE TÉLÉCHARGE, IL NE S'AFFICHE PAS (15/09, après trois essais) : Chrome
              refuse un PDF dans un cadre, un nouvel onglet n'emporte pas le jeton d'aperçu
@@ -5984,9 +6148,9 @@ class Component extends DCLogic {
               a.href=u; a.download=url.split('/').pop();
               document.body.appendChild(a); a.click(); a.remove();
               setTimeout(()=>URL.revokeObjectURL(u),60000);
-            }catch(e){ window.open(encodeURI(url)+this.jeton(),'_blank'); }
+            }catch(e){ window.open(encodeURI(url)+c.jeton(),'_blank'); }
           } : null};
-      }),
+      }); },
       aCasesOutils:['lettres','chiffres'].includes(s.outilsColl),
       libelleCasesOutils:s.outilsColl==='chiffres'?'Coche un chiffre — sa fiche apparaît, prête à imprimer':'Coche une lettre — sa fiche apparaît, prête à imprimer',
       casesOutils:(()=>{
@@ -6025,7 +6189,17 @@ class Component extends DCLogic {
       estDisques:s.ecran==='disques',
       estDocsUtiles:s.ecran==='docsUtiles',
       estAdmin:s.ecran==='admin'&&!this.tel(),
-      docsAdmin:[
+      msgRemplir:s.msgRemplir||'',
+      remplirPagnol:async()=>{ try{
+          if(!window.remplirAutorisationsPagnol) await new Promise((ok,ko)=>{const sc=document.createElement('script');sc.src='remplir-autorisations.js';sc.onload=ok;sc.onerror=ko;document.head.appendChild(sc);});
+          const m=await window.remplirAutorisationsPagnol();
+          this.setState({msgRemplir:m.length?('Sans contact enregistré (à écrire à la main) : '+m.join(', ')+'.'):'Toutes les feuilles sont remplies.'});
+        }catch(e){ this.setState({msgRemplir:'Impossible de fabriquer le PDF ici.'}); } },
+      ...(()=>{
+        const tous=[
+        ['Sortie Pagnol — autorisation de sortie','Pour le proviseur. Jeudi 15 octobre, départ 10h50, retour 12h10.','#1d4e89','2026-10-15 Autorisation de sortie - Pagnol.pdf'],
+        ['Sortie Pagnol — autorisation des parents et droit à l\u2019image','9 feuilles, une par élève, nom déjà écrit. À donner aux familles.','#2a9d6e','2026-10-15 Autorisation parents et droit image - Pagnol.pdf'],
+        ['Sortie Pagnol — fiche action (Word)','Jeux de société avec la classe ULIS. Le Word se télécharge, puis s\u2019imprime.','#6d5bd0','2026-2027 Fiche action - Pagnol.docx'],
         ['Sortie Valmy — autorisation de sortie','Pour le proviseur. Mardi 13 octobre, départ 09h30, retour 11h15.','#1d4e89','2026-10-13 Autorisation de sortie - Valmy.pdf'],
         ['Sortie Valmy — autorisation des parents et droit à l\u2019image','À donner aux familles, une par élève.','#2a9d6e','2026-10-13 Autorisation parents et droit image - Valmy.pdf'],
         ['Sortie Valmy — fiche action (Word)','« Roule galette ». Le Word se télécharge, puis s\u2019imprime.','#6d5bd0','2026-2027 Fiche action - Valmy.docx'],
@@ -6033,7 +6207,16 @@ class Component extends DCLogic {
         ['Sortie Senghor — fiche action','PDF, et le Word à côté.','#6d5bd0','2026-2027 Fiche action - Senghor.pdf'],
         ['Sortie Senghor — fiche action (Word)','','#6d5bd0','2026-2027 Fiche action - Senghor.docx'],
         ['Fiche action vierge (Word)','Le modèle du lycée, pour une prochaine sortie.','#48586b','MODELE - Fiche action -vierge-.docx']
-      ].map(([titre,detail,couleur,f])=>({titre,detail,couleur,url:'docs/administratif/'+f})),
+      ].map(([titre,detail,couleur,f])=>({titre:titre.replace(/^Sortie [^—]+— /,''),cle:(titre.match(/^Sortie (\S+)/)||[])[1]||'Modeles',detail,couleur,url:'docs/administratif/'+f}));
+        const SORTIES=[['Valmy','Valmy','#c0392b'],['Pagnol','Pagnol','#2a9d6e'],['Volcan','Volcan','#e07a1f'],['Niemeyer','Bibliothèque Niemeyer','#6d5bd0'],['Senghor','Bibliothèque Senghor','#1d4e89'],['Modeles','Les modèles vierges','#48586b']];
+        const sel=SORTIES.find(x=>x[0]===s.admSortie);
+        const docs=sel?tous.filter(d=>d.cle===sel[0]):[];
+        return {
+          admAccueil:!sel, admDedans:!!sel, admNom:sel?sel[1]:'', admVide:!!sel&&!docs.length, admPagnol:!!sel&&sel[0]==='Pagnol',
+          admFermer:()=>this.setState({admSortie:null}),
+          admSorties:SORTIES.map(([cle,nom,couleur])=>{const n=tous.filter(d=>d.cle===cle).length;const IMG={Pagnol:'pagnol',Valmy:'valmy',Volcan:'volcan',Niemeyer:'niemeyer',Senghor:'senghor'};return {nom,couleur,fond:IMG[cle]?"url('clean/sortie-"+IMG[cle]+".webp')":'none',compte:n?(n+(n>1?' documents':' document')):'Aucun document pour l’instant',ouvrir:()=>this.setState({admSortie:cle})};}),
+          docsAdmin:docs };
+      })(),
       estLitteraire:s.ecran==='litteraire',
       /* LES SÉQUENCES DU MOMENT LITTÉRAIRE (22/09). Une séquence = un texte et TOUT ce qui
          tourne autour : les documents de l'appli, le diaporama à projeter, l'audio à
@@ -6059,11 +6242,19 @@ class Component extends DCLogic {
           [["Le conte — la vidéo","On regarde et on écoute avant de montrer quoi que ce soit. S'ouvre dans un nouvel onglet.","https://ladigitale.dev/digiview/#/v/551ed8a67136c8a0"],
            ["Le texte complet","Le conte en entier, en gros caractères, la chanson en retrait. À lire, à imprimer.","FR - Roule galette - Le texte.dc.html"],
            ["Le diaporama — les dix images","Les pages de l'album, dans l'ordre du conte, à projeter pendant qu'on raconte. Pour la classe seulement (illustrations Père Castor).","FR - Diaporama - Roule galette.dc.html"],
+           ["Le texte en images — partie 1","De la demande du vieux jusqu'à la chute de la galette : 5 pages, l'image et le texte du livre dessous. On avance au clic.","FR - Roule galette - Le texte en images - Partie 1.dc.html"],
+           ["Le texte en images — partie 2","Le lapin, le loup et l'ours : 12 pages, l'image et le texte du livre dessous. On avance au clic.","FR - Roule galette - Le texte en images - Partie 2.dc.html"],
+           ["Le texte en images — partie 3","Le renard, jusqu'au HAM ! : 3 pages, l'image et le texte du livre dessous. On avance au clic.","FR - Roule galette - Le texte en images - Partie 3.dc.html"],
            ["L'ordre de l'histoire — sur écran","Deux jeux : le début (5 images) et la route (6 images). On touche une image, puis sa case ; « J'ai fini » pour vérifier.","JEU - Roule galette - L'ordre.dc.html"],
            ["L'ordre de l'histoire — à découper","Les mêmes deux jeux sur papier : les cases à coller, les images à découper, puis le corrigé.","FR - Roule galette - L'ordre (papier).dc.html"],
            ["Je lis — sur écran","Ta fiche 01-1 en jeu : le vrai titre, les mots du texte, les phrases à compléter, la bonne orthographe.","JEU - Roule galette - Je lis.dc.html"],
            ["Je lis — la fiche","La même fiche refaite au propre, avec les pictos, et son corrigé.","FR - Roule galette - Je lis - fiche.dc.html"],
-           ["Le QCM — Roule galette","Les questions en images, une à la fois : on touche la bonne image. À projeter ou sur tablette.","QCM - Roule galette.dc.html"]],
+           ["Le QCM — Roule galette","Les questions en images, une à la fois : on touche la bonne image. À projeter ou sur tablette.","QCM - Roule galette.dc.html"],
+           ["Les masques","Les sept personnages, un masque par page A4 : je découpe, je fais deux trous, j'attache l'élastique.","FR - Roule galette - Les masques.dc.html"],
+           ["Les mots de l'histoire","Inspiré de Narramus. 17 mots en 3 groupes : je regarde la photo, j'entends le mot puis la phrase du texte ; puis le jeu « J'écoute, je touche ».","FR - Roule galette - Les mots de l'histoire.dc.html"],
+           ["Les cartes des mots","Les 17 mots en cartes à découper, une page par groupe.","FR - Roule galette - Les cartes des mots.dc.html"],
+           ["Qui dit quoi ? · Niveau 1","6 scènes du livre avec des bulles : je colle la phrase dans la bulle. Étiquettes à découper, corrigé.","FR - Roule galette - Les bulles - Niveau 1.dc.html"],
+           ["Qui dit quoi ? · Niveau 2","Les 6 mêmes scènes : j'écris dans la bulle, avec les mots de la scène. Corrigé.","FR - Roule galette - Les bulles - Niveau 2.dc.html"]],
           []]
       ].map(([nom,auteur,couleur,docs,audios],i)=>({nom,auteur,couleur,
         visuel:"url('"+['clean/diapo-paris-chambre.webp','clean/diapo-galette-5.webp'][i]+"')",
@@ -6076,19 +6267,40 @@ class Component extends DCLogic {
       estLangue:s.ecran==='langue',
       /* ÉTUDE DE LA LANGUE (06/10). Une notion = sa vidéo (SA vidéo : elle entre dans l'appli,
          lecteur <video>, pas de nouvel onglet) + ses documents. Liens internes, jamais _blank. */
-      notions:[
-        ['LE VERBE','Au pays des mots · épisode 1','#c62828',
+      /* 10/10 (sa demande) : « Langue » devient GRAMMAIRE, en vignettes à deux étages :
+         la phrase, puis sujet/verbe/complément, puis les classes de mots (qui ouvrent à leur
+         tour verbe, nom, déterminant, adjectif). Une entrée = [nom, sous-titre, couleur,
+         docs, vidéos] ou [nom, sous-titre, couleur, null, null, enfants]. */
+      ...(()=>{
+        const ARBRE=[
+          ['LA PHRASE','la majuscule, le point, les espaces entre les mots','#1d4e89',[],[]],
+          ['SUJET · VERBE · COMPLÉMENT','qui ? fait quoi ?','#2a9d6e',[],[]],
+          ['LES CLASSES DE MOTS','verbe, nom, déterminant, adjectif','#a23b72',null,null,[
+            ['LE VERBE','Au pays des mots · épisode 1','#c62828',
           [["Le roi — l'histoire","Cinq pages : le verbe est le roi de la phrase. Il dit ce qu'on fait, ou comment on est. Le sandwich ne … pas.","docs/pays-des-mots-episode-1.pdf"],
            ["Le livret d'exercices","Page de garde, neuf exercices (le 2 en « tu »), puis le corrigé. À imprimer en noir et blanc.","FR - Le verbe - Livret.dc.html"],
            ["Le tableau de conjugaison","Présent des verbes en -ER : marcher, danser, manger, parler, chanter, regarder. Terminaisons en gras soulignées.","FR - Le verbe - Tableau de conjugaison.dc.html"],
            ["Le tableau de conjugaison à remplir","Les mêmes verbes, pronoms et lignes vides. Corrigé en page 2.","FR - Le verbe - Tableau de conjugaison (vide).dc.html"]],
-          [["Le roi — la vidéo","On regarde et on écoute avant de montrer quoi que ce soit.","docs/pays-des-mots-episode-1.mp4"]]]
-      ].map(([nom,sous,couleur,docs,videos],i)=>({nom,sous,couleur,
-        ouvrir:()=>this.setState({langSel:i}),
-        docs:docs.map(([titre,detail,url])=>({titre,detail,url:encodeURI(url),clic:pdfClic(encodeURI(url))})),
-        videos:videos.map(([titre,detail,src])=>({titre,detail,src:encodeURI(src)}))})),
-      get notionsOuvertes(){ return s.langSel==null?[]:[this.notions[s.langSel]]; },
-      langChoix:s.langSel==null, langRetour:()=>this.setState({langSel:null}),
+          [["Le roi — la vidéo","On regarde et on écoute avant de montrer quoi que ce soit.","docs/pays-des-mots-episode-1.mp4"]]],
+            ['LE NOM','le genre et le nombre','#1d4e89',null,null,[
+              ['LE GENRE','un / une, le / la : masculin ou féminin','#1d4e89',[["Le livret — Le genre","Couverture, je retiens, 4 exercices en images : un ou une, le ou la, trier, les métiers au féminin. Corrigé.","FR - Le nom - Le genre.dc.html"]],[]],
+              ['LE NOMBRE','un / des : singulier ou pluriel','#1d4e89',[],[]]]],
+            ['LE DÉTERMINANT','le, la, les, un, une, des…','#2a9d6e',[["Les fiches — les déterminants","Ton document de 2 pages (PDF).","docs/determinants-fiches.pdf"]],[]],
+            ['L’ADJECTIF','il dit comment est le nom','#c97a12',[],[]]]]];
+        const chemin=Array.isArray(s.langSel)?s.langSel:[];
+        let liste=ARBRE, noeud=null, branches=[];
+        for(const i of chemin){ noeud=liste[i]; if(!noeud) break; if(noeud[5]){ branches.push(noeud); liste=noeud[5]; noeud=null; } }
+        const carte=(e,i)=>{const [nom,sous,couleur,docs,videos,enfants]=e; const vide=!enfants&&!(docs&&docs.length)&&!(videos&&videos.length);
+          return {nom,couleur,sous:vide?sous+' · à venir':sous,
+            ouvrir:()=>this.setState({langSel:chemin.concat(i)})};};
+        const feuille=noeud?(([nom,sous,couleur,docs,videos])=>({nom,sous,couleur,vide:!docs.length&&!videos.length,
+          docs:docs.map(([titre,detail,url])=>({titre,detail,url:encodeURI(url),clic:pdfClic(encodeURI(url))})),
+          videos:videos.map(([titre,detail,src])=>({titre,detail,src:encodeURI(src)}))}))(noeud):null;
+        const haut=branches[branches.length-1];
+        return {notions:feuille?[]:liste.map(carte), notionsOuvertes:feuille?[feuille]:[],
+          langChoix:!feuille, langBranche:!feuille&&haut?[{nom:haut[0],sous:haut[1],couleur:haut[2]}]:[],
+          langRetour:()=>this.setState({langSel:chemin.slice(0,-1)})};
+      })(),
       /* 06/10 : la vidéo en grand écran (bouton à part : le cadre de l'appli peut masquer celui du lecteur). */
       grandEcran:(e)=>{
         const v=e.currentTarget.parentElement.querySelector('video'); if(!v) return;
@@ -6178,11 +6390,11 @@ class Component extends DCLogic {
       /* ⚠ « Outils de manipulation en classe » s'appelle « JEUX DE CLASSE » depuis le 20/09
          (« bof bof » : le titre sonnait catalogue de matériel). Ce que les trois partagent :
          un jeu collectif, sans trace écrite et sans note. */
-      dsqOutils:[['des','Les disques des dés','à scratcher sur les faces',false],
+      dsqOutils:[['des','Les dés','faces à scratcher',false],
         /* Le puzzle à retourner (20/09) : son accroche du lundi matin. Une photo cachée
            sous 100 cases, un élève dit un nombre, la case s'ouvre. Les nombres jusqu'à
            100 se lisent à voix haute pour rien — c'est le but. */
-        ['puzzle','Le puzzle à retourner','une photo sous les nombres',false],
+        ['puzzle','Les puzzles','une photo sous les nombres',false],
         ['oie','Les jeux de l’oie','mots-outils, mots repères… on lit la case',false],
         /* Le jeu du symbole commun (09/09) : deux cartes ont toujours une image commune,
            et une seule. Le paquet se fabrique depuis ses photos, dans son propre document. */
@@ -6191,36 +6403,54 @@ class Component extends DCLogic {
         ['cartes','Les cartes à pince','une question, une réponse à pincer',true],
         ['bandes','Les bandes de nombres','pour compter et comparer',true]].map(([k,nom,note,bloque])=>{
           const on=(s.dsqOutil||'des')===k;
-          return {nom:bloque?nom+' — en attente':nom, note,
-            fond:on?'#fff':'#eef0f5', bord:on?'#6d5bd0':'#e2e6ec',
-            encre:bloque?'#a6adb9':'#12233b', encreNote:bloque?'#bcc3cd':'#7d8a9c',
+          /* 11/10 (sa demande « mets de la couleur et un visuel ») : une couleur et une icône par jeu. */
+          const DECO={des:['🎲','#e0533d'],puzzle:['🧩','#2a9d6e'],oie:['🏁','#1d6fb8'],cartes:['🃏','#8a4fc7'],etiquettes:['🏷️','#c98a12'],bandes:['🔢','#0f6e6e']};
+          const [icone,c]=nom==='Les cartes à pince'?['📎','#c2477a']:(DECO[k]||['🎮','#6d5bd0']);
+          /* Photos de jeux (clean/jeu-<k>.webp) : remplacent l'icône dès qu'elles arrivent. */
+          const PHOTO=nom==='Les cartes à pince'?'jeu-pince':nom==='Le jeu du symbole commun'?'jeu-symbole':{des:'jeu-des',puzzle:'jeu-puzzle',oie:'jeu-oie'}[k];
+          return {nom:bloque?nom+' — en attente':nom, note, icone:PHOTO?'':icone, image:PHOTO?"url('clean/"+PHOTO+".webp')":'none',
+            fond:bloque?'#eef0f5':c, bord:on?'#12233b':(bloque?'#e2e6ec':c),
+            ombre:on?'0 0 0 3px #fff inset, 0 6px 14px rgba(0,0,0,0.25)':'none', opacite:bloque?0.7:1,
+            encre:bloque?'#7d8a9c':'#fff', encreNote:bloque?'#9aa3b0':'rgba(255,255,255,0.9)',
             curseur:'pointer',
             choisir:()=>this.setState({dsqOutil:k, dsqOutilBloque:bloque, dsqOutilNom:nom, dsqOutilNote:note})};
         }),
+      /* 11/10 (sa demande) : le nom du jeu ouvert, en gros et dans sa couleur, en haut du panneau. */
+      dsqTitreGros:({des:'LES DÉS',puzzle:'LES PUZZLES',oie:'LES JEUX DE L’OIE',cartes:'LE SYMBOLE COMMUN',etiquettes:'LES ÉTIQUETTES-MOTS',bandes:'LES BANDES DE NOMBRES'})[s.dsqOutil||'des']||'',
+      dsqCouleur:({des:'#e0533d',puzzle:'#2a9d6e',oie:'#1d6fb8',cartes:'#8a4fc7',etiquettes:'#c98a12',bandes:'#0f6e6e'})[s.dsqOutil||'des']||'#12233b',
       dsqOutilDes:(s.dsqOutil||'des')==='des',
       dsqOutilCartes:(s.dsqOutil||'des')==='cartes',
       dsqOutilPuzzle:(s.dsqOutil||'des')==='puzzle', dsqOutilOie:s.dsqOutil==='oie',
       urlOie:'JEU - Oie des mots-outils.dc.html'+(typeof location!=='undefined'?location.search:''),
+      urlHotel:"JEU - A la reception de l'hotel.dc.html"+(typeof location!=='undefined'?location.search:''),
       urlPuzzle:'JEU - Le puzzle à retourner.dc.html'+(typeof location!=='undefined'?location.search:''),
       urlCartes:'JEU - Le symbole commun (cartes).dc.html'+(typeof location!=='undefined'?location.search:''),
       dsqOutilAttente:['des','cartes','puzzle','oie'].indexOf(s.dsqOutil||'des')<0,
       dsqOutilNom:s.dsqOutilNom||'',
       dsqOutilNote:s.dsqOutilNote||'',
-      dsqSources:[['theme',"Mots et images d'un thème",'les mots vivants du thème',false],
-        ['liste','Une liste tapée à la main','pour ce qui n\'est dans aucun thème',false],
-        ['sons','Les sons de la progression','en attente — les dés de syllabes',true]].map(([k,nom,note,bloque])=>{
-          const on=!bloque && (s.dsqSource===undefined?'theme':s.dsqSource)===k;
+      /* 11/10 (sa demande) : on ne voit que JE FABRIQUE et ses choix ; un clic ouvre la suite (dsqVue). */
+      dsqSources:[['pret','Je choisis un dé prêt','le temps, les consonnes, les voyelles',false],
+        ['theme',"Je choisis un thème",'les photos et les mots du lexique',false],
+        ['liste','J\'écris mes mots','6 mots, un par ligne',false]].map(([k,nom,note,bloque])=>{
+          const on=!bloque && (s.dsqVue||'')===k;
           return {nom:bloque?nom+' — en attente':nom, note,
             fond:bloque?'#f4f6f9':(on?'#f0edfd':'#fff'),
             bord:bloque?'#e8ebf0':(on?'#6d5bd0':'#e2e6ec'),
             encre:bloque?'#a6adb9':'#12233b', encreNote:bloque?'#bcc3cd':'#7d8a9c',
             curseur:bloque?'default':'pointer',
-            choisir:bloque?(()=>{}):(()=>this.setState(p=>({dsqSource:(p.dsqSource||'theme')===k?'':k})))};
+            choisir:bloque?(()=>{}):(()=>this.setState(p=>(p.dsqVue===k?{dsqVue:''}:{dsqVue:k,...(k==='pret'?{}:{dsqSource:k}),...(k==='liste'?{dsqListe:'',dsqTitre:''}:{})})))};
         }),
-      dsqSurTheme:s.dsqSource===undefined?true:s.dsqSource==='theme',
-      dsqSurListe:s.dsqSource==='liste',
+      get srcPret(){ return this.dsqSources[0]; }, get srcTheme(){ return this.dsqSources[1]; }, get srcListe(){ return this.dsqSources[2]; },
+      dsqSurTheme:s.dsqVue==='theme', dsqSurPret:s.dsqVue==='pret',
+      dsqSurListe:s.dsqVue==='liste', dsqOuvert:!!s.dsqVue&&!!s.dsqSource, dsqAvecQuestion:s.dsqSource==='liste'&&s.dsqTitre==='Le temps',
+      /* 11/10 (son oui) : groupes en gras foncé ▸, thèmes en bleu, thème choisi sur fond plein. */
       dsqThemes:this.arbreThemes(s.dsqTheme||'Le corps',
-        n=>this.setState({dsqTheme:n}), 'grpOuvertsDsq'),
+        n=>this.setState({dsqTheme:n}), 'grpOuvertsDsq').map(l=>({...l,
+          fond:l.actif?'#1d6fb8':(l.entete?'#f1f3f7':'#fff'),
+          trait:l.actif?'#12233b':(l.entete?'#12233b':'transparent'),
+          indent:l.enfant?'26px':'11px',
+          encre:l.actif?'#fff':(l.entete?'#12233b':(l.vide?'#a3adbb':'#1d6fb8')),
+          encreEtat:l.actif?'#fff':l.encreEtat})),
       dsqContenus:[['mot','Le mot'],['image',"L'image"],['duo','Image + mot']].map(([k,nom])=>{
         const on=(s.dsqContenu||'mot')===k;
         return {nom, fond:on?'#6d5bd0':'#fff', encre:on?'#fff':'#6b7386',
@@ -6231,11 +6461,11 @@ class Component extends DCLogic {
         return {nom:k+' mm', fond:on?'#6d5bd0':'#fff', encre:on?'#fff':'#6b7386',
           choisir:()=>this.setState({dsqTaille:k})};
       }),
-      dsqListe:s.dsqListe===undefined?"HIER\nAUJOURD'HUI\nCE SOIR\nDEMAIN\nDIMANCHE PROCHAIN\nCET ÉTÉ":s.dsqListe,
+      dsqListe:s.dsqListe||'',
       setDsqListe:e=>this.setState({dsqListe:e.target.value}),
       dsqModeles:[['Le temps',"HIER\nAUJOURD'HUI\nCE SOIR\nDEMAIN\nDIMANCHE PROCHAIN\nCET ÉTÉ","hier · aujourd'hui · demain…"],
         ['Les consonnes','d\nm\nf\nb\nl\nj','d m f b l j'],
-        ['Les voyelles','a\ne\ni\no\nu\nou','a e i o u ou']].map(([nom,txt,apercu])=>{
+        ['Les voyelles','a\né\ni\no\nu\nou','a é i o u ou']].map(([nom,txt,apercu])=>{
           const on=s.dsqSource==='liste' && s.dsqTitre===nom;
           return {nom, apercu, fond:on?'#f0edfd':'#fff', bord:on?'#6d5bd0':'#e2e6ec',
             poser:()=>this.setState({dsqSource:'liste', dsqListe:txt, dsqTitre:nom,

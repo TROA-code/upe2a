@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="polices.css" />
+<style>body{margin:0;font-family:Archivo, Verdana, sans-serif;color:#12233b}a{color:#1d4e89}a:hover{color:#12233b}@media print{.no-print{display:none !important}}</style>
+</helmet>
+<button class="no-print bouton" onClick="{{ retour }}" style="position:fixed;top:12px;right:12px;z-index:50;min-height:44px;border:none;border-radius:10px;background:#12233b;color:#fff;padding:0 16px;font-family:Archivo, sans-serif;font-weight:700;font-size:15px;cursor:pointer">← Retour</button>
+<x-import component-from-global-scope="doc-page" from="./doc-page.js" size="a4" hint-size="100%,100%">
+
+<sc-for list="{{ scenes }}" as="s" hint-placeholder-count="6">
+<section class="page" data-screen-label="{{ s.label }}" style="box-sizing:border-box;padding:20mm;font-family:Archivo, Verdana, sans-serif;color:#12233b;background:#fff;display:flex;flex-direction:column;gap:6mm">
+<div style="display:flex;justify-content:space-between;align-items:baseline;gap:6mm;font-size:12pt;color:#4a5568"><span>Roule galette · Qui dit quoi ? · {{ niveauTxt }}</span><span>Prénom : ………………………</span></div>
+<div style="display:flex;align-items:center;gap:5mm"><span style="font-family:Archivo Black, Archivo, sans-serif;font-size:26pt;line-height:1">{{ s.num }}</span><img src="{{ picto }}" alt="" style="width:12mm;height:12mm;object-fit:contain;flex:0 0 auto" /><span style="font-family:Archivo Black, Archivo, sans-serif;font-size:16pt">{{ consigne }}</span></div>
+<sc-if value="{{ n2 }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-wrap:wrap;align-items:center;gap:3mm 6mm;border:0.5mm solid #12233b;border-radius:3mm;padding:3mm 5mm;font-size:15pt"><span style="font-size:12pt;color:#4a5568">Les mots :</span><sc-for list="{{ s.mots }}" as="m" hint-placeholder-count="5"><span style="font-weight:700">{{ m }}</span></sc-for></div>
+</sc-if>
+<div style="position:relative;width:170mm;height:165mm">
+<img src="{{ s.img }}" alt="" style="{{ s.imgStyle }}" />
+<sc-for list="{{ s.bulles }}" as="b" hint-placeholder-count="2">
+<div style="{{ b.boxStyle }}">
+<sc-if value="{{ n1 }}" hint-placeholder-val="{{ true }}"><div style="width:70mm;height:28mm;border:0.4mm dashed #8a93a3;border-radius:2mm;box-sizing:border-box"></div></sc-if>
+<sc-if value="{{ n2 }}" hint-placeholder-val="{{ false }}"><div style="width:70mm;display:flex;flex-direction:column;gap:9mm;padding-top:6mm"><span style="border-bottom:0.3mm solid #12233b"></span><span style="border-bottom:0.3mm solid #12233b"></span><span style="border-bottom:0.3mm solid #12233b"></span></div></sc-if>
+</div>
+<sc-if value="{{ b.parle }}" hint-placeholder-val="{{ true }}">
+<svg viewBox="0 0 170 165" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible"><polygon points="{{ b.fill }}" fill="#fff"></polygon><polyline points="{{ b.line }}" fill="none" stroke="#12233b" stroke-width="0.6" stroke-linejoin="round"></polyline></svg>
+</sc-if>
+<sc-for list="{{ b.ronds }}" as="r" hint-placeholder-count="0"><div style="{{ r.style }}"></div></sc-for>
+</sc-for>
+</div>
+</section>
+</sc-for>
+
+<sc-if value="{{ n1 }}" hint-placeholder-val="{{ true }}">
+<section class="page" data-screen-label="07 Étiquettes" style="box-sizing:border-box;padding:20mm;font-family:Archivo, Verdana, sans-serif;color:#12233b;background:#fff;display:flex;flex-direction:column;gap:5mm">
+<div style="display:flex;align-items:center;gap:5mm"><img src="clean/pictos/ciseaux.webp" alt="" style="width:12mm;height:12mm;object-fit:contain" /><span style="font-family:Archivo Black, Archivo, sans-serif;font-size:18pt">LES PHRASES À DÉCOUPER</span></div>
+<sc-for list="{{ scenes }}" as="s" hint-placeholder-count="6">
+<div style="display:grid;grid-template-columns:16mm minmax(0,1fr) minmax(0,1fr);align-items:center;gap:6mm">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:30pt;line-height:1;text-align:center">{{ s.num }}</span>
+<sc-for list="{{ s.bulles }}" as="b" hint-placeholder-count="2">
+<div style="position:relative;width:64mm;height:24mm;box-sizing:border-box;border:0.4mm dashed #12233b;display:flex;align-items:center;justify-content:center;text-align:center;padding:1mm 3mm;font-size:12.5pt;line-height:1.2;text-wrap:pretty"><img src="clean/pictos/ciseaux.webp" alt="" style="position:absolute;left:-3mm;top:-3.5mm;width:6mm;height:6mm;object-fit:contain;background:#fff" />{{ b.texte }}</div>
+</sc-for>
+</div>
+</sc-for>
+</section>
+</sc-if>
+
+<section class="page" data-screen-label="Corrigé" style="box-sizing:border-box;padding:20mm;font-family:Archivo, Verdana, sans-serif;font-size:13pt;color:#12233b;background:#fff;display:flex;flex-direction:column;gap:5mm">
+<div style="font-family:Archivo Black, Archivo, sans-serif;font-size:24pt;color:#c62828">Corrigé</div>
+<sc-for list="{{ scenes }}" as="s" hint-placeholder-count="6">
+<div style="display:flex;gap:5mm;align-items:flex-start"><span style="font-family:Archivo Black, Archivo, sans-serif;font-size:18pt;width:10mm;flex:0 0 auto">{{ s.num }}</span>
+<div style="display:flex;flex-direction:column;gap:1.5mm"><sc-for list="{{ s.bulles }}" as="b" hint-placeholder-count="2"><span><b>{{ b.qui }}</b> {{ b.verbe }} : « {{ b.texte }} »{{ b.note }}</span></sc-for></div></div>
+</sc-for>
+<span style="font-size:12pt;color:#4a5568">* Bulle qui pense : réponse possible. Toute idée juste est acceptée.</span>
+</section>
+
+</x-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const NIVEAU = 1;
+    const W = 170, BW = 82, BH = 48, IMGW = 150, IMGX = 10, IMGY = 60;
+    const S = [
+      ['5', 0.68, ['je', 'roule', 'vais'], [['La galette', 'pense', 'd', 0.78, 0.68, 'Je roule, je roule, je m\u2019en vais !']]],
+      ['6', 0.568, ['galette', 'manger', 'non', 'écoute', 'plutôt', 'petite', 'chanson'], [['Le lapin', 'parle', 'g', 0.14, 0.3, 'Galette, galette, je vais te manger !'], ['La galette', 'parle', 'd', 0.86, 0.5, 'Non, écoute plutôt ma petite chanson.']]],
+      ['7', 0.566, ['galette', 'manger', 'non', 'écoute', 'petite', 'chanson'], [['La galette', 'parle', 'g', 0.06, 0.5, 'Non, non, écoute ma petite chanson.'], ['Le loup', 'parle', 'd', 0.22, 0.35, 'Galette, galette, je vais te manger !']]],
+      ['8', 0.565, ['galette', 'manger', 'non', 'écoute', 'plutôt', 'chanson'], [['La galette', 'parle', 'g', 0.05, 0.4, 'Non, non, écoute plutôt ma chanson !'], ['L\u2019ours', 'parle', 'd', 0.2, 0.32, 'Galette, galette, je vais te manger !']]],
+      ['9', 0.559, ['bonjour', 'galette', 'ronde', 'blonde', 'manger'], [['Le renard', 'parle', 'g', 0.2, 0.55, 'Bonjour, galette ! Comme tu es ronde, comme tu es blonde !'], ['Le renard', 'pense', 'd', 0.3, 0.5, 'Je vais la manger !']]],
+      ['10', 0.609, ['HAM', 'bonne', 'galette'], [['Le renard', 'parle', 'g', 0.48, 0.2, 'HAM !'], ['Le renard', 'pense', 'd', 0.55, 0.1, 'Elle est très bonne, cette galette !']]]
+    ];
+    const f = n => Math.round(n * 10) / 10;
+    const scenes = S.map(([img, ratio, mots, bl], i) => {
+      const ih = IMGW * ratio;
+      const bulles = bl.map(([qui, type, side, fx, fy, texte]) => {
+        const bx = side === 'g' ? 0 : W - BW, by = 0;
+        const tx = IMGX + fx * IMGW, ty = IMGY + fy * ih;
+        const parle = type === 'parle';
+        const cx = Math.min(Math.max(tx, bx + 18), bx + BW - 18), yb = by + BH;
+        const boxStyle = { position: 'absolute', left: bx + 'mm', top: by + 'mm', width: BW + 'mm', height: BH + 'mm', boxSizing: 'border-box', border: '0.6mm solid #12233b', borderRadius: parle ? '7mm' : '24mm', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' };
+        const ronds = parle ? [] : [[0.3, 4], [0.58, 2.8], [0.82, 1.8]].map(([t, r]) => {
+          const x = cx + (tx - cx) * t, y = yb + (ty - yb) * t;
+          return { style: { position: 'absolute', left: f(x - r) + 'mm', top: f(y - r) + 'mm', width: 2 * r + 'mm', height: 2 * r + 'mm', borderRadius: '50%', border: '0.5mm solid #12233b', background: '#fff', boxSizing: 'border-box' } };
+        });
+        return { qui, texte, parle, boxStyle, ronds, verbe: parle ? 'dit' : 'pense', note: parle ? '' : ' *',
+          fill: [cx - 6, yb - 1.5, cx + 6, yb - 1.5, tx, ty].map(f).join(' '),
+          line: [cx - 6, yb - 0.3, tx, ty, cx + 6, yb - 0.3].map(f).join(' ') };
+      });
+      return { num: String(i + 1), label: String(i + 1).padStart(2, '0'), img: 'clean/diapo-galette-' + img + '.webp', mots, bulles,
+        imgStyle: { position: 'absolute', left: IMGX + 'mm', top: IMGY + 'mm', width: IMGW + 'mm', height: f(ih) + 'mm', objectFit: 'cover' } };
+    });
+    return {
+      scenes, n1: NIVEAU === 1, n2: NIVEAU === 2, niveauTxt: 'Niveau ' + NIVEAU,
+      picto: NIVEAU === 1 ? 'clean/pictos/colle.webp' : 'clean/pictos/ecris.webp',
+      consigne: NIVEAU === 1 ? 'Je colle la phrase dans la bulle.' : 'J\u2019écris dans la bulle.',
+      retour: () => { const av = location.href; history.back(); setTimeout(() => { if (location.href === av) location.href = 'APPLI - Espace enseignant.dc.html' + location.search; }, 400); }
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -461,7 +461,7 @@ class Component extends DCLogic {
     return {
       titre: n ? TITRES[n] : (s.ecran === 'reglage' ? 'Les lettres' : 'Les syllabes'),
       estMenu: s.ecran === 'menu', estReglage: s.ecran === 'reglage', estJeu: !!n,
-      libelleRetour: s.ecran === 'menu' ? '← L’accueil' : '← Les jeux', retour: () => this.retour(),
+      libelleRetour: s.ecran === 'menu' ? '← Retour' : '← Les jeux', retour: () => this.retour(),
       ouvrirReglage: () => this.setState({ ecran: 'reglage' }), fermerReglage: () => this.setState({ ecran: 'menu' }),
       niveaux: NIVEAUX.map(nv => { const on = nv.cons.length === s.cons.length && nv.cons.every(c => s.cons.indexOf(c) >= 0);
         return { nom: nv.nom, lettres: nv.montre, acquis: nv.acquis || '', aAcquis: !!nv.acquis, fond: on ? '#1d4e89' : '#fff', encre: on ? '#fff' : '#1d4e89',

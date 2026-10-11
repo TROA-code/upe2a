@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="polices.css" />
 <style>body{margin:0;font-family:Arial, Helvetica, sans-serif;color:#14213d}a{color:#1d4e89}a:hover{color:#14213d}@media print{.bouton{display:none !important}}</style>
 </helmet>
-<button class="bouton" onClick="{{ retour }}" style="position:fixed;top:12px;left:12px;z-index:10;min-height:44px;border:none;border-radius:10px;background:#12233b;color:#fff;padding:0 16px;font-weight:700;font-size:15px;font-family:Arial, Helvetica, sans-serif;cursor:pointer">← L'accueil</button>
+<button class="bouton" onClick="{{ retour }}" style="position:fixed;top:12px;left:12px;z-index:10;min-height:44px;border:none;border-radius:10px;background:#12233b;color:#fff;padding:0 16px;font-weight:700;font-size:15px;font-family:Arial, Helvetica, sans-serif;cursor:pointer">← Retour</button>
 <button class="bouton" onClick="{{ imprimer }}" style="position:fixed;top:12px;right:12px;z-index:10;min-height:44px;border:none;border-radius:10px;background:#2a9d6e;color:#fff;padding:0 18px;font-weight:700;font-size:15px;font-family:Arial, Helvetica, sans-serif;cursor:pointer">🖨 Imprimer</button>
 <x-import component-from-global-scope="doc-page" from="./doc-page.js" size="a4" hint-size="100%,100%">
 <sc-for list="{{ planches }}" as="pl" hint-placeholder-count="2">

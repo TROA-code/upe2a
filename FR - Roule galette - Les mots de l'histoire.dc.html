@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="polices.css" />
+<script src="roule-galette-mots.js"></script>
+<style>body{margin:0;font-family:Andika, Archivo, Verdana, sans-serif;color:#12233b;background:#f4efe6}a{color:#1d4e89}a:hover{color:#12233b}</style>
+</helmet>
+<div style="min-height:100vh;display:flex;flex-direction:column">
+<div style="position:fixed;top:12px;right:12px;z-index:20;display:flex;gap:8px">
+<button class="bouton" onClick="{{ retour }}" style="min-height:44px;border:none;border-radius:10px;background:#12233b;color:#fff;padding:0 16px;font-weight:700;font-size:16px;cursor:pointer">← Retour</button>
+</div>
+<div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:14px 200px 14px 16px">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:20px">Roule galette · Les mots de l'histoire</span>
+<span style="font-size:13px;color:#5a6577">inspiré de Narramus</span>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:8px;padding:0 16px 10px">
+<button class="bouton" onClick="{{ vueRegarde }}" style="min-height:48px;border:2px solid #12233b;border-radius:12px;background:{{ fondRegarde }};color:{{ encreRegarde }};padding:0 18px;font-weight:700;font-size:17px;cursor:pointer">Je regarde, je répète</button>
+<button class="bouton" onClick="{{ vueJeu }}" style="min-height:48px;border:2px solid #12233b;border-radius:12px;background:{{ fondJeu }};color:{{ encreJeu }};padding:0 18px;font-weight:700;font-size:17px;cursor:pointer">J'écoute, je touche</button>
+<sc-for list="{{ groupes }}" as="g" hint-placeholder-count="4">
+<button class="bouton" onClick="{{ g.choisir }}" style="min-height:44px;border:1.5px solid #8a7a5c;border-radius:22px;background:{{ g.fond }};color:{{ g.encre }};padding:0 14px;font-weight:700;font-size:15px;cursor:pointer;white-space:nowrap">{{ g.nom }}</button>
+</sc-for>
+</div>
+
+<sc-if value="{{ enRegarde }}" hint-placeholder-val="{{ true }}">
+<div onClick="{{ avancer }}" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2vh;padding:2vh 4vw 4vh;cursor:pointer;user-select:none">
+<span style="font-size:15px;color:#5a6577">{{ rang }}</span>
+<div style="width:min(58vh,80vw);height:min(58vh,80vw);border-radius:20px;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.08)">
+<sc-if value="{{ carte.aImage }}" hint-placeholder-val="{{ false }}"><img src="{{ carte.src }}" alt="" onError="{{ carte.manque }}" style="width:100%;height:100%;object-fit:contain" /></sc-if>
+<sc-if value="{{ carte.sansImage }}" hint-placeholder-val="{{ false }}"><span style="font-size:18px;color:#8a93a3">photo à venir</span></sc-if>
+</div>
+<div style="min-height:9vh;display:flex;align-items:center"><sc-if value="{{ voirMot }}" hint-placeholder-val="{{ false }}"><span style="font-family:Archivo Black, Archivo, sans-serif;font-size:min(8vh,11vw);line-height:1">{{ carte.mot }}</span></sc-if></div>
+<div style="min-height:6vh;display:flex;align-items:center;max-width:900px;text-align:center"><sc-if value="{{ voirPhrase }}" hint-placeholder-val="{{ false }}"><span style="font-size:min(4.2vh,6vw);font-style:italic;text-wrap:pretty">« {{ carte.phrase }} »</span></sc-if></div>
+<div style="display:flex;gap:10px">
+<button class="bouton" onClick="{{ ecouter }}" style="min-height:52px;border:none;border-radius:26px;background:#12233b;color:#fff;padding:0 22px;font-weight:700;font-size:18px;cursor:pointer">🔊 J'écoute</button>
+<button class="bouton" onClick="{{ reculer }}" style="min-height:52px;border:2px solid #12233b;border-radius:26px;background:#fff;color:#12233b;padding:0 22px;font-weight:700;font-size:18px;cursor:pointer">← Avant</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ enJeu }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:18px;padding:10px 16px 30px">
+<div style="display:flex;align-items:center;gap:14px;min-height:64px">
+<button class="bouton" onClick="{{ redire }}" style="min-height:64px;border:none;border-radius:32px;background:#12233b;color:#fff;padding:0 26px;font-weight:700;font-size:22px;cursor:pointer">🔊 J'écoute</button>
+<sc-if value="{{ bravo }}" hint-placeholder-val="{{ false }}"><span style="font-family:Archivo Black, Archivo, sans-serif;font-size:44px;color:#2a9d6e">BRAVO !</span></sc-if>
+<sc-if value="{{ zut }}" hint-placeholder-val="{{ false }}"><span style="font-family:Archivo Black, Archivo, sans-serif;font-size:44px;color:#c62828">OH ZUT !</span></sc-if>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;width:100%;max-width:820px">
+<sc-for list="{{ manche }}" as="c" hint-placeholder-count="6">
+<button class="bouton" onClick="{{ c.toucher }}" style="border:5px solid {{ c.bord }};border-radius:18px;background:#fff;padding:8px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;min-height:180px">
+<span style="width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center">
+<sc-if value="{{ c.aImage }}" hint-placeholder-val="{{ false }}"><img src="{{ c.src }}" alt="" onError="{{ c.manque }}" style="width:100%;height:100%;object-fit:contain" /></sc-if>
+<sc-if value="{{ c.sansImage }}" hint-placeholder-val="{{ false }}"><span style="font-size:14px;color:#8a93a3">photo à venir</span></sc-if>
+</span>
+<span style="min-height:28px;font-size:22px;font-weight:700;color:#12233b">{{ c.ecrit }}</span>
+</button>
+</sc-for>
+</div>
+<sc-if value="{{ fini }}" hint-placeholder-val="{{ false }}">
+<button class="bouton" onClick="{{ relancer }}" style="min-height:60px;border:none;border-radius:30px;background:#2a9d6e;color:#fff;padding:0 28px;font-weight:700;font-size:20px;cursor:pointer">Encore 6 mots →</button>
+</sc-if>
+</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { vue: 'regarde', groupe: 0, i: 0, etape: 0, manque: {}, manche: [], cible: 0, trouves: [], rouges: [], bravo: false, zut: false, pret: !!window.RG_MOTS };
+  componentDidMount() {
+    if (!window.RG_MOTS) { const t = setInterval(() => { if (window.RG_MOTS) { clearInterval(t); this.setState({ pret: true }); } }, 100); }
+  }
+  liste(g) {
+    const G = window.RG_MOTS || [];
+    const brut = g === 0 ? G.flatMap(x => x.mots) : (G[g - 1] ? G[g - 1].mots : []);
+    return brut.map(([mot, img, phrase]) => ({ mot, img, phrase }));
+  }
+  dire(t) {
+    try { const s = window.speechSynthesis; if (!s) return; s.cancel(); const u = new SpeechSynthesisUtterance(t); u.lang = 'fr-FR'; u.rate = 0.85; const v = s.getVoices().find(v => /^fr/i.test(v.lang)); if (v) u.voice = v; s.speak(u); } catch (e) {}
+  }
+  bip() {
+    try { const C = window.AudioContext || window.webkitAudioContext; const a = new C(); const o = a.createOscillator(); const g = a.createGain(); o.connect(g); g.connect(a.destination); o.frequency.setValueAtTime(420, a.currentTime); o.frequency.exponentialRampToValueAtTime(180, a.currentTime + 0.35); g.gain.setValueAtTime(0.18, a.currentTime); g.gain.exponentialRampToValueAtTime(0.001, a.currentTime + 0.4); o.start(); o.stop(a.currentTime + 0.42); } catch (e) {}
+  }
+  nouvelleManche(g) {
+    const l = this.liste(g).sort(() => Math.random() - 0.5).slice(0, 6);
+    this.setState({ manche: l, trouves: [], rouges: [], bravo: false, zut: false, cible: 0 }, () => { if (l[0]) setTimeout(() => this.dire(l[0].mot), 300); });
+  }
+  renderVals() {
+    const s = this.state;
+    const L = this.liste(s.groupe);
+    const c = L[Math.min(s.i, L.length - 1)] || { mot: '', img: '', phrase: '' };
+    const src = n => 'clean/mot-' + n + '.webp';
+    const manque = n => () => this.setState(st => ({ manque: { ...st.manque, [n]: true } }));
+    const G = window.RG_MOTS || [];
+    const noms = ['Tous les mots', ...G.map(x => x.groupe)];
+    const cibleMot = s.manche[s.cible];
+    const fini = s.manche.length > 0 && s.trouves.length >= s.manche.length;
+    const retour = () => { const av = location.href; history.back(); setTimeout(() => { if (location.href === av) location.href = 'APPLI - Espace enseignant.dc.html' + location.search; }, 400); };
+    const vue = v => () => { this.setState({ vue: v }); if (v === 'jeu') this.nouvelleManche(s.groupe); };
+    return {
+      retour,
+      vueRegarde: vue('regarde'), vueJeu: vue('jeu'),
+      fondRegarde: s.vue === 'regarde' ? '#12233b' : '#fff', encreRegarde: s.vue === 'regarde' ? '#fff' : '#12233b',
+      fondJeu: s.vue === 'jeu' ? '#12233b' : '#fff', encreJeu: s.vue === 'jeu' ? '#fff' : '#12233b',
+      groupes: noms.map((nom, g) => ({ nom, fond: s.groupe === g ? '#8a5a1f' : '#fff', encre: s.groupe === g ? '#fff' : '#5b4320',
+        choisir: () => { this.setState({ groupe: g, i: 0, etape: 0 }); if (s.vue === 'jeu') this.nouvelleManche(g); } })),
+      enRegarde: s.vue === 'regarde', enJeu: s.vue === 'jeu',
+      rang: L.length ? (Math.min(s.i, L.length - 1) + 1) + ' / ' + L.length : '',
+      carte: { mot: c.mot, phrase: c.phrase, src: src(c.img), aImage: !s.manque[c.img], sansImage: !!s.manque[c.img], manque: manque(c.img) },
+      voirMot: s.etape >= 1, voirPhrase: s.etape >= 2,
+      avancer: e => {
+        if (e && e.target && e.target.closest && e.target.closest('button')) return;
+        if (s.etape < 2) { const n = s.etape + 1; this.setState({ etape: n }); this.dire(n === 1 ? c.mot : c.phrase); }
+        else if (s.i < L.length - 1) this.setState({ i: s.i + 1, etape: 0 });
+      },
+      reculer: () => { if (s.etape > 0) this.setState({ etape: 0 }); else if (s.i > 0) this.setState({ i: s.i - 1, etape: 2 }); },
+      ecouter: () => this.dire(s.etape >= 2 ? c.phrase : c.mot),
+      redire: () => { if (cibleMot) this.dire(cibleMot.mot); },
+      bravo: s.bravo, zut: s.zut, fini,
+      relancer: () => this.nouvelleManche(s.groupe),
+      manche: s.manche.map((m, k) => {
+        const trouve = s.trouves.includes(k), rouge = s.rouges.includes(k);
+        return { src: src(m.img), aImage: !s.manque[m.img], sansImage: !!s.manque[m.img], manque: manque(m.img),
+          ecrit: trouve ? m.mot : '', bord: trouve ? '#2a9d6e' : rouge ? '#c62828' : '#e2d9c8',
+          toucher: () => {
+            if (fini || trouve || !cibleMot) return;
+            if (k === s.cible) {
+              const tr = [...s.trouves, k];
+              const reste = s.manche.map((_, j) => j).filter(j => !tr.includes(j));
+              const suivant = reste.length ? reste[Math.floor(Math.random() * reste.length)] : s.cible;
+              this.setState({ trouves: tr, rouges: [], bravo: true, zut: false });
+              this.dire('Bravo ! ' + m.mot);
+              setTimeout(() => { this.setState({ bravo: false, cible: suivant }); if (reste.length) this.dire(s.manche[suivant].mot); }, 1600);
+            } else {
+              this.setState({ rouges: [...s.rouges, k], zut: true, bravo: false });
+              this.bip();
+              setTimeout(() => { this.setState({ zut: false }); this.dire('Écoute bien.'); setTimeout(() => this.dire(cibleMot.mot), 1100); }, 600);
+            }
+          } };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>

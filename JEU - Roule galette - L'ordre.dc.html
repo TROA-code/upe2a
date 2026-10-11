@@ -92,7 +92,7 @@ class Component extends DCLogic {
     const s = this.state, J = JEUX[s.jeu] || [];
     const plein = s.cases.length && s.cases.every(x => x != null);
     return {
-      libelleRetour: s.jeu ? '← Les deux jeux' : '← L’accueil',
+      libelleRetour: s.jeu ? '← Les deux jeux' : '← Retour',
       retour: () => { if (s.jeu) return this.setState({ jeu: null });
         if (history.length > 1) history.back(); else location.href = 'APPLI - Espace enseignant.dc.html' + (location.search || ''); },
       choix: !s.jeu, enJeu: !!s.jeu,
