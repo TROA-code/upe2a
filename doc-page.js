@@ -777,3 +777,10 @@
     customElements.define('doc-page', DocPage);
   }
 })();
+
+/* 13/10 (« mets un bouton retour et accueil… ça m'agace vraiment ») : tout document qui charge ce
+   composant reçoit la barre commune Imprimer / ← Retour / Accueil, même si son <helmet> l'a oubliée. */
+(function () { try {
+  if (window.__boutonRetour || document.querySelector('script[src*="bouton-retour.js"]')) return;
+  var s = document.createElement('script'); s.src = './bouton-retour.js'; (document.head || document.documentElement).appendChild(s);
+} catch (e) {} })();

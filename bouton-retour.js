@@ -1,28 +1,36 @@
-/* 11/10 (sa demande, « aucun écran ne doit être un cul-de-sac ») : bouton « ← L'accueil » commun,
-   chargé dans le <helmet> des documents qui n'en avaient pas. Fixé en haut à DROITE (à gauche il
-   recouvre la colonne de vignettes des diaporamas), effacé à l'impression, history.back() avec repli
-   sur l'Espace enseignant en gardant location.search. Ne s'ajoute pas si la page est dans un cadre
-   qui a déjà sa barre, ni deux fois. */
+/* 11/10 (sa demande, « aucun écran ne doit être un cul-de-sac ») : barre commune chargée dans le <helmet>
+   des documents. Fixée en haut à DROITE (à gauche elle recouvre la colonne de vignettes des diaporamas),
+   effacée à l'impression. Ne s'ajoute pas dans l'Espace enseignant ni l'accueil, ni deux fois.
+   12/10 : « je veux un bouton retour et accueil. Les deux !!! » + Imprimer.
+   - « ← Retour » : history.back(), repli sur l'Espace enseignant en gardant location.search.
+   - « Accueil » : toujours l'Espace enseignant, location.search conservé. */
 (function () {
   if (window.__boutonRetour) return; window.__boutonRetour = true;
-  /* Un document importé DANS l'Espace enseignant ou l'accueil élève ne pose pas de bouton : ces pages ont leur barre. */
   var chemin = decodeURIComponent(location.pathname);
   if (/Espace enseignant|Accueil|index\.html$|\/$/.test(chemin)) return;
+  var ACCUEIL = 'APPLI - Espace enseignant.dc.html';
+  function bouton(id, texte, fond, ombre, action) {
+    var b = document.createElement('button');
+    b.id = id; b.type = 'button'; b.className = 'bouton'; b.textContent = texte;
+    b.setAttribute('style', 'min-height:44px;white-space:nowrap;border:none;border-radius:10px;background:' + fond + ';color:#fff;padding:0 16px;font:700 15px Arial, Helvetica, sans-serif;cursor:pointer;box-shadow:' + ombre);
+    b.addEventListener('click', function (e) { e.stopPropagation(); action(); });
+    return b;
+  }
   function poser() {
     if (document.getElementById('bouton-retour-commun')) return;
     var st = document.createElement('style');
-    st.textContent = '@media print{#bouton-retour-commun{display:none !important}}';
+    st.textContent = '@media print{#barre-commune{display:none !important}}';
     document.head.appendChild(st);
-    var b = document.createElement('button');
-    b.id = 'bouton-retour-commun'; b.type = 'button'; b.className = 'bouton';
-    b.textContent = '\u2190 L\u2019accueil';
-    b.setAttribute('style', 'position:fixed;top:12px;right:12px;z-index:2147483000;min-height:44px;border:none;border-radius:10px;background:#12233b;color:#fff;padding:0 16px;font:700 15px Arial, Helvetica, sans-serif;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.25)');
-    b.addEventListener('click', function (e) {
-      e.stopPropagation();
+    var barre = document.createElement('div');
+    barre.id = 'barre-commune';
+    barre.setAttribute('style', 'position:fixed;top:12px;right:12px;z-index:2147483000;display:flex;gap:10px;align-items:center');
+    barre.appendChild(bouton('bouton-imprimer-commun', 'Imprimer', '#2a9d6e', '0 2px 0 #217d57,0 2px 8px rgba(0,0,0,.2)', function () { window.print(); }));
+    barre.appendChild(bouton('bouton-retour-commun', '\u2190 Retour', '#1d4e89', '0 2px 8px rgba(0,0,0,.25)', function () {
       var av = location.href; history.back();
-      setTimeout(function () { if (location.href === av) location.href = 'APPLI - Espace enseignant.dc.html' + location.search; }, 400);
-    });
-    document.body.appendChild(b);
+      setTimeout(function () { if (location.href === av) location.href = ACCUEIL + location.search; }, 400);
+    }));
+    barre.appendChild(bouton('bouton-accueil-commun', 'Accueil', '#12233b', '0 2px 8px rgba(0,0,0,.25)', function () { location.href = ACCUEIL + location.search; }));
+    document.body.appendChild(barre);
   }
   if (document.body) poser(); else document.addEventListener('DOMContentLoaded', poser);
 })();

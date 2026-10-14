@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+doc-page:not(:defined){visibility:hidden}
+body{margin:0;background:#eef1f5}
+a{color:#1d4e89}
+a:hover{color:#14213d}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@800&amp;display=swap">
+<script src="./doc-page.js"></script>
+</helmet>
+<doc-page size="a4">
+<section class="page" data-screen-label="Correspondance" style="display:flex;flex-direction:column;gap:4mm;background:#fff;overflow:hidden;padding:20mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#12233b;font-size:12pt">
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:1mm;padding-bottom:2.5mm;border-bottom:2.5px solid #12233b">
+<span style="font-size:18pt;font-weight:900">Ceintures et niveaux du CECRL</span>
+<span style="font-size:12pt;color:#3a4558">Version professeure — ne s'affiche pas en classe. Un niveau PAR CHAMP : un NSA peut être A1 à l'oral et Infra A1.1 à l'écrit. Repères approximatifs, à valider. En gras : le diplôme visé.</span>
+</div>
+<div style="flex:0 0 auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2mm">
+<sc-for list="{{ champs }}" as="c" hint-placeholder-count="4">
+<div style="border:2px solid {{ c.coul }};border-radius:2mm;padding:2mm 2.5mm;display:flex;flex-direction:column;gap:1mm">
+<span style="font-weight:900;color:{{ c.coul }};font-size:12pt">{{ c.nom }}</span>
+<span style="font-size:12pt;line-height:1.25">{{ c.cecrl }}</span>
+</div>
+</sc-for>
+</div>
+<div style="flex:1;min-height:0;display:flex;flex-direction:column">
+<div style="display:grid;grid-template-columns:15mm 23mm minmax(0,1fr) 31mm 31mm 31mm;gap:0 2mm;padding:1.5mm 0;border-bottom:1.5px solid #12233b;font-weight:700;font-size:12pt">
+<span>Grille</span><span>Ceinture</span><span>Repère école</span><span style="color:#1a4fc4">Lecture (CE)</span><span style="color:#c8102e">Écriture (PE)</span><span style="color:#1b8a3a">Oral (CO+PO)</span>
+</div>
+<sc-for list="{{ lignes }}" as="l" hint-placeholder-count="21">
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:15mm 23mm minmax(0,1fr) 31mm 31mm 31mm;gap:0 2mm;align-items:center;border-bottom:{{ l.trait }};font-size:12pt;line-height:1.1">
+<span style="font-weight:700">{{ l.grille }}</span>
+<span style="display:flex;align-items:center;gap:1.5mm"><span style="flex:0 0 auto;width:6mm;height:4mm;border:1px solid #12233b;border-radius:1mm;background:{{ l.fond }};display:block"></span>{{ l.ceinture }}</span>
+<span style="color:#3a4558;white-space:nowrap">{{ l.ecole }}</span>
+<span style="font-weight:{{ l.pCE }}">{{ l.ce }}</span>
+<span style="font-weight:{{ l.pPE }}">{{ l.pe }}</span>
+<span style="font-weight:{{ l.pO }}">{{ l.o }}</span>
+</div>
+</sc-for>
+</div>
+</section>
+<section class="page" data-screen-label="Oral DELF A2" style="display:flex;flex-direction:column;gap:4mm;background:#fff;overflow:hidden;padding:20mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#12233b;font-size:12pt">
+<div style="flex:0 0 auto;padding-bottom:2.5mm;border-bottom:2.5px solid #1b8a3a;display:flex;flex-direction:column;gap:1mm">
+<span style="font-size:18pt;font-weight:900">L’oral du DELF A2 = ceinture orange, grille 2, ORAL</span>
+<span style="font-size:12pt;color:#3a4558">Tes critères de production orale (document « Critères oral »), recopiés tels quels. Descripteurs officiels des examinateurs : docs/delf-a2-descripteurs-production-orale.pdf.</span>
+</div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:3mm;font-size:12pt"><span style="width:12mm;height:5mm;border:1px solid #12233b;border-radius:1mm;background:#f4a76a;display:block"></span><b>Orange — grille 2</b> : Je récapitule une leçon orale dans l’ordre ; j’utilise d’abord, ensuite, enfin ; je raconte au passé, au présent, au futur.</div>
+<sc-for list="{{ criteres }}" as="b" hint-placeholder-count="4">
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:1.2mm;border-left:4mm solid #1b8a3a;padding-left:3mm">
+<span style="font-weight:900;font-size:13pt">{{ b.titre }}</span>
+<sc-for list="{{ b.lignes }}" as="l" hint-placeholder-count="2">
+<div style="display:flex;gap:2mm;line-height:1.25"><span style="flex:0 0 auto;width:4mm;height:4mm;border:1.5px solid #12233b;margin-top:0.6mm;display:block"></span><span><b>{{ l.sous }}</b>{{ l.sep }}{{ l.t }}</span></div>
+</sc-for>
+</div>
+</sc-for>
+</section>
+<sc-for list="{{ pagesP }}" as="pg" hint-placeholder-count="2">
+<section class="page" data-screen-label="{{ pg.label }}" style="display:flex;flex-direction:column;gap:6mm;background:#fff;overflow:hidden;padding:20mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#12233b;font-size:12pt">
+<div style="flex:0 0 auto;padding-bottom:2.5mm;border-bottom:2.5px solid #12233b;display:flex;flex-direction:column;gap:1mm">
+<span style="font-size:18pt;font-weight:900">Les niveaux, activité par activité</span>
+<span style="font-size:12pt;color:#3a4558">Texte de la grille synthétique Parlera (Centres Ressources Illettrisme Auvergne-Rhône-Alpes, 2025), de Infra A1.1 à A2.</span>
+</div>
+<sc-for list="{{ pg.niveaux }}" as="n" hint-placeholder-count="2">
+<div style="flex:0 0 auto;display:flex;flex-direction:column;gap:2mm;border-left:4mm solid #12233b;padding-left:3mm">
+<span style="font-weight:900;font-size:13pt">{{ n.nom }}</span>
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.5mm 4mm;font-size:12pt;line-height:1.25">
+<sc-for list="{{ n.items }}" as="i" hint-placeholder-count="4">
+<span><b>{{ i.a }}</b> — {{ i.t }}</span>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</section>
+</sc-for>
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* 13/10 (son « vas-y ») : correspondance ceintures ↔ CECRL, POUR ELLE SEULE. Son tableau A3, ses grilles
+   et ses ceintures ne changent pas. Repères école = ses notes du 22/09. Niveaux CECRL = mon estimation,
+   présentée comme telle. Page 2 : texte de la grille Parlera COPIÉ (ne rien rédiger), niveaux utiles. */
+const COUL = { Blanche: '#ffffff', Jaune: '#f5e663', Orange: '#f4a76a', Verte: '#9ad48c', Bleue: '#8fb8f0', Marron: '#b87a4a', Noire: '#2b2b2b' };
+/* 13/10 corrigé (« DELF A1 à mi-CP ?? ») : un niveau PAR CHAMP. Le DELF A1 demande de lire seul consignes et
+   documents → grille 2 (fin CP-CE1) à l'écrit ; l'oral monte plus vite. '*' = diplôme visé (en gras). */
+const G = [
+  ['1', [['Blanche', 'avant le CP', 'Infra A1.1', 'Infra A1.1', 'Infra A1.1'], ['Jaune', 'début CP', 'Infra A1.1', 'Infra A1.1', 'A1.1'], ['Orange', 'début CP', 'A1.1', 'Infra A1.1', 'A1.1'], ['Verte', 'début CP', 'A1.1', 'A1.1', 'A1'], ['Bleue', 'début CP', 'A1.1', 'A1.1', 'A1'], ['Marron', 'début CP', 'A1.1', 'A1.1', '*A1 · DELF A1'], ['Noire', 'mi-CP', '*A1.1 · DILF', '*A1.1 · DILF', 'A2']]],
+  ['2', [['Blanche', 'mi-CP', 'A1.1', 'A1.1', 'A2'], ['Jaune', 'fin CP', '*A1 · DELF A1', 'A1', 'A2'], ['Orange', 'CE1', 'A1', '*A1 · DELF A1', '*A2 · DELF A2'], ['Verte', 'fin CE1', 'A2', 'A2', 'B1'], ['Bleue', 'CE2', 'A2', 'A2', 'B1'], ['Marron', 'fin CE2', '*A2 · DELF A2', 'A2', 'B1'], ['Noire', 'fin de cycle 2', 'B1', '*A2 · DELF A2', '*B1 · DELF B1']]],
+  ['3', [['Blanche', 'CM1', 'B1', 'A2', 'B1'], ['Jaune', 'fin CM1', 'B1', 'B1', 'B1'], ['Orange', 'CM2', 'B1', 'B1', 'B2'], ['Verte', 'fin CM2', '*B1 · DELF B1', '*B1 · DELF B1', 'B2'], ['Bleue', '6e', 'B2', 'B1', 'B2'], ['Marron', 'fin 6e', 'B2', 'B2', 'B2'], ['Noire', 'entrée en 5e', '*B2 · DELF B2', '*B2 · DELF B2', '*B2 · DELF B2']]]];
+const nv = x => ({ t: x.replace(/^\*/, ''), p: x.charAt(0) === '*' ? '700' : '400' });
+const P = [
+  ['Infra A1.1', [['CO', 'Reconnaît son nom, son prénom et quelques mots de son environnement proche (pays, ville).'], ['PO', 'Ne fait pas de phrases même simples. Associe mots et gestes pour mimer ou a recours à une autre langue pour se faire comprendre.'], ['CE', 'Reconnaît des mots et logos mais ne peut pas lire.'], ['PE', 'Recopie son nom, prénom et adresse.']]],
+  ['A1.1 — DILF', [['CO', 'Peut comprendre des questions sur son identité, son logement, son environnement proche et des informations essentielles (prix, rendez-vous, etc.) si les messages sont prononcés lentement ou s’ils sont illustrés (cartes, images, etc.).'], ['PO', 'Peut répondre avec des mots isolés à des questions concernant sa nationalité, son âge, état civil, profession, lieu d’habitation et poser lui-même des questions de ce type.'], ['CE', 'Peut lire et comprendre quelques mots, expressions familières et données chiffrées utilisés dans des situations de communication très récurrentes.'], ['PE', 'Peut remplir un formulaire de type administratif sans recopier avec des informations simples (nom, nationalité, adresse, date de naissance) et écrire une liste de courses, un message d’une ou deux phrases courtes et très simples.']]],
+  ['A1 — DELF A1', [['CO', 'Peut comprendre des mots familiers et des expressions très courantes à propos de soi-même, de sa famille, de son environnement familier, si l’interlocuteur parle lentement.'], ['PO', 'Peut communiquer avec des phrases simples, poser des questions de façon simple, décrire succinctement son environnement familier.'], ['CE', 'Peut comprendre des textes très courts et très simples, phrases par phrase, en relevant des noms et des mots familiers et en relisant si nécessaire.'], ['PE', 'Peut écrire une suite de phrases et d’expressions simples sur sa famille, ses conditions de vie, sa formation, son travail actuel.']]],
+  ['A2 — DELF A2', [['CO', 'Peut comprendre un vocabulaire et des expressions simples et clairs pour pouvoir répondre, si la diction est claire et le débit lent.'], ['PO', 'Peut répondre aux questions si elles sont simples et directes, décrire sa formation, son environnement immédiat, évoquer des sujets qui correspondent à des besoins immédiats.'], ['CE', 'Peut comprendre des textes simples sur des sujets concrets courants, reconnaît les informations utiles dans un courrier.'], ['PE', 'Peut expliquer par écrit son projet en quelques phrases simples (parfois avec quelques erreurs) reliées par des « et », « mais » et « parce que ».']]]];
+/* 13/10 (son choix « relier aux ceintures ») : ses « Critères oral » DELF A2, COPIÉS tels quels. */
+const CRIT = [
+  ['Réalisation de la tâche : entretien dirigé', [['Saluer, se présenter, environnement', 'Je peux saluer les examinateurs. Je peux me présenter et parler de moi, de ma famille, de mes activités etc. Je peux décrire ce qui m’entoure.'], ['Répondre aux questions', 'Je peux réagir et répondre aux questions que me pose l’examinateur.']]],
+  ['Réalisation de la tâche : monologue suivi', [['Présenter un évènement, activité, etc.', 'Je peux présenter un évènement, une activité, un projet, un lieu que je connais.'], ['Relier les informations', 'Je peux relier mes phrases avec « et », « mais », « parce que » etc.']]],
+  ['Réalisation de la tâche : exercice en interaction', [['Jouer une situation de la vie quotidienne', 'Je peux demander des informations sur quelque chose ou sur un service (le prix, la couleur, la taille d’un vêtement etc.). Je peux faire des propositions.'], ['Saluer et remercier', 'Je peux utiliser les règles de politesse « s’il-vous-plait » et « merci », dire « bonjour » et « au revoir ».']]],
+  ['Pour l’ensemble des 3 parties', [['Lexique (étendue et maitrise)', 'Je peux utiliser des mots de niveau A2 adapté au thème et au contexte de l’exercice.'], ['Morphosyntaxe', 'Je peux faire des phrases et des expressions simples de niveau A2. Je peux conjuguer les verbes les plus courants au présent, à l’impératif, au passé composé et au futur proche. Je fais attention à l’accord masculin/féminin et singulier/pluriel.'], ['Maîtrise du système phonologique', 'Je peux me faire comprendre. L’examinateur peut me demander de répéter.']]]];
+class Component extends DCLogic {
+  renderVals() {
+    const lignes = [];
+    G.forEach(([g, cs]) => cs.forEach(([c, e, ce, pe, o], i) => { const a = nv(ce), b = nv(pe), d = nv(o);
+      lignes.push({ grille: i === 0 ? 'Grille ' + g : '', ceinture: c, fond: COUL[c], ecole: e, ce: a.t, pCE: a.p, pe: b.t, pPE: b.p, o: d.t, pO: d.p, trait: i === 6 ? '1.5px solid #12233b' : '1px solid #dde2e9' }); }));
+    return {
+      champs: [['LECTURE', '#1a4fc4', 'Compréhension écrite (CE)'], ['ÉCRITURE', '#c8102e', 'Production écrite (PE)'], ['ORAL', '#1b8a3a', 'Compréhension et production orales (CO + PO)'], ['LANGUE', '#7a1fa2', 'Transversale : sert les quatre activités']].map(([nom, coul, cecrl]) => ({ nom, coul, cecrl })),
+      lignes,
+      criteres: CRIT.map(([titre, ls]) => ({ titre, lignes: ls.map(([sous, t]) => ({ sous, sep: ' — ', t })) })),
+      /* 2 niveaux par page : à 4 par page, le texte copié était coupé. */
+      pagesP: [0, 2].map((k, i) => ({ label: 'Grille Parlera ' + (i + 1),
+        niveaux: P.slice(k, k + 2).map(([nom, it]) => ({ nom, items: it.map(([a, t]) => ({ a, t })) })) }))
+    };
+  }
+}
+</script>
+</body>
+</html>

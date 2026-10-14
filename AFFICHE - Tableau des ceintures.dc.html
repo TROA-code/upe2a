@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+doc-page:not(:defined){visibility:hidden}
+body{margin:0;background:#eef1f5}
+a{color:#1d4e89}
+a:hover{color:#14213d}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@800&amp;display=swap">
+<script src="./doc-page.js"></script>
+<script src="./bouton-retour.js"></script>
+</helmet>
+<doc-page width="420mm" height="297mm">
+<section class="page" data-screen-label="Tableau des ceintures" style="display:flex;flex-direction:column;gap:6mm;background:#fff;overflow:hidden;padding:20mm;box-sizing:border-box;font-family:'DejaVu Sans',Verdana,Arial,sans-serif;color:#000">
+<div style="flex:0 0 auto;font-size:30pt;font-weight:700;line-height:1">Nos ceintures</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:58mm repeat(5,minmax(0,1fr));grid-template-rows:17mm repeat(8,minmax(0,1fr));border:2px solid #000;box-sizing:border-box">
+<div style="display:flex;align-items:center;justify-content:center;border-right:1.5px solid #000;border-bottom:4px solid #000;font-size:18pt;font-weight:700;letter-spacing:1px">Prénom</div>
+<div style="display:flex;align-items:center;justify-content:center;border-right:1.5px solid #000;border-bottom:4px solid #1a4fc4;color:#1a4fc4;font-size:18pt;font-weight:700;letter-spacing:1px;white-space:nowrap"><span><span style="font-family:'Roboto Slab','Times New Roman',Georgia,serif;font-weight:800">J</span>E L<span style="font-family:'Roboto Slab','Times New Roman',Georgia,serif;font-weight:800">I</span>S</span></div>
+<div style="display:flex;align-items:center;justify-content:center;border-right:1.5px solid #000;border-bottom:4px solid #c8102e;color:#c8102e;font-size:18pt;font-weight:700;letter-spacing:1px;white-space:nowrap"><span><span style="font-family:'Roboto Slab','Times New Roman',Georgia,serif;font-weight:800">J</span>’ÉCR<span style="font-family:'Roboto Slab','Times New Roman',Georgia,serif;font-weight:800">I</span>S</span></div>
+<div style="display:flex;align-items:center;justify-content:center;border-right:1.5px solid #000;border-bottom:4px solid #1b8a3a;color:#1b8a3a;font-size:18pt;font-weight:700;letter-spacing:1px;white-space:nowrap"><span><span style="font-family:'Roboto Slab','Times New Roman',Georgia,serif;font-weight:800">J</span>’ÉCOUTE</span></div>
+<div style="display:flex;align-items:center;justify-content:center;border-right:1.5px solid #000;border-bottom:4px solid #0f6b5c;color:#0f6b5c;font-size:18pt;font-weight:700;letter-spacing:1px;white-space:nowrap"><span><span style="font-family:'Roboto Slab','Times New Roman',Georgia,serif;font-weight:800">J</span>E PARLE</span></div>
+<div style="display:flex;align-items:center;justify-content:center;border-bottom:4px solid #8a5a00;color:#8a5a00;font-size:16pt;font-weight:700;letter-spacing:0.5px;white-space:nowrap"><span><span style="font-family:'Roboto Slab','Times New Roman',Georgia,serif;font-weight:800">J</span>E M’ORGAN<span style="font-family:'Roboto Slab','Times New Roman',Georgia,serif;font-weight:800">I</span>SE</span></div>
+<sc-for list="{{ cases }}" as="c" hint-placeholder-count="48">
+<div style="display:flex;align-items:center;gap:3mm;padding:2.5mm 2mm 2.5mm 4mm;box-sizing:border-box;border-right:{{ c.br }};border-bottom:{{ c.bb }};min-height:0">
+<sc-if value="{{ c.champ }}" hint-placeholder-val="{{ true }}">
+<div style="flex:1;align-self:stretch;margin:1mm 0;border:1.5px dashed #9a9a9a;border-radius:3mm"></div>
+<sc-if value="{{ c.num }}" hint-placeholder-val="{{ true }}">
+<div style="flex:0 0 auto;display:flex;flex-direction:column;justify-content:center;gap:2mm">
+<span style="width:5.5mm;height:5.5mm;border:1.2px solid #000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8pt;font-weight:700">1</span>
+<span style="width:5.5mm;height:5.5mm;border:1.2px solid #000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8pt;font-weight:700">2</span>
+<span style="width:5.5mm;height:5.5mm;border:1.2px solid #000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8pt;font-weight:700">3</span>
+</div>
+</sc-if>
+</sc-if>
+</div>
+</sc-for>
+</div>
+</section>
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* 13/10 (« la base du PDF que je t'ai envoyé ») : SON tableau A3 (« Nos ceintures ») recopié — titre,
+   grille noire, titres en couleur soulignés, case pointillée pour la ceinture (velcro), 1-2-3 entourés,
+   8 lignes — avec les 5 colonnes qui suivent les grilles. Je m'organise : une seule grille → pas de 1-2-3.
+   A3 paysage (420 × 297 mm), 2 cm de marge. L'original reste dans « … (original A3) ». */
+const COLS = [true, true, true, true, false];
+class Component extends DCLogic {
+  renderVals() {
+    const cases = [];
+    for (let r = 0; r < 8; r++) {
+      const bb = r < 7 ? '1.5px solid #000' : 'none';
+      cases.push({ champ: false, num: false, br: '1.5px solid #000', bb });
+      COLS.forEach((num, i) => cases.push({ champ: true, num, br: i < 4 ? '1.5px solid #000' : 'none', bb }));
+    }
+    return { cases };
+  }
+}
+</script>
+</body>
+</html>

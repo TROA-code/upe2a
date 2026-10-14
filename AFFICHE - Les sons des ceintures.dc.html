@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+doc-page:not(:defined){visibility:hidden}
+body{margin:0;background:#eef1f5}
+a{color:#1d4e89}
+a:hover{color:#14213d}
+</style>
+<script src="./doc-page.js"></script>
+<script src="./bouton-retour.js"></script>
+</helmet>
+<div class="om-noprint" style="position:sticky;top:0;z-index:50;background:#fff;border-bottom:2px solid #c3d2e2;padding:68px 18px 12px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-family:Arial,Helvetica,sans-serif;color:#12233b">
+<span style="font-size:15px;color:#3a4558">A4 paysage · à afficher à côté du tableau des ceintures</span>
+</div>
+<doc-page size="a4" orientation="landscape">
+<sc-for list="{{ pages }}" as="pg" hint-placeholder-count="1">
+<section class="page" data-screen-label="{{ pg.label }}" style="display:flex;flex-direction:column;gap:4mm;background:#fff;overflow:hidden;padding:20mm;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;color:#12233b">
+<div style="flex:0 0 auto;font-size:26pt;font-weight:900;border-bottom:3px solid #12233b;padding-bottom:3mm;display:flex;align-items:baseline;justify-content:space-between;gap:6mm;flex-wrap:wrap"><span>Les sons de mes ceintures</span><span style="font-size:18pt;font-weight:700">Je lis · niveau 1</span></div>
+<div style="flex:1 1 auto;min-height:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6mm;align-items:start">
+<sc-for list="{{ pg.cols }}" as="c" hint-placeholder-count="3">
+<div style="display:flex;flex-direction:column;border:2px solid {{ c.bord }};border-radius:3mm;overflow:hidden">
+<div style="background:{{ c.fond }};color:{{ c.encre }};font-size:20pt;font-weight:900;text-align:center;padding:3mm 2mm">{{ c.nom }}</div>
+<sc-for list="{{ c.sons }}" as="s" hint-placeholder-count="6">
+<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);border-top:1px solid #d5dae2;font-size:15pt;line-height:1.1">
+<div style="padding:0.8mm 3mm;font-weight:700;color:#b3261e;text-align:center;border-right:1px solid #d5dae2">{{ s.son }}</div>
+<div style="padding:0.8mm 3mm;text-align:center;display:flex;flex-wrap:wrap;justify-content:center;column-gap:2mm"><span style="font-weight:700">{{ s.ecr }}</span><span style="color:#9aa3b0">{{ s.plus }}</span></div>
+</div>
+</sc-for>
+</div>
+</sc-for>
+<sc-if value="{{ pg.noire }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;border:2px solid #111;border-radius:3mm;overflow:hidden">
+<div style="background:#111;color:#fff;font-size:20pt;font-weight:900;text-align:center;padding:3mm 2mm">Ceinture noire</div>
+<div style="padding:4mm;font-size:15pt;line-height:1.3;text-align:center">Pas de nouveau son.<br></br><span style="font-family:'Times New Roman',Georgia,serif">J</span>e lis seul avec tous mes sons.</div>
+</div>
+</sc-if>
+</div>
+</section>
+</sc-for>
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* 14/10 (son oui) : les sons de JE LIS par ceinture, sur le modèle de son tableau par périodes.
+   Jaune et orange : ses listes. Verte : ses 4 premiers sons, liste à compléter avec elle. Bleue / marron : à venir.
+   3e colonne = écritures montrées en gris, non exigées à cette ceinture (14/10, son oui : ain, ein pour [in]). */
+const COLS = [
+  { nom: 'Ceinture jaune', fond: '#f4c400', encre: '#12233b', bord: '#d9ad00', sons: [['[a]','a'],['[i]','i, y'],['[o]','o'],['[u]','u'],['[e]','e'],['[é]','é'],['[l]','l'],['[r]','r'],['[s]','s'],['[ch]','ch'],['[ou]','ou'],['[v]','v'],['[m]','m']] },
+  { nom: 'Ceinture orange', fond: '#f28c00', encre: '#12233b', bord: '#d27800', sons: [['[d]','d'],['[n]','n'],['[è]','è, ê'],['[f]','f'],['[in]','in, im','ain, aim, ein, un, um'],['[p]','p'],['[t]','t'],['[j]','j'],['[k]','c'],['[on]','on, om'],['[b]','b'],['[g]','g'],['[br]…','br, cr, dr, fr, gr, pr, tr, vr'],['[bl]…','bl, cl, fl, gl, pl']] },
+  { nom: 'Ceinture verte', fond: '#1f7a38', encre: '#ffffff', bord: '#1f7a38', sons: [['[oi]','oi'],['[oin]','oin'],['[ui]','ui'],['[gn]','gn'],['[an]','an, en','am, em'],['[z]','z'],['[o]','au, eau'],['[eu]','eu, œu']] },
+  { nom: 'Ceinture bleue', fond: '#1d5fb4', encre: '#ffffff', bord: '#1d5fb4', sons: [['[é]','er, ez'],['[è]','ai, ei, et'],['[an]','am, em'],['[k]','qu, k'],['[s]','c, ç'],['[z]','s (maison)'],['[j]','g, ge'],['[g]','gu']] },
+  { nom: 'Ceinture marron', fond: '#7a4a24', encre: '#ffffff', bord: '#7a4a24', sons: [['[in]','ain, aim, ein, un, um'],['[è]','ec, er, el, es'],['[è]','elle, ette, erre, esse, enne'],['[f]','ph'],['[ill]','ill, il']] }
+];
+class Component extends DCLogic {
+  renderVals() {
+    const m = c => ({ ...c, sons: c.sons.map(([son, ecr, plus]) => ({ son, ecr, plus: plus || '' })) });
+    return { pages: [{ label: 'Sons 1 – jaune, orange, verte', cols: COLS.slice(0, 3).map(m), noire: false }, { label: 'Sons 2 – bleue, marron, noire', cols: COLS.slice(3).map(m), noire: true }] };
+  }
+}
+</script>
+</body>
+</html>
