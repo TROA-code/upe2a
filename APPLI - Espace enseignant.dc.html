@@ -47,7 +47,7 @@ input,select,button{font-family:inherit}
 <script src="./disques.js?v=9"></script>
 <!-- L'emploi du temps est monté ici par dc-import : le helmet d'un enfant n'est pas
      chargé, donc window.EDT doit être fourni par CETTE page, sinon l'écran est vide. -->
-<script src="./emploi-du-temps.js?v=10"></script>
+<script src="./emploi-du-temps.js?v=11"></script>
 </helmet>
 <div class="om-nonprint" style="height:100vh;min-height:0;overflow:hidden;display:flex;flex-direction:column;font-family:Archivo, Arial, sans-serif;color:#12233b;background:#f4f6f9">
 <!-- CHRONO DU TOP CHRONO (02/10, sa demande) : languette ⏱ à GAUCHE, côté élève seulement.
@@ -3073,6 +3073,9 @@ const COLL_DOCS=[
  /* LES COULEURS DES SONS (06/10, son accord) : SON code — noir oi, marron on, rouge ou, orange an,
     jaune o, violet è, bleu eu, vert sapin in (avec un), rosé é. Le même partout. */
  ['couleurssons','Les couleurs des sons','#7b3fa0','une couleur par son complexe'],
+ /* 15/10 (sa demande) : l'apprentissage des mots repères, côté LECTURE. */
+ ['motsreplect','Le diaporama','#1d7f95','les mots repères à projeter'],
+ ['pincesrep','Les plateaux à pinces','#4f7f2a','les mots repères : écrits, en photo, les deux'],
  /* LES DIFFÉRENTS TESTS (03/10, sa demande) : rubrique de Positionnement. Le test collège
     sera complété par une amie prof de maths : ne pas toucher à son contenu. */
  ['postests','Les différents tests','#1d4e89','tests de positionnement à imprimer']
@@ -3152,6 +3155,14 @@ const DOCS_COLL={
   ["Le son R — livret","Mot repère ROBOT, « le R de robot ».","FR - Livret des sons - son R.dc.html"],
   ["Le son R — livret en script","Le même livret, écrit en script.","FR - Livret des sons - son R - script.dc.html"],
   ["Les étiquettes à trier — A, I et O","Feuille à part, pour la fiche « Je trie » : 3 jeux par page, une page par son.","FR - Étiquettes à trier - Livret des sons.dc.html"]
+ ],
+ pincesrep:[
+  ["Plateau 1 — les mots écrits","Les 29 mots repères en script, dans le désordre. Au centre : « Mes mots repères ». On dit un mot, l'élève le pince. A4, à plastifier.","FR - Plateau à pinces - Les mots repères.dc.html?plateau=1"],
+  ["Plateau 2 — les photos","Les 29 photos, sans mot écrit.","FR - Plateau à pinces - Les mots repères.dc.html?plateau=2"],
+  ["Plateau 3 — photo et mot","Chaque photo avec son mot en script.","FR - Plateau à pinces - Les mots repères.dc.html?plateau=3"]
+ ],
+ motsreplect:[
+  ["Le diaporama des mots repères","À projeter : les mots repères en script, dans le désordre. On avance au clic, bouton « Mélanger ».","FR - Diaporama - Les mots repères dans le désordre.dc.html"]
  ],
  couleurssons:[
   ["Le diaporama des couleurs","À projeter pour découvrir : une vue par couleur, le mot en grand et ses graphies. On avance au clic.","FR - Diaporama - Les couleurs des sons.dc.html"],
@@ -3285,6 +3296,7 @@ const DOMAINES={
      ramenait les mots d'origine (ananas, banane…) alors que l'écran en propose d'autres.
      Les fiches de lecture se prennent maintenant dans Lecture → le son → Séance. */
   lexique:['dico','planches'], lecture:['livretssons','plateauxsons','puzzlessyl','couleurssons'],
+  motsrep:['motsreplect','pincesrep'],
   ecriture:['ronds','courbes','boucles','ponts','lettres','cursive','motsreperes','chiffres'],
   maths:['mathsnum','mathsgeo','mathsgm','mathsauto','mathsrituels','mathsoutils'],
   positionnement:['postests'],
@@ -5377,7 +5389,9 @@ class Component extends DCLogic {
       ['Lecture','#4fc3d9',[
         ["L'apprentissage du code",'sons'],
         ['Lire des textes','texte'],
-        ['Les livrets des sons','outils','lecture']]],
+        ['Les livrets des sons','outils','lecture'],
+        /* 15/10 (sa demande) : « Apprentissage des mots repères » sous Lecture. */
+        ['Apprentissage des mots repères','outils','motsrep']]],
       ['Écriture','#8a4b1e',[
         ['Apprentissage','outils','ecriture'],
         ['Créer une fiche','creer']]],

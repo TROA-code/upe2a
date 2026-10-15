@@ -8,6 +8,7 @@
 <body>
 <x-dc>
 <helmet>
+<link rel="stylesheet" href="polices.css" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Atkinson+Hyperlegible:wght@400;700&display=swap" />
 <style>
@@ -31,6 +32,7 @@
   <select onChange="{{ changerMode }}" value="{{ mode }}" style="min-height:44px;border:2px solid #fff;border-radius:11px;background:#fff;color:#12233b;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:14px;font-weight:700;padding:8px 12px;cursor:pointer">
     <option value="nombres">Des nombres</option>
     <option value="syllabes">Des syllabes (a, i)</option>
+    <option value="mots">Des mots repères</option>
   </select>
   <select onChange="{{ changerNombre }}" value="{{ nombre }}" style="min-height:44px;border:2px solid #fff;border-radius:11px;background:#fff;color:#12233b;font-family:'Atkinson Hyperlegible',Verdana,sans-serif;font-size:14px;font-weight:700;padding:8px 12px;cursor:pointer">
     <sc-for list="{{ nombres }}" as="n" hint-placeholder-count="6">
@@ -43,7 +45,7 @@
   <div style="position:relative;max-width:100%;max-height:100%;aspect-ratio:{{ ratio }};background-color:#fff;background-image:{{ fond }};background-size:cover;background-position:center;border:3px solid #12233b;border-radius:8px;overflow:hidden;display:grid;grid-template-columns:repeat({{ colonnes }},1fr);grid-template-rows:repeat({{ lignes }},1fr);width:{{ largeur }}">
     <sc-for list="{{ cases }}" as="c" hint-placeholder-count="100">
       <sc-if value="{{ c.cachee }}" hint-placeholder-val="{{ true }}">
-        <button onClick="{{ c.ouvrir }}" style="border:none;padding:0;margin:0;background:#2b3a55;color:#f6f4ee;box-shadow:inset 0 0 0 2px #eef1f6;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:'Archivo Black',Verdana,sans-serif;font-variant-numeric:tabular-nums;font-size:{{ tailleChiffre }}" style-hover="background:#3b4d70">{{ c.etiquette }}</button>
+        <button onClick="{{ c.ouvrir }}" style="border:none;padding:0;margin:0;background:#2b3a55;color:#f6f4ee;box-shadow:inset 0 0 0 2px #eef1f6;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:{{ policeCase }};font-variant-numeric:tabular-nums;font-size:{{ tailleChiffre }};white-space:nowrap;overflow:hidden" style-hover="background:#3b4d70">{{ c.etiquette }}</button>
       </sc-if>
       <sc-if value="{{ c.ouverte }}" hint-placeholder-val="{{ false }}">
         <span style="display:block"></span>
@@ -78,6 +80,9 @@
    d'un nombre ; l'élève la LIT à voix haute, on touche la case. Seulement a et i (sons déjà
    vus), avec les consonnes de la fiche 8 des livrets. 16 syllabes → 16 cases, une chacune.
    Adresse : ?img=lieu-marche&mode=syllabes */
+/* MODE MOTS REPÈRES (15/10, sa demande, début de la séance « Faire les courses ») : comme le mode
+   syllabes, mais chaque case cache un MOT REPÈRE en script ; 20 cases. Adresse : ?img=lieu-supermarche&mode=mots */
+const MOTS = ['ananas','moto','carotte','lit','cerise','vélo','kiwi','table','salade','ballon','jupe','robot','gâteau','pied','fenêtre','nuage','deux','pyjama','gilet','zéro'];
 const SYLLABES = ['la', 'li', 'ma', 'mi', 'ra', 'ri', 'sa', 'si', 'va', 'vi', 'fa', 'fi', 'na', 'ni', 'cha', 'chi'];
 class Component extends DCLogic {
   constructor(props) {
@@ -85,11 +90,11 @@ class Component extends DCLogic {
     const p = typeof location !== 'undefined' ? new URLSearchParams(location.search) : new URLSearchParams();
     const img = p.get('img') || 'puzzle-paris';
     const n = parseInt(p.get('n'), 10);
-    const syl = p.get('mode') === 'syllabes';
+    const syl = p.get('mode') === 'syllabes', mots = p.get('mode') === 'mots' || (img === 'lieu-supermarche' && !p.get('mode'));
     this.state = {
       image: img,
-      mode: syl ? 'syllabes' : 'nombres',
-      nombre: syl ? 16 : ([6, 9, 12, 16, 20, 30, 50, 100].indexOf(n) >= 0 ? n : 100),
+      mode: syl ? 'syllabes' : (mots ? 'mots' : 'nombres'),
+      nombre: syl ? 16 : mots ? 20 : ([6, 9, 12, 16, 20, 30, 50, 100].indexOf(n) >= 0 ? n : 100),
       ouvertes: {},
       melange: false,
       ordre: null,
@@ -140,7 +145,7 @@ class Component extends DCLogic {
   ouvrirTapee() {
     const n = parseInt(this.tape, 10);
     this.tape = '';
-    if (this.state.mode === 'syllabes') return;
+    if (this.state.mode !== 'nombres') return;
     if (n >= 1 && n <= this.state.nombre) this.ouvrir(n);
   }
 
@@ -173,7 +178,7 @@ class Component extends DCLogic {
       ['lieu-maison-retraite', 'Une maison de retraite'], ['lieu-maison-travaux', 'Une maison en travaux']
     ];
     const cases = this.numeros().map((n) => ({
-      n, etiquette: syl ? SYLLABES[(n - 1) % SYLLABES.length] : String(n), cachee: !s.ouvertes[n], ouverte: !!s.ouvertes[n], ouvrir: () => this.ouvrir(n)
+      n, etiquette: s.mode === 'mots' ? MOTS[(n - 1) % MOTS.length] : syl ? SYLLABES[(n - 1) % SYLLABES.length] : String(n), cachee: !s.ouvertes[n], ouverte: !!s.ouvertes[n], ouvrir: () => this.ouvrir(n)
     }));
     return {
       images: images.map(([cle, nom]) => ({ cle, nom })),
@@ -187,13 +192,15 @@ class Component extends DCLogic {
       /* Le plateau est borné par la HAUTEUR disponible : sans ça, une photo large déborde
          sous la barre de boutons et les dernières cases sortent de l'écran. */
       largeur: 'min(100%, calc((100vh - 205px) * ' + s.ratio + '))',
-      tailleChiffre: 'clamp(13px, ' + (46 / cols).toFixed(2) + 'vmin, 64px)',
+      tailleChiffre: s.mode === 'mots' ? 'clamp(13px, ' + (24 / cols).toFixed(2) + 'vmin, 44px)' : 'clamp(13px, ' + (46 / cols).toFixed(2) + 'vmin, 64px)',
+      policeCase: s.mode === 'mots' ? "'BA Script', Andika, sans-serif" : "'Archivo Black', Verdana, sans-serif",
       cases,
-      texteMelange: s.melange ? 'Remettre dans l\u2019ordre' : (syl ? 'M\u00e9langer les syllabes' : 'M\u00e9langer les nombres'),
+      texteMelange: s.melange ? 'Remettre dans l\u2019ordre' : s.mode === 'mots' ? 'M\u00e9langer les mots' : (syl ? 'M\u00e9langer les syllabes' : 'M\u00e9langer les nombres'),
       mode: s.mode,
-      consigne: syl ? 'Un \u00e9l\u00e8ve lit la syllabe \u00e0 voix haute, on touche la case.' : 'Un \u00e9l\u00e8ve dit un nombre, on touche la case. On peut aussi taper le nombre au clavier.',
-      changerMode: (e) => this.setState({ mode: e.target.value, nombre: e.target.value === 'syllabes' ? 16 : 100, ouvertes: {}, ordre: null, melange: false }),
-      changerImage: (e) => this.setState({ image: e.target.value, ouvertes: {} }),
+      consigne: s.mode === 'mots' ? 'Un \u00e9l\u00e8ve lit le mot rep\u00e8re \u00e0 voix haute, on touche la case.' : syl ? 'Un \u00e9l\u00e8ve lit la syllabe \u00e0 voix haute, on touche la case.' : 'Un \u00e9l\u00e8ve dit un nombre, on touche la case. On peut aussi taper le nombre au clavier.',
+      changerMode: (e) => this.setState({ mode: e.target.value, nombre: e.target.value === 'syllabes' ? 16 : e.target.value === 'mots' ? 20 : 100, ouvertes: {}, ordre: null, melange: false }),
+      /* 15/10 (sa demande) : le supermarché se joue avec les MOTS REPÈRES à la place des nombres. */
+      changerImage: (e) => this.setState(e.target.value === 'lieu-supermarche' ? { image: e.target.value, mode: 'mots', nombre: 20, ouvertes: {}, ordre: null, melange: false } : { image: e.target.value, ouvertes: {} }),
       changerNombre: (e) => this.setState({ nombre: +e.target.value, ouvertes: {}, ordre: null }),
       melanger: () => this.setState((st) => {
         if (st.melange) return { melange: false, ouvertes: {}, ordre: null };

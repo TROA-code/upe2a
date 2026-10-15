@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="polices.css" />
+<style>body{margin:0;font-family:Andika, Archivo, Verdana, sans-serif;color:#12233b}a{color:#2f5d1e}a:hover{color:#12233b}</style>
+<script src="./bouton-retour.js"></script>
+</helmet>
+<x-import component-from-global-scope="doc-page" from="./doc-page.js" size="a4" hint-size="100%,100%">
+<section class="page" data-screen-label="Page de garde" style="box-sizing:border-box;padding:20mm;background:#fff;display:flex;flex-direction:column;align-items:center;gap:9mm;text-align:center">
+<span style="flex:0 0 auto;align-self:flex-end;font-size:13pt;color:#4a5568">1 / 4</span>
+<span style="flex:0 0 auto;font-family:Archivo Black, Archivo, sans-serif;font-size:36pt;line-height:1.15;text-wrap:balance">Faire les courses au supermarché et au marché</span>
+<span style="flex:0 0 auto;font-size:18pt;font-weight:700;color:#4f7f2a">CAP Équipier polyvalent du commerce</span>
+<div style="flex:1 1 auto;min-height:0;width:100%;display:flex;align-items:center;justify-content:center">
+<img src="clean/garde-courses.webp" alt="" style="max-width:100%;max-height:100%;object-fit:contain"></img>
+</div>
+<div style="flex:0 0 auto;width:100%;display:flex;align-items:center;gap:4mm;border:2px solid #12233b;border-radius:3mm;padding:5mm 6mm;box-sizing:border-box">
+<img src="clean/pictos/ecris.webp" alt="" style="width:12mm;height:12mm;object-fit:contain"></img>
+<span style="font-size:18pt;font-weight:700;white-space:nowrap"><span style="font-family:'Times New Roman', Georgia, serif">J</span>e m’appelle :</span>
+<span style="flex:1 1 auto;height:12mm;border-bottom:1.5px solid #12233b"></span>
+</div>
+</section>
+<sc-for list="{{ exos }}" as="p" hint-placeholder-count="1">
+<section class="page" data-screen-label="{{ p.label }}" style="box-sizing:border-box;padding:20mm;background:#fff;display:flex;flex-direction:column;gap:7mm">
+<div style="flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;gap:4mm">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:20pt">Au supermarché</span>
+<span style="font-size:13pt;color:#4a5568">2 / 4</span>
+</div>
+<div style="flex:0 0 auto;position:relative;width:100%;aspect-ratio:1376 / 768;border:1.5px solid #4f7f2a;border-radius:2mm;overflow:hidden;background:#f2f5ee;display:flex;align-items:center;justify-content:center">
+<sc-if value="{{ photoOk }}" hint-placeholder-val="{{ false }}">
+<img src="clean/lieu-rayon-fruits-legumes.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></img>
+</sc-if>
+<sc-if value="{{ photoManque }}" hint-placeholder-val="{{ true }}">
+<span style="font-size:14pt;color:#4f7f2a">photo du rayon fruits et légumes (Gemini, photo 2)</span>
+</sc-if>
+<sc-for list="{{ pastilles }}" as="n" hint-placeholder-count="8">
+<span style="position:absolute;left:{{ n.x }};top:{{ n.y }};transform:translate(-50%,-50%);width:9mm;height:9mm;box-sizing:border-box;border-radius:50%;background:#fff;border:0.7mm solid #12233b;display:flex;align-items:center;justify-content:center;font-family:Archivo Black, Archivo, sans-serif;font-size:13pt">{{ n.n }}</span>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:4mm">
+<img src="clean/pictos/ecris.webp" alt="" style="width:12mm;height:12mm;object-fit:contain"></img>
+<span style="font-size:16pt;font-weight:700">J’écris le numéro.</span>
+</div>
+<div style="flex:1 1 auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-flow:column;grid-template-rows:repeat(8,auto);column-gap:12mm;row-gap:2mm;align-content:start">
+<sc-for list="{{ p.mots }}" as="m" hint-placeholder-count="16">
+<div style="height:12mm;display:flex;align-items:center;justify-content:space-between;gap:4mm;border-bottom:1px solid #d5dae2">
+<span style="font-family:'BA Script', Andika, sans-serif;font-size:18pt;line-height:1;white-space:nowrap"><span style="color:#c62828">des</span> {{ m.mot }}</span>
+<span style="flex:0 0 auto;width:14mm;height:11mm;box-sizing:border-box;border:1.5px solid #12233b;border-radius:2mm;display:flex;align-items:center;justify-content:center;font-family:Archivo Black, Archivo, sans-serif;font-size:16pt;color:#c62828">{{ m.rep }}</span>
+</div>
+</sc-for>
+</div>
+</section>
+</sc-for>
+<section class="page" data-screen-label="Dialogue" style="box-sizing:border-box;padding:20mm;background:#fff;display:flex;flex-direction:column;gap:6mm">
+<div style="flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;gap:4mm"><span style="font-family:Archivo Black, Archivo, sans-serif;font-size:20pt">Au marché</span><span style="font-size:13pt;color:#4a5568">3 / 4</span></div>
+<div style="flex:0 0 auto;display:flex;align-items:center;gap:4mm">
+<img src="clean/pictos/lis.webp" alt="" style="width:12mm;height:12mm;object-fit:contain"></img>
+<span style="font-size:16pt;font-weight:700">Je lis, je joue la scène.</span>
+</div>
+<div style="flex:1 1 auto;display:flex;flex-direction:column;justify-content:space-evenly;gap:3mm;font-size:16pt;line-height:1.3">
+<div style="display:grid;grid-template-columns:30mm minmax(0,1fr);gap:4mm;align-items:center"><span style="background:#1d4e89;color:#fff;border-radius:2mm;padding:1.5mm 0;text-align:center;font-weight:700;font-size:13pt">Client</span><span>Bonjour madame. <span style="font-family:'Times New Roman', Georgia, serif">J</span>e voudrais <b style="color:#c62828">un kilo de</b> carottes <img src="clean/mot-carotte.webp" alt="" style="width:14mm;height:11mm;object-fit:contain;vertical-align:middle;margin:0 1mm"></img>, s’il vous plaît.</span></div>
+<div style="display:grid;grid-template-columns:30mm minmax(0,1fr);gap:4mm;align-items:center"><span style="background:#2a9d6e;color:#fff;border-radius:2mm;padding:1.5mm 0;text-align:center;font-weight:700;font-size:13pt">Vendeur</span><span>Et avec ceci ?</span></div>
+<div style="display:grid;grid-template-columns:30mm minmax(0,1fr);gap:4mm;align-items:center"><span style="background:#1d4e89;color:#fff;border-radius:2mm;padding:1.5mm 0;text-align:center;font-weight:700;font-size:13pt">Client</span><span>Est-ce qu’il y a <b style="color:#c62828">des</b> cerises <img src="clean/mot-cerise.webp" alt="" style="width:14mm;height:11mm;object-fit:contain;vertical-align:middle;margin:0 1mm"></img> ?</span></div>
+<div style="display:grid;grid-template-columns:30mm minmax(0,1fr);gap:4mm;align-items:center"><span style="background:#2a9d6e;color:#fff;border-radius:2mm;padding:1.5mm 0;text-align:center;font-weight:700;font-size:13pt">Vendeur</span><span>Non, il n’y a <b style="color:#c62828">pas de</b> cerises <img src="clean/mot-cerise.webp" alt="" style="width:14mm;height:11mm;object-fit:contain;vertical-align:middle;margin:0 1mm"></img>.</span></div>
+<div style="display:grid;grid-template-columns:30mm minmax(0,1fr);gap:4mm;align-items:center"><span style="background:#1d4e89;color:#fff;border-radius:2mm;padding:1.5mm 0;text-align:center;font-weight:700;font-size:13pt">Client</span><span><span><span style="font-family:'Times New Roman', Georgia, serif">J</span>e voudrais <b style="color:#c62828">un kilo de</b> tomates</span> <img src="clean/mot-tomate.webp" alt="" style="width:14mm;height:11mm;object-fit:contain;vertical-align:middle;margin:0 1mm"></img>.</span></div>
+<div style="display:grid;grid-template-columns:30mm minmax(0,1fr);gap:4mm;align-items:center"><span style="background:#2a9d6e;color:#fff;border-radius:2mm;padding:1.5mm 0;text-align:center;font-weight:700;font-size:13pt">Vendeur</span><span>Et avec ceci ?</span></div>
+<div style="display:grid;grid-template-columns:30mm minmax(0,1fr);gap:4mm;align-items:center"><span style="background:#1d4e89;color:#fff;border-radius:2mm;padding:1.5mm 0;text-align:center;font-weight:700;font-size:13pt">Client</span><span>Ce sera tout. Ça fait combien, s’il vous plaît ?</span></div>
+<div style="display:grid;grid-template-columns:30mm minmax(0,1fr);gap:4mm;align-items:center"><span style="background:#2a9d6e;color:#fff;border-radius:2mm;padding:1.5mm 0;text-align:center;font-weight:700;font-size:13pt">Vendeur</span><span>Ça fait … euros.</span></div>
+<div style="display:grid;grid-template-columns:30mm minmax(0,1fr);gap:4mm;align-items:center"><span style="background:#1d4e89;color:#fff;border-radius:2mm;padding:1.5mm 0;text-align:center;font-weight:700;font-size:13pt">Client</span><span>Merci, bonne journée !</span></div>
+</div>
+</section>
+<sc-for list="{{ corr }}" as="p" hint-placeholder-count="1">
+<section class="page" data-screen-label="{{ p.label }}" style="box-sizing:border-box;padding:20mm;background:#fff;display:flex;flex-direction:column;gap:7mm">
+<div style="flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;gap:4mm">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:20pt">Au supermarché</span>
+<span style="display:flex;align-items:baseline;gap:5mm"><span style="font-family:Archivo Black, Archivo, sans-serif;font-size:18pt;color:#c62828">Corrigé</span><span style="font-size:13pt;color:#4a5568">4 / 4</span></span>
+</div>
+<div style="flex:0 0 auto;position:relative;width:100%;aspect-ratio:1376 / 768;border:1.5px solid #4f7f2a;border-radius:2mm;overflow:hidden;background:#f2f5ee;display:flex;align-items:center;justify-content:center">
+<sc-if value="{{ photoOk }}" hint-placeholder-val="{{ false }}">
+<img src="clean/lieu-rayon-fruits-legumes.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></img>
+</sc-if>
+<sc-if value="{{ photoManque }}" hint-placeholder-val="{{ true }}">
+<span style="font-size:14pt;color:#4f7f2a">photo du rayon fruits et légumes (Gemini, photo 2)</span>
+</sc-if>
+<sc-for list="{{ pastilles }}" as="n" hint-placeholder-count="8">
+<span style="position:absolute;left:{{ n.x }};top:{{ n.y }};transform:translate(-50%,-50%);width:9mm;height:9mm;box-sizing:border-box;border-radius:50%;background:#fff;border:0.7mm solid #12233b;display:flex;align-items:center;justify-content:center;font-family:Archivo Black, Archivo, sans-serif;font-size:13pt">{{ n.n }}</span>
+</sc-for>
+</div>
+<div style="flex:1 1 auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-flow:column;grid-template-rows:repeat(8,auto);column-gap:12mm;row-gap:2mm;align-content:start">
+<sc-for list="{{ p.mots }}" as="m" hint-placeholder-count="16">
+<div style="height:12mm;display:flex;align-items:center;justify-content:space-between;gap:4mm;border-bottom:1px solid #d5dae2">
+<span style="font-family:'BA Script', Andika, sans-serif;font-size:18pt;line-height:1;white-space:nowrap"><span style="color:#c62828">des</span> {{ m.mot }}</span>
+<span style="flex:0 0 auto;width:14mm;height:11mm;box-sizing:border-box;border:1.5px solid #12233b;border-radius:2mm;display:flex;align-items:center;justify-content:center;font-family:Archivo Black, Archivo, sans-serif;font-size:16pt;color:#c62828">{{ m.rep }}</span>
+</div>
+</sc-for>
+</div>
+</section>
+</sc-for>
+</x-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* 15/10 (son oui) : support élève de la séance d'inspection « Au supermarché ».
+   P1 : photo du rayon (clean/lieu-rayon-fruits-legumes.webp, Gemini photo 2, à recevoir) + 8 pastilles posées par nous
+   (2 rangées × 4 cagettes : tomates carottes salades ananas / cerises kiwis oranges bananes) ; « des » en rouge = code couleur.
+   P2 : dialogue du marché (+ « Est-ce qu'il y a des… ? — Non, il n'y a pas de… », « Ce sera tout »). P3 : corrigé.
+   ⚠ Les positions des pastilles (PAST) sont à recaler quand la photo arrive. */
+class Component extends DCLogic {
+  state = { photo: false };
+  componentDidMount() { const i = new Image(); i.onload = () => this.setState({ photo: true }); i.src = 'clean/lieu-rayon-fruits-legumes.webp'; }
+  renderVals() {
+    /* 15/10 : photo Gemini reçue (16 cagettes : 4 en haut, 6 au milieu, 6 en bas) → pastilles calées sur chaque cagette. */
+    const P = ['salades','carottes','tomates','poireaux','ananas','mangues','noix de coco','aubergines','courgettes','radis','kiwis','oranges','bananes','pommes','poires','citrons'];
+    const PAST = [[14.2,12],[38.2,12],[62.4,12],[86.1,12],[9.4,40],[25.8,40],[42.2,40],[58.5,40],[74.9,40],[90.8,40],[8.7,75],[25.1,75],[41.4,75],[58.1,75],[74.5,75],[90.5,75]];
+    const ORDRE = ['bananes','radis','carottes','pommes','noix de coco','salades','citrons','aubergines','kiwis','tomates','mangues','poires','poireaux','oranges','courgettes','ananas'];
+    const mots = c => ORDRE.map(m => ({ mot: m, rep: c ? String(P.indexOf(m) + 1) : '' }));
+    return {
+      photoOk: this.state.photo, photoManque: !this.state.photo,
+      pastilles: PAST.map(([x, y], k) => ({ n: k + 1, x: x + '%', y: y + '%' })),
+      exos: [{ label: 'Exercice', corrige: false, mots: mots(false) }],
+      corr: [{ label: 'Corrigé', mots: mots(true) }]
+    };
+  }
+}
+</script>
+</body>
+</html>

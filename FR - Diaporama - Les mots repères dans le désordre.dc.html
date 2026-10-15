@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="polices.css"></link>
+<style>
+html,body{margin:0;height:100%;background:#0d1b2e}
+@media print{.barre-diapo{display:none !important}}
+a{color:#7fb2e5}
+a:hover{color:#a8ccf0}
+</style>
+</helmet>
+<div class="barre-diapo" style="position:fixed;top:66px;right:14px;z-index:50;display:flex;gap:9px;align-items:center">
+<button onClick="{{ melanger }}" style="border:2px solid rgba(255,255,255,.35);border-radius:11px;background:rgba(18,35,59,.5);color:#fff;min-height:44px;padding:9px 16px;font-family:Arial,Helvetica,sans-serif;font-size:15px;cursor:pointer" style-hover="background:#12233b">Mélanger</button>
+<button onClick="{{ basculeVignettes }}" style="border:2px solid rgba(255,255,255,.35);border-radius:11px;background:rgba(18,35,59,.5);color:#fff;min-height:44px;padding:9px 16px;font-family:Arial,Helvetica,sans-serif;font-size:15px;cursor:pointer" style-hover="background:#12233b">{{ libelleVignettes }}</button>
+</div>
+<x-import component-from-global-scope="deck-stage" from="./deck-stage.js" width="1920" height="1080" hint-size="100%,100%">
+<section data-label="Titre" data-screen-label="Titre" data-speaker-notes="Les mots repères, sans photo, dans le désordre. On lit le mot." style="display:flex;flex-direction:column;justify-content:center;gap:40px;padding:0 160px;background:#14213d;color:#fbfaf7;font-family:Arial,Helvetica,sans-serif;height:100%;box-sizing:border-box">
+<div style="display:flex;align-items:center;gap:28px"><span style="width:120px;height:4px;background:#c1440e"></span><span style="font-size:30px;letter-spacing:0.2em;text-transform:uppercase;color:#c9d3e2">Français · UPE2A NSA</span></div>
+<span style="font-size:132px;font-weight:700;line-height:1.02">Les mots repères</span>
+<span style="font-size:48px;color:#c9d3e2">Je lis le mot.</span>
+</section>
+<sc-for list="{{ mots }}" as="m" hint-placeholder-count="3">
+<section data-label="{{ m.label }}" data-screen-label="{{ m.label }}" data-speaker-notes="{{ m.note }}" style="display:flex;align-items:center;justify-content:center;background:#fbfaf7;color:#12233b;height:100%;box-sizing:border-box;padding:80px 120px">
+<span style="font-family:'BA Script',Arial,sans-serif;font-size:{{ m.taille }};line-height:1.2;white-space:nowrap">{{ m.mot }}</span>
+</section>
+</sc-for>
+</x-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* 14/10 (sa demande) : les mots repères EN SCRIPT, SANS photo, DANS LE DÉSORDRE — lecture seule.
+   Liste = ALPHA_IMG (comme l'affiche à coller et le tableau). Nouvel ordre à chaque ouverture + bouton « Mélanger ».
+   Règles diaporama : barre en haut à DROITE, avance au clic, jamais au-delà de la dernière vue, vignettes masquables. */
+const MOTS = ['ananas','ballon','carotte','cerise','deux','je','fenêtre','gâteau','gilet','immeuble','jupe','kiwi','lit','moto','nuage','ordinateur','pot','pied','quatre','robot','salade','rose','table','usine','vélo','wagon','xylophone','pyjama','zéro'];
+const CLE_VIGNETTES = 'upe2a-diapo-mots-desordre-vignettes';
+const melange = () => { const a = MOTS.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+class Component extends DCLogic {
+  state = { vignettes: true, ordre: melange() };
+  componentDidMount() {
+    let v = true;
+    try { v = localStorage.getItem(CLE_VIGNETTES) !== 'non'; } catch (e) {}
+    this.setState({ vignettes: v });
+    this.appliquer(v);
+    this._clic = (e) => {
+      const chemin = e.composedPath ? e.composedPath() : [];
+      for (const n of chemin) { const c = n && n.classList;
+        if (c && (c.contains('barre-diapo') || c.contains('rail') || c.contains('rail-resize') || c.contains('overlay'))) return; }
+      const d = document.querySelector('deck-stage');
+      if (!d || typeof d.goTo !== 'function') return;
+      const vues = Array.prototype.slice.call(d.querySelectorAll('section'));
+      let i = vues.findIndex(s => s.hasAttribute('data-deck-active'));
+      if (i < 0) i = 0;
+      if (i < vues.length - 1) d.goTo(i + 1);
+    };
+    document.addEventListener('click', this._clic);
+  }
+  componentWillUnmount() { if (this._clic) document.removeEventListener('click', this._clic); }
+  appliquer(v) { const d = document.querySelector('deck-stage'); if (!d) return; if (v) d.removeAttribute('no-rail'); else d.setAttribute('no-rail', ''); }
+  renderVals() {
+    const v = this.state.vignettes;
+    return {
+      mots: this.state.ordre.map((mot, i) => ({ mot, label: (i + 1) + ' · ' + mot, note: 'On lit : ' + mot + '.', taille: mot.length > 8 ? '230px' : '300px' })),
+      libelleVignettes: v ? 'Masquer les vignettes' : 'Voir les vignettes',
+      basculeVignettes: () => { const n = !v; this.setState({ vignettes: n }); try { localStorage.setItem(CLE_VIGNETTES, n ? 'oui' : 'non'); } catch (e) {} this.appliquer(n); },
+      melanger: () => { this.setState({ ordre: melange() }); const d = document.querySelector('deck-stage'); if (d && d.goTo) setTimeout(() => d.goTo(1), 50); },
+      accueil: () => { if (typeof history !== 'undefined' && history.length > 1) history.back(); else location.href = 'APPLI - Espace enseignant.dc.html' + location.search; }
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -278,6 +278,27 @@
     ]
   };
 
+  /* 15/10 (sa demande : « on ne pense plus en jour mais en semaine ») : les documents se
+     rangent sur la SEMAINE, par son lundi en ISO. Affichés dans le bandeau « Cette semaine »
+     en haut de l'emploi du temps. Ceux qu'elle accroche elle-même vont dans `liensSem`
+     (localStorage), ceux-ci sont les siens, demandés en conversation. */
+  const SEMAINES = {
+    '2026-10-12': [
+      { groupe: 'Faire les courses', docs: [
+        { nom: 'Le puzzle — le supermarché (mots repères)', f: 'JEU - Le puzzle à retourner.dc.html?img=lieu-supermarche&mode=mots' },
+        { nom: 'Support élève — Faire les courses', f: 'FR - Au supermarché - Support élève.dc.html' },
+        { nom: 'Plateaux à pinces — les mots repères', f: 'FR - Plateau à pinces - Les mots repères.dc.html' } ] },
+      { groupe: 'La monnaie — séance 1', docs: [
+        { nom: 'Grandeurs et mesures 2 — La monnaie', f: 'MATHS - Grandeurs et mesures 2 - La monnaie.dc.html' },
+        { nom: 'La caisse — pièces et billets', f: 'PLANCHE - La caisse (pièces et billets).dc.html' } ] },
+      { groupe: 'Le son R', docs: [
+        { nom: 'Le jeu du son R', f: 'JEU - Le son R.dc.html' },
+        { nom: 'Le livret du son R', f: 'FR - Livret des sons - son R.dc.html' },
+        { nom: 'Le livret du son R — script', f: 'FR - Livret des sons - son R - script.dc.html' } ] }
+    ]
+  };
+  function docsSemaine(cleSem) { return SEMAINES[cleSem] || []; }
+
   /* Un créneau porte un id stable `jour-cle` : c'est la clé de ses ressources ajoutées,
      de ses notes de différenciation et, plus tard, du cahier journal. Ne pas la fabriquer
      à partir de l'horaire — il changera. */
@@ -441,13 +462,14 @@
                en ISO. La première semaine de l'année est « forcément totalement
                différente » (06/09) — elle ne doit pas déformer le modèle. */
             semaines: o.semaines || {},
+            liensSem: o.liensSem || {},
             domaines: o.domaines || {},
             jours: Array.isArray(o.jours) && o.jours.length ? o.jours : null };
         }
       }
     } catch (e) {}
     return { modifs: {}, ajouts: [], retires: [], liens: {}, differ: {}, ancre: null,
-      semaines: {}, domaines: {}, jours: null };
+      semaines: {}, liensSem: {}, domaines: {}, jours: null };
   }
 
   function enregistrer(base) {
@@ -507,7 +529,7 @@
     return TOUS_JOURS.filter(j => choisis.indexOf(j[0]) >= 0).map(j => [j[0], j[1]]);
   }
 
-  window.EDT = { TOUS_JOURS, JOURS_PAR_DEFAUT, DOMAINES, RESSOURCES, ANCRE, CLE, ELEVES,
+  window.EDT = { TOUS_JOURS, JOURS_PAR_DEFAUT, DOMAINES, RESSOURCES, SEMAINES, docsSemaine, ANCRE, CLE, ELEVES,
     VACANCES, FERIES, ANNEE, PALETTE, domaines,
     creneaux, ressourcesDe, plages, minutes, semaine, aSaSemaine, joursActifs, bornes, dansAnnee,
     lundiDe, lettreSemaine, numeroSemaine, libelleSemaine, dateDuJour, iso,

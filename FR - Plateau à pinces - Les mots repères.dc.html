@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="polices.css" />
+<style>body{margin:0;font-family:Andika, Archivo, Verdana, sans-serif;color:#12233b}a{color:#2f5d1e}a:hover{color:#12233b}@media print{.bouton{display:none !important}}</style>
+<script src="./bouton-retour.js"></script>
+</helmet>
+<x-import component-from-global-scope="doc-page" from="./doc-page.js" size="a4" hint-size="100%,100%">
+<sc-for list="{{ pages }}" as="p" hint-placeholder-count="3">
+<section class="page" data-screen-label="{{ p.label }}" style="box-sizing:border-box;padding:20mm;background:#fff">
+<div style="width:100%;height:100%;box-sizing:border-box;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-template-rows:repeat(11,minmax(0,1fr));border:2.5px solid #4f7f2a;background:#4f7f2a;gap:2px">
+<sc-for list="{{ p.cases }}" as="c" hint-placeholder-count="29">
+<div style="grid-area:{{ c.zone }};background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1mm;padding:1.5mm;overflow:hidden;min-width:0;min-height:0">
+<sc-if value="{{ c.img }}" hint-placeholder-val="{{ false }}">
+<img src="{{ c.img }}" alt="" style="flex:1 1 0;min-height:0;width:100%;object-fit:contain"></img>
+</sc-if>
+<sc-if value="{{ c.mot }}" hint-placeholder-val="{{ false }}">
+<span style="flex:0 0 auto;font-family:'BA Script', Andika, sans-serif;font-size:{{ c.taille }};line-height:1.15;white-space:nowrap;color:#12233b">{{ c.mot }}</span>
+</sc-if>
+</div>
+</sc-for>
+<div style="grid-area:11 / 6 / 12 / 7;background:#fff"></div>
+<div style="grid-area:2 / 2 / 11 / 6;background:#e6f0da;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10mm;text-align:center;padding:6mm">
+<span style="font-family:Archivo Black, Archivo, sans-serif;font-size:40pt;color:#2f5d1e;line-height:1.1">Mes mots repères</span>
+<div style="display:flex;align-items:center;gap:4mm;background:#fff;border:2px solid #4f7f2a;border-radius:3mm;padding:3mm 5mm">
+<img src="clean/pictos/ecoute.webp" alt="" style="width:12mm;height:12mm;object-fit:contain"></img>
+<span style="font-size:16pt;font-weight:700;white-space:nowrap">j'écoute, je pince le mot</span>
+</div>
+</div>
+</div>
+</section>
+</sc-for>
+</x-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* 15/10 (son oui) : 3 plateaux à pinces avec les 29 mots repères (ALPHA_IMG, jupe pour le J ; c g o s en ont deux ; h aucun)
+   dans le désordre — 1 : mots écrits (script) ; 2 : photos ; 3 : photo + mot. Au centre « Mes mots repères », ni lettre ni image.
+   On dit un mot, l'élève le pince : pas de corrigé. 6 × 11 cases = 30 cases de bord pour 29 mots → la case en bas à droite
+   prend la couleur du centre. ?plateau=1|2|3 n'imprime que celui-là. */
+class Component extends DCLogic {
+  renderVals() {
+    const M = [['ananas','ananas'],['ballon','ballon'],['carotte','carotte'],['cerise','cerise'],['deux','deux'],['je','je'],['fenetre','fenêtre'],['gateau','gâteau'],['gilet','gilet'],['immeuble','immeuble'],['jupe','jupe'],['kiwi','kiwi'],['lit','lit'],['moto','moto'],['nuage','nuage'],['ordinateur','ordinateur'],['pot','pot'],['pied','pied'],['quatre','quatre'],['robot','robot'],['salade','salade'],['rose','rose'],['table','table'],['usine','usine'],['velo','vélo'],['wagon','wagon'],['xylophone','xylophone'],['pyjama','pyjama'],['zero','zéro']];
+    const melange = (seed) => { const a = M.slice(); let s = seed; for (let i = a.length - 1; i > 0; i--) { s = (s * 9301 + 49297) % 233280; const j = Math.floor(s / 233280 * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+    const pos = [];
+    for (let c = 1; c <= 6; c++) pos.push([1, c]);
+    for (let r = 2; r <= 10; r++) pos.push([r, 6]);
+    for (let c = 5; c >= 1; c--) pos.push([11, c]);
+    for (let r = 10; r >= 2; r--) pos.push([r, 1]);
+    const zone = (r, c) => r + ' / ' + c + ' / ' + (r + 1) + ' / ' + (c + 1);
+    const taille = (m, k) => Math.max(12, Math.min(20, 24 / (m.length * 0.18)) * k) + 'pt';
+    const V = [['Les mots', true, false, 7], ['Les photos', false, true, 31], ['Photo et mot', true, true, 53]];
+    const q = new URLSearchParams(location.search).get('plateau');
+    const pages = V.filter((v, i) => !q || String(i + 1) === q).map(([label, mot, img, seed]) => ({
+      label,
+      cases: melange(seed).map(([f, m], i) => ({ zone: zone(pos[i][0], pos[i][1]), img: img ? 'clean/mot-' + f + '.webp' : '', mot: mot ? m : '', taille: taille(m, img ? 0.85 : 1) }))
+    }));
+    return { pages };
+  }
+}
+</script>
+</body>
+</html>
