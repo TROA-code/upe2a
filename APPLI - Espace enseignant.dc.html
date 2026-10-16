@@ -47,7 +47,7 @@ input,select,button{font-family:inherit}
 <script src="./disques.js?v=9"></script>
 <!-- L'emploi du temps est monté ici par dc-import : le helmet d'un enfant n'est pas
      chargé, donc window.EDT doit être fourni par CETTE page, sinon l'écran est vide. -->
-<script src="./emploi-du-temps.js?v=15"></script>
+<script src="./emploi-du-temps.js?v=16"></script>
 </helmet>
 <div class="om-nonprint" style="height:100vh;min-height:0;overflow:hidden;display:flex;flex-direction:column;font-family:Archivo, Arial, sans-serif;color:#12233b;background:#f4f6f9">
 <!-- CHRONO DU TOP CHRONO (02/10, sa demande) : languette ⏱ à GAUCHE, côté élève seulement.
@@ -3076,6 +3076,10 @@ const COLL_DOCS=[
  /* 15/10 (sa demande) : l'apprentissage des mots repères, côté LECTURE. */
  ['motsreplect','Le diaporama','#1d7f95','les mots repères à projeter'],
  ['pincesrep','Les plateaux à pinces','#4f7f2a','les mots repères : écrits, en photo, les deux'],
+ /* 16/10 (sa demande) : les feuilles « J'écris les mots repères » aussi ici (elle les cherchait là). Restent aussi dans Écriture. */
+ ['motsrepecrit','J’écris les mots repères','#8a4b1e','la photo, l’élève écrit le mot'],
+ /* 16/10 (sa demande) : Organisation → Visites et inspections. */
+ ['visites','Visites et inspections','#44546a','les dossiers préparés pour une visite'],
  /* LES DIFFÉRENTS TESTS (03/10, sa demande) : rubrique de Positionnement. Le test collège
     sera complété par une amie prof de maths : ne pas toucher à son contenu. */
  ['postests','Les différents tests','#1d4e89','tests de positionnement à imprimer']
@@ -3163,6 +3167,14 @@ const DOCS_COLL={
   ["Plateau 2 — les photos","Les 29 photos, sans mot écrit.","FR - Plateau à pinces - Les mots repères.dc.html?plateau=2"],
   ["Plateau 3 — photo et mot","Chaque photo avec son mot en script.","FR - Plateau à pinces - Les mots repères.dc.html?plateau=3"]
  ],
+ visites:[
+  ["Visite conseil — 16 octobre 2026","Page de garde, plan de la séance « Au marché et au supermarché », progression annuelle, mathématiques, progression des sons.","DOSSIER - Visite conseil 16 octobre.dc.html"]
+ ],
+ motsrepecrit:[
+  ["Dans le désordre — une page","Les 29 mots repères dans le désordre, une feuille A4. Bouton « Mélanger ». Corrigé en page 2.","FR - Écrire les mots repères - désordre.dc.html"],
+  ["Dans le désordre — sans corrigé","La même feuille, une seule page à imprimer, sans le corrigé.","FR - Écrire les mots repères - désordre.dc.html?corrige=non"],
+  ["Dans l’ordre — une page","Les 29 mots repères dans l’ordre de l’alphabet, une feuille A4. Corrigé en page 2.","FR - Écrire les mots repères - une page.dc.html"]
+ ],
  motsreplect:[
   ["Le diaporama des mots repères","À projeter : les mots repères en script, dans le désordre. On avance au clic, bouton « Mélanger ».","FR - Diaporama - Les mots repères dans le désordre.dc.html"]
  ],
@@ -3190,6 +3202,8 @@ const DOCS_COLL={
   ["L’abécédaire à coller sur le bureau","Demi-feuille A4 paysage : les 26 lettres en capitale, script et cursive, avec la photo du mot repère. Une par élève, collée sur la table.","FR - Abécédaire des mots repères.dc.html"],
   ["J’associe et j’écris","Deux planches à découper — les 29 photos sans le mot, puis les 29 mots — et trois feuilles : l’élève colle la photo, colle le mot à côté, puis l’écrit sur la ligne.","FR - J'associe et j'écris (mots repères).dc.html"],
   ["J’écris les mots repères","Une case par son : la photo du mot repère et la ligne pour écrire le mot. Le c, le g, le o et le s ont leurs deux photos dans la même case ; le h n’en a aucune.","FR - Écrire les mots repères.dc.html"],
+  ["J’écris les mots repères — sur une page","Les 29 mots repères sur une seule feuille A4 (5 × 6), un mot par case : la photo et la ligne pour écrire ; le h n’a pas de case. Corrigé en page 2.","FR - Écrire les mots repères - une page.dc.html"],
+  ["J’écris les mots repères — dans le désordre","La même feuille d’une page, les mots dans le désordre. Bouton « Mélanger » pour un autre ordre ; le corrigé suit.","FR - Écrire les mots repères - désordre.dc.html"],
   ["L’ordre alphabétique","Trois niveaux sur photos : ranger 5 lettres, ranger 4 mots (1re lettre), puis la 2e lettre. Corrigé à la fin.","FR - L'ordre alphabétique.dc.html"],
   ["L’image, j’écris","Neuf items : la syllabe manquante à entourer, puis à écrire. Avec les photos de la banque.","FR - L'image, j'écris.dc.html"],
   ["Le diaporama des mots repères","51 diapos : la photo seule, puis la même avec le mot. Pas de lettre affichée — on nomme, puis on vérifie.","FR - Diaporama des mots repères.dc.html"],
@@ -3298,7 +3312,8 @@ const DOMAINES={
      ramenait les mots d'origine (ananas, banane…) alors que l'écran en propose d'autres.
      Les fiches de lecture se prennent maintenant dans Lecture → le son → Séance. */
   lexique:['dico','planches'], lecture:['livretssons','plateauxsons','puzzlessyl','couleurssons'],
-  motsrep:['motsreplect','pincesrep'],
+  motsrep:['motsreplect','pincesrep','motsrepecrit'],
+  orga:['visites'],
   ecriture:['ronds','courbes','boucles','ponts','lettres','cursive','motsreperes','chiffres'],
   maths:['mathsnum','mathsgeo','mathsgm','mathsauto','mathsrituels','mathsoutils'],
   positionnement:['postests'],
@@ -5391,7 +5406,8 @@ class Component extends DCLogic {
       /* Organisation en premier (09/09, sa demande) : c'est l'écran qu'elle ouvre
          chaque jour. Graphite #44546a. Le cahier journal et les fiches de prep viendront ici. */
       ['Organisation','#44546a',[
-        ['Emploi du temps','edt']]],
+        ['Emploi du temps','edt'],
+        ['Visites et inspections','outils','orga']]],
       ['Ma classe','#2a9d6e',[
         ['Gestion des élèves','groupes'],
         ['Bilan des exercices','bilan'],

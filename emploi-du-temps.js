@@ -284,7 +284,7 @@
      (localStorage), ceux-ci sont les siens, demandés en conversation. */
   const SEMAINES = {
     '2026-10-12': [
-      { groupe: 'Faire les courses', docs: [
+      { groupe: 'Métier : Équipier polyvalent du commerce', docs: [
         { nom: 'Le puzzle — le supermarché (mots repères)', f: 'JEU - Le puzzle à retourner.dc.html?img=lieu-supermarche&mode=mots' },
         { nom: 'Support élève — Faire les courses', f: 'FR - Au supermarché - Support élève.dc.html' },
         { nom: 'Plateaux à pinces — les mots repères', f: 'FR - Plateau à pinces - Les mots repères.dc.html' } ] },

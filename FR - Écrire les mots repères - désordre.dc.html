@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="polices.css" />
+<style>
+doc-page:not(:defined){visibility:hidden}
+body{margin:0}
+a{color:#1d5c3a}
+a:hover{color:#14213d}
+@media print{[data-noprint]{display:none !important}}
+</style>
+<script src="./doc-page.js"></script>
+</helmet>
+<button class="bouton" data-noprint="1" onClick="{{ melanger }}" style="position:fixed;top:12px;left:12px;z-index:50;min-height:44px;border:2px solid #12233b;border-radius:10px;background:#fff;color:#12233b;padding:0 16px;font-weight:700;font-size:15px;cursor:pointer;font-family:Arial, sans-serif">Mélanger</button>
+<doc-page size="a4">
+<sc-for list="{{ pages }}" as="p" hint-placeholder-count="2">
+<section class="page" data-screen-label="{{ p.label }}" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:20mm;box-sizing:border-box;font-family:Helvetica,'Helvetica Neue',Arial,sans-serif;color:#14213d">
+<div style="flex:0 0 auto;display:flex;align-items:flex-end;justify-content:space-between;gap:6mm;border-bottom:1.5px solid #1d5c3a;padding-bottom:2.5mm;margin-bottom:4mm">
+<div style="display:flex;flex-direction:column;gap:1mm">
+<span style="font-size:12pt;font-weight:700;color:#c0392b">{{ p.bandeau }}</span>
+<span style="font-size:16pt;font-weight:700">J'écris les mots repères <span style="font-weight:400;color:#4a5262">(dans le désordre)</span></span>
+</div>
+<div style="display:flex;align-items:flex-end;gap:2.5mm;flex:0 0 auto">
+<span style="font-size:12pt;color:#4a5262;padding-bottom:1mm">Nom</span>
+<span style="display:block;width:42mm;border-bottom:1.2px solid #b9bdc9;height:6.5mm"></span>
+</div>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));grid-template-rows:repeat(6,minmax(0,1fr));gap:3mm 4mm">
+<sc-for list="{{ p.cells }}" as="c" hint-placeholder-count="25">
+<div style="display:flex;flex-direction:column;gap:1mm;min-height:0;overflow:hidden">
+<div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:1.5mm">
+<sc-for list="{{ c.images }}" as="im" hint-placeholder-count="1">
+<img src="{{ im.img }}" alt="" style="max-height:100%;max-width:{{ c.largeurImg }};width:auto;height:auto;object-fit:contain;display:block;min-width:0"></img>
+</sc-for>
+</div>
+<div style="flex:0 0 auto;min-height:10mm;border-bottom:1.5px solid #14213d;display:flex;align-items:flex-end;justify-content:center;text-align:center;font-family:'BA Script', Andika, sans-serif;font-size:{{ c.taille }};color:#c0392b;line-height:1.1;padding-bottom:0.5mm;white-space:pre-line">{{ c.reponse }}</div>
+</div>
+</sc-for>
+</div>
+</section>
+</sc-for>
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:794,&quot;height&quot;:1123},&quot;avecCorrige&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Feuille&quot;}}">
+/* 16/10 (sa demande) : la même feuille que « FR - Écrire les mots repères », mais sur UNE SEULE PAGE
+   (l'originale est gardée). 25 cases en 5 × 5 : le h n'a pas de case ici (pas de son, rien à écrire).
+   2 cm de marge. Page 2 = corrigé (les mots en rouge). */
+/* 16/10 : un mot = une case (ordinateur seul, pot seul, salade seul, rose seul…) → 29 cases, 5 × 6. */
+const BASE = [
+  ['a','ananas'],['b','ballon'],['c','carotte','cerise'],['d','deux'],['e','je'],
+  ['f','fenetre'],['g','gateau','gilet'],['i','immeuble'],['j','jupe'],
+  ['k','kiwi'],['l','lit'],['m','moto'],['n','nuage'],['o','ordinateur','pot'],['p','pied'],
+  ['q','quatre'],['r','robot'],['s','salade','rose'],['t','table'],['u','usine'],
+  ['v','velo'],['w','wagon'],['x','xylophone'],['y','pyjama'],['z','zero']
+];
+const MOTS = BASE.flatMap(m => m.slice(1).map(f => [m[0], f]));
+const ECRIT = { fenetre: 'fenêtre', gateau: 'gâteau', velo: 'vélo', zero: 'zéro' };
+
+/* 16/10 : version DANS LE DÉSORDRE. Ordre fixe au départ (le même à chaque impression) ; « Mélanger » en donne un autre, le corrigé suit. */
+const ORDRE = [15,4,25,0,20,10,27,7,18,2,23,13,28,8,1,19,26,5,14,3,22,9,24,11,17,6,21,12,16];
+class Component extends DCLogic {
+  state = { ordre: ORDRE };
+  renderVals() {
+    const liste = this.state.ordre.map(i => MOTS[i]);
+    const cells = (corrige) => liste.map(m => ({
+      images: m.slice(1).map(f => ({ img: 'clean/mot-' + f + '.webp' })),
+      largeurImg: m.length > 2 ? '48%' : '100%',
+      taille: m.length > 2 ? '14pt' : '16pt',
+      reponse: corrige ? m.slice(1).map(f => ECRIT[f] || f).join('\n') : ''
+    }));
+    return {
+      /* 16/10 : ?corrige=non (ou la Tweak « avecCorrige ») → la feuille élève seule, à imprimer. */
+      pages: [
+        { label: '01 Élève', bandeau: 'Je regarde. J’écris le mot.', cells: cells(false) }
+      ].concat((!/corrige=non/.test(location.search) && (this.props.avecCorrige ?? true)) ? [{ label: '02 Corrigé', bandeau: 'Corrigé', cells: cells(true) }] : []),
+      melanger: () => { const o = this.state.ordre.slice(); for (let i = o.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [o[i], o[j]] = [o[j], o[i]]; } this.setState({ ordre: o }); },
+      imprimer: () => window.print(),
+      retour: () => { const av = location.href; history.back(); setTimeout(() => { if (location.href === av) location.href = 'APPLI - Espace enseignant.dc.html' + location.search; }, 400); }
+    };
+  }
+}
+</script>
+</body>
+</html>

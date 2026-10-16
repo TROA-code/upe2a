@@ -42,7 +42,7 @@
 </div>
 
 <div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:16px">
-  <div style="position:relative;max-width:100%;max-height:100%;aspect-ratio:{{ ratio }};background-color:#fff;background-image:{{ fond }};background-size:cover;background-position:center;border:3px solid #12233b;border-radius:8px;overflow:hidden;display:grid;grid-template-columns:repeat({{ colonnes }},1fr);grid-template-rows:repeat({{ lignes }},1fr);width:{{ largeur }}">
+  <div style="position:relative;max-width:100%;max-height:100%;aspect-ratio:{{ ratio }};background-color:#fff;background-image:{{ fond }};background-size:cover;background-position:center;border:3px solid #12233b;border-radius:8px;overflow:hidden;container-type:inline-size;display:grid;grid-template-columns:repeat({{ colonnes }},1fr);grid-template-rows:repeat({{ lignes }},1fr);width:{{ largeur }}">
     <sc-for list="{{ cases }}" as="c" hint-placeholder-count="100">
       <sc-if value="{{ c.cachee }}" hint-placeholder-val="{{ true }}">
         <button onClick="{{ c.ouvrir }}" style="border:none;padding:0;margin:0;background:#2b3a55;color:#f6f4ee;box-shadow:inset 0 0 0 2px #eef1f6;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:{{ policeCase }};font-variant-numeric:tabular-nums;font-size:{{ tailleChiffre }};white-space:nowrap;overflow:hidden" style-hover="background:#3b4d70">{{ c.etiquette }}</button>
@@ -192,7 +192,8 @@ class Component extends DCLogic {
       /* Le plateau est borné par la HAUTEUR disponible : sans ça, une photo large déborde
          sous la barre de boutons et les dernières cases sortent de l'écran. */
       largeur: 'min(100%, calc((100vh - 205px) * ' + s.ratio + '))',
-      tailleChiffre: s.mode === 'mots' ? 'clamp(13px, ' + (24 / cols).toFixed(2) + 'vmin, 44px)' : 'clamp(13px, ' + (46 / cols).toFixed(2) + 'vmin, 64px)',
+      /* 16/10 : en mots, la taille suit la LARGEUR de la case et le mot le plus long (« carotte » touchait les bords) : 70 % de la case au plus. */
+      tailleChiffre: s.mode === 'mots' ? 'clamp(11px, ' + (90 / cols / (0.5 * Math.max(4, ...cases.map(c => String(c.etiquette || '').length)))).toFixed(2) + 'cqw, 44px)' : 'clamp(13px, ' + (46 / cols).toFixed(2) + 'vmin, 64px)',
       policeCase: s.mode === 'mots' ? "'BA Script', Andika, sans-serif" : "'Archivo Black', Verdana, sans-serif",
       cases,
       texteMelange: s.melange ? 'Remettre dans l\u2019ordre' : s.mode === 'mots' ? 'M\u00e9langer les mots' : (syl ? 'M\u00e9langer les syllabes' : 'M\u00e9langer les nombres'),

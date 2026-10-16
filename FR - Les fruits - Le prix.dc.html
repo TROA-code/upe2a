@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="polices.css" />
+<style>
+doc-page:not(:defined){visibility:hidden}
+body{margin:0}
+a{color:#1d5c3a}
+a:hover{color:#14213d}
+</style>
+<script src="./doc-page.js"></script>
+</helmet>
+<doc-page size="a4">
+<sc-for list="{{ pages }}" as="p" hint-placeholder-count="2">
+<section class="page" data-screen-label="{{ p.label }}" style="position:relative;display:flex;flex-direction:column;background:#fff;overflow:hidden;padding:20mm;box-sizing:border-box;font-family:Helvetica,'Helvetica Neue',Arial,sans-serif;color:#14213d">
+<div style="flex:0 0 auto;background:#14213d;color:#fff;padding:3mm 5mm;display:flex;align-items:center;justify-content:space-between;gap:4mm;margin-bottom:4mm">
+<span style="flex:1;min-width:0;font-size:17pt;font-weight:700;white-space:nowrap">{{ p.titre }}</span>
+<span style="flex:0 0 auto;font-size:12pt">à l'unité ou au kilo</span>
+</div>
+<div style="flex:1;min-height:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5mm">
+<sc-for list="{{ p.colonnes }}" as="col" hint-placeholder-count="2">
+<div style="display:grid;grid-template-columns:17mm minmax(0,1fr) 17mm 17mm;grid-auto-rows:auto;align-content:start;border:1.5px solid #14213d">
+<span style="background:#eef1f6;border-bottom:1.5px solid #14213d"></span>
+<span style="background:#eef1f6;border-bottom:1.5px solid #14213d;border-left:1px solid #b9bdc9;padding:2mm 1.5mm;font-size:12pt;font-weight:700;display:flex;align-items:center">{{ p.entete }}</span>
+<span style="background:#eef1f6;border-bottom:1.5px solid #14213d;border-left:1px solid #b9bdc9;padding:2mm 1mm;font-size:12pt;font-weight:700;text-align:center;line-height:1.15">à l'unité</span>
+<span style="background:#eef1f6;border-bottom:1.5px solid #14213d;border-left:1px solid #b9bdc9;padding:2mm 1mm;font-size:12pt;font-weight:700;text-align:center;line-height:1.15">au kilo</span>
+<sc-for list="{{ col.lignes }}" as="f" hint-placeholder-count="11">
+<span style="height:19mm;border-bottom:1px solid #b9bdc9;background:#fff url('{{ f.photo }}') center/84% no-repeat"></span>
+<span style="border-bottom:1px solid #b9bdc9;border-left:1px solid #b9bdc9;padding:0 1.5mm;font-size:12pt;display:flex;align-items:center;line-height:1.15;min-width:0">{{ f.nom }}</span>
+<span style="border-bottom:1px solid #b9bdc9;border-left:1px solid #b9bdc9;font-size:13pt;font-weight:700;white-space:nowrap;display:flex;align-items:center;justify-content:center;background:{{ f.fondU }}">{{ f.unite }}</span>
+<span style="border-bottom:1px solid #b9bdc9;border-left:1px solid #b9bdc9;font-size:13pt;font-weight:700;white-space:nowrap;display:flex;align-items:center;justify-content:center;background:{{ f.fondK }}">{{ f.kilo }}</span>
+</sc-for>
+</div>
+</sc-for>
+</div>
+</section>
+</sc-for>
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/* 16/10 (sa demande) : tableaux des fruits PUIS des légumes qu'on a en photo, prix à l'unité OU au kilo.
+   Prix indicatifs (elle a validé ceux des fruits, framboises et bananes comprises), modifiables sur la feuille.
+   ⚠ mot-peche (fruit ?) et mot-mais (l'épi de maïs ?) : à vérifier. L'avocat reste dans les fruits. */
+const FRUITS = [
+  ['ananas','un ananas','2,50 €',''],['melon','un melon','2 €',''],['pasteque','une pastèque','4 €',''],
+  ['mangue','une mangue','1,50 €',''],['coco','une noix de coco','2 €',''],['kiwi','un kiwi','0,50 €',''],
+  ['citron','un citron','0,50 €',''],['avocat','un avocat','1 €',''],
+  ['pomme','des pommes','','2,50 €'],['banane','des bananes','','2 €'],['poire','des poires','','3 €'],
+  ['orange','des oranges','','2 €'],['clementine','des clémentines','','3 €'],['fraise','des fraises','','8 €'],
+  ['cerise','des cerises','','9 €'],['raisin','du raisin','','4 €'],['peche','des pêches','','3,50 €'],
+  ['abricot','des abricots','','4,50 €'],['prune','des prunes','','3,50 €'],['litchi','des litchis','','6 €'],
+  ['figue','des figues','','9 €'],['framboise','des framboises','','15 €']
+];
+const LEGUMES = [
+  ['salade','une salade','1 €',''],['concombre','un concombre','1 €',''],['chou','un chou','2 €',''],
+  ['choufleur','un chou-fleur','2,50 €',''],['artichaut','un artichaut','1,50 €',''],['ail',"une tête d'ail",'0,50 €',''],
+  ['radis','une botte de radis','1 €',''],['mais','un épi de maïs','1 €',''],
+  ['tomate','des tomates','','3 €'],['carotte','des carottes','','1,50 €'],['pommedeterre','des pommes de terre','','1,50 €'],
+  ['oignon','des oignons','','2 €'],['courgette','des courgettes','','2,50 €'],['aubergine','des aubergines','','3 €'],
+  ['poivron','des poivrons','','4 €'],['haricot','des haricots verts','','6 €'],['poireau','des poireaux','','2,50 €'],
+  ['navet','des navets','','2,50 €'],['betterave','des betteraves','','2,50 €'],['champignon','des champignons','','6 €'],
+  ['echalote','des échalotes','','4 €'],['fenouil','du fenouil','','3 €']
+];
+const page = (label, titre, entete, liste) => {
+  const rows = liste.map(([m, nom, u, k]) => ({ photo: 'clean/mot-' + m + '.webp', nom, unite: u, kilo: k,
+    fondU: u ? '#fff' : '#e4e7ec', fondK: k ? '#fff' : '#e4e7ec' }));
+  const moitie = Math.ceil(rows.length / 2);
+  return { label, titre, entete, colonnes: [{ lignes: rows.slice(0, moitie) }, { lignes: rows.slice(moitie) }] };
+};
+class Component extends DCLogic {
+  renderVals() {
+    return { pages: [
+      page('01 Les fruits', 'LES FRUITS : LE PRIX', 'le fruit', FRUITS),
+      page('02 Les légumes', 'LES LÉGUMES : LE PRIX', 'le légume', LEGUMES)
+    ] };
+  }
+}
+</script>
+</body>
+</html>
