@@ -47,7 +47,7 @@ input,select,button{font-family:inherit}
 <script src="./disques.js?v=9"></script>
 <!-- L'emploi du temps est monté ici par dc-import : le helmet d'un enfant n'est pas
      chargé, donc window.EDT doit être fourni par CETTE page, sinon l'écran est vide. -->
-<script src="./emploi-du-temps.js?v=11"></script>
+<script src="./emploi-du-temps.js?v=15"></script>
 </helmet>
 <div class="om-nonprint" style="height:100vh;min-height:0;overflow:hidden;display:flex;flex-direction:column;font-family:Archivo, Arial, sans-serif;color:#12233b;background:#f4f6f9">
 <!-- CHRONO DU TOP CHRONO (02/10, sa demande) : languette ⏱ à GAUCHE, côté élève seulement.
@@ -3154,6 +3154,8 @@ const DOCS_COLL={
   ["Le son S — livret en script","Le même livret, écrit en script.","FR - Livret des sons - son S - script.dc.html"],
   ["Le son R — livret","Mot repère ROBOT, « le R de robot ».","FR - Livret des sons - son R.dc.html"],
   ["Le son R — livret en script","Le même livret, écrit en script.","FR - Livret des sons - son R - script.dc.html"],
+  ["Le son V — livret","Mot repère VÉLO, « le V de vélo ».","FR - Livret des sons - son V.dc.html"],
+  ["Le son V — livret en script","Le même livret, écrit en script.","FR - Livret des sons - son V - script.dc.html"],
   ["Les étiquettes à trier — A, I et O","Feuille à part, pour la fiche « Je trie » : 3 jeux par page, une page par son.","FR - Étiquettes à trier - Livret des sons.dc.html"]
  ],
  pincesrep:[
@@ -4784,6 +4786,19 @@ class Component extends DCLogic {
     /* Un jour sans document n'a pas de colonne : une colonne vide se lit comme un manque
        (même raison que les thèmes sans photo, qui ne sortent pas côté élève). */
     }).filter(j=>j.docs.length>0);
+    /* 16/10 (sa demande) : les documents de la SEMAINE (E.docsSemaine + ses ajouts liensSem)
+       sortent aussi côté élève, une colonne par groupe, avant les jours. */
+    if(!vac){
+      const grSem=(E.docsSemaine?E.docsSemaine(cle):[]).map(g=>({nom:g.groupe,docs:g.docs.map(d=>({nom:d.nom,f:d.f}))}));
+      const aj=((base.liensSem||{})[cle]||[]);
+      if(aj.length) grSem.push({nom:'Cette semaine',docs:aj.map(d=>({nom:d.nom,f:d.url}))});
+      const colsSem=grSem.map((g,ig)=>{
+        const docs=g.docs.filter(d=>d.f).map(d=>{ vusSemaine[d.f]=1; return this.punaiseSemaine(d.nom||d.f,d.f,/^https?:/i.test(d.f)); });
+        total+=docs.length;
+        return {nom:g.nom, quantieme:'toute la semaine', docs, vide:docs.length===0, pivot:(ig%2?0.7:-0.7)+'deg'};
+      }).filter(j=>j.docs.length>0);
+      jours.unshift(...colsSem);
+    }
     const memeSem=E.iso(aujourd)===cle;
     return {estSemaine:this.state.ecran==='semaine',
       ouvrirSemaine:()=>this.setState({ecran:'semaine',semLundi:''}),
@@ -6469,6 +6484,7 @@ class Component extends DCLogic {
           ["¤Les ceintures de compétences","","",[
           ["Les grilles","Je lis, J'écris, J'écoute, Je parle (3 grilles chacun) et Je m'organise. Boutons pour passer d'une grille à l'autre ; annexe d'exemples pour interroger, à imprimer ou non.","CEINTURES - Les grilles.dc.html"],
           ["Le tableau de la classe","Prénoms en lignes, domaines en colonnes : chaque élève y accroche sa ceinture (velcro). A4 paysage.","AFFICHE - Tableau des ceintures.dc.html"],
+          ["Les étiquettes-prénoms du tableau","Les prénoms des élèves, un liseré de couleur chacun, à la taille des cases du tableau des ceintures (5,2 × 2,4 cm) + 2 étiquettes vierges. Une page A4.","ETIQUETTES - Prénoms des élèves.dc.html"],
           ["Le tableau d'origine (A3)","Ton tableau A3 et les ceintures à découper, tels quels.","AFFICHE - Tableau des ceintures (original A3).dc.html"],
           ["Les sons des ceintures (Je lis, niveau 1)","Les sons à connaître pour chaque ceinture, de la jaune à la marron : le son et ses écritures (en gris : montrées, pas encore exigées). 2 pages A4 paysage, à afficher à côté du tableau.","AFFICHE - Les sons des ceintures.dc.html"],
           ["Correspondance école et CECRL (prof)","Pour toi seulement : chaque ceinture, son niveau d'école primaire, son niveau CECRL et le DELF ; les critères de l'oral du DELF A2.","CEINTURES - Correspondance CECRL (prof).dc.html"]]],

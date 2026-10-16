@@ -294,7 +294,22 @@
       { groupe: 'Le son R', docs: [
         { nom: 'Le jeu du son R', f: 'JEU - Le son R.dc.html' },
         { nom: 'Le livret du son R', f: 'FR - Livret des sons - son R.dc.html' },
-        { nom: 'Le livret du son R — script', f: 'FR - Livret des sons - son R - script.dc.html' } ] }
+        { nom: 'Le livret du son R — script', f: 'FR - Livret des sons - son R - script.dc.html' } ] },
+      { groupe: 'Le son V', docs: [
+        { nom: 'Le jeu du son V', f: 'JEU - Le son V.dc.html' },
+        { nom: 'Le livret du son V', f: 'FR - Livret des sons - son V.dc.html' },
+        { nom: 'Le livret du son V — script', f: 'FR - Livret des sons - son V - script.dc.html' } ] },
+      { groupe: 'Le son CH', docs: [
+        { nom: 'Le jeu du son CH', f: 'JEU - Le son CH.dc.html' },
+        { nom: 'Le livret du son CH', f: 'FR - Livret des sons - son CH.dc.html' },
+        { nom: 'Le livret du son CH — script', f: 'FR - Livret des sons - son CH - script.dc.html' } ] },
+      { groupe: 'Le son OU', docs: [
+        { nom: 'Le jeu du son OU', f: 'JEU - Le son OU.dc.html' },
+        { nom: 'Le livret du son OU', f: 'FR - Livret des sons - son OU.dc.html' },
+        { nom: 'Le livret du son OU — script', f: 'FR - Livret des sons - son OU - script.dc.html' } ] },
+      { groupe: 'Roule galette', docs: [
+        { nom: 'Roule galette — le diaporama', f: 'FR - Diaporama - Roule galette.dc.html' },
+        { nom: 'Roule galette — le texte', f: 'FR - Roule galette - Le texte.dc.html' } ] }
     ]
   };
   function docsSemaine(cleSem) { return SEMAINES[cleSem] || []; }
